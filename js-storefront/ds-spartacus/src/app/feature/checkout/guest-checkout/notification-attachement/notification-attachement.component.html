@@ -1,0 +1,76 @@
+<div class="notification">
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.orderAcknowledge' | cxTranslate }}"
+            placeholder="{{ 'labels.orderAcknowledge' | cxTranslate }}"
+            [value]="orderAck"
+            [message]="error.orderAck"
+            [attr.error]="error.orderAck ? error.orderAck : null"
+            (keyup)="onChange($event, 'orderAck')"
+            maxlength="241"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.invoiceMail' | cxTranslate }}"
+            placeholder="{{ 'labels.invoiceMail' | cxTranslate }}"
+            [value]="invoiceMail"
+            [message]="error.invoiceMail"
+            [attr.error]="error.invoiceMail ? error.invoiceMail : null"
+            (keyup)="onChange($event, 'invoiceMail')"
+            maxlength="241"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row uploadattachment mt-4">
+      <span
+        class="shipping-checkout textarea-label col-lg-12 col-md-12 col-sm-12"
+        >{{ 'labels.addAttachment' | cxTranslate }}</span
+      >
+    </div>
+    <div class="file-upload">
+      <ds-file-upload
+        [label]="'labels.uploadFile' | cxTranslate"
+        [maxLength]="1"
+        [maxSizeInMB]="10"
+        [showIcon]="true"
+        [icon]="'backup'"
+        [uploadId]="'notification'"
+        [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+        (selectedFiles)="selectedFiles($event)"
+        >upload</ds-file-upload
+      >
+      <div class="file-list">
+        <ds-file-upload-progress
+          *ngFor="let file of files"
+          [layout]="layouts.LIST"
+          [deleteUrl]="delete_url"
+          [file]="file"
+          (deletedFiles)="deletedFiles($event)"
+          [uploadParams]="uploadParams"
+          [deleteParams]="deleteParams"
+          [uploadUrl]="upload_url"
+          [showProgress]="true"
+        ></ds-file-upload-progress>
+      </div>
+      <span class="fileformat mt-1"
+        >{{ 'labels.fileFormat' | cxTranslate }}
+      </span>
+    </div>
+  </form>
+</div>

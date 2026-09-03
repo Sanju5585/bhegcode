@@ -1,0 +1,48 @@
+<ng-container *ngIf="profile$ | async as profile; else loading">
+  <div class="waygate-profile-container">
+    <h4 class="common-header">
+      {{ 'myProfile.profileDetails' | cxTranslate }}
+    </h4>
+    <div class="profile-content">
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.fstNameLabel' | cxTranslate }}</div>
+        <div class="value">{{ profile.firstName }}</div>
+      </div>
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.lastNameLabel' | cxTranslate }}</div>
+        <div class="value">{{ profile.lastName }}</div>
+      </div>
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.signOnLabel' | cxTranslate }}</div>
+        <div class="value">{{ profile.email }}</div>
+      </div>
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.emailLabel' | cxTranslate }}</div>
+        <div class="value">{{ profile.displayUid }}</div>
+      </div>
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.lastLoginOn' | cxTranslate }}</div>
+        <div class="value">{{ profile.lastLogin }}</div>
+      </div>
+      <div class="profile-content-row">
+        <div class="label">{{ 'myProfile.role' | cxTranslate }}</div>
+        <div class="value">{{ profile.dsRoles }}</div>
+      </div>
+    </div>
+    <!-- <div class="profile-actions-content">
+      <div class="profile-actions-row">
+        <div class="label"></div>
+        <a class="role-link">Unsure which role to need?</a>
+      </div>
+      <div class="profile-actions-row">
+        <div class="label"></div>
+        <button class="role-btn">Request Role Change</button>
+      </div>
+    </div> -->
+  </div>
+</ng-container>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

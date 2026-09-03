@@ -1,0 +1,207 @@
+<ng-container
+  *ngIf="
+    currentReturnAction == returnActions.RETURN ||
+    currentBuyAction == buyActions.BUY
+  "
+>
+  <ng-container *ngIf="userLoggedIn$ | async">
+    <form [formGroup]="addToCartForm">
+      <div class="waygate-actions-top">
+        <div class="actions-top-item" *ngIf="!accessoriesPresent">
+          <div class="actions-top-label">
+            {{ 'buyCart.quantity' | cxTranslate }}
+          </div>
+          <app-custom-quantity-counter
+            [max]="9999"
+            [control]="addToCartForm.get('quantity')"
+            (quantityAdded)="onQualityChange($event)"
+            (quantityIncrement)="onQualityChange($event)"
+            (quantityDecrement)="onQualityChange($event)"
+          ></app-custom-quantity-counter>
+        </div>
+        <div
+          class="actions-top-item"
+          *ngIf="currentBuyAction == buyActions.BUY"
+        >
+          <div class="actions-top-label">
+            {{ 'buyCart.estimatedShipDate' | cxTranslate }}
+          </div>
+          <!-- <div class="actions-top-label" [innerHTML]="product?.estShipData ? (product?.estShipData[product?.estShipData?.length - 1]?.shipDate | date: 'dd MMM yyyy') : ''"></div> -->
+          <vs-date-picker
+            id="requestShipDate"
+            class="date-picker-waygate-product-details"
+            [filterWeekend]="true"
+            [defaultDate]="defaultDate$ | async"
+            [min]="minDate$ | async"
+            [isPDP] = "true"
+          >
+          </vs-date-picker>
+        </div>
+        <div
+          class="actions-top-item"
+          *ngIf="currentBuyAction == buyActions.BUY"
+        >
+          <bh-button
+            class="update-bh-button"
+            medium="true"
+            [type]="'secondary'"
+            label="{{
+              isUpdated
+                ? ('buyCart.updateChanges' | cxTranslate)
+                : ('buyCart.checkAvailabilityText' | cxTranslate)
+            }}"
+            (click)="updateAvailablity()"
+            [attr.disabled]="disableCheckAvailablity"
+          ></bh-button>
+        </div>
+      </div>
+    </form>
+    <div class="waygate-availability" *ngIf="disableCheckAvailablity">
+      <div class="title-heading">
+        {{ 'buyCart.availability' | cxTranslate }}
+      </div>
+      <ng-container>
+        <ng-container *ngIf="checkStockAvailablity(product)">
+          <div class="success-available">
+            {{ 'buyCart.inStock' | cxTranslate }}
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!checkStockAvailablity(product)">
+          <ng-container *ngIf="getInt(product) < 1">
+            <div class="danger-out-of-stock">
+              {{ 'buyCart.noStockAvailable' | cxTranslate }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="getInt(product) > 0">
+            <div class="">
+              {{
+                'buyCart.quantityIsAvailableOn'
+                  | cxTranslate
+                    : {
+                        quantity: getInt(product),
+                        date: getShipDate(product?.estShipData[0])
+                      }
+              }}
+            </div>
+          </ng-container>
+          <div *ngIf="getInt(product) > 0  && selectedSalesArea !== '7140'">
+            <span
+              [innerHTML]="
+                'buyCart.leadTimeForReaminingQtyIs'
+                  | cxTranslate
+                    : {
+                        leadTime: getLeadTime(product?.leadTime),
+                        unit:
+                          product?.leadTime === 1 || product?.leadTime === '1'
+                            ? 'Week'
+                            : 'Weeks'
+                      }
+              "
+            ></span>
+          </div>
+          <div *ngIf="getInt(product) < 1 && product?.leadTime !== undefined">
+            <span
+              [innerHTML]="
+                'buyCart.leadTimeIs'
+                  | cxTranslate : { weeks: getLeadTime(product?.leadTime) }
+              "
+            ></span>
+          </div>
+          <div
+            *ngIf="getInt(product) < 1 && product?.leadTime === undefined"
+            [innerHTML]="
+              'buyCart.leadTimeForRemainingQtyIsNotAvailable'
+                | cxTranslate : { contactus: contactUsUrl }
+            "
+          ></div>
+          <div></div>
+        </ng-container>
+      </ng-container>
+    </div>
+    @if (isChannelPartner && (product.productType === _ProductType.Typ3) && !(addressModelService.getEcaTextObservable | async)) {
+    <div class="eca-btn-div">
+      <bh-button type=secondary left-icon='add' class="eca-btn" label="{{'buyCart.addEndCustomerAddress' | cxTranslate}}"
+        (click)="openAddressModel()"></bh-button>
+    </div>
+    }
+    @if(isChannelPartner &&  (product.productType === _ProductType.Typ3) && addressModelService?.getEcaTextObservable | async; as eca){
+    <div class="detail-title">{{'buyCart.endCustomerDetails' | cxTranslate}} </div>
+    <div class="detail-container">
+      <span class="detail-text">{{ eca?.companyName }},
+        {{ eca?.firstName
+        }} {{ eca?.lastName }} {{ eca?.formattedAddress
+        }} {{ eca?.country?.name }}</span>
+      <span>
+        <bh-button 
+          type="secondary" 
+          label="{{'buyCart.change' | cxTranslate}}" 
+          class="change-btn" 
+          (click)="openAddressModel()"
+          [attr.disabled]="(isChangeAddressDisabled || showCartSpinner) ? true : null"
+          [class.add-button-disabled]="isChangeAddressDisabled || showCartSpinner">
+        </bh-button>
+      </span>
+    </div>
+  }
+
+  </ng-container>
+</ng-container>
+<div class="waygate-pdp-action-button">
+  <ng-container
+    *ngIf="
+      currentReturnAction == returnActions.RETURN ||
+        currentBuyAction == buyActions.BUY;
+      else noWaygate
+    "
+  >
+    <!-- <button
+      class="waygate-add-to-cart"
+      (click)="addToCart()"
+      *ngIf="currentBuyAction == buyActions.BUY && !accessoriesPresent"
+    >
+      <div class="button-label">{{ 'buyCart.addToCart' | cxTranslate }}</div>
+      <span class="material-icons"> add_shopping_cart </span>
+    </button> -->
+
+      <bh-button
+        type="primary"
+        label="{{'buyCart.addToCart' | cxTranslate}}"
+        class="waygate-add-to-cart addToCartIcon"
+        (click)="addToCart()"
+        [attr.loading]="showCartSpinner"
+        [attr.disabled]="showCartSpinner ? true : null"
+        [class.add-button-disabled]="showCartSpinner"
+        right-icon='add_shopping_cart'
+        *ngIf="currentBuyAction == buyActions.BUY && !accessoriesPresent"
+      >
+      </bh-button>
+
+    <button
+      class="waygate-return-product"
+      (click)="returnProduct()"
+      *ngIf="currentReturnAction == returnActions.RETURN"
+    >
+      <div class="button-label">{{ 'buyCart.return' | cxTranslate }}</div>
+      <span class="material-icons"> local_shipping </span>
+    </button>
+    <button
+      class="waygate-return-product"
+      (click)="quoteCart(product?.productType)"
+      *ngIf="currentBuyAction == buyActions.BUY && productLine === 'waygate'"
+    >
+      <div class="button-label">{{ 'quoteCart.quote' | cxTranslate }}</div>
+      <span class="material-icons"> text_snippet </span>
+    </button>
+  </ng-container>
+</div>
+<ng-template #noWaygate>
+  <div class="product-not-available" *ngIf="product?.code">
+    {{ 'buyCart.productIsNotAvailable' | cxTranslate }}
+    <br />
+    <span
+      [innerHTML]="
+        'buyCart.contactUs' | cxTranslate : { contactus: contactUsUrl }
+      "
+    ></span>
+  </div>
+</ng-template>

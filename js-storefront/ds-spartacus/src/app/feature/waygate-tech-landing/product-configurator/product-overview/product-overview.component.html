@@ -1,0 +1,54 @@
+<ng-container *ngIf="configuration$ | async as configuration">
+  <ng-container *ngIf="configuration.pricingEnabled">
+    <div class="configure-product-summary">
+      <h4 class>
+        <strong> {{ 'waygate.orderSumary' | cxTranslate }} </strong>
+      </h4>
+      <hr />
+      <label>{{ 'waygate.partNumber' | cxTranslate }}</label>
+
+      <div class="cx-price-summary-container">
+        <div class="cx-total-summary">
+          <ng-container *ngIf="!configuration.hideBasePriceAndSelectedOptions">
+            <div class="cx-summary-row cx-base-price">
+              <div class="cx-label">
+                {{ 'configurator.priceSummary.basePrice' }}:
+              </div>
+              <div class="cx-amount">
+                {{ configuration?.priceSummary?.basePrice?.formattedValue }}
+              </div>
+            </div>
+            <div class="cx-summary-row cx-selected-options">
+              <div class="cx-label">
+                {{ 'configurator.priceSummary.selectedOptions' }}:
+              </div>
+              <div class="cx-amount">
+                {{
+                  configuration?.priceSummary?.selectedOptions?.formattedValue
+                }}
+              </div>
+            </div>
+          </ng-container>
+          <div class="cx-summary-row cx-total-price">
+            <div class="cx-label">
+              <ng-container *cxFeatureLevel="'!6.1'">
+                {{ 'configurator.priceSummary.totalPrice' }}:
+              </ng-container>
+              <ng-container *cxFeatureLevel="'6.1'">
+                {{ 'configurator.priceSummary.totalPricePerItem' }}:
+              </ng-container>
+            </div>
+            <div class="cx-amount">
+              {{ configuration?.priceSummary?.currentTotal?.formattedValue }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+
+      <button>
+        {{ 'waygate.addToCart' | cxTranslate }}
+      </button>
+    </div>
+  </ng-container>
+</ng-container>

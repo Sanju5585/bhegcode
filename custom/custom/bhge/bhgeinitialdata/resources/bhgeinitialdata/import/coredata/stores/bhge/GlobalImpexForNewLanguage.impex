@@ -1,0 +1,180 @@
+#Languages
+UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
+;en;;;
+;de;en;;
+;ru;en;;
+;fr;en;;
+;ja;en;;
+;zh;en;;
+
+
+#Added new laguage FR,RU
+UPDATE BaseStore;uid[unique=true]; languages(isocode)[mode=append]
+                ;   bhge            ;   ru,fr
+                ;	1720_BaseStore	;	ru,fr
+                ;	1800_BaseStore	;	ru,fr
+                ;	1810_BaseStore	;	ru,fr
+                ;	3000_BaseStore	;	ru,fr
+                ;	6020_BaseStore	;	ru,fr
+                ;	6030_BaseStore	;	ru,fr
+                ;	6040_BaseStore	;	ru,fr
+                ;	6210_BaseStore	;	ru,fr
+                ;	6240_BaseStore	;	ru,fr
+                ;	6270_BaseStore	;	ru,fr
+                ;	7030_BaseStore	;	ru,fr
+                ;	6060_BaseStore	;	ru,fr
+                ;	1200_BaseStore	;	ru,fr
+                ;	1500_BaseStore	;	ru,fr
+                ;	1600_BaseStore	;	ru,fr
+                ;	1700_BaseStore	;	ru,fr
+                ;	1820_BaseStore	;	ru,fr
+                ;	1830_BaseStore	;	ru,fr
+                ;	3000_BN_BaseStore	;	ru,fr
+                ;	3000_GC_BaseStore	;	ru,fr
+                ;	3010_BaseStore	;	ru,fr
+                ;	3020_BaseStore	;	ru,fr
+                ;	3030_BaseStore	;	ru,fr
+                ;	3040_BaseStore	;	ru,fr
+                ;	3050_BaseStore	;	ru,fr
+                ;	3140_BN_BaseStore	;	ru,fr
+                ;	3140_GC_BaseStore	;	ru,fr
+                ;	3140_GE_BaseStore	;	ru,fr
+                ;	5000_BaseStore	;	ru,fr
+                ;	5060_BaseStore	;	ru,fr
+                ;	5070_BaseStore	;	ru,fr
+                ;	5500_BaseStore	;	ru,fr
+                ;	6000_BN_BaseStore	;	ru,fr
+                ;	6000_GC_BaseStore	;	ru,fr
+                ;	6010_BaseStore	;	ru,fr
+                ;	6020_BN_BaseStore	;	ru,fr
+                ;	6030_BN_BaseStore	;	ru,fr
+                ;	6050_BaseStore	;	ru,fr
+                ;	6060_BN_BaseStore	;	ru,fr
+                ;	6070_BaseStore	;	ru,fr
+                ;	6080_BaseStore	;	ru,fr
+                ;	6090_BaseStore	;	ru,fr
+                ;	6100_BaseStore	;	ru,fr
+                ;	6110_BaseStore	;	ru,fr
+                ;	6120_BaseStore	;	ru,fr
+                ;	6130_BaseStore	;	ru,fr
+                ;	6140_BaseStore	;	ru,fr
+                ;	6150_BaseStore	;	ru,fr
+                ;	6160_BaseStore	;	ru,fr
+                ;	6180_BaseStore	;	ru,fr
+                ;	6200_BaseStore	;	ru,fr
+                ;	6230_BaseStore	;	ru,fr
+                ;	6250_BN_BaseStore	;	ru,fr
+                ;	6250_GC_BaseStore	;	ru,fr
+                ;	6250_BaseStore	;	ru,fr
+                ;	6260_BaseStore	;	ru,fr
+                ;	7000_BN_BaseStore	;	ru,fr
+                ;	7000_GC_BaseStore	;	ru,fr
+                ;	7000_BaseStore	;	ru,fr
+                ;	7010_BaseStore	;	ru,fr
+                ;	7020_BaseStore	;	ru,fr
+                ;	7030_BN_BaseStore	;	ru,fr
+                ;	7040_BaseStore	;	ru,fr
+                ;	7050_BaseStore	;	ru,fr
+                ;	7060_BaseStore	;	ru,fr
+                ;	7080_BaseStore	;	ru,fr
+                ;	7090_BaseStore	;	ru,fr
+                ;	7110_BaseStore	;	ru,fr
+                ;	7120_BaseStore	;	ru,fr
+                ;	7140_BN_BaseStore	;	ru,fr
+                ;	7140_GC_BaseStore	;	ru,fr
+                ;	7160_BN_BaseStore	;	ru,fr
+                ;	7160_BaseStore	;	ru,fr
+                ;	7170_BaseStore	;	ru,fr
+                ;	7200_BN_BaseStore	;	ru,fr
+                ;	7200_GC_BaseStore	;	ru,fr
+                
+#US14017 - Updating the languages in sequence
+UPDATE BaseStore;uid[unique=true];languages(isocode)[mode=append]
+;bhgeRegister;en,de,fr,ru,ja
+;bhge;en,de,fr,ru,ja
+;1200_BN_BN_BaseStore;en,de,fr,ru,ja
+;1500_GC_GC_BaseStore;en,de,fr,ru,ja
+;1500_GE_GE_BaseStore;en,de,fr,ru,ja
+;1600_RS_RS_BaseStore;en,de,fr,ru,ja
+;1700_BN_BN_BaseStore;en,de,fr,ru,ja
+;1720_GE_GE_BaseStore;en,de,fr,ru,ja
+;1800_GE_GE_BaseStore;en,de,fr,ru,ja
+;1810_GE_GE_BaseStore;en,de,fr,ru,ja
+;1820_GE_GE_BaseStore;en,de,fr,ru,ja
+;1830_GE_GE_BaseStore;en,de,fr,ru,ja
+;3000_BN_BN_BaseStore;en,de,fr,ru,ja
+;3000_GC_GC_BaseStore;en,de,fr,ru,ja
+;3000_GE_GE_BaseStore;en,de,fr,ru,ja
+;3010_BN_BN_BaseStore;en,de,fr,ru,ja
+;3020_BN_BN_BaseStore;en,de,fr,ru,ja
+;3030_BN_BN_BaseStore;en,de,fr,ru,ja
+;3040_BN_BN_BaseStore;en,de,fr,ru,ja
+;3050_BN_BN_BaseStore;en,de,fr,ru,ja
+;3140_BN_BN_BaseStore;en,de,fr,ru,ja
+;3140_GC_GC_BaseStore;en,de,fr,ru,ja
+;3140_GE_GE_BaseStore;en,de,fr,ru,ja
+;5000_BN_BN_BaseStore;en,de,fr,ru,ja
+;5010_BN_BN_BaseStore;en,de,fr,ru,ja
+;5020_BN_BN_BaseStore;en,de,fr,ru,ja
+;5020_GE_GE_BaseStore;en,de,fr,ru,ja
+;5030_BN_BN_BaseStore;en,de,fr,ru,ja
+;5040_BN_BN_BaseStore;en,de,fr,ru,ja
+;5050_BN_BN_BaseStore;en,de,fr,ru,ja
+;5060_BN_BN_BaseStore;en,de,fr,ru,ja
+;5070_BN_BN_BaseStore;en,de,fr,ru,ja
+;5500_GE_GE_BaseStore;en,de,fr,ru,ja
+;6000_BN_BN_BaseStore;en,de,fr,ru,ja
+;6000_GC_GC_BaseStore;en,de,fr,ru,ja
+;6010_BN_BN_BaseStore;en,de,fr,ru,ja
+;6020_BN_BN_BaseStore;en,de,fr,ru,ja
+;6020_GE_GE_BaseStore;en,de,fr,ru,ja
+;6030_BN_BN_BaseStore;en,de,fr,ru,ja
+;6030_GE_GE_BaseStore;en,de,fr,ru,ja
+;6040_BN_BN_BaseStore;en,de,fr,ru,ja
+;6040_GE_GE_BaseStore;en,de,fr,ru,ja
+;6050_BN_BN_BaseStore;en,de,fr,ru,ja
+;6060_BN_BN_BaseStore;en,de,fr,ru,ja
+;6060_GE_GE_BaseStore;en,de,fr,ru,ja
+;6070_BN_BN_BaseStore;en,de,fr,ru,ja
+;6080_BN_BN_BaseStore;en,de,fr,ru,ja
+;6090_BN_BN_BaseStore;en,de,fr,ru,ja
+;6100_BN_BN_BaseStore;en,de,fr,ru,ja
+;6110_BN_BN_BaseStore;en,de,fr,ru,ja
+;6120_BN_BN_BaseStore;en,de,fr,ru,ja
+;6130_BN_BN_BaseStore;en,de,fr,ru,ja
+;6140_BN_BN_BaseStore;en,de,fr,ru,ja
+;6150_BN_BN_BaseStore;en,de,fr,ru,ja
+;6160_BN_BN_BaseStore;en,de,fr,ru,ja
+;6170_GE_GE_BaseStore;en,de,fr,ru,ja
+;6180_GE_GE_BaseStore;en,de,fr,ru,ja
+;6200_GC_GC_BaseStore;en,de,fr,ru,ja
+;6210_GE_GE_BaseStore;en,de,fr,ru,ja
+;6230_GE_GE_BaseStore;en,de,fr,ru,ja
+;6240_GE_GE_BaseStore;en,de,fr,ru,ja
+;6250_BN_BN_BaseStore;en,de,fr,ru,ja
+;6250_GC_GC_BaseStore;en,de,fr,ru,ja
+;6250_GE_GE_BaseStore;en,de,fr,ru,ja
+;6260_GE_GE_BaseStore;en,de,fr,ru,ja
+;6270_GE_GE_BaseStore;en,de,fr,ru,ja
+;7000_BN_BN_BaseStore;en,de,fr,ru,ja
+;7000_GC_GC_BaseStore;en,de,fr,ru,ja
+;7000_GE_GE_BaseStore;en,de,fr,ru,ja
+;7010_BN_BN_BaseStore;en,de,fr,ru,ja
+;7020_BN_BN_BaseStore;en,de,fr,ru,ja
+;7030_BN_BN_BaseStore;en,de,fr,ru,ja
+;7030_GE_GE_BaseStore;en,de,fr,ru,ja
+;7040_BN_BN_BaseStore;en,de,fr,ru,ja
+;7050_BN_BN_BaseStore;en,de,fr,ru,ja
+;7060_BN_BN_BaseStore;en,de,fr,ru,ja
+;7080_BN_BN_BaseStore;en,de,fr,ru,ja
+;7090_BN_BN_BaseStore;en,de,fr,ru,ja
+;7110_GE_GE_BaseStore;en,de,fr,ru,ja
+;7120_GE_GE_BaseStore;en,de,fr,ru,ja
+;7140_BN_BN_BaseStore;en,de,fr,ru,ja
+;7140_GC_GC_BaseStore;en,de,fr,ru,ja
+;7140_GE_GE_BaseStore;en,de,fr,ru,ja
+;7160_BN_BN_BaseStore;en,de,fr,ru,ja
+;7160_GE_GE_BaseStore;en,de,fr,ru,ja
+;7170_GC_GC_BaseStore;en,de,fr,ru,ja
+;7170_GE_GE_BaseStore;en,de,fr,ru,ja
+;7200_BN_BN_BaseStore;en,de,fr,ru,ja

@@ -1,0 +1,706 @@
+<div class="row m-b-10">
+  <div class="col-md-12">
+    <span class="rma-heading" translate="bhge.ng.hazard.info.label">{{
+      'hazard.exposure' | cxTranslate
+    }}</span>
+  </div>
+</div>
+<div class="row m-b-20">
+  <div class="col-md-12">
+    <div style="border: solid 1px #cccccc">
+      <div class="dropdown-header">
+        <span class="text-bold m-b-0">
+          <i class="BHGE-MCStore-Icons icon-info-line fs-20"></i>
+          <span
+            class="fs-14 m-l-12"
+            style="position: absolute"
+            translate="bhge.ng.hazard.info.label2"
+            >{{ 'hazard.exposureinfo' | cxTranslate }}</span
+          >
+        </span>
+        <button
+          class="pull-right secondary-btn-bhge view-btn"
+          (click)="isViewAll = !isViewAll"
+          *ngIf="rawResponse && rawResponse.partList"
+          [disabled]="rawResponse.partList.length <= 6"
+        >
+          {{ 'VIEW ALL' | translate: 'bhge.ng.hazard.info.view_all' }}
+          <i *ngIf="!isViewAll" class="glyphicon glyphicon-menu-down m-l-5"></i>
+          <i *ngIf="isViewAll" class="glyphicon glyphicon-menu-up m-l-5"></i>
+        </button>
+        <span
+          class="pull-right fs-16 m-r-15"
+          *ngIf="rawResponse && rawResponse.partList"
+        >
+          {{ 'Showing' | translate: 'bhge.ng.hazard.info.showing' }}
+          <span
+            class="text-bold"
+            *ngIf="rawResponse.partList.length <= 6; else moreParts"
+          >
+            {{ rawResponse.partList.length }}
+            {{ 'of' | translate: 'bhge.ng.hazard.info.of' }}
+            {{ rawResponse.partList.length }}
+          </span>
+          <ng-template #moreParts>
+            {{ isViewAll ? rawResponse.partList.length : '6' }}
+            {{ 'of' | translate: 'bhge.ng.hazard.info.of' }}
+            {{ rawResponse.partList.length }}
+          </ng-template>
+        </span>
+      </div>
+      <div
+        class="dropdown-body"
+        *ngIf="
+          rawResponse && rawResponse.partList && rawResponse.partList.length > 0
+        "
+      >
+        <div class="row">
+          <p
+            class="infoBox col-md-3"
+            *ngFor="
+              let chips of rawResponse.partList.slice(
+                0,
+                isViewAll ? rawResponse.partList.length : 6
+              );
+              let i = index
+            "
+          >
+            {{ chips.partName }}
+            <br />
+            {{ chips.partCode }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <p style="color: #666666">
+    <span translate="bhge.ng.hazard.info.info1">{{
+      'hazard.exposuredata' | cxTranslate
+    }}</span>
+    <i
+      class="BHGE-MCStore-Icons icon-info-line"
+      [tooltip]="helpTooltip | translate: 'bhge.ng.hazard.info.tooltip1'"
+      [offset]="20"
+    ></i>
+  </p>
+  <ul class="nav nav-tabs m-t-15" style="border-bottom: none">
+    <li
+      class="nav-item tab-menu_border-fix tab-menu1"
+      style="width: 100px"
+      [ngClass]="{ 'add-tabbed-border': showTabbedBorder }"
+    >
+      <a
+        (click)="handleHazardTab('yes')"
+        class="nav-link service-offerings_sub-header tab-font p-t-12"
+        data-toggle="tab"
+        href="#hmenu1"
+        translate="bhge.ng.hazard.info.yes"
+        >{{ 'hazard.exposureyes' | cxTranslate }}</a
+      >
+    </li>
+    <li
+      class="nav-item tab-menu_border-fix tab-menu2"
+      style="width: 100px"
+      [ngClass]="{ 'add-tabbed-border': showTabbedBorder }"
+    >
+      <a
+        (click)="handleHazardTab('no')"
+        class="nav-link service-offerings_sub-header tab-font p-t-12"
+        data-toggle="tab"
+        href="#hmenu2"
+        translate="bhge.ng.hazard.info.no"
+        >{{ 'hazard.exposureno' | cxTranslate }}</a
+      >
+    </li>
+  </ul>
+
+  <div class="tab-content hazard-dec-tab" style="border: solid 1px #dedede">
+    <div
+      class="tab-pane container"
+      style="width: auto"
+      id="hmenu1"
+      [ngClass]="{ 'active in': declarationA === true }"
+    >
+      <div class="row col-md-12 m-t-20 p-0">
+        <section class="hazardous-info">
+          <div class="container p-b-32">
+            <div class="contamination">
+              <p translate="bhge.ng.hazard.info.info2">
+                {{ 'hazard.exposureinfo2' | cxTranslate }}
+              </p>
+              <div class="warn m-b-20" style="color: #ff0000">
+                <i
+                  class="BHGE-MCStore-Icons icon-info-line"
+                  aria-hidden="true"
+                ></i>
+                <span class="m-l-7" translate="bhge.ng.hazard.info.info3">{{
+                  'hazard.exposurenotice' | cxTranslate
+                }}</span>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkRadiation"
+                      [(ngModel)]="hazardTypeData.radiationChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="RADIATION"
+                    />
+                    <label
+                      for="chkRadiation"
+                      translate="bhge.ng.hazard.info.radiation"
+                      >{{ 'hazard.exposureradiation' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkAcid"
+                      [(ngModel)]="hazardTypeData.acidChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="ACID"
+                    />
+                    <label for="chkAcid" translate="bhge.ng.hazard.info.acid">{{
+                      'hazard.exposureacid' | cxTranslate
+                    }}</label>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkCompressedGas"
+                      [(ngModel)]="hazardTypeData.compressedChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="COMPRESSEDGAS"
+                    />
+                    <label
+                      for="chkCompressedGas"
+                      translate="bhge.ng.hazard.info.compressed_gases"
+                      >{{ 'hazard.exposuregas' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkLubricants"
+                      [(ngModel)]="hazardTypeData.lubricantsChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="LUBRICANTS"
+                    />
+                    <label
+                      for="chkLubricants"
+                      translate="bhge.ng.hazard.info.lubricants"
+                      >{{ 'hazard.exposurelub' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkBiological"
+                      [(ngModel)]="hazardTypeData.biologicalChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="BIOLOGICAL"
+                    />
+                    <label
+                      for="chkBiological"
+                      translate="bhge.ng.hazard.info.biological"
+                      >{{ 'hazard.exposurebio' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkAlkali"
+                      [(ngModel)]="hazardTypeData.alkaliChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="ALKALI"
+                    />
+                    <label
+                      for="chkAlkali"
+                      translate="bhge.ng.hazard.info.alkali"
+                      >{{ 'hazard.exposurealk' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkSolvent"
+                      [(ngModel)]="hazardTypeData.solventChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="SOLVENTS_ADHESIVES"
+                    />
+                    <label
+                      for="chkSolvent"
+                      translate="bhge.ng.hazard.info.solvents_adhesives"
+                      >{{ 'hazard.exposuresolvents' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkCoolants"
+                      [(ngModel)]="hazardTypeData.coolantChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="COOLANTS"
+                    />
+                    <label
+                      for="chkCoolants"
+                      translate="bhge.ng.hazard.info.coolants"
+                      >{{ 'hazard.exposurecoolants' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <div class="checkbox m-t-0" tabindex="1">
+                    <input
+                      type="checkbox"
+                      id="chkFuels"
+                      [(ngModel)]="hazardTypeData.fuelsChecked"
+                      class="rma-custom-checkbox"
+                      (click)="createHazardList($event)"
+                      value="FUELS"
+                    />
+                    <label
+                      for="chkFuels"
+                      translate="bhge.ng.hazard.info.fuels"
+                      >{{ 'hazard.exposurefuel' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="checkbox row m-t-0" tabindex="1">
+                  <div class="col-md-2" style="margin-left: 10px">
+                    <input
+                      type="checkbox"
+                      id="add-other-checkbox"
+                      [(ngModel)]="hazardTypeData.isOther"
+                      class="rma-custom-checkbox"
+                      (change)="sendMessage()"
+                    />
+                    <label
+                      for="add-other-checkbox"
+                      translate="bhge.ng.hazard.info.add_other"
+                      >{{ 'hazard.exposureothers' | cxTranslate }}</label
+                    >
+                  </div>
+                  <div class="col-md-4" *ngIf="hazardTypeData.isOther">
+                    <input
+                      type="text"
+                      maxlength="250"
+                      [(ngModel)]="hazardTypeData.otherText"
+                      style="width: 65%"
+                      class="form-control hazard-text"
+                      placeholder="{{ 'hazard.pleaseSpecify' | cxTranslate }}"
+                      (change)="sendMessage()"
+                    />
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
+
+                <div class="checkbox row m-t-20" tabindex="1">
+                  <div class="col-md-2" style="margin-left: 10px">
+                    <input
+                      id="fluid-inside-unit"
+                      [(ngModel)]="hazardTypeData.containsFluids"
+                      type="checkbox"
+                      class="rma-custom-checkbox"
+                      (change)="sendMessage()"
+                    />
+                    <label
+                      for="fluid-inside-unit"
+                      translate="bhge.ng.hazard.info.fluid_inside"
+                      >{{ 'hazard.exposurefluid' | cxTranslate }}</label
+                    >
+                  </div>
+                  <div class="col-md-4" *ngIf="hazardTypeData.containsFluids">
+                    <input
+                      type="text"
+                      maxlength="250"
+                      [(ngModel)]="hazardTypeData.fluidText"
+                      style="width: 65%"
+                      class="form-control hazard-text"
+                      placeholder="{{ 'hazard.pleaseSpecifyFluid' | cxTranslate }}"
+                      (change)="sendMessage()"
+                    />
+                    <p class="m-b-0 m-t-5 gray-text">
+                      <span translate="bhge.ng.hazard.info.info4">{{
+                        'hazard.exposurefluidinfo' | cxTranslate
+                      }}</span>
+                    </p>
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
+              </div>
+
+              <div class="extra_product"></div>
+              <div class="chemical_Details row">
+                <div class="col-lg-6 col-md-6 p-l-0">
+                  <p>
+                    <span translate="bhge.ng.hazard.info.chemical_metal">{{
+                      'hazard.exposurechemical' | cxTranslate
+                    }}</span>
+                    <span class="asterik">*</span>
+                  </p>
+                </div>
+                <div class="col-lg-6 col-md-6 p-r-0">
+                  <span (click)="addChemicalDetails()">
+                    <i
+                      class="BHGE-MCStore-Icons icon-qty-plus pull-right hazard-add-icon-fix m-t-6"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                  <span (click)="deleteChemicalDetails()">
+                    <i
+                      class="fa fa-trash-o pull-right fa-lg BHGE-Icons ico_delete_lg ico_delete_sm hazard-delete-icon-fix"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="jumbotron row m-b-0">
+                <div
+                  class="checkbox col-md-3 col-md-6 col-sm-12 jumbo_header"
+                  tabindex="1"
+                >
+                  <div class="col-md-1">
+                    <input
+                      type="checkbox"
+                      id="hazard-selectall"
+                      class="rma-custom-checkbox"
+                      style="margin-top: 0"
+                      [checked]="isSelectAll"
+                      (change)="isSelectAll = !isSelectAll"
+                    />
+                    <label for="hazard-selectall"></label>
+                  </div>
+                  <div class="col-md-11 p-l-4">
+                    <label
+                      style="padding-left: 10px !important"
+                      class="hazard-table-header"
+                      translate="bhge.ng.hazard.info.chemical_name"
+                      >{{ 'hazard.chemicalname' | cxTranslate }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-3 col-md-6 col-sm-12 jumbo_header">
+                  <span
+                    class="hazard-table-header"
+                    translate="bhge.ng.hazard.info.un_no"
+                    >{{ 'hazard.un' | cxTranslate }}</span
+                  >
+                </div>
+                <div class="col-md-2 col-md-6 col-sm-12 jumbo_header">
+                  <span
+                    class="hazard-table-header"
+                    translate="bhge.ng.hazard.info.supply"
+                    >{{ 'hazard.msds' | cxTranslate }}</span
+                  >
+                </div>
+                <div class="col-md-3 col-md-6 col-sm-12 jumbo_header">
+                  <span
+                    class="hazard-table-header"
+                    translate="bhge.ng.hazard.info.notes"
+                    >{{ 'hazard.notes' | cxTranslate }}</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="row hazard-row-border"
+                *ngFor="let eachChemical of arrChemicalDetails; let i = index"
+              >
+                <div class="checkbox col-lg-3 col-md-3" tabindex="1">
+                  <div class="col-md-1">
+                    <input
+                      type="checkbox"
+                      id="hazard-row-select-{{ i }}"
+                      class="rma-custom-checkbox"
+                      (change)="
+                        eachChemical.isChecked = !eachChemical.isChecked
+                      "
+                      [checked]="eachChemical.isChecked || isSelectAll"
+                      [value]="eachChemical.slNo"
+                    />
+                    <label
+                      for="hazard-row-select-{{ i }}"
+                      class="m-t-5"
+                    ></label>
+                  </div>
+                  <div class="col-md-11 p-l-15">
+                    <input
+                      type="text"
+                      maxlength="250"
+                      (blur)="sendMessage()"
+                      [(ngModel)]="eachChemical.chemicalName"
+                      class="form-control hazard-text"
+                      tabindex="1"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 hazard-table_margin-fix">
+                  <input
+                    type="text"
+                    maxlength="250"
+                    (blur)="sendMessage()"
+                    [(ngModel)]="eachChemical.unNo"
+                    class="form-control hazard-text"
+                    tabindex="1"
+                  />
+                </div>
+                <div class="col-lg-2 col-md-2 hazard-table_margin-fix">
+                  <div class="radio" tabindex="1">
+                    <div class="col-lg-6 col-md-6">
+                      <input
+                        (click)="onMSDSChange($event, i, eachChemical)"
+                        type="radio"
+                        class="rma-custom-radio"
+                        id="lblMsdsYes_{{ i }}"
+                        [(ngModel)]="eachChemical.msds"
+                        name="optradio_{{ i }}"
+                        value="Yes"
+                      />
+                      <label
+                        for="lblMsdsYes_{{ i }}"
+                        translate="bhge.ng.hazard.info.yes"
+                        >{{ 'hazard.exposureyes' | cxTranslate }}</label
+                      >
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <input
+                        (click)="onMSDSChange($event, i, eachChemical)"
+                        type="radio"
+                        class="rma-custom-radio"
+                        id="lblMsdsNo_{{ i }}"
+                        [(ngModel)]="eachChemical.msds"
+                        name="optradio_{{ i }}"
+                        value="No"
+                      />
+                      <label
+                        for="lblMsdsNo_{{ i }}"
+                        translate="bhge.ng.hazard.info.no"
+                        >{{ 'hazard.exposureno' | cxTranslate }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 hazard-table_margin-fix">
+                  <input
+                    type="text"
+                    maxlength="250"
+                    (blur)="sendMessage()"
+                    [(ngModel)]="eachChemical.notes"
+                    class="form-control hazard-text"
+                    tabindex="1"
+                  />
+                </div>
+              </div>
+              <p class="text-area">
+                {{ 'Details' | translate: 'bhge.ng.hazard.info.details' }}
+                <i
+                  class="BHGE-MCStore-Icons icon-info-line"
+                  [tooltip]="
+                    'Add any details.  Which materials are exposed?  Do we need to know any other information to handle this product safely?'
+                      | translate: 'bhge.ng.hazard.info.tooltip2'
+                  "
+                  [classfname]="true"
+                  [offset]="20"
+                ></i>
+              </p>
+              <div class="form-group m-t-20">
+                <label for="comment"></label>
+                <textarea
+                  maxlength="250"
+                  (blur)="sendMessage()"
+                  [(ngModel)]="hazardDetails"
+                  class="form-control hazard-text"
+                  rows="5"
+                  id="details"
+                  maxlength="250"
+                  tabindex="1"
+                  placeholderTranslate="bhge.ng.hazard.info.details.maxlimit"
+                ></textarea>
+                <span class="char-count">
+                  {{ 250 - (hazardDetails ? hazardDetails.length : 0) }}
+                  <span translate="bhge.ng.rma.form.characters">{{
+                    'hazard.characterleft' | cxTranslate
+                  }}</span>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group-btn">
+                  <label
+                    for="files"
+                    [ngClass]="{ 'red-border': isHazardFileRequired }"
+                    class="add-files-btn secondary-btn-bhge button-fix"
+                  >
+                    <span translate="bhge.ng.rma.form.add.files">{{
+                      'hazard.addfiles' | cxTranslate
+                    }}</span>
+                    <i
+                      *ngIf="fileLoadProgress"
+                      class="show-on-loading bhge-icons ico_spinner_sm mini-cart-spinner pull-right"
+                    ></i>
+                  </label>
+                  <!--btn btn-default-->
+                  <input
+                    id="files"
+                    (change)="uploadFile($event)"
+                    type="file"
+                    accept=".pdf, .jpg"
+                    class="btn btn-default"
+                    style="display: none"
+                  />
+                </div>
+              </div>
+
+              <div class="row m-t-0 m-b-20">
+                <div *ngIf="isFileFormatNotAllowed" class="m-l-10">
+                  <p class="error-text" translate="bhge.ng.hazard.file.support">
+                    {{ 'hazard.file' | cxTranslate }}
+                  </p>
+                </div>
+                <div *ngIf="isFileFormatSize" class="m-l-10">
+                  <p class="error-text">
+                    {{ 'hazard.filesize' | cxTranslate }}
+                  </p>
+                </div>
+                <div *ngIf="fileUploadFailed" class="m-l-20">
+                  <p
+                    class="error-text font-bold fs-12"
+                    translate="bhge.ng.hazard.file.failed"
+                  >
+                    {{ 'hazard.fileupload' | cxTranslate }}
+                  </p>
+                </div>
+                <div *ngFor="let eachFileInfo of fileInfo; let i = index">
+                  <div
+                    style="padding: 12px"
+                    class="col-md-3 col-lg-3 attached-files m-l-10 p-2"
+                    *ngIf="eachFileInfo.showFile"
+                  >
+                    <span class="fileName m-r-5">{{
+                      eachFileInfo.fileName
+                    }}</span>
+                    <i
+                      class="BHGE-MCStore-Icons icon-close-new attached-icon-fix"
+                      (click)="showAttachedFiles(eachFileInfo)"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" tabindex="1">
+                <div class="col-md-1" style="width: 0">
+                  <input
+                    class="rma-custom-checkbox"
+                    (blur)="sendMessage()"
+                    [(ngModel)]="declarationB"
+                    id="hazard-declare"
+                    type="checkbox"
+                  />
+                  <label for="hazard-declare"></label>
+                </div>
+                <div
+                  class="col-md-11"
+                  style="width: 97.666667%; padding-left: 20px"
+                >
+                  <label
+                    for="hazard-declare"
+                    class="text declaration-font rma-custom-checkbox-label"
+                    translate="bhge.ng.hazard.info.info5"
+                    >{{ 'hazard.decalre' | cxTranslate }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div
+      class="tab-pane container fade"
+      id="hmenu2"
+      style="width: 100%"
+      [ngClass]="{ 'active in': declarationA === false }"
+    >
+      <div class="row" tabindex="1">
+        <div class="col-md-1" style="width: 0">
+          <input
+            class="rma-custom-checkbox"
+            [(ngModel)]="declarationB"
+            (change)="sendMessage()"
+            type="checkbox"
+            id="chkNoHazardData"
+          />
+          <label for="chkNoHazardData"></label>
+        </div>
+        <div class="col-md-11 p-l-20" style="width: 97.666667%">
+          <label
+            for="chkNoHazardData"
+            class="NoHazardDataText rma-custom-checkbox-label"
+            translate="bhge.ng.hazard.info.info7"
+            >{{ 'hazard.decalreexp' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button
+  class="primary-btn-bhge btn-back-to-cart pull-right btn m-t-20"
+  (click)="saveFormBtnClick()"
+>
+  <span
+    *ngIf="saveClicked; else saveProceed"
+    translate="bhge.ng.hazard.info.please_wait"
+  >
+    {{ 'hazard.exposurewait' | cxTranslate }}
+  </span>
+  <ng-template #saveProceed>
+    <span translate="bhge.ng.hazard.info.save_proceed">{{
+      'hazard.exposuresave' | cxTranslate
+    }}</span>
+  </ng-template>
+  <i class="bhge-icons ico_spinner_sm" *ngIf="saveClicked"></i>
+</button>
+<button
+  (click)="resetForm()"
+  class="secondary-btn-bhge btn-back-to-cart pull-right btn m-t-20 m-r-10"
+  translate="bhge.ng.hazard.info.reset_form"
+>
+  {{ 'hazard.resetform' | cxTranslate }}
+</button>

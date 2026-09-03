@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder properties-ref="hybrisProperties" ignore-unresolvable="true"/>
+    <context:component-scan base-package="com.bh.occ.controllers"/>
+
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+<!--        <property name="maxUploadSize" value="209715200" />-->
+<!--        <property name="maxInMemorySize" value="10485760" />-->
+<!--        referred to adminapi-spring-mvc-config.xml-->
+<!--        <property name="maxUploadSize" value="4194304"/>-->
+    </bean>
+    <bean id="userBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="userWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="name,title,email,lastLogin,recentSalesArea,firstName,lastName,name,isPrivateFolderExists,visibleCategories,accessCSRProductLines,userType,useraccessibleCategories"/>
+                <entry key="DEFAULT"
+                 	   value="name,title,email,lastLogin,recentSalesArea,firstName,lastName,name,isPrivateFolderExists,visibleCategories,accessCSRProductLines,userType,useraccessibleCategories"/>
+                <entry key="FULL"
+                       value="name,title,email,lastLogin,recentSalesArea,firstName,lastName,name,isPrivateFolderExists,visibleCategories,accessCSRProductLines,userType,useraccessibleCategories"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="salesAreaDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.data.SalesAreaData"/>
+		<property name="destClass" value="com.ds.dsocc.myprofile.data.SalesAreaWsDTO"/>
+	</bean>
+	
+		<bean parent="fieldSetLevelMapping" id="salesAreaWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.myprofile.data.SalesAreaWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="salesOrg,baseStoreName,b2bUnitUid,b2bUnitName,currencyIso,currencySymbol,companyLogoURL,sapBlocked"/>
+                <entry key="DEFAULT"
+                 	   value="salesOrg,baseStoreName,b2bUnitUid,b2bUnitName,currencyIso,currencySymbol,companyLogoURL,sapBlocked"/>
+                <entry key="FULL"
+                       value="salesOrg,baseStoreName,b2bUnitUid,b2bUnitName,currencyIso,currencySymbol,companyLogoURL,sapBlocked"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.product.dto.CategoryListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="categories(FULL)"/>
+                <entry key="DEFAULT"
+                       value="categories(FULL)"/>
+                <entry key="FULL"
+                       value="categories(FULL)"/>
+            </map>
+        </property>
+    </bean>
+    
+    
+    <bean parent="fieldSetLevelMapping" id="categoryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,name,url,categoryImageUrl,categories(FULL),salesAreaId,active"/>
+                <entry key="DEFAULT" value="code,name,url,categoryImageUrl,categories(FULL),salesAreaId,active"/>
+                <entry key="FULL" value="code,name,url,categoryImageUrl,categories(FULL),salesAreaId,active"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias alias="fieldSetBuilder" name="defaultFieldSetBuilder"/>
+    <bean id="defaultFieldSetBuilder"
+          class="de.hybris.platform.webservicescommons.mapping.impl.DefaultFieldSetBuilder">
+        <property name="defaultRecurrencyLevel" value="6"/>
+        <property name="defaultMaxFieldSetSize" value="500000"/>
+        <property name="fieldSetLevelHelper" ref="fieldSetLevelHelper"/>
+    </bean>
+    
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.myprofile.dto.B2bUnitListWsDTO"/>
+        <property name="levelMapping">
+            <map>   
+            	<entry key="BASIC"
+                       value="b2bUnits"/>           
+                <entry key="DEFAULT"
+                       value="b2bUnits"/>
+                 <entry key="FULL"
+                       value="b2bUnits(FULL)"/>      
+           </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value=" de.hybris.platform.b2bwebservicescommons.dto.company.B2BUnitWsDTO"/>
+        <property name="levelMapping">
+            <map>   
+            	<entry key="BASIC"
+                       value="uid,name,active,addresses,favorite,recent,salesAreaObjectList,mediaurl,currencySymbol,currencyIso,salesAreaObjectDataList,currency"/>           
+                <entry key="DEFAULT"
+                       value="uid,name,active,addresses(DEFAULT),favorite,recent,salesAreaObjectList,mediaurl,currencySymbol,currencyIso,salesAreaObjectDataList,currency,defaultUnit"/>
+                 <entry key="FULL"
+                       value="uid,name,active,addresses(FULL),favorite,recent,salesAreaObjectList,mediaurl,currencySymbol,currencyIso,salesAreaObjectDataList,currency,defaultUnit"/>
+           </map>
+        </property>
+    </bean>
+    
+        <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.myprofile.data.BhgeSalesAreaObjectWsDTO"/>
+        <property name="levelMapping">
+            <map>   
+            	<entry key="BASIC"
+                       value="salesAreaId,salesAreaName,active,address"/>           
+                <entry key="DEFAULT"
+                       value="salesAreaId,salesAreaName,active,address"/>
+                 <entry key="FULL"
+                       value="salesAreaId,salesAreaName,active,address"/>      
+           </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.myprofile.data.BhgeSalesAreaObjectListWsDTO"/>
+        <property name="levelMapping">
+            <map>   
+            	<entry key="BASIC"
+                       value="salesAreaObjects"/>           
+                <entry key="DEFAULT"
+                       value="salesAreaObjects"/>
+                 <entry key="FULL"
+                       value="salesAreaObjects(FULL)"/>      
+           </map>
+        </property>
+    </bean>
+    <bean parent="fieldSetLevelMapping" id="countryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.user.CountryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="isocode,risk,sanctioned"/>
+                <entry key="DEFAULT" value="name,isocode,risk,sanctioned"/>
+                <entry key="FULL" value="name,isocode,risk,sanctioned"/>
+            </map>
+        </property>
+    </bean>
+    <bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="levelMapping">
+			<map>
+			    <entry key="BASIC" 
+			           value="id,firstName,lastName,line1,line2,postalCode,town,region,country,formattedAddress,saveForFuture,isNuclear,deliveryPoint,sapCustomerID,risk,sanctioned,isSapBlocked"/>
+				<entry key="DEFAULT"
+					   value="BASIC,firstName,lastName,line1,line2,postalCode,town,region,country,formattedAddress,saveForFuture,isNuclear,deliveryPoint,sapCustomerID,risk,sanctioned,isSapBlocked"/>
+			</map>
+		</property>
+
+	</bean>
+    <bean parent="productWsDTOFieldSetLevelMapping" id="customProductWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="leadTimeMaxQty,maxOrderQty,leadTimeType,productSpecs,hybrisStatus,materialStatus,isEngineeringHold,deliveryTime,parentCategoryCode,parentCategoryName,categoryName,categoryLevelTCode,categoryLevelTName,categoryNameList,mediaurl,uom,discountPrice,discountPercentage,yourPriceDiscount,minOrderQty,isAnonymousBuy,addedasFavouriteTime,productNote,isAnonymousQuote,isAnonymousReturn,isAnonymousObsolete,isAnonymousCatalog,categoryWithClassifications,brandName,productAccessData,plantAvailableAt,errorCode,estShippingDates,estShipData,yourPrice,breadCrumbs,returnSalesOrg,listPrice,netSellingPrice,subTotalListPrice,productType"/>
+                <entry key="DEFAULT"
+                       value="leadTimeMaxQty,maxOrderQty,leadTimeType,EN,UsDn,connectorImage,productSpecs,hybrisStatus,materialStatus,isEngineeringHold,deliveryTime,obsoleteProductStatus,replacementProductStatus,parentCategoryCode,parentCategoryName,categoryName,categoryLevelTCode,categoryLevelTName,categoryNameList,mediaurl,uom,discountPrice,discountPercentage,yourPriceDiscount,minOrderQty,isAnonymousBuy,addedasFavouriteTime,productNote,isAnonymousQuote,isAnonymousReturn,isAnonymousObsolete,isAnonymousCatalog,picture,thumbnail,feature,features,dimesionImage,productInclude,hasAccessories,serviceOffering,buyWithOutB2BUnit,availabilityList,obsoletePart,replacementPartsList,futureStockEnabled,wishlistProducts,plantList,categoryWithClassifications,brandName,productAccessData,plantAvailableAt,errorCode,estShippingDates,estShipData,connectivityerror,yourPrice(DEFAULT),breadCrumbs,returnSalesOrg,nonEcommerceFlag,leadTime,listPrice,netSellingPrice,subTotalListPrice,productType"/>
+                <entry key="FULL"
+                       value="leadTimeMaxQty,maxOrderQty,leadTimeType,EN,UsDn,connectorImage,productSpecs,hybrisStatus,materialStatus,isEngineeringHold,deliveryTime,obsoleteProductStatus,replacementProductStatus,parentCategoryCode,parentCategoryName,categoryName,categoryLevelTCode,categoryLevelTName,categoryNameList,mediaurl,uom,discountPrice,discountPercentage,yourPriceDiscount,minOrderQty,isAnonymousBuy,addedasFavouriteTime,productNote,isAnonymousQuote,isAnonymousReturn,isAnonymousObsolete,isAnonymousCatalog,picture,thumbnail,feature,features,dimesionImage,productInclude,hasAccessories,serviceOffering,buyWithOutB2BUnit,availabilityList,obsoletePart,replacementPartsList,futureStockEnabled,wishlistProducts,plantList,categoryWithClassifications,brandName,productAccessData,plantAvailableAt,errorCode,estShippingDates,estShipData,connectivityerror,yourPrice(FULL),breadCrumbs,returnSalesOrg,nonEcommerceFlag,leadTime,listPrice,netSellingPrice,subTotalListPrice,productType"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="breadCrumbDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.breadcrumb.data.BHGEBreadCrumbData"/>
+		<property name="destClass" value="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.BreadcrumbWsDTO"/>
+	</bean>
+    
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.BreadcrumbWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="url,name,linkClass,categoryCode"/>
+                <entry key="DEFAULT"
+                 	   value="url,name,linkClass,categoryCode"/>
+                <entry key="FULL"
+                       value="url,name,linkClass,categoryCode"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.warehousingwebservices.dto.store.WarehouseWsDto"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,name,stockAvailable,defaultPlant"/>
+                <entry key="DEFAULT"
+                 	   value="code,name,stockAvailable,defaultPlant"/>
+                <entry key="FULL"
+                       value="code,name,stockAvailable,defaultPlant"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- 	My Site Equipment changes : START -->
+    <bean parent="fieldSetLevelMapping" id="serviceHistoryMSEOutputWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.mysiteequipment.data.BHGEAddToMSEOutputDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNumber,serialNumber,responseType,number,message,messageNumber"/>
+                <entry key="DEFAULT"
+                 	   value="partNumber,serialNumber,responseType,number,message,messageNumber"/>
+                <entry key="FULL"
+                       value="partNumber,serialNumber,responseType,number,message,messageNumber"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping" id="serviceHistoryMSEInputWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.mysiteequipment.data.AddToMSEInputDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNumber,serialNumber,partName,favourites,isOwnerDetailsMismatch,status,inactiveFlag,manElFlag,assetNumber,location,lastServiceDate,htsCode,serviceInterval,additionalInfo,endCustomerName,endCustomer,nextServiceDueInMonths,serviceDueDate,serviceHistoryDetails,thereInMELFlag,addUpdateFlag,removeFlag,productData,serviceDates,pinned,productHierarchy,selectedOption,hasCalData,sensorType,rmaStatus,productFamily,notificationDue,customer,isCaltalogProduct,lastCalibrationDate,notificationMessage"/>
+                <entry key="DEFAULT"
+                 	   value="partNumber,serialNumber,partName,favourites,isOwnerDetailsMismatch,status,inactiveFlag,manElFlag,assetNumber,location,lastServiceDate,htsCode,serviceInterval,additionalInfo,endCustomerName,endCustomer,nextServiceDueInMonths,serviceDueDate,serviceHistoryDetails,thereInMELFlag,addUpdateFlag,removeFlag,productData,serviceDates,pinned,productHierarchy,selectedOption,hasCalData,sensorType,rmaStatus,productFamily,notificationDue,customer,isCaltalogProduct,lastCalibrationDate,notificationMessage"/>
+                <entry key="FULL"
+                       value="partNumber,serialNumber,partName,favourites,isOwnerDetailsMismatch,status,inactiveFlag,manElFlag,assetNumber,location,lastServiceDate,htsCode,serviceInterval,additionalInfo,endCustomerName,endCustomer,nextServiceDueInMonths,serviceDueDate,serviceHistoryDetails,thereInMELFlag,addUpdateFlag,removeFlag,productData,serviceDates,pinned,productHierarchy,selectedOption,hasCalData,sensorType,rmaStatus,productFamily,notificationDue,customer,isCaltalogProduct,lastCalibrationDate,notificationMessage"/>
+            </map>
+        </property>
+    </bean>
+	<!-- 	My Site Equipment changes : END -->
+<!--Bulk Order -->
+    <!--Bulk Order Response -->
+
+    <bean id="dsBulkDataFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.ds.facades.bulkOrder.DsBulkOrderData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkOrderWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBulkDataWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkOrderWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="geEdgeCustomerData,isSingleSoldtoSalesArea,regions,geEdgeBulkCartData,bulkUploadList,validatedBulkUploadList,listOfStates,productAccessData,invalidPartsList"/>
+                <entry key="DEFAULT"
+                       value="BASIC,successCount,customerRole,currencyISO,currencyFormattedValue,invalidPartsCount,configurePartCount,productAccessData,invalidPartsList"/>
+                <entry key="FULL"
+                       value="DEFAULT,successCount,customerRole,productAccessData,invalidPartsList"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dsBulkDataValidateFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.user.data.BHGEBulkUploadEntryData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkUploadEntryWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBulkUploadEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkUploadEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNum,description,unitPrice,quantity,status,productSNo,productType"/>
+                <entry key="DEFAULT"
+                       value="BASIC,url,statusMap"/>
+                <entry key="FULL"
+                       value="DEFAULT,configurationflag,productImage,isAddedToCart,productAccessData,statusMap"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dsBulkDataAddToCartFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.ds.facades.bulkOrder.DsBulkOrderRequestData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkOrderRequestWSDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBulkOrderRequestWSDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.bulkOrder.dto.DsBulkOrderRequestWSDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="shipMode,delAcc,shipName,shipPhone,delOptions,newCartData"/>
+                <entry key="DEFAULT"
+                       value="BASIC,globalMessage"/>
+                <entry key="FULL"
+                       value="DEFAULT,bulkUploadFile"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dsMseFetchEquipmentsFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.core.data.EquipmentData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.mysiteequipment.data.EquipmentWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsEquipmentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.mysiteequipment.data.EquipmentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="manElPageCountData,melPageCountData,equipmentData,paginatedEquipmentData,equipmentPartCount,equipmentFilteredPartCount,equipmentEndCustomerCount"/>
+                <entry key="DEFAULT"
+                       value="BASIC,groupByEquipmentList,productLines"/>
+                <entry key="FULL"
+                       value="DEFAULT,timeoutException,interruptedException,executionException,notFoundException"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dsAutoCompleteSuggestionsFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="de.hybris.platform.commercefacades.search.data.AutocompleteResultData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.mysiteequipment.data.AutocompleteResultDataWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsAutoCompleteSuggestionsFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.mysiteequipment.data.AutocompleteResultDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="suggestions,products"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+    
+	<!--     RMA beans : START -->
+	
+	<bean parent="fieldSetLevelMapping" id="dsRMAListingFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.dto.BHGERmaStatusDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="baseCustomerAccount,customerAccounts,rmaStatusCount,productLines,rmaHeaderStatusDetails,rmaErrorMessageDetails,timeoutException,interruptedException,executionException,notFoundException,pagination(FULL),soldToName,rmaError"/>
+                <entry key="DEFAULT"
+                       value="baseCustomerAccount,customerAccounts,rmaStatusCount,productLines,rmaHeaderStatusDetails,rmaErrorMessageDetails,timeoutException,interruptedException,executionException,notFoundException,pagination(FULL),soldToName,rmaError"/>
+                <entry key="FULL"
+                       value="baseCustomerAccount,customerAccounts,rmaStatusCount,productLines,rmaHeaderStatusDetails,rmaErrorMessageDetails,timeoutException,interruptedException,executionException,notFoundException,pagination(FULL),soldToName,rmaError"/>
+            </map>
+        </property>
+    </bean>
+    
+	<!--     RMA beans : END -->
+
+    <bean parent="fieldSetLevelMapping" id="dsBHGEFeedbackFormFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEFeedbackFormDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="feedbackEmailID,feedbackEmailSubject,feedbackEmailBody,feedbackName,feedbackPhoneNo,emailType"/>
+                <entry key="DEFAULT"
+                       value="feedbackEmailID,feedbackEmailSubject,feedbackEmailBody,feedbackName,feedbackPhoneNo,emailType"/>
+                <entry key="FULL"
+                       value="feedbackEmailID,feedbackEmailSubject,feedbackEmailBody,feedbackName,feedbackPhoneNo,emailType"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsContactUsDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.ContactUsDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="firstName,lastName,companyName,email,phoneNum,state,city,postalCode,mktoPersonNotes,optIn,communicationsPreference,country,areaOfInterest,title"/>
+                <entry key="DEFAULT"
+                       value="firstName,lastName,companyName,email,phoneNum,state,city,postalCode,mktoPersonNotes,optIn,communicationsPreference,country,areaOfInterest,title"/>
+                <entry key="FULL"
+                       value="firstName,lastName,companyName,email,phoneNum,state,city,postalCode,mktoPersonNotes,optIn,communicationsPreference,country,areaOfInterest,title"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--     Checkout beans : START -->
+
+    <bean parent="fieldSetLevelMapping" id="dsBHGEAddressFormFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEAddressFormWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="companyName,deliveryPoint,endUserType,customAddressSaveFlag"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBHGEShippingAddressFormFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEShippingAddressFormDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="companyName,countryName,stateName,deliveryPoint,email,fromEmail,fromName,emailSubject,customerName,endUserType,endUserTypes"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBHGESoldToDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGESoldToDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="uid,locName,regionCP,subRegionCP,currency,countryCP,billingAddress,paymentTerms,incoterms1,incoterms2,incotrms1,paymentTrms"/>
+                <entry key="DEFAULT"
+                       value="BASIC,customerClass"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsShippingCarrierMethodDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.ShippingCarrierMethodDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,name,shippingCharge"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsRmaReturnCartDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.RmaReturnCartDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNumber,partName,quantity,returnReason,cartEntryNumber,percentComplted,returnLocationId,returnLocation,serialNoList,productImageURL,isCompletedFlag,currencyIsoCode,currencySymbol,parentEntryNumber,offeringList,availableSites,offeringList,totalPrice(DEFAULT),totalDiscount(DEFAULT),total(DEFAULT),unitSelling(DEFAULT),product(DEFAULT),availableSites,availableSitesList"/>
+                <entry key="DEFAULT"
+                       value="partNumber,partName,quantity,returnReason,cartEntryNumber,percentComplted,returnLocationId,returnLocation,serialNoList,productImageURL,isCompletedFlag,currencyIsoCode,currencySymbol,parentEntryNumber,offeringList,availableSites,offeringList,totalPrice(DEFAULT),totalDiscount(DEFAULT),total(DEFAULT),unitSelling(DEFAULT),product(DEFAULT),availableSites,availableSitesList"/>
+                <entry key="FULL"
+                       value="partNumber,partName,quantity,returnReason,cartEntryNumber,percentComplted,returnLocationId,returnLocation,serialNoList,productImageURL,isCompletedFlag,currencyIsoCode,currencySymbol,parentEntryNumber,offeringList,availableSites,offeringList,totalPrice(FULL),totalDiscount(FULL),total(FULL),unitSelling(FULL),product(FULL),availableSites,availableSitesList"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--     Checkout beans : End -->
+
+    <!-- Order Status Start -->
+
+    <bean id="dsBHGEOrderHistoryDataFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.order.data.BHGEOrderHistoryData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.common.dto.BHGEOrderHistoryDataWsDTO"/>
+    </bean>
+    <bean id="dsBHGEOrderErrorFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.order.data.OrderErrorData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.common.dto.OrderErrorWsDTO"/>
+    </bean>
+
+    <bean id="dsBHGERMAErrorFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.core.data.RMAErrorData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.common.dto.OrderErrorWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsBHGEOrderHistoryDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEOrderHistoryDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,status,statusDisplay,purchaseOrderNumber,placed,guid,total,costCenter,soldTo,lineData,orderType,salesRegion,distributionChannel,division,headerShippingMethod,headerRequestedShipDate,headerShippingAddress,soldToAddress,isCreditCardOrder"/>
+                <entry key="DEFAULT"
+                       value="BASIC,totalNetPrice,currency,createdBy,incoterm,salesArea,bkID,blkText,orderStatus,orderCount,blockCount,awaitingCount,processingCount,shippedCount,soldToAddress,isCreditCardOrder"/>
+                <entry key="FULL"
+                       value="DEFAULT,awaitingReceiptCount,inProcessCount,scrappedCount,deliveredCount,totalProductCount,totalRepairCount,repairBlockCount,paymentTerm,lastUpdated,purchaseOrderDate,actionText,productLine,orderDate,lastUpdatedDate,poDate,authAmt,authDate,settlAmt,settlDate,settlStat,notificationDate,oldAuthAmt,oldAuthDate,notifAuthAmt,planSettleDate,notifNetPrice,soldToAddress,isCreditCardOrder"/>
+            </map>
+        </property>
+    </bean>
+    <!-- Order Status End -->
+
+    <!-- Search API Start -->
+    <bean parent="fieldSetLevelMapping" id="searchStateWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.search.SearchStateWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="query,url,categoryName,categoryDescription,categoryPictureUrl"/>
+                <entry key="DEFAULT" value="query(DEFAULT),url,categoryName,categoryDescription,categoryPictureUrl"/>
+                <entry key="FULL" value="query(FULL),url,categoryName,categoryDescription,categoryPictureUrl"/>
+            </map>
+        </property>
+    </bean>
+    <!-- Search API End -->
+    
+    <!-- Cart API Start -->
+    <bean id="dsCartDataFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="de.hybris.platform.commercefacades.order.data.CartData"/>
+        <property name="destClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO"/>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping" id="cartWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,guid,entries(BASIC),paymentType,appliedCouponCodes,endCustomerPo,endUserNumber,cartType,deliveryAccount,customerPO,notes,shipToContactName,shipToContactPhone,orderConfirmation,shipNotificationEmail,invoiceEmail,isGovernment,isExport,planToExport,exportAddress,deliveryOptions,deliveryCarrier,deliveryCarrierName,shippingRemarks,isShipCompleteOrder,showATPMessage,showDiscountMessage,isNuclearOppurtunity,isSpecialDiscountPresent,specialDiscountCode,attachments,isAttachmentMoved,attachmentName,poAttachmentName,eucAttachmentName,poAttachmentFiles,requestedHdrDeliveryDateFilm,requestedHdrDeliveryDate,requestedHdrDeliveryDateFormatted,totalListPrice,shipmentCost,yourPriceDiscount,longestLeadTimeFilm,longestLeadTime,deliveryPoint,sdsCriteria,appliedCoupons,isMinOrderQtyProductExists,silverClauseTotalPrice,silverClauseTotal,connectivityerror,endUserCategory,alternateContactName,alternateContactNumber,alternateContactEmail,isBuyer,commerceType,returnNumber,enduserAddress,saleaAreaName,saleaAreaID,currencyIso,currencySymbol,returnPo,returnPoAttachment,returnLocation,totalReturnPrice,totalReturnItems,paymentAddress,returnsCartData,totalReturnCartPrice,totalReturnCartPriceDiscount,locationMap,name,description,isQuoteEnable,redirectToEditQuote,saveTime,totalUnitCount,quoteId,largestFilmLeadtime,largestNonFilmLeadtime,deliveryAddress,deletedProductCodes,earlyShipment,productLine,isQuote,dummyProductPresent,minOrderValue,isMinValuePresent,surCharge"/>
+                <entry key="DEFAULT" value="code,guid,entries(DEFAULT),totalPrice(DEFAULT),paymentType,appliedCouponCodes,endCustomerPo,endUserNumber,cartType,deliveryAccount,customerPO,notes,shipToContactName,shipToContactPhone,orderConfirmation,shipNotificationEmail,invoiceEmail,isGovernment,isExport,planToExport,exportAddress,deliveryOptions,deliveryCarrier,deliveryCarrierName,shippingRemarks,isShipCompleteOrder,showATPMessage,showDiscountMessage,isNuclearOppurtunity,isSpecialDiscountPresent,specialDiscountCode,attachments,isAttachmentMoved,attachmentName,poAttachmentName,eucAttachmentName,poAttachmentFiles,requestedHdrDeliveryDateFilm,requestedHdrDeliveryDate,requestedHdrDeliveryDateFormatted,totalListPrice(DEFAULT),shipmentCost,yourPriceDiscount(DEFAULT),longestLeadTimeFilm,longestLeadTime,deliveryPoint,sdsCriteria,appliedCoupons,isMinOrderQtyProductExists,silverClauseTotalPrice,silverClauseTotal(DEFAULT),connectivityerror,endUserCategory,alternateContactName,alternateContactNumber,alternateContactEmail,isBuyer,commerceType,returnNumber,enduserAddress,saleaAreaName,saleaAreaID,currencyIso,currencySymbol,returnPo,returnPoAttachment,returnLocation,totalReturnPrice,totalReturnItems,paymentAddress,returnsCartData(DEFAULT),totalReturnCartPrice(DEFAULT),totalReturnCartPriceDiscount(DEFAULT),locationMap,name,description,isQuoteEnable,redirectToEditQuote,saveTime,totalUnitCount,quoteId,largestFilmLeadtime,largestNonFilmLeadtime,deliveryAddress,deletedProductCodes,earlyShipment,productLine,isQuote,dummyProductPresent,minOrderValue,isMinValuePresent,surCharge"/>
+                <entry key="FULL" value="code,guid,entries(FULL),totalPrice(FULL),paymentType,appliedCouponCodes,endCustomerPo,endUserNumber,cartType,deliveryAccount,customerPO,notes,shipToContactName,shipToContactPhone,orderConfirmation,shipNotificationEmail,invoiceEmail,isGovernment,isExport,planToExport,exportAddress,deliveryOptions,deliveryCarrier,deliveryCarrierName,shippingRemarks,isShipCompleteOrder,showATPMessage,showDiscountMessage,isNuclearOppurtunity,isSpecialDiscountPresent,specialDiscountCode,attachments,isAttachmentMoved,attachmentName,poAttachmentName,eucAttachmentName,poAttachmentFiles,requestedHdrDeliveryDateFilm,requestedHdrDeliveryDate,requestedHdrDeliveryDateFormatted,totalListPrice(FULL),shipmentCost,yourPriceDiscount(FULL),longestLeadTimeFilm,longestLeadTime,deliveryPoint,sdsCriteria,appliedCoupons,isMinOrderQtyProductExists,silverClauseTotalPrice,silverClauseTotal(FULL),connectivityerror,endUserCategory,alternateContactName,alternateContactNumber,alternateContactEmail,isBuyer,commerceType,returnNumber,enduserAddress,saleaAreaName,saleaAreaID,currencyIso,currencySymbol,returnPo,returnPoAttachment,returnLocation,totalReturnPrice,totalReturnItems,paymentAddress,returnsCartData(FULL),totalReturnCartPrice(FULL),totalReturnCartPriceDiscount(FULL),locationMap,name,description,isQuoteEnable,redirectToEditQuote,saveTime,totalUnitCount,quoteId,largestFilmLeadtime,largestNonFilmLeadtime,deliveryAddress,savedBy,expirationTime,deletedProductCodes,earlyShipment,productLine,isQuote,dummyProductPresent,minOrderValue,isMinValuePresent,surCharge,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,totalItems,totalPriceWithTax,totalDiscounts,subTotal,deliveryItemsQuantity,deliveryCost,totalTax,pickupItemsQuantity,net,appliedVouchers,productDiscounts"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping" id="orderEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="entryNumber,product(DEFAULT),quantity,deliveryPointOfService,configurationInfos,statusSummaryList,ecaCode,enduserAddress,ecaPONumber"/>
+                <entry key="DEFAULT" value="product(DEFAULT),deliveryPointOfService(DEFAULT),entryNumber,updateable,deliveryMode(DEFAULT),quantity,basePrice(DEFAULT),totalPrice(DEFAULT),configurationInfos(DEFAULT),statusSummaryList,cancellableQuantity,cancelledItemsPrice(FULL),returnableQuantity,returnedItemsPrice(DEFAULT),discountPrice,discountPercentage,estimatedShipDates,notes,isEngineeringHold,entryNotes,requestedDeliveryDate,plant,availableQuantity,availabilityDetails,stockDetails,requestedDelvDate,plantName,couponDiscount,couponDiscountPercentage,fixedPricefromCoupon,isSameDayShipEnabled,isSameDayShipChecked,shipmentCost,sdsCriteria,isPlantEnabled,isDomesticPlant,isCutOffTime,isQtyAvailable,netTotal,subTotalListPrice(DEFAULT),yourPriceDiscount(DEFAULT),isListprice,shipmentCostStr,couponDiscountStr,isDuplicateLine,entryLevelSellingPriceStr,estimatedShipQtys,endUserNumber,productType,vcOptionsPrice,silverClausePrice(DEFAULT),silverClausePricePercentage,listPrice(DEFAULT),netSellingPrice(DEFAULT),netSellingPriceStr,componentPriceList,OffPriceData,minOrderQtyError,uom,lineLevelPrice,partNumber,partName,unitSelling,netSelling,unitList,silverClause,silverClausePercentage,returnLocation,offeringData,unitListRMA(DEFAULT),unitSellingRMA(DEFAULT),netSellingRMA(DEFAULT),serviceOfferingText,estShipData,unitSellingFormattedValue,leadTime,fullyConfigurePartNumber,referenceNumber,tagInformation,accessoryEntryNumbers,parentEntryNumber,dummyPartNumber,dummyProductDescription,longConfigEntry,ecaCode,enduserAddress,ecaPONumber"/>
+                <entry key="FULL"
+                       value="product(FULL),deliveryPointOfService(FULL),entryNumber,updateable,deliveryMode(FULL),quantity,basePrice(FULL),totalPrice(FULL),configurationInfos(FULL),statusSummaryList,cancellableQuantity,cancelledItemsPrice(FULL),returnableQuantity,returnedItemsPrice(FULL),discountPrice,discountPercentage,estimatedShipDates,notes,isEngineeringHold,entryNotes,requestedDeliveryDate,plant,availableQuantity,availabilityDetails,stockDetails,requestedDelvDate,plantName,couponDiscount,couponDiscountPercentage,fixedPricefromCoupon,isSameDayShipEnabled,isSameDayShipChecked,shipmentCost,sdsCriteria,isPlantEnabled,isDomesticPlant,isCutOffTime,isQtyAvailable,netTotal,subTotalListPrice(FULL),yourPriceDiscount(FULL),isListprice,shipmentCostStr,couponDiscountStr,isDuplicateLine,entryLevelSellingPriceStr,estimatedShipQtys,endUserNumber,productType,vcOptionsPrice,silverClausePrice(FULL),silverClausePricePercentage,listPrice(FULL),netSellingPrice(FULL),netSellingPriceStr,componentPriceList,OffPriceData,minOrderQtyError,uom,lineLevelPrice,partNumber,partName,unitSelling,netSelling,unitList,silverClause,silverClausePercentage,returnLocation,offeringData,unitListRMA(FULL),unitSellingRMA(FULL),netSellingRMA(FULL),serviceOfferingText,estShipData,unitSellingFormattedValue,leadTime,fullyConfigurePartNumber,referenceNumber,tagInformation,accessoryEntryNumbers,parentEntryNumber,dummyPartNumber,dummyProductDescription,longConfigEntry,ecaCode,enduserAddress,ecaPONumber"/>
+            </map>
+        </property>
+    </bean>
+    <!-- Cart API End -->
+    
+    <!--Order details mapping  -->
+     <bean id="dsOrderDetailsFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.ds.facades.orderDetails.OrderDetailsData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.common.dto.OrderDetailsWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dsOrderDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.OrderDetailsWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="currenySymbol,currenyIso,isQuote"/>
+                <entry key="DEFAULT"
+                       value="BASIC,yourPriceDiscount,netSilverClause,netAmount,couponDiscount,totalListPrice,totalReturnListPrice,payerAddress,isQuote"/>
+                <entry key="FULL"
+                       value="BASIC,yourPriceDiscount(FULL),netSilverClause(FULL),netAmount(FULL),currenySymbol,currenyIso,couponDiscount(FULL),ordersList(FULL),totalListPrice(FULL),totalReturnListPrice(FULL),payerAddress(FULL),isCardExist,isQuote"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- Order Mapping   -->
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,shipToContactName,shipToContactPhone,orderConfirmation,shipNotificationEmail,paymentType(BASIC),paymentTrms(BASIC),invoiceContactName,invoiceContact1Num,orderConfirmationName,orderConfirmationNum,invoiceContact,invoicePhone,soaContact,soaPhone,surCharge"/>
+                <entry key="DEFAULT"
+                       value="code,entries(DEFAULT),appliedCouponCodes,endCustomerPo,endUserNumber,cartType,deliveryAccount,customerPO,notes,shipToContactName,shipToContactPhone,orderConfirmation,shipNotificationEmail,invoiceEmail,isGovernment,isExport,planToExport,exportAddress,deliveryOptions,deliveryCarrier,deliveryCarrierName,shippingRemarks,isShipCompleteOrder,isNuclearOppurtunity,isSpecialDiscountPresent,specialDiscountCode,attachments,isAttachmentMoved,attachmentName,eucAttachmentName,poAttachmentName,poAttachmentFiles,requestedHdrDeliveryDateFilm,requestedHdrDeliveryDate,requestedHdrDeliveryDateFormatted,totalListPrice(DEFAULT),shipmentCost,yourPriceDiscount(DEFAULT),deliveryPoint,sdsCriteria,appliedCoupons,isMinOrderQtyProductExists,silverClauseTotalPrice,silverClauseTotal(DEFAULT),connectivityerror,endUserCategory,alternateContactName,alternateContactNumber,alternateContactEmail,isBuyer,commerceType,returnNumber,enduserAddress,saleaAreaName,saleaAreaID,returnPo,returnPoAttachment,returnLocation,totalReturnPrice,totalReturnItems,paymentAddress,shipToIncotrmName,shipToIncoterm1,shipToIncoterm2,deliveryAddress,soldToAddress,paymentType(DEFAULT),paymentTrms(DEFAULT),ordersilverClause(DEFAULT),invoiceContactName,invoiceContact1Num,orderConfirmationName,orderConfirmationNum,invoiceContact,invoicePhone,soaContact,soaPhone,rmaData(DEFAULT),surCharge"/>
+               <entry key="FULL"
+                       value="BASIC,entries(FULL),appliedCouponCodes,endCustomerPo,endUserNumber,cartType,deliveryAccount,customerPO,notes,shipToContactName,invoiceEmail,isGovernment,isExport,planToExport,exportAddress,deliveryOptions,deliveryCarrier,deliveryCarrierName,shippingRemarks,isShipCompleteOrder,isNuclearOppurtunity,isSpecialDiscountPresent,specialDiscountCode,attachments,isAttachmentMoved,attachmentName,eucAttachmentName,poAttachmentName,poAttachmentFiles,requestedHdrDeliveryDateFilm,requestedHdrDeliveryDate,requestedHdrDeliveryDateFormatted,totalListPrice(FULL),shipmentCost,yourPriceDiscount(FULL),deliveryPoint,sdsCriteria,appliedCoupons,isMinOrderQtyProductExists,silverClauseTotalPrice,silverClauseTotal(FULL),connectivityerror,endUserCategory,alternateContactName,alternateContactNumber,alternateContactEmail,isBuyer,commerceType,returnNumber,enduserAddress,saleaAreaName,saleaAreaID,returnPo,returnPoAttachment,returnLocation,totalReturnPrice,totalReturnItems,paymentAddress,shipToIncotrmName,shipToIncoterm1,shipToIncoterm2,deliveryAddress,soldToAddress,paymentType(FULL),paymentTrms(FULL),ordersilverClause(FULL),invoiceContactName,invoiceContact1Num,orderConfirmationName,orderConfirmationNum,invoiceContact,invoicePhone,soaContact,soaPhone,rmaData(FULL),surCharge"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="checkOutRMADataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.data.CheckoutRmaWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="rmaNumber,poNumber,custNumber,lineItems,rmaLineData"/>
+                <entry key="DEFAULT"
+                       value="rmaNumber,poNumber,custNumber,lineItems,rmaLineData(DEFAULT)"/>
+                <entry key="FULL"
+                       value="rmaNumber,poNumber,custNumber,lineItems,rmaLineData(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="checkOutRMALineDataFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.data.CheckoutRmaLineWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNumber,partName,partDescription,quantity,unitSelling,unitList,netSelling,silverClause,silverClausePercentage,currencyIsoCode,currencySymbol,serviceOfferingText"/>
+                <entry key="DEFAULT"
+                       value="partNumber,partName,partDescription,quantity,unitSelling(DEFAULT),unitList(DEFAULT),netSelling(DEFAULT),silverClause(DEFAULT),silverClausePercentage,currencyIsoCode,currencySymbol,serviceOfferingText"/>
+                <entry key="FULL"
+                       value="partNumber,partName,partDescription,quantity,unitSelling(FULL),unitList(FULL),netSelling(FULL),silverClause(FULL),silverClausePercentage,currencyIsoCode,currencySymbol,serviceOfferingText"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="bhgeRMAFormEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.dto.BHGERmaFormEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="partNumber,serialNumber,quantity,productDetails,problemDescription,pricingInfo,isComplete,isAccessory,similarPart,accessoryProducts,formattedPrice,returnToSiteName,lineNotes,serviceOfferings,additionalInfo,hazardousInfo,availableSitesList,price,planningSite,entryNumber,otherDetails,parentOfferingList"/>
+                <entry key="DEFAULT"
+                 	   value="partNumber,serialNumber,quantity,productDetails,problemDescription,pricingInfo,isComplete,isAccessory,similarPart,accessoryProducts,formattedPrice,returnToSiteName,lineNotes,serviceOfferings,additionalInfo,hazardousInfo,availableSitesList,price,planningSite,entryNumber,otherDetails,parentOfferingList"/>
+                <entry key="FULL"
+                       value="partNumber,serialNumber,quantity,productDetails,problemDescription,pricingInfo,isComplete,isAccessory,similarPart,accessoryProducts,formattedPrice,returnToSiteName,lineNotes,serviceOfferings,additionalInfo,hazardousInfo,availableSitesList,price,planningSite,entryNumber,otherDetails,parentOfferingList"/>
+            </map>
+        </property>
+    </bean> 
+    
+    <!-- Order details attachments mappings -->
+    <bean id="dsOrderHistoryAttachmentsFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.order.attachments.BHGESalesOrderAttachmentsData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.rma.dto.BHGESalesOrderAttachmentsWsDTO"/>
+    </bean>
+    
+    <bean id="dsOrderHistoryAttachmentsWsDTOFieldSetLevelMapping" parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.dto.BHGESalesOrderAttachmentsWsDTO" />
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="invoices,customInvoices,deliveryNotes,salesOrderAck,purchaseOrders,soaDocType,soaFileName,invDocType,invFileName,customInvDocType,customInvFileName,delNoteDocType,delNoteFileName,poDocType,poFileName,expdfdata"/>
+                <entry key="DEFAULT"
+                 	   value="BASIC" />
+                <entry key="FULL"
+                       value="DEFAULT" />
+            </map>
+        </property>
+    </bean>
+    
+    
+    <!-- RMA Sharing -->
+    <bean id="dsRMAShareFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.ds.facades.rma.EmailResponseData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.rma.dto.EmailResponseWsDTO"/>
+    </bean>
+    
+    <bean id="dsRMAShareWsDTOFieldSetLevelMapping" parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.rma.dto.EmailResponseWsDTO" />
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="status,emailid"/>
+                <entry key="DEFAULT"
+                 	   value="BASIC" />
+                <entry key="FULL"
+                       value="DEFAULT" />
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="dsQuoteFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="de.hybris.platform.commercefacades.quote.data.QuoteData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.quote.data.QuoteWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="quoteWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.quote.data.QuoteWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,nameCheckout,cartCode,userName,description,companyCheckout,phoneCheckout,emailAddress,addressCheckout,address1Checkout,country,region,cityCheckout,postalCheckout,emailtype,endUserCategory,endUserCompanyName,endaddressLine,endaddress1Line,endTown,endUserRegionIso,endUserRegionName,endZipcode,endUserCountryIso,errorCode"/>
+                <entry key="DEFAULT"
+                 	   value="code,nameCheckout,cartCode,userName,description,companyCheckout,phoneCheckout,emailAddress,addressCheckout,address1Checkout,country,region,cityCheckout,postalCheckout,emailtype,endUserCategory,endUserCompanyName,endaddressLine,endaddress1Line,endTown,endUserRegionIso,endUserRegionName,endZipcode,endUserCountryIso,errorCode"/>
+                <entry key="FULL"
+                       value="code,nameCheckout,cartCode,userName,description,companyCheckout,phoneCheckout,emailAddress,addressCheckout,address1Checkout,country,region,cityCheckout,postalCheckout,emailtype,endUserCategory,endUserCompanyName,endaddressLine,endaddress1Line,endTown,endUserRegionIso,endUserRegionName,endZipcode,endUserCountryIso,errorCode"/>
+            </map>
+        </property>
+    </bean>
+    
+    
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.quote.data.EndUserTypeListWsDTO"/>
+        <property name="levelMapping">
+            <map>   
+            	<entry key="BASIC"
+                       value="endUserTypeList"/>           
+                <entry key="DEFAULT"
+                       value="endUserTypeList"/>
+                 <entry key="FULL"
+                       value="endUserTypeList(FULL)"/>      
+           </map>
+        </property>
+    </bean>
+ 
+    <bean id="dsEndUserTypeFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.EndUserTypeData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.quote.data.EndUserTypeWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="endUserTypeWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.quote.data.EndUserTypeWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,name"/>
+                <entry key="DEFAULT"
+                 	   value="code,name"/>
+                <entry key="FULL"
+                       value="code,name"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- My profile start -->
+  <bean id="personalBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGEPersonalDetailsWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="bhgePersonalDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEPersonalDetailsWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="name,firstName,lastName,email,lastLogin,displayUid,dsRoles"/>
+                <entry key="DEFAULT"
+                 	   value="name,firstName,lastName,email,lastLogin,displayUid,dsRoles"/>
+                <entry key="FULL"
+                       value="name,firstName,lastName,email,lastLogin,displayUid,dsRoles"/>
+            </map>
+        </property>
+    </bean>  
+     
+   <bean id="notificationBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGENotificationWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="bhgeNotificationWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGENotificationWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="sendSalesOrderEmail,sendShippingNotificationEmail,sendInvoiceEmail,invoiceContact,invoicePhone,soaContact,soaPhone,orderBlockEmailNotification,orderBlockReleaseEmailNotification,orderShipDateChanged"/>
+                <entry key="DEFAULT"
+                 	   value="sendSalesOrderEmail,sendShippingNotificationEmail,sendInvoiceEmail,invoiceContact,invoicePhone,soaContact,soaPhone,orderBlockEmailNotification,orderBlockReleaseEmailNotification,orderShipDateChanged"/>
+                <entry key="FULL"
+                       value="sendSalesOrderEmail,sendShippingNotificationEmail,sendInvoiceEmail,invoiceContact,invoicePhone,soaContact,soaPhone,orderBlockEmailNotification,orderBlockReleaseEmailNotification,orderShipDateChanged"/>
+            </map>
+        </property>
+    </bean> 
+   
+      <bean id="customerAccountBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGECustomerAccountWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="bhgeCustomerAccountWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGECustomerAccountWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="bhgeSoldTo(FULL),b2bUnits(FULL),b2bUnitName,b2bUnitUid,baseStoreName,currencyIso,currencySymbol,salesOrg,recentSalesArea(FULL),selectedrecentSalesArea(FULL),selecteddefaultSalesArea,selecteddefaultSoldTo"/>
+                <entry key="DEFAULT"
+                 	   value="bhgeSoldTo(FULL),b2bUnits(FULL),b2bUnitName,b2bUnitUid,baseStoreName,currencyIso,currencySymbol,salesOrg,recentSalesArea(FULL),selectedrecentSalesArea(FULL),selecteddefaultSalesArea,selecteddefaultSoldTo"/>
+                <entry key="FULL"
+                       value="bhgeSoldTo(FULL),b2bUnits(FULL),b2bUnitName,b2bUnitUid,baseStoreName,currencyIso,currencySymbol,salesOrg,recentSalesArea(FULL),selectedrecentSalesArea(FULL),selecteddefaultSalesArea,selecteddefaultSoldTo"/>
+            </map>
+        </property>
+    </bean> 
+     
+    <bean id="orderDetailsSummaryBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGECustomerFormDataWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="bhgeOrderDetailsSummaryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGECustomerFormDataWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="isShipCompleteOrder,deliveryCarrier,shippingContactName,shippingContactNumber,deliveryOptions,prepayAddTypes(FULL),collectTypes(FULL),deliveryAccount,orderStatus,defaultSalesArea,selectedDeliveryCarrier,defaultSoldTo,soldTo,carrier,salesAreaList"/>
+                <entry key="DEFAULT"
+                 	   value="isShipCompleteOrder,deliveryCarrier,shippingContactName,shippingContactNumber,deliveryOptions,prepayAddTypes(FULL),collectTypes(FULL),deliveryAccount,orderStatus,defaultSalesArea,selectedDeliveryCarrier,defaultSoldTo,soldTo,carrier,salesAreaList"/>
+                <entry key="FULL"
+                       value="isShipCompleteOrder,deliveryCarrier,shippingContactName,shippingContactNumber,deliveryOptions,prepayAddTypes(FULL),collectTypes(FULL),deliveryAccount,orderStatus,defaultSalesArea,selectedDeliveryCarrier,defaultSoldTo,soldTo,carrier,salesAreaList"/>
+            </map>
+        </property>
+    </bean> 
+    
+  <bean id="currencySummaryBhgeCustomerDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGEDefaultCurrencyFormatWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="bhgecurrencyWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEDefaultCurrencyFormatWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="defaultCurrencyFormat(FULL),selecteddefaultCurrencyFormat(FULL)"/>
+                <entry key="DEFAULT"
+                 	   value="defaultCurrencyFormat(FULL),selecteddefaultCurrencyFormat(FULL)"/>
+                <entry key="FULL"
+                       value="defaultCurrencyFormat(FULL),selecteddefaultCurrencyFormat(FULL)"/>
+            </map>
+        </property>
+    </bean> 
+    
+    
+      <bean id="defaultShipToFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="destClass" value="com.ds.dsocc.common.dto.BHGEDefaultShipToWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="defaultShipWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.BHGEDefaultShipToWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="defaultShipTo,selecteddefaultShipTo"/>
+                <entry key="DEFAULT"
+                 	   value="defaultShipTo,selecteddefaultShipTo"/>
+                <entry key="FULL"
+                       value="defaultShipTo,selecteddefaultShipTo"/>
+            </map>
+        </property>
+    </bean> 
+    <!-- My Profile End -->
+    <bean id="bhgeInventoryDataWsDTOFieldLevelMapping" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.core.data.BHGEInventoryData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.BHGEInventoryDataWsDTO"/>
+    </bean>
+    <bean parent="fieldSetLevelMapping" id="bhgeInventoryDataWsDTOFieldSetLevelMapping">
+        <property name="dtoClass" value="com.ds.dsocc.common.dto.BHGEInventoryDataWsDTO"/>
+        <property name="levelMapping">
+        <map>
+            <entry key="BASIC"
+                   value="productData(FULL),cartData(FULL),obsoletePart,replacementPartsList(FULL),discountNotAvailable,shippingDateNotAvblMessage,priceNotAvblMessage,isEndUserValid,isHomePage,isInvPage,availbilityList,currencyISO,currencyFormattedValue,error"/>
+            <entry key="DEFAULT"
+                   value="productData(FULL),cartData(FULL),obsoletePart,replacementPartsList(FULL),discountNotAvailable,shippingDateNotAvblMessage,priceNotAvblMessage,isEndUserValid,isHomePage,isInvPage,availbilityList,currencyISO,currencyFormattedValue,error"/>
+            <entry key="FULL"
+                   value="productData(FULL),cartData(FULL),obsoletePart,replacementPartsList(FULL),discountNotAvailable,shippingDateNotAvblMessage,priceNotAvblMessage,isEndUserValid,isHomePage,isInvPage,availbilityList,currencyISO,currencyFormattedValue,error"/>
+        </map>
+        </property>
+    </bean>
+
+    <bean id="bhgeVCproductSummaryWsDTOFieldLevelMapping" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.core.data.BHGEVCProductSummaryData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.BHGEVCProductSummaryWSDTO"/>
+    </bean>
+    <bean parent="fieldSetLevelMapping" id="bhgeVCproductSummaryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass" value="com.ds.dsocc.common.dto.BHGEVCProductSummaryWSDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="priceSummary(FULL),vcLongPartNumber"/>
+                <entry key="DEFAULT"
+                       value="priceSummary(FULL),vcLongPartNumber"/>
+                <entry key="FULL"
+                       value="priceSummary(FULL),vcLongPartNumber"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="faqWSDTOFieldLevelMapping" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.core.data.FaqData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.FaqWSDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="faqWSDTOFieldSetLevelMapping">
+        <property name="dtoClass" value="com.ds.dsocc.common.dto.FaqWSDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="question,answer"/>
+                <entry key="DEFAULT" value="question,answer"/>
+                <entry key="FULL" value="question,answer"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="resourceWSDTOFieldLevelMapping" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.core.data.ResourceData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.ResourceWSDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="resourceWSDTOFieldSetLevelMapping">
+        <property name="dtoClass" value="com.ds.dsocc.common.dto.ResourceWSDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="name,link,documentType,lastUpdated,size,category"/>
+                <entry key="DEFAULT" value="name,link,documentType,lastUpdated,size,category"/>
+                <entry key="FULL" value="name,link,documentType,lastUpdated,size,category"/>
+            </map>
+        </property>
+    </bean>
+
+     <bean id="dsNotificationDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass" value="com.bhge.facades.product.data.DSNotificationData"/>
+		<property name="destClass" value="com.ds.dsocc.calibration.data.DSNotificationWsDTO"/>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="dsNotificationWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.calibration.data.DSNotificationWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="notificationID,partNumber,serialNumber,lastServiceDate,serviceInterval,endCustomer,serviceDueDate,partName,nextServiceDueInMonths,isFlagged,isDismissed,notificationTime,isRead,customer,notificationMessage,lastCalibrationDate"/>
+                <entry key="DEFAULT"
+                 	   value="notificationID,partNumber,serialNumber,lastServiceDate,serviceInterval,endCustomer,serviceDueDate,partName,nextServiceDueInMonths,isFlagged,isDismissed,notificationTime,isRead,customer,notificationMessage,lastCalibrationDate"/>
+                <entry key="FULL"
+                       value="notificationID,partNumber,serialNumber,lastServiceDate,serviceInterval,endCustomer,serviceDueDate,partName,nextServiceDueInMonths,isFlagged,isDismissed,notificationTime,isRead,customer,notificationMessage,lastCalibrationDate"/>
+            </map>
+        </property>
+    </bean> 
+    
+    
+        <bean parent="fieldSetLevelMapping" id="dsTrainingDocumentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.trainingdocument.data.DsTrainingDocumentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="name,mediaslink,youtubeURL,fileType,modifiedTime,active"/>
+                <entry key="DEFAULT"
+                 	   value="name,mediaslink,youtubeURL,fileType,modifiedTime,active"/>
+                <entry key="FULL"
+                       value="name,mediaslink,youtubeURL,fileType,modifiedTime,active"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean parent="fieldSetLevelMapping" id="listOfPortalWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.data.ListOfPortalWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="siteName,url,productLine,description,type,loginRequired"/>
+                <entry key="DEFAULT"
+                       value="siteName,url,productLine,description,type,loginRequired"/>
+                <entry key="FULL"
+                       value="siteName,url,productLine,description,type,loginRequired"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="dsListOfPortalFieldMapper" parent="fieldMapper">
+        <property name="sourceClass"
+                  value="com.bhge.facades.data.DSListOfPortalsData"/>
+        <property name="destClass"
+                  value="com.ds.dsocc.data.ListOfPortalWsDTO" />
+    </bean>
+
+    <bean id="csrManualApprovalsDataFieldMapper" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.register.webservices.data.ManualApprovalData"/>
+        <property name="destClass" value="com.bhge.register.webservices.data.ManualApprovalWsDTO"/>
+    </bean>
+    <bean id="UserManageWsDTODataFieldMapper" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.UserManageWsDTO"/>
+    </bean>
+    <bean parent="fieldSetLevelMapping" id="userMGMDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.UserManageWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="uid,name,email,dsRoles,lastLogin,loginDisabled,isInternalUser,editedBy,editedTime"/>
+                <entry key="DEFAULT"
+                       value="uid,name,email,dsRoles,lastLogin,loginDisabled,isInternalUser,editedBy,editedTime"/>
+                <entry key="FULL"
+                       value="uid,name,email,dsRoles,lastLogin,loginDisabled,isInternalUser,editedBy,editedTime"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="ManageUsersB2bUnitsWsDTOFieldMapper" parent="fieldMapper">
+        <property name="sourceClass" value="com.bhge.facades.user.data.ManageUsersB2bUnitData"/>
+        <property name="destClass" value="com.ds.dsocc.common.dto.ManageUsersB2bUnitWsDTO"/>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="manageUsersB2bUnitWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.ds.dsocc.common.dto.ManageUsersB2bUnitWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="uid,name"/>
+                <entry key="DEFAULT"
+                       value="uid,name"/>
+                <entry key="FULL"
+                       value="uid,name"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias alias="jwtConfigProvider" name="bhgeJwtConfigProvider"/>
+    <bean id="bhgeJwtConfigProvider" class="com.bh.occ.security.BHGEJwtConfigProvider">
+        <constructor-arg ref="revokedAccessTokensStore"/>
+        <constructor-arg ref="wsUndecoratedUserDetailsService"/>
+        <constructor-arg ref="jwkSource"/>
+    </bean>
+    <bean id="bhgeJwtDBRolesAuthenticationConverter" class="com.bh.occ.security.BHGEJwtDBRolesAuthenticationConverter">
+    </bean>
+    <bean id="userMatchingFilter" class="com.bh.occ.filter.DSUserMatchingFilter">
+        <property name="regexp" value="^/[^/]+/(?:users|orgUsers)/([^/]+)"/>
+        <property name="baseSiteService" ref="baseSiteService"/>
+        <property name="userService" ref="userService"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="userMatchingService" ref="wsUserMatchingService"/>
+    </bean>
+<!-- <bean id="jwtDecoder" class="com.bh.occ.security.BHGEOktaJwtDecoder">-->
+<!--     <constructor-arg value="${okta.issuer}"/>-->
+<!--     <constructor-arg value="${okta.jwks.uri}"/>-->
+<!-- </bean>-->
+<!--    <bean id="jwtDecoderBuilder" class="org.springframework.security.oauth2.jwt.NimbusJwtDecoder" factory-method="withJwkSetUri">-->
+<!--        <constructor-arg value="${authorizationserver.core.jwt.jwk.set.uri}"/>-->
+<!--    </bean>-->
+<!--    <bean id="jwtDecoder" factory-bean="jwtDecoderBuilder" factory-method="build"/>-->
+
+<!--    <bean id="customJwtValidator" class="org.springframework.security.oauth2.jwt.DelegatingOAuth2TokenValidator">-->
+<!--        <constructor-arg>-->
+<!--            <list>-->
+<!--                <bean class="org.springframework.security.oauth2.jwt.JwtTimestampValidator" />-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
+
+<!--    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
+<!--        <property name="targetObject" ref="jwtDecoder"/>-->
+<!--        <property name="targetMethod" value="setJwtValidator"/>-->
+<!--        <property name="arguments" ref="customJwtValidator"/>-->
+<!--    </bean>-->
+
+
+    
+</beans>

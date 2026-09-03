@@ -1,0 +1,856 @@
+"#% impex.info(""###############    store-carrier-mapping.impex -start  ################"")"
+
+INSERT_UPDATE PrePayShippingCarrierMethod;code[unique=true];name;shippingMethod(code)
+;204;Federal Express DX-1ST Next Business AM;PREPAY
+;104;UPS-2ND DAY AIR;PREPAY
+;105;UPS-2NDDAYAIRAM;PREPAY
+;103;UPS-3 DAY SELECT;PREPAY
+;101;UPS-GROUND COM;PREPAY
+;109;UPS-NEXT DAY SATURDAY DELIVERY;PREPAY
+;108;UPS-NEXT DAY EARLY AM;PREPAY
+;207;Federal Express-Next Day SATURDAY-DELIVERY;PREPAY
+;206;FEDERAL EXPRESS -PRIORITY-NEXTBUSINESS-AM;PREPAY
+;205;FEDERAL EXPRESS-STANDARD-NEXTBUSINESS-PM;PREPAY
+;210;FEDERAL EXPRESS -2ND DAY;PREPAY
+;201;FEDERAL EXPRESS-GROUND;PREPAY
+;107;UPS-NEXT DAY AIR;PREPAY
+;848;USPS PARCEL-MAIL;PREPAY
+
+;609;Other:Check Ship Cmn;PREPAY
+;703;AIRFREIGHT COLLECT;PREPAY
+;707;ABHOLUNG;PREPAY
+;709;DHL;PREPAY
+;712;UPS COLLECT;PREPAY
+;718;UPS;PREPAY
+;719;DPD;PREPAY
+;723;AIRFREIGHT;PREPAY
+;725;BY TRUCK;PREPAY
+;741;VIA COURIER;PREPAY
+;750;TNT;PREPAY
+;717;FEDEX;PREPAY
+;816;UPS EXPRESS SAVER;PREPAY
+;132;UPS-INTL Express-COL;PREPAY
+
+# BEGIN: Fix for null pointer if site language is french, russian exception in prepay shipping carrier
+UPDATE PrePayShippingCarrierMethod;code[unique=true];name[lang=fr];shippingMethod(code)
+                                  ;204;Federal Express DX-1ST Next Business AM;PREPAY
+                                  ;104;UPS-2ND DAY AIR;PREPAY
+                                  ;105;UPS-2NDDAYAIRAM;PREPAY
+                                  ;103;UPS-3 DAY SELECT;PREPAY
+                                  ;101;UPS-GROUND COM;PREPAY
+                                  ;109;UPS-NEXT DAY SATURDAY DELIVERY;PREPAY
+                                  ;108;UPS-NEXT DAY EARLY AM;PREPAY
+                                  ;207;Federal Express-Next Day SATURDAY-DELIVERY;PREPAY
+                                  ;206;FEDERAL EXPRESS -PRIORITY-NEXTBUSINESS-AM;PREPAY
+                                  ;205;FEDERAL EXPRESS-STANDARD-NEXTBUSINESS-PM;PREPAY
+                                  ;210;FEDERAL EXPRESS -2ND DAY;PREPAY
+                                  ;201;FEDERAL EXPRESS-GROUND;PREPAY
+                                  ;107;UPS-NEXT DAY AIR;PREPAY
+                                  ;848;USPS PARCEL-MAIL;PREPAY
+
+                                  ;609;Other:Check Ship Cmn;PREPAY
+                                  ;703;AIRFREIGHT COLLECT;PREPAY
+                                  ;707;ABHOLUNG;PREPAY
+                                  ;709;DHL;PREPAY
+                                  ;712;UPS COLLECT;PREPAY
+                                  ;718;UPS;PREPAY
+                                  ;719;DPD;PREPAY
+                                  ;723;AIRFREIGHT;PREPAY
+                                  ;725;BY TRUCK;PREPAY
+                                  ;741;VIA COURIER;PREPAY
+                                  ;750;TNT;PREPAY
+                                  ;717;FEDEX;PREPAY
+                                  ;816;UPS EXPRESS SAVER;PREPAY
+                                  ;132;UPS-INTL Express-COL;PREPAY
+
+UPDATE PrePayShippingCarrierMethod;code[unique=true];name[lang=ru];shippingMethod(code)
+                                  ;204;Federal Express DX-1ST Next Business AM;PREPAY
+                                  ;104;UPS-2ND DAY AIR;PREPAY
+                                  ;105;UPS-2NDDAYAIRAM;PREPAY
+                                  ;103;UPS-3 DAY SELECT;PREPAY
+                                  ;101;UPS-GROUND COM;PREPAY
+                                  ;109;UPS-NEXT DAY SATURDAY DELIVERY;PREPAY
+                                  ;108;UPS-NEXT DAY EARLY AM;PREPAY
+                                  ;207;Federal Express-Next Day SATURDAY-DELIVERY;PREPAY
+                                  ;206;FEDERAL EXPRESS -PRIORITY-NEXTBUSINESS-AM;PREPAY
+                                  ;205;FEDERAL EXPRESS-STANDARD-NEXTBUSINESS-PM;PREPAY
+                                  ;210;FEDERAL EXPRESS -2ND DAY;PREPAY
+                                  ;201;FEDERAL EXPRESS-GROUND;PREPAY
+                                  ;107;UPS-NEXT DAY AIR;PREPAY
+                                  ;848;USPS PARCEL-MAIL;PREPAY
+
+                                  ;609;Other:Check Ship Cmn;PREPAY
+                                  ;703;AIRFREIGHT COLLECT;PREPAY
+                                  ;707;ABHOLUNG;PREPAY
+                                  ;709;DHL;PREPAY
+                                  ;712;UPS COLLECT;PREPAY
+                                  ;718;UPS;PREPAY
+                                  ;719;DPD;PREPAY
+                                  ;723;AIRFREIGHT;PREPAY
+                                  ;725;BY TRUCK;PREPAY
+                                  ;741;VIA COURIER;PREPAY
+                                  ;750;TNT;PREPAY
+                                  ;717;FEDEX;PREPAY
+                                  ;816;UPS EXPRESS SAVER;PREPAY
+                                  ;132;UPS-INTL Express-COL;PREPAY
+
+# END: Fix for null pointer if site language is french, russian exception in prepay shipping carrier
+
+INSERT_UPDATE CollectShippingCarrierMethod;code[unique=true];name;shippingMethod(code)
+;222;FEDERAL EXPRESS -1ST NEXTBBUSINESS AM;COLLECT
+;219;FEDERAL EXPRESS-2ND DAY;COLLECT
+;223;FEDERAL EXPRESS-NEXTDAY SATURDAY-DELIVERY;COLLECT
+;220;FEDERAL EXPRESS-PRIORITY-NEXTBUSINESS-AM;COLLECT
+;217;FEDERAL EXPRESS-GROUND;COLLECT
+;121;UPS-2ND DAY AIR;COLLECT
+;122;UPS-2ND DAYAIRAM;COLLECT
+;135;UPS-3 DAY SELECT;COLLECT
+;118;UPS-GROUND COM;COLLECT
+;126;UPS-NEXTDAY SATURDAYDELIVERY;COLLECT
+;125;UPS-NEXTDAY EARLY AM;COLLECT
+;124;UPS-NEXT DAY AIR;COLLECT
+;230;FEDERAL EXPRESSINTERNATIONAL ECONOMY3-5 DAY;COLLECT
+;134;UPS INTERNATIONAL STANDARD;COLLECT
+
+## 1800 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1800_BaseStore;101:PrePayShippingCarrierMethod
+;1800_BaseStore;103:PrePayShippingCarrierMethod
+;1800_BaseStore;104:PrePayShippingCarrierMethod
+;1800_BaseStore;105:PrePayShippingCarrierMethod
+;1800_BaseStore;107:PrePayShippingCarrierMethod
+;1800_BaseStore;108:PrePayShippingCarrierMethod
+;1800_BaseStore;109:PrePayShippingCarrierMethod
+;1800_BaseStore;201:PrePayShippingCarrierMethod
+;1800_BaseStore;204:PrePayShippingCarrierMethod
+;1800_BaseStore;205:PrePayShippingCarrierMethod
+;1800_BaseStore;206:PrePayShippingCarrierMethod
+;1800_BaseStore;207:PrePayShippingCarrierMethod
+;1800_BaseStore;210:PrePayShippingCarrierMethod
+;1800_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1800_BaseStore;118:CollectShippingCarrierMethod
+;1800_BaseStore;121:CollectShippingCarrierMethod
+;1800_BaseStore;122:CollectShippingCarrierMethod
+;1800_BaseStore;124:CollectShippingCarrierMethod
+;1800_BaseStore;125:CollectShippingCarrierMethod
+;1800_BaseStore;126:CollectShippingCarrierMethod
+;1800_BaseStore;134:CollectShippingCarrierMethod
+;1800_BaseStore;135:CollectShippingCarrierMethod
+;1800_BaseStore;217:CollectShippingCarrierMethod
+;1800_BaseStore;219:CollectShippingCarrierMethod
+;1800_BaseStore;220:CollectShippingCarrierMethod
+;1800_BaseStore;222:CollectShippingCarrierMethod
+;1800_BaseStore;223:CollectShippingCarrierMethod
+;1800_BaseStore;230:CollectShippingCarrierMethod
+
+
+## 1810 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1810_BaseStore;101:PrePayShippingCarrierMethod
+;1810_BaseStore;103:PrePayShippingCarrierMethod
+;1810_BaseStore;104:PrePayShippingCarrierMethod
+;1810_BaseStore;105:PrePayShippingCarrierMethod
+;1810_BaseStore;107:PrePayShippingCarrierMethod
+;1810_BaseStore;108:PrePayShippingCarrierMethod
+;1810_BaseStore;109:PrePayShippingCarrierMethod
+;1810_BaseStore;201:PrePayShippingCarrierMethod
+;1810_BaseStore;204:PrePayShippingCarrierMethod
+;1810_BaseStore;205:PrePayShippingCarrierMethod
+;1810_BaseStore;206:PrePayShippingCarrierMethod
+;1810_BaseStore;207:PrePayShippingCarrierMethod
+;1810_BaseStore;210:PrePayShippingCarrierMethod
+;1810_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1810_BaseStore;118:CollectShippingCarrierMethod
+;1810_BaseStore;121:CollectShippingCarrierMethod
+;1810_BaseStore;122:CollectShippingCarrierMethod
+;1810_BaseStore;124:CollectShippingCarrierMethod
+;1810_BaseStore;125:CollectShippingCarrierMethod
+;1810_BaseStore;126:CollectShippingCarrierMethod
+;1810_BaseStore;134:CollectShippingCarrierMethod
+;1810_BaseStore;135:CollectShippingCarrierMethod
+;1810_BaseStore;217:CollectShippingCarrierMethod
+;1810_BaseStore;219:CollectShippingCarrierMethod
+;1810_BaseStore;220:CollectShippingCarrierMethod
+;1810_BaseStore;222:CollectShippingCarrierMethod
+;1810_BaseStore;223:CollectShippingCarrierMethod
+;1810_BaseStore;230:CollectShippingCarrierMethod
+
+## 1820 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1820_BaseStore;101:PrePayShippingCarrierMethod
+;1820_BaseStore;103:PrePayShippingCarrierMethod
+;1820_BaseStore;104:PrePayShippingCarrierMethod
+;1820_BaseStore;105:PrePayShippingCarrierMethod
+;1820_BaseStore;107:PrePayShippingCarrierMethod
+;1820_BaseStore;108:PrePayShippingCarrierMethod
+;1820_BaseStore;109:PrePayShippingCarrierMethod
+;1820_BaseStore;201:PrePayShippingCarrierMethod
+;1820_BaseStore;204:PrePayShippingCarrierMethod
+;1820_BaseStore;205:PrePayShippingCarrierMethod
+;1820_BaseStore;206:PrePayShippingCarrierMethod
+;1820_BaseStore;207:PrePayShippingCarrierMethod
+;1820_BaseStore;210:PrePayShippingCarrierMethod
+;1820_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1820_BaseStore;118:CollectShippingCarrierMethod
+;1820_BaseStore;121:CollectShippingCarrierMethod
+;1820_BaseStore;122:CollectShippingCarrierMethod
+;1820_BaseStore;124:CollectShippingCarrierMethod
+;1820_BaseStore;125:CollectShippingCarrierMethod
+;1820_BaseStore;126:CollectShippingCarrierMethod
+;1820_BaseStore;134:CollectShippingCarrierMethod
+;1820_BaseStore;135:CollectShippingCarrierMethod
+;1820_BaseStore;217:CollectShippingCarrierMethod
+;1820_BaseStore;219:CollectShippingCarrierMethod
+;1820_BaseStore;220:CollectShippingCarrierMethod
+;1820_BaseStore;222:CollectShippingCarrierMethod
+;1820_BaseStore;223:CollectShippingCarrierMethod
+;1820_BaseStore;230:CollectShippingCarrierMethod
+
+
+
+
+## 1830 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1830_BaseStore;101:PrePayShippingCarrierMethod
+;1830_BaseStore;103:PrePayShippingCarrierMethod
+;1830_BaseStore;104:PrePayShippingCarrierMethod
+;1830_BaseStore;105:PrePayShippingCarrierMethod
+;1830_BaseStore;107:PrePayShippingCarrierMethod
+;1830_BaseStore;108:PrePayShippingCarrierMethod
+;1830_BaseStore;109:PrePayShippingCarrierMethod
+;1830_BaseStore;201:PrePayShippingCarrierMethod
+;1830_BaseStore;204:PrePayShippingCarrierMethod
+;1830_BaseStore;205:PrePayShippingCarrierMethod
+;1830_BaseStore;206:PrePayShippingCarrierMethod
+;1830_BaseStore;207:PrePayShippingCarrierMethod
+;1830_BaseStore;210:PrePayShippingCarrierMethod
+;1830_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1830_BaseStore;118:CollectShippingCarrierMethod
+;1830_BaseStore;121:CollectShippingCarrierMethod
+;1830_BaseStore;122:CollectShippingCarrierMethod
+;1830_BaseStore;124:CollectShippingCarrierMethod
+;1830_BaseStore;125:CollectShippingCarrierMethod
+;1830_BaseStore;126:CollectShippingCarrierMethod
+;1830_BaseStore;134:CollectShippingCarrierMethod
+;1830_BaseStore;135:CollectShippingCarrierMethod
+;1830_BaseStore;217:CollectShippingCarrierMethod
+;1830_BaseStore;219:CollectShippingCarrierMethod
+;1830_BaseStore;220:CollectShippingCarrierMethod
+;1830_BaseStore;222:CollectShippingCarrierMethod
+;1830_BaseStore;223:CollectShippingCarrierMethod
+;1830_BaseStore;230:CollectShippingCarrierMethod
+
+## 3000 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;3000_BaseStore;101:PrePayShippingCarrierMethod
+;3000_BaseStore;103:PrePayShippingCarrierMethod
+;3000_BaseStore;104:PrePayShippingCarrierMethod
+;3000_BaseStore;105:PrePayShippingCarrierMethod
+;3000_BaseStore;107:PrePayShippingCarrierMethod
+;3000_BaseStore;108:PrePayShippingCarrierMethod
+;3000_BaseStore;109:PrePayShippingCarrierMethod
+;3000_BaseStore;201:PrePayShippingCarrierMethod
+;3000_BaseStore;204:PrePayShippingCarrierMethod
+;3000_BaseStore;205:PrePayShippingCarrierMethod
+;3000_BaseStore;206:PrePayShippingCarrierMethod
+;3000_BaseStore;207:PrePayShippingCarrierMethod
+;3000_BaseStore;210:PrePayShippingCarrierMethod
+;3000_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;3000_BaseStore;118:CollectShippingCarrierMethod
+;3000_BaseStore;121:CollectShippingCarrierMethod
+;3000_BaseStore;122:CollectShippingCarrierMethod
+;3000_BaseStore;124:CollectShippingCarrierMethod
+;3000_BaseStore;125:CollectShippingCarrierMethod
+;3000_BaseStore;126:CollectShippingCarrierMethod
+;3000_BaseStore;134:CollectShippingCarrierMethod
+;3000_BaseStore;135:CollectShippingCarrierMethod
+;3000_BaseStore;217:CollectShippingCarrierMethod
+;3000_BaseStore;219:CollectShippingCarrierMethod
+;3000_BaseStore;220:CollectShippingCarrierMethod
+;3000_BaseStore;222:CollectShippingCarrierMethod
+;3000_BaseStore;223:CollectShippingCarrierMethod
+;3000_BaseStore;230:CollectShippingCarrierMethod
+
+## 7030 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;7030_BaseStore;101:PrePayShippingCarrierMethod
+;7030_BaseStore;103:PrePayShippingCarrierMethod
+;7030_BaseStore;104:PrePayShippingCarrierMethod
+;7030_BaseStore;105:PrePayShippingCarrierMethod
+;7030_BaseStore;107:PrePayShippingCarrierMethod
+;7030_BaseStore;108:PrePayShippingCarrierMethod
+;7030_BaseStore;109:PrePayShippingCarrierMethod
+;7030_BaseStore;201:PrePayShippingCarrierMethod
+;7030_BaseStore;204:PrePayShippingCarrierMethod
+;7030_BaseStore;205:PrePayShippingCarrierMethod
+;7030_BaseStore;206:PrePayShippingCarrierMethod
+;7030_BaseStore;207:PrePayShippingCarrierMethod
+;7030_BaseStore;210:PrePayShippingCarrierMethod
+;7030_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;7030_BaseStore;118:CollectShippingCarrierMethod
+;7030_BaseStore;121:CollectShippingCarrierMethod
+;7030_BaseStore;122:CollectShippingCarrierMethod
+;7030_BaseStore;124:CollectShippingCarrierMethod
+;7030_BaseStore;125:CollectShippingCarrierMethod
+;7030_BaseStore;126:CollectShippingCarrierMethod
+;7030_BaseStore;134:CollectShippingCarrierMethod
+;7030_BaseStore;135:CollectShippingCarrierMethod
+;7030_BaseStore;217:CollectShippingCarrierMethod
+;7030_BaseStore;219:CollectShippingCarrierMethod
+;7030_BaseStore;220:CollectShippingCarrierMethod
+;7030_BaseStore;222:CollectShippingCarrierMethod
+;7030_BaseStore;223:CollectShippingCarrierMethod
+;7030_BaseStore;230:CollectShippingCarrierMethod
+
+## 6240 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6240_BaseStore;101:PrePayShippingCarrierMethod
+;6240_BaseStore;103:PrePayShippingCarrierMethod
+;6240_BaseStore;104:PrePayShippingCarrierMethod
+;6240_BaseStore;105:PrePayShippingCarrierMethod
+;6240_BaseStore;107:PrePayShippingCarrierMethod
+;6240_BaseStore;108:PrePayShippingCarrierMethod
+;6240_BaseStore;109:PrePayShippingCarrierMethod
+;6240_BaseStore;201:PrePayShippingCarrierMethod
+;6240_BaseStore;204:PrePayShippingCarrierMethod
+;6240_BaseStore;205:PrePayShippingCarrierMethod
+;6240_BaseStore;206:PrePayShippingCarrierMethod
+;6240_BaseStore;207:PrePayShippingCarrierMethod
+;6240_BaseStore;210:PrePayShippingCarrierMethod
+;6240_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6240_BaseStore;118:CollectShippingCarrierMethod
+;6240_BaseStore;121:CollectShippingCarrierMethod
+;6240_BaseStore;122:CollectShippingCarrierMethod
+;6240_BaseStore;124:CollectShippingCarrierMethod
+;6240_BaseStore;125:CollectShippingCarrierMethod
+;6240_BaseStore;126:CollectShippingCarrierMethod
+;6240_BaseStore;134:CollectShippingCarrierMethod
+;6240_BaseStore;135:CollectShippingCarrierMethod
+;6240_BaseStore;217:CollectShippingCarrierMethod
+;6240_BaseStore;219:CollectShippingCarrierMethod
+;6240_BaseStore;220:CollectShippingCarrierMethod
+;6240_BaseStore;222:CollectShippingCarrierMethod
+;6240_BaseStore;223:CollectShippingCarrierMethod
+;6240_BaseStore;230:CollectShippingCarrierMethod
+
+## 6250 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6250_BaseStore;101:PrePayShippingCarrierMethod
+;6250_BaseStore;103:PrePayShippingCarrierMethod
+;6250_BaseStore;104:PrePayShippingCarrierMethod
+;6250_BaseStore;105:PrePayShippingCarrierMethod
+;6250_BaseStore;107:PrePayShippingCarrierMethod
+;6250_BaseStore;108:PrePayShippingCarrierMethod
+;6250_BaseStore;109:PrePayShippingCarrierMethod
+;6250_BaseStore;201:PrePayShippingCarrierMethod
+;6250_BaseStore;204:PrePayShippingCarrierMethod
+;6250_BaseStore;205:PrePayShippingCarrierMethod
+;6250_BaseStore;206:PrePayShippingCarrierMethod
+;6250_BaseStore;207:PrePayShippingCarrierMethod
+;6250_BaseStore;210:PrePayShippingCarrierMethod
+;6250_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6250_BaseStore;118:CollectShippingCarrierMethod
+;6250_BaseStore;121:CollectShippingCarrierMethod
+;6250_BaseStore;122:CollectShippingCarrierMethod
+;6250_BaseStore;124:CollectShippingCarrierMethod
+;6250_BaseStore;125:CollectShippingCarrierMethod
+;6250_BaseStore;126:CollectShippingCarrierMethod
+;6250_BaseStore;134:CollectShippingCarrierMethod
+;6250_BaseStore;135:CollectShippingCarrierMethod
+;6250_BaseStore;217:CollectShippingCarrierMethod
+;6250_BaseStore;219:CollectShippingCarrierMethod
+;6250_BaseStore;220:CollectShippingCarrierMethod
+;6250_BaseStore;222:CollectShippingCarrierMethod
+;6250_BaseStore;223:CollectShippingCarrierMethod
+;6250_BaseStore;230:CollectShippingCarrierMethod
+
+## 6020 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6020_BaseStore;101:PrePayShippingCarrierMethod
+;6020_BaseStore;103:PrePayShippingCarrierMethod
+;6020_BaseStore;104:PrePayShippingCarrierMethod
+;6020_BaseStore;105:PrePayShippingCarrierMethod
+;6020_BaseStore;107:PrePayShippingCarrierMethod
+;6020_BaseStore;108:PrePayShippingCarrierMethod
+;6020_BaseStore;109:PrePayShippingCarrierMethod
+;6020_BaseStore;201:PrePayShippingCarrierMethod
+;6020_BaseStore;204:PrePayShippingCarrierMethod
+;6020_BaseStore;205:PrePayShippingCarrierMethod
+;6020_BaseStore;206:PrePayShippingCarrierMethod
+;6020_BaseStore;207:PrePayShippingCarrierMethod
+;6020_BaseStore;210:PrePayShippingCarrierMethod
+;6020_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6020_BaseStore;118:CollectShippingCarrierMethod
+;6020_BaseStore;121:CollectShippingCarrierMethod
+;6020_BaseStore;122:CollectShippingCarrierMethod
+;6020_BaseStore;124:CollectShippingCarrierMethod
+;6020_BaseStore;125:CollectShippingCarrierMethod
+;6020_BaseStore;126:CollectShippingCarrierMethod
+;6020_BaseStore;134:CollectShippingCarrierMethod
+;6020_BaseStore;135:CollectShippingCarrierMethod
+;6020_BaseStore;217:CollectShippingCarrierMethod
+;6020_BaseStore;219:CollectShippingCarrierMethod
+;6020_BaseStore;220:CollectShippingCarrierMethod
+;6020_BaseStore;222:CollectShippingCarrierMethod
+;6020_BaseStore;223:CollectShippingCarrierMethod
+;6020_BaseStore;230:CollectShippingCarrierMethod
+
+## 6270 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6270_BaseStore;101:PrePayShippingCarrierMethod
+;6270_BaseStore;103:PrePayShippingCarrierMethod
+;6270_BaseStore;104:PrePayShippingCarrierMethod
+;6270_BaseStore;105:PrePayShippingCarrierMethod
+;6270_BaseStore;107:PrePayShippingCarrierMethod
+;6270_BaseStore;108:PrePayShippingCarrierMethod
+;6270_BaseStore;109:PrePayShippingCarrierMethod
+;6270_BaseStore;201:PrePayShippingCarrierMethod
+;6270_BaseStore;204:PrePayShippingCarrierMethod
+;6270_BaseStore;205:PrePayShippingCarrierMethod
+;6270_BaseStore;206:PrePayShippingCarrierMethod
+;6270_BaseStore;207:PrePayShippingCarrierMethod
+;6270_BaseStore;210:PrePayShippingCarrierMethod
+;6270_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6270_BaseStore;118:CollectShippingCarrierMethod
+;6270_BaseStore;121:CollectShippingCarrierMethod
+;6270_BaseStore;122:CollectShippingCarrierMethod
+;6270_BaseStore;124:CollectShippingCarrierMethod
+;6270_BaseStore;125:CollectShippingCarrierMethod
+;6270_BaseStore;126:CollectShippingCarrierMethod
+;6270_BaseStore;134:CollectShippingCarrierMethod
+;6270_BaseStore;135:CollectShippingCarrierMethod
+;6270_BaseStore;217:CollectShippingCarrierMethod
+;6270_BaseStore;219:CollectShippingCarrierMethod
+;6270_BaseStore;220:CollectShippingCarrierMethod
+;6270_BaseStore;222:CollectShippingCarrierMethod
+;6270_BaseStore;223:CollectShippingCarrierMethod
+;6270_BaseStore;230:CollectShippingCarrierMethod
+
+
+## 1720 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1720_BaseStore;101:PrePayShippingCarrierMethod
+;1720_BaseStore;103:PrePayShippingCarrierMethod
+;1720_BaseStore;104:PrePayShippingCarrierMethod
+;1720_BaseStore;105:PrePayShippingCarrierMethod
+;1720_BaseStore;107:PrePayShippingCarrierMethod
+;1720_BaseStore;108:PrePayShippingCarrierMethod
+;1720_BaseStore;109:PrePayShippingCarrierMethod
+;1720_BaseStore;201:PrePayShippingCarrierMethod
+;1720_BaseStore;204:PrePayShippingCarrierMethod
+;1720_BaseStore;205:PrePayShippingCarrierMethod
+;1720_BaseStore;206:PrePayShippingCarrierMethod
+;1720_BaseStore;207:PrePayShippingCarrierMethod
+;1720_BaseStore;210:PrePayShippingCarrierMethod
+;1720_BaseStore;848:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;1720_BaseStore;118:CollectShippingCarrierMethod
+;1720_BaseStore;121:CollectShippingCarrierMethod
+;1720_BaseStore;122:CollectShippingCarrierMethod
+;1720_BaseStore;124:CollectShippingCarrierMethod
+;1720_BaseStore;125:CollectShippingCarrierMethod
+;1720_BaseStore;126:CollectShippingCarrierMethod
+;1720_BaseStore;134:CollectShippingCarrierMethod
+;1720_BaseStore;135:CollectShippingCarrierMethod
+;1720_BaseStore;217:CollectShippingCarrierMethod
+;1720_BaseStore;219:CollectShippingCarrierMethod
+;1720_BaseStore;220:CollectShippingCarrierMethod
+;1720_BaseStore;222:CollectShippingCarrierMethod
+;1720_BaseStore;223:CollectShippingCarrierMethod
+;1720_BaseStore;230:CollectShippingCarrierMethod
+
+## 6040 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6040_BaseStore;101:PrePayShippingCarrierMethod
+;6040_BaseStore;103:PrePayShippingCarrierMethod
+;6040_BaseStore;104:PrePayShippingCarrierMethod
+;6040_BaseStore;105:PrePayShippingCarrierMethod
+;6040_BaseStore;107:PrePayShippingCarrierMethod
+;6040_BaseStore;108:PrePayShippingCarrierMethod
+;6040_BaseStore;109:PrePayShippingCarrierMethod
+;6040_BaseStore;201:PrePayShippingCarrierMethod
+;6040_BaseStore;204:PrePayShippingCarrierMethod
+;6040_BaseStore;205:PrePayShippingCarrierMethod
+;6040_BaseStore;206:PrePayShippingCarrierMethod
+;6040_BaseStore;207:PrePayShippingCarrierMethod
+;6040_BaseStore;210:PrePayShippingCarrierMethod
+;6040_BaseStore;848:PrePayShippingCarrierMethod
+;6040_BaseStore;609:PrePayShippingCarrierMethod
+;6040_BaseStore;703:PrePayShippingCarrierMethod
+;6040_BaseStore;707:PrePayShippingCarrierMethod
+;6040_BaseStore;709:PrePayShippingCarrierMethod
+;6040_BaseStore;712:PrePayShippingCarrierMethod
+;6040_BaseStore;718:PrePayShippingCarrierMethod
+;6040_BaseStore;719:PrePayShippingCarrierMethod
+;6040_BaseStore;723:PrePayShippingCarrierMethod
+;6040_BaseStore;725:PrePayShippingCarrierMethod
+;6040_BaseStore;741:PrePayShippingCarrierMethod
+;6040_BaseStore;750:PrePayShippingCarrierMethod
+
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6040_BaseStore;118:CollectShippingCarrierMethod
+;6040_BaseStore;121:CollectShippingCarrierMethod
+;6040_BaseStore;122:CollectShippingCarrierMethod
+;6040_BaseStore;124:CollectShippingCarrierMethod
+;6040_BaseStore;125:CollectShippingCarrierMethod
+;6040_BaseStore;126:CollectShippingCarrierMethod
+;6040_BaseStore;134:CollectShippingCarrierMethod
+;6040_BaseStore;135:CollectShippingCarrierMethod
+;6040_BaseStore;217:CollectShippingCarrierMethod
+;6040_BaseStore;219:CollectShippingCarrierMethod
+;6040_BaseStore;220:CollectShippingCarrierMethod
+;6040_BaseStore;222:CollectShippingCarrierMethod
+;6040_BaseStore;223:CollectShippingCarrierMethod
+;6040_BaseStore;230:CollectShippingCarrierMethod
+
+## 6030 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6030_BaseStore;101:PrePayShippingCarrierMethod
+;6030_BaseStore;103:PrePayShippingCarrierMethod
+;6030_BaseStore;104:PrePayShippingCarrierMethod
+;6030_BaseStore;105:PrePayShippingCarrierMethod
+;6030_BaseStore;107:PrePayShippingCarrierMethod
+;6030_BaseStore;108:PrePayShippingCarrierMethod
+;6030_BaseStore;109:PrePayShippingCarrierMethod
+;6030_BaseStore;201:PrePayShippingCarrierMethod
+;6030_BaseStore;204:PrePayShippingCarrierMethod
+;6030_BaseStore;205:PrePayShippingCarrierMethod
+;6030_BaseStore;206:PrePayShippingCarrierMethod
+;6030_BaseStore;207:PrePayShippingCarrierMethod
+;6030_BaseStore;210:PrePayShippingCarrierMethod
+;6030_BaseStore;848:PrePayShippingCarrierMethod
+;6030_BaseStore;709:PrePayShippingCarrierMethod
+;6030_BaseStore;717:PrePayShippingCarrierMethod
+;6030_BaseStore;718:PrePayShippingCarrierMethod
+;6030_BaseStore;816:PrePayShippingCarrierMethod
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6030_BaseStore;118:CollectShippingCarrierMethod
+;6030_BaseStore;121:CollectShippingCarrierMethod
+;6030_BaseStore;122:CollectShippingCarrierMethod
+;6030_BaseStore;124:CollectShippingCarrierMethod
+;6030_BaseStore;125:CollectShippingCarrierMethod
+;6030_BaseStore;126:CollectShippingCarrierMethod
+;6030_BaseStore;134:CollectShippingCarrierMethod
+;6030_BaseStore;135:CollectShippingCarrierMethod
+;6030_BaseStore;217:CollectShippingCarrierMethod
+;6030_BaseStore;219:CollectShippingCarrierMethod
+;6030_BaseStore;220:CollectShippingCarrierMethod
+;6030_BaseStore;222:CollectShippingCarrierMethod
+;6030_BaseStore;223:CollectShippingCarrierMethod
+;6030_BaseStore;230:CollectShippingCarrierMethod
+
+## 6210 Sales Area ##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6210_BaseStore;101:PrePayShippingCarrierMethod
+;6210_BaseStore;103:PrePayShippingCarrierMethod
+;6210_BaseStore;104:PrePayShippingCarrierMethod
+;6210_BaseStore;105:PrePayShippingCarrierMethod
+;6210_BaseStore;107:PrePayShippingCarrierMethod
+;6210_BaseStore;108:PrePayShippingCarrierMethod
+;6210_BaseStore;109:PrePayShippingCarrierMethod
+;6210_BaseStore;201:PrePayShippingCarrierMethod
+;6210_BaseStore;204:PrePayShippingCarrierMethod
+;6210_BaseStore;205:PrePayShippingCarrierMethod
+;6210_BaseStore;206:PrePayShippingCarrierMethod
+;6210_BaseStore;207:PrePayShippingCarrierMethod
+;6210_BaseStore;210:PrePayShippingCarrierMethod
+;6210_BaseStore;848:PrePayShippingCarrierMethod
+;6210_BaseStore;132:PrePayShippingCarrierMethod
+;6210_BaseStore;718:PrePayShippingCarrierMethod
+;6210_BaseStore;816:PrePayShippingCarrierMethod
+
+
+##CollectShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;6210_BaseStore;118:CollectShippingCarrierMethod
+;6210_BaseStore;121:CollectShippingCarrierMethod
+;6210_BaseStore;122:CollectShippingCarrierMethod
+;6210_BaseStore;124:CollectShippingCarrierMethod
+;6210_BaseStore;125:CollectShippingCarrierMethod
+;6210_BaseStore;126:CollectShippingCarrierMethod
+;6210_BaseStore;134:CollectShippingCarrierMethod
+;6210_BaseStore;135:CollectShippingCarrierMethod
+;6210_BaseStore;217:CollectShippingCarrierMethod
+;6210_BaseStore;219:CollectShippingCarrierMethod
+;6210_BaseStore;220:CollectShippingCarrierMethod
+;6210_BaseStore;222:CollectShippingCarrierMethod
+;6210_BaseStore;223:CollectShippingCarrierMethod
+;6210_BaseStore;230:CollectShippingCarrierMethod
+
+
+insert GEEdgeServiceProvider;serviceProvider;serviceProviderName;url
+;UPS 3rd day– COLLECT;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;104;UPS-2nd Day Air-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;201;FDX-Ground-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;103;UPS-3 Day Select-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;109;UPS-ND SATDEL-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;108;UPS-NDA EarlyAM-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;105;UPS-2nd DayAirAM-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;107;UPS-Next Day Air-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;101;UPS-Grnd Com-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;204;FDX-PRTY-NB-AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;205;FDX-Std-NB-PM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;206;FDX-1st NB AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;207;FDX-ND SAT-Del-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;210;FDXF-2 Day-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;848;USPS PARCEL-MAIL;https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=
+;118;UPS-Grnd Com-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;121;UPS-2nd Day Air-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;122;UPS-2nd DayAirAM-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;125;UPS-NDA Early AM-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;134;UPS INTL Std-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;126;UPS-ND SATDEL-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;135;UPS 3rd day– COLLECT;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;124;UPS-Next Day Air-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;217;FEDEX-Ground-COLL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;220;FDX-PRTY-NB-AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;219;FDX-2nd Day-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;222;FDX-1st NB AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;223;FDX-ND SAT-Del-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;230;FDXINTL ECO3-5 DY-CO;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;UPS-Next Day Air-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-3 Day Select-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-INTL-EXP-PP;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-INTL STD-PP;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-INTL Expedit PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFrt-Next Day-PP;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS INTL Std-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-2nd Day-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Resi-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd DayAirAM-COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Res-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA-Saver-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-ND SATDEL-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-INTL-EXP-CO;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-2nd Day-COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-INTL STD-CO;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFrt-Next Day-CO;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-ECO-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-INTL Expedit COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS INTL Std-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-INTL Express-COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;FDX-Exp SVR-3DY-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-PRTY-NB-AM-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-Std-NB-PM-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-Ground-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-EXPSVR3-5 DY-PP;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-ND SAT-Del-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-1st NB AM-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-2nd Day-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-2 Day-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-3 DY-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-Ovngt-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-INTL ECO-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-INTL PRTY-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINT PRTY 1-3 DY-P;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINTL ECO3-5 DY-PP;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINTL FE AM-PPA;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-Exp SVR-3DY-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-2nd Day-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-PRTY-NB-AM-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-1st NB AM-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-ND SAT-Del-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-EXPSVR3-5 DY-CO;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-3 DY-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-2 Day-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-Ovngt-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-INTL ECO-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINTL ECO3-5 DY-CO;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXF-INTL PRTY-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINT PRTY 1-3 DY-C;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDXINTL FE AM-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;USPS Parcel-Mail;;https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=
+;FEDEX COLLECT;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;UPS COLLECT;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;FEDEX;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;UPS EXPRESS SAVER;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS/ UNITED PARCEL S;;https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=
+;Fedex PRIORTY;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;UPS EXPEDITED;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;718;UPS;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;102;UPS-Grnd Resi-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;110;UPS-AFRT-INTL-EXP-PP;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;111;UPS-AFRT-INTL STD-PP;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;112;UPS-AFRT-ECO-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;113;UPS-AFRT-2nd Day-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;114;UPS-AFrt-Next Day-PP;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;115;UPS-INTL Express-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;116;UPS-INTL Expedit PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;117;UPS INTL Std-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;106;UPS-NDA-Saver-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;119;UPS-Grnd Res-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;123;UPS-NDA-Saver-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;127;UPS-AFRT-INTL-EXP-CO;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;120;UPS-Grnd Resi-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;128;UPS-AFRT-INTL STD-CO;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;129;UPS-AFRT-ECO-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;133;UPS-INTL Expedit COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;131;UPS-AFrt-Next Day-CO;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;202;FDX-Exp SVR-3DY-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;130;UPS-AFRT-2nd Day-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;132;UPS-INTL Express-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;203;FDX-2nd Day-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;208;FDXF-EXPSVR3-5 DY-PP;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;209;FDXF-3 DY-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;211;FDXF-Ovngt-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;212;FDXF-INTL ECO-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;213;FDXF-INTL PRTY-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;214;FDXINTL ECO3-5 DY-PP;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;216;FDXINTL FE AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;215;FDXINT PRTY 1-3 DY-P;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;218;FDX-Exp SVR-3DY-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;221;FDX-Std-NB-PM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;224;FDXF-EXPSVR3-5 DY-CO;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;225;FDXF-3 DY-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;226;FDXF-2 Day-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;227;FDXF-Ovngt-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;229;FDXF-INTL PRTY-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;228;FDXF-INTL ECO-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;231;FDXINT PRTY 1-3 DY-C;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;232;FDXINTL FE AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;301;DHL-Ground-PPA;
+;303;DHL-Next Day-PPA;
+;302;DHL-2nd Day-PPA;
+;304;DHL-INTL-PPA;
+;305;DHL-Ground-COLL;
+;307;DHL-Next Day-COLL;
+;306;DHL-2nd Day-COLL;
+;308;DHL-INTL-COLL;
+;501;MotorFrieght-PPA;
+;502;Air Frieght-PPA;
+;504;Air Frieght-COLL;
+;503;MotorFrieght-COLL;
+;511;BAX Global-PPA;
+;512;BAX Global-COLL;
+;521;DANZA-Domestic-PPA;
+;522;DANZA-INTL-PPA;
+;523;DANZA-Domestic-COLL;
+;524;DANZA-INTL-COLL;
+;606;Ocean Frt-COLL;
+;605;Ocean Frt-PPA;
+;609;Other:Check Ship Cmn;
+;701;PER BAHN-EXPRESS;
+;608;USPS Parcel-Mail;https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=
+;703;AIRFREIGHT COLLECT;
+;704;LUFTFRACHT;
+;702;PER POST;
+;705;SEEFRACHT;
+;706;MITNAHME;
+;707;ABHOLUNG;
+;708;ANLIEFERUNG;
+;709;DHL;
+;711;FEDEX COLLECT;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;710;PER EILPÄCKCHEN/-PAK;
+;712;UPS COLLECT;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;714;BY TRUCK COLLECT;
+;715;LKW-SAMMELLADUNG;
+;713;DPD COLLECT;
+;716;PER LUFTPOST;
+;717;FEDEX;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;719;DPD;
+;720;PARCEL POST;
+;722;VIA COURIER COLLECT;
+;721;RAILWAY - CARGO;
+;723;AIRFREIGHT;
+;724;SEAFREIGHT;
+;725;BY TRUCK;
+;726;VIA AIRMAIL;
+;728;LUFTPOSTPAKET;
+;727;AIR PARCEL POST;
+;729;POSTPAKET;
+;731;LUFTPOSTPÄCKCHEN;
+;730;FLETE POSTAL;
+;732;LUFTPOSTPÄCKCHEN-EIN;
+;733;FRET AERIEN;
+;736;AIRMAIL PACKAGE;
+;735;PAR CAMION;
+;734;BRIEF;
+;737;REGISTERED AIRMAIL P;
+;739;COMO CAMION;
+;738;TAKEN ALONG;
+;743;PER SAMMELLADUNG;
+;744;PAQUETITO CORREO AER;
+;741;VIA COURIER;
+;745;FLETE AEREO COLLECT;
+;742;TO BE INDICATED;
+;740;FLETE AEREO;
+;746;DATA POST;
+;747;RAILWAY EXPRESS;
+;748;PER LKW;
+;749;PER E-Mail;
+;750;TNT;
+;EX;EXPRESS;
+;UPS-Grnd Com-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd DayAirAM-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-ND SATDEL-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Resi-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd Day Air-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA EarlyAM-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA-Saver-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-ECO-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-INTL Express-PPA;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Com-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd Day Air-COLL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Next Day Air-COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA Early AM-COL;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;FEDEX-Ground-COLL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-Std-NB-PM-COL;;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;UPS;;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+
+##SD ticket:BHI-22101105 for 3050 and 6160 Sales Areas##
+##PrePayShippingCarrierMethod##
+UPDATE BaseStore;uid[unique=true];shippingCarrier(code, itemtype(code))[mode=append]
+;3050_BN_BN_BaseStore;709:PrePayShippingCarrierMethod
+;6160_BN_BN_BaseStore;709:PrePayShippingCarrierMethod
+
+"#% impex.info(""###############    store-carrier-mapping.impex  ################"")"

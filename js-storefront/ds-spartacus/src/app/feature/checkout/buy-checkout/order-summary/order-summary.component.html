@@ -1,0 +1,586 @@
+<ng-container *ngIf="data; else loading">
+  <section>
+    <div class="confirmation">
+      <div class="mt-3 mb-5 status" *ngIf="showOrderConfirmation">
+        <div class="success-content">
+          <span class="top-success">
+            {{ 'checkoutConfirmation.successMsg' | cxTranslate }}
+          </span>
+          <span class="top-info" *ngIf="!this.salesAreaCode">
+            {{ 'checkoutConfirmation.checkOrderMsg' | cxTranslate }}</span
+          >
+        </div>
+      </div>
+      <div class="mt-3 mb-5 status" *ngIf="showCardSaved">
+        <div class="success-content">
+          <span class="card-saved">
+            {{ 'checkoutConfirmation.cardSaved' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+      <div class="mt-3 mb-5 status warn" *ngIf="showCardNotSaved">
+        <div class="success-content warn">
+          <span class="card-saved">
+            {{ 'checkoutConfirmation.cardNotSaved' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+      <div class="header">{{ 'checkoutConfirmation.title' | cxTranslate }}</div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.orderDate' | cxTranslate }}
+          </div>
+          <p>{{ this?.orderconfirm }}</p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.orderPlacedBy' | cxTranslate }}
+          </div>
+          <p>{{ data?.ordersList[0]?.orgCustomer?.name }}</p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.orderNos' | cxTranslate }}
+          </div>
+          <p>{{ orderCodes.join(', ') }}</p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.orderStatus' | cxTranslate }}
+          </div>
+          <p>{{ data?.ordersList[0]?.status }}</p>
+        </div>
+        <div *ngFor="let orderDetail of data.ordersList" class="col-sm-3">
+          <div class="order-detail">
+            <div class="order-row-header mb-2">
+              <span class="mr-2">{{
+                'checkoutConfirmation.order' | cxTranslate
+              }}</span>
+              <span>#{{ orderDetail.code }}</span>
+            </div>
+            <div class="order-detail-row">
+              <span>{{
+                'checkoutConfirmation.totalEstimate' | cxTranslate
+              }}</span>
+              <span
+                >{{
+                  orderDetail?.totalListPrice?.value <= 0
+                    ? 'To be
+                quoted'
+                    : orderDetail?.totalListPrice?.formattedValue
+                }}
+              </span>
+            </div>
+            <div
+              *ngIf="
+                orderDetail?.ordersilverClause &&
+                orderDetail?.ordersilverClause?.value !== 0
+              "
+              class="order-detail-row silver-clause"
+            >
+              <span>
+                {{ 'checkoutConfirmation.totalSilverClause' | cxTranslate }}
+              </span>
+              <div
+                [ngClass]="
+                  orderDetail?.ordersilverClause?.value > 0
+                    ? 'negative'
+                    : 'positive'
+                "
+              >
+                <span *ngIf="orderDetail?.ordersilverClause.value < 0">
+                  -
+                </span>
+                <span *ngIf="orderDetail?.ordersilverClause.value > 0">
+                  +
+                </span>
+                <span *ngIf="orderDetail?.ordersilverClause.value > 0">
+                  {{ orderDetail?.ordersilverClause?.formattedValue }}</span
+                >
+                <span *ngIf="orderDetail?.ordersilverClause.value < 0"
+                  >{{ data?.currenyIso }} {{ data?.currenySymbol }}
+                  {{
+                    getPositiveSilverClause(
+                      orderDetail?.ordersilverClause?.value
+                    )
+                  }}</span
+                >
+              </div>
+            </div>
+            <div
+              *ngIf="orderDetail?.yourPriceDiscount?.value > 0"
+              class="order-detail-row"
+            >
+              <span>{{ 'checkoutConfirmation.discounts' | cxTranslate }}</span>
+              <span>{{ orderDetail?.yourPriceDiscount?.formattedValue }}</span>
+            </div>
+            <div
+              *ngIf="orderDetail?.totalDiscounts?.value > 0"
+              class="order-detail-row"
+            >
+              <span>{{
+                'checkoutConfirmation.voucherDiscount' | cxTranslate
+              }}</span>
+              <span>{{ orderDetail?.totalDiscounts?.formattedValue }}</span>
+            </div>
+            <div
+              class="mb-2"
+              *ngIf="orderDetail?.appliedCouponCodes?.length > 0"
+            >
+              <div class="confirm">
+                <div class="applied-coupon-icon mr-2"></div>
+                <div class="coupons-holder">
+                  <span class="applied-coupon">{{
+                    orderDetail?.appliedCouponCodes[0]
+                  }}</span>
+                  <span class="applied-coupon-text">{{
+                    'checkoutConfirmation.couponInfo' | cxTranslate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-detail-row">
+              <span class="header-inner">
+                {{ 'checkoutConfirmation.orderTotal' | cxTranslate }}
+              </span>
+              <span class="header-inner">
+                {{ orderDetail?.totalPrice?.formattedValue }}
+              </span>
+            </div>
+            <div class="order-detail-row mb-0">
+              <span class="addInfo">
+                {{ 'checkoutConfirmation.orderInfo' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="data">
+    <div
+      class="confirmation"
+      *ngFor="let orderNo of data.ordersList; index as j"
+    >
+      <div
+        [ngClass]="
+          isAccountCollapsed ? 'accordion-toggle' : 'accordion-toggle-collapsed'
+        "
+        (click)="isAccountCollapsed = !isAccountCollapsed"
+        [attr.aria-expanded]="!isAccountCollapsed"
+        aria-controls="accountDetails"
+      ></div>
+      <div class="tbl head">
+        <span class="order"
+          >Order #{{ orderCodes[j] }} ({{ orderNo.totalItems }} items)</span
+        >
+        <span class="total"
+          >{{ 'checkoutConfirmation.orderTotal' | cxTranslate }}
+          {{
+            orderNo.subTotal.value <= 0
+              ? 'To be quoted'
+              : orderNo.subTotal.formattedValue
+          }}</span
+        >
+      </div>
+
+      <div
+        id="accountDetails"
+        [ngbCollapse]="isAccountCollapsed"
+        class="table-responsive custom"
+      >
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{{ 'checkoutConfirmation.partNumber' | cxTranslate }}</th>
+              <th>{{ 'checkoutConfirmation.partName' | cxTranslate }}</th>
+              <th>{{ 'checkoutConfirmation.quantity' | cxTranslate }}</th>
+              <th>
+                {{ 'checkoutConfirmation.unitSellingPrice' | cxTranslate }}
+                ({{ data?.currenyIso }})
+              </th>
+              <th>
+                {{ 'checkoutConfirmation.netSellingPrice' | cxTranslate }}
+                ({{ data?.currenyIso }})
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderNo.entries; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item?.product.code }}</td>
+              <td>{{ item?.product.name }}</td>
+              <td>{{ item?.quantity }}</td>
+              <td>
+                {{ data?.currenyIso }}
+                {{ data?.currenySymbol }}{{ item?.unitSelling }}
+              </td>
+              <td>
+                {{ data?.currenyIso }}
+                {{ data?.currenySymbol }}{{ item.netSellingPrice?.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <br />
+  <section>
+    <div class="confirmation" *ngIf="data">
+      <div class="header">
+        {{ 'checkoutConfirmation.customerAccountNPayment' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.soldAddress' | cxTranslate }}
+          </div>
+          <div class="address">
+            <p>
+              {{
+                data?.ordersList[0]?.soldToAddress?.firstName ||
+                  data?.ordersList[0]?.alternateContactName
+              }}
+              {{ data?.ordersList[0]?.soldToAddress?.lastName }}
+            </p>
+            <p>{{ data?.ordersList[0]?.soldToAddress?.companyName }}</p>
+            <p>
+              {{ data?.ordersList[0]?.soldToAddress?.line1 }},
+              {{ data?.ordersList[0]?.soldToAddress?.town }}
+            </p>
+            <p>{{ data?.ordersList[0].soldToAddress?.country?.name }},</p>
+            <p>{{ data?.ordersList[0].soldToAddress?.postalCode }}</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.paymentTerms' | cxTranslate }}
+          </div>
+          <p>
+            {{
+              data?.ordersList[0]?.paymentTrms?.name
+                ? data?.ordersList[0]?.paymentTrms?.name
+                : data?.ordersList[0]?.paymentTrms?.code
+            }}
+          </p>
+          <!-- <p class="na">{{ 'checkoutConfirmation.na' | cxTranslate }}</p> -->
+
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.paymentMethod' | cxTranslate }}
+          </div>
+          <p>{{ data?.ordersList[0]?.paymentType?.displayName }}</p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.poNumber' | cxTranslate }}
+          </div>
+          <p>
+            {{
+              data?.ordersList[0]?.customerPO ||
+                data?.ordersList[0]?.purchaseOrderNumber
+            }}
+          </p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.endCustomerPoNumber' | cxTranslate }}
+          </div>
+          <p>
+            <span *ngIf="data?.ordersList[0].endCustomerPo">{{
+              data?.ordersList[0]?.endCustomerPo
+            }}</span>
+            <span *ngIf="!data?.ordersList[0].endCustomerPo" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate }}
+            </span>
+          </p>
+          <!-- not required yet -->
+          <!-- <div class="payment-cols">
+            <div class="header-inner">
+              {{ 'checkoutConfirmation.poUpload' | cxTranslate }}
+            </div>
+            <div class="doc" *ngIf="data?.ordersList[0]?.returnPoAttachment[0]">
+              <div class="doc-details">
+                <p>{{data?.ordersList[0]?.returnPoAttachment[0]}}</p>
+              </div>
+            </div>
+            <span *ngIf="!data?.ordersList[0]?.returnPoAttachment[0]" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate}}
+            </span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="confirmation" *ngIf="isPayerDisabled">
+      <div class="header">
+        {{ 'checkoutConfirmation.payer' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.payerAddress' | cxTranslate }}
+          </div>
+          <div class="address">
+            <p>
+              {{ data?.payerAddress.firstName }}
+              {{ data?.payerAddress.lastName }}
+            </p>
+            <p>{{ data?.payerAddress.companyName }}</p>
+            <p>{{ data?.payerAddress.line1 }}, {{ data?.payerAddress.town }}</p>
+            <p>{{ data?.payerAddress.country?.name }},</p>
+            <p>{{ data?.payerAddress.postalCode }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirmation">
+      <div class="header">
+        {{ 'checkoutConfirmation.shipping' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.sippingAddress' | cxTranslate }}
+          </div>
+          <div class="address">
+            <p>
+              {{ data?.ordersList[0].deliveryAddress?.firstName }}
+              {{ data?.ordersList[0].deliveryAddress?.lastName }}
+            </p>
+            <p>{{ data?.ordersList[0].deliveryAddress?.companyName }}</p>
+            <p>
+              {{ data?.ordersList[0].deliveryAddress?.line1 }},
+              {{ data?.ordersList[0].deliveryAddress?.town }}
+            </p>
+            <p>{{ data?.ordersList[0].deliveryAddress?.country?.name }},</p>
+            <p>{{ data?.ordersList[0].deliveryAddress?.postalCode }}</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.deliveryPoint' | cxTranslate }}
+          </div>
+          <p>
+            <span *ngIf="data?.ordersList[0].deliveryPoint">{{
+              data?.ordersList[0].deliveryPoint
+            }}</span>
+            <span *ngIf="!data?.ordersList[0].deliveryPoint" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate }}
+            </span>
+          </p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.incoTerms' | cxTranslate }}
+          </div>
+          <p>
+            {{
+              data?.ordersList[0]?.shipToIncotrmName ||
+                data?.ordersList[0]?.shipToIncoterm2
+            }}-{{ data?.ordersList[0]?.shipToIncoterm1 }}
+          </p>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{
+              dateFlag
+                ? ('checkoutConfirmation.order1requestedShipDate' | cxTranslate)
+                : ('checkoutConfirmation.requestedShipDate' | cxTranslate)
+            }}
+          </div>
+          <p>
+            <span *ngIf="requestFilmDt || requestNonFilmDt">{{
+              requestFilmDt || requestNonFilmDt
+            }}</span>
+            <span *ngIf="!requestNonFilmDt && !requestFilmDt" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate }}
+            </span>
+          </p>
+        </div>
+        <div class="col-sm-3" *ngIf="dateFlag">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.order2requestedShipDate' | cxTranslate }}
+          </div>
+          <p>{{ requestNonFilmDt }}</p>
+        </div>
+      </div>
+      <div class="row row-margin">
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.shippingMethod' | cxTranslate }}
+          </div>
+          <p>{{ data?.ordersList[0].deliveryOptions }}</p>
+          <div
+            *ngIf="data?.ordersList[0]?.deliveryCarrierName"
+            class="header-inner"
+          >
+            {{ 'checkoutConfirmation.carrier' | cxTranslate }}
+          </div>
+          <p>{{ data?.ordersList[0].deliveryCarrierName }}</p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.shipContact' | cxTranslate }}
+          </div>
+          <p>
+            {{ data?.ordersList[0]?.shipToContactName }} <br />
+            {{ data?.ordersList[0]?.shipToContactPhone }}<br />
+            {{ data?.ordersList[0]?.shipNotificationEmail }}
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.shippingRemarks' | cxTranslate }}
+          </div>
+          <p>
+            <span *ngIf="data?.ordersList[0].shippingRemarks">{{
+              data?.ordersList[0].shippingRemarks
+            }}</span>
+            <span *ngIf="!data?.ordersList[0].shippingRemarks" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate }}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="confirmation">
+      <div class="header">
+        {{ 'checkoutConfirmation.notification' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3">
+          <!-- <div class="header-inner">
+            {{ 'checkoutConfirmation.shipNotification' | cxTranslate }}
+          </div>
+          <p>
+            {{data?.ordersList[0]?.shipToContactName}} <br />
+            {{data?.ordersList[0]?.shipToContactPhone}}<br />
+            {{data?.ordersList[0].shipNotificationEmail}}
+          </p> -->
+
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.orderAcknowledgement' | cxTranslate }}
+          </div>
+          <p>
+            {{ data?.ordersList[0]?.soaContact }} <br />
+            {{ data?.ordersList[0]?.soaPhone }}<br />
+            {{ data?.ordersList[0].orderConfirmation }}
+          </p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.invoiceEmail' | cxTranslate }}
+          </div>
+          <p>
+            {{ data?.ordersList[0]?.invoiceContact }} <br />
+            {{ data?.ordersList[0]?.invoicePhone }}<br />
+            {{ data?.ordersList[0].invoiceEmail }}
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.review' | cxTranslate }}
+          </div>
+          <p>
+            {{ data?.ordersList[0].isSpecialDiscountPresent ? 'Yes' : 'No' }}
+          </p>
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.reasonForReview' | cxTranslate }}
+          </div>
+          <p [innerHTML]="data?.ordersList[0]?.specialDiscountCode"></p>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.additionalAttachments' | cxTranslate }}
+          </div>
+          <div *ngIf="data?.ordersList[0].attachmentName" class="doc">
+            <div class="doc-details">
+              <p>
+                <span *ngIf="data?.ordersList[0].attachmentName">{{
+                  data?.ordersList[0].attachmentName
+                }}</span>
+                <span *ngIf="!data?.ordersList[0].attachmentName" class="na"
+                  >{{ 'checkoutConfirmation.na' | cxTranslate }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="confirmation">
+      <div class="header">
+        {{ 'checkoutConfirmation.compliance' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-12">
+          <p class="mb-0">
+            {{ 'checkoutConfirmation.govCompliance' | cxTranslate }}
+          </p>
+          <p class="header">
+            - {{ data?.ordersList[0].isGovernment ? 'Yes' : 'No' }}
+          </p>
+        </div>
+        <div class="col-sm-12">
+          <p class="mb-0">
+            {{ 'checkoutConfirmation.nuclearCompliance' | cxTranslate }}
+          </p>
+          <p class="header">
+            - {{ data?.ordersList[0].isNuclearOppurtunity ? 'Yes' : 'No' }}
+          </p>
+        </div>
+        <div class="col-sm-12">
+          <p class="mb-0">
+            {{ 'checkoutConfirmation.materialCompliance' | cxTranslate }}
+          </p>
+          <p class="header">
+            - {{ data?.ordersList[0].isExport ? 'Yes' : 'No' }}
+          </p>
+        </div>
+        <div class="col-sm-12">
+          <p class="mb-0">
+            {{ 'checkoutConfirmation.endUserCompliance' | cxTranslate }}
+          </p>
+          <p class="header">
+            - {{ data?.ordersList[0].isBuyer ? 'Yes' : 'No' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="confirmation" *ngIf="data">
+      <div class="header">
+        {{ 'checkoutConfirmation.endUserDetails' | cxTranslate }}
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="header-inner">
+            {{ 'checkoutConfirmation.endUserAddress' | cxTranslate }}
+          </div>
+          <div class="address">
+            <p>
+              {{ data?.ordersList[0].enduserAddress?.formattedAddress }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br /><br />
+</ng-container>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

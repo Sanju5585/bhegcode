@@ -1,0 +1,38 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="popup-page">
+      <h1 class="col-md-12 page-title mb-4">
+        {{ 'notifications.dismiss' | cxTranslate }}
+      </h1>
+      <div class="col-md-12 content-center">
+        <p class="page-description">
+          {{ 'notifications.dismissSelectedNotifications' | cxTranslate }}
+        </p>
+        <div class="row mt-2 pl-4">
+          <div class="col-md-6 reset-button">
+            <bh-button
+              type="secondary"
+              (click)="closeModal(false)"
+              label="{{ 'Waygate.cancel' | cxTranslate }}"
+              class="reset"
+              [attr.disabled]="false"
+            >
+            </bh-button>
+          </div>
+          <div class="col-md-6 track-button">
+            <bh-button
+              type="primary"
+              label="{{ 'notifications.dismissAll' | cxTranslate }}"
+              class="track"
+              [attr.disabled]="false"
+              [attr.disabled]="showSpinner ? true : null"
+              [attr.loading]="showSpinner ? true : null"
+              (click)="closeModal(true)"
+            >
+            </bh-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

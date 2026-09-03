@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<context:annotation-config/> 
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
+	<bean id="defaultSimpleSuggestionFacade" class="com.bhge.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="productConverter" ref="carouselProductConverter"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeOAuthLoginFacade" alias="bhgeOAuthLoginFacade"/>
+    <bean id="bhgeOAuthLoginFacade" class="com.bhge.facades.user.oauth.login.impl.BHGEOAuthLoginFacadeImpl">
+                                <property name="bhgeOAuthLoginService" ref="bhgeOAuthLoginService" />
+                                <property name="sessionService" ref="sessionService" />
+                                <property name="userService" ref="userService"/>
+    </bean>
+	
+
+
+
+
+
+
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H"/>
+				<entry key="zoom" value="515Wx515H"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="300Wx300H"/>
+				<entry key="thumbnail" value="96Wx96H"/>
+				<entry key="cartIcon" value="65Wx65H"/>
+				<entry key="styleSwatch" value="30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dsQuoteCartPdf" class="com.bhge.facades.pdf.DsQuoteCartPdf"/>
+	<bean id="dsPdfImageData" class="com.bhge.facades.pdf.DsPdfImageData"/>
+	<bean id="bhgeQuoteEntryData" class="com.bhge.facades.pdf.BHGEQuoteEntryData"/>
+
+	<bean id="customerEmailContext" class="com.bhge.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="bhgeOrderCheckoutPopulator" class="com.bhge.facades.order.populators.BhgeOrderCheckoutPopulator"  scope="prototype" >
+	</bean>
+	
+	<bean id="forgottenPasswordEmailContext" class="com.bhge.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="orderNotificationEmailContext" class="com.bhge.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<!-- <property name="orderConverter" ref="orderConverter"/> -->
+		<property name="modelService" ref="modelService"></property>
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="quoteNotificationEmailContext" class="com.bhge.facades.process.email.context.QuoteNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="quoteService" ref="quoteService"/>
+		<property name="quoteConverter" ref="quoteConverter"/>
+	</bean>
+	
+	<bean id="deliverySentEmailContext" class="com.bhge.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="readyForPickupEmailContext" class="com.bhge.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="orderCancelledEmailContext" class="com.bhge.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<bean id="orderRefundEmailContext" class="com.bhge.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="com.bhge.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="formatFactory" ref="formatFactory"/>
+        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="com.bhge.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>		
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext" class="com.bhge.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="com.bhge.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="com.bhge.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+	
+	<bean id="bhgeShippingAddressEmailContext" class="com.bhge.facades.process.email.context.BHGEShippingAddressEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="oldCartNotificationEmailContext" class="com.bhge.facades.process.email.context.OldCartNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="quoteCreationEMailContext" class="com.bhge.facades.process.email.context.BHGEQuoteCreationEmailContext" parent="abstractEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="quoteConversionEmailContext" class="com.bhge.facades.process.email.context.BHGEQuoteConversionEmailContext" parent="abstractEmailContext">
+	</bean>
+	
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="com.bhge.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+	</bean>
+
+	<bean id="genderData" class="com.bhge.facades.product.data.GenderData" scope="prototype"/>
+	
+	<!-- <alias name="defaultBHGEUserProfileFacade" alias="bhgeUserProfileFacade" />
+	<bean id="defaultBHGEUserProfileFacade"
+		class="com.bhge.facades.user.impl.DefaultBHGEUserProfileFacade">
+		<property name="userProfileService" ref="userProfileService"></property>
+		<property name="modelService" ref="modelService"></property>
+		<property name="bhgeCurrencyFormatConverter" ref="bhgeCurrencyFormatConverter"/>
+	</bean> -->
+	
+	<alias name="defaultBHGECheckoutFacade" alias="b2bCheckoutFacade"/>
+		<bean id="defaultBHGECheckoutFacade" class="com.bhge.facades.order.impl.DefaultBHGECheckoutFacade" parent="defaultB2BCheckoutFacade" >
+	</bean>
+	
+	<bean id="bhgeCartPopulator" class="com.bhge.facades.order.populators.BHGECartPopulator" parent="baseOrderPopulator">
+		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="bhgeCountryPopulator"   class="com.bhge.facades.order.populators.BhgeCountryPopulator"/>
+	<alias name="defaultCountryConverter" alias="countryConverter"/>
+	<bean id="defaultCountryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.CountryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="countryPopulator"/>
+				<ref bean="bhgeCountryPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeProductFeatureListPopulator" alias="productFeatureListPopulator"/>
+	<bean id="bhgeProductFeatureListPopulator" parent="defaultProductFeatureListPopulator"
+			class="com.bhge.facades.product.populators.BHGEProductFeatureListPopulator"
+			>
+		<property name="classificationConverter" ref="classificationConverter"/>
+		<property name="featureConverter" ref="featureConverter"/>
+	</bean>
+	
+
+	<!-- append a b2b specific cart populator to the default cartConverter -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cartConverter"/>
+		<property name="add" ref="bhgeCartPopulator"/>
+	</bean>
+
+	<bean id="bhgeOrderPopulator" class="com.bhge.facades.order.populators.BHGEOrderPopulator" parent="b2bOrderPopulator" >
+	<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<!-- append b2b specific populator to the default orderConverter-->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="bhgeOrderPopulator"/>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="bhgeGroupOrderEntryPopulator"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryConverter"/>
+		<property name="add" ref="bhgeVCOrderEntryPopulator"/>
+	</bean>
+
+	<bean id="bhgeGroupOrderEntryPopulator" class="com.bhge.facades.order.populators.BHGEGroupOrderEntryPopulator" parent="groupOrderEntryPopulator" >
+	</bean>
+
+	<bean id="bhgeVCOrderEntryPopulator" class="com.bhge.facades.order.populators.BHGEVCOrderEntryPopulator">
+	</bean>
+
+	<bean id="bhgeCacheValueLoader" class="com.bhge.facades.regioncache.BHGECacheValueLoader">
+    	<property name="bhgeOrderHistoryService" ref="bhgeOrderHistoryService" />
+    </bean>
+
+	<bean id="bhgeOrderNotificationCacheValueLoader" class="com.bhge.facades.regioncache.BHGEOrderNotificationCacheValueLoader">
+		<property name="bhgeOrderHistoryService" ref="bhgeOrderHistoryService" />
+	</bean>
+
+	<alias name="defaultBHGEB2BOrderFacade" alias="b2bOrderFacade" />
+	<bean id="defaultBHGEB2BOrderFacade"
+		class="com.bhge.facades.order.impl.DefaultBHGEB2BOrderFacade"
+		parent="defaultB2BOrderFacade">
+		<property name="bhgeOrderHistoryService" ref="bhgeOrderHistoryService" />		
+		<property name="sessionService" ref="sessionService" />	
+		<property name="cacheController" ref="cacheController"/>
+		<property name="bhgeCacheValueLoader" ref="bhgeCacheValueLoader" />
+		<property name="orderHistoryCacheRegion" ref="orderHistoryCacheRegion" />  
+	</bean>
+<!-- added -->
+	
+	<!-- User Profile -->
+	
+	<alias name="defaultBhgeUserProfileFacade" alias="bhgeUserProfileFacade" />
+	<bean id="defaultBhgeUserProfileFacade"
+		class="com.bhge.facades.user.impl.DefaultBHGEUserProfileFacade">
+		<property name="userProfileService" ref="userProfileService"></property>
+		<property name="modelService" ref="modelService"></property>
+		<property name="b2bCommerceUnitService" ref="b2bCommerceUnitService"></property>
+		<!-- <property name="defaultB2BUnitService" ref="defaultB2BUnitService"></property> -->
+		<property name="addressConverter" ref="addressConverter"/>     
+		<property name="bhgeCurrencyFormatConverter" ref="bhgeCurrencyFormatConverter"/> 
+	</bean>
+	
+	
+	<alias name="bhgeCustomerPopulator" alias="bhgeCustomerPopulator" />
+	<bean id="bhgeCustomerPopulator"
+		class="com.bhge.facades.user.populators.BHGECustomerPopulator">
+	    <property name="b2bUnitService" ref="b2bUnitService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="currencyConverter" ref="currencyConverter" />
+		<property name="b2BPermissionConverter" ref="b2bPermissionConverter" />
+		<property name="b2BUserGroupsLookUpStrategy" ref="b2bUserGroupsLookUpStrategy" />
+	</bean>
+	
+	<alias name="bhgeCustomerFacadeImpl" alias="customerFacade"/>
+    <bean id="bhgeCustomerFacadeImpl" class="com.bhge.facades.user.impl.BHGECustomerFacadeImpl" parent="defaultCustomerFacade">
+    </bean>
+
+	<alias name="defaultBHGEPriceAvailabilityFacade" alias="bhgePriceAvailabilityFacade"/>
+	<bean id="defaultBHGEPriceAvailabilityFacade" class="com.bhge.facades.order.impl.BHGEPriceAvailabilityFacadeImpl">
+	</bean>
+	
+	<alias name="bhgeCartFacade" alias="cartFacade"/>
+	<bean id="bhgeCartFacade"	class="com.bhge.facades.order.impl.BHGECartFacadeImpl" parent="defaultCartFacade">
+		<property name="cartService" ref="cartService"/>
+		<!-- <property name="miniCartConverter" ref="miniCartConverter"/> -->
+		<property name="cartConverter" ref="cartConverter"/>
+		<property name="commerceCartService" ref="commerceCartService"/>
+		<property name="productService" ref="productService"/>
+		<!-- <property name="cartModificationConverter" ref="cartModificationConverter"/>
+		<property name="cartRestorationConverter" ref="cartRestorationConverter"/>
+		<property name="baseSiteService" ref="baseSiteService"/> -->
+		<property name="userService" ref="userService"/>
+		<!-- <property name="pointOfServiceService" ref="pointOfServiceService"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+		<property name="deliveryService" ref="deliveryService"/>
+		<property name="countryConverter" ref="countryConverter"/>
+		<property  name="groupCartModificationListConverter" ref="groupCartModificationListConverter"/> -->
+	</bean>
+
+	<!-- <alias name="defaultBhgeProductConverter" alias="productConverter"/>
+	<bean id="defaultBhgeProductConverter" parent="defaultProductConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ProductData" />
+		<property name="populators">
+			<list>
+				<ref bean="defaultBhgeProductPopulator" />
+			</list>
+		</property>
+	</bean> -->
+	<alias name="bhgeProductPopulator" alias="productPopulator"/>
+		<bean id="bhgeProductPopulator" class="com.bhge.facades.product.populators.BHGEProductPopulator" parent="defaultProductPopulator">
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="bhgeProductPopulator"/>
+	</bean>
+	
+	<alias name="bhgeProductFacade" alias="productFacade"/>
+	<bean id="bhgeProductFacade"
+		class="com.bhge.facades.product.impl.BHGEProductFacadeImpl"
+		parent="defaultProductFacade">
+		<property name="productConverter" ref="productConverter" />
+		<property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+		<property name="categoryModelUrlResolver" ref="categoryModelUrlResolver"/>
+		
+		<!-- <property name="productConfigurationService" ref="sapProductConfigConfigurationService" /> -->
+	</bean>
+	<!-- Currency formats -->
+	<alias name="defaultBHGECurrencyFormatConverter" alias="bhgeCurrencyFormatConverter"/>
+	<bean id="defaultBHGECurrencyFormatConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.user.data.BHGECurrencyFormatData"/>
+		<property name="populators">
+			<list>
+				<ref bean="bhgeCurrencyFormatPopulator"/>
+			</list>
+		</property> 
+	</bean>
+	<alias name="defaultBHGECurrencyFormatPopulator" alias="bhgeCurrencyFormatPopulator"/>
+	<bean id="defaultBHGECurrencyFormatPopulator"
+			class="com.bhge.facades.user.populators.BHGECurrencyFormatPopulator"/> 
+
+	<alias name="defaultBHGEB2BOrderDataFetch" alias="bhgeB2BOrderDataFetch" />
+	<bean id="defaultBHGEB2BOrderDataFetch"
+		class="com.bhge.facades.order.impl.DefaultBHGEB2BOrderDataFetch">
+	</bean>
+
+	<alias name="bhgeSearchResultProductPopulator" alias="commerceSearchResultProductPopulator" />
+	<bean id="bhgeSearchResultProductPopulator"
+		class="com.bhge.facades.search.populator.BHGESearchResultProductPopulator"
+		parent="defaultCommerceSearchResultProductPopulator">
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeQuoteFacade" alias="quoteFacade"/>
+	<bean id="bhgeQuoteFacade" class="com.bhge.facades.order.impl.BHGEQuoteFacadeImpl" parent="defaultQuoteFacade">
+		<property name="cartService" ref="cartService"/>
+		<property name="commerceCartService" ref="commerceCartService" />
+		<property name="commerceQuoteService" ref="commerceQuoteService" />
+		<property name="quoteService" ref="quoteService" />
+		<property name="modelService" ref="modelService" />
+		<property name="quoteConverter" ref="quoteConverter"/>
+		<property name="cartConverter" ref="cartConverter"/>
+		<property name="userService" ref="userService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="commerceCommentService" ref="commerceCommentService"/>
+		<property name="quoteUserIdentificationStrategy" ref="quoteUserIdentificationStrategy"/>
+    </bean>
+	<alias name="bhgeInvoiceFacade" alias="bhgeInvoiceFacade"/>
+	<bean id="bhgeInvoiceFacade" class="com.bhge.facades.order.impl.BHGEInvoiceFacadeImpl">
+		<property name="bhgeInvoiceHistoryService" ref="bhgeInvoiceHistoryService" />
+	</bean>
+    
+	<alias name="defaultQuotePopulator" alias="bhgeQuotePopulator"/>
+	<bean id="defaultQuotePopulator"
+		  class="com.bhge.facades.order.populators.BHGEQuotePopulator"
+		  parent="baseOrderPopulator">
+		  <property name="commerceOrderService" ref="commerceOrderService"/>
+	</bean>
+	
+	<alias name="bhgeSolrDocumentSearchResultValuePopulator" alias="documentSearchResultValuePopulator" />
+	<bean id="bhgeSolrDocumentSearchResultValuePopulator"
+		class="com.bhge.facades.search.populator.BHGESolrDocumentSearchResultValuePopulator" parent="defaultDocumentSearchResultValuePopulator">
+	</bean>
+	
+
+	<alias name="bhgeCommerceSearchFiltersPopulator" alias="commerceSearchFiltersPopulator" />
+	<bean id="bhgeCommerceSearchFiltersPopulator"
+		class="com.bhge.facades.search.populator.BHGESearchFiltersPopulator" parent="defaultCommerceSearchFiltersPopulator">
+	</bean>
+	
+	<alias name="bhgeSearchSolrQueryPopulator" alias="commerceSearchSolrQueryPopulator" />
+	<bean id="bhgeSearchSolrQueryPopulator"
+		class="com.bhge.facades.search.populator.BHGESearchSolrQueryPopulator" parent="defaultCommerceSearchSolrQueryPopulator">
+	</bean>
+	
+	<alias name="bhgeProductPricePopulator" alias="productPricePopulator" />
+	<bean id="bhgeProductPricePopulator"
+		class="com.bhge.facades.price.populator.BHGEProductPricePopulator" parent="defaultProductPricePopulator">
+	</bean>
+	
+	<alias name="bhgePriceDataFactory" alias="priceDataFactory" />
+	<bean id="bhgePriceDataFactory"
+		class="com.bhge.facades.price.BHGEPriceDataFactory" parent="defaultPriceDataFactory">
+	</bean>
+	
+	<bean id="b2bAddressPopulator" class="de.hybris.platform.b2bacceleratorfacades.order.populators.B2BAddressPopulator" >
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<alias name="bhgeCsvFacade" alias="csvFacade"/>
+	<bean id="bhgeCsvFacade" class="com.bhge.facades.order.impl.BHGECSVFacadeImpl" parent="defaultCsvFacade">
+	</bean>
+	<alias name="bhgeCartDataConverter" alias="bhgeCartDataConverter"/>
+	<bean id="bhgeCartDataConverter" class="com.bhge.facades.cart.converters.BHGECartDataConverter"></bean>
+	
+	<!-- Bulk Upload OCR -->
+	<alias name="bhgeDataValidatorFacade" alias="bhgeDataValidatorFacade" />
+	<bean id="bhgeDataValidatorFacade" class="com.bhge.facades.bulkupload.impl.BHGEDataValidatorFacadeImpl">        
+    </bean>
+    
+    <alias name="bhgeDataReaderFacade" alias="bhgeDataReaderFacade" />
+    <bean id="bhgeDataReaderFacade" class="com.bhge.facades.bulkupload.impl.BHGEDataReaderFacadeImpl">        
+    </bean>
+    
+     <alias name="bhgeSolrProductSearchFacadeImpl" alias="bhgeProductSearchFacade"/>
+	<bean id="bhgeSolrProductSearchFacadeImpl"
+			class="com.bhge.facades.search.impl.BHGESolrProductSearchFacadeImpl" parent="defaultSolrProductSearchFacade">
+	</bean>
+	
+	<alias name="bhgeCommerceSearchPagePopulator" alias="commerceSearchPagePopulator" />
+	<bean id="bhgeCommerceSearchPagePopulator" class="com.bhge.facades.search.populator.BHGESearchPagePopulator" />
+	
+	<!--  for order notification changes -->
+	<bean id="b2bProductFacade" parent="defaultProductFacade">
+		<property name="productConfiguredPopulator" ref="b2bProductConfiguredPopulator" />
+	</bean>
+	
+	<alias name="registerUserFacade" alias="registerUserFacade" />
+	<bean id="registerUserFacade" class="com.bhge.facades.register.impl.DefaultBHGERegisterUserFacade">
+	<property name="registerUserService" ref="registerUserService" />
+	</bean>
+	
+	
+	
+	<bean id="b2bProductConfiguredPopulator" parent="defaultProductConfiguredPopulator">
+		<property name="populators">
+			<map key-type="de.hybris.platform.commercefacades.product.ProductOption"
+				merge="true">
+				<entry key="PRICE_RANGE" value-ref="productPriceRangePopulator" />
+				<entry key="VOLUME_PRICES" value-ref="productVolumePricesPopulator" />
+				<entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator" />
+				<entry key="VARIANT_MATRIX_BASE" value-ref="productVariantMatrixPopulator" />
+				<entry key="VARIANT_MATRIX_ALL_OPTIONS" value-ref="configVariantMatrixDataPopulator" />
+				<entry key="VARIANT_MATRIX_URL" value-ref="configVariantOptionDataUrlPopulator" />
+				<entry key="VARIANT_MATRIX_MEDIA" value-ref="configVariantOptionDataMediaPopulator" />
+				<entry key="VARIANT_MATRIX_PRICE" value-ref="configVariantOptionDataPricePopulator" />
+				<entry key="VARIANT_MATRIX_STOCK" value-ref="configVariantOptionDataStockPopulator" />
+				<entry key="URL" value-ref="productUrlPopulator" />
+				<entry key="IMAGES" value-ref="productPrimaryImagePopulator" />
+				<entry key="CLASSIFICATION" value-ref="productClassificationPopulatorList"/>
+			</map>
+		</property>
+	</bean>
+	
+	<alias name="defaultBhgeProductConverter" alias="productConverter"/>
+	<bean id="defaultBhgeProductConverter" parent="defaultProductConverter">
+		<property name="targetClass"
+			value="de.hybris.platform.commercefacades.product.data.ProductData" />
+		<property name="populators">
+			<list>
+				<ref bean="productPopulator" />
+			</list>
+		</property>
+	</bean>
+	<!-- Multi Cart Feature -->
+	<alias name="bhgeSaveCartFacadeImpl" alias="saveCartFacade"/>
+	<bean id="bhgeSaveCartFacadeImpl"
+		class="com.bhge.facades.savecart.impl.BHGESaveCartFacadeImpl" parent="defaultSaveCartFacade">
+		<property name="baseStoreService" ref="baseStoreService" />
+		 <property name="bhgeCommerceSaveCartServiceImpl" ref="bhgeCommerceSaveCartServiceImpl"/>
+	</bean>
+	
+	<alias name="bhgeSearchResponseSubCategoriesPopulator" alias="commerceSearchResponseSubCategoriesPopulator" />
+	<bean id="bhgeSearchResponseSubCategoriesPopulator"
+		class="com.bhge.facades.search.solrfacetsearch.populators.BHGESearchResponseSubCategoriesPopulator" parent="defaultCommerceSearchResponseSubCategoriesPopulator">
+	</bean>
+	
+	<alias name="bhgeSearchResponseFacetsPopulator" alias="commerceSearchResponseFacetsPopulator" />
+	<bean id="bhgeSearchResponseFacetsPopulator" class="com.bhge.facades.search.solrfacetsearch.populators.BHGESearchResponseFacetsPopulator" parent="defaultCommerceSearchResponseFacetsPopulator"/>
+
+    <alias name="bhgeFeedbackFacadeImpl" alias="bhgeFeedbackFacade"/>
+	<bean id="bhgeFeedbackFacadeImpl" class="com.bhge.facades.feedback.impl.BHGEFeedbackFacadeImpl">
+		<property name="bhgeFeedbackService" ref="bhgeFeedbackService"/>
+	</bean>
+
+   <alias alias="bhgeFeedbackService" name="bhgeFeedbackServiceImpl"/>
+	<bean id="bhgeFeedbackServiceImpl" class="com.bhge.feedback.impl.BHGEFeedbackServiceImpl">
+		<property name="bhgeFeedbackUpload" ref="bhgeFeedbackUpload"/>
+	</bean>
+	
+	<bean id="bhgeExceptionMailerTask" class="com.bhge.facades.mailmessages.impl.BHGEExceptionMailerTask" >
+		<property name="sessionService" ref="sessionService"/>
+		<property name="bhgeVelocityTemplateRenderer" ref="bhgeVelocityTemplateRenderer"/>
+	</bean>
+	
+	<alias name="bhgedefaultProductModelUrlResolver" alias="productModelUrlResolver"/>
+	<bean id="bhgedefaultProductModelUrlResolver"
+			class="com.bhge.facades.url.impl.DefaultBHGEProductModelUrlResolver">
+		<property name="threadContextService" ref="threadContextService"/>
+		<property name="commerceCategoryService" ref="bhgeCommerceCategoryService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="defaultPattern" value="/{category-path}/{product-name}/p/{product-code}"/>
+	</bean>
+	
+	<!-- End order review -->
+	
+	
+	
+	
+	
+	
+	<!-- RMA Status beans start 1423683-->
+	<bean id="bhgeRMACacheValueLoader" class="com.bhge.facades.rmacache.BHGERMACacheValueLoader">
+		<property name="bhgeRMAStatusService" ref="bhgeRMAStatusService" />
+    </bean>
+    
+	<alias name="bhgeRMAStatusFacade" alias="bhgeRMAStatusFacade" />
+		<bean id="bhgeRMAStatusFacade" class="com.bhge.facades.rma.impl.DefaultBHGERMAStatusFacade">
+	</bean>
+	
+	<!-- RMA Status beans end 1423683-->
+	
+	<bean id="serialNumberSearchCacheValueLoader" class="com.bhge.facades.rmacache.SerialNumSearchCacheValueLoader">
+		<property name="bhgeRmaFormFacade" ref="bhgeRmaFormFacade" />
+    </bean>
+
+
+	<bean id="partNumberSearchCacheValueLoader" class="com.bhge.facades.rmacache.PartNumberSearchCacheValueLoader">
+		<property name="bhgeRmaFormFacade" ref="bhgeRmaFormFacade" />
+	</bean>
+	
+	<!-- RMA Migration Start 1185137 -->
+	
+	<alias name="bhgeRMACartDataConverter" alias="bhgeRMACartDataConverter"/>
+	<bean id="bhgeRMACartDataConverter" class="com.bhge.rma.facades.cart.converters.BHGERMACartDataConverter"></bean>
+	
+	<alias name="bhgeServiceOfferingPopulator" alias="bhgeServiceOfferingPopulator" />
+	<bean id="bhgeServiceOfferingPopulator" class="com.bhge.facades.rma.populators.BHGEServiceOfferingPopulator" />
+	
+	<alias name="bhgeServiceOfferingReversePopulator" alias="bhgeServiceOfferingReversePopulator" />
+	<bean id="bhgeServiceOfferingReversePopulator" class="com.bhge.facades.rma.populators.BHGEServiceOfferingReversePopulator" />
+	
+	<alias name="bhgeSerialNoListPopulator" alias="bhgeSerialNoListPopulator" />
+	<bean id="bhgeSerialNoListPopulator" class="com.bhge.facades.rma.populators.BhgeSerialNoListPopulator" /> 
+	
+	<alias name="bhgeAdditionalInfoPopulator" alias="bhgeAdditionalInfoPopulator" />
+	<bean id="bhgeAdditionalInfoPopulator" class="com.bhge.facades.rma.populators.BHGEAdditionalInfoPopulator" />
+	
+	<alias name="bhgeAdditionalInfoReversePopulator" alias="bhgeAdditionalInfoReversePopulator" />
+	<bean id="bhgeAdditionalInfoReversePopulator" class="com.bhge.facades.rma.populators.BHGEAdditionalInfoReversePopulator" />
+	
+	<alias name="bhgeHazardousInfoPopulator" alias="bhgeHazardousInfoPopulator" />
+	<bean id="bhgeHazardousInfoPopulator" class="com.bhge.facades.rma.populators.BHGEHazardousInfoPopulator" />
+	
+	<alias name="bhgeHazardousInfoReversePopulator" alias="bhgeHazardousInfoReversePopulator" />
+	<bean id="bhgeHazardousInfoReversePopulator" class="com.bhge.facades.rma.populators.BHGEHazardousInfoReversePopulator" />
+
+	<alias name="bhgeSaveCardReversePopulator" alias="bhgeSaveCardReversePopulator" />
+	<bean id="bhgeSaveCardReversePopulator" class="com.bhge.facades.order.populators.BHGESaveCardReversePopulator" />
+	
+	<alias name="bhgeChemicalDetailPopulator" alias="bhgeChemicalDetailPopulator" />
+	<bean id="bhgeChemicalDetailPopulator" class="com.bhge.facades.rma.populators.BHGEChemicalDetailPopulator" />
+	
+	<!-- 	Anonymous user catalog - start -->
+	<alias name="defaultBHGEAnonymousUserCatalogConverter" alias="bhgeAnonymousCatalogConverter"/>
+    <bean id="defaultBHGEAnonymousUserCatalogConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.bhge.facades.user.data.BHGEAnonymousUserCatalogData"/>
+        <property name="populators">
+            <list>
+                <ref bean="bhgeAnonymousUserCatalogPopulator"/>
+            </list>
+        </property>
+    </bean>
+	
+	<alias name="bhgeAnonymousUserCatalogPopulator" alias="bhgeAnonymousUserCatalogPopulator" />
+	<bean id="bhgeAnonymousUserCatalogPopulator" class="com.bhge.facades.user.populators.BHGEAnonymousUserCatalogPopulator">
+		<property name="categoryConverter" ref="categoryConverter"/>
+		<property name="b2bUnitConverter" ref="b2bUnitConverter"/>
+		<property name="countryConverter" ref="countryConverter"/>
+	</bean>
+	
+	
+		<alias name="bhgeChemicalDetailReversePopulator" alias="bhgeChemicalDetailReversePopulator" />
+	<bean id="bhgeChemicalDetailReversePopulator" class="com.bhge.facades.rma.populators.BHGEChemicalDetailReversePopulator" />
+	
+	<alias name="bhgeRmaFormFacade" alias="bhgeRmaFormFacade"/>
+		<bean id="bhgeRmaFormFacade" class="com.bhge.facades.rma.impl.BHGERmaFormFacadeImpl">
+		<property name="modelService" ref="modelService" />
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeRmaCartPopulator" alias="bhgeRmaCartPopulator"/>
+	<bean id="bhgeRmaCartPopulator" class="com.bhge.facades.rma.populators.BHGERmaCartPopulator"></bean>
+	<!-- RMA Migration ends 1185137 -->
+	
+	
+	<!-- My Site Equipment beans - start -->
+	
+	<alias name="mySiteEquipmentFacade" alias="mySiteEquipmentFacade" />
+		<bean id="mySiteEquipmentFacade" class="com.bhge.facades.mysite.impl.DefaultMySiteEquipmentFacade">
+	</bean>
+	
+	<!-- CalPortal been - Start -->
+	<alias name="calPortalFacade" alias="calPortalFacade" />
+	<bean id="calPortalFacade" class="com.bhge.facades.calportal.impl.DefaultCalPortalFacade">
+	</bean>
+	<!-- CalPortal been - end -->
+	
+	<bean id="mseCacheValueLoader" class="com.bhge.facades.regioncache.MSECacheValueLoader">
+		<!-- <property name="bhgeRmaFormFacade" ref="bhgeRmaFormFacade" /> -->
+    </bean>
+	
+	<!-- My Site Equipment beans - end -->
+	
+	<alias name="bhgeContactUsFacade" alias="bhgeContactUsFacade" />
+	<bean id="bhgeContactUsFacade" class="com.bhge.facades.contactus.impl.DefaultBHGEContactUsFacadeImpl"/>
+
+	<alias name="productLineContactUsFacade" alias="productLineContactUsFacade" />
+	<bean id="productLineContactUsFacade" class="com.bhge.facades.productlinecontactus.impl.DefaultProductLineContactUsFacade"/>
+	
+	<alias name="defaultBHGERegionPopulator" alias="regionPopulator"/>
+    <bean id="defaultBHGERegionPopulator" parent="defaultRegionPopulator" class="com.bhge.facades.user.populators.BHGERegionPopulator"/>
+    
+    
+    <alias name="bhgedefaultPageRenderingService" alias="cmsPageRenderingService"/>
+    <bean id="bhgedefaultPageRenderingService" parent="defaultPageRenderingService" class="com.bhge.facades.rendering.service.impl.DefaultBHGEPageRenderingService">
+            <property name="pageModelToDataRenderingConverter" ref="cmsPageModelToDataRenderingConverter"/>
+        <property name="facadeValidationService" ref="facadeValidationService"/>
+        <property name="renderingPageValidator" ref="cmsRenderingPageValidator"/>
+        <property name="findAllPagesRenderingPageValidator" ref="cmsFindAllPagesRenderingPageValidator"/>
+        <property name="restrictionAwareService" ref="cmsRestrictionAwareService"/>
+        <property name="cmsDataFactory" ref="cmsDataFactory"/>
+        <property name="renderingPageModelSuppliers" ref="cmsRenderingPageModelSuppliers"/>
+        <property name="cmsPageService" ref="cmsPageService"/>
+        <property name="renderingCacheService" ref="cmsRenderingCacheService"/>
+    </bean>
+    
+
+   	<alias name="defaultCmsSlotModelToDataRenderingConverter" alias="cmsSlotModelToDataRenderingConverter"/>
+    <bean id="defaultCmsSlotModelToDataRenderingConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.cmsfacades.data.PageContentSlotData"/>
+        <property name="populators">
+            <list merge="true">
+                <ref bean="bhgecmsSlotModelToDataRenderingPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="bhgedefaultSlotModelToDataRenderingPopulator" alias="bhgecmsSlotModelToDataRenderingPopulator"/>
+    <bean id="bhgedefaultSlotModelToDataRenderingPopulator"
+          class="com.bhge.facades.contentpage.populator.BHGEContentSlotModelToDataRenderingPopulator">
+        <property name="cmsComponentModelToDataRenderingConverter" ref="cmsComponentModelToDataRenderingConverter"/>
+        <property name="renderingVisibilityService" ref="cmsRenderingVisibilityService"/>
+        <property name="uniqueIdentifierAttributeToDataContentConverter"
+                  ref="cmsUniqueIdentifierAttributeToDataContentConverter"/>
+        <property name="customPropertiesPopulator" ref="cmsPropertiesModelToDataRenderingPopulator"/>
+        <property name="renderingCacheService" ref="cmsRenderingCacheService"/>
+    </bean>
+    
+    <alias name="dSBulkUploadFacade" alias="dSBulkUploadFacade" />
+    <bean id="dSBulkUploadFacade" class="com.bhge.facades.bulkupload.impl.DSBulkUploadFacadeImpl">
+	</bean>
+
+	<bean id="dsSolrSearchStatePopulator" class="com.bhge.facades.search.populator.DsSolrSearchStatePopulator" parent="solrSearchStatePopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="solrSearchStateConverter" />
+		<property name="add" ref="dsSolrSearchStatePopulator" />
+	</bean>
+	
+	    <!--RoleAccessCheck Starts Here-->
+    <alias name="defaultDSRoleAccessCheckFacade" alias="dsRoleAccessCheckFacade"/>
+    <bean id="defaultDSRoleAccessCheckFacade"
+          class="com.bhge.facades.roleAccessCheck.impl.DefaultDSRoleAccessCheckFacade">
+           <property name="cmsPageService" ref="cmsPageService"/>
+    </bean>
+    <!--RoleAccessCheck Ends Here  -->
+    
+    <bean id="calibrationProductFamilyPopulator"
+	class="com.bhge.facades.user.populators.CalibrationProductFamilyPopulator"
+	scope="prototype">
+	</bean>
+	
+   <bean id="guestUserCalibrationDataSheetPDFContext" class="com.bhge.facades.process.email.context.GuestUserCalibrationDataSheetPDFContext" parent="abstractEmailContext" scope="prototype" />
+
+    <alias name="DefaultDsNotificationFacade" alias="dsNotificationFacade" />
+	<bean id="DefaultDsNotificationFacade" class="com.bhge.facades.notifications.impl.DefaultDsNotificationFacade">
+	</bean>
+	
+	<bean id="dsNotificationsReversePopulator"
+	class="com.bhge.facades.user.populators.DsNotificationsReversePopulator"
+	scope="prototype">
+	</bean>
+	
+	
+    <bean id="wygateFacade" class="com.bhge.facades.wygate.impl.DefaultWygateFacade">
+    	<property name="wygateCalPortalService" ref="wygateCalPortalService" />
+    	<property name="batchNumberConverter" ref="batchNumberConverter" />    
+    	<property name="fabricationNumberConverter" ref="fabricationNumberConverter" />  
+    	<property name="chemistryDataConverter" ref="chemistryDataConverter" /> 
+    	<property name="filmDataConverter" ref="filmDataConverter" /> 
+	</bean>
+		
+	<bean id="batchNumberConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.WygateCaliberationData"/>
+		<property name="populators">
+			<list>
+				<ref bean="batchNumberPopulator"/>
+			</list>
+		</property> 
+	</bean>
+		
+	<bean id="batchNumberPopulator" class="com.bhge.facades.wygate.populators.BatchNumberDataPopulator">
+	</bean>
+	
+	
+	<bean id="fabricationNumberConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.WygateCaliberationData"/>
+		<property name="populators">
+			<list>
+				<ref bean="fabricationNumberPopulator"/>
+			</list>
+		</property> 
+	</bean>
+	
+	<bean id="fabricationNumberPopulator" class="com.bhge.facades.wygate.populators.FabricationNumberDataPopulator">
+	</bean>
+	
+	
+	<bean id="chemistryDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.DSWygateChemistryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="chemistryDataPopulator"/>
+			</list>
+		</property> 
+	</bean>
+	
+	
+	<bean id="chemistryDataPopulator" class="com.bhge.facades.wygate.populators.DSChemistryDataPopulator">
+	</bean>
+	
+	<bean id="filmDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.DSWygateFilmData"/>
+		<property name="populators">
+			<list>
+				<ref bean="filmDataPopulator"/>
+			</list>
+		</property> 
+	</bean>
+	
+	
+	<bean id="filmDataPopulator" class="com.bhge.facades.wygate.populators.DSFilmDataPopulator">
+		<property name="wygateBatchLookupConverter" ref="wygateBatchLookupConverter" />
+	</bean>
+	
+	<bean id="wygateBatchLookupConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.DSWygateBatchLookupData"/>
+		<property name="populators">
+			<list>
+				<ref bean="wygateBatchLookupPopulator"/>
+			</list>
+		</property> 
+	</bean>
+	
+	<bean id="wygateBatchLookupPopulator" class="com.bhge.facades.wygate.populators.DSWygateBatchLookupPopulator">
+	</bean>
+	
+	<!-- Druck Bynder starts -->
+   
+   <bean id="druckPortalFacade" class="com.bhge.facades.druckportal.impl.DefaultDruckPortalFacade">
+   		<property name="dsBynderSearchAndDownloadService" ref="dsBynderSearchAndDownloadService" />
+   </bean>
+   
+   <!-- Druck Bynder ends -->
+   
+   <!-- 	Waygate Guset user  - start -->
+	<alias name="defaultBHGEAnonymousGuestSalesConverter" alias="bhgeAnonymousGuestConverter"/>
+    <bean id="defaultBHGEAnonymousGuestSalesConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.bhge.facades.user.data.BHGECategorytoSalesOrgData"/>
+        <property name="populators">
+            <list>
+                <ref bean="bhgeAnonymousGuestPopulator"/>
+            </list>
+        </property>
+    </bean>
+	
+	<alias name="bhgeAnonymousGuestSalesPopulator" alias="bhgeAnonymousGuestPopulator" />
+	<bean id="bhgeAnonymousGuestSalesPopulator" class="com.bhge.facades.user.populators.BHGEAnonymousGuestSalesPopulaor">
+	</bean>
+	<!-- 	Waygate Guset user  - end -->
+	<bean id="customerExtendedPopulator"
+		  class="com.bhge.facades.user.populators.CustomerExtendedPopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter"/>
+		<property name="add" ref="customerExtendedPopulator"/>
+	</bean>
+	
+	<!-- Training Document start -->
+	 <bean id="dsTrainingDocumentFacade" class="com.bhge.facades.trainingdocument.impl.DefaultDsTrainingDocumentFacade">
+	 </bean>
+	 
+	<bean id="dsTrainingDocumentPopulator" class="com.bhge.facades.trainingdocument.populator.DSTrainingDocumentPopulator">
+	</bean>
+	
+	<!-- Training Document end -->
+	
+	<!-- List Of Portals Starts -->
+
+	<bean id="listOfPortalConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.DSListOfPortalsData" />
+		<property name="populators">
+			<list>
+				<ref bean="listOfPortalPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="listOfPortalPopulator"
+		class="com.bhge.facades.listofportals.populators.ListOfPortalPopulator">
+	</bean>
+
+	<bean id="defaultListOfPortalFacade"
+		class="com.bhge.facades.suggestion.impl.DefaultListOfPortalFacade">
+		<property name="listOfPortalConverter" ref="listOfPortalConverter" />
+	</bean>
+	
+	<!-- List Of Portals end -->
+
+	<!-- US-465613 Save card details-->
+	<bean id="bhgeCardDetailsPopulator" class="com.bhge.facades.order.populators.BhgeCardDetailsPopulator"  scope="prototype" >
+	</bean>
+
+	<bean id="bhgeCardDetailConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.data.BHGECreditCardData"/>
+		<property name="populators">
+			<list>
+				<ref bean="bhgeCardDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dsCMSRegionRestrictionEvaluator" class="com.bhge.facades.components.impl.CMSRegionRestrictionEvaluator">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="dsCMSRegionRestrictionEvaluatorMapping" class="de.hybris.platform.cms2.servicelayer.services.evaluator.CMSRestrictionEvaluatorMapping" >
+		<property name="restrictionTypeCode" value="CMSRegionRestriction" />
+		<property name="restrictionEvaluator" ref="dsCMSRegionRestrictionEvaluator" />
+	</bean>
+
+	<bean id="bhgeOrderNotificationReversePopulator" class="com.bhge.facades.order.populators.BHGEOrderNotificationReversePopulator" >
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="blockedOrderNotificationEmailContext" class="com.bhge.facades.process.email.context.BlockedOrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype">
+	</bean>
+	
+    <alias name="bhgeHaveQuestionFacade" alias="bhgeHaveQuestionFacade"/>
+	<bean id="bhgeHaveQuestionFacade" class="com.bhge.facades.customerCare.impl.BHGEHaveQuestionFacadeImpl">
+		<property name="bhgeHaveQuestionService" ref="bhgeHaveQuestionService" />
+	</bean>
+
+	<bean id="contactUsRequestEmailContext" class="com.bhge.facades.process.email.context.ContactUsRequestEmailContext" parent="abstractEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="bhgeContactUsReversePopulator" class="com.bhge.facades.order.populators.BHGEContactUsReversePopulator" >
+	</bean>
+	
+	<alias name="bhgeVCUiTypeFinder" alias="sapProductConfigUiTypeFinder" />
+	<bean id="bhgeVCUiTypeFinder" class="com.bhge.facades.productconfig.impl.BHGEVCUiTypeFinderImpl" parent="sapProductConfigDefaultUiTypeFinder">
+		<property name="dropDownListThreshold" value="${sapproductconfigfacades.dropDownListThreshold}" />
+	</bean>
+	
+	<alias name="bhgeConfigurationCartIntegrationFacade" alias="sapProductConfigCartIntegrationFacade" />
+	<bean id="bhgeConfigurationCartIntegrationFacade" class="com.bhge.facades.configuration.BHGEConfigurationCartIntegrationFacadeImpl"
+		parent="sapProductConfigDefaultCartIntegrationFacade">
+
+	</bean>
+	
+	<alias name="bhgeCartConfigurationPopulator" alias="sapProductConfigCartPopulator" />
+	<bean id="bhgeCartConfigurationPopulator" class="com.bhge.facades.productconfig.populator.BHGECartConfigurationPopulator"
+		parent="sapProductConfigDefaultCartPopulator">
+		
+	</bean>
+
+	<bean id="bhgeUserManagementDetailPopulator" class="com.bhge.facades.user.populators.BHGEUserManagmentDetailPopulator"/>
+
+	<bean id="bhgeUserManageB2bUnitPopulator" class="com.bhge.facades.user.populators.BHGEUserManagementB2bUnitPopulator"/>
+
+	<bean id="bhgeUserManageFacade"  class="com.bhge.facades.UserManage.impl.BHGEUserManageFacadeImpl">
+	</bean>
+
+	<!-- UserManagment Converter -->
+	<alias name="defaultBHGEUserManagementConverter" alias="bhgeUserManagementConverter"/>
+	<bean id="defaultBHGEUserManagementConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="bhgeUserManagementDetailPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="bhgeUserManagementB2bUnitConverter" alias="bhgeUserManagementB2bUnitConverter"/>
+	<bean id="bhgeUserManagementB2bUnitConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.bhge.facades.user.data.ManageUsersB2bUnitData"/>
+		<property name="populators">
+			<list>
+				<ref bean="bhgeUserManageB2bUnitPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="bhgeVCPriceFacade" class="com.bhge.facades.price.impl.BHGEVCPriceFacadeImpl">
+		<property name="priceSummaryConverter" ref="sapProductConfigPriceSummaryConverter" />
+
+	</bean>
+	<bean id="bhgePriceAvailabilityUtils" class="com.bhge.core.util.BHGEPriceAvailabilityUtils"/>
+
+	<alias name="bhgeConfigurationFacade" alias="sapProductConfigFacade" />
+	<bean id="bhgeConfigurationFacade" class="com.bhge.facades.configuration.BHGEConfigurationFacadeIml" parent="sapProductConfigDefaultFacade">
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="bhgeVCCharonFacade" alias="sapProductConfigCharonFacade" />
+	<bean id="bhgeVCCharonFacade" class="com.bhge.facades.configuration.impl.BHGEVCCharonFacadeImpl" parent="sapProductConfigDefaultCharonFacade">
+	</bean>
+
+	<alias name="bhgeVCCharonKBDeterminationFacade" alias="sapProductConfigCharonKbDeterminationFacade" />
+	<bean id="bhgeVCCharonKBDeterminationFacade" class="com.bhge.facades.configuration.impl.BHGEVCCharonKBDeterminationFacadeImpl" parent="sapProductConfigDefaultCharonKbDeterminationFacade">
+	</bean>
+
+	<bean id="bhgeProductConfigurationCartRestorationPopulator"
+		  class="com.bhge.facades.productconfig.populator.BHGEConfigurationCartRestorationPopulator" parent="defaultProductConfigurationCartRestorationPopulator">
+		<constructor-arg name="configurationAbstractOrderIntegrationStrategy" ref="sapProductConfigConfigurationAbstractOrderIntegrationStrategy" />
+		<constructor-arg name="cpqConfigurableChecker" ref="sapProductConfigCPQConfigurableChecker" />
+		<constructor-arg name="configurationProductInfoModelPopulator" ref="sapProductConfigInfoModelPopulator" />
+		<constructor-arg name="configurationPricingOrderIntegrationService" ref="sapProductConfigConfigurationOrderIntegrationService" />
+		<constructor-arg name="modelService" ref="modelService"/>
+	</bean>
+<!--	<bean id="bhgeConfigurationOrderEntryProductInfoModelPopulator" class="com.bhge.facades.productconfig.populator.BHGEConfigurationOrderEntryProductInfoModelPopulator" parent="sapProductConfigDefaultOrderEntryInfoModelPopulator">-->
+<!--	</bean>-->
+	<bean id="bhgeConfigurationProductInfoModelPopulator" class="com.bhge.facades.productconfig.populator.BHGEConfigurationProductInfoModelPopulator" parent="sapProductConfigDefaultInfoModelPopulator">
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cartRestorationConverter" />
+		<property name="remove" ref="productConfigurationCartRestorationPopulator"/>
+		<property name="add" ref="bhgeProductConfigurationCartRestorationPopulator" />
+	</bean>
+
+</beans>
+
+

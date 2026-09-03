@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "DI",
+    "proceedToCheckout": "Fazer o check-out",
+    "cartName": "Carrinho #{{code}}"
+  },
+  "cartItems": {
+    "id": "DI",
+    "description": "Descrição",
+    "item": "Item",
+    "itemPrice": "Preço do item",
+    "quantity": "QTDE",
+    "quantityTitle": "A quantidade representa o número total deste item em seu carrinho.",
+    "total": "Total",
+    "cartTotal": "Total do carrinho ({{count}} item)",
+    "cartTotal_plural": "Total do carrinho ({{count}} itens)"
+  },
+  "orderCost": {
+    "orderSummary": "resumo do pedido",
+    "subtotal": "Subtotal após descontos:",
+    "shipping": "Envio:",
+    "estimatedShipping": "Envio Estimado:",
+    "discount": "Você salvou:",
+    "salesTax": "Imposto sobre vendas:",
+    "grossTax": "O total do pedido não inclui imposto de",
+    "total": "Total:",
+    "toBeDetermined": "TBD"
+  },
+  "voucher": {
+    "coupon": "Tem um cupom?",
+    "coupon_plural": "Códigos de cupom",
+    "apply": "Aplicar",
+    "placeholder": "Código promocional",
+    "applyVoucherSuccess": "{{voucherCode}} foi aplicado.",
+    "removeVoucherSuccess": "{{voucherCode}} foi removido.",
+    "anchorLabel": "Insira ou remova seu código de cupom",
+    "vouchersApplied": "Cupons aplicados",
+    "availableCoupons": "Cupons disponíveis",
+    "availableCouponsLabel": "Você pode adicionar esses cupons a este pedido."
+  },
+  "saveForLaterItems": {
+    "itemTotal": "Salvo para Depois ({{count}}item)",
+    "itemTotal_plural": "Saved for later ({{count}}items)",
+    "cartTitle": "Carrinho",
+    "saveForLater": "Guardar para depois",
+    "moveToCart": "Mover para o carrinho",
+    "stock": "Estoque",
+    "forceInStock": "Em estoque"
+  }
+}

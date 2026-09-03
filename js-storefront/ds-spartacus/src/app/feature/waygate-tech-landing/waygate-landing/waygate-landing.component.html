@@ -1,0 +1,59 @@
+<app-whats-new-widget></app-whats-new-widget>
+<div class="main">
+  <div class="slider-main">
+    <image-slider></image-slider>
+  </div>
+  <!-- <ng-container *ngIf="user$ | async as user">
+    <div class="quick-order-widget-container container">
+      <div class="widget-container-main">
+        <div>
+          <div class="widget-title">Already have a product list ready?</div>
+          <div class="widget-description">
+            check prices, check availability, and add to cart instantly.
+          </div>
+        </div>
+        <button class="quick-order" (click)="viewQuickOrder()">
+          Quick Order <span class="material-icons"> add_shopping_cart </span>
+        </button>
+      </div>
+    </div>
+  </ng-container> -->
+
+  <!-- <div class="track-main container">
+    <ng-container *ngIf="user$ | async as user; else guestUser">
+      <app-order-rma-status [isClassicView]="true"></app-order-rma-status>
+    </ng-container>
+    <ng-template #guestUser>
+      <app-track-po-status></app-track-po-status>
+    </ng-template>
+  </div> -->
+
+  <!-- <div class="category-main container">
+    <app-shop-category></app-shop-category>
+  </div> -->
+
+  <div
+    class="container category-main container position-relative quick-link-main"
+  >
+    <app-quick-link></app-quick-link>
+  </div>
+
+  <div class="category-main container position-relative">
+    <app-featured-prods></app-featured-prods>
+  </div>
+
+  <div class="new-arrivals-main container">
+    <app-new-arrivals></app-new-arrivals>
+  </div>
+
+  <div
+    class="category-main container position-relative best-sellers-main"
+    *ngIf="productLine !== allProductLine.bently"
+  >
+    <app-best-sellers></app-best-sellers>
+  </div>
+
+  <!-- <div class="wt-hq-main">
+    <app-waygate-tech-hq></app-waygate-tech-hq>
+  </div> -->
+</div>

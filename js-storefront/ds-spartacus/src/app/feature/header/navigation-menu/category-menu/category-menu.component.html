@@ -1,0 +1,70 @@
+<div
+  *ngIf="productCategories$ | async as productCat; else catLoading"
+  class="cat-flyout-menu"
+>
+  <div class="brand-category-holder">
+    <ng-container *ngFor="let cat of productCat | keyvalue; let i = index">
+      <div
+        class="brand-cat"
+        [class]="i == brandSelectedIndex ? 'brand-selected' : ''"
+        (mouseover)="onBrandCatHover(cat?.value, cat?.key)"
+        (click)="redirecToCatProducts(cat?.value, cat?.value?.url)"
+      >
+        <img
+          *ngIf="!logedInUser"
+          [class]="
+            i == brandSelectedIndex &&
+            (cat?.value?.name == 'Waygate Technologies' ||
+              cat?.value?.name == 'Panametrics')
+              ? 'product-category-icon'
+              : 'product-category-icon-gray'
+          "
+          src="{{ apiurl + cat?.value.categoryImageUrl }}"
+        />
+        <img
+          *ngIf="logedInUser"
+          class="product-category-icon"
+          src="{{ apiurl + cat?.value?.categoryImageUrl }}"
+        />
+        <span class="product-category-label">{{ cat?.value?.name }} </span>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row m-0">
+    <div class="col-md-10">
+      <div class="child-category-holder row m-0">
+        <div
+          class="col-md-2 cat-columns"
+          *ngFor="let cat of selectedMenu; let i = index"
+        >
+          <div class="nav-category">
+            <span>{{ catHeaders[i] }}</span>
+            <span class="material-icons"> chevron_right </span>
+          </div>
+          <ul class="child-cat p-0">
+            <li
+              *ngFor="let subCat of cat | keyvalue"
+              (mouseover)="openSubCategory(subCat.value, i)"
+              (click)="redirecToCatProducts(subCat.value, subCat.value.url)"
+            >
+              <span class="m-r-25">{{ subCat.value.name }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 catgeory-image-holder">
+      <img
+        *ngIf="imageSrc"
+        class="category-image pull-right"
+        src="{{ apiurl + imageSrc }}"
+      />
+    </div>
+  </div>
+</div>
+
+<ng-template #catLoading class="spinner-class">
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

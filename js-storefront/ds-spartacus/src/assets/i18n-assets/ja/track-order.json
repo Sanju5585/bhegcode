@@ -1,0 +1,29 @@
+{
+  "track-order": {
+    "customerNumber": "カスタマー番号",
+    "searchByPoOrOrderorRMANumber": "ご注文番号、弊社受注番号もしくはRMA番号で検索",
+    "trackOrderBreadcrumb": "ご注文の追跡",
+    "trackOrderHeader": "ご注文の追跡",
+    "trackOrderBtn": "ご注文の追跡",
+    "whereDofind": "これらはどこでみつかりますか？",
+    "na": "利用不可",
+    "noDataFound": "データが見つかりません",
+    "orderNotFound": "オーダーが見つかりません",
+    "itemsHeader": "アイテム",
+    "orderNumber": "弊社受注番号",
+    "poDateHeader": "ご発注日:",
+    "orderReceivedHeader": "ご注文受領",
+    "orderStatusBlocked": "ご注文はブロックされました",
+    "orderStatusShipped": "ご注文処理中",
+    "shipped": "出荷済み",
+    "shipped&Invoiced": "出荷済、請求書発行済",
+    "orderedCount": "発注品({{count}})",
+    "itemDetails": "アイテムの詳細",
+    "orderSummryBtn": "注文内容",
+    "itemsOrdered": "ご注文品",
+    "wrongStore": "こちらは{{store}}ストアのご注文ではありません 他のストアをご確認ください",
+    "wrongCustomer": "お使いのカスタマーアカウントではこちらのご注文を確認できません 正しいアカウントへ変更されますか？",
+    "changeCustomer": "カスタマーを変更",
+    "cancel": "キャンセル"
+  }
+}

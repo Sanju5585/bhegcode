@@ -1,0 +1,41 @@
+<ng-container>
+  <ds-customer-account></ds-customer-account>
+  <ng-container *ngIf="user$ | async as user">
+    <div *ngIf="cart$ | async as cart">
+      <a class="mini-cart-icon-link" (click)="openMenu = !openMenu" #cartIcon>
+        <span
+          class="material-icons shopping-cart-icon"
+          *ngIf="cart?.commerceType == commerceTypes.RETURNS; else buy"
+          >local_shipping</span
+        >
+        <ng-template #buy>
+          <span class="material-icons shopping-cart-icon">shopping_cart</span>
+        </ng-template>
+
+        <span class="count">
+          <b>
+            {{
+              cart?.commerceType == commerceTypes.RETURNS
+                ? (cart?.returnsCartData | rmaProduct)?.length ||
+                  totalNumberOfCart
+                : cart.totalItems || totalNumberOfCart
+            }}
+          </b>
+        </span>
+      </a>
+
+      <div
+        clickOutside
+        [clickSourceId]="cartIcon"
+        (clickOutside)="openMenu = !openMenu"
+        *ngIf="openMenu"
+      >
+        <ds-mini-cart-details
+          class="mini-cart-details"
+          [cart]="cart"
+          (closeMenu)="closeMenu($event)"
+        ></ds-mini-cart-details>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,498 @@
+<div class="accessories-tab-details--section">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'quotecheckout.quoteName' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.quoteName' | cxTranslate }} "
+          [value]="quoteName"
+          [message]="error.quoteName"
+          [attr.error]="error.quoteName ? error.quoteName : null"
+          (keyup)="onChange($event, 'quoteName')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.nameCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.nameCheckout' | cxTranslate }} "
+          [value]="nameCheckout"
+          [message]="error.nameCheckout"
+          [attr.error]="error.nameCheckout ? error.nameCheckout : null"
+          (keyup)="onChange($event, 'nameCheckout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.companyCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.companyCheckout' | cxTranslate }} "
+          [value]="companyCheckout"
+          [message]="error.companyCheckout"
+          [attr.error]="error.companyCheckout ? error.companyCheckout : null"
+          (keyup)="onChange($event, 'companyCheckout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.phoneCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.phoneCheckout' | cxTranslate }} "
+          [value]="phoneCheckout"
+          [message]="error.phoneCheckout"
+          [attr.error]="error.phoneCheckout ? error.phoneCheckout : null"
+          (keyup)="onChange($event, 'phoneCheckout')"
+          maxlength="10"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.emailCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.emailCheckout' | cxTranslate }} "
+          [value]="emailCheckout"
+          [message]="error.emailCheckout"
+          [attr.error]="error.emailCheckout ? error.emailCheckout : null"
+          (keyup)="onChange($event, 'emailCheckout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.addressCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.addressCheckout' | cxTranslate }} "
+          [value]="addressCheckout"
+          [message]="error.addressCheckout"
+          [attr.error]="error.addressCheckout ? error.addressCheckout : null"
+          (keyup)="onChange($event, 'addressCheckout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'quotecheckout.address1Checkout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.address1Checkout' | cxTranslate }} "
+          [value]="address1Checkout"
+          [message]="error.address1Checkout"
+          [attr.error]="error.address1Checkout ? error.address1Checkout : null"
+          (keyup)="onChange($event, 'address1Checkout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid"
+          [menuItems]="countryCheckout"
+          label="{{ 'quotecheckout.country' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="countrys"
+          isSmall="true"
+          [message]="error.countrys"
+          [attr.error]="error.countrys ? error.countrys : null"
+          (selected)="getStateList($event, 'countrys')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid "
+          [menuItems]="regionCheckout"
+          unselectable="false "
+          label="{{ 'quotecheckout.region' | cxTranslate }}"
+          required="true "
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="region"
+          isSmall="true"
+          [message]="error.region"
+          [attr.error]="error.region ? error.region : null"
+          (selected)="onChange($event, 'region')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          required
+          type="text"
+          small
+          label="{{ 'quotecheckout.cityCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.cityCheckout' | cxTranslate }} "
+          [value]="cityCheckout"
+          [message]="error.cityCheckout"
+          [attr.error]="error.cityCheckout ? error.cityCheckout : null"
+          (keyup)="onChange($event, 'cityCheckout')"
+          maxlength="40 "
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.postalCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.postalCheckout' | cxTranslate }} "
+          [value]="postalCheckout"
+          [message]="error.postalCheckout"
+          [attr.error]="error.postalCheckout ? error.postalCheckout : null"
+          (keyup)="onChange($event, 'postalCheckout')"
+          maxlength="40 "
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 description">
+      <label class="text-icon-label">
+        {{ 'quotecheckout.DescriptionCheckout' | cxTranslate }}
+      </label>
+      <textarea
+        class="textarea-checkout"
+        name="reasonForCsrReview "
+        (keyup)="onChange($event, 'description')"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row enduserdet">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field quotebold">
+        {{ 'quotecheckout.endUserDetails' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row endusercategory">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field">
+        <bh-dropdown
+          required
+          label="{{ 'quotecheckout.endUserCategory' | cxTranslate }}"
+          isSearchable="true"
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="endUserItems"
+          required="true"
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          isSmall="true"
+          [value]="endUserCategory"
+          [message]="error.endUserCategory"
+          [attr.error]="error.endUserCategory ? error.endUserCategory : null"
+          (selected)="onChange($event, 'endUserCategory')"
+        ></bh-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field quotebold">
+        {{ 'quotecheckout.endUserAddress' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field">
+        <bh-checkbox
+          class="float-left"
+          label="{{ 'quotecheckout.enduserCheckbox' | cxTranslate }} "
+          name="endusercheckbox"
+          value="false"
+          [value]="checkedSameAddress"
+          (change)="checkedSoldToAddress($event)"
+        >
+        </bh-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endUser' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endUser' | cxTranslate }} "
+          [value]="endUser"
+          [message]="error.endUser"
+          [attr.error]="error.endUser ? error.endUser : null"
+          (keyup)="onChange($event, 'endUser')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endaddressLine' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endaddressLine' | cxTranslate }} "
+          [value]="endaddressLine"
+          [message]="error.endaddressLine"
+          [attr.error]="error.endaddressLine ? error.endaddressLine : null"
+          (keyup)="onChange($event, 'endaddressLine')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'quotecheckout.endaddress1Line' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endaddress1Line' | cxTranslate }} "
+          [value]="endaddress1Line"
+          maxlength="40"
+          (keyup)="onChange($event, 'endaddress1Line')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-dropdown
+          searchable
+          class="countrylisticon"
+          menuWidth="fluid"
+          [menuItems]="countryCheckout"
+          label="{{ 'quotecheckout.endCountry' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="countryend"
+          isSmall="true"
+          [message]="error.countryend"
+          [attr.error]="error.countryend ? error.countryend : null"
+          (selected)="getStateListendsuer($event, 'countryend')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid "
+          [menuItems]="regionCheckoutenduser"
+          label="{{ 'quotecheckout.endState' | cxTranslate }}"
+          required="true "
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="regionend"
+          isSmall="true"
+          [message]="error.regionend"
+          [attr.error]="error.regionend ? error.regionend : null"
+          (selected)="onChange($event, 'regionend')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endTown' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endTown' | cxTranslate }} "
+          [value]="endTown"
+          [message]="error.endTown"
+          [attr.error]="error.endTown ? error.endTown : null"
+          (keyup)="onChange($event, 'endTown')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endZipcode' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endZipcode' | cxTranslate }} "
+          [value]="endZipcode"
+          [message]="error.endZipcode"
+          [attr.error]="error.endZipcode ? error.endZipcode : null"
+          (keyup)="onChange($event, 'endZipcode')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="vs-text-field">
+        <label class="bh-text-input__label typography--label-small"
+          >{{ 'quotecheckout.attachment' | cxTranslate }}</label
+        >
+        <ds-file-upload
+          label="{{ 'labels.uploadFile' | cxTranslate }}"
+          [maxLength]="5"
+          [maxSizeInMB]="5"
+          [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+          (selectedFiles)="selectedFiles($event)"
+          [showIcon]="showIcon"
+          [multiple]="false"
+          [icon]="'backup'"
+          class="bh-file-upload-button"
+          [disabled]="isDisabledButton"
+          [ngClass]="
+            fileUploadSuccess == true || disableButton ? 'disabled' : ''
+          "
+        ></ds-file-upload>
+        <div class="file-list">
+          <ds-file-upload-progress
+            *ngFor="let file of files"
+            [layout]="layouts.LIST"
+            [file]="file"
+            [deleteUrl]="deletUrl"
+            (deletedFiles)="deletedFiles($event)"
+            [showProgress]="true"
+          ></ds-file-upload-progress>
+        </div>
+        <span class="fileformat typography--label-small"
+          >{{ 'labels.fileFormat' | cxTranslate }}
+        </span>
+        <div
+          class="file-upload-success d-flex align-items-center"
+          *ngIf="fileUploadSuccess"
+        >
+          <span class="material-icons success-info success-color">
+            check_circle</span
+          >
+          {{ 'quotecheckout.uploadSuccessfully' | cxTranslate }}
+        </div>
+
+        <div class="file-upload-error d-flex" *ngIf="fileUploadFailure">
+          <i class="mr-1 typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          {{ 'quotecheckout.error.uploadFailure' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="upload mt-3 quotecartquoted">
+    <span>{{ 'quotecheckout.communictaionPef' | cxTranslate }}</span>
+    <div class="radio-btn">
+      <bh-radio-button
+        label=" {{ 'quotecheckout.yes' | cxTranslate }}"
+        value="'true'"
+        name="radiobtnbuy"
+        (change)="handleChange($event, 'radiobtnbuy')"
+      ></bh-radio-button>
+      <bh-radio-button
+        label=" {{ 'quotecheckout.no' | cxTranslate }}"
+        value="'false'"
+        name="radiobtnbuy"
+        (change)="handleChange($event, 'radiobtnbuy')"
+      ></bh-radio-button>
+      <div
+        class="bh-form-message typography--body-small bh-form-message--error"
+        *ngIf="submitted && !radiobtnbuy"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ 'quotecheckout.mandatory' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row quotecartquoted quotedetails">
+    <span
+      [innerHTML]="'quotecheckout.quoteterms' | cxTranslate"
+    ></span>
+  </div>
+</div>
+<div class="row btns-quote">
+  <bh-button
+    type="primary"
+    [attr.disabled]="showLoading ? true : null"
+    [attr.loading]="showLoading ? true : null"
+    label="{{ 'quotecheckout.submitRequest' | cxTranslate }}"
+    (click)="submitRequestbaker()"
+  ></bh-button>
+  <button
+    class="bh-button motion--normal bh-button--small bh-button--type-secondary continueshopping"
+    (click)="cancelQuote()"
+  >
+    <span class="bh-button__label typography--button-link-small">{{
+      'quotecheckout.cancelQuote' | cxTranslate
+    }}</span>
+  </button>
+</div>
+<ng-template #loadSpinner>
+  <div class="feedback-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

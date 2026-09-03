@@ -1,0 +1,44 @@
+<ng-container *ngIf="cart">
+    <div class="waygate-returns-summary">
+        <div class="returns-summary-heading">
+            {{ 'rma-cart.returnsSummary' | cxTranslate }}
+        </div>
+        <div
+        *ngIf="cart?.totalReturnCartPriceDiscount?.value > 0"
+        class="rma-cart-info"
+      >
+        <span class="bold">{{ 'rma-cart.totalDiscount' | cxTranslate }} </span>
+        <span class="rma-cart-value">{{
+          cart?.totalReturnCartPriceDiscount?.formattedValue
+        }}</span>
+      </div>
+      <div class="rma-cart-info">
+        <span class="bold">{{ 'rma-cart.totalEstimate' | cxTranslate }} </span>
+        <span
+          *ngIf="cart?.totalReturnCartPrice?.value > 0; else toBeQuoted"
+          class="rma-cart-value"
+          >{{ cart?.totalReturnCartPrice?.formattedValue }}</span
+        >
+      </div>
+      <div class="rma-cart-info">
+        <span> {{ 'rma-cart.starInfo' | cxTranslate }}</span>
+      </div>
+      <ng-container *ngIf="currentUserAccess$ | async as userType">
+        <div *ngIf="!restrictedSalesArea" class="rma-cart-btn">
+          <bh-button
+            class="rma-cart-btn"
+            fluid
+            (click)="goToCheckout()"
+            [class.add-button-disabled]="checkDisable()"
+            [type]="'primary'"
+            [label]="'rma-cart.proceed' | cxTranslate"
+          ></bh-button>
+        </div>
+      </ng-container>
+    </div>
+</ng-container>
+
+<ng-template #toBeQuoted>
+    <span class="rma-cart-value">{{ 'rma-cart.toBeQuoted' | cxTranslate }}</span>
+  </ng-template>
+  

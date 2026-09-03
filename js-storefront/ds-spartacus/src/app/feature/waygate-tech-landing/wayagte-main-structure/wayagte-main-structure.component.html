@@ -1,0 +1,27 @@
+<app-waygate-header *ngIf="showHeader"></app-waygate-header>
+<ng-container *ngIf="showOutageBanner">
+  <div
+    class="outage-banner-component"
+    *ngIf="outageBannerComponent$ | async as outageBanner"
+  >
+    <span class="material-icons"> warning </span>
+    <p class="m-0" [innerHtml]="outageBanner.content"></p>
+    <a class="close-outage-banner" (click)="closeOutageBanner()"
+      ><span class="material-icons"> close </span></a
+    >
+  </div>
+</ng-container>
+<ng-container *ngIf="showSAOutageBanner">
+  <div
+    class="outage-banner-component"
+    *ngIf="salesAreaOutageBannerComponent$ | async as outageBanner"
+  >
+    <span class="material-icons"> warning </span>
+    <p class="m-0" [innerHtml]="outageBanner.content"></p>
+    <a class="close-outage-banner" (click)="closeSAOutageBanner()"
+      ><span class="material-icons"> close </span></a
+    >
+  </div>
+</ng-container>
+<router-outlet></router-outlet>
+<app-waygate-footer></app-waygate-footer>

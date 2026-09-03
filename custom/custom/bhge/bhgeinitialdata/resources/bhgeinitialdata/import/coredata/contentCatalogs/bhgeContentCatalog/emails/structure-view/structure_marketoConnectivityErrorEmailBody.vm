@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M&C Store – Inactive User Notification</title>
+
+    <style>
+        @font-face {
+            font-family: GEInspiraSans;
+            src: url('$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+        }
+    </style>
+</head>
+
+
+<body style="font-family: 'Poppins','Lucida Sans'; font-size: 11pt;width:550px;color: #05322b;border: solid 0.3px #979797;">
+
+    <div class="header">
+        <img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" width="100%" alt="headerImage" />
+    </div>
+
+	<div class="emailBody" style="padding:14px 22px 0px 34px;">
+		<div class="headerInformation" style="padding-bottom:27px;letter-spacing: -0.4px;">
+		    <p>Dear Hybris Support Team,</p>
+		    <p>We have a error while connecting to Marketo Service for contact us form submission. Below are the Details.</b>.</p>
+			<p>Please take immediate action to investigate and reslove this issue.</b>.</p>
+		    <br>
+		    <div class="table2">
+			    <table width="50%" cellpadding="0" cellspacing="0">
+					<thead style="  letter-spacing: -0.5px;font-family: 'Poppins','Lucida Sans';color: #ffffff;"><tr style="background-color: #028474;">
+					<th style="padding: 9px;text-align: left;">Attribute</th><th style="padding: 9px;text-align: left;">Value</th>
+					</tr></thead>
+					<tbody style="letter-spacing: -0.4px;color: #05322b; line-height: 1.2; font-size: 11pt;">
+						<tr style="background-color: #f9f9f9;">
+						<td style="padding: 9px;text-align: left;">User Email</td><td style="padding: 9px;text-align: left;">${ctx.userEmail}</td>
+						</tr>
+						<tr style="background-color: #f9f9f9;">
+						<td style="padding: 9px;text-align: left;">Error Time</td><td style="padding: 9px;text-align: left;">${ctx.errorTime}</td>
+						</tr>
+						<tr style="background-color: #f9f9f9;">
+						<td style="padding: 9px;text-align: left;">Error Details</td><td style="padding: 9px;text-align: left;">${ctx.errorDesc}</td>
+						</tr>
+					</tbody>
+			    </table>
+			</div>
+		     
+		    <br>
+		    <p>Best regards,<br>
+			Baker Hughes Hybris Support Team</p>
+		</div>
+	</div>
+
+
+</body>
+</html>

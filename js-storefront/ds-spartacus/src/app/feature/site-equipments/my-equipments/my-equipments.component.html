@@ -1,0 +1,766 @@
+<div class="back-link-wrap mb-4" *ngIf="showCustomerFiles">
+  <!-- <span class="cutomer-files-link" routerLink="/search-private-folder"
+    >{{'mySiteEquipment.viewCustomerFiles' | cxTranslate}} ></span
+  > -->
+  <span class="cutomer-files-link" (click)="redirectToBynder()"
+    >{{ 'mySiteEquipment.viewCustomerFiles' | cxTranslate }} ></span
+  >
+</div>
+
+<div class="box-wrapper mt-3">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 pl-0">
+      <div class="statusTile">
+        <vs-status-tiles
+          (filteredTile)="onTileClick($event)"
+          [tiles]="eqStatusTiles"
+          [currentStatusType]="firstStatusType"
+        >
+        </vs-status-tiles>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-12 pr-0 top-button-wrap text-right">
+      <bh-button
+        type="primary"
+        label="{{ 'mySiteEquipment.addToWatchList' | cxTranslate }}"
+        class="track"
+        [attr.disabled]="false"
+        (click)="addNewEquipmentData()"
+      >
+      </bh-button>
+      <bh-button
+        type="secondary"
+        label="{{ 'mySiteEquipment.dataCerts' | cxTranslate }}"
+        class="ml-3"
+        (click)="viewCalibrationData()"
+      >
+      </bh-button>
+    </div>
+  </div>
+
+  <div class="search-filter-wrap">
+    <div *ngIf="itemsInWatchlistOption" class="items-watchlist">
+      <bh-dropdown
+        class="salesarea-dd"
+        isFluid="false"
+        isSmall="false"
+        width="large"
+        menuWidth="large"
+        unselectable="false"
+        [menuItems]="watchListOption"
+        multiselect="false"
+        value="{{ 'mySiteEquipment.selectOption' | cxTranslate }}"
+        isEllipsis="false"
+        (select)="getWatchListOption($event)"
+      ></bh-dropdown>
+    </div>
+    <div class="product-family">
+      <div *ngIf="propsProducts" class="prodLine">
+        <ng-select
+          [items]="propsProducts"
+          [multiple]="true"
+          bindLabel="name"
+          placeholder="{{ 'mySiteEquipment.productFamily' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="name"
+          [(ngModel)]="selectedProdLine"
+          (change)="getselectedProdLine()"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <div (click)="selectedProductLine(item$)">
+              <input
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+              />
+              <span class="checkmark"></span>
+              <span class="prodName">{{ item.name }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div class="date-range">
+      <vs-date-range-picker
+        *ngIf="dateRangeFlag"
+        (selectedDateRange)="getDateRange($event)"
+        [fromMaxDate]="fromMaxDate"
+        [fromMinDate]="fromMinDate"
+        [toMinDate]="toMinDate"
+        [toMaxDate]="toMinDate"
+        [changeDate]="changeDate"
+        [customLabel]="customDateLabel"
+      ></vs-date-range-picker>
+
+      <vs-date-range-picker
+        *ngIf="!dateRangeFlag"
+        (selectedDateRange)="getDateRange($event)"
+        [fromMaxDate]="toMinDate"
+        [fromMinDate]="fromMax"
+        [toMinDate]="toMinDate"
+        [toMaxDate]="toMinDate"
+        [changeDate]="changeDate"
+        [customLabel]="customDateLabel"
+      ></vs-date-range-picker>
+    </div>
+    <div class="end-customer">
+      <bh-dropdown
+        class="salesarea-dd"
+        isFluid="false"
+        isSmall="false"
+        width="large"
+        menuWidth="large"
+        unselectable="false"
+        [menuItems]="endCustomers"
+        placeholder="{{ 'mySiteEquipment.endCustomer' | cxTranslate }}"
+        value="{{ endCustomerName }}"
+        isEllipsis="false"
+        searchable="true"
+        (select)="getCustomerID($event)"
+      ></bh-dropdown>
+    </div>
+
+    <div class="search-box">
+      <bh-text-input
+        class="search-product-input float-right"
+        type="text"
+        placeholder="{{ 'mySiteEquipment.searchByText' | cxTranslate }}"
+        value=""
+        end-icon="search"
+        maxlength="40"
+        fuild="true"
+        small="true"
+        (keydown.enter)="searchInput($event)"
+      ></bh-text-input>
+    </div>
+  </div>
+
+  <div class="row search-filter-display mat-elevation-z8 tb-parent">
+    <div class="prodDetail" *ngIf="selectedProdLine.length > 0">
+      <div *ngFor="let prodLine of selectedProdLine" class="left-content col">
+        {{ 'rma-tracking.productLine' | cxTranslate }} - {{ prodLine }}
+        <em class="material-icons" (click)="clearProductLines(prodLine)"
+          >close</em
+        >
+      </div>
+    </div>
+
+    <div class="left-content" *ngIf="equipmentStatusLabel">
+      {{ this.equipmentStatusLabel }}
+      <em class="material-icons" (click)="clearEquipmentType()">close</em>
+    </div>
+
+    <div class="left-content" *ngIf="searchTerm">
+      {{ 'mySiteEquipment.searchBy' | cxTranslate }} - {{ this.searchTerm }}
+      <em class="material-icons" (click)="clearSearchTerm()">close</em>
+    </div>
+    <div class="left-content" *ngIf="dateRange">
+      {{ this.fromDateFormatted }} - {{ this.toDateFormatted }}
+      <em class="material-icons" (click)="clearDateRange()">close</em>
+    </div>
+
+    <div class="left-content" *ngIf="searchParams.endCustomerID != ''">
+      {{ 'mySiteEquipment.endCustomer' | cxTranslate }} - {{ endCustomerName }}
+      <em class="material-icons" (click)="clearCustomer()">close</em>
+    </div>
+    <div class="left-content" *ngIf="searchParams.itemsInWatchlist != ''">
+      {{ itemsInWatchListLbl }}
+      <em class="material-icons" (click)="clearWatchListOptions()">close</em>
+    </div>
+  </div>
+
+  <div class="row equipment-data">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <button
+        *ngIf="searchParams.filterBy != 'archivedItems'"
+        [disabled]="mulitplEqSelection.length == 0"
+        [ngClass]="{ 'icon-holder-disabled': mulitplEqSelection == 0 }"
+        class="icon-holder icon-holder-disabled"
+        (click)="archiveMultiple('remove')"
+        matTooltipClass="vs-tooltip"
+        matTooltipPosition="below"
+        matTooltip="{{ 'mySiteEquipment.removeFromWatchlist' | cxTranslate }}"
+      >
+        <bh-icon
+          icon="bookmark_remove"
+          size="small"
+          color="primary"
+          href=""
+          target=""
+        ></bh-icon>
+      </button>
+
+      <button
+        *ngIf="searchParams.filterBy == 'archivedItems'"
+        [disabled]="mulitplEqSelection.length == 0"
+        [ngClass]="{ 'icon-holder-disabled': mulitplEqSelection == 0 }"
+        class="icon-holder icon-holder-disabled"
+        (click)="archiveMultiple('add')"
+        matTooltipClass="vs-tooltip"
+        matTooltipPosition="below"
+        matTooltip="{{ 'mySiteEquipment.addToWatchList' | cxTranslate }}"
+      >
+        <bh-icon
+          icon="bookmark_add"
+          size="small"
+          color="primary"
+          href=""
+          target=""
+        ></bh-icon>
+      </button>
+
+      <button
+        [disabled]="mulitplEqSelection.length == 0"
+        [ngClass]="{ 'icon-holder-disabled': mulitplEqSelection == 0 }"
+        class="icon-holder icon-holder-disabled"
+        (click)="archiveMultiple('archive')"
+        matTooltipClass="vs-tooltip"
+        matTooltipPosition="below"
+        matTooltip="{{ 'mySiteEquipment.addToArchive' | cxTranslate }}"
+      >
+        <bh-icon
+          icon="archive"
+          size="small"
+          color="primary"
+          href=""
+          target=""
+        ></bh-icon>
+      </button>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+      <bh-dropdown
+        class="salesarea-dd sortby-dd"
+        isFluid="false"
+        isSmall="false"
+        width="small"
+        menuWidth="small"
+        unselectable="false"
+        [menuItems]="groupBy"
+        value="{{ 'mySiteEquipment.groupBy' | cxTranslate }}"
+        isEllipsis="false"
+        (select)="groupBySelect($event)"
+      >
+      </bh-dropdown>
+      <div class="icon">
+        <em class="material-icons keyarrow keyarrow-up">keyboard_arrow_up</em>
+        <em class="material-icons keyarrow">keyboard_arrow_down</em>
+      </div>
+      <bh-dropdown
+        class="salesarea-dd sortby-dd"
+        isFluid="false"
+        isSmall="false"
+        width="small"
+        menuWidth="small"
+        unselectable="false"
+        [menuItems]="sortBy"
+        value="{{ 'mySiteEquipment.sortBy' | cxTranslate }}"
+        isEllipsis="false"
+        (select)="sortBySelect($event)"
+      >
+      </bh-dropdown>
+      <div class="icon">
+        <em class="material-icons keyarrow keyarrow-up">keyboard_arrow_up</em>
+        <em class="material-icons keyarrow">keyboard_arrow_down</em>
+      </div>
+    </div>
+  </div>
+
+  <div clss="row mt-3">
+    <div
+      *ngIf="noRecordsFound"
+      class="col-lg-12 col-md-12 col-sm-12 p-0 text-center"
+    >
+      <img class="" src="/assets/img/noItemsWatchList.png" />
+    </div>
+    <div
+      *ngIf="noRecordsFound && searchParams.filterBy == 'pinnedItems'"
+      class="col-lg-12 col-md-12 col-sm-12 p-0 text-center"
+    >
+      <h2 class="not-found-messege">
+        {{ 'mySiteEquipment.noItemsInWatchlist' | cxTranslate }}
+      </h2>
+    </div>
+    <div
+      *ngIf="noRecordsFound && searchParams.filterBy != 'pinnedItems'"
+      class="col-lg-12 col-md-12 col-sm-12 p-0 text-center"
+    >
+      <h2 class="not-found-messege">
+        {{ 'mySiteEquipment.noItemsFound' | cxTranslate }}
+      </h2>
+    </div>
+
+    <ds-scroll-container
+      *ngIf="racordTableList"
+      [more]="true"
+      [scrollDelay]="2000"
+      [scrollOffset]="2000"
+      (scrolled)="loadMoreEquipments()"
+      [class.full]="full"
+      [class.part]="!full"
+    ></ds-scroll-container>
+
+    <div
+      *ngIf="
+        racordTableList &&
+        (searchParams.groupBy == '' || searchParams.groupBy == 'default')
+      "
+      class="col-lg-12 col-md-12 col-sm-12 p-0 mat-table-wrap"
+    >
+      <table mat-table [dataSource]="dataSource">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="updateCheckedList(element, 'P')"
+              [checked]="selection.isSelected(element)"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serialNumber">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.serialNumber' | cxTranslate }}
+          </th>
+          <td class="serial-number" mat-cell *matCellDef="let element">
+            <bh-a
+              type="primary"
+              (click)="
+                openEquipmentDetails(
+                  element.partNumber,
+                  element.serialNumber,
+                  element.customer
+                )
+              "
+              text="{{ element.serialNumber }}"
+            >
+            </bh-a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="partNumber">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.partNumber' | cxTranslate }}
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.partNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="partName">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.partName' | cxTranslate }}
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.partName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endCustomer">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.endCustomer' | cxTranslate }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.endCustomer > 0">
+              {{ element.endCustomer }}
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.siteLocation' | cxTranslate }}
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.location }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastServiceDate">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'mySiteEquipment.lastServiceDate' | cxTranslate }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.lastServiceDate }}
+            <div *ngIf="element.serviceDueDate" class="service-due-date">
+              <span
+                *ngIf="findserviceDueDate(element.serviceDueDate)"
+                class="textRed"
+                >{{ 'mySiteEquipment.due' | cxTranslate }}
+                {{ element.serviceDueDate | date : 'dd MMM yyyy' }}</span
+              >
+              <span *ngIf="!findserviceDueDate(element.serviceDueDate)"
+                >{{ 'mySiteEquipment.due' | cxTranslate }}
+                {{ element.serviceDueDate | date : 'dd MMM yyyy' }}</span
+              >
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="calButton">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <bh-button
+              *ngIf="element.hasCalData === true"
+              type="secondary"
+              icon="description"
+              label="{{ 'mySiteEquipment.calibrationData' | cxTranslate }}"
+              class="reset float-left mr-3"
+              (click)="
+                downloadCalibrationPDF(element.serialNumber, element.sensorType)
+              "
+              [attr.disabled]="serialFlag == element.serialNumber"
+              [attr.loading]="serialFlag == element.serialNumber"
+            >
+            </bh-button>
+            <span *ngIf="element.productData">
+              <bh-button
+                *ngIf="
+                  element.productData.productAccessData.isService &&
+                  (element.rmaStatus === 'C' || element.rmaStatus === '')
+                "
+                type="secondary"
+                label="{{ 'mySiteEquipment.createRMA' | cxTranslate }}"
+                icon="assignment_return"
+                class="reset float-left mr-3"
+                (click)="
+                  returnProduct(element.productData, element.serialNumber)
+                "
+              >
+              </bh-button>
+
+              <bh-button
+                #equipmentSwitchCustomer
+                *ngIf="
+                  element.productData.productAccessData
+                    .isServicePresentInOtherSalesArea
+                "
+                type="secondary"
+                label="{{ 'mySiteEquipment.switchSalesArea' | cxTranslate }}"
+                icon="assignment_return"
+                class="reset float-left mr-3"
+                (click)="
+                  switchDsCustomer(element.productData.productAccessData)
+                "
+              >
+              </bh-button>
+              <span
+                *ngIf="
+                  element.productData.productAccessData.isService === false &&
+                  element.productData.productAccessData
+                    .isServicePresentInOtherSalesArea === false
+                "
+              >
+                <bh-a
+                  type="primary"
+                  href="/contactus"
+                  class="back-link"
+                  text="{{
+                    'mySiteEquipment.contactCustomerCare' | cxTranslate
+                  }}"
+                ></bh-a>
+              </span>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quickMenu">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="menu"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                *ngIf="element.status == 'ACTIVE'"
+                mat-menu-item
+                (click)="archiveAddToWatchEquipment(element, 'archive')"
+              >
+                {{ 'mySiteEquipment.archive' | cxTranslate }}
+              </button>
+              <button
+                *ngIf="element.pinned == 'X'"
+                mat-menu-item
+                (click)="archiveAddToWatchEquipment(element, 'remove')"
+              >
+                {{ 'mySiteEquipment.removeFromWatchlist' | cxTranslate }}
+              </button>
+
+              <button
+                *ngIf="element.pinned == ''"
+                mat-menu-item
+                (click)="archiveAddToWatchEquipment(element, 'watchList')"
+              >
+                {{ 'mySiteEquipment.addToWatchList' | cxTranslate }}
+              </button>
+
+              <button
+                *ngIf="element.status != 'ACTIVE'"
+                mat-menu-item
+                (click)="archiveAddToWatchEquipment(element, 'restore')"
+              >
+                {{ 'mySiteEquipment.unArchive' | cxTranslate }}
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <ng-container *ngIf="groupByContainer">
+      <div
+        class="group-by mt-5"
+        *ngIf="
+          searchParams.groupBy == 'product' ||
+          searchParams.groupBy == 'endCustomer'
+        "
+      >
+        <ng-container
+          *ngFor="let groupByList of groupByEquipmentList; let i = index"
+        >
+          <ng-container
+            *ngFor="
+              let groupByDetails of groupByList.equipmentListforGroup
+                | slice : 0 : 1
+            "
+          >
+            <button class="accordion" (click)="toggleAccordian($event, i)">
+              {{ groupByDetails.partNumber }} {{ groupByDetails.partName }} ({{
+                groupByList.equipmentListforGroup.length
+              }})
+              {{ 'mySiteEquipment.items' | cxTranslate }}
+            </button>
+          </ng-container>
+          <div class="panel" hide="!item.isActive">
+            <table class="mat-table cdk-table group-by">
+              <ng-container
+                *ngFor="let groupByDetails of groupByList.equipmentListforGroup"
+              >
+                <tr class="mat-row cdk-row">
+                  <td>
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="updateCheckedList(groupByDetails, 'P')"
+                      [checked]="selection.isSelected(groupByDetails)"
+                    >
+                    </mat-checkbox>
+                  </td>
+
+                  <td class="serial-number">
+                    <bh-a
+                      type="primary"
+                      (click)="
+                        openEquipmentDetails(
+                          groupByDetails.partNumber,
+                          groupByDetails.serialNumber,
+                          groupByDetails.customer
+                        )
+                      "
+                      text="{{ groupByDetails.serialNumber }}"
+                    >
+                    </bh-a>
+                  </td>
+
+                  <td>
+                    {{ groupByDetails.partNumber }}
+                  </td>
+
+                  <td>
+                    {{ groupByDetails.endCustomer }}
+                  </td>
+                  <td>
+                    {{ groupByDetails.location }}
+                  </td>
+                  <td>
+                    <div
+                      *ngIf="groupByDetails.serviceDueDate"
+                      class="service-due-date"
+                    >
+                      <span
+                        *ngIf="
+                          findserviceDueDate(groupByDetails.serviceDueDate)
+                        "
+                        class="textRed"
+                        >{{ 'mySiteEquipment.due' | cxTranslate }}
+                        {{
+                          groupByDetails.serviceDueDate | date : 'dd MMM yyyy'
+                        }}</span
+                      >
+                      <span
+                        *ngIf="
+                          !findserviceDueDate(groupByDetails.serviceDueDate)
+                        "
+                        >{{ 'mySiteEquipment.due' | cxTranslate }}
+                        {{
+                          groupByDetails.serviceDueDate | date : 'dd MMM yyyy'
+                        }}</span
+                      >
+                    </div>
+                  </td>
+                  <td>
+                    <bh-button
+                      *ngIf="groupByDetails.hasCalData === true"
+                      type="secondary"
+                      icon="description"
+                      label="{{
+                        'mySiteEquipment.calibrationData' | cxTranslate
+                      }}"
+                      class="reset float-left mr-3"
+                      (click)="
+                        downloadCalibrationPDF(
+                          groupByDetails.serialNumber,
+                          groupByDetails.sensorType
+                        )
+                      "
+                      [attr.disabled]="
+                        serialFlag == groupByDetails.serialNumber
+                      "
+                      [attr.loading]="serialFlag == groupByDetails.serialNumber"
+                    >
+                    </bh-button>
+
+                    <span *ngIf="groupByDetails.productData">
+                      <bh-button
+                        *ngIf="
+                          groupByDetails.productData.productAccessData
+                            .isService &&
+                          (groupByDetails.rmaStatus === 'C' ||
+                            groupByDetails.rmaStatus === '')
+                        "
+                        type="secondary"
+                        label="{{ 'mySiteEquipment.createRMA' | cxTranslate }}"
+                        icon="assignment_return"
+                        class="reset float-left mr-3"
+                        (click)="
+                          returnProduct(
+                            groupByDetails.productData,
+                            groupByDetails.serialNumber
+                          )
+                        "
+                      >
+                      </bh-button>
+
+                      <bh-button
+                        *ngIf="
+                          groupByDetails.productData.productAccessData
+                            .isServicePresentInOtherSalesArea
+                        "
+                        type="secondary"
+                        label="{{
+                          'mySiteEquipment.switchSalesArea' | cxTranslate
+                        }}"
+                        icon="assignment_return"
+                        class="reset float-left mr-3"
+                        (click)="
+                          switchDsCustomer(
+                            groupByDetails.productData.productAccessData
+                          )
+                        "
+                      >
+                      </bh-button>
+                      <span
+                        *ngIf="
+                          groupByDetails.productData.productAccessData
+                            .isService === false &&
+                          groupByDetails.productData.productAccessData
+                            .isServicePresentInOtherSalesArea === false
+                        "
+                      >
+                        <bh-a
+                          type="primary"
+                          href="/contactus"
+                          class="back-link"
+                          text="{{
+                            'mySiteEquipment.contactCustomerCare' | cxTranslate
+                          }}"
+                        ></bh-a>
+                      </span>
+                    </span>
+                  </td>
+
+                  <td>
+                    <button
+                      mat-icon-button
+                      [matMenuTriggerFor]="menu"
+                      aria-label="menu"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button
+                        *ngIf="groupByDetails.status == 'ACTIVE'"
+                        mat-menu-item
+                        (click)="
+                          archiveAddToWatchEquipment(groupByDetails, 'archive')
+                        "
+                      >
+                        {{ 'mySiteEquipment.archive' | cxTranslate }}
+                      </button>
+                      <button
+                        *ngIf="groupByDetails.pinned == 'X'"
+                        mat-menu-item
+                        (click)="
+                          archiveAddToWatchEquipment(groupByDetails, 'remove')
+                        "
+                      >
+                        {{
+                          'mySiteEquipment.removeFromWatchlist' | cxTranslate
+                        }}
+                      </button>
+
+                      <button
+                        *ngIf="groupByDetails.pinned == ''"
+                        mat-menu-item
+                        (click)="
+                          archiveAddToWatchEquipment(
+                            groupByDetails,
+                            'watchList'
+                          )
+                        "
+                      >
+                        {{ 'mySiteEquipment.addToWatchList' | cxTranslate }}
+                      </button>
+
+                      <button
+                        *ngIf="groupByDetails.status != 'ACTIVE'"
+                        mat-menu-item
+                        (click)="
+                          archiveAddToWatchEquipment(groupByDetails, 'restore')
+                        "
+                      >
+                        {{ 'mySiteEquipment.restore' | cxTranslate }}
+                      </button>
+                    </mat-menu>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <div class="text-center mt-4" *ngIf="loadMoreLoader">
+    <bh-spinner position="inline" size="medium"></bh-spinner>
+  </div>
+  <div class="currently-loading-spinner" *ngIf="currentlyLoading">
+    <cx-spinner></cx-spinner>
+  </div>
+</div>

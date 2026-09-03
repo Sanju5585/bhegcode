@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#UTF-8: √Ø¬ø¬Ω√Ø¬ø¬Ω√Ø¬ø¬Ω
+# Localization ja
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Language
+$lang=ja
+
+#UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];description[lang=$lang];summary[lang=$lang]
+# ;1101695;;コードレス糸鋸;- 総金属製レバーアクション キーレス ブレード変更により、すばやく簡単な刃の変更が可能です。<br/>- 戻り止めの角度が 0°、15°、30°、45°の総金属製キーレス シュー べベルにより、多用途で簡単なべベル切断を可能にします。<br/>- 4 点位置軌道アクション;強力 XRP 18V コードレス糸鋸、キーレス刃変更可能

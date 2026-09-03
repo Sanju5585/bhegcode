@@ -1,0 +1,53 @@
+#OKTA ODIC FOR Production
+$scope=profile,openid,email,offline_access
+$storefrontUrl=https://store.bakerhughes.com
+$regUrl=https://api.store.bakerhughesds.com
+$regRedUriOkta=$storefrontUrl/redirect_uri,$regUrl/register/redirect_uri
+$oAuthUrlOkta=https://login.bakerhughes.com/oauth2/v1/authorize
+$userProfileUrlOkta=https://login.bakerhughes.com/oauth2/v1/userinfo
+$tokenUrlOkta=https://login.bakerhughes.com/oauth2/v1/token
+$logoffUrl=https://login.bakerhughes.com/login/signout?fromURI=$storefrontUrl
+
+INSERT_UPDATE OpenIDClientDetails;clientId[unique=true];scope;authorizedGrantTypes;clientSecret;registeredRedirectUri;logoffUrl;oAuthUrl;userProfileUrl;tokenUrl;responseType;issuer;
+                                 ;0oaahpblospJtIN1f357;$scope;authorization_code;dhOyRSXskFjqiiNXAXDbeFID_przDSf8dc5MDr6R;$regRedUriOkta;$logoffUrl;$oAuthUrlOkta;$userProfileUrlOkta;$tokenUrlOkta;code;hybris;
+
+
+
+
+
+# export script to update usesID to email from SSO
+"#% impex.setTargetFile( ""GEEDGECustomer_Prod07072021.csv"", true, 1, -1 );"
+UPDATE GEEDGECustomer;pk[unique=true];uid;name;email;creationtime[dateformat='yyyy-MM-dd'];modifiedtime[dateformat='yyyy-MM-dd'];sapContactID;customerID;isInternalUser;groups(uid)[mode=append]
+"#% impex.exportItems( ""GEEDGECustomer"" , true );"
+
+#sample record to update the user
+UPDATE GEEDGECustomer;pk[unique=true];uid;email;groups(uid)[mode=append]
+;8797010624516;shahid.khan@bakerhughes.com;shahid.khan@ge.com;0000121565_1830_GE_GE,0000208052_1820_GE_GE,0000022809_6080_BN_BN,0000217919_7030_GE_GE,0000133209_1800_GE_GE,0000116289_6210_GE_GE,0000164336_6040_GE_GE,0000133209_7140_GE_GE,0000133209_1820_GE_GE,0000134832_1200_BN_BN,0000167482_6040_GE_GE,0000179183_1800_GE_GE,0000225565_6030_GE_GE,0000022809_1200_BN_BN,0000111414_1200_BN_BN,0000139175_1830_GE_GE,0000159752_1810_GE_GE,0000134014_1820_GE_GE,0000169631_1800_GE_GE,0000133209_6210_GE_GE,0000139175_1800_GE_GE,b2bcustomergroup,0000169782_6040_GE_GE,0000139175_6180_GE_GE,0000139175_1820_GE_GE,0000206053_6210_GE_GE,getescob2busergroup,0000133209_1830_GE_GE,0000161634_1820_GE_GE,0000134014_1800_GE_GE,0000138305_1200_BN_BN,0000140230_6040_GE_GE,0000225565_6040_GE_GE,UG_ADMIN_ORDER_STORE,0000228042_6030_GE_GE,0000140230_1800_GE_GE,0000134832_6040_GE_GE,0000161634_6210_GE_GE,0000169631_6210_GE_GE,0000133209_3000_GE_GE,0000198153_6180_GE_GE,0000133209_6040_GE_GE,0000164864_6040_GE_GE,0000196789_6210_GE_GE,0000138305_6040_GE_GE,0000138305_1800_GE_GE,0000214678_6270_GE_GE,0000134440_6180_GE_GE,0000235117_6180_GE_GE
+
+
+"#% impex.setTargetFile( ""GEEDGECustomer.csv"", true, 1, -1 );"
+UPDATE GEEDGECustomer;pk[unique=true];uid;name;email;creationtime[dateformat='yyyy-MM-dd'];modifiedtime[dateformat='yyyy-MM-dd'];sapContactID;customerID;isInternalUser;groups(uid)[mode=append]
+"#% impex.exportItemsFlexibleSearch( ""select {PK} from {bhgeregietercustomer AS b JOIN GEEDGECUSTOMER as ge ON {ge.uid} = {b.sso}}"")"
+
+"#% impex.setTargetFile( ""Product2KeywordRelation.csv"", true, 1, -1 );"
+INSERT_UPDATE Product2KeywordRelation;source(keyword)[unique=true];target(code)[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {p2k.pk} from {Product2KeywordRelation as p2k inner join Product as p on {p2k.target}={p.pk}} order by {p.pk}"");"
+
+
+"#% impex.setTargetFile( ""Order.csv"" , true );"
+insert_update Order; pk[unique=true]; code ; creationtime
+"#% impex.exportItemsFlexibleSearch(""select {o.pk}, {o.code}, {o.creationtime} from {Order as o} where {o.creationtime} > '2020-12-20 10:10:00.0'"");"
+
+
+"#% impex.setTargetFile( ""BHGERegieterCustomer.csv"" , true );"
+update BHGERegieterCustomer; pk[unique=true]; givenName ; familyName; sso ; creationtime
+"#% impex.exportItemsFlexibleSearch(""select {o.pk}, {o.givenName}, {o.familyName}, {o.sso}, {o.sso} from {BHGERegieterCustomer as o} where {o.creationtime} > '2020-12-20 10:10:00.0'"");"
+
+"#% impex.setTargetFile( ""BHGERegieterCustomer.csv"" , true );"
+update BHGERegieterCustomer; pk[unique=true]; givenName ; familyName; sso ; creationtime
+"#% impex.exportItemsFlexibleSearch(""select {o.pk}, {o.givenName}, {o.familyName}, {o.sso}, {o.sso} from {BHGERegieterCustomer as o JOIN GEEDGECUSTOMER as ge ON {ge.uid} = {o.sso}} where {o.creationtime} > '2020-12-20 10:10:00.0'"");"
+
+
+"#% impex.setTargetFile( ""BHGERegieterCustomer_Prod08072021.csv"" , true );"
+update BHGERegieterCustomer; pk[unique=true];sso; givenName ; familyName; creationtime
+"#% impex.exportItemsFlexibleSearch(""select {o.pk},  {o.sso}, {o.givenName}, {o.familyName} from {BHGERegieterCustomer as o JOIN GEEDGECUSTOMER as ge ON {ge.uid} = {o.sso}} "");"

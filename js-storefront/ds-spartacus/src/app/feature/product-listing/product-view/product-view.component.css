@@ -1,0 +1,13 @@
+:host::ng-deep .view-mode-toggle {
+  display: flex;
+}
+
+:host::ng-deep .view-mode-toggle .bh-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+}
+
+:host::ng-deep .view-mode-toggle .bh-button .bh-button__icon {
+  font-family: 'Material Icons';
+}

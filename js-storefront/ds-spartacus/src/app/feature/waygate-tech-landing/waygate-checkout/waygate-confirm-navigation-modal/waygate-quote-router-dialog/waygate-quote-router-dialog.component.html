@@ -1,0 +1,36 @@
+<div class="cx-modal-container waygate-padding">
+    <div class="cx-modal-content">
+      <div class="waygate-dialog-popup">
+        <span class="material-icons waygate-navigation-warning">
+          notification_important
+        </span>
+        <div class="waygate-maintext-container">
+          {{ 'waygate.confirmNavigation' | cxTranslate }}
+          <div class="waygate-innertext-container">
+            {{ 'waygate.leaveThisPage' | cxTranslate }}
+            <br />
+            {{ 'waygate.cancelQuoteConvertion' | cxTranslate}}
+          </div>
+          <div class="button-container">
+            <button
+              type="button"
+              class="remove-btn-container"
+              aria-label="Confirm"
+              (click)="close('confirm')"
+            >
+              {{ 'waygate.confirm' | cxTranslate }}
+            </button>
+            <button
+              type="button"
+              class="cancel-btn-container"
+              aria-label="Close"
+              (click)="close('close')"
+            >
+              {{ 'waygate.cancel' | cxTranslate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

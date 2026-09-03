@@ -1,0 +1,42 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container>
+      <div class="cx-dialog-header modal-header">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="closeModal()"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <div class="cx-dialog-body modal-body group-modal-body">
+        <div class="container">
+          <div class="row">
+            <span>{{ 'quotecheckout.salesPopupInfo' | cxTranslate }} </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer mt-3">
+        <bh-button
+          medium
+          type="secondary"
+          label="{{ 'quotecheckout.No' | cxTranslate }}"
+          (click)="closeModal(true)"
+        ></bh-button>
+        <bh-button
+          medium
+          type="primary"
+          label="{{ 'quotecheckout.Yes' | cxTranslate }}"
+          (click)="restoreCart()"
+        ></bh-button>
+      </div>
+    </ng-container>
+    <ng-template #loadSpinner>
+      <div class="feedback-spinner cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType    ;attributeKey            			;attributeValue						;parentAttrib(attributeId);activeStatus;refPl
+                                      ;subline1                ;SUBPRODUCTLINE   ;Film                              ;Film                               ;                     ;1	;waygate
+                                      ;subline2                ;SUBPRODUCTLINE   ;Ultrasonic Testing                ;Ultrasonic Testing                 ;                     ;1	;waygate
+                                      ;subline3                ;SUBPRODUCTLINE   ;Industrial Radiography            ;Industrial Radiography             ;                     ;1	;waygate
+                                      ;subline4                ;SUBPRODUCTLINE   ;Remote Visual Inspection          ;Remote Visual Inspection           ;                     ;1	;waygate
+                                      ;subline5                ;SUBPRODUCTLINE   ;Digital Imaging                   ;Digital Imaging                    ;                     ;1	;waygate
+                                      ;subline6                ;SUBPRODUCTLINE   ;Not Listed Above                  ;Not Listed Above                   ;                     ;1	;waygate
+
+
+									  ;dsmarket1                ;DSMARKET   	 ;Aerospace		        ;Aerospace		            ;					      ;1	;waygate
+									  ;dsmarket2                ;DSMARKET   	 ;Electronics		                ;Electronics		                    ;					      ;1	;waygate
+									  ;dsmarket3                ;DSMARKET   	 ;Automotives		                ;Automotives		                ;					      ;1	;waygate
+									  ;dsmarket4                ;DSMARKET   	 ;Batteries		            ;Batteries		            ;					      ;1	;waygate
+									  ;dsmarket5                ;DSMARKET   	 ;Energy		                    ;Energy		                        ;					      ;1	;waygate
+									  ;dsmarket6                ;DSMARKET   	 ;Engineering Solutions		        ;Engineering Solutions		        ;					      ;1	;waygate
+									  ;dsmarket7                ;DSMARKET   	 ;Manufacturing		            ;Manufacturing		                ;					      ;1	;waygate
+									  ;dsmarket8                ;DSMARKET   	 ;Medical		            ;Medical		                ;					      ;1	;waygate
+									  ;dsmarket9                ;DSMARKET   	 ;Oil and Gas		            ;Oil and Gas		                ;					      ;1	;waygate
+									  ;dsmarket10                ;DSMARKET   	 ;Research and Development		            ;Research and Development		                ;					      ;1	;waygate
+									  ;dsmarket11                ;DSMARKET   	 ;Transportation		            ;Transportation		                ;					      ;1	;waygate
+									  
+									  
+									  ;dsroles1                ;DSROLES   		 ;Engineering						;Engineering						;					  	  ;1;
+									  ;dsroles2                ;DSROLES   		 ;Industry Professional				;Industry Professional				;						  ;1;
+									  ;dsroles3                ;DSROLES   		 ;Operations						;Operations							;						  ;1;
+									  ;dsroles4                ;DSROLES   		 ;Procurement						;Procurement						;						  ;1;
+									  ;dsroles5                ;DSROLES   		 ;Sales								;Sales								;						  ;1;
+									  ;dsroles6                ;DSROLES   		 ;Other								;Other								;						  ;1;
+

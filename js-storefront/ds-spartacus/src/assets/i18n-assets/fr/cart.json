@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "ID",
+    "proceedToCheckout": "Passer à la caisse",
+    "cartName": "Panier #{{code}}"
+  },
+  "cartItems": {
+    "id": "ID",
+    "description": "Description du produit",
+    "item": "Article",
+    "itemPrice": "Prix item",
+    "quantity": "QuantitÃ©",
+    "quantityTitle": "La quantité représente le nombre total de cet article dans votre panier.",
+    "total": "Total",
+    "cartTotal": "Panier total ({{count}} article)",
+    "cartTotal_plural": "Panier total ({{count}} article)"
+  },
+  "orderCost": {
+    "orderSummary": "RÃ©capitulatif de la commande",
+    "subtotal": "Sous-total après remises :",
+    "shipping": "Shipping:",
+    "estimatedShipping": "Estimation de l'expédition :",
+    "discount": "Vous avez sauvegardé :",
+    "salesTax": "Taxe de vente :",
+    "grossTax": "Le nombre total de la commande ne comprend pas la taxe de",
+    "total": "Total",
+    "toBeDetermined": "À DÉTERMINER"
+  },
+  "voucher": {
+    "coupon": "Avez-vous un coupon ?",
+    "coupon_plural": "Codes de coupon",
+    "apply": "Appliquer",
+    "placeholder": "Code promo",
+    "applyVoucherSuccess": "{{voucherCode}} a été appliqué(e).",
+    "removeVoucherSuccess": "{{voucherCode}} a été enlevé(e).",
+    "anchorLabel": "Entrez ou supprimez votre code coupon.",
+    "vouchersApplied": "Coupons appliqués",
+    "availableCoupons": "Coupons disponibles",
+    "availableCouponsLabel": "Vous pouvez ajouter ces coupons à cette commande."
+  },
+  "saveForLaterItems": {
+    "itemTotal": "Savegardé(e) pour plus tard (article {{count}})",
+    "itemTotal_plural": "Sauvegardé(e)s pour plus tard (articles {{count}})",
+    "cartTitle": "Panier",
+    "saveForLater": "Sauvegarder pour plus tard.",
+    "moveToCart": "Déplacer dans le panier",
+    "stock": "Stock",
+    "forceInStock": "Sur stock"
+  }
+}

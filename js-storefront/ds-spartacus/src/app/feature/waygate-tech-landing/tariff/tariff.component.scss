@@ -1,0 +1,16 @@
+.tariff {
+    border: 1px solid #fcf5c1;
+    border-radius: 4px;
+    background-color: #fefbe6;
+    padding: 8px 12px;
+    &-p {
+      font-family: Poppins;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: 0px;
+      color: #121212;
+      margin: 0;
+    }
+  }

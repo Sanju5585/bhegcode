@@ -1,0 +1,32 @@
+{
+  "duplicateEca": {
+    "productAlreadyExistsTitle": "购物车中已有该商品",
+    "productAlreadyExistsLine1": "您添加的商品，最终用户地址已在您的购物车中",
+    "productAlreadyExistsLine2": "请修改最终客户地址，或点击“增加数量”在购物车中添加更多数量",
+    "changeEndCustomerAddress": "修改最终用户地址",
+    "increaseQuantity": "增加数量"
+  },
+  "waygateQuickOrderAddress": {
+    "addEndCustomerAddressesTitle": "添加最终用户地址",
+    "productLabel": "产品",
+    "partNumbersLabel": "零件号",
+    "quantityLabel": "数量",
+    "endCustomerAddressLabel": "最终用户地址",
+    "changeAction": "变更",
+    "addAction": "添加",
+    "cancelAction": "取消",
+    "submitAction": "提交"
+  },
+  "cartConflictDialog": {
+    "title": "创建新购物车？",
+    "description": "您当前购物车中包含其他产品线的商品",
+    "info": "您需要保存当前购物车并创建一个新购物车",
+    "cancel": "取消",
+    "saveAndContinue": "保存当前购物车"
+  },
+  "ecaMissingDialog": {
+    "message": "请添加最终用户地址",
+    "description": "请您为以下产品添加最终用户地址",
+    "ok": "确定"
+  }
+}

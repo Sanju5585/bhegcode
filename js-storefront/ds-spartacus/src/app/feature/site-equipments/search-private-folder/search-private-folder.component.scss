@@ -1,0 +1,20 @@
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.heading {
+  font-family: var(--font-family-headline-small);
+  font-weight: 600;
+  font-size: 18px;
+  color: #c55a11;
+}
+
+.img-style {
+  max-width: 250px;
+  border: 2px solid #ccc;
+}
+.wrapper p {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-family-headline-small);
+  font-size: 14px;
+}

@@ -1,0 +1,124 @@
+.track-order {
+  position: absolute;
+  width: 97%;
+  height: 132px;
+  left: 20px;
+  top: 270px;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.order-number {
+  width: 20%;
+  white-space: nowrap;
+}
+.record-found {
+  text-align: center;
+}
+.find-order {
+  cursor: pointer;
+  white-space: nowrap;
+}
+.or-text {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 22px;
+  left: 20%;
+  right: 20%;
+  top: calc(50% - 22px / 2 - 0.5px);
+  font-family: var(--font-family-body-large);
+  font-style: italic;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-16);
+  line-height: 100px;
+  color: #003525;
+}
+.rma-order {
+  width: 23%;
+}
+.cstmr-number {
+  width: 25%;
+  padding-left: 40px;
+}
+.button-track {
+  display: flex;
+  width: 24%;
+  padding-top: 5px;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.padding-align {
+  padding-left: 40px;
+  padding-top: 15px;
+}
+.find-order {
+  font-family: var(--font-family-body-large);
+  color: #018374;
+}
+.track-status {
+  position: absolute;
+  left: 21px;
+  top: 226px;
+  font-size: var(--font-base-font-size-18);
+  line-height: 27px;
+  text-transform: uppercase;
+  color: #003525;
+}
+.track-btn {
+  padding-top: 25px;
+  padding-right: 20px;
+}
+.reset-btn {
+  padding-top: 35px;
+  cursor: pointer;
+}
+.track-list-border {
+  margin-top: 60px;
+}
+
+.table-order-number {
+  color: var(--color-base-teal-500) !important;
+  cursor: pointer !important;
+  padding: 13px;
+}
+.table td {
+  height: 48px;
+  font-family: var(--font-family-body-large);
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: #1a2321;
+}
+:host::ng-deep {
+  bh-button {
+    button {
+      height: 36px;
+      width: 155px;
+    }
+  }
+  .bh-text-input {
+    .bh-text-input__input {
+      width: 280px;
+      height: 40px;
+    }
+    .bh-text-input__container {
+      display: flex;
+      flex-direction: row;
+      width: auto;
+    }
+    label {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-base-font-size-14);
+      line-height: 19px;
+      color: #1a2321;
+    }
+  }
+}
+.rma-processing-track-status {
+  display: flex;
+  gap: 0.1rem;
+}
+.font-await-process-order {
+  font-size: 9px;
+}

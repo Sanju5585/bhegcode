@@ -1,0 +1,10 @@
+
+remove BHGEAppAccessLevel;appAccessLevelId[unique=true]
+;0
+;5
+
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;1;501;USERMANAGER;USERMANAGER;;
+;2;502;USERMANAGER;USERMANAGER;;
+;3;503;USERMANAGER;USERMANAGER;;
+;4;504;USERMANAGER;USERMANAGER;;

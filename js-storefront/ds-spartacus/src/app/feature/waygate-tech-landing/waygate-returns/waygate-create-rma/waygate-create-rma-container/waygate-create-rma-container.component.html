@@ -1,0 +1,135 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="create-rma-header">
+    <div class="create-rma-row">
+      <div class="title-container">
+        <div class="header-green-border"></div>
+        <h1 class="create-rma-title">
+          {{ 'loggedinHome.createRma' | cxTranslate }}
+        </h1>
+      </div>
+      <div class="create-rma-row-actions">
+        <div class="row-actions-items" (click)="openRmaOverview()">
+          <a class="action-links">
+            <span class="material-icons-outlined">picture_as_pdf</span>
+            <span class="action-text">{{
+              'rma-form.rmaOverview' | cxTranslate
+            }}</span>
+          </a>
+        </div>
+        <div class="row-actions-items" (click)="cancelRmaProcess()">
+          <a class="action-links">
+            <span class="material-icons">close</span>
+            <span class="action-text">{{
+              'rma-form.cancel' | cxTranslate
+            }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-waygate-rma-overview-dailog
+    *ngIf="isPopupOpen"
+    (closeRmaOverview)="isPopupOpen = false"
+  ></app-waygate-rma-overview-dailog>
+  <div class="container-body">
+    <div>
+      <app-waygate-rma-product-search
+        (helpSearchOpen)="helpSearchOpen($event)"
+        (partSelected)="onPartSelected($event)"
+        (searchProducts)="searchProducts($event)"
+        [rmaEntry]="rmaEntry"
+        [selectedPart]="selectedProduct"
+        (rmaPartNumber)="rmaPartNumber($event)"
+        (clearSelectedPart)="clearSelectedPart()"
+        (serialNumberChanged)="onSerialNumberChanged($event)"
+        [disableSerialSearch]="disableSerialSearch"
+      ></app-waygate-rma-product-search>
+      <div class="error-msg">
+        <bh-form-message *ngIf="serviceOfferingsErrors.incorrectPart.errorFound" error
+          [message]="serviceOfferingsErrors.incorrectPart.errorMessage"></bh-form-message>
+        <bh-form-message *ngIf="serviceOfferingsErrors.unavailablePart.errorFound" error
+          [message]="serviceOfferingsErrors.unavailablePart.errorMessage"></bh-form-message>
+        <label class="error-message" *ngIf="selectedProductForm.controls.partNumber.invalid && submitted">{{
+          'rma-form.enterPartNumber' | cxTranslate }}</label>
+      </div>
+      <app-waygate-return-offering
+        *ngIf="showReturnOfferings && (serviceOfferingData || rmaEntry?.partNumber === other_partNumber)"
+        [serviceOfferingData]="serviceOfferingData"
+        [rmaEntry]="rmaEntry"
+        (rmaEntryData)="rmaEntryDataa($event)"
+        (availableAccessories)="setAvailableAccessories($event)"
+        (serviceOfferingTerms)="setServiceOfferingTerms($event)"
+      ></app-waygate-return-offering>
+      <app-waygate-rma-documentation
+      *ngIf="showReturnOfferings && (serviceOfferingData || rmaEntry?.partNumber === other_partNumber)"
+        (rmaEntryData)="rmaEntryDataa($event)"
+        [serviceOfferingData]="serviceOfferingData"
+        [rmaEntry]="rmaEntry"
+        [warrentyClaimFlag]="warrentyClaimFlag"
+      ></app-waygate-rma-documentation>
+      <app-waygate-rma-find-similar-dailog
+        *ngIf="openHelp"
+        (closeHelpSection)="closeHelpSection($event)"
+        (partSelected)="selectProductAfterSearch($event)"
+        (otherSelected)="otherProductSelected($event)"
+      ></app-waygate-rma-find-similar-dailog>
+    </div>
+    <div
+      class="all-offerings-total"
+      [class.expanded]="rmaEntry?.serviceOfferings?.length > 0"
+    >
+      <h3 class="offerings-total-title">
+        {{ 'rma-form.offeringsSummary' | cxTranslate }}
+      </h3>
+      <div class="offerings-cost-list space">
+        <div class="offerings-cost-list--label">
+          {{ 'rma-form.totalofferings' | cxTranslate }}
+        </div>
+        <div class="offerings-cost-list--cost">
+          {{ rmaEntry?.serviceOfferings?.length || 0 }}
+        </div>
+      </div>
+
+      <div
+        class="offerings-cost-list mt-2"
+        *ngFor="let offering of getFormattedOfferings()"
+      >
+        <div class="offerings-cost-list--label">{{ offering.description }}</div>
+        <div class="offerings-cost-list--cost text-right">
+          <span *ngIf="offering?.price; else toBeQuoted">
+            {{ offering?.price }}
+          </span>
+        </div>
+      </div>
+      <div class="offerings-cost-list bold-child mt-2">
+        <div class="offerings-cost-list--label">
+          {{ 'rma-form.estimatedTotal' | cxTranslate }}
+        </div>
+        <div class="offerings-cost-list--cost">
+          <span *ngIf="getTotalFormattedPrice(); else toBeQuoted">{{
+            getTotalFormattedPrice()
+          }}</span>
+        </div>
+      </div>
+
+      <div class="rma-add-cart-btn">
+        <bh-button
+          [type]="'primary'"
+          [label]="'rma-form.addToReturnsCart' | cxTranslate"
+          [disabled]="
+            checkEquipmentValidation() || checkServiceOfferingValidation()
+          "
+          [ngClass]="{
+            'return-btn-disabled': !isAddToCartActive,
+            'return-btn-active': isAddToCartActive
+          }"
+          (click)="handleAddToCart()"
+        ></bh-button>
+      </div>
+    </div>
+    <ng-template #toBeQuoted>
+      <span>{{ 'rma-form.toBeQuoted' | cxTranslate }}</span>
+    </ng-template>
+  </div>
+</div>

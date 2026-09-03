@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "Mis favoritos",
+    "items": " artículos",
+    "delSelected": "ELIMINAR SELECCIONADO",
+    "addedOn": "Añadido\r",
+    "buy": "COMPRAR",
+    "return": "REGRESO",
+    "addtoEquip": "Agregar a mi equipo\r",
+    "switchSalesArea": "CAMBIAR ÁREA DE VENTAS",
+    "salesAreaText": "Puede devolver este producto en otra zona de venta.",
+    "contactCustomerCare": "CONTACTAR CON ATENCIÓN AL CLIENTE",
+    "norecords": "No se encontraron registros",
+    "listPrice": "Precio de lista",
+    "unavailable": "Indisponible",
+    "priceNotrFound": "Precio no encontrado",
+    "viewBreakup": "Ver ruptura",
+    "breakdownPrice": "Price Breakdown",
+    "discount": "Descuento",
+    "netPrice": "Precio neto\r",
+    "searchBYProductName": "Search by product name",
+    "removeSelected": "Remove selected",
+    "addToCart": "Añadir al carrito",
+    "searchList": "Search this list",
+    "error": {
+      "removeMsg": "los elementos se han eliminado con éxito",
+      "loadingMsg": "Hubo un problema al cargar su lista de pedidos."
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans            
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd            
+		http://www.springframework.org/schema/aop            
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+		
+	<bean id="scpiConnector" class="com.bhge.core.scpi.common.SCPIConnector">
+		<property name="scpiEndpointUrl" value="${SCPI_RFC_SERVER}" />
+		<property name="scpiNewEndpointUrl" value="${SCPI_CLOUDNEO_RFC_SERVER}" />
+	</bean>
+    
+	<bean id="sapJcoContainer" class="com.bhge.core.sap.SAPJcoContainer" parent="sapCoreBackendObjectJCo">
+		<property name="moduleConfigurationAccess" ref="myDefaultModuleConfigurationAccess" />
+		<property name="defaultConnectionName" value="JCoStateless" />
+	</bean>
+     <!-- Module Configuration Accesss -->
+	<alias alias="myModuleConfigurationAccess" name="myDefaultModuleConfigurationAccess" />
+	<bean id="myDefaultModuleConfigurationAccess" parent="sapCoreModuleConfigurationAccess">
+	<property name="moduleId" value="${SAP_RFC_SERVER_NAME}" />
+	</bean>
+     
+     <alias alias="sapCoreModuleConfigurationAccess" name="sapCoreDefaultModuleConfigurationAccess"/>
+	<bean abstract="true" class="de.hybris.platform.sap.core.module.impl.ModuleConfigurationAccessImpl" id="sapCoreDefaultModuleConfigurationAccess" init-method="init" scope="singleton">
+		<property name="configurationService" ref="sapCoreConfigurationService"/>
+	</bean>
+     
+    <alias alias="sapCoreBackendObjectJCo" name="sapCoreDefaultBackendObjectJCo"/>
+	<bean abstract="true" id="sapCoreDefaultBackendObjectJCo" parent="sapCoreBackendObject">		
+		<property name="defaultConnectionName" value="JCoStateless"/>    <!-- default value -->
+		<property name="managedConnectionContainer" ref="sapCoreManagedConnectionContainer"/>  
+		<!-- Abstract Properties to be set -->
+		<!-- <property name="moduleConfigurationAccess" ref="..." /> -->
+	</bean>
+	
+	<alias alias="sapCoreConfigurationService" name="sapCoreDefaultSAPConfigurationService"/>
+	<bean class="de.hybris.platform.sap.core.configuration.impl.DefaultSAPConfigurationService" id="sapCoreDefaultSAPConfigurationService" scope="singleton" />
+	
+	
+	<alias alias="sapCoreBackendObject" name="sapCoreDefaultBackendObject"/>
+	<bean abstract="true" destroy-method="destroyBackendObject" id="sapCoreDefaultBackendObject" init-method="initBackendObject" scope="singleton">
+		<property name="genericFactory" ref="sapCoreGenericFactory"/>
+		<!-- Abstract Properties to be set -->
+		<!-- <property name="moduleConfigurationAccess" ref="..." /> -->
+	</bean>
+	
+	<alias alias="sapCoreGenericFactory" name="sapCoreDefaultGenericFactory"/>
+	<bean class="de.hybris.platform.sap.core.common.util.DefaultGenericFactory" id="sapCoreDefaultGenericFactory" scope="singleton"/>
+	
+	<alias alias="sapCoreManagedConnectionContainer" name="sapCoreDefaultManagedConnectionContainer" />
+	<bean class="de.hybris.platform.sap.core.jco.connection.impl.DefaultJCoManagedConnectionContainer" id="sapCoreDefaultManagedConnectionContainer"
+		scope="singleton" destroy-method="destroy">
+		<property name="managedConnectionFactory" ref="sapCoreJCoManagedConnectionFactory" />
+	</bean>
+	
+	<alias alias="sapCoreJCoManagedConnectionFactory" name="sapCoreDefaultJCoManagedConnectionFactory" />
+	<bean class="de.hybris.platform.sap.core.jco.connection.impl.DefaultJCoManagedConnectionFactory" id="sapCoreDefaultJCoManagedConnectionFactory">
+		<constructor-arg>
+			<map>
+				<entry key="JCoStatefulServiceUser" value="sapCoreJCoConnectionStateful" />
+				<entry key="JCoStatefulServiceUserSecond" value="sapCoreJCoConnectionStatefulSecond" />
+				<entry key="JCoStateless" value="sapCoreJCoConnectionStateless" />
+			</map>
+		</constructor-arg>
+		<property name="genericFactory" ref="sapCoreGenericFactory" />
+	</bean>
+</beans>

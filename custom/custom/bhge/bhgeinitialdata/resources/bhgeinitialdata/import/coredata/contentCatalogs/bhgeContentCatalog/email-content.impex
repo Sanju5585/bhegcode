@@ -1,0 +1,1249 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the Powertools site emails
+#
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;CustomerRegistrationEmailTemplate;Customer Registration Email Template;true;customerRegistrationEmail;bhge_Email_Customer_Registration_Subject;bhge_Email_Customer_Registration_Body;EmailPage
+;;ForgottenPasswordEmailTemplate;Forgotten Password Email Template;true;forgottenPasswordEmail;bhge_Email_Forgotten_Password_Subject;bhge_Email_Forgotten_Password_Body;EmailPage
+;;OrderConfirmationEmailTemplate;Order Confirmation Email Template;true;orderConfirmationEmail;bhge_Email_Order_Confirmation_Subject;bhge_Email_Order_Confirmation_Body;EmailPage
+;;DeliverySentEmailTemplate;Delivery Sent Email Template;true;deliverySentEmail;bhge_Email_Delivery_Sent_Subject;bhge_Email_Delivery_Sent_Body;EmailPage
+;;ReadyForPickupEmailTemplate;Ready For Pickup Email Template;true;readyForPickupEmail;bhge_Email_Ready_For_Pickup_Subject;bhge_Email_Ready_For_Pickup_Body;EmailPage
+;;OrderCancelledEmailTemplate;Order Cancelled Email Template;true;orderCancelledEmail;bhge_Email_Order_Cancelled_Subject;bhge_Email_Order_Cancelled_Body;EmailPage
+;;OrderRefundEmailTemplate;Order Refund Email Template;true;orderRefundEmail;bhge_Email_Order_Refund_Subject;bhge_Email_Order_Refund_Body;EmailPage
+;;OrderCollectionReminderEmailTemplate;Order Collection Reminder Email Template;true;orderCollectionReminderEmail;bhge_Email_Order_Collection_Reminder_Subject;bhge_Email_Order_Collection_Reminder_Body;EmailPage
+;;OrderMoveToCsEmailTemplate;Order Moved To CS Email Template;true;orderMoveToCsEmail;bhge_Email_Order_Move_To_CS_Subject;bhge_Email_Order_Move_To_CS_Body;EmailPage
+;;OrderPartiallyCanceledEmailTemplate;Order Partially Canceled Email Template;true;orderPartiallyCanceledEmail;bhge_Email_Order_Partially_Canceled_Subject;bhge_Email_Order_Partially_Canceled_Body;EmailPage
+;;OrderPartiallyRefundedEmailTemplate;Order Partially Refunded Email Template;true;orderPartiallyRefundedEmail;bhge_Email_Order_Partially_Refunded_Subject;bhge_Email_Order_Partially_Refunded_Body;EmailPage
+;;NotPickedUpConsignmentCanceledEmailTemplate;Not Picked Up Consignment Canceled Email Template;true;notPickedUpConsignmentCanceledEmail;bhge_Email_NotPickedUpConsignment_Canceled_Subject;bhge_Email_NotPickedUpConsignment_Canceled_Body;EmailPage
+;;OrderApprovalRejectionEmailTemplate;Order Approval Rejection Email Template;true;orderApprovalRejectionEmail;bhge_Email_Order_ApprovalRejection_Subject;bhge_Email_Order_ApprovalRejection_Body;EmailPage
+;;OrderPendingApprovalEmailTemplate;Order Pending Approval Email Template;true;orderPendingApprovalEmail;bhge_Email_Order_PendingApproval_Subject;bhge_Email_Order_PendingApproval_Body;EmailPage
+;;ReplenishmentOrderPlacedEmailTemplate;Replenishment Order Placed Email Template;true;replenishmentOrderPlacedEmail;bhge_Email_Replenishment_Order_Placed_Subject;bhge_Email_Replenishment_Order_Placed_Body;EmailPage
+;;ReplenishmentOrderConfirmationEmailTemplate;Replenishment Order Confirmation Email Template;true;replenishmentOrderConfirmationEmail;bhge_Email_Replenishment_Order_Confirmation_Subject;bhge_Email_Replenishment_Order_Confirmation_Body;EmailPage
+;;QuoteBuyerSubmissionEmailTemplate;Quote Buyer Submission Email Template;true;quoteBuyerSubmissionEmail;bhge_Email_Quote_Buyer_Submission_Subject;bhge_Email_Quote_Buyer_Submission_Body;EmailPage
+;;QuoteToExpireSoonEmailTemplate;Quote To Expire Soon Email Template;true;quoteToExpireSoonEmail;bhge_Email_Quote_To_Expire_Soon_Subject;bhge_Email_Quote_To_Expire_Soon_Body;EmailPage
+;;QuoteExpiredEmailTemplate;Quote Expired Email Template;true;quoteExpiredEmail;bhge_Email_Quote_Expired_Subject;bhge_Email_Quote_Expired_Body;EmailPage
+;;QuoteBuyerCancellationEmailTemplate;Quote Buyer Cancellation Email Template;true;quoteBuyerCancellationEmail;bhge_Email_Quote_Buyer_Cancellation_Subject;bhge_Email_Quote_Buyer_Cancellation_Body;EmailPage
+;;GuestUserCalibrationPDFEmailTemplate;Guest User Calibration PDF Email Template;true;guestUserCalibrationPDFEmail;bhge_Email_GuestUser_CalibrationPDF_Subject;bhge_Email_GuestUser_CalibrationPDF_Body;EmailPage
+#Shipping Address Email Page Template
+;;bhgeShippingAddressEmailTemplate;Shipping Address Email Template;true;shippingAddressEmail;bhge_Email_Shipping_Address_Subject;bhge_Email_Shipping_Address_Body;EmailPage
+;;bhgeOrderTrackingEmailTemplate;Order Tracking Email Template;true;orderTrackingEmail;bhge_Order_Tracking_Subject;bhge_Order_Tracking_Body;EmailPage
+;;bhgeOrderShareEmailTemplate;Order Share Email Template;true;orderShareEmail;bhge_Order_Share_Subject;bhge_Order_Share_Body;EmailPage
+;;bhgeRmaStatusEmailTemplate;RMA Status Email Template;true;rmaStatusEmail;bhge_rma_Status_Subject;bhge_rma_Status_Body;EmailPage
+;;bhgeOrderEnquiryEmailTemplate;Order Enquiry Email Template;true;orderEnquiryEmail;bhge_Order_Enquiry_Subject;bhge_Order_Enquiry_Body;EmailPage
+;;bhgeRmaEnquiryEmailTemplate;RMA Enquiry Email Template;true;rmaEnquiryEmail;bhge_RMA_Enquiry_Subject;bhge_RMA_Enquiry_Body;EmailPage
+#ManualWorkflow
+;;ManualWorkflowUserTemplate;Manual Work flow User Template;true;ManualWorkflowUserEmail;bhge_ManualWorkflowUser_Subject;bhge_ManualWorkflowUser_Body;EmailPage
+;;IQMManualWorkflowUserTemplate;IQM Manual Work flow User Template;true;IQMManualWorkflowUserEmail;bhge_IQMManualWorkflowUser_Subject;bhge_IQMManualWorkflowUser_Body;EmailPage
+#Register
+;;WorkflowEmailTemplate;Workflow Email Template;true;workflowTrackingEmail;bhge_Workflow_Subject;bhge_Workflow_Body;EmailPage
+;;RegisterIdocMailTemplate;Register Idoc Mail Template;true;RegisterIdocMailTemplate;bhge_RegisterIdocMail_Subject;bhge_RegisterIdocMail_Body;EmailPage
+;;MultipleSSoRegisterTemplate;MultipleSSoRegisterTemplate Email Template;true;MultipleSSoRegister;bhge_MultipleSSoRegister_Subject;bhge_MultipleSSoRegister_Body;EmailPage
+;;RegisterMannualApproveUserTemplate;RegisterMannualApproveUserTemplate Email Template;true;RegisterMannualApproveUser;bhge_RegisterMannualApproveUser_Subject;bhge_RegisterMannualApproveUser_Body;EmailPage
+;;RegisterCompleteMailTemplate;Register Idoc Mail Template;true;RegisterCompleteMailTemplate;bhge_RegisterCompleteMail_Subject;bhge_RegisterCompleteMail_Body;EmailPage
+;;IQMRegisterCompleteMailTemplate;IQM Register Idoc Mail Template;true;IQMRegisterCompleteMailTemplate;bhge_IQMRegisterCompleteMail_Subject;bhge_IQMRegisterCompleteMail_Body;EmailPage
+;;DAMRegisterCompleteMailTemplate;DAM Register Idoc Mail Template;true;DAMRegisterCompleteMailTemplate;bhge_DAMRegisterCompleteMail_Subject;bhge_DAMRegisterCompleteMail_Body;EmailPage
+;;InactiveUserMailTemplate;Inactive User Mail Template;true;InactiveUserMailTemplate;bhge_InactiveUserMail_Subject;bhge_InactiveUserMail_Body;EmailPage
+;;registerFailureTemplate;Register Failure Mail Template;true;registerFailureTemplate;bhge_registerFailure_Subject;bhge_registerFailure_Body;EmailPage
+
+
+;;WorkflowEmailcsrTemplate;Workflow csr Email Template CSR;true;workflowTrackingEmail;bhge_Workflow_csr_Subject;bhge_Workflow_csr_Body;EmailPage
+;;UserVerificationTemplate;UserVerificationTemplate Email Template;true;UserVerification;bhge_UserVerification_Subject;bhge_UserVerification_Body;EmailPage
+;;LoadReactivationTemplate;LoadReactivationTemplate Email Template;true;LoadReactivation;bhge_LoadReactivation_Subject;bhge_LoadReactivation_Body;EmailPage
+;;ManagerDetailsTemplate;ManagerDetailsTemplate Email Template;true;ManagerDetails;bhge_ManagerDetails_Subject;bhge_ManagerDetails_Body;EmailPage
+
+## OFS Email Templates Impex
+;;WorkflowEmailOFScsrTemplate;Workflow csr Email Template CSR;true;workflowTrackingEmail;bhge_WorkflowOFS_csr_Subject;bhge_WorkflowOFS_csr_Body;EmailPage
+;;OFSUserVerificationTemplate;OFSUserVerificationTemplate Email Template;true;UserVerification;bhge_OFSUserVerification_Subject;bhge_OFSUserVerification_Body;EmailPage
+;;ManualOfsWorkflowUserTemplate;Manual Work flow User Template;true;ManualWorkflowUserEmail;bhge_ManualOfsWorkflowUser_Subject;bhge_ManualOfsWorkflowUser_Body;EmailPage
+;;WorkflowOFSEmailTemplate;Workflow Email Template;true;workflowTrackingEmail;bhge_WorkflowOFS_Subject;bhge_WorkflowOFS_Body;EmailPage
+;;registerOFSFailureTemplate;Register Failure Mail Template;true;registerOFSFailureTemplate;bhge_registerOFSFailure_Subject;bhge_registerOFSFailure_Body;EmailPage
+;;OfsMultipleSSoRegisterTemplate;OfsMultipleSSoRegisterTemplate Email Template;true;OfsMultipleSSoRegister;bhge_OfsMultipleSSoRegister_Subject;bhge_OfsMultipleSSoRegister_Body;EmailPage
+
+## User FPT
+;;FPTUserVerificationTemplate;FPT User Verification Email Template;true;FPTUserVerification;bhge_FPT_UserVerification_Subject;bhge_FPT_UserVerification_Body;EmailPage
+;;WorkflowEmailVscsrTemplate;Workflow Vs csr Email Template CSR;true;workflowTrackingEmail;bhge_Workflow_fpt_Subject;bhge_Workflow_fpt_Body;EmailPage
+;;VsRegisterFailureTemplate;VS Register Failure Mail Template;true;VsRegisterFailureTemplate;bhge_VsRegisterFailure_Subject;bhge_VsRegisterFailure_Body;EmailPage
+;;WorkflowFptEmailTemplate;Workflow Fpt Email Template;true;workflowTrackingEmail;bhge_Workflow_VSSubject;bhge_Workflow_VSBody;EmailPage
+;;ManualFptWorkflowUserTemplate;Manual FPT Work flow User Template;true;ManualWorkflowUserEmail;bhge_ManualFptWorkflowUser_Subject;bhge_ManualFptWorkflowUser_Body;EmailPage
+
+#Anish UserManager Email
+;;AccessRequestTemplate;AccessRequestTemplate Email Template;true;AccessRequest;bhge_AccessRequest_Subject;bhge_AccessRequest_Body;EmailPage
+;;AccessUpdateTemplate;AccessUpdateTemplate Email Template;true;AccessUpdate;bhge_AccessUpdate_Subject;bhge_AccessUpdate_Body;EmailPage
+
+;;AutoApprovedTemplate;AutoApprovedTemplate Email Template;true;AutoApproved;bhge_AutoApproved_Subject;bhge_AutoApproved_Body;EmailPage
+
+;;UserManagerTemplate;User Manager Template;true;workflowTrackingEmail;bhge_UserManager_Subject;bhge_UserManager_Body;EmailPage
+#critical email alert
+;CriticalErrorMailTemplate;com.bhge.core.mailmessages.context.BHGECriticalErrorEmailContext;velocity;bhgeEdgeCriticalErrorMailTemplate_media
+;NoNCriticalErrorMailTemplate;com.bhge.core.mailmessages.context.BHGENonCriticalErrorEmailContext;velocity;bhgeEdgeNonCriticalErrorMailTemplate_media
+
+## IQM Request submit
+;;IQMRequestSubmitTemplate;IQM Submit Request Idoc Mail Template;true;IQMRequestSubmitTemplate;bhge_IQMRequestSubmitMail_Subject;bhge_IQMRequestSubmitMail_Body;EmailPage
+
+## Exception Email template
+;;ExceptionEmailTemplate;ExceptionEmailTemplate Email Template;true;ExceptionEmail;bhge_ExceptioEmail_Subject;bhge_ExceptioEmail_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;CustomerRegistrationEmailTemplate;$jarResourceCms/structure-view/structure_customerRegistrationEmailTemplate.vm
+;;ForgottenPasswordEmailTemplate;$jarResourceCms/structure-view/structure_forgottenPasswordEmailTemplate.vm
+;;OrderConfirmationEmailTemplate;$jarResourceCms/structure-view/structure_orderConfirmationEmailTemplate.vm
+;;DeliverySentEmailTemplate;$jarResourceCms/structure-view/structure_deliverySentEmailTemplate.vm
+;;ReadyForPickupEmailTemplate;$jarResourceCms/structure-view/structure_readyForPickupEmailTemplate.vm
+;;OrderCancelledEmailTemplate;$jarResourceCms/structure-view/structure_orderCancelledEmailTemplate.vm
+;;OrderRefundEmailTemplate;$jarResourceCms/structure-view/structure_orderRefundEmailTemplate.vm
+;;OrderCollectionReminderEmailTemplate;$jarResourceCms/structure-view/structure_orderCollectionReminderEmailTemplate.vm
+;;OrderMoveToCsEmailTemplate;$jarResourceCms/structure-view/structure_orderMoveToCSEmailTemplate.vm
+;;OrderPartiallyCanceledEmailTemplate;$jarResourceCms/structure-view/structure_orderPartiallyCanceledEmailTemplate.vm
+;;OrderPartiallyRefundedEmailTemplate;$jarResourceCms/structure-view/structure_orderPartiallyRefundedEmailTemplate.vm
+;;NotPickedUpConsignmentCanceledEmailTemplate;$jarResourceCms/structure-view/structure_notPickedUpConsignmentCanceledEmailTemplate.vm
+;;OrderApprovalRejectionEmailTemplate;$jarEmailResource/structure-view/structure_orderApprovalRejectionEmailTemplate.vm
+;;OrderPendingApprovalEmailTemplate;$jarEmailResource/structure-view/structure_orderPendingApprovalEmailTemplate.vm
+;;ReplenishmentOrderPlacedEmailTemplate;$jarEmailResource/structure-view/structure_replenishmentOrderPlacedEmailTemplate.vm
+;;ReplenishmentOrderConfirmationEmailTemplate;$jarEmailResource/structure-view/structure_replenishmentOrderConfirmationEmailTemplate.vm
+;;QuoteBuyerSubmissionEmailTemplate;$jarResourceCms/structure-view/structure_quoteNotificationEmailTemplate.vm
+;;QuoteToExpireSoonEmailTemplate;$jarResourceCms/structure-view/structure_quoteNotificationEmailTemplate.vm
+;;QuoteExpiredEmailTemplate;$jarResourceCms/structure-view/structure_quoteNotificationEmailTemplate.vm
+;;QuoteBuyerCancellationEmailTemplate;$jarResourceCms/structure-view/structure_quoteNotificationEmailTemplate.vm
+;;GuestUserCalibrationPDFEmailTemplate;$jarResourceCms/structure-view/structure_guestUserCalibrationPDFEmailTemplate.vm
+#Shipping Address Email Template
+;;bhgeShippingAddressEmailTemplate;$jarResourceCms/structure-view/structure_bhgeShippingAddressEmailTemplate.vm
+;;bhgeOrderTrackingEmailTemplate;$jarResourceCms/structure-view/structure_bhgeOrderTrackingEmailTemplate.vm
+;;bhgeOrderShareEmailTemplate;$jarResourceCms/structure-view/structure_bhgeOrderShareEmailTemplate.vm
+;;bhgeRmaStatusEmailTemplate;$jarResourceCms/structure-view/structure_bhgeRmaStatusEmailTemplate.vm
+;;bhgeOrderEnquiryEmailTemplate;$jarResourceCms/structure-view/structure_bhgeOrderEnquiryEmailTemplate.vm
+;;bhgeRmaEnquiryEmailTemplate;$jarResourceCms/structure-view/structure_bhgeRmaEnquiryEmailTemplate.vm
+;;WorkflowEmailTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailTemplate.vm
+;;RegisterMannualApproveUserTemplate;$jarResourceCms/structure-view/mobile/structure_RegisterMannualApproveUserTemplate.vm
+;;registerFailureTemplate;$jarResourceCms/structure-view/mobile/structure_registerFailureTemplate.vm
+
+;;RegisterIdocMailTemplate;$jarResourceCms/structure-view/mobile/structure_RegisterIdocMailTemplate.vm
+;;RegisterCompleteMailTemplate;$jarResourceCms/structure-view/mobile/structure_RegisterCompleteMailTemplate.vm
+;;IQMRegisterCompleteMailTemplate;$jarResourceCms/structure-view/mobile/structure_IQMRegisterCompleteMailTemplate.vm
+;;DAMRegisterCompleteMailTemplate;$jarResourceCms/structure-view/mobile/structure_DAMRegisterCompleteMailTemplate.vm
+;;InactiveUserMailTemplate;$jarResourceCms/structure-view/mobile/structure_InactiveUserMailTemplate.vm
+
+;;ManualWorkflowUserTemplate;$jarResourceCms/structure-view/mobile/structure_ManualWorkflowUserTemplate.vm
+;;IQMManualWorkflowUserTemplate;$jarResourceCms/structure-view/mobile/structure_IQMManualWorkflowUserTemplate.vm
+;;MultipleSSoRegisterTemplate;$jarResourceCms/structure-view/mobile/structure_MultipleSSoRegisterTemplate.vm
+;;UserVerificationTemplate;$jarResourceCms/structure-view/mobile/structure_UserVerificationTemplate.vm
+;;LoadReactivationTemplate;$jarResourceCms/structure-view/mobile/structure_LoadReactivationTemplate.vm
+;;ManagerDetailsTemplate;$jarResourceCms/structure-view/mobile/structure_ManagerDetailsTemplate.vm
+
+
+##User FPT
+;;FPTUserVerificationTemplate;$jarResourceCms/structure-view/mobile/structure_FPTUserVerificationTemplate.vm
+;;WorkflowEmailVscsrTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailVscsrTemplate.vm
+;;VsRegisterFailureTemplate;$jarResourceCms/structure-view/mobile/structure_VsRegisterFailureTemplate.vm
+;;WorkflowFptEmailTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowFptEmailTemplate.vm
+;;ManualFptWorkflowUserTemplate;$jarResourceCms/structure-view/mobile/structure_ManualFptWorkflowUserTemplate.vm
+
+#Anish
+;;AccessRequestTemplate;$jarResourceCms/structure-view/mobile/structure_AccessRequestTemplate.vm
+;;AccessUpdateTemplate;$jarResourceCms/structure-view/mobile/structure_AccessUpdateTemplate.vm
+
+;;AutoApprovedTemplate;$jarResourceCms/structure-view/mobile/structure_AutoApprovedTemplate.vm
+
+;;UserManagerTemplate;$jarResourceCms/structure-view/mobile/structure_UserManagerTemplate.vm
+;;WorkflowEmailcsrTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailcsrTemplate.vm
+
+## OFS CSR Email Template Entries
+;;OFSUserVerificationTemplate;$jarResourceCms/structure-view/mobile/structure_OFSUserVerificationTemplate.vm
+;;WorkflowEmailOFScsrTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailOFScsrTemplate.vm
+;;ManualOfsWorkflowUserTemplate;$jarResourceCms/structure-view/mobile/structure_ManualOfsWorkflowUserTemplate.vm
+;;WorkflowOFSEmailTemplate;$jarResourceCms/structure-view/mobile/structure_WorkflowOFSEmailTemplate.vm
+;;registerOFSFailureTemplate;$jarResourceCms/structure-view/mobile/structure_registerOFSFailureTemplate.vm
+;;OfsMultipleSSoRegisterTemplate;$jarResourceCms/structure-view/mobile/structure_OfsMultipleSSoRegisterTemplate.vm
+## OFS CSR Email Teamlate Enteries End
+
+;;IQMRequestSubmitTemplate;$jarResourceCms/structure-view/mobile/structure_IQMRequestSubmitMailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CustomerRegistrationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='UserVerificationTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+##User OFS
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OFSUserVerificationTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+##User FPT
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='FPTUserVerificationTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowEmailVscsrTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='VsRegisterFailureTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowFptEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ManualFptWorkflowUserTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='LoadReactivationTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ManagerDetailsTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+#Anish
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='AccessRequestTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='AccessUpdateTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='AutoApprovedTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ForgottenPasswordEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderConfirmationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderCancelledEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderRefundEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='DeliverySentEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ReadyForPickupEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderCollectionReminderEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderMoveToCsEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderPartiallyCanceledEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderPartiallyRefundedEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='NotPickedUpConsignmentCanceledEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderApprovalRejectionEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderPendingApprovalEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ReplenishmentOrderPlacedEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ReplenishmentOrderConfirmationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='QuoteBuyerSubmissionEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='QuoteToExpireSoonEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='QuoteExpiredEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='QuoteBuyerCancellationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeOrderTrackingEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeOrderShareEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeRmaStatusEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeOrderEnquiryEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeRmaEnquiryEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowOFSEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='registerFailureTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='registerOFSFailureTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='RegisterIdocMailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='RegisterCompleteMailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='IQMRegisterCompleteMailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='DAMRegisterCompleteMailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='InactiveUserMailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='RegisterMannualApproveUserTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ManualWorkflowUserTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ManualOfsWorkflowUserTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='IQMManualWorkflowUserTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='UserManagerTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='MultipleSSoRegisterTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OfsMultipleSSoRegisterTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowEmailcsrTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WorkflowEmailOFScsrTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='IQMRequestSubmitTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='GuestUserCalibrationPDFEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Create Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
+;;EmailTopSlot;Default Email Top Slot;true
+;;EmailBottomSlot;Default Email Bottom Slot;true
+;;EmailSiteLogoSlot;Default Email Site Slot;true
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CustomerRegistrationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-CustomerRegistrationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-CustomerRegistrationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-CustomerRegistrationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ForgottenPasswordEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ForgottenPasswordEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ForgottenPasswordEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ForgottenPasswordEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='UserVerificationTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-UserVerificationTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-UserVerificationTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-UserVerificationTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OFSUserVerificationTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OFSUserVerificationTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OFSUserVerificationTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-OFSUserVerificationTemplate;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='FPTUserVerificationTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-FPTUserVerificationTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-FPTUserVerificationTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-FPTUserVerificationTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowEmailVscsrTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowEmailVscsrTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowEmailVscsrTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowEmailVscsrTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='VsRegisterFailureTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-VsRegisterFailureTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-VsRegisterFailureTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-VsRegisterFailureTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowFptEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ManualFptWorkflowUserTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ManualFptWorkflowUserTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ManualFptWorkflowUserTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-ManualFptWorkflowUserTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LoadReactivationTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-LoadReactivationTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-LoadReactivationTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-LoadReactivationTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ManagerDetailsTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ManagerDetailsTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ManagerDetailsTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-ManagerDetailsTemplate;BottomContent;;EmailBottomSlot;true
+
+#Anish
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='AccessRequestTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-AccessRequestTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-AccessRequestTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-AccessRequestTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='AccessUpdateTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-AccessUpdateTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-AccessUpdateTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-AccessUpdateTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='AutoApprovedTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-AutoApprovedTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-AutoApprovedTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-AutoApprovedTemplate;BottomContent;;EmailBottomSlot;true
+
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderConfirmationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderConfirmationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderConfirmationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderConfirmationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderCancelledEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderCancelledEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderCancelledEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderCancelledEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderRefundEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderRefundEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderRefundEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderRefundEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='DeliverySentEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-DeliverySentEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-DeliverySentEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-DeliverySentEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ReadyForPickupEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ReadyForPickupEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ReadyForPickupEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ReadyForPickupEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderPartiallyCanceledEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderPartiallyCanceledEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderPartiallyCanceledEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderPartiallyCanceledEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderPartiallyRefundedEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderPartiallyRefundedEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderPartiallyRefundedEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderPartiallyRefundedEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='NotPickedUpConsignmentCanceledEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-NotPickedUpConsignmentCanceledEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-NotPickedUpConsignmentCanceledEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-NotPickedUpConsignmentCanceledEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderCollectionReminderEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderCollectionReminderEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderCollectionReminderEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderCollectionReminderEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderApprovalRejectionEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderApprovalRejectionEmail;SiteLogo;;SiteLogoSlot;true
+;;TopContent-OrderApprovalRejectionEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderApprovalRejectionEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderPendingApprovalEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderPendingApprovalEmail;SiteLogo;;SiteLogoSlot;true
+;;TopContent-OrderPendingApprovalEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderPendingApprovalEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ReplenishmentOrderConfirmationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ReplenishmentOrderConfirmationEmail;SiteLogo;;SiteLogoSlot;true
+;;TopContent-ReplenishmentOrderConfirmationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ReplenishmentOrderConfirmationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ReplenishmentOrderPlacedEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ReplenishmentOrderPlacedEmail;SiteLogo;;SiteLogoSlot;true
+;;TopContent-ReplenishmentOrderPlacedEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ReplenishmentOrderPlacedEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='QuoteBuyerSubmissionEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-QuoteBuyerSubmissionEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-QuoteBuyerSubmissionEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-QuoteBuyerSubmissionEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='QuoteToExpireSoonEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-QuoteToExpireSoonEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-QuoteToExpireSoonEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-QuoteToExpireSoonEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='QuoteExpiredEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-QuoteExpiredEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-QuoteExpiredEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-QuoteExpiredEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='QuoteBuyerCancellationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-QuoteBuyerCancellationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-QuoteBuyerCancellationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-QuoteBuyerCancellationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='GuestUserCalibrationPDFEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-CustomerRegistrationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-CustomerRegistrationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-CustomerRegistrationEmail;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='bhgeShippingAddressEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeShippingAddressEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeShippingAddressEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeShippingAddressEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeShippingAddressEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeOrderTrackingEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeOrderTrackingEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeOrderTrackingEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeOrderTrackingEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeOrderShareEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeOrderShareEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeOrderShareEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeOrderShareEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeRmaStatusEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeRmaStatusEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeRmaStatusEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeRmaStatusEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeOrderEnquiryEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeOrderEnquiryEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeOrderEnquiryEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeOrderEnquiryEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='bhgeRmaEnquiryEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeRmaEnquiryEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeRmaEnquiryEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeRmaEnquiryEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowOFSEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowOFSEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowOFSEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowOFSEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='RegisterMannualApproveUserTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-RegisterMannualApproveUserTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-RegisterMannualApproveUserTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-RegisterMannualApproveUserTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='registerFailureTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-registerFailureTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-registerFailureTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-registerFailureTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='registerOFSFailureTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-registerOFSFailureTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-registerOFSFailureTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-registerOFSFailureTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='RegisterIdocMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-RegisterIdocMailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-RegisterIdocMailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-RegisterIdocMailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='RegisterCompleteMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-RegisterCompleteMailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-RegisterCompleteMailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-RegisterCompleteMailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='IQMRegisterCompleteMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-IQMRegisterCompleteMailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-IQMRegisterCompleteMailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-IQMRegisterCompleteMailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='DAMRegisterCompleteMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-DAMRegisterCompleteMailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-DAMRegisterCompleteMailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-DAMRegisterCompleteMailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='InactiveUserMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-InactiveUserMailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-InactiveUserMailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-InactiveUserMailTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ManualWorkflowUserTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ManualWorkflowUserTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ManualWorkflowUserTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-ManualWorkflowUserTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ManualOfsWorkflowUserTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ManualOfsWorkflowUserTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ManualOfsWorkflowUserTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-ManualOfsWorkflowUserTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='IQMManualWorkflowUserTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-IQMManualWorkflowUserTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-IQMManualWorkflowUserTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-IQMManualWorkflowUserTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='UserManagerTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-UserManagerTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-UserManagerTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-UserManagerTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='MultipleSSoRegisterTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-MultipleSSoRegisterTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-MultipleSSoRegisterTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-MultipleSSoRegisterTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OfsMultipleSSoRegisterTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OfsMultipleSSoRegisterTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OfsMultipleSSoRegisterTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-OfsMultipleSSoRegisterTemplate;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowEmailcsrTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowEmailcsrTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowEmailcsrTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowEmailcsrTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WorkflowEmailOFScsrTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WorkflowEmailOFScsrTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-WorkflowEmailOFScsrTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-WorkflowEmailOFScsrTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='IQMRequestSubmitTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-IQMRequestSubmitTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-IQMRequestSubmitTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-IQMRequestSubmitTemplate;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='GuestUserCalibrationPDFEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-GuestUserCalibrationPDFEmailTemplate;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-GuestUserCalibrationPDFEmailTemplate;TopContent;;EmailTopSlot;true
+;;BottomContent-GuestUserCalibrationPDFEmailTemplate;BottomContent;;EmailBottomSlot;true
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;CustomerRegistrationEmail;Customer Registration Email;CustomerRegistrationEmailTemplate;true;
+;;ForgottenPasswordEmail;Forgotten Password Email;ForgottenPasswordEmailTemplate;true;
+;;OrderConfirmationEmail;Order Confirmation Email;OrderConfirmationEmailTemplate;true;
+;;DeliverySentEmail;Delivery Sent Email;DeliverySentEmailTemplate;true;
+;;ReadyForPickupEmail;Ready For Pickup Email;ReadyForPickupEmailTemplate;true;
+;;OrderCancelledEmail;Order Cancelled Email;OrderCancelledEmailTemplate;true;
+;;OrderRefundEmail;Order Refund Email;OrderRefundEmailTemplate;true;
+;;OrderCollectionReminderEmail;Order Collection Reminder Email;OrderCollectionReminderEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;OrderMoveToCsEmail;Order Move To CS Email;OrderMoveToCsEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;OrderPartiallyCanceledEmail;Order Partially Canceled Email;OrderPartiallyCanceledEmailTemplate;true;
+;;OrderPartiallyRefundedEmail;Order Partially Refunded Email;OrderPartiallyRefundedEmailTemplate;true;
+;;NotPickedUpConsignmentCanceledEmail;Not Picked Up Consignment Canceled Email;NotPickedUpConsignmentCanceledEmailTemplate;true;
+;;OrderApprovalRejectionEmail;Order Approval Rejection Email;OrderApprovalRejectionEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;OrderPendingApprovalEmail;Order Pending Approval Email;OrderPendingApprovalEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;ReplenishmentOrderPlacedEmail;Order Confirmation Email;ReplenishmentOrderPlacedEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;ReplenishmentOrderConfirmationEmail;Order Confirmation Email;ReplenishmentOrderConfirmationEmailTemplate;true;;customerservices@hybris.com;Customer Services Team
+;;QuoteBuyerSubmissionEmail;Quote Buyer Submission Email;QuoteBuyerSubmissionEmailTemplate;true;
+;;QuoteToExpireSoonEmail;Quote To Expire Soon Email;QuoteToExpireSoonEmailTemplate;true;
+;;QuoteExpiredEmail;Quote Expired Email;QuoteExpiredEmailTemplate;true;
+;;QuoteBuyerCancellationEmail;Quote Buyer Cancellation Email;QuoteBuyerCancellationEmailTemplate;true;
+;;GuestUserCalibrationPDFEmail;Guest User Calibration PDF Email;GuestUserCalibrationPDFEmailTemplate;true;
+#Shipping Address Email Page
+;;shippingAddressEmail;Shipping Address Email;bhgeShippingAddressEmailTemplate;true;
+;;OrderTrackingEmail;Order Tracking Email;bhgeOrderTrackingEmailTemplate;true;
+;;orderShareEmail;;Order Share Email;bhgeOrderShareEmailTemplate;true;
+;;rmaStatusEmail;;RMA Status Email;bhgeRmaStatusEmailTemplate;true;
+;;orderEnquiryEmail;Order Tracking Email;bhgeOrderEnquiryEmailTemplate;true;
+;;rmaEnquiryEmail;RMA Tracking Email;bhgeRmaEnquiryEmailTemplate;true
+;;Workflow Email;Workflow Email;WorkflowEmailTemplate;true;
+;;Register Faiures;Register Faiures;registerFailureTemplate;true;
+;;Register Mannual Approve User ;Register Mannual ApproveUser Template;RegisterMannualApproveUserTemplate;true;
+
+;;Register Idoc Mail;Register Idoc Mail ;RegisterIdocMailTemplate;true;
+;;Register Complete Mail;Register Idoc Mail ;RegisterCompleteMailTemplate;true;
+;;IQM Register Complete Mail;IQM Register Idoc Mail ;IQMRegisterCompleteMailTemplate;true;
+;;DAM Register Complete Mail;DAM Register Idoc Mail ;DAMRegisterCompleteMailTemplate;true;
+;;Inactive User Mail;Register Idoc Mail ;InactiveUserMailTemplate;true;
+
+;;Manual Workflow User Email;Manual Workflow User Email;ManualWorkflowUserTemplate;true;
+;;IQM Manual Workflow User Email;IQM Manual Workflow User Email;IQMManualWorkflowUserTemplate;true;
+
+
+;;UserManager Email;UserManager Email;UserManagerTemplate;true;
+;;Multiple SSo Register Email;Multiple SSo Register Email;MultipleSSoRegisterTemplate;true;
+;;User Verification Email;User Verification Email;UserVerificationTemplate;true;
+;;User Verification Email;User Verification Email;LoadReactivationTemplate;true;
+;;User Verification Email;User Verification Email;ManagerDetailsTemplate;true;
+
+##User OFS
+;;OFS User Verification Email;User Verification Email;OFSUserVerificationTemplate;true;
+;;OFS Manual Workflow User Email;Manual Workflow User Email;ManualOfsWorkflowUserTemplate;true;
+;;OFS Workflow Email;Workflow Email;WorkflowOFSEmailTemplate;true;
+;;OFS Workflow csr Email;Workflow csr Email;WorkflowEmailOFScsrTemplate;true;
+;;OFS Register Faiures;Register Faiures;registerOFSFailureTemplate;true;
+;;OFS Multiple SSo Register Email;Multiple SSo Register Email;OfsMultipleSSoRegisterTemplate;true;
+
+##User FPT
+;;FPT User Verification Email;FPT User Verification Email;FPTUserVerificationTemplate;true
+;;Workflow Vs csr Email; Workflow Vs csr Email;WorkflowEmailVscsrTemplate;true;
+;;VS Register Faiures;VS Register Faiures;VsRegisterFailureTemplate;true;
+;;Workflow Fpt Email;Workflow Email;WorkflowFptEmailTemplate;true;
+;;Manual Workflow User Email;Manual Workflow User Email;ManualFptWorkflowUserTemplate;true;
+
+#Anish
+;;Access Request Email Email;Access Request Email;AccessRequestTemplate;true;
+;;Access Update Email;Access Update Email;AccessUpdateTemplate;true;
+
+;;Auto Approved Email;Auto Approved Email;AutoApprovedTemplate;true;
+
+;;Workflow csr Email;Workflow csr Email;WorkflowEmailcsrTemplate;true;
+
+;;Workflow csr Email;Workflow csr Email;    WorkflowEmailcsrTemplate;true;
+
+;;IQM Request Submit Mail;IQM Request Submit Idoc Mail ;IQMRequestSubmitTemplate;true;
+
+;;Exception Email;Exception Email;ExceptionEmailTemplate;true;
+
+# CMS components velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;bhge-CMSImageComponent-template;java.util.Map
+;bhge-BannerComponent-template;java.util.Map
+;bhge-SimpleBannerComponent-template;java.util.Map
+;bhge-CMSLinkComponent-template;java.util.Map
+;bhge-CMSParagraphComponent-template;java.util.Map
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;bhge_Email_Customer_Registration_Body;$emailPackageName.CustomerEmailContext
+;bhge_Email_Forgotten_Password_Body;$emailPackageName.ForgottenPasswordEmailContext
+;bhge_Email_Order_Confirmation_Body;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Delivery_Sent_Body;$emailPackageName.DeliverySentEmailContext
+;bhge_Email_Ready_For_Pickup_Body;$emailPackageName.ReadyForPickupEmailContext
+;bhge_Email_Order_Cancelled_Body;$emailPackageName.OrderCancelledEmailContext
+;bhge_Email_Order_Refund_Body;$emailPackageName.OrderRefundEmailContext
+;bhge_Email_Order_Collection_Reminder_Body;$emailPackageName.ConsignmentCollectionReminderEmailContext
+;bhge_Email_Order_Move_To_CS_Body;$emailPackageName.ConsignmentCollectionReminderEmailContext
+;bhge_Email_Order_Partially_Canceled_Body;$emailPackageName.OrderPartiallyCanceledEmailContext
+;bhge_Email_Order_Partially_Refunded_Body;$emailPackageName.OrderPartiallyRefundedEmailContext
+;bhge_Email_NotPickedUpConsignment_Canceled_Body;$emailPackageName.NotPickedUpConsignmentCanceledEmailContext
+;bhge_Email_Customer_Registration_Subject;$emailPackageName.CustomerEmailContext
+;bhge_Email_Forgotten_Password_Subject;$emailPackageName.ForgottenPasswordEmailContext
+;bhge_Email_Order_Confirmation_Subject;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Delivery_Sent_Subject;$emailPackageName.DeliverySentEmailContext
+;bhge_Email_Ready_For_Pickup_Subject;$emailPackageName.ReadyForPickupEmailContext
+;bhge_Email_Order_Cancelled_Subject;$emailPackageName.OrderCancelledEmailContext
+;bhge_Email_Order_Refund_Subject;$emailPackageName.OrderRefundEmailContext
+;bhge_Email_Order_Collection_Reminder_Subject;$emailPackageName.ConsignmentCollectionReminderEmailContext
+;bhge_Email_Order_Move_To_CS_Subject;$emailPackageName.ConsignmentCollectionReminderEmailContext
+;bhge_Email_Order_Partially_Canceled_Subject;$emailPackageName.OrderPartiallyCanceledEmailContext
+;bhge_Email_Order_Partially_Refunded_Subject;$emailPackageName.OrderPartiallyRefundedEmailContext
+;bhge_Email_NotPickedUpConsignment_Canceled_Subject;$emailPackageName.NotPickedUpConsignmentCanceledEmailContext
+;bhge_Email_Order_ApprovalRejection_Body;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Order_ApprovalRejection_Subject;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Order_PendingApproval_Subject;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Order_PendingApproval_Body;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_GuestUser_CalibrationPDF_Body;$emailPackageName.GuestUserCalibrationDataSheetPDFContext
+;bhge_Email_GuestUser_CalibrationPDF_Subject;$emailPackageName.GuestUserCalibrationDataSheetPDFContext
+
+
+;bhge_Email_Replenishment_Order_Placed_Body;com.bhge.bhgestorefrontaddon.proccess.email.context.OrderReplenishmentEmailContext
+;bhge_Email_Replenishment_Order_Placed_Subject;com.bhge.bhgestorefrontaddon.proccess.email.context.OrderReplenishmentEmailContext
+;bhge_Email_Replenishment_Order_Confirmation_Subject;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Replenishment_Order_Confirmation_Body;$emailPackageName.OrderNotificationEmailContext
+;bhge_Email_Quote_Buyer_Submission_Subject;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_Buyer_Submission_Body;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_To_Expire_Soon_Subject;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_To_Expire_Soon_Body;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_Expired_Subject;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_Expired_Body;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_Buyer_Cancellation_Subject;$emailPackageName.QuoteNotificationEmailContext
+;bhge_Email_Quote_Buyer_Cancellation_Body;$emailPackageName.QuoteNotificationEmailContext
+
+#Shipping Addres Email Renderer
+;bhge_Email_Shipping_Address_Body;$emailPackageName.BHGEShippingAddressEmailContext;
+;bhge_Email_Shipping_Address_Subject;$emailPackageName.BHGEShippingAddressEmailContext;
+
+;bhge_Workflow_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_csr_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Order_Tracking_Body;$emailPackageName.BHGEOrderTrackingEmailContext;
+;bhge_Order_Tracking_Subject;$emailPackageName.BHGEOrderTrackingEmailContext;
+;bhge_Order_Share_Body;$emailPackageName.BHGEOrderShareEmailContext;
+;bhge_Order_Share_Subject;$emailPackageName.BHGEOrderShareEmailContext;
+;bhge_rma_Status_Body;$emailPackageName.BHGERmaStatusEmailContext;
+;bhge_rma_Status_Subject;$emailPackageName.BHGERmaStatusEmailContext;
+;bhge_Order_Enquiry_Body;$emailPackageName.BHGEOrderEnquiryEmailContext;
+;bhge_Order_Enquiry_Subject;$emailPackageName.BHGEOrderEnquiryEmailContext;
+;bhge_RMA_Enquiry_Body;$emailPackageName.BHGERMAEnquiryEmailContext;
+;bhge_RMA_Enquiry_Subject;$emailPackageName.BHGERMAEnquiryEmailContext;
+;bhge_Workflow_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_csr_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_MultipleSSoRegister_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_MultipleSSoRegister_Body;$emailPackageName.BHGERegisterEmailContext;
+#Register
+;bhge_AutoApproved_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_AutoApproved_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_RegisterMannualApproveUser_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_RegisterMannualApproveUser_Body;$emailPackageName.BHGERegisterEmailContext;
+#UserVerification
+;bhge_UserVerification_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_UserVerification_Body;$emailPackageName.BHGERegisterEmailContext;
+
+#FPTUserVerification
+;bhge_FPT_UserVerification_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_FPT_UserVerification_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_fpt_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_fpt_Body;$emailPackageName.BHGERegisterEmailContext;
+#Vs Register Failure
+;bhge_VsRegisterFailure_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_VsRegisterFailure_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_VSSubject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_Workflow_VSBody;$emailPackageName.BHGERegisterEmailContext;
+;bhge_ManualFptWorkflowUser_Subject;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_ManualFptWorkflowUser_Body;$emailPackageName.BHGEManualApprovalEmailContext;
+
+#OFS
+;bhge_OFSUserVerification_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_OFSUserVerification_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_ManualOfsWorkflowUser_Subject;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_ManualOfsWorkflowUser_Body;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_WorkflowOFS_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_WorkflowOFS_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_WorkflowOFS_csr_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_WorkflowOFS_csr_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_registerOFSFailure_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_registerOFSFailure_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_OfsMultipleSSoRegister_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_OfsMultipleSSoRegister_Body;$emailPackageName.BHGERegisterEmailContext;
+
+#Profile Request/Access
+;bhge_AccessRequest_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_AccessRequest_Body;$emailPackageName.BHGERegisterEmailContext;
+;bhge_AccessUpdate_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_AccessUpdate_Body;$emailPackageName.BHGERegisterEmailContext;
+#LoadReactivation
+;bhge_LoadReactivation_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_LoadReactivation_Body;$emailPackageName.BHGERegisterEmailContext;
+#ManagerDetails
+;bhge_ManagerDetails_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_ManagerDetails_Body;$emailPackageName.BHGERegisterEmailContext;
+#UserManager
+;bhge_UserManager_Subject;$emailPackageName.BHGEUserManagerEmailContext;
+;bhge_UserManager_Body;$emailPackageName.BHGEUserManagerEmailContext;
+#Idoc
+;bhge_RegisterIdocMail_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_RegisterIdocMail_Body;$emailPackageName.BHGERegisterEmailContext;
+#Register Complete
+;bhge_RegisterCompleteMail_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_RegisterCompleteMail_Body;$emailPackageName.BHGERegisterEmailContext;
+#IQM Register Complete
+;bhge_IQMRegisterCompleteMail_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_IQMRegisterCompleteMail_Body;$emailPackageName.BHGERegisterEmailContext;
+#DAM Register Complete
+;bhge_DAMRegisterCompleteMail_Subject;emailPackageName.BHGERegisterEmailContext;
+;bhge_DAMRegisterCompleteMail_Body;$emailPackageName.BHGERegisterEmailContext;
+#Inactive User
+;bhge_InactiveUserMail_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_InactiveUserMail_Body;$emailPackageName.BHGERegisterEmailContext;
+#Register Failure
+;bhge_registerFailure_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_registerFailure_Body;$emailPackageName.BHGERegisterEmailContext;
+
+;bhge_ManualWorkflowUser_Subject;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_ManualWorkflowUser_Body;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_IQMManualWorkflowUser_Subject;$emailPackageName.BHGEManualApprovalEmailContext;
+;bhge_IQMManualWorkflowUser_Body;$emailPackageName.BHGEManualApprovalEmailContext;
+
+##IQM Register Submit
+;bhge_IQMRequestSubmitMail_Subject;$emailPackageName.BHGERegisterEmailContext;
+;bhge_IQMRequestSubmitMail_Body;$emailPackageName.BHGERegisterEmailContext;
+
+##Exception Email template
+;bhge_ExceptioEmail_Subject;$emailPackageName.BHGEExceptionEmailContext;
+;bhge_ExceptioEmail_Body;$emailPackageName.BHGEExceptionEmailContext;
+
+
+# Renderer Templates
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;bhgeOrderTrackingEmailTemplate;Velocity template for Order  Email;bhgeOrderTrackingEmailTemplate_media;com.bhge.core.mailmessages.context.BHGEOrderTrackingEmailContext;text/html;velocity
+;bhgeOrderEnquiryEmailTemplate;Velocity template for Order  Email;bhgeOrderEnquiryEmailTemplate_media;com.bhge.core.mailmessages.context.BHGEOrderEnquiryEmailContext;text/html;velocity
+;bhgeRmaEnquiryEmailTemplate;Velocity template for Rma  Email;bhgeRmaEnquiryEmailTemplate_media;com.bhge.core.data.context.BHGERmaEnquiryEmailContext;text/html;velocity
+;bhgeOrderShareEmailTemplate;Velocity template for Order Email;bhgeOrderShareEmailTemplate_media;com.bhge.core.data.context.BHGEOrderShareEmailContext;text/html;velocity
+;bhgeRmaStatusEmailTemplate;Velocity template for Rma Email;bhgeRmaStatusEmailTemplate_media;com.bhge.core.data.context.BHGERmaStatusEmailContext;text/html;velocity
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;WorkflowEmailTemplate;Velocity template for Workflow  Email;WorkflowEmailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;registerFailureTemplate;Velocity template for Register Failures;registerFailureTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;RegisterMannualApproveUserTemplate;Velocity template for Workflow  Email;RegisterMannualApproveUserTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;RegisterIdocMailTemplate;Velocity template for Workflow  Email;RegisterIdocMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;RegisterCompleteMailTemplate;Velocity template for Workflow  Email;RegisterCompleteMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;IQMRegisterCompleteMailTemplate;Velocity template for IQM Workflow  Email;IQMRegisterCompleteMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;DAMRegisterCompleteMailTemplate;Velocity template for DAM Workflow  Email;DAMRegisterCompleteMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;InactiveUserMailTemplate;Velocity template for Workflow  Email;InactiveUserMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;ManualWorkflowUserTemplate;Velocity template for Workflow Email;ManualWorkflowUserTemplate_media;com.bhge.core.mailmessages.context.BHGEManualApprovalEmailContext;text/html;velocity
+;IQMManualWorkflowUserTemplate;Velocity template for IQM Workflow Email;IQMManualWorkflowUserTemplate_media;com.bhge.core.mailmessages.context.BHGEManualApprovalEmailContext;text/html;velocity
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;MultipleSSoRegisterTemplate;Velocity template for Workflow  Email;MultipleSSoRegisterTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;UserManagerTemplate;Velocity template for UserManagerTemplate;UserManagerTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;UserVerificationTemplate;Velocity template for Workflow  Email;UserVerificationTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;LoadReactivationTemplate;Velocity template for Workflow  Email;LoadReactivationTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;ManagerDetailsTemplate;Velocity template for Workflow  Email;ManagerDetailsTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+
+##User FPT
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;FPTUserVerificationTemplate; FPT Velocity template for Workflow Email;FPTUserVerificationTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;WorkflowEmailVscsrTemplate; Vs Velocity template for Workflow Email;WorkflowEmailVscsrTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;VsRegisterFailureTemplate;Velocity template for Vs Register Failures;VsRegisterFailureTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;WorkflowFptEmailTemplate;Velocity template for Workflow Fpt Email;WorkflowFptEmailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;ManualFptWorkflowUserTemplate;Velocity template for Workflow Email;ManualFptWorkflowUserTemplate_media;com.bhge.core.mailmessages.context.BHGEManualApprovalEmailContext;text/html;velocity
+
+#Anish
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;AccessRequestTemplate;Velocity template for Workflow  Email;AccessRequestTemplate_media;com.bhge.core.mailmessages.context.UserProfileEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;AccessUpdateTemplate;Velocity template for Workflow  Email;AccessUpdateTemplate_media;com.bhge.core.mailmessages.context.UserProfileEmailContext;text/html;velocity
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;AutoApprovedTemplate;Velocity template for Workflow  Email;AutoApprovedTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;WorkflowEmailcsrTemplate;Velocity template for Workflow  Email;WorkflowEmailcsrTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;IQMRequestSubmitTemplate;Velocity template for IQM Request Submit  Email;IQMRequestSubmitMailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;ExceptionEmailTemplate;Velocity template for Exception Email;ExceptionEmailTemplate_media;com.bhge.core.mailmessages.context.BHGEExceptionEmailContext;text/html;velocity
+
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+;;EmailPageModel_preview;text/gif;EmailPageModel_preview.gif;$jarResourceCms/preview-images/EmailPageModel_preview.gif
+#Shipping Addres Email
+;;bhgeShippingAddressEmailTemplate_media;text/html;structure_bhgeShippingAddressEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeShippingAddressEmailTemplate.vm
+;;bhgeOrderTrackingEmailTemplate_media;text/html;structure_bhgeOrderTrackingEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeOrderTrackingEmailTemplate.vm
+;;bhgeOrderEnquiryEmailTemplate_media;text/html;structure_bhgeOrderEnquiryEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeOrderEnquiryEmailTemplate.vm
+;;bhgeOrderShareEmailTemplate_media;text/html;structure_bhgeOrderShareEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeOrderShareEmailTemplate.vm
+;;bhgeRmaStatusEmailTemplate_media;text/html;structure_bhgeRmaStatusEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeRmaStatusEmailTemplate.vm
+;;bhgeRmaEnquiryEmailTemplate_media;text/html;structure_bhgeRmaEnquiryEmailTemplate.vm;$jarResourceCms/structure-view/structure_bhgeRmaEnquiryEmailTemplate.vm
+;;WorkflowEmailTemplate_media;text/html;structure_WorkflowEmailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailTemplate.vm
+;;RegisterMannualApproveUserTemplate_media;text/html;structure_WorkflowEmailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_RegisterMannualApproveUserTemplate.vm
+;;registerFailureTemplate_media;text/html;structure_registerFailureTemplate.vm;$jarResourceCms/structure-view/mobile/structure_registerFailureTemplate.vm
+
+
+;;RegisterIdocMailTemplate_media;text/html;structure_RegisterIdocMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_RegisterIdocMailTemplate.vm
+;;RegisterCompleteMailTemplate_media;text/html;structure_RegisterCompleteMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_RegisterCompleteMailTemplate.vm
+;;IQMRegisterCompleteMailTemplate_media;text/html;structure_IQMRegisterCompleteMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_IQMRegisterCompleteMailTemplate.vm
+;;DAMRegisterCompleteMailTemplate_media;text/html;structure_DAMRegisterCompleteMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_DAMRegisterCompleteMailTemplate.vm
+;;ManualWorkflowUserTemplate_media;text/html;structure_ManualWorkflowUserTemplate.vm;$jarResourceCms/structure-view/mobile/structure_ManualWorkflowUserTemplate.vm
+;;IQMManualWorkflowUserTemplate_media;text/html;structure_IQMManualWorkflowUserTemplate.vm;$jarResourceCms/structure-view/mobile/structure_IQMManualWorkflowUserTemplate.vm
+;;UserManagerTemplate_media;text/html;structure_UserManagerTemplate.vm;$jarResourceCms/structure-view/mobile/structure_UserManagerTemplate.vm
+;;WorkflowEmailcsrTemplate_media;text/html;structure_WorkflowEmailcsrTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailcsrTemplate.vm
+;;MultipleSSoRegisterTemplate_media;text/html;structure_MultipleSSoRegisterTemplate.vm;$jarResourceCms/structure-view/mobile/structure_MultipleSSoRegisterTemplate.vm
+;;UserVerificationTemplate_media;text/html;structure_UserVerificationTemplate.vm;$jarResourceCms/structure-view/mobile/structure_UserVerificationTemplate.vm
+;;LoadReactivationTemplate_media;text/html;structure_LoadReactivationTemplate.vm;$jarResourceCms/structure-view/mobile/structure_LoadReactivationTemplate.vm
+;;ManagerDetailsTemplate_media;text/html;structure_ManagerDetailsTemplate.vm;$jarResourceCms/structure-view/mobile/structure_ManagerDetailsTemplate.vm
+
+##User OFS
+;;OFSUserVerificationTemplate_media;text/html;structure_OFSUserVerificationTemplate.vm;$jarResourceCms/structure-view/mobile/structure_OFSUserVerificationTemplate.vm
+;;ManualOfsWorkflowUserTemplate_media;text/html;structure_ManualOfsWorkflowUserTemplate.vm;$jarResourceCms/structure-view/mobile/structure_ManualOfsWorkflowUserTemplate.vm
+;;WorkflowOFSEmailTemplate_media;text/html;structure_WorkflowOFSEmailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowOFSEmailTemplate.vm
+;;WorkflowEmailOFScsrTemplate_media;text/html;structure_WorkflowEmailOFScsrTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailOFScsrTemplate.vm
+;;registerOFSFailureTemplate_media;text/html;structure_registerOFSFailureTemplate.vm;$jarResourceCms/structure-view/mobile/structure_registerOFSFailureTemplate.vm
+;;OfsMultipleSSoRegisterTemplate_media;text/html;structure_OfsMultipleSSoRegisterTemplate.vm;$jarResourceCms/structure-view/mobile/structure_OfsMultipleSSoRegisterTemplate.vm
+
+###User FPT
+;;FPTUserVerificationTemplate_media;text/html;structure_FPTUserVerificationTemplate.vm;$jarResourceCms/structure-view/mobile/structure_FPTUserVerificationTemplate.vm
+;;WorkflowEmailVscsrTemplate_media;text/html;structure_WorkflowEmailVscsrTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowEmailVscsrTemplate.vm
+;;VsRegisterFailureTemplate_media;text/html;structure_registerFailureTemplate.vm;$jarResourceCms/structure-view/mobile/structure_VsRegisterFailureTemplate.vm
+;;WorkflowFptEmailTemplate_media;text/html;structure_WorkflowFptEmailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_WorkflowFptEmailTemplate.vm
+;;ManualFptWorkflowUserTemplate_media;text/html;structure_ManualFptWorkflowUserTemplate.vm;$jarResourceCms/structure-view/mobile/structure_ManualFptWorkflowUserTemplate.vm
+
+#Anish
+;;AccessRequestTemplate_media;text/html;structure_AccessRequestTemplate.vm;$jarResourceCms/structure-view/mobile/structure_AccessRequestTemplate.vm
+;;AccessUpdateTemplate_media;text/html;structure_AccessUpdateTemplate.vm;$jarResourceCms/structure-view/mobile/structure_AccessUpdateTemplate.vm
+
+;;AutoApprovedTemplate_media;text/html;structure_AutoApprovedTemplate.vm;$jarResourceCms/structure-view/mobile/structure_AutoApprovedTemplate.vm
+;;InactiveUserMailTemplate_media;text/html;structure_InactiveUserMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_InactiveUserMailTemplate.vm
+
+;;IQMRequestSubmitMailTemplate_media;text/html;structure_IQMRequestSubmitMailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_IQMRequestSubmitMailTemplate.vm
+
+#critical email alert
+;;bhgeEdgeCriticalErrorMailTemplate_media;text/html;structure_criticalErrorEmailBody.vm;$jarEmailResource/structure-view/structure_criticalErrorEmailBody.vm
+;;bhgeEdgeNonCriticalErrorMailTemplate_media;text/html;structure_nonCriticalErrorDetails.vm;$jarEmailResource/structure-view/structure_nonCriticalErrorDetails.vm
+
+
+#Exception Email
+;;ExceptionEmailTemplate_media;text/html;structure_ExceptionEmailTemplate.vm;$jarResourceCms/structure-view/mobile/structure_ExceptionEmailTemplate.vm
+
+
+##User OFS
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;OFSUserVerificationTemplate;Velocity template for Workflow  Email;OFSUserVerificationTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;ManualOfsWorkflowUserTemplate;Velocity template for Workflow Email;ManualOfsWorkflowUserTemplate_media;com.bhge.core.mailmessages.context.BHGEManualApprovalEmailContext;text/html;velocity
+;WorkflowOFSEmailTemplate;Velocity template for Workflow  Email;WorkflowOFSEmailTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;WorkflowEmailOFScsrTemplate;Velocity template for Workflow  Email;WorkflowEmailOFScsrTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;registerOFSFailureTemplate;Velocity template for Register Failures;registerOFSFailureTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+;OfsMultipleSSoRegisterTemplate;Velocity template for Workflow  Email;OfsMultipleSSoRegisterTemplate_media;com.bhge.core.mailmessages.context.BHGERegisterEmailContext;text/html;velocity
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;CustomerRegistrationEmail;EmailPageModel_preview
+;;ForgottenPasswordEmail;EmailPageModel_preview
+;;OrderConfirmationEmail;EmailPageModel_preview
+;;DeliverySentEmail;EmailPageModel_preview
+;;ReadyForPickupEmail;EmailPageModel_preview
+;;OrderCancelledEmail;EmailPageModel_preview
+;;OrderRefundEmail;EmailPageModel_preview
+;;OrderCollectionReminderEmail;EmailPageModel_preview
+;;OrderMoveToCsEmail;EmailPageModel_preview
+;;OrderPartiallyCanceledEmail;EmailPageModel_preview
+;;OrderPartiallyRefundedEmail;EmailPageModel_preview
+;;NotPickedUpConsignmentCanceledEmail;EmailPageModel_preview
+;;OrderApprovalRejectionEmail;EmailPageModel_preview
+;;OrderPendingApprovalEmail;EmailPageModel_preview
+;;ReplenishmentOrderPlacedEmail;EmailPageModel_preview
+;;QuoteBuyerSubmissionEmail;EmailPageModel_preview
+;;QuoteToExpireSoonEmail;EmailPageModel_preview
+;;QuoteExpiredEmail;EmailPageModel_preview
+;;QuoteBuyerCancellationEmail;EmailPageModel_preview
+;;ReplenishmentOrderConfirmationEmail;EmailPageModel_preview
+;;GuestUserCalibrationPDFEmail;EmailPageModel_preview
+
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;BhgeTicketEmailTemplate;BHGE Ticket Email Template;true;bhgeTicketEmail;bhge_Ticket_Email_Subject;bhge_Ticket_Email_Body;EmailPage
+
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;BhgeTicketEmailTemplate;$jarResourceCms/structure-view/structure_bhgeTicketEmailTemplate.vm
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;bhge_Ticket_Email_Subject;de.hybris.platform.bhgeticketingaddon.context.BHGETicketContext;
+;bhge_Ticket_Email_Body;de.hybris.platform.bhgeticketingaddon.context.BHGETicketContext;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='BhgeTicketEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='BhgeTicketEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-bhgeTicketEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-bhgeTicketEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-bhgeTicketEmail;BottomContent;;EmailBottomSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;bhgeTicketEmail;BHGE Ticket Email;BhgeTicketEmailTemplate;true;
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;bhgeTicketEmail;EmailPageModel_preview
+
+
+
+INSERT_UPDATE Media;code[unique=true];$contentCV[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+;bhgeSavedCartExpiryMailTemplate_media;;text/html;email-bhgeSavedCartExpiryMail.vm;$jarEmailResource/email-bhgeSavedCartExpiryMail.vm
+
+# Renderer Templates
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;SavedCartExpiryMailTemplate;Velocity template for Saved Cart expiry email;bhgeSavedCartExpiryMailTemplate_media;com.bhge.core.mailmessages.context.BHGESavedCartExpiryMailContext;text/html;velocity
+
+# Email for Marketo Critical Error 
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;bhge_MarketoErrorEmail_Subject;$emailPackageName.BHGEExceptionEmailContext;
+;bhge_MarketoErrorEmail_Body;$emailPackageName.BHGEExceptionEmailContext;
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;MarketoConnectivityErrorMailTemplate;Velocity template for Marketo Error Email;marketoConnectivityErrorMailTemplate_media;com.bhge.core.mailmessages.context.BHGECriticalErrorEmailContext;text/html;velocity
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+;;marketoConnectivityErrorMailTemplate_media;text/html;structure_criticalErrorEmailBody.vm;$jarEmailResource/structure-view/structure_marketoConnectivityErrorEmailBody.vm
+
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;MarketoConnectivityErrorMailTemplate;Marketo Error Email Template;true;MarketoConnectivityErrorEmail;bhge_MarketoErrorEmail_Subject;bhge_MarketoErrorEmail_Body;EmailPage
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;MarketoConnectivityErrorEmail;Marketo Error Email;MarketoConnectivityErrorMailTemplate;true;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='MarketoConnectivityErrorMailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-MarketoConnectivityErrorEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-MarketoConnectivityErrorEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-MarketoConnectivityErrorEmail;BottomContent;;EmailBottomSlot;true

@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-md-2">
+    <a
+      (click)="gtmSelectItemEvent(product)"
+      [routerLink]="{ cxRoute: 'product', params: product } | cxUrl"
+      class="cx-product-image-container"
+      tabindex="-1"
+    >
+      <cx-media
+        class="cx-product-image"
+        [container]="product.images?.PRIMARY"
+        format="product"
+        [alt]="product.summary"
+      ></cx-media>
+    </a>
+  </div>
+  <div class="col-md-3 m-auto">
+    <a
+      [routerLink]="{ cxRoute: 'product', params: product } | cxUrl"
+      class="cx-product-name"
+      [innerHtml]="product.nameHtml"
+    ></a>
+
+    <div [innerHTML]="product.code" class="cx-product-code"></div>
+    <!-- <cx-star-rating
+      *ngIf="product.averageRating"
+      [rating]="product?.averageRating"
+    ></cx-star-rating> -->
+    <!-- <div *ngIf="!product.averageRating" class="cx-product-no-review">
+      {{ 'productDetails.noReviews' | cxTranslate }}
+    </div> -->
+    <div class="cx-product-price-container">
+      <div class="cx-product-code" aria-label="Product price">
+        {{ 'plp.listPrice' | cxTranslate }}:
+        <strong *ngIf="product.price.value > 0">{{
+          product.price?.formattedValue
+        }}</strong>
+        <strong *ngIf="product.price.value <= 0 && !isPriceNotFound">{{
+          'plp.unavailable' | cxTranslate
+        }}</strong>
+        <strong class="error" *ngIf="isPriceNotFound">{{
+          'plp.priceNotrFound' | cxTranslate
+        }}</strong>
+      </div>
+    </div>
+
+    <!-- <cx-variant-style-icons
+      *ngIf="product.variantOptions"
+      [variants]="product.variantOptions"
+    ></cx-variant-style-icons>
+
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <p class="cx-product-summary" [innerHtml]="product.summary">
+          {{ product.summary }}
+        </p>
+      </div>
+      <div class="col-12 col-md-4">
+        <cx-add-to-cart
+          *ngIf="product.stock?.stockLevelStatus !== 'outOfStock'"
+          [showQuantity]="false"
+          [product]="product"
+        ></cx-add-to-cart>
+      </div>
+    </div> -->
+  </div>
+  <div class="col-12 col-md-7">
+    <cx-add-to-cart
+      *ngIf="product.stock?.stockLevelStatus !== 'outOfStock'"
+      [showQuantity]="true"
+      [product]="product"
+      [mode]="mode"
+      (emitProductPrice)="fetchCheckPriceProduct($event)"
+    ></cx-add-to-cart>
+  </div>
+</div>
+<div class="row m-0 fav-add-eq-row" *ngIf="userType === 'current'">
+  <div class="col-auto offset-md-2 pl-0 pr-0">
+    <a class="overlay" (click)="onFavoriteClick(product)">
+      <i class="material-icons overlay-fav-icon mr-1">{{
+        favStatus ? 'star' : 'star_border'
+      }}</i>
+      <span class="overlay-fav-txt">
+        {{ 'plp.addtofavourite' | cxTranslate }}</span
+      >
+    </a>
+  </div>
+</div>

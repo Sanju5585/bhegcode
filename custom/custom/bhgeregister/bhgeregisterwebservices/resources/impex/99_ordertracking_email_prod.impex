@@ -1,0 +1,250 @@
+INSERT_UPDATE BHGEInquiryEmailDetails;id[unique=true];governmentUser;quoteOrderInquiry;serviceReturnsInquiry;shippingInquiry;invoicingInquiry
+;1;Sales.InspTech.FR@ge.com;	Sales.InspTech.FR@ge.com;		;Sales.InspTech.FR@ge.com;	Sales.InspTech.FR@ge.com;
+;2;trans.geituksales@ge.com;	trans.geituksales@ge.com;		;trans.geituksales@ge.com;	trans.geituksales@ge.com;
+;3;geitsales.emea@ge.com;	geitsales.emea@ge.com;		;geitsales.emea@ge.com;	geitsales.emea@ge.com;
+;4;geitsales.emea@ge.com;	geitsales.emea@ge.com;		;geitsales.emea@ge.com;	geitsales.emea@ge.com;
+;5;geitsales.emea@ge.com;	geitsales.emea@ge.com;		;geitsales.emea@ge.com;	geitsales.emea@ge.com;
+;6;Sales.SensInsp.es@ge.com;	Sales.SensInsp.es@ge.com;		;Sales.SensInsp.es@ge.com;	Sales.SensInsp.es@ge.com;
+;7;Sales.SensInsp.es@ge.com;	Sales.SensInsp.es@ge.com;		;Sales.SensInsp.es@ge.com;	Sales.SensInsp.es@ge.com;
+;8;geitsales.emea@ge.com;	geitsales.emea@ge.com;		geitsales.emea@ge.com;	geitsales.emea@ge.com;
+;9;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;10;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;11;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;12;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;13;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;14;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;15;sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;	GEITHuerth.service@ge.com; 	sales.insptech.emea_film@ge.com;	sales.insptech.emea_film@ge.com;
+;	16;;;GEITHuerth.service@ge.com;;; 	
+;	17;;;GEIT.Service.RVI@ge.com;;; 	
+;	18;;;uttm.service@ge.com;;;	
+;	19;;;customercare.ahrensburg@ge.com;;;	
+;	20;;;Service.Phoenix@ge.com;;;	
+;	21;;;dummy@ge.com;;; 	
+;	22;;;dummy@ge.com;;; 	
+;	23;;;dummy@ge.com;;;	
+;	24;;;dummy@ge.com;;;	
+;	25;;;dummy@ge.com;;;	
+;	26;;;dummy@ge.com;;; 	
+;	27;;;dummy@ge.com;;; 	
+;	28;;;dummy@ge.com;;;	
+;	29;;;dummy@ge.com;;;	
+;	30;;;dummy@ge.com;;;
+;	31	;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;
+;	32	;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;
+;	33	;	David Rae	David Rae	David Rae	David Rae	David Rae
+;	34	;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;
+;	35	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	36	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	37	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	38	;	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com
+;	39	;	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com
+;	40	;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;
+;	41	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	42	;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;
+;	43	;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;
+;	44	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	45	;	klantenservice@ge.com;	klantenservice@ge.com;	klantenservice@ge.com;	klantenservice@ge.com;	klantenservice@ge.com;
+;	46	;	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com
+;	47	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	48	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;	49	;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;
+;	50	;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;
+;	51	;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;	customerservice_uk@ge.com;
+;	52	;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;	bnservizioclienti@bhge.com;
+;	53	;	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com
+;	54	;	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com
+;	55	;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;	bnkundendienst@ge.com;
+;	56	;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;	servicioaclientes@ge.com;
+;	57	;	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com	serviceclientel@bently.com
+;	58	;	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com
+;	59	;	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com
+;	60	;	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com	kundtjanst@bently.com
+;	61	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+;62;geitsales.emea@ge.com;	geitsales.emea@ge.com;;		geitsales.emea@ge.com;	geitsales.emea@ge.com;
+;	63	;;;GEIT.Service.RVI@ge.com;;; 		
+;	64	;;;GEITHuerth.service@ge.com;;; 		
+;	65	;;;GEITHuerth.service@ge.com;;; 		
+;	66	;;;uttm.service@ge.com	;;;	
+;	67	;;;customercare.ahrensburg@ge.com;;;		
+;	68	;;;Service.Phoenix@ge.com	;;;	
+;	69	;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;	sensing.grobycc@ge.com;
+;	70	;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;	gesensingorders@ge.com;
+;	71	;	David Rae	David Rae	David Rae	David Rae	David Rae
+;	72	;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;	energy.occontrolssolutions@ge.com;
+;	73	;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;	customerservice_ee@ge.com;
+
+ 
+
+ 
+ ############################################################################################################
+ 
+ 
+ INSERT_UPDATE BHGEMnCEcommMatrix;matrixRuleId(attributeId)[unique=true];regionAttrib(attributeId);subregionAttrib(attributeId);countryAttrib(attributeId);productlineAttrib(attributeId);csrApproverValue(approverID);emailInquiryType(id)
+;1;1;;;273;19
+;2;1;;;274;19
+;3;1;;;275;19
+;4;1;;;276;19
+;5;1;;;277;19
+;6;1;;;278;19
+;7;1;;;279;19
+;8;1;;;280;19
+;9;1;;;281;19
+;10;1;;;282;19
+;11;1;;;283;19
+
+;12;2;;;273;19
+;13;2;;;274;19
+;14;2;;;275;19
+;15;2;;;276;19
+;16;2;;;277;19
+;17;2;;;278;19
+;18;2;;;279;19
+;19;2;;;280;19
+;20;2;;;281;19
+;21;2;;;282;19
+;22;2;;;283;19
+
+;23;3;;;273;19;17
+;24;3;;;274;19;16
+;25;3;;;275;19;0
+;26;3;;;276;19;18
+;27;3;;;277;19;19
+;28;3;;;278;19;20
+;29;3;;;279;19;31
+;30;3;;;280;19;32
+;31;3;;;281;19;33
+;32;3;;;282;19;34
+;33;3;;;283;19;0
+
+;34;4;;;273;19
+;35;4;;;274;19
+;36;4;;;275;19
+;37;4;;;276;19
+;38;4;;;277;19
+;39;4;;;278;19
+;40;4;;;279;19
+;41;4;;;280;19
+;42;4;;;281;19
+;43;4;;;282;19
+;44;4;;;283;19
+;45;5;;;273;19
+;46;5;;;274;19
+;47;5;;;275;19
+;48;5;;;276;19
+;49;5;;;277;19
+;50;5;;;278;19
+;51;5;;;279;19
+;52;5;;;280;19
+;53;5;;;281;19
+;54;5;;;282;19
+;55;5;;;283;19
+;56;6;;;273;19
+;57;6;;;274;19
+;58;6;;;275;19
+;59;6;;;276;19
+;60;6;;;277;19
+;61;6;;;278;19
+;62;6;;;279;19
+;63;6;;;280;19
+;64;6;;;281;19
+;65;6;;;282;19
+;66;6;;;283;19
+;67;7;;;273;19
+;68;7;;;274;19
+;69;7;;;275;19
+;70;7;;;276;19
+;71;7;;;277;19
+;72;7;;;278;19
+;73;7;;;279;19
+;74;7;;;280;19
+;75;7;;;281;19
+;76;7;;;282;19
+;77;7;;;283;19
+
+;78;8;;;273;19;63
+;79;8;;;274;19;64
+;80;8;;;275;19;65
+;81;8;;;276;19;66
+;82;8;;;277;19;67
+;83;8;;;278;19;68
+;84;8;;;279;19;69
+;85;8;;;280;19;70
+;86;8;;;281;19;71
+;87;8;;;282;19;72
+;88;8;;;283;19;73
+
+
+;89;9;;;273;19
+;90;9;;;274;19
+;91;9;;;275;19
+;92;9;;;276;19
+;93;9;;;277;19
+;94;9;;;278;19
+;95;9;;;279;19
+;96;9;;;280;19
+;97;9;;;281;19
+;98;9;;;282;19
+;99;9;;;283;19
+;100;0;;;273;19
+;101;0;;;274;19
+;102;0;;;275;19
+;103;0;;;276;19
+;104;0;;;277;19
+;105;0;;;278;19
+;106;0;;;279;19
+;107;0;;;280;19
+;108;0;;;281;19
+;109;0;;;282;19
+;110;0;;;283;19
+;111;3;;82;283;19;35
+;112;3;;83;283;19;36
+;113;3;;85;283;19;37
+;114;3;;86;283;19;38
+;115;3;;90;283;19;39
+;116;3;;92;283;19;40
+;117;3;;98;283;19;41
+;118;3;;100;283;19;42
+;119;3;;103;283;19;43
+;120;3;;107;283;19;44
+;121;3;;114;283;19;45
+;122;3;;115;283;19;46
+;123;3;;116;283;19;47
+;124;3;;118;283;19;48
+;125;3;;125;283;19;49
+;126;3;;128;283;19;50
+;127;3;;129;283;19;51
+;128;3;;94;283;19;52
+;129;3;;79;283;19;53
+;130;3;;108;283;19;54
+;131;3;;78;283;19;55
+;132;3;;117;283;19;56
+;133;3;;89;283;19;58
+;134;3;;127;283;19;59
+;135;3;;89;99;19;60
+;136;3;;123;283;19;61
+;137;3;;128;275;19;15
+;138;3;;78;275;19;14
+;139;3;;92;275;19;13
+;140;3;;103;275;19;12
+
+
+#################################################################################################################
+
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;2;20;GlobalEmailGroup;GlobalEmailGroup;1903,1904,1902;jignesh.gandhi@bhge.com
+
+
+############################################################################################################
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;273;PRODUCTLINE;IT-RVI;IT - RVI;1;1
+;274;PRODUCTLINE;IT-UT/EddyCurrent;IT - UT/Eddy Current;2;1
+;275;PRODUCTLINE;IT-Film;IT - Film;3;1
+;276;PRODUCTLINE;IT-TestingMachines;IT - Testing Machines;10;1
+;277;PRODUCTLINE;IT-Xray;IT - Xray;11;1
+;278;PRODUCTLINE;IT-Radiography;IT - Radiography;12;1
+;279;PRODUCTLINE;M&S-Pressure;M&S - Pressure;268;1
+;280;PRODUCTLINE;M&S-FG&M;M&S - FG&M;269;1
+;281;PRODUCTLINE;M&S-ReuterStokes;M&S - Reuter Stokes;270;1
+;282;PRODUCTLINE;ControlSolutions;Control Solutions;271;1
+;283;PRODUCTLINE;BentlyNevada;Bently Nevada;272;1

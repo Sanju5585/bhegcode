@@ -1,0 +1,299 @@
+$lang=en
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true];resourceIds;scope;authorizedGrantTypes;authorities;clientSecret;registeredRedirectUri
+;iqmRegisterClient;hybris;basic;client_credentials;ROLE_CLIENT;iqmRegisterPass03;;
+
+# B2BUnit
+INSERT_UPDATE B2BUnit;uid[unique=true];locname[lang=$lang]
+;IQMRegister;IQM Application Register
+
+#Appliation Entry
+INSERT_UPDATE BHGEApplicationDetails;applicationId[unique=true];applicationName[lang=$lang];applicationDetails[lang=$lang]
+;2;IQM by Baker Hughes;Register for access to product line materials, branding guidelines, to collaborate and share files.
+
+#Appliation Access Levels
+INSERT_UPDATE BHGEAppAccessLevel;applicationInfo(applicationId);appAccessLevelId[unique=true];appAccessLevelName[lang=$lang];appAccessLevelDetails[lang=$lang]
+;2;22001;Customer;Customer
+;2;22002;Partner;Partner
+
+#Appliation Approval Details
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;22001;22001;IQM Approvers;IQM Approvers;;rahul.gangan@ge.com
+;22002;22002;IQM Approvers;IQM Approvers;;rahul.gangan@ge.com
+#IQM.byBHGE@ge.com
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;22001;IQMREGION;APAC;Asia Pacific;;1
+;22002;IQMREGION;Europe;Europe & North Sea;;1
+;22003;IQMREGION;LATAM;Latin America;;1
+;22004;IQMREGION;MENATI;MENATI;;1
+;22005;IQMREGION;NAM;North America;;1
+;22006;IQMREGION;RCIS;Russia & CIS;;1
+;22007;IQMREGION;SSA;Sub-Saharan Africa;;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;22100;IQMPRODLINEMAIN;Oilfield_Services;Oilfield Services;;1
+;22101;IQMPRODLINESUB;Artificial Lift;Artificial Lift;22100;1
+;22102;IQMPRODLINESUB;Chemicals;Chemicals;22100;1
+;22103;IQMPRODLINESUB;Completions Well Intervention;Completions & Well Intervention;22100;1
+;22104;IQMPRODLINESUB;Drill Bits;Drill Bits;22100;1
+;22105;IQMPRODLINESUB;Drilling Completion_Fluids;Drilling & Completion Fluids;22100;1
+;22106;IQMPRODLINESUB;Drilling Services;Drilling Services;22100;1
+;22107;IQMPRODLINESUB;Pressure Pumping;Pressure Pumping;22100;1
+;22108;IQMPRODLINESUB;Wireline Services;Wireline Services;22100;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;22501;IQMCOUNTRY;As;American Samoa;22001;1
+;22502;IQMCOUNTRY;Au;Australia;22001;1
+;22503;IQMCOUNTRY;Fj;Fiji;22001;1
+;22504;IQMCOUNTRY;Pf;French Polynesia;22001;1
+;22505;IQMCOUNTRY;Ki;Kiribati;22001;1
+;22506;IQMCOUNTRY;Mh;Marshall Islands;22001;1
+;22507;IQMCOUNTRY;Fm;Micronesia, Federated States;22001;1
+;22508;IQMCOUNTRY;Nc;New Caledonia;22001;1
+;22509;IQMCOUNTRY;Nz;New Zealand;22001;1
+;22510;IQMCOUNTRY;Pg;Papua New Guinea;22001;1
+;22511;IQMCOUNTRY;Ws;Samoa;22001;1
+;22512;IQMCOUNTRY;Sb;Solomon Islands;22001;1
+;22513;IQMCOUNTRY;To;Tonga;22001;1
+;22514;IQMCOUNTRY;Vu;Vanuatu;22001;1
+;22515;IQMCOUNTRY;Aq;Antarctica;22001;1
+;22516;IQMCOUNTRY;Bn;Brunei Darussalam;22001;1
+;22517;IQMCOUNTRY;Kh;Cambodia;22001;1
+;22518;IQMCOUNTRY;Cx;Christmas Island;22001;1
+;22519;IQMCOUNTRY;Cc;Cocos (Keeling) Islands;22001;1
+;22520;IQMCOUNTRY;Ck;Cook Islands;22001;1
+;22521;IQMCOUNTRY;Tl;East Timor;22001;1
+;22522;IQMCOUNTRY;Gu;Guam;22001;1
+;22523;IQMCOUNTRY;Hm;Heard Island And Mcdonald Islands;22001;1
+;22524;IQMCOUNTRY;Id;Indonesia;22001;1
+;22525;IQMCOUNTRY;Jp;Japan;22001;1
+;22526;IQMCOUNTRY;Kp;North Korea;22001;1
+;22527;IQMCOUNTRY;Kr;South Korea;22001;1
+;22528;IQMCOUNTRY;La;Lao People'S Democratic Republic;22001;1
+;22529;IQMCOUNTRY;My;Malaysia;22001;1
+;22530;IQMCOUNTRY;Mm;Myanmar;22001;1
+;22531;IQMCOUNTRY;Nr;Nauru;22001;1
+;22532;IQMCOUNTRY;Np;Nepal;22001;1
+;22533;IQMCOUNTRY;Nu;Niue;22001;1
+;22534;IQMCOUNTRY;Nf;Norfolk Island;22001;1
+;22535;IQMCOUNTRY;Mp;Northern Mariana Islands;22001;1
+;22536;IQMCOUNTRY;Pw;Palau;22001;1
+;22537;IQMCOUNTRY;Ph;Philippines;22001;1
+;22538;IQMCOUNTRY;Pn;Pitcairn;22001;1
+;22539;IQMCOUNTRY;Sg;Singapore;22001;1
+;22540;IQMCOUNTRY;Ss;South Sudan;22001;1
+;22541;IQMCOUNTRY;Th;Thailand;22001;1
+;22542;IQMCOUNTRY;Tl;Timor-Leste;22001;1
+;22543;IQMCOUNTRY;Tk;Tokelau;22001;1
+;22544;IQMCOUNTRY;Tv;Tuvalu;22001;1
+;22545;IQMCOUNTRY;Vn;Vietnam;22001;1
+;22546;IQMCOUNTRY;Wf;Wallis & Fortuna;22001;1
+;22547;IQMCOUNTRY;Cn;China;22001;1
+;22548;IQMCOUNTRY;Hk;Hong Kong;22001;1
+;22549;IQMCOUNTRY;Mo;Macau;22001;1
+;22550;IQMCOUNTRY;Mn;Mongolia;22001;1
+;22551;IQMCOUNTRY;Tw;Taiwan, Province Of China;22001;1
+;22552;IQMCOUNTRY;Ax;Aland Islands;22002;1
+;22553;IQMCOUNTRY;Al;Albania;22002;1
+;22554;IQMCOUNTRY;Ad;Andorra;22002;1
+;22555;IQMCOUNTRY;Am;Armenia;22002;1
+;22556;IQMCOUNTRY;At;Austria;22002;1
+;22557;IQMCOUNTRY;Be;Belgium;22002;1
+;22558;IQMCOUNTRY;Ba;Bosnia And Herzegovina;22002;1
+;22559;IQMCOUNTRY;Io;British Indian Ocean Territory;22002;1
+;22560;IQMCOUNTRY;Bg;Bulgaria;22002;1
+;22561;IQMCOUNTRY;Hr;Croatia;22002;1
+;22562;IQMCOUNTRY;Cy;Cyprus;22002;1
+;22563;IQMCOUNTRY;Cz;Czech Republic;22002;1
+;22564;IQMCOUNTRY;Dk;Denmark;22002;1
+;22565;IQMCOUNTRY;Ee;Estonia;22002;1
+;22566;IQMCOUNTRY;Fo;Faroe Islands;22002;1
+;22567;IQMCOUNTRY;Fi;Finland;22002;1
+;22568;IQMCOUNTRY;Fr;France;22002;1
+;22569;IQMCOUNTRY;Tf;French Southern Territories;22002;1
+;22570;IQMCOUNTRY;De;Germany;22002;1
+;22571;IQMCOUNTRY;Gi;Gibraltar;22002;1
+;22572;IQMCOUNTRY;Gr;Greece;22002;1
+;22573;IQMCOUNTRY;Gl;Greenland;22002;1
+;22574;IQMCOUNTRY;Gg;Guernsey;22002;1
+;22575;IQMCOUNTRY;Va;Holy See (Vatican City State);22002;1
+;22576;IQMCOUNTRY;Hu;Hungary;22002;1
+;22577;IQMCOUNTRY;Is;Iceland;22002;1
+;22578;IQMCOUNTRY;Ie;Ireland;22002;1
+;22579;IQMCOUNTRY;Im;Isle Of Man;22002;1
+;22580;IQMCOUNTRY;Il;Israel;22002;1
+;22581;IQMCOUNTRY;It;Italy;22002;1
+;22582;IQMCOUNTRY;Je;Jersey;22002;1
+;22583;IQMCOUNTRY;Lv;Latvia;22002;1
+;22584;IQMCOUNTRY;Li;Liechtenstein;22002;1
+;22585;IQMCOUNTRY;Lt;Lithuania;22002;1
+;22586;IQMCOUNTRY;Lu;Luxembourg;22002;1
+;22587;IQMCOUNTRY;Mk;Macedonia, The Former Yugoslav;22002;1
+;22588;IQMCOUNTRY;Mt;Malta;22002;1
+;22589;IQMCOUNTRY;Md;Moldova;22002;1
+;22590;IQMCOUNTRY;Mc;Monaco;22002;1
+;22591;IQMCOUNTRY;Me;Montenegro;22002;1
+;22592;IQMCOUNTRY;Nl;Netherlands;22002;1
+;22593;IQMCOUNTRY;No;Norway;22002;1
+;22594;IQMCOUNTRY;Pl;Poland;22002;1
+;22595;IQMCOUNTRY;Pt;Portugal;22002;1
+;22596;IQMCOUNTRY;Ro;Romania;22002;1
+;22597;IQMCOUNTRY;Pm;Saint Pierre And Miquelon;22002;1
+;22598;IQMCOUNTRY;Sm;San Marino;22002;1
+;22599;IQMCOUNTRY;Rs;Serbia;22002;1
+;22600;IQMCOUNTRY;Rs;Serbia And Montenegro;22002;1
+;22601;IQMCOUNTRY;Sk;Slovakia;22002;1
+;22602;IQMCOUNTRY;Si;Slovenia;22002;1
+;22603;IQMCOUNTRY;Es;Spain;22002;1
+;22604;IQMCOUNTRY;Sj;Svalbard And Jan Mayen;22002;1
+;22605;IQMCOUNTRY;Se;Sweden;22002;1
+;22606;IQMCOUNTRY;Ch;Switzerland;22002;1
+;22607;IQMCOUNTRY;Gb;United Kingdom;22002;1
+;22608;IQMCOUNTRY;Bd;Bangladesh;22001;1
+;22609;IQMCOUNTRY;Bt;Bhutan;22001;1
+;22610;IQMCOUNTRY;In;India;22001;1
+;22611;IQMCOUNTRY;Mv;Maldives;22001;1
+;22612;IQMCOUNTRY;Lk;Sri Lanka;22001;1
+;22613;IQMCOUNTRY;Br;Brazil;22003;1
+;22614;IQMCOUNTRY;Ai;Anguilla;22003;1
+;22615;IQMCOUNTRY;Ag;Antigua And Barbuda;22003;1
+;22616;IQMCOUNTRY;Aw;Aruba;22003;1
+;22617;IQMCOUNTRY;Bs;Bahamas;22003;1
+;22618;IQMCOUNTRY;Bb;Barbados;22003;1
+;22619;IQMCOUNTRY;Bz;Belize;22003;1
+;22620;IQMCOUNTRY;Bm;Bermuda;22003;1
+;22621;IQMCOUNTRY;Bo;Bolivia, Plurinational State Of;22003;1
+;22622;IQMCOUNTRY;Bq;Bonaire, Sint Eustatius And Saba;22003;1
+;22623;IQMCOUNTRY;Ky;Cayman Islands;22003;1
+;22624;IQMCOUNTRY;Co;Colombia;22003;1
+;22625;IQMCOUNTRY;Cr;Costa Rica;22003;1
+;22626;IQMCOUNTRY;Cu;Cuba;22003;1
+;22627;IQMCOUNTRY;Cw;Cura�ao;22003;1
+;22628;IQMCOUNTRY;Dm;Dominica;22003;1
+;22629;IQMCOUNTRY;Do;Dominican Republic;22003;1
+;22630;IQMCOUNTRY;Sv;El Salvador;22003;1
+;22631;IQMCOUNTRY;Gf;French Guiana;22003;1
+;22632;IQMCOUNTRY;Gd;Grenada;22003;1
+;22633;IQMCOUNTRY;Gp;Guadeloupe;22003;1
+;22634;IQMCOUNTRY;Gt;Guatemala;22003;1
+;22635;IQMCOUNTRY;Gy;Guyana;22003;1
+;22636;IQMCOUNTRY;Ht;Haiti;22003;1
+;22637;IQMCOUNTRY;Hn;Honduras;22003;1
+;22638;IQMCOUNTRY;Jm;Jamaica;22003;1
+;22639;IQMCOUNTRY;Mq;Martinique;22003;1
+;22640;IQMCOUNTRY;Mx;Mexico;22003;1
+;22641;IQMCOUNTRY;Ms;Montserrat;22003;1
+;22642;IQMCOUNTRY;An;Netherlands Antilles;22003;1
+;22643;IQMCOUNTRY;Ni;Nicaragua;22003;1
+;22644;IQMCOUNTRY;Pa;Panama;22003;1
+;22645;IQMCOUNTRY;Bl;Saint Barthelemy;22003;1
+;22646;IQMCOUNTRY;Sh;Saint Helena, Ascension And Tristan Da Cunha;22003;1
+;22647;IQMCOUNTRY;Kn;Saint Kitts And Nevis;22003;1
+;22648;IQMCOUNTRY;Lc;Saint Lucia;22003;1
+;22649;IQMCOUNTRY;Mf;Saint Martin (French Part);22003;1
+;22650;IQMCOUNTRY;Vc;Saint Vincent And The Grenadines;22003;1
+;22651;IQMCOUNTRY;Sx;Sint Maarten;22003;1
+;22652;IQMCOUNTRY;Gs;South Georgia And The South Sandwich Islands;22003;1
+;22653;IQMCOUNTRY;Sr;Suriname;22003;1
+;22654;IQMCOUNTRY;Tt;Trinidad And Tobago;22003;1
+;22655;IQMCOUNTRY;Tc;Turks And Caicos Islands;22003;1
+;22656;IQMCOUNTRY;Uy;Uruguay;22003;1
+;22657;IQMCOUNTRY;Ve;Venezuela;22003;1
+;22658;IQMCOUNTRY;Vg;Virgin Islands, British;22003;1
+;22659;IQMCOUNTRY;Vi;Virgin Islands, U.S.;22003;1
+;22660;IQMCOUNTRY;Ar;Argentina;22003;1
+;22661;IQMCOUNTRY;Cl;Chile;22003;1
+;22662;IQMCOUNTRY;Ec;Ecuador;22003;1
+;22663;IQMCOUNTRY;Fk;Falkland Islands;22003;1
+;22664;IQMCOUNTRY;Py;Paraguay;22003;1
+;22665;IQMCOUNTRY;Pe;Peru;22003;1
+;22666;IQMCOUNTRY;Af;Afghanistan;22004;1
+;22667;IQMCOUNTRY;Dz;Algeria;22004;1
+;22668;IQMCOUNTRY;Bh;Bahrain;22004;1
+;22669;IQMCOUNTRY;Td;Chad;22004;1
+;22670;IQMCOUNTRY;Dj;Djibouti;22004;1
+;22671;IQMCOUNTRY;Eg;Egypt;22004;1
+;22672;IQMCOUNTRY;Ir;Iran, Islamic Republic Of;22004;1
+;22673;IQMCOUNTRY;Iq;Iraq;22004;1
+;22674;IQMCOUNTRY;Jo;Jordan;22004;1
+;22675;IQMCOUNTRY;Kw;Kuwait;22004;1
+;22676;IQMCOUNTRY;Lb;Lebanon;22004;1
+;22677;IQMCOUNTRY;Ly;Libya;22004;1
+;22678;IQMCOUNTRY;Ma;Morocco;22004;1
+;22679;IQMCOUNTRY;Om;Oman;22004;1
+;22680;IQMCOUNTRY;Pk;Pakistan;22004;1
+;22681;IQMCOUNTRY;Ps;Palestine, State Of;22004;1
+;22682;IQMCOUNTRY;Qa;Qatar;22004;1
+;22683;IQMCOUNTRY;Sa;Saudi Arabia;22004;1
+;22684;IQMCOUNTRY;Sy;Syrian Arab Republic;22004;1
+;22685;IQMCOUNTRY;Tn;Tunisia;22004;1
+;22686;IQMCOUNTRY;Tr;Turkey;22004;1
+;22687;IQMCOUNTRY;Ae;United Arab Emirates;22004;1
+;22688;IQMCOUNTRY;Eh;Western Sahara;22004;1
+;22689;IQMCOUNTRY;Ye;Yemen;22004;1
+;22690;IQMCOUNTRY;Ca;Canada;22005;1
+;22691;IQMCOUNTRY;Us;United States;22005;1
+;22692;IQMCOUNTRY;Az;Azerbaijan;22006;1
+;22693;IQMCOUNTRY;By;Belarus;22006;1
+;22694;IQMCOUNTRY;Ge;Georgia;22006;1
+;22695;IQMCOUNTRY;Kz;Kazakhstan;22006;1
+;22696;IQMCOUNTRY;Kg;Kyrgyzstan;22006;1
+;22697;IQMCOUNTRY;Ru;Russian Federation;22006;1
+;22698;IQMCOUNTRY;Tj;Tajikistan;22006;1
+;22699;IQMCOUNTRY;Tm;Turkmenistan;22006;1
+;22700;IQMCOUNTRY;Ua;Ukraine;22006;1
+;22701;IQMCOUNTRY;Uz;Uzbekistan;22006;1
+;22702;IQMCOUNTRY;Ao;Angola;22007;1
+;22703;IQMCOUNTRY;Bj;Benin;22007;1
+;22704;IQMCOUNTRY;Bw;Botswana;22007;1
+;22705;IQMCOUNTRY;Bv;Bouvet Island;22007;1
+;22706;IQMCOUNTRY;Bf;Burkina Faso;22007;1
+;22707;IQMCOUNTRY;Bi;Burundi;22007;1
+;22708;IQMCOUNTRY;Cm;Cameroon;22007;1
+;22709;IQMCOUNTRY;Cv;Cape Verde;22007;1
+;22710;IQMCOUNTRY;Cf;Central African Republic;22007;1
+;22711;IQMCOUNTRY;Km;Comoros;22007;1
+;22712;IQMCOUNTRY;Cd;Congo;22007;1
+;22713;IQMCOUNTRY;Cd;Congo, The Democratic Republic Of The;22007;1
+;22714;IQMCOUNTRY;Ci;Cote D'Ivoire;22007;1
+;22715;IQMCOUNTRY;Gq;Equatorial Guinea;22007;1
+;22716;IQMCOUNTRY;Er;Eritrea;22007;1
+;22717;IQMCOUNTRY;Et;Ethiopia;22007;1
+;22718;IQMCOUNTRY;Ga;Gabon;22007;1
+;22719;IQMCOUNTRY;Gm;Gambia;22007;1
+;22720;IQMCOUNTRY;Gh;Ghana;22007;1
+;22721;IQMCOUNTRY;Gn;Guinea;22007;1
+;22722;IQMCOUNTRY;Gw;Guinea-Bissau;22007;1
+;22723;IQMCOUNTRY;Ke;Kenya;22007;1
+;22724;IQMCOUNTRY;Ls;Lesotho;22007;1
+;22725;IQMCOUNTRY;Lr;Liberia;22007;1
+;22726;IQMCOUNTRY;Mg;Madagascar;22007;1
+;22727;IQMCOUNTRY;Mw;Malawi;22007;1
+;22728;IQMCOUNTRY;Ml;Mali;22007;1
+;22729;IQMCOUNTRY;Mr;Mauritania;22007;1
+;22730;IQMCOUNTRY;Mu;Mauritius;22007;1
+;22731;IQMCOUNTRY;Yt;Mayotte;22007;1
+;22732;IQMCOUNTRY;Mz;Mozambique;22007;1
+;22733;IQMCOUNTRY;Na;Namibia;22007;1
+;22734;IQMCOUNTRY;Ne;Niger;22007;1
+;22735;IQMCOUNTRY;Ng;Nigeria;22007;1
+;22736;IQMCOUNTRY;Re;Reunion;22007;1
+;22737;IQMCOUNTRY;Rw;Rwanda;22007;1
+;22738;IQMCOUNTRY;St;Sao Tome And Principe;22007;1
+;22739;IQMCOUNTRY;Sn;Senegal;22007;1
+;22740;IQMCOUNTRY;Sc;Seychelles;22007;1
+;22741;IQMCOUNTRY;Sl;Sierra Leone;22007;1
+;22742;IQMCOUNTRY;So;Somalia;22007;1
+;22743;IQMCOUNTRY;Za;South Africa;22007;1
+;22744;IQMCOUNTRY;Sd;Sudan;22007;1
+;22745;IQMCOUNTRY;Sz;Swaziland;22007;1
+;22746;IQMCOUNTRY;Tz;Tanzania, United Republic Of;22007;1
+;22747;IQMCOUNTRY;Tg;Togo;22007;1
+;22748;IQMCOUNTRY;Ug;Uganda;22007;1
+;22749;IQMCOUNTRY;Zm;Zambia;22007;1
+;22750;IQMCOUNTRY;Zw;Zimbabwe;22007;1
+
+#INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg
+#;iqm-22001;212593022;Peter Gobran;Peter;Gobran;peter.gobran@bhge.com;IQMRegister;true;22100;false
+#;iqm-22002;212654952;Vicki Terpening;Vicki;Terpening;vicki.terpening@bhge.com;IQMRegister;true;22100;false

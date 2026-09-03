@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "ID",
+    "quantity": "数量",
+    "productDetails": "产品详细信息",
+    "specification": "规格",
+    "reviews": "评论",
+    "shipping": "发货",
+    "share": "共享",
+    "showReviews": "显示评论",
+    "noReviews": "还没有评论"
+  },
+  "productList": {
+    "filterBy": {
+      "label": "筛选依据",
+      "action": "筛选依据"
+    },
+    "appliedFilter": "应用的筛选",
+    "showLess": "显示更少...",
+    "showMore": "显示更多...",
+    "sortByRelevance": "按相关性排序",
+    "backToTopBtn": "回到顶部",
+    "showMoreBtn": "显示更多"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "筛选依据",
+      "action": "筛选依据"
+    },
+    "appliedFilter": "应用的筛选",
+    "showLess": "显示更少...",
+    "showMore": "显示更多...",
+    "sortByRelevance": "按相关性排序"
+  },
+  "productSummary": {
+    "id": "ID",
+    "showReviews": "显示评论",
+    "share": "共享"
+  },
+  "productReview": {
+    "overallRating": "总体评价",
+    "reviewTitle": "评论标题",
+    "writeYourComments": "写下你的评论",
+    "rating": "评分",
+    "reviewerName": "评论人姓名（可选）",
+    "writeReview": "发表评论",
+    "more": "更多",
+    "less": "更少",
+    "thankYouForReview": "感谢你的评论！ 请注意，评论可能需要审核才能出现在此处。"
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "商品已添加到您的购物车",
+    "itemsIncrementedInYourCart": "此商品已在您的购物车中。 数量已更新。",
+    "items": "项",
+    "updatingCart": "正在更新购物车...",
+    "addToCart": "加至购物车",
+    "viewCart": "查看购物车",
+    "proceedToCheckout": "继续结算",
+    "quantity": "数量",
+    "outOfStock": "缺货",
+    "inStock": "现货",
+    "selectStyleAndSize": "选择款式和尺码查看库存"
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "产品详细信息",
+      "ProductSpecsTabComponent": "规格",
+      "ProductReviewsTabComponent": "评论",
+      "deliveryTab": "发货",
+      "TabPanelContainer": "标签容器"
+    }
+  },
+  "variant": {
+    "style": "样式",
+    "selectedStyle": "选择的样式",
+    "size": "大小",
+    "color": "颜色",
+    "sizeGuideLabel": "样式指南"
+  },
+  "addToWishList": {
+    "add": "添加到观察列表",
+    "remove": "从观察列表中删除",
+    "anonymous": "登录以添加到观察列表"
+  },
+  "stockNotification": {
+    "notifyMe": "通知我",
+    "stopNotify": "停止通知",
+    "getNotify": "当此产品可用时收到通知。",
+    "getNotifySuffix": "当此产品可用时收到通知。",
+    "activateChannelsPrefix": "要收到通知，您需要激活 ",
+    "channelsLink": "通知渠道",
+    "activateChannelsSuffix": ".",
+    "notified": "当该产品有货时，您将收到通知。",
+    "getNotified": "当该产品有货时收到通知。",
+    "unsubscribeSuccess": "您不会收到此产品的补货通知。",
+    "subscriptionDialog": {
+      "header": "缺货订阅",
+      "notifiedPrefix": "您将收到以下通知：",
+      "notifiedSuffix": "一旦该产品重新入库。",
+      "manageChannelsPrefix": "管理您首选的通知渠道 ",
+      "manageChannelsLink": "通知偏好 ",
+      "manageChannelsSuffix": " 页",
+      "manageSubscriptionsPrefix": "您可以在以下位置管理您的订阅 ",
+      "manageSubscriptionsLink": "我的兴趣",
+      "manageSubscriptionsSuffix": " 页",
+      "okBtn": "确定",
+      "subscribing": "为您订阅此产品的缺货通知"
+    }
+  }
+}

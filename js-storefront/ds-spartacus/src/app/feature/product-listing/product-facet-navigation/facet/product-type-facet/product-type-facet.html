@@ -1,0 +1,43 @@
+<ng-container>
+  <button class="heading" (click)="toggleGroup($event)">
+    {{ 'plp.showOnly' | cxTranslate }}
+    <cx-icon class="collapse-icon" [type]="collapseIcon"></cx-icon>
+    <cx-icon class="expand-icon" [type]="expandIcon"></cx-icon>
+  </button>
+
+  <a
+    *ngFor="let value of facet.filterValues"
+    #facetValue
+    routerLink="./"
+    [queryParams]="getLinkParams(value)"
+    class="value"
+    [class.selected]="value.selected"
+    [cxFocus]="value.name"
+    (keydown.space)="openLink($event)"
+  >
+    <span>
+      <span class="label">{{ value.name }}</span>
+    </span>
+  </a>
+
+  <!-- <a
+    #facetValue
+    routerLink="./"
+    [queryParams]="getLinkParams('BUY')"
+    class="value multi-select"
+  >
+    <span>
+      <span class="label">Buyable Products</span>
+    </span>
+  </a>
+  <a
+    #facetValue
+    routerLink="./"
+    [queryParams]="getLinkParams('RETURN')"
+    class="value multi-select"
+  >
+    <span>
+      <span class="label">Returnable Products</span>
+    </span>
+  </a> -->
+</ng-container>

@@ -1,0 +1,151 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container position">
+<div class="container help-resources-container">
+  <div class="help-resources-header mb-4">
+    <div class="header-green-border"></div>
+    {{ 'waygate.helpresources' | cxTranslate }}
+  </div>
+<div class="track-order-body p-3" >
+
+  <div class="left-section">
+        
+
+<div (click)="handleTabClick($event)">
+  <bh-button-tabs
+    [items]="tabItems"
+    [active-key]="activeTab">
+  </bh-button-tabs>
+</div>
+
+
+  
+ 
+<div class="search-box">
+  <bh-search
+    type="text"
+    [data]="[]"
+    placeholder="Search by keyword"
+    (input)="handleSearch($event)"
+    icon-first-pattern="true"
+    clear-search="true"
+    fluid="true">
+  </bh-search>
+</div>
+
+
+
+<div class="faq-wrapper container">
+
+  <div *ngIf="activeTab === 'faq'">
+                
+  <div *ngIf="filteredFAQs.length > 0">
+    <!-- <mat-accordion>
+
+      <mat-expansion-panel *ngFor="let faq of filteredFAQs">
+
+        <mat-expansion-panel-header>
+          {{ faq.question }}
+        </mat-expansion-panel-header>
+
+        <p>{{ faq.answer }}</p>
+
+      </mat-expansion-panel>
+
+    </mat-accordion> -->
+    
+<div
+      class="faq-item"
+      *ngFor="let faq of filteredFAQs; let i = index">
+
+      <div
+        class="faq-question"
+        (click)="toggleFAQ(i)">
+
+      <span class="icon">
+         {{ openedIndex === i ? ' ' : '›' }}
+        </span>
+
+        
+<span class="question-text">
+          {{ faq.question }}
+        </span>        
+
+      </div>
+
+      <div
+        class="faq-answer"
+        *ngIf="openedIndex === i">
+
+        {{ faq.answer }}
+
+      </div>
+
+
+  </div>
+
+  <div *ngIf="filteredFAQs.length === 0">
+    No FAQs found
+  </div>
+</div>
+</div>
+        <div *ngIf="productLine !== 'allProductLine.waygate' && activeTab === 'resources'" class="resources-section">
+          
+        
+        
+        <div *ngIf="filteredResources.length > 0">
+          
+            
+<a
+  class="resource-row"
+  *ngFor="let res of filteredResources"
+  [href]="res.link"
+  target="_blank"
+>
+
+  
+<span class="material-icons file-icon">
+    picture_as_pdf
+  </span>
+
+
+  <span class="resource-name">
+    {{ res.name }}
+  </span>
+
+</a>
+
+        </div>
+        
+        <div *ngIf="filteredResources.length === 0">
+            No resources available
+          </div>
+
+        </div>
+
+    
+  </div>
+</div>
+
+  <div class="right-section">
+
+    <div class="contact-card">
+      <h3>Contact Us</h3>
+
+      
+    <bh-button
+      type="secondary"
+      small
+      label="{{ 'waygate.contactUs' | cxTranslate }}"
+      (click)="goToContact()">
+    </bh-button>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+</div>    
+</div>
+

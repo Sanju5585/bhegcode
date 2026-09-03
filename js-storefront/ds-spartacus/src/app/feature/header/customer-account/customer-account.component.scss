@@ -1,0 +1,85 @@
+.customer-account-details {
+  max-width: 330px;
+  display: flex;
+  margin-right: 2em;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: -3px;
+
+  .top-tier {
+    display: flex;
+    flex-direction: row;
+    font-weight: 500;
+    font-size: var(--font-size-body-medium);
+    line-height: 21px;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    text-transform: capitalize;
+    width: 100%;
+
+    .customer-acc-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .middle-tier {
+    display: flex;
+    flex-direction: row;
+    font-family: var(--font-family-body-large);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-body-small);
+    line-height: var(--font-line-height-body-small);
+    display: flex;
+    align-items: center;
+    text-align: right;
+    letter-spacing: 0.25px;
+    color: var(--color-base-white-100);
+    justify-content: flex-end;
+    width: 100%;
+
+    .customer-acc-name {
+      width: 70%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .customer-acc-id {
+      width: 15%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .customer-acc-curr {
+      width: 20%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .bottom-tier {
+    display: flex;
+    flex-direction: row;
+    font-family: var(--font-family-body-medium);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-body-small);
+    line-height: 16px;
+    text-align: right;
+    letter-spacing: 0.25px;
+    color: var(--color-base-teal-500);
+  }
+}
+.change-account-disable {
+  opacity: 0.5;
+}
+
+.changeAccountLink:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,152 @@
+::ng-deep:host .shop-category {
+  .bh-button--type-secondary {
+    width: 182px;
+    height: 36px;
+    justify-content: flex-start;
+  }
+  .typography--button-link-medium {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .material-icons {
+    font-size: 18px;
+  }
+}
+.shop-category {
+  text-align: center;
+}
+
+.prod-img {
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+  gap: 15px;
+}
+
+.shop-category-label {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: #1f1f1f;
+  padding-left: 20%;
+}
+.image-first {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 230px;
+  min-height: 260px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.img-container {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 295px;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .poroduct-one {
+    min-width: 200px;
+  }
+}
+.custom-icon {
+  position: relative;
+  top: 7px;
+}
+.new-arrival-a:hover {
+  text-decoration: none;
+}
+.arrow-right {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  right: 101px;
+}
+.icon-style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.material-icons.md-18 {
+  font-size: var(--font-line-height-body-small);
+}
+.exploreBtn {
+  width: 182px;
+  height: 36px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #121212;
+  border-width: var(--effect-border-width-regular);
+  border-color: #adbdb9;
+  border-style: solid;
+  border-radius: var(--effect-border-radius-medium);
+  box-shadow: none;
+}
+.exploreBtn:hover {
+  cursor: pointer;
+  background-color: #ced7d4;
+  border-color: #8ca39d;
+}
+.product-banners {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin-top: 45px;
+  .product-banners-image {
+    flex: 1 1 100%;
+    aspect-ratio: 3/4;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    max-height: 300px;
+    padding: 45px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .product-banner-image {
+    }
+    .product-banner-title {
+      font-size: 18px;
+      color: #ffffff;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.25px;
+    }
+    .product-banner-explore {
+      display: flex;
+      justify-content: center;
+      &:hover {
+        text-decoration: none;
+      }
+      .material-icons {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .fistImage {
+    background-image: url(../../../../assets/img/RadSys.png);
+  }
+  .secondImage {
+    background-image: url(../../../../assets/img/filmImaging.png);
+  }
+  .thirdImage {
+    background-image: url(../../../../assets/img/devicesProbes.png);
+  }
+  .fourthImage {
+    background-image: url(../../../../assets/img/remoteVisual.png);
+  }
+}

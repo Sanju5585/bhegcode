@@ -1,0 +1,242 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="failure-popup" *ngIf="showBinLookupErr">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>{{ 'errors.binLookErr' | cxTranslate }}</div>
+  </div>
+  <div class="failure-popup" *ngIf="showSavedCardError">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>{{ 'errors.savedCardErr' | cxTranslate }}</div>
+  </div>
+  <div class="failure-popup" *ngIf="showUnexpectedErr">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>{{ 'errors.creditCardPaymentUnexpectedErr' | cxTranslate }}</div>
+  </div>
+  <div class="failure-popup" *ngIf="showCardNotAllowedErr">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>{{ 'errors.cardNotAllowedErr' | cxTranslate }}</div>
+  </div>
+  <div class="failure-popup" *ngIf="showCardNotSaved">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>{{ 'checkoutConfirmation.cardNotSaved' | cxTranslate }}</div>
+  </div>
+  <!-- {{ 'checkoutConfirmation.cardNotSaved' | cxTranslate }} -->
+  <div class="failure-popup" *ngIf="cardError">
+    <i class="material-icons notification-icon link-anchor">notifications</i>
+    <div>
+      Your checkout has some issues. Please try again or contact support.
+    </div>
+  </div>
+  <div class="waygate-my-orders-container">
+    <div class="waygate-my-orders-header">
+      <div class="header-green-border"></div>
+      <div class="waygate-my-order-row">
+        <h1 class="waygate-my-order-title">
+          {{ 'my-invoices.payment' | cxTranslate }}
+        </h1>
+      </div>
+    </div>
+
+    <div class="invoice-payment-container">
+      <div class="payment-content">
+        <div class="payment-content-accordion">
+          <bh-accordion
+            header="Customer Account"
+            open="true"
+            size="large"
+            icon-orientation="right"
+          >
+            <div class="customer-accordion-row">
+              <div class="customer-accordion-content">
+                <strong>Sold to Address</strong>
+                <div>{{ invoiceData?.defaultSoldToAddress?.line1 }}</div>
+                <div>{{ invoiceData?.defaultSoldToAddress?.line2 }}</div>
+                <div>{{ invoiceData?.defaultSoldToAddress?.town }}</div>
+                <div>{{ invoiceData?.defaultSoldToAddress?.postalCode }}</div>
+                <div>
+                  {{ invoiceData?.defaultSoldToAddress?.country?.name }}
+                </div>
+              </div>
+              <div class="customer-accordion-content">
+                <strong>Customer Account Number</strong>
+                <div>
+                  {{ invoiceData?.defaultSoldToAddress?.companyName }} -
+                  {{ invoiceData?.defaultSoldToAddress?.sapCustomerID }}
+                </div>
+              </div>
+            </div>
+          </bh-accordion>
+        </div>
+        <div class="payment-content-accordion">
+          <bh-accordion
+            header="Payment"
+            open="true"
+            size="large"
+            icon-orientation="right"
+          >
+            <div class="customer-accordion-row">
+              <div class="customer-accordion-content">
+                <strong>Payment Terms</strong>
+                <div>{{ invoiceData?.paymentTrms?.name }}</div>
+
+                <strong>Select credit card</strong>
+                <div class="credit-card-contaier">
+                  <div class="credit-card-card">
+                    <bh-radio-button
+                      (change)="selectNewCard()"
+                      label="Pay with new credit card"
+                      name="New Credit Card"
+                      [value]="null"
+                      false
+                      false
+                      false
+                    ></bh-radio-button>
+                    <div class="card-details-container">
+                      <div></div>
+                      <bh-icon
+                        icon="credit_card"
+                        size="medium"
+                        color="#1F6362"
+                        href=""
+                        target=""
+                        matTooltipClass="vs-tooltip"
+                        matTooltipPosition="left"
+                        matTooltip=""
+                      ></bh-icon>
+                    </div>
+                  </div>
+                  <ng-container *ngFor="let card of invoiceData?.savedCards">
+                    <div class="credit-card-card">
+                      <bh-radio-button
+                        (change)="selectSavedCard(card)"
+                        [attr.label]="`**** **** **** ${card?.ccNumber}`"
+                        name="New Credit Card"
+                        [value]="null"
+                        false
+                        false
+                        false
+                      ></bh-radio-button>
+                      <div class="card-details-container">
+                        <div>
+                          Valid Thru:
+                          <b
+                            >{{ card.ccValidTru?.substr(4, 2) }}/{{
+                              card.ccValidTru?.substr(2, 2)
+                            }}</b
+                          >
+                        </div>
+                        <div *ngIf="card?.ccType == 'VISA'">
+                          <img
+                            class="card-type-img"
+                            height="30px"
+                            width="30px"
+                            src="../../../../../assets/img/visa.png"
+                            alt="test"
+                          />
+                        </div>
+                        <bh-icon
+                          *ngIf="card?.ccType != 'VISA'"
+                          icon="credit_card"
+                          size="medium"
+                          color="#1F6362"
+                          href=""
+                          target=""
+                          matTooltipClass="vs-tooltip"
+                          matTooltipPosition="left"
+                          matTooltip=""
+                        ></bh-icon>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              Your credit card payment will be processed by our external third
+              party payment gateway provider SnapPay. In order to conduct and
+              finish the payment procedure you agree and acknowledge that you
+              are leaving this environment and you will enter a secured portal
+              hosted by our contractual partner, SnapPay. To get information on
+              how SnapPay processes your personal data please
+              <a
+                href="https://merchants.fiserv.com/en-us/privacy/"
+                target="_blank"
+                >click here.</a
+              >
+            </div>
+            <div>
+              <bh-checkbox
+                class="float-left checkboxterms"
+                label="{{ 'errors.yesiAgree' | cxTranslate }}"
+                name="ccInfo"
+                (change)="ccAgreeToggle($event)"
+              ></bh-checkbox>
+            </div>
+          </bh-accordion>
+        </div>
+      </div>
+      <div class="payment-summary">
+        <div class="invoice-summary-row">
+          <div>Total Items</div>
+          <div>{{ invoiceData?.invoicesList?.length }}</div>
+        </div>
+
+        <div class="invoice-summary-row mt-2">
+          <!-- <div> -->
+          <b>Total Estimates</b>
+          <!-- </div> -->
+
+          <b>{{ invoiceData?.selectedInvoices?.formattedValue }}</b>
+        </div>
+        <div class="invoice-summary-row">
+          <div class="small-text-summary">
+            *Plus tax, handling and freight charges
+          </div>
+        </div>
+        <div class="invoice-summary-row mt-2">
+          <bh-checkbox
+            class="float-left checkboxterms mr-2"
+            label=""
+            name="ccInfo"
+            (change)="termsToggle($event)"
+          ></bh-checkbox>
+          <div
+            class="ml-1"
+            innerHtml="{{ 'titles.termsConditions' | cxTranslate }}"
+          ></div>
+        </div>
+        <div class="mt-2">
+          <bh-button
+            [attr.disabled]="
+              !cardSelected ||
+              !termsAgrees ||
+              !ccAgrees ||
+              isInvoiceInitiated(invoiceData?.invoicesList)
+            "
+            class=""
+            medium
+            fluid
+            type="primary"
+            label="{{ 'my-invoices.proceedToPay' | cxTranslate }}"
+            (click)="proceedToPay()"
+          ></bh-button>
+        </div>
+        <ng-container *ngIf="isInvoiceInitiated(invoiceData?.invoicesList)">
+          <div class="invoice-summary-row mt-2">
+            <div class="error-line">
+              Another user is attempting to pay for the same invoice(s) that you
+              have selected.
+            </div>
+          </div>
+          <div class="invoice-summary-row mt-2">
+            <div>
+              Click
+              <a [routerLink]="`/${this.productLine}/my-invoices`">here</a> to
+              reselect the invoices to be paid.
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

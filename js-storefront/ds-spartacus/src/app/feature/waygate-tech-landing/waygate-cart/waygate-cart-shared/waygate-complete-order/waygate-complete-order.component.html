@@ -1,0 +1,43 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span>{{ 'waygate.changeCompleteOrder' | cxTranslate }}</span>
+      </div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal('close-complete-order')"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>
+            {{ 'waygate.reqShipDateAllProd' | cxTranslate }}
+            {{ 'waygate.proceed' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            class="mr-3"
+            [type]="'secondary'"
+            label="{{ 'waygate.cancel' | cxTranslate }}"
+            (click)="closeModal('close-complete-order')"
+          ></bh-button>
+          <bh-button
+            [type]="'tertiary'"
+            label="{{ 'waygate.confirm' | cxTranslate }}"
+            (click)="closeModal('confirm-complete-order')"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+
+$productCatalog=bhgeRegisterProductCatalog
+#$classificationCatalog=bhgeRegisterClassification
+$currencies=USD
+$net=true
+$storeUid=bhgeRegister
+$defaultCurrency=USD
+$languages=ja,en,de,zh
+$defaultLanguage=en
+$unitedKingdom=GB,GG,IM,JE
+$europeNotUK=AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+$asianCountries=CN,JP,VN,HK,KP,KR
+$deliveryCountries=$unitedKingdom,$europeNotUK,$asianCountries,US,CA
+$orderProcessCode=order-process
+$pickupInStoreMode=DISABLED
+$customerAllowedToIgnoreSuggestions=true
+$paymentProvider=Mockup
+$expressCheckoutEnabled=false
+$checkoutGroup=b2bCheckoutGroup
+$returnProcessCode=return-process
+$siteUid=bhgeRegister
+$facetSearchConfigName=bhgeRegisterIndex
+$defaultLanguage=en
+$lang=en
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;bhgePromoGrp;
+
+# Import config properties into impex macros
+INSERT_UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$rfcDestination=$config-SAP_RFC_SERVER_NAME
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;BHGE;BHGE;;"GE Dist Channel";GE;GE;
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;BHGE;BHGE;;"GE Dist Channel";GE;GE;
+
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization
+;$rfcDestination;BHGERegisterCore;BHGE;BHGE;BHGE
+
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;paymentProvider;pickupInStoreMode(code);customerAllowedToIgnoreSuggestions;expressCheckoutEnabled;maxRadiusForPoSSearch;checkoutFlowGroup;createReturnProcessCode;
+;$storeUid;$productCatalog;$currencies;$net;us-taxes;miles;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$orderProcessCode;$paymentProvider;$pickupInStoreMode;$customerAllowedToIgnoreSuggestions;$expressCheckoutEnabled;300;$checkoutGroup;$returnProcessCode;
+
+INSERT_UPDATE BaseStore;uid[unique=true];name[lang=$lang];SAPConfiguration(core_name);
+;$storeUid;"BHGE Register Store";BHGERegisterCore
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;$storeUid;free-standard-shipping
+

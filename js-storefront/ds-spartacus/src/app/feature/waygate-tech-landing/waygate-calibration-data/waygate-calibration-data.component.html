@@ -1,0 +1,307 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container custom-header">
+  <div class="calibration-certification-header">
+    <div class="header-green-border"></div>
+    <h1>{{ 'mySiteEquipment.calibrationdatacertificate' | cxTranslate }}</h1>
+  </div>
+</div>
+<div
+  class="container waygate-custom-box"
+  *ngIf="productLine == ProductLines.waygate"
+>
+  <div class="custom-space-boxing">
+    <div class="row mt-4">
+      <div class="col-lg-7 col-md-7 col-sm-12 film-wrapper">
+        <div class="row mt-4">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="dd-label required-field">
+              {{ 'mySiteEquipment.fabricationNumber' | cxTranslate }}</span
+            >
+            <div class="radio-btn d-flex">
+              <bh-radio-button
+                label="{{ 'mySiteEquipment.batch' | cxTranslate }}"
+                [attr.checked]="this.batch"
+                class="float-left button-space"
+                value="BATCH"
+                name="group"
+                (change)="handleChange($event)"
+              ></bh-radio-button>
+              <bh-radio-button
+                label="{{ 'mySiteEquipment.fabrication' | cxTranslate }}"
+                [attr.checked]="!this.batch"
+                value="FABRICATION"
+                name="group"
+                (change)="handleChange($event)"
+              ></bh-radio-button>
+            </div>
+            <ng-container *ngIf="selectedBatch">
+              <div class="custom-film">
+                <bh-text-input
+                  class="m-t-4 custom-place-holder"
+                  type="text"
+                  placeholder="{{
+                    'mySiteEquipment.enterBatchNo' | cxTranslate
+                  }}"
+                  [value]="fabricationNumber"
+                  maxlength="10"
+                  fuild="true"
+                  small="true"
+                  contenteditable="true"
+                  (paste)="pasteData($event, 'fabricationNumber')"
+                  name="fabricationNumber"
+                  (keyup)="onChange($event, 'fabricationNumber')"
+                >
+                </bh-text-input>
+                <bh-button
+                  type="primary"
+                  label="{{ 'mySiteEquipment.search' | cxTranslate }}"
+                  class="reset float-left button-space"
+                  [attr.disabled]="false"
+                  (click)="fetchSearchResults(searchType)"
+                  [attr.disabled]="searchButttonFlag ? true : null"
+                  [attr.loading]="showSpinner ? true : null"
+                >
+                </bh-button>
+                <bh-button
+                  type="secondary"
+                  label="{{ 'mySiteEquipment.reset' | cxTranslate }}"
+                  class="reset"
+                  (click)="resetSearch()"
+                >
+                </bh-button>
+              </div>
+
+              <div>
+                <p class="product-tag druck-tag pl-1 mt-1">
+                  {{ 'mySiteEquipment.example' | cxTranslate }}
+                </p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="selectedFabric">
+              <div class="custom-film">
+                <bh-text-input
+                  class="m-t-4 custom-place-holder"
+                  type="text"
+                  placeholder="{{
+                    'mySiteEquipment.enterFabricNo' | cxTranslate
+                  }}"
+                  [value]="fabricationNumber"
+                  maxlength="10"
+                  fuild="true"
+                  small="true"
+                  contenteditable="true"
+                  (paste)="pasteData($event, 'fabricationNumber')"
+                  name="fabricationNumber"
+                  (keyup)="onChange($event, 'fabricationNumber')"
+                >
+                </bh-text-input>
+                <bh-button
+                  type="primary"
+                  label="{{ 'mySiteEquipment.search' | cxTranslate }}"
+                  class="reset float-left button-space"
+                  [attr.disabled]="false"
+                  (click)="fetchSearchResults(searchType)"
+                  [attr.disabled]="searchButttonFlag ? true : null"
+                  [attr.loading]="showSpinner ? true : null"
+                >
+                </bh-button>
+                <bh-button
+                  type="secondary"
+                  label="{{ 'mySiteEquipment.reset' | cxTranslate }}"
+                  class="reset"
+                  (click)="resetSearch()"
+                >
+                </bh-button>
+              </div>
+
+              <div>
+                <p class="product-tag druck-tag pl-1 mt-1">
+                  {{ 'mySiteEquipment.chemistryExample' | cxTranslate }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-5 col-md-5 col-sm-12 box-wrapper"
+        *ngIf="selectedBatch"
+      >
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <ng-container>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="page-head">
+                    {{ 'mySiteEquipment.whereTofindBatch' | cxTranslate }}
+                  </h2>
+
+                  <div class="row mt-4 justify-content-center">
+                    <ng-container>
+                      <div class="">
+                        <img
+                          class="custom-image"
+                          src="/assets/img/structurix-fab.png"
+                        />
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-5 col-md-5 col-sm-12 box-wrapper"
+        *ngIf="selectedFabric"
+      >
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <ng-container>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="page-head">
+                    {{ 'mySiteEquipment.whereTofindFabric' | cxTranslate }}
+                  </h2>
+
+                  <div class="row mt-4 justify-content-center">
+                    <ng-container>
+                      <div class="">
+                        <img
+                          class="custom-image"
+                          src="../../../../assets/img/agfa-batch.png"
+                        />
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="batchFound">
+    <div>
+      <i class="material-icons md-18">check_circle</i>
+      <span class="custom-certificate">{{
+        'mySiteEquipment.certificatefound' | cxTranslate
+      }}</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-12 certificate-wrapper">
+        <span class="custom-found">{{
+          'mySiteEquipment.certificateconfirm' | cxTranslate
+        }}</span>
+        <em
+          class="icons download icon-size"
+          (click)="downloadCertificationPDF()"
+        ></em>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-12 certificate-wrapper">
+        <span class="custom-found">{{
+          'mySiteEquipment.filmIdentificationtest' | cxTranslate
+        }}</span>
+        <div class="custom-film-id-certificate">
+          <bh-dropdown
+            class="salesarea-dd language-dropdown"
+            isFluid="false"
+            isSmall="false"
+            width="large"
+            menuWidth="large"
+            unselectable="false"
+            [menuItems]="languages"
+            #languageDropdown
+            isEllipsis="false"
+            (selected)="currentlng($event)"
+            [value]="currentlanguage"
+          ></bh-dropdown>
+        </div>
+        <em
+          class="icons custom-download icon-size"
+          (click)="downloadTestresultsPDF($event)"
+        ></em>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="fabricationFound">
+    <div>
+      <i class="material-icons md-18">check_circle</i>
+      <span class="custom-certificate">{{
+        'mySiteEquipment.certificatefound' | cxTranslate
+      }}</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-12 certificate-wrapper">
+        <span class="custom-found">{{
+          'mySiteEquipment.certificateconfirm' | cxTranslate
+        }}</span>
+        <em
+          class="icons download icon-size"
+          (click)="downloadCertificationPDF()"
+        ></em>
+      </div>
+    </div>
+  </ng-container>
+  <div>
+    <ng-container *ngIf="batchNotFound">
+      <em class="icons-certificate custom-certificate-icn icon-size"></em>
+      <span class="no-certificate">{{
+        'mySiteEquipment.noCertificateFound' | cxTranslate
+      }}</span>
+    </ng-container>
+  </div>
+</div>
+<div
+  class="container waygate-custom-box"
+  *ngIf="productLine == ProductLines.bently"
+>
+  <div class="bently-box-boundry">
+    <div class="bently-cals">
+      <div class="cal-title">
+        {{ 'mySiteEquipment.productCertification' | cxTranslate }}
+      </div>
+      <a
+        href="https://bakerhughes.sharepoint.com/sites/ProductCertificatePortal?web=1"
+        target="_blank"
+        >{{ 'mySiteEquipment.clickHereImage' | cxTranslate }}</a
+      >
+    </div>
+
+    <div class="bently-cals">
+      <div class="cal-title">{{ 'mySiteEquipment.calibrationPage' | cxTranslate }}</div>
+      <ul>
+        <li>
+          {{ 'mySiteEquipment.calibrationEmail' | cxTranslate }}
+          <a href="mailto:Bently.Returns@bakerhughes.com"
+            >Bently.Returns&#64;bakerhughes.com</a
+          >
+        </li>
+        <li
+          [innerHTML]="'mySiteEquipment.contactCcr' | cxTranslate"
+        >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------Panametrics Calibration UI -->
+<div
+  class="container waygate-custom-box"
+  *ngIf="productLine === ProductLines.panametrics"
+>
+  <app-panametrics-calibration-data></app-panametrics-calibration-data>
+</div>
+
+<!-- ------------------------Druck Calibration UI -->
+<div
+  class="container waygate-custom-box"
+  *ngIf="productLine === ProductLines.druck"
+>
+  <app-druck-calibration></app-druck-calibration>
+</div>

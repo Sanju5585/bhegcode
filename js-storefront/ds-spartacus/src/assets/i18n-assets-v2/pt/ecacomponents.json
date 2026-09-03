@@ -1,0 +1,32 @@
+{
+  "duplicateEca": {
+    "productAlreadyExistsTitle": "Product already exists in cart",
+    "productAlreadyExistsLine1": "You are trying to add a product with an end customer address which already exists in your cart.",
+    "productAlreadyExistsLine2": "Please change the end customer address or click \"Increase Quantity\" to add additional quantities in your cart.",
+    "changeEndCustomerAddress": "Change End Customer Address",
+    "increaseQuantity": "Increase Quantity"
+  },
+  "waygateQuickOrderAddress": {
+    "addEndCustomerAddressesTitle": "Add End Customer Addresses",
+    "productLabel": "Produto",
+    "partNumbersLabel": "Part numbers",
+    "quantityLabel": "Quantidade",
+    "endCustomerAddressLabel": "Endereço do cliente final",
+    "changeAction": "Mudança",
+    "addAction": "ADICIONAR",
+    "cancelAction": "Cancelar",
+    "submitAction": "Enviar"
+  },
+  "cartConflictDialog": {
+    "title": "Start a New Cart?",
+    "description": "Your current cart already contains items of a different product type.",
+    "info": "To continue, you’ll need to save your existing cart and start a new one.",
+    "cancel": "Cancelar",
+    "saveAndContinue": "Save Current Cart & Continue"
+  },
+  "ecaMissingDialog": {
+    "message": "Please add end customer address to proceed",
+    "description": "You are required to add end customer address to the following products",
+    "ok": "OK"
+  }
+}

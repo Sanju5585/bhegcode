@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "취소",
+    "delete": "삭제하다",
+    "remove": "삭제",
+    "edit": "편집",
+    "back": "후면",
+    "submit": "제출",
+    "continue": "계속하다",
+    "save": "저장",
+    "done": "완료",
+    "home": "홈",
+    "noData": "데이터 없음",
+    "confirm": "확인"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} result for {{query}}",
+      "title_plural": "{{count}} results for {{query}}"
+    },
+    "checkout": {
+      "title": "결제 {{count}} 제품",
+      "title_plural": "결제 {{count}} 제품들"
+    },
+    "search": {
+      "title": "{{count}} result for \"{{query}}\"",
+      "title_plural": "{{count}} results for \"{{query}}\"",
+      "findProductTitle": "{{count}} result for coupon \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} results for coupon \"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "로딩 중..."
+  },
+  "navigation": {
+    "shopAll": "모두 쇼핑하기 {{ navNode}} >"
+  },
+  "searchBox": {
+    "placeholder": "여기 검색...",
+    "help": {
+      "insufficientChars": "검색할 문자를 3개 이상 입력해 주시기 바랍니다.",
+      "noMatch": "어떠한 결과도 찾을 수 없습니다.",
+      "exactMatch": "{{ term }}",
+      "empty": "무엇이든 문의하세요"
+    }
+  },
+  "sorting": {
+    "date": "날짜",
+    "orderNumber": "주문 번호",
+    "rma": "반품 번호",
+    "replenishmentNumber": "재입고 번호",
+    "nextOrderDate": "다음 주문 날짜"
+  },
+  "httpHandlers": {
+    "badGateway": "서버 오류가 발생했습니다. 나중에 다시 시도해 주시기 바랍니다.",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Please login again.",
+    "badRequestOldPasswordIncorrect": "이전 비밀번호가 잘못되었습니다.",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} email already exist. 게스트 계정으로 등록하시려면 다른 이메일을 사용하여 결제를 완료하여 주시기 바랍니다.",
+    "conflict": "이미 존재합니다.",
+    "forbidden": "이 작업을 수행할 권한이 없습니다. 이것이 실수라고 생각되면 관리자에게 연락해 주시기 바랍니다.",
+    "gatewayTimeout": "서버가 응답하지 않습니다. 나중에 다시 시도해 주시기 바랍니다.",
+    "internalServerError": "내부 서버 오류가 발생했습니다. 나중에 다시 시도해 주시기 바랍니다.",
+    "sessionExpired": "세션이 만료되었습니다. 다시 로그인 해 주시기 바랍니다.",
+    "unknownError": "알 수 없는 오류가 발생했습니다.",
+    "unauthorized": {
+      "common": "알 수 없는 인증 오류가 발생했습니다.",
+      "invalid_client": "잘못된 클라이언트 인증 정보"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "선택한 신용카드가 지원되지 않습니다. 다른 것을 선택해 주시기 바랍니다.",
+        "card_accountNumber": "입력하신 신용카드 번호가 유효하지 않습니다.",
+        "card_cvNumber": "입력하신 보안코드가 유효하지 않습니다.",
+        "card_expirationMonth": "입력하신 신용카드 유효기간이 유효하지 않습니다.",
+        "card_expirationYear": "입력하신 신용카드 유효기간이 유효하지 않습니다.",
+        "billTo_firstName": "입력하신 이름이 유효하지 않습니다.",
+        "billTo_lastName": "입력하신 성이 유효하지 않습니다.",
+        "billTo_street1": "입력하신 주소가 유효하지 않습니다.",
+        "billTo_street2": "입력하신 주소가 유효하지 않습니다.",
+        "billTo_city": "입력하신 도시가 이 신용카드에 유효하지 않습니다.",
+        "billTo_state": "입력하신 시군구 정보가 이 신용카드에 유효하지 않습니다. ",
+        "billTo_country": "입력하신 국가가 이 신용카드에 유효하지 않습니다.",
+        "billTo_postalCode": "해당 우편번호는 이 신용카드에 유효하지 않습니다. ",
+        "country": {
+          "isocode": "국가 정보 누락"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "입력하신 신용카드 유효기간이 유효하지 않습니다.",
+        "firstName": "입력하신 이름이 유효하지 않습니다.",
+        "lastName": "입력하신 성이 유효하지 않습니다.",
+        "password": "입력하신 비밀번호가 유효하지 않습니다.",
+        "uid": "UID가 유효하지 않습니다.",
+        "code": "코드가 유효하지 않습니다.",
+        "email": "이메일이 유효하지 않습니다."
+      }
+    },
+    "cartNotFound": "장바구니를 찾을 수 없습니다.",
+    "invalidCodeProvided": "유효하지 않은 코드가 제공되었습니다."
+  },
+  "miniCart": {
+    "item": "{{count}} item currently in your cart",
+    "item_plural": "{{count}} items currently in your cart",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Hi, {{name}}",
+    "signInRegister": "가입/등록"
+  },
+  "skipLink": {
+    "skipTo": "건너뛰기",
+    "labels": {
+      "header": "머리글",
+      "main": "주요 내용",
+      "footer": "바닥글",
+      "productFacets": "제품 측면",
+      "productList": "제품 목록"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "제출하려는 양식에 오류가 포함되어 있습니다.",
+    "required": "이 필드는 필수입니다.",
+    "cxInvalidEmail": "이것은 유효한 이메일 형식이 아닙니다.",
+    "cxInvalidPassword": "이것은 유효한 비밀번호 형식이 아닙니다.",
+    "cxPasswordsMustMatch": "비밀번호 필드는 일치해야 합니다.",
+    "cxEmailsMustMatch": "이메일 필드는 일치해야 합니다.",
+    "cxStarRatingEmpty": "등급 필드가 필요합니다.",
+    "cxNoSelectedItemToCancel": "최소 하나 이상의 항목을 선택합니다.",
+    "cxNegativeAmount": "금액은 0보다 크거나 같아야 합니다.",
+    "cxContainsSpecialCharacters": "필드에는 특수 문자를 포함할 수 없습니다.",
+    "date": {
+      "required": "이 필드는 필수입니다.",
+      "min": "Date cannot be before {{min}}",
+      "max": "Date cannot be after {{max}}",
+      "pattern": "yyyy-mm-dd 형식의 날짜를 사용해 주시기 바랍니다.",
+      "invalid": "유효한 날짜를 사용해 주시기 바랍니다."
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "스크립트를 불러오는 데 실패하였습니다. ",
+    "refreshThePage": "페이지를 새로고침 해 주시기 바랍니다."
+  }
+}

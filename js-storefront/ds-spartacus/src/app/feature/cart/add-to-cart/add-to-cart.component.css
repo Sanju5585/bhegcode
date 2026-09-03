@@ -1,0 +1,98 @@
+.product-state {
+  margin: 0px;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0px 20px;
+}
+
+.product-state .returnable {
+  background: rgba(0, 181, 226, 0.4);
+}
+
+.product-state .buyable {
+  background: rgba(0, 191, 111, 0.4);
+}
+
+.product-state .chip-label {
+  border-radius: 2px;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--color-base-teal-950);
+  padding: 2px 5px;
+  text-align: center;
+  margin: auto 0;
+  height: 20px;
+}
+
+.padding-lr-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cart-additions-section {
+  min-height: 10px;
+}
+
+.space {
+  width: 8px;
+}
+
+.padding-10 {
+  padding: 0 10px;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.btn {
+  height: 44px;
+  padding: inherit;
+}
+
+.action-links-holder {
+  display: flex;
+  text-align: center;
+  padding: 5px;
+  flex-direction: column;
+  font-family: var(--font-family-body-large);
+}
+
+.action-links-holder .action-help-text {
+  color: var(--color-base-gray-600);
+  font-size: var(--font-size-body-small);
+  line-height: 16px;
+}
+
+.action-links-holder .action-link {
+  font-size: var(--font-size-body-small);
+  line-height: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:host::ng-deep .add-to-cart-buttons .return-btn .bh-button {
+  background-color: #0e7c86;
+}
+
+:host::ng-deep .add-to-cart-buttons .return-btn .bh-button__icon {
+  font-family: 'Material Icons';
+  font-size: 27px;
+  transform: rotateY(180deg);
+  margin-right: 5px;
+}
+
+:host::ng-deep .add-to-cart-buttons .bh-button {
+  align-items: center;
+  text-align: right;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+:host::ng-deep .add-to-cart-buttons .bh-button .bh-button__label {
+  letter-spacing: 1px;
+}

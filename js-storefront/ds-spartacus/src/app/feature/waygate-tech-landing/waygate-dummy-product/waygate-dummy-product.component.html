@@ -1,0 +1,57 @@
+<div class="dummy-product-container">
+  <div class="image-container">
+    <img *ngIf="logoPath; else missingImage" [src]="logoPath" />
+  </div>
+  <div class="product-description">
+    <div class="prod-name">
+      <label class="headings">Product Name</label>
+      <p>{{ productName }}</p>
+      <span>
+        <p class="dummy-product-description">
+          <span>*</span>{{ 'waygate.dummyProductText' | cxTranslate }}
+        </p>
+      </span>
+
+      <label class="headings part-number"
+        >Part Number&nbsp;&nbsp;<sup>*</sup></label
+      >
+      <input
+        type="textbox"
+        placeholder="Please Enter Part Number"
+        required
+        maxlength="50"
+        [(ngModel)]="productCode"
+      /><br />
+      <label class="char-limit part-number-char-count">
+        {{ 'buyCart.charactersLeft' | cxTranslate
+        }}{{ 50 - productCode.length }} </label
+      ><br />
+      <label class="headings">Description</label>
+      <textarea
+        maxlength="450"
+        class="textarea"
+        placeholder="Please enter a product description"
+        [(ngModel)]="productDescription"
+        required
+      ></textarea>
+      <label class="char-limit">
+        {{ 'buyCart.charactersLeft' | cxTranslate
+        }}{{ 450 - productDescription.length }}
+      </label>
+      <br /><br /><br /><br />
+      <button class="acc-pdp-add-to-cart" (click)="addtocartdummy()">
+        <span>Add to cart </span>
+        <span class="material-icons"> add_shopping_cart </span></button
+      ><br /><br /><br />
+    </div>
+  </div>
+</div>
+<ng-template #missingImage>
+  <div class="waygate-details-image">
+    <cx-media
+      class="cx-product-image waygate-product-image default-image"
+      [container]="product?.images?.PRIMARY"
+      format="product"
+    ></cx-media>
+  </div>
+</ng-template>

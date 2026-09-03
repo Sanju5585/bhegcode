@@ -1,0 +1,18 @@
+#change the urls based on the environment
+$url=https://accstorefront.cd8zy6g-bakerhugh1-p1-public.model-t.cc.commerce.ondemand.com
+$logoffUrl=https://ssologin.ssogen2.corporate.ge.com/logoff/logoff.jsp?$url
+$regRedUri=https://accstorefront.cd8zy6g-bakerhugh1-p1-public.model-t.cc.commerce.ondemand.com/redirect_uri,https://bhgeregister.cd8zy6g-bakerhugh1-p1-public.model-t.cc.commerce.ondemand.com/register/redirect_uri
+$oAuthUrl=https://fssfed.ge.com/fss/as/authorization.oauth2
+$userProfileUrl=https://fssfed.ge.com/fss/idp/userinfo.openid
+$tokenUrl=https://fssfed.ge.com/fss/as/token.oauth2
+$scope=profile,openid
+INSERT_UPDATE OpenIDClientDetails;clientId[unique=true];scope;authorizedGrantTypes;clientSecret;registeredRedirectUri;logoffUrl;oAuthUrl;userProfileUrl;tokenUrl;responseType;issuer;
+                                 ;GEOG_DS_PRD_CLIENT;$scope;authorization_code;223edf65fb335ffa6fb66babcc3064e3;$regRedUri;$logoffUrl;$oAuthUrl;$userProfileUrl;$tokenUrl;code;hybris;
+
+
+INSERT_UPDATE Employee;UID[unique=true];password;description;name;groups(uid)[mode=append];sessionLanguage(isocode);sessionCurrency(isocode)
+                      ;scpi_ds_int_prod;f82a6c36f91161ef75c1f1ec4b14d355;SCPI BASIC Int;DS SCP PROD;backofficeadministratorrole,itemLockingGroup,integrationadmingroup,employeegroup;en;USD
+
+
+UPDATE Employee;UID[unique=true];groups(uid)[mode=append];sessionLanguage(isocode);sessionCurrency(isocode)
+                ;503151791_BO;backofficeadministratorrole,itemLockingGroup;en;USD

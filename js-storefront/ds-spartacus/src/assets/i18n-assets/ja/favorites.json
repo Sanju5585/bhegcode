@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "お気に入り",
+    "items": " アイテム",
+    "delSelected": "削除が選択されました",
+    "addedOn": "追加する",
+    "buy": "発注する",
+    "return": "RETURN",
+    "addtoEquip": "保存した機器へ追加",
+    "switchSalesArea": "販売地域を変更する",
+    "salesAreaText": "この製品は別の販売地域へ返品することができます",
+    "contactCustomerCare": "カスタマーケアへ連絡",
+    "norecords": "記録が見つかりません",
+    "listPrice": "価格",
+    "unavailable": "入手不可",
+    "priceNotrFound": "価格が見つかりません",
+    "viewBreakup": "明細を見る",
+    "breakdownPrice": "価格の内訳",
+    "discount": "割引",
+    "netPrice": "税抜価格",
+    "searchBYProductName": "製品名で検索",
+    "removeSelected": "削除が選択されています",
+    "addToCart": "カートに追加",
+    "searchList": "このリストを検索",
+    "error": {
+      "removeMsg": "アイテムが正しく削除されました",
+      "loadingMsg": "注文リストの読み込み中に問題が発生しました。"
+    }
+  }
+}

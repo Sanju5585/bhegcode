@@ -1,0 +1,191 @@
+.waygate-my-orders-container {
+  margin-bottom: 45px;
+
+  .waygate-my-orders-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+
+    .header-green-border {
+      border-top: 2px solid #02a783;
+      width: 60px;
+    }
+
+    .waygate-my-order-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+
+      h1 {
+        font-size: 30px;
+        font-weight: 600;
+        color: #121212;
+      }
+    }
+  }
+
+  .min-order-error {
+    margin-top: 15px;
+    padding: 8px;
+    font-family: var(--font-base-font-family-body);
+    margin-bottom: 15px;
+
+    background: #ab091e;
+    opacity: 0.9;
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.07),
+      0px 5px 44px rgba(0, 0, 0, 0.06), 0px 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    i.material-icons {
+      vertical-align: middle;
+      color: var(--color-base-white-100);
+      font-size: var(--font-base-font-size-18);
+      line-height: 18px;
+    }
+    .min-order-text {
+      vertical-align: middle;
+      color: var(--color-base-white-100);
+      font-size: var(--font-base-font-size-12);
+      line-height: 18px;
+      padding: 0px 8px;
+    }
+    .error-text {
+      vertical-align: middle;
+      color: var(--color-base-white-100);
+      font-size: var(--font-base-font-size-12);
+      line-height: 16px;
+      font-weight: normal;
+    }
+  }
+}
+.empty-cart-page {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1282px;
+    padding: 0 3rem;
+    margin: auto auto 50px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+
+    .empty-img {
+      background-image: url(../../../../assets/img/empty-cart.png);
+      width: 153px;
+      height: 120px;
+    }
+
+    h1 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 44px;
+      text-align: center;
+      letter-spacing: 0.1px;
+      color: var(--color-base-earth-950);
+      margin-top: 20px;
+    }
+
+    p {
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-base-font-size-14);
+      line-height: 20px;
+      text-align: center;
+      letter-spacing: 0.1px;
+      color: #757575;
+    }
+  }
+}
+
+.min-order-error {
+  margin-top: 15px;
+  padding: 8px;
+  font-family: var(--font-base-font-family-body);
+  margin-bottom: 15px;
+
+  background: #ab091e;
+  opacity: 0.9;
+  box-shadow:
+    0px 12px 40px rgba(0, 0, 0, 0.07),
+    0px 5px 44px rgba(0, 0, 0, 0.06),
+    0px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  i.material-icons {
+    vertical-align: middle;
+    color: var(--color-base-white-100);
+    font-size: var(--font-base-font-size-18);
+    line-height: 18px;
+  }
+  .min-order-text {
+    vertical-align: middle;
+    color: var(--color-base-white-100);
+    font-size: var(--font-base-font-size-12);
+    line-height: 18px;
+    padding: 0px 8px;
+  }
+  .error-text {
+    vertical-align: middle;
+    color: var(--color-base-white-100);
+    font-size: var(--font-base-font-size-12);
+    line-height: 16px;
+    font-weight: normal;
+  }
+}
+.order-padding {
+  padding-top: 12px;
+}
+.noitems {
+  font-family: var(--font-base-font-family-decorative);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 20px;
+  text-align: center;
+  color: #63666a;
+  margin: 0px auto;
+  .view-data-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #018374;
+  }
+}
+
+.alert-wrapper {
+  border: 1px solid #fcf5c1;
+  background-color: #fefbe6;
+  color: #595959;
+  padding: 10px;
+  .material-icons {
+    color: #e6b056;
+    font-size: 20px;
+  }
+}
+
+.info-text {
+  font-family: var(--font-family-body-medium);
+
+  font-style: normal;
+  font-weight: var(--font-weight-body-small);
+  color: var(--color-base-cyan-900);
+  margin-left: 10px;
+  margin-right: 20px;
+  ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.close {
+  font-size: 38px;
+  font-weight: 100;
+  position: absolute;
+  right: 30px;
+  top: 1px;
+}

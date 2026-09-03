@@ -1,0 +1,106 @@
+## messageSource=classpath:/bhgecore/messages/email-multipleSSORegistration_$lang.properties
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Digital Solutions Store – Inactive User Notification</title>
+
+    <style>
+    * {
+	color: #05322b; 
+	font-family: 'Poppins','Lucida Sans'; 
+	
+   }
+        @font-face {
+            font-family: GEInspiraSans;
+            src: url('$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+        }
+    </style>
+</head>
+
+
+<body style="font-family:GEInspiraSans; font-size: 11pt;width:700px;color: #13294b;border: solid 0.3px #979797;">
+
+    <div class="header">
+        <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/plain-banner.png" alt="headerImage" width="100%"/>
+    </div>
+
+
+	<div class="emailBody" style="padding:14px 22px 0px 34px;">
+		<div class="headerInformation" style="padding-bottom:27px;letter-spacing: -0.4px;">
+		    <p>${ctx.messages.salutation} ${ctx.userName},</p>
+		    <p>${ctx.messages.thankYouText}${ctx.app}
+		    ${ctx.messages.thankYouText1}<b>${ctx.email}</b>.</p>
+		    <br>
+		    <p>${ctx.messages.belowAreTheUserIds}</p>
+		    <br>
+		    <div class="table2">
+			    <table style="width:100%;max-width:1024px" cellpadding="0" cellspacing="0">
+					<thead style="  letter-spacing: -0.5px;color: #ffffff;"><tr style="background-color: #028474;">
+					<th style="padding: 9px;text-align: left;color: #FFFFFF;"> ${ctx.messages.applicationName} </th>
+					<th style="padding: 9px;text-align: left;color: #FFFFFF;"> ${ctx.messages.userName} </th>
+					<th style="padding: 9px;text-align: left;color: #FFFFFF;"> ${ctx.messages.accessLevel} </th>
+					<th style="padding: 9px;text-align: center;color: #FFFFFF;"> ${ctx.messages.applicationLink} </th>
+					</tr></thead>
+					<tbody style="letter-spacing: -0.4px;color: #000000; line-height: 1.2; font-size: 10pt;">
+					#foreach($entry in $ctx.multipleSSODetails)
+						<tr style="background-color: #ffffff;">
+						<td style="padding: 9px;text-align: left;">${entry.getAppAccessName()}</td>
+						<td style="padding: 9px;text-align: left;">${entry.getUserSSO()}</td>
+						<td style="padding: 9px;text-align: left;">${entry.getAccessRequestStatus()}</td>
+						#if(${entry.getAccessRequestStatus()} == 'Access Granted')
+						<td>
+						<div class="button" style="margin: 0 auto;">
+                                  <table role="presentation" width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                        <table role="presentation" width="auto" align="center" border="0" cellspacing="0" cellpadding="0" class="button__table" style="margin: 0 auto;">
+                                          <tr>
+                                            <td align="center" class="button__cell" style="background-color: #028474; border-radius: 3px; padding: 8px 56px 8px 40px;" bgcolor="#2097E4"><div style="padding-left: 15px;"><a href="${ctx.loginLink}" class="button__link" style="background-color: #028474; color: #FFFFFF; text-decoration: none; display: inline-block;"><span class="button__text" style="color: #FFFFFF; text-decoration: none;">${ctx.messages.loginNow}</span></a></div></td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+						#elseif(${entry.getAccessRequestStatus()} == 'Not Registered')
+						 <div class="button" style="margin: 0 auto;">
+                                  <table role="presentation" width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                        <table role="presentation" width="auto" align="center" border="0" cellspacing="0" cellpadding="0" class="button__table" style="margin: 0 auto;">
+                                          <tr>
+                                            <td align="center" class="button__cell" style="background-color: #028474; border-radius: 3px; padding: 8px 56px 8px 40px;" bgcolor="#2097E4"><div style="padding-left: 15px;"><a href="${entry.registerLink}" class="button__link" style="background-color: #028474; color: #FFFFFF; text-decoration: none; display: inline-block;"><span class="button__text" style="color: #FFFFFF; text-decoration: none;">${ctx.messages.registerNow}</span></a></div></td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr style="text-align: center">
+                                    	<a href="${ctx.urlDecoder.decode(${ctx.forgotPasswordLink})}">${ctx.messages.forgotYourPassword}</a>
+                                    </tr>
+                                  </table>
+                                </div>
+						</td>
+						#else
+						<td style="padding: 9px;text-align: center;">${ctx.messages.contactSupportText1} '${entry.getAccessRequestStatus()}' ${ctx.messages.contactSupportText2}</td>
+						#end
+						</tr>
+					#end
+					</tbody>
+			    </table>
+			</div>
+		    <br>
+		    <p>${ctx.messages.contactText} <a href="mailto:${ctx.supportMail}">${ctx.supportMail}</a>.</p>
+		     
+		    <br>
+		    <p>${ctx.messages.bestRegards}<br>
+			${ctx.messages.bhgeSupportTeam}</p>
+		</div>
+	</div>
+
+	
+
+</body>
+</html>

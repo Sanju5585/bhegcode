@@ -1,0 +1,33 @@
+<ds-file-upload
+  label="{{ 'labels.uploadFile' | cxTranslate }}"
+  [maxLength]="5"
+  [maxSizeInMB]="10"
+  [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+  (selectedFiles)="selectedPoFiles($event, this.dynamicId)"
+  [showIcon]="true"
+  [uploadId]="this.dynamicId"
+  [icon]="'backup'"
+  >upload</ds-file-upload
+>
+
+<div class="file-list">
+  <ds-file-upload-progress
+    *ngFor="let file of files"
+    [layout]="layouts.LIST"
+    [deleteUrl]="deletUrl"
+    [file]="file"
+    (deletedFiles)="deletedFiles($event, this.dynamicId)"
+    [uploadParams]="uploadParams"
+    [deleteParams]="deleteParams"
+    [uploadUrl]="uploadUrl"
+    [showProgress]="true"
+  ></ds-file-upload-progress>
+</div>
+
+<div
+  *ngIf="this.attachment"
+  class="bh-form-message typography--body-small bh-form-message--error"
+>
+  <i class="typography--icon-small bh-form-message__icon">error_outline</i
+  >{{ this.attachment }}
+</div>

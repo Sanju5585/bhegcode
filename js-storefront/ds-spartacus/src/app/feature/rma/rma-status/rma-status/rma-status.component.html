@@ -1,0 +1,157 @@
+<ds-recaptcha></ds-recaptcha>
+<div>
+  <div class="track-status" *ngIf="loadingTrackFlag">
+    {{ 'rma-tracking.trackOrderAndReturn' | cxTranslate }}
+  </div>
+  <div class="track-order" *ngIf="loadingTrackFlag; else loadSpinner">
+    <div class="row padding-align">
+      <div class="order-number">
+        <bh-text-input
+          type="text"
+          name="orderNumber"
+          [value]="orderNumber"
+          [message]="error.orderNumber"
+          [attr.error]="error.orderNumber ? error.orderNumber : null"
+          (change)="onChange($event, 'orderNumber')"
+          label="{{ 'rma-tracking.purchaseOrder' | cxTranslate }}"
+        >
+        </bh-text-input>
+        <span class="find-order" (click)="trackorderstatus()">{{
+          'rma-tracking.whereDoFind' | cxTranslate
+        }}</span>
+      </div>
+      <div class="or-text">
+        <span>-{{'rma-tracking.or' | cxTranslate}}-</span>
+      </div>
+      <div class="rma-order">
+        <bh-text-input
+          type="text"
+          [value]="rmaNumber"
+          [message]="error.rmaNumber"
+          [attr.error]="error.rmaNumber ? error.rmaNumber : null"
+          (change)="onChange($event, 'rmaNumber')"
+          label="{{ 'rma-tracking.rmaOrder' | cxTranslate }}"
+        >
+        </bh-text-input>
+        <span class="find-order" (click)="trackorderstatus()">{{
+          'rma-tracking.whereDoFind' | cxTranslate
+        }}</span>
+      </div>
+      <div class="cstmr-number">
+        <bh-text-input
+          type="text"
+          [value]="cstmrNumber"
+          [message]="error.cstmrNumber"
+          [attr.error]="error.cstmrNumber ? error.cstmrNumber : null"
+          (change)="onChange($event, 'customerNumber')"
+          label="{{ 'rma-tracking.cstmrNumber' | cxTranslate }}"
+        >
+        </bh-text-input>
+      </div>
+      <div class="button-track">
+        <span class="">
+          <div type="secondary" class="float-left reset-btn" (click)="reset()">
+            {{ 'rma-tracking.reset' | cxTranslate }}
+          </div>
+        </span>
+        <span>
+          <bh-button
+            type="primary"
+            label="{{ 'rma-tracking.track' | cxTranslate }}"
+            class="float-right track-btn width"
+            (click)="trackStatus()"
+          >
+          </bh-button>
+        </span>
+      </div>
+    </div>
+    <div class="track-list-border" *ngIf="trackData"></div>
+    <div class="row" *ngIf="trackData">
+      <div class="col-md-12">
+        <table class="table" *ngIf="noRecordFound; else recordNotFound">
+          <tr *ngIf="rmaStatus">
+            <th>{{ 'rma-tracking.bhgeOrder' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.orderStaus' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.poNumber' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.poDate' | cxTranslate }}</th>
+            <!-- <th>{{ 'rma-tracking.netPrice' | cxTranslate }}</th> -->
+            <th>{{ 'rma-tracking.orderCreatedbghe' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.lastUpdated' | cxTranslate }}</th>
+          </tr>
+          <tr *ngIf="orderStatus">
+            <th>{{ 'rma-tracking.bhgeOrdernew' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.orderStausbghe' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.poNumber' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.poDate' | cxTranslate }}</th>
+            <!-- <th>{{ 'rma-tracking.netPrice' | cxTranslate }}</th> -->
+            <th>{{ 'rma-tracking.orderCreated' | cxTranslate }}</th>
+            <th>{{ 'rma-tracking.lastUpdated' | cxTranslate }}</th>
+          </tr>
+          <tr *ngIf="rmaStatus">
+            <td class="table-order-number" (click)="selectRma()">
+              {{ trackDetails?.rmaNumber }}
+            </td>
+            <td>
+              {{ trackDetails?.rmaStatus }}
+              <ng-continer *ngIf="checkRMAProcessingStatus(trackDetails)">
+                <div
+                  class="text-danger typography--body-small bh-form-message--error"
+                  matTooltipClass="vs-tooltip capitalize"
+                  matTooltipPosition="below"
+                >
+                  <span class="rma-processing-track-status">
+                    <i class="typography--icon-small bh-form-message__icon"
+                      >error_outline</i
+                    >
+                    <strong class="font-await-process-order"
+                      >{{ 'rma-tracking.pending' | cxTranslate }} :
+                      {{
+                        'rma-tracking.awaitingPurchaseOrder' | cxTranslate
+                      }}</strong
+                    >
+                  </span>
+                </div>
+              </ng-continer>
+            </td>
+            <td>{{ trackDetails?.purchaseOrderNumber }}</td>
+            <td>
+              {{
+                trackDetails?.purchaseOrderDate == '0000-00-00'
+                  ? ''
+                  : trackDetails?.purchaseOrderDate
+              }}
+            </td>
+            <!-- <td>USD ${{trackDetails?.netPrice}}</td> -->
+            <td>{{ trackDetails?.rmaCreatedDate | date: 'd MMM y' }}</td>
+            <td>{{ trackDetails?.lastUpdatedDate | date: 'd MMM y' }}</td>
+          </tr>
+          <tr *ngIf="orderStatus">
+            <td class="table-order-number" (click)="selectRma()">
+              {{ trackDetails.orderData[0]?.code }}
+            </td>
+            <td>{{ trackDetails.orderData[0]?.orderStatus }}</td>
+            <td>{{ trackDetails.orderData[0]?.purchaseOrderNumber }}</td>
+            <td>{{ trackDetails.orderData[0]?.poDate | date: 'd MMM y' }}</td>
+            <!-- <td>{{(trackDetails.orderData[0]?.totalNetPrice == '' || trackDetails.orderData[0]?.totalNetPrice <= 0) ? '' : trackDetails.orderData[0]?.totalNetPrice}}</td> -->
+            <td>
+              {{ trackDetails.orderData[0]?.orderDate | date: 'd MMM y' }}
+            </td>
+            <td>
+              {{ trackDetails.orderData[0]?.lastUpdatedDate | date: 'd MMM y' }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <ng-template #recordNotFound>
+      <div class="record-found" *ngIf="showData">
+        <h3>{{ 'rma-tracking.noRecordFound' | cxTranslate }}</h3>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #loadSpinner>
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+</div>

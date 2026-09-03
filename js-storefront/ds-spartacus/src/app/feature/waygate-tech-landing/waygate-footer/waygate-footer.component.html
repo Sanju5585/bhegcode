@@ -1,0 +1,295 @@
+<div class="footer screen-view desktop-view">
+  <div class="footer-top container" *ngIf="!isChooseBrandPage">
+    <div class="footer-products">
+      <label class="heading">{{ 'waygate.products' | cxTranslate }}</label>
+      <ng-container
+        *ngIf="productCategories$ | async as productCategories; else loading"
+      >
+        <ng-container
+          *ngFor="
+            let productCategory of productCategories
+              | keyvalue
+              | selectedCategory: productLineCode
+          "
+        >
+          <!-- <ng-container
+            *ngIf="productCategory?.categories?.length > 0; else noProductsAvailable"
+          > -->
+          <ng-container *ngFor="let level_1 of productCategory?.categories">
+            <a
+              class="mr-b footer-title"
+              [routerLink]="constructCategoryUrl(level_1)"
+              (click)="scrollTop()"
+              >{{ level_1?.name }}</a
+            >
+          </ng-container>
+          <!-- </ng-container> -->
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="footer-products" *ngIf="isServicesVisible">
+      <label class="heading">{{ 'waygate.services' | cxTranslate }}</label>
+      <ng-container *ngFor="let service of servicesList">
+        <a class="mr-b footer-title" [href]="service.url" target="_blank">{{
+          service.name
+        }}</a>
+      </ng-container>
+    </div>
+    <div class="footer-products" *ngIf="isIndustriesVisible">
+      <label class="heading">{{ 'waygate.industries' | cxTranslate }}</label>
+      <ng-container *ngFor="let industry of industriesList">
+        <a class="mr-b footer-title" [href]="industry.url" target="_blank">{{
+          industry.name
+        }}</a>
+      </ng-container>
+    </div>
+    <div class="footer-usefullinks">
+      <label class="heading">{{ 'waygate.usefulLinks' | cxTranslate }}</label>
+      <a
+        class="mr-b footer-title"
+        [routerLink]="contactUsUrl"
+        target="_blank"
+        >{{ 'waygate.helpFaq' | cxTranslate }}</a
+      >
+      <a
+        *ngIf="usefulLinksList && usefulLinksList.length > 0"
+        class="mr-b footer-title"
+        [href]="usefulLinksList[0]?.linkedIn"
+        target="_blank"
+        >{{ 'waygate.linkedIn' | cxTranslate }}</a
+      >
+      <a
+        *ngIf="usefulLinksList && usefulLinksList.length > 1"
+        class="mr-b footer-title"
+        [href]="usefulLinksList[1]?.youTube"
+        target="_blank"
+        >{{ 'waygate.youTube' | cxTranslate }}</a
+      >
+      <a
+        href="https://www.bakerhughes.com/"
+        target="_blank"
+        class="footer-title"
+        >Bakerhughes.com</a
+      >
+    </div>
+  </div>
+  <hr class="horizontal-divider" *ngIf="!isChooseBrandPage" />
+  <div class="footer-bottom container">
+    <div class="footer-logo">
+      <a [routerLink]="['/', productLine]">
+        <img
+          class="bh-img"
+          src="../../../../../assets/img/bh-logo.svg"
+          alt="click"
+        />
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.bakerhughes.com/company/about-us" target="_blank">{{
+        'waygate.aboutUs' | cxTranslate
+      }}</a>
+      <a href="https://www.bakerhughes.com/privacy" target="_blank">{{
+        'waygate.privacy' | cxTranslate
+      }}</a>
+      <ng-container
+        *ngIf="
+          productLine == allProductLine.waygate ||
+          productLine == allProductLine.bently
+        "
+      >
+        <a [routerLink]="contactUsUrl" *ngIf="!isChooseBrandPage">{{
+          'waygate.contactUs' | cxTranslate
+        }}</a>
+      </ng-container>
+      <ng-container *ngIf="productLine == allProductLine.panametrics">
+        <a
+          href="https://www.panametrics.com/contact-us"
+          target="_blank"
+          *ngIf="!isChooseBrandPage"
+          >{{ 'waygate.contactUs' | cxTranslate }}</a
+        >
+      </ng-container>
+      <ng-container *ngIf="productLine == allProductLine.druck">
+        <a
+          href="https://www.druck.com/contact-us"
+          target="_blank"
+          *ngIf="!isChooseBrandPage"
+          >{{ 'waygate.contactUs' | cxTranslate }}</a
+        >
+      </ng-container>
+      <ng-container *ngIf="productLine == allProductLine.reuterStokes">
+        <a
+          href="https://www.reuter-stokes.com/contact-us"
+          target="_blank"
+          *ngIf="!isChooseBrandPage"
+          >{{ 'waygate.contactUs' | cxTranslate }}</a
+        >
+      </ng-container>
+
+      <a (click)="openCookies()">{{ 'waygate.cookies' | cxTranslate }}</a>
+      <a (click)="openTerms()">{{ 'waygate.termsOfUse' | cxTranslate }}</a>
+    </div>
+    
+    <ng-container *ngIf="productLine == allProductLine.waygate ||
+          productLine == allProductLine.bently">
+    <div class="footer-copyright">{{ 'waygate.copyRight' | cxTranslate:{year: copyRightYear} }}</div>
+  </ng-container>
+  </div>
+</div>
+<!-- <ng-template #noProductsAvailable>
+  <a
+    class="mr-b footer-title"
+    [href]="productNotFoundList?.url"
+    target="_blank"
+  >
+    {{ productNotFoundList?.name }}</a
+  >
+</ng-template> -->
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+
+<!-- mobile footer view -->
+<div class="footer screen-view mobile-view">
+  <div class="footer-top container-fluid">
+    <div class="footer-mv-wrapper">
+      <div class="footer-logo">
+        <a [routerLink]="['/', productLine]">
+          <img
+            class="bh-img"
+            src="../../../../../assets/img/bh-logo.svg"
+            alt="click"
+          />
+        </a>
+      </div>
+      <div *ngIf="!isChooseBrandPage">
+        <div
+          class="collapsible"
+          (click)="mobProductListToggle = !mobProductListToggle"
+        >
+          {{ 'waygate.products' | cxTranslate }}
+          <i class="material-icons font-18">
+            {{ mobProductListToggle ? 'remove' : 'add' }}</i
+          >
+        </div>
+        <div class="content" *ngIf="mobProductListToggle">
+          <ng-container
+            *ngIf="
+              productCategories$ | async as productCategories;
+              else loading
+            "
+          >
+            <ng-container
+              *ngFor="
+                let productCategory of productCategories
+                  | keyvalue
+                  | selectedCategory: productLineCode
+              "
+            >
+              <ng-container *ngFor="let level_1 of productCategory?.categories">
+                <a
+                  class="footer-title"
+                  [routerLink]="constructCategoryUrl(level_1)"
+                  (click)="scrollTop()"
+                  >{{ level_1?.name }}</a
+                >
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="isServicesVisible">
+          <div
+            class="collapsible"
+            (click)="mobServiceListToggle = !mobServiceListToggle"
+          >
+            {{ 'waygate.services' | cxTranslate }}
+            <i class="material-icons font-18">
+              {{ mobServiceListToggle ? 'remove' : 'add' }}</i
+            >
+          </div>
+          <div class="content" *ngIf="mobServiceListToggle">
+            <ng-container *ngFor="let service of servicesList">
+              <a class="footer-title" [href]="service.url" target="_blank">{{
+                service.name
+              }}</a>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="isIndustriesVisible">
+          <div
+            class="collapsible"
+            (click)="mobIndustriesToggle = !mobIndustriesToggle"
+          >
+            {{ 'waygate.industries' | cxTranslate }}
+            <i class="material-icons font-18">
+              {{ mobIndustriesToggle ? 'remove' : 'add' }}</i
+            >
+          </div>
+          <div class="content" *ngIf="mobIndustriesToggle">
+            <ng-container *ngFor="let industry of industriesList">
+              <a class="footer-title" [href]="industry.url" target="_blank">{{
+                industry.name
+              }}</a>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <div
+          class="collapsible"
+          (click)="mobUSefulLinksToggle = !mobUSefulLinksToggle"
+        >
+          {{ 'waygate.usefulLinks' | cxTranslate }}
+          <i class="material-icons font-18">
+            {{ mobUSefulLinksToggle ? 'remove' : 'add' }}</i
+          >
+        </div>
+        <div class="content" *ngIf="mobUSefulLinksToggle">
+          <a class="footer-title" [routerLink]="contactUsUrl" target="_blank">{{
+            'waygate.helpFaq' | cxTranslate
+          }}</a>
+          <a
+            *ngIf="usefulLinksList && usefulLinksList.length > 0"
+            class="footer-title"
+            [href]="usefulLinksList[0]?.linkedIn"
+            target="_blank"
+            >{{ 'waygate.linkedIn' | cxTranslate }}</a
+          >
+          <a
+            *ngIf="usefulLinksList && usefulLinksList.length > 1"
+            class="footer-title"
+            [href]="usefulLinksList[1]?.youTube"
+            target="_blank"
+            >{{ 'waygate.youTube' | cxTranslate }}</a
+          >
+          <a
+            href="https://www.bakerhughes.com/"
+            target="_blank"
+            class="footer-title"
+            >Bakerhughes.com</a
+          >
+        </div>
+      </div>
+      <ng-container *ngIf="productLine == allProductLine.waygate ||
+          productLine == allProductLine.bently">
+    <div class="footer-copyright">{{ 'waygate.copyRight' | cxTranslate:{year: copyRightYear} }}</div>
+  </ng-container>
+      <div class="mb-footer-links">
+        <a
+          href="https://www.bakerhughes.com/company/about-us"
+          target="_blank"
+          >{{ 'waygate.aboutUs' | cxTranslate }}</a
+        >
+        <a href="https://www.bakerhughes.com/privacy" target="_blank">{{
+          'waygate.privacy' | cxTranslate
+        }}</a>
+        <a [routerLink]="contactUsUrl" *ngIf="!isChooseBrandPage">{{
+          'waygate.contactUs' | cxTranslate
+        }}</a>
+        <a (click)="openCookies()">{{ 'waygate.cookies' | cxTranslate }}</a>
+        <a (click)="openTerms()">{{ 'waygate.termsOfUse' | cxTranslate }}</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<ng-container *ngIf="product$ | async as pr" class="product-summary">
+  <div class="pdp-add-to-cart">
+    <cx-add-to-cart
+      *ngIf="showProduct"
+      [mode]="'pdp'"
+      [product]="product"
+      [productCode]="product?.code"
+      [showQuantity]="true"
+    ></cx-add-to-cart>
+  </div>
+</ng-container>

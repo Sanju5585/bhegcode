@@ -1,0 +1,130 @@
+<section class="container go-to-rma-link">
+  <a [routerLink]="'/rma/cart'"
+    ><i class="material-icons">chevron_left</i
+    >{{ 'rma-form.cartRediretion' | cxTranslate }}</a
+  >
+</section>
+<section class="container rma-stepper-container">
+  <div class="rma-stepper">
+    <div class="rma-stepper-box" [ngClass]="stepIndex == 0 ? 'active' : ''">
+      <div class="rma-stepper--step" (click)="goToStep(0)">
+        <!-- <div class="rma-stepper--icon">
+          <div>i</div>
+        </div> -->
+        <span
+          class="step-one"
+          [ngClass]="
+            stepIndex == 0 ? 'material-icons' : 'material-icons-outlined'
+          "
+        >
+          info
+        </span>
+        <div class="rma-stepper--hr"></div>
+      </div>
+      <h3 class="rma-stepper--label" (click)="goToStep(0)">
+        {{ 'rma-form.rmaOverview' | cxTranslate }}
+      </h3>
+    </div>
+
+    <div class="rma-stepper-box" [ngClass]="stepIndex == 1 ? 'active' : ''">
+      <div class="rma-stepper--step">
+        <div class="rma-stepper--icon" (click)="goToStep(1)">
+          <!-- <i class="material-icons">warning</i> -->
+          <div>1</div>
+        </div>
+        <div class="rma-stepper--hr"></div>
+      </div>
+      <h3 class="rma-stepper--label" (click)="goToStep(1)">
+        {{ 'rma-form.identifyMyEquipment' | cxTranslate }}
+      </h3>
+    </div>
+    <div class="rma-stepper-box" [ngClass]="stepIndex == 2 ? 'active' : ''">
+      <div class="rma-stepper--step">
+        <div class="rma-stepper--icon" (click)="goToStep(2)">
+          <!-- <i class="material-icons">warning</i> -->
+          <div>2</div>
+        </div>
+        <div class="rma-stepper--hr"></div>
+      </div>
+      <h3 class="rma-stepper--label" (click)="goToStep(2)">
+        {{ 'rma-form.returnOfferingHeader' | cxTranslate }}
+      </h3>
+    </div>
+    <div class="rma-stepper-box" [ngClass]="stepIndex == 3 ? 'active' : ''">
+      <div class="rma-stepper--step">
+        <div class="rma-stepper--icon" (click)="goToStep(3)">
+          <!-- <i class="material-icons">warning</i> -->
+          <div>3</div>
+        </div>
+        <div class="rma-stepper--hr visibility-none"></div>
+      </div>
+      <h3 class="rma-stepper--label" (click)="goToStep(3)">
+        {{ 'rma-form.documentation' | cxTranslate }}
+      </h3>
+    </div>
+  </div>
+</section>
+<section class="container" *ngIf="stepIndex == 0">
+  <ds-rma-overview></ds-rma-overview>
+</section>
+<section class="container" *ngIf="stepIndex == 1">
+  <ds-identify-equipment
+    (rmaEntryData)="rmaEntryData($event)"
+    (getServiceOfferingData)="setServiceOfferingData($event)"
+    (setSelectedProduct)="setSelectedProduct($event)"
+    (equipmentValidation)="setEquipmentValidation($event)"
+    [prevSelectedProduct]="selectedProduct"
+    [prevSelectedServiceOfferings]="serviceOfferingData"
+    [submitted]="submitted"
+    [rmaEntry]="rmaEntry"
+    (rmapartNumberForm)="setRmapartNumberForm($event)"
+  ></ds-identify-equipment>
+</section>
+<section class="container" *ngIf="stepIndex == 2">
+  <ds-return-offering
+    (rmaEntryData)="rmaEntryData($event)"
+    (availableAccessories)="setAvailableAccessories($event)"
+    (serviceOfferingTerms)="setServiceOfferingTerms($event)"
+    [serviceOfferingData]="serviceOfferingData"
+    [rmaEntry]="rmaEntry"
+  ></ds-return-offering>
+</section>
+<section class="container" *ngIf="stepIndex == 3">
+  <ds-rma-documentation
+    (rmaEntryData)="rmaEntryData($event)"
+    [serviceOfferingData]="serviceOfferingData"
+    [rmaEntry]="rmaEntry"
+    [warrentyClaimFlag]="warrentyClaimFlag"
+  ></ds-rma-documentation>
+</section>
+
+<div class="container next-btn">
+  <bh-button
+    *ngIf="stepIndex == 0 || stepIndex == 1"
+    [type]="'primary'"
+    icon="chevron_right"
+    class="rma-next-btn"
+    [label]="'rma-form.next' | cxTranslate"
+    [attr.disabled]="disableNextButton()"
+    [attr.loading]=""
+    (click)="nextStep(stepIndex)"
+  ></bh-button>
+  <bh-button
+    *ngIf="stepIndex == 2"
+    [type]="'primary'"
+    class="rma-add-cart-btn"
+    [label]="'rma-form.addToReturnsCart' | cxTranslate"
+    [attr.disabled]="disableNextButton()"
+    [attr.loading]=""
+    (click)="nextStep(stepIndex)"
+  ></bh-button>
+  <bh-button
+    *ngIf="stepIndex == 3"
+    [type]="'primary'"
+    class="rma-add-cart-btn"
+    [label]="'rma-form.saveProceed' | cxTranslate"
+    [attr.disabled]="disableNextButton()"
+    [attr.loading]=""
+    (click)="nextStep(stepIndex)"
+  ></bh-button>
+</div>

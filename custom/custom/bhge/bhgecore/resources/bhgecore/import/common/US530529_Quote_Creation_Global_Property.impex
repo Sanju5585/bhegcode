@@ -1,0 +1,4 @@
+insert_update BHGEGlobalProperties;uid[unique=true]                       ; value
+                                  ;scpi.zhyb.quote.creation.endpoint.url  ; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/HybrisDS_ECCDS/QuoteCreationAndChange
+                                  ;scpi.zhyb.quote.tracking.endpoint.url ; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/HybrisDS_ECCDS/QuoteTracking
+                                  ;scpi.zhyb.quote.to.order.endpoint.url  ; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/HybrisDS_ECCDS/QuoteToOrder

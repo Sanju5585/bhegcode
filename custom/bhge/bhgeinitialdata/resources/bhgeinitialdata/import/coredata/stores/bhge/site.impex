@@ -1,0 +1,170 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS Site configuration for the Powertools store
+#
+$productCatalog=bhgeProductCatalog
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=bhge
+$siteUid=bhge
+$webServiceSiteUid=$siteUidWS
+$siteMapLangCur=jaCad,jaUsd,enCad,enUsd,deCad,deUsd,zhCad,zhUsd
+$siteMapUrlLimitPerFile=50000
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=
+
+#Global Catalog
+$bhgeGlobalProductCatalog=bhgeGlobalProductCatalog
+
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+# Import modulegen config properties into impex macros
+$jarResource=$config-jarResource
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+# CMS Site
+INSERT_UPDATE CMSSite;uid[unique=true];name;theme(code);channel(code);stores(uid);contentCatalogs(id);defaultCatalog(id);defaultLanguage(isoCode);urlPatterns;active;previewURL;startingPage(uid,$contentCV);urlEncodingAttributes;defaultPromotionGroup(Identifier)[default=bhgePromoGrp];cartRemovalAge
+;$siteUid;BHGE Global Customer Support;lambda;B2B;$storeUid;$contentCatalog;$bhgeGlobalProductCatalog;$defaultLanguage;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUid)(|\&.*)$,(?i)^https?://$siteUid\.[^/]+(|/.*|\?.*)$,(?i)^https?://[^/]*/home.*,(?i)^https?://[^/]*/login.*;true;$storefrontContextRoot/?site=$siteUid;homepage;;;2419200
+
+# SiteMap Configuration
+# SiteMap Language Currencies
+INSERT_UPDATE SiteMapLanguageCurrency;&siteMapLanguageCurrency;language(isoCode)[unique=true];currency(isocode)[unique=true];
+;enUsd;en;USD
+;enCad;en;CAD
+;jaUsd;ja;USD
+;jaCad;ja;CAD
+;deUsd;de;USD
+;deCad;de;CAD
+;zhUsd;zh;USD
+;zhCad;zh;CAD
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/plain']
+;$siteUid-siteMapMedia;$siteUid-siteMapMedia;siteMapTemplate.vm;$jarResource/site-siteMapTemplate.vm;
+
+INSERT_UPDATE RendererTemplate;&siteMapRenderer;code[unique=true];content(&siteMapMediaId);contextClass;rendererType(code)[default='velocity'];
+;$siteUid-siteMapTemplate;$siteUid-siteMapTemplate;$siteUid-siteMapMedia;de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext;
+
+INSERT_UPDATE SiteMapPage;&siteMapPage;code(code)[unique=true];frequency(code)[unique=true];priority[unique=true];active[default=true]
+;Homepage;Homepage;daily;1.0;;
+;Product;Product;weekly;0.6;;
+;CategoryLanding;CategoryLanding;daily;0.9;;
+;Category;Category;daily;0.8;;
+;Store;Store;weekly;0.6;;
+;Content;Content;monthly;0.4;;
+;Custom;Custom;daily;1.0;;
+
+INSERT_UPDATE SiteMapConfig;&siteMapConfigId;configId[unique=true];siteMapLanguageCurrencies(&siteMapLanguageCurrency);siteMapPages(&siteMapPage);siteMapTemplate(&siteMapRenderer)[unique=true];
+;$siteUidSiteMapConfig;$siteUidSiteMapConfig;$siteMapLangCur;$siteMapPage;$siteUid-siteMapTemplate;$customSiteMapUrls;
+
+
+# Cart Cleanup CronJobs
+INSERT_UPDATE CartRemovalCronJob;code[unique=true];job(code)[default=cartRemovalJob];sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]
+;$siteUid-CartRemovalJob
+
+# Uncollected orders cronjob
+INSERT_UPDATE UncollectedOrdersCronJob;code[unique=true];job(code)[default=uncollectedOrdersJob];sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]
+;$siteUid-UncollectedOrdersJob
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;$siteUid-CartRemovalJob;0;5;4;-1;-1;-1;false;true;-1
+;$siteUid-UncollectedOrdersJob;0;0;6;-1;-1;-1;true;false;-1
+
+UPDATE BaseStore;cmsSites(uid)[default=$siteUid];uid[unique=true]
+;$siteUid;1720_BaseStore
+;$siteUid;1800_BaseStore
+;$siteUid;1810_BaseStore
+;$siteUid;3000_BaseStore
+;$siteUid;6020_BaseStore
+;$siteUid;6030_BaseStore
+;$siteUid;6040_BaseStore
+;$siteUid;6210_BaseStore
+;$siteUid;6240_BaseStore
+;$siteUid;6270_BaseStore
+;$siteUid;7030_BaseStore
+;$siteUid;6060_BaseStore
+#NEW#
+;$siteUid;1200_BaseStore
+;$siteUid;1500_BaseStore
+;$siteUid;1600_BaseStore
+;$siteUid;1700_BaseStore
+;$siteUid;1820_BaseStore
+;$siteUid;1830_BaseStore
+;$siteUid;3000_BN_BaseStore
+;$siteUid;3000_GC_BaseStore
+;$siteUid;3010_BaseStore
+;$siteUid;3020_BaseStore
+;$siteUid;3030_BaseStore
+;$siteUid;3040_BaseStore
+;$siteUid;3050_BaseStore
+;$siteUid;3140_BN_BaseStore
+;$siteUid;3140_GC_BaseStore
+;$siteUid;3140_GE_BaseStore
+;$siteUid;5000_BaseStore
+;$siteUid;5010_BaseStore
+;$siteUid;5020_BaseStore
+;$siteUid;5020_BaseStore
+;$siteUid;5030_BaseStore
+;$siteUid;5040_BaseStore
+;$siteUid;5050_BaseStore
+;$siteUid;5060_BaseStore
+;$siteUid;5070_BaseStore
+;$siteUid;5500_BaseStore
+;$siteUid;6000_BN_BaseStore
+;$siteUid;6000_GC_BaseStore
+;$siteUid;6010_BaseStore
+;$siteUid;6020_BN_BaseStore
+;$siteUid;6030_BN_BaseStore
+;$siteUid;6040_BaseStore
+;$siteUid;6050_BaseStore
+;$siteUid;6060_BN_BaseStore
+;$siteUid;6070_BaseStore
+;$siteUid;6080_BaseStore
+;$siteUid;6090_BaseStore
+;$siteUid;6100_BaseStore
+;$siteUid;6110_BaseStore
+;$siteUid;6120_BaseStore
+;$siteUid;6130_BaseStore
+;$siteUid;6140_BaseStore
+;$siteUid;6150_BaseStore
+;$siteUid;6160_BaseStore
+;$siteUid;6180_BaseStore
+;$siteUid;6200_BaseStore
+;$siteUid;6230_BaseStore
+;$siteUid;6250_BN_BaseStore
+;$siteUid;6250_GC_BaseStore
+;$siteUid;6250_BaseStore
+;$siteUid;6260_BaseStore
+;$siteUid;7000_BN_BaseStore
+;$siteUid;7000_GC_BaseStore
+;$siteUid;7000_BaseStore
+;$siteUid;7010_BaseStore
+;$siteUid;7020_BaseStore
+;$siteUid;7030_BN_BaseStore
+;$siteUid;7040_BaseStore
+;$siteUid;7050_BaseStore
+;$siteUid;7060_BaseStore
+;$siteUid;7080_BaseStore
+;$siteUid;7090_BaseStore
+;$siteUid;7110_BaseStore
+;$siteUid;7120_BaseStore
+;$siteUid;7140_BN_BaseStore
+;$siteUid;7140_GC_BaseStore
+;$siteUid;7160_BN_BaseStore
+;$siteUid;7160_BaseStore
+;$siteUid;7170_BaseStore
+;$siteUid;7200_BN_BaseStore
+;$siteUid;7200_GC_BaseStore

@@ -1,0 +1,186 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"directorybranch": {
+			"type": "string",
+			"enum": [
+				"200",
+				"100",
+				"400"
+			]
+		},
+		"registeredBy": {
+			"type": "string",
+			"enum": [
+				"Sponsor",
+				"Self"
+			]
+		},
+		"emailRequired": {
+			"type": "string",
+			"enum": [
+				"True",
+				"False",
+				""
+			]
+		},
+		"primaryKey": {
+			"type": "object",
+			"properties": {
+				"uid": {
+					"type": "string"
+				},
+				"mail": {
+					"type": "string"
+				},
+				"givenname": {
+					"type": "string"
+				},
+				"sn": {
+					"type": "string"
+				},
+				"gessostatus": {
+					"type": "string"
+				},
+				"gessotheblob": {
+					"type": "string"
+				},
+				"gessolinkedbu": {
+					"type": "string"
+				},
+				"gessochallenge": {
+					"type": "string"
+				},
+				"gessoresponse": {
+					"type": "string"
+				},
+				"cn": {
+					"type": "string"
+				},
+				"userPassword": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": true,
+			"anyOf": [
+				{
+					"required": [
+						"uid"
+					]
+				},
+				{
+					"required": [
+						"mail"
+					]
+				},
+				{
+					"required": [
+						"givenname"
+					]
+				},
+				{
+					"required": [
+						"sn"
+					]
+				},
+				{
+					"required": [
+						"gessostatus"
+					]
+				},
+				{
+					"required": [
+						"gessotheblob"
+					]
+				},
+				{
+					"required": [
+						"gessolinkedbu"
+					]
+				},
+				{
+					"required": [
+						"gessochallenge"
+					]
+				},
+				{
+					"required": [
+						"gessoresponse"
+					]
+				},
+				{
+					"required": [
+						"cn"
+					]
+				},
+				{
+					"required": [
+						"userPassword"
+					]
+				}
+			]
+		},
+		"updatelist": {
+			"type": "object",
+			"properties": {
+				"uid": {
+					"type": "string"
+				},
+				"gessolinkedbu": {
+					"type": "string"
+				},
+				"sn": {
+					"type": "string"
+				},
+				"givenName": {
+					"type": "string"
+				},
+				"cn": {
+					"type": "string"
+				},
+				"mail": {
+					"type": "string"
+				},
+				"gessochallenge": {
+					"type": "string",
+					"enum": [
+						"Mother’s Maiden Name",
+						"City of Birth",
+						"Last 4 digists of driver’s license",
+						"Last 4 digits of SSN/ National identifier",
+						""
+					]
+				},
+				"gessoresponse": {
+					"type": "string"
+				},
+				"userPassword": {
+					"type": "string",
+					"pattern": "^[a-zA-Z](?=(.*\\d){2})(?=.*[a-z])[0-9a-zA-Z.,@-_]{8,15}"
+				},
+				"gessotheblob": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": true,
+			"required": [
+				"uid",
+				"gessolinkedbu",
+				"sn",
+				"givenName",
+				"cn",
+				"mail",
+				"userPassword",
+				"gessotheblob"
+			]
+		}
+	},
+	"additionalProperties": true,
+	"required": [
+		"directorybranch",
+		"registeredBy",
+		"primaryKey",
+		"updatelist"
+	]
+}

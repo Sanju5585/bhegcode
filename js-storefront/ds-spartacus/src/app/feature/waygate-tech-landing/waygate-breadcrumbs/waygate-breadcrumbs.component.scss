@@ -1,0 +1,54 @@
+@import '../../../../styles/responsive_mixins.scss';
+.waygate-breadcrumb-template {
+  border-bottom: 1px solid #ebefee;
+  background: #f8faf9;
+  .waygate-breadcrumb-container {
+    display: inline-block;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    height: 40px;
+    .waygate-breadcrumb-item {
+      display: inline-block;
+      min-height: auto;
+      transition: all 0.5s ease-out allow-discrete;
+      color: #595959;
+      &.last {
+        .br-label {
+          display: block;
+          color: #595959;
+        }
+        .br-label-holder {
+          display: none !important;
+        }
+      }
+      .br-label {
+        display: none;
+      }
+      .br-label-holder {
+        display: block;
+      }
+      &:hover {
+        text-decoration: none;
+        .br-label {
+          display: block;
+        }
+        .br-label-holder {
+          display: none;
+        }
+      }
+    }
+@include media-lg-min{
+  display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      align-items: center;
+      height: 40px;
+      .waygate-breadcrumb-item {
+        display: flex;
+        cursor:pointer;
+      }
+}
+
+  }
+}

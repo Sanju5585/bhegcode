@@ -1,0 +1,624 @@
+<ds-recaptcha *ngIf="userType != 'current'"></ds-recaptcha>
+<div class="container order-tracking">
+  <div class="row">
+    <div class="tab col-lg-3 col-md-3 col-sm-12">
+      <button
+        class="tablinks"
+        id="defaultOpen"
+        #defaultOpen
+        (click)="openTab($event, 'categoryOne', categoryOne)"
+      >
+        <em class="material-icons custom-margin-right-icon">assignment</em>
+        {{ 'order-tracking.orderSummryBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryTwo', categoryTwo)"
+        *ngIf="userType === 'current'"
+      >
+        <em class="material-icons custom-margin-right-icon">description</em>
+        {{ 'order-tracking.associateDocBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryThree', categoryThree)"
+        *ngIf="userType === 'current'"
+      >
+        <em class="material-icons custom-margin-right-icon">rate_review</em>
+        {{ 'order-tracking.orderEnquiryBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryFour', categoryFour)"
+      >
+        <em class="icons line-item custom-margin-right-icon"></em>
+
+        {{ 'order-tracking.lineItemBtn' | cxTranslate }} ({{
+          fullResponse?.lineData?.length
+        }})
+      </button>
+    </div>
+
+    <div
+      id="categoryOne"
+      #categoryOne
+      class="tabcontent col-lg-9 col-md-9 col-sm-12"
+    >
+      <div
+        class="row"
+        *ngIf="orderTrackingResponse && displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">{{
+              'order-tracking.share' | cxTranslate
+            }}</span>
+            <span class="backToList" (click)="backLink()">
+              {{ 'order-tracking.back' | cxTranslate }}</span
+            >
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="material-icons custom-margin-right-icon">assignment</em>
+            {{ 'order-tracking.orderSummryBtn' | cxTranslate }}
+            <div class="heading-extras row">
+              <span
+                class="info-item cust-info-header"
+                *ngIf="userType === 'current'"
+                >{{ 'order-tracking.poHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{ fullResponse?.purchaseOrderNumber }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header"
+                >{{ 'order-tracking.poDateHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{
+                    fullResponse?.purchaseOrderDate | date: 'd MMM, y'
+                  }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header">
+                {{ 'order-tracking.orderStatusHeader' | cxTranslate }} :
+                <span
+                  [ngStyle]="{
+                    'background-color': fetchOrderStatusColor(
+                      fullResponse?.orderStatus
+                    ),
+                  }"
+                  class="status-label in-progress"
+                >
+                  {{ fullResponse?.orderStatus }}</span
+                >
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 bottom-space top-space">
+          <vs-status-bubble
+            [statusType]="setBubbleOrderStatus()"
+            [currentStatusIndex]="
+              setBubbleOrderStatusId(fullResponse?.orderStatus)
+            "
+            [isBlocked]="checkWhetherBlocked(fullResponse?.orderStatus)"
+          ></vs-status-bubble>
+        </div>
+
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 blocked-warning-message"
+          *ngIf="checkWhetherBlocked(fullResponse?.orderStatus)"
+        >
+          <em class="material-icons">info</em>
+          <span class="obsolete-text"
+            ><strong class="strong-text-message"
+              >&nbsp;{{ 'order-tracking.information' | cxTranslate }}</strong
+            >
+            &nbsp;{{ getBlockText(fullResponse?.blkText) }}</span
+          >
+        </div>
+        <div class="col-md-12 pl-0" *ngIf="userType === 'current'">
+          <div class="tabcontent-display-line-section-heading">
+            {{ 'order-tracking.customer' | cxTranslate }}
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 order-summary-details">
+          <div class="customer-info order-info-list">
+            <div
+              class="cust-info-header width33"
+              *ngIf="userType === 'current'"
+            >
+              {{ 'order-tracking.cstmrAccntHdr' | cxTranslate }}<br />
+              <strong class="cust-info-content">{{
+                fullResponse?.soldTo
+              }}</strong>
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="userType === 'current'"
+            >
+              {{ 'order-tracking.cstmrAccNoHdr' | cxTranslate }}<br />
+              <strong class="cust-info-content">{{ this.CustName }}</strong>
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="userType === 'current'"
+            >
+              {{ 'order-tracking.shippingAddress' | cxTranslate }} <br />
+              <address>
+                <strong
+                  class="address-content cust-info-content"
+                  [innerHTML]="fullResponse?.headerShippingAddress"
+                ></strong>
+              </address>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 pl-0" *ngIf="userType === 'current'">
+          <div class="tabcontent-display-line-section-heading">
+            {{ 'order-tracking.paymentDetails' | cxTranslate }}
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 order-summary-details">
+          <div
+            class="customer-info order-info-list"
+            *ngIf="userType === 'current'; else guestUserSection"
+          >
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.netPriceHeader' | cxTranslate }} :
+              <i [matTooltip]="'Net Price'" class="material-icons">info</i
+              ><br />
+              <strong class="cust-info-content"
+                >{{ fullResponse?.currency
+                }}{{ fullResponse?.totalNetPrice }}</strong
+              >
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="!isOrderShipped && authorizationAmt"
+            >
+              {{ 'order-tracking.authorizedAmount' | cxTranslate }} :
+              <i [matTooltip]="'Authorized Amount'" class="material-icons"
+                >info</i
+              ><br />
+              <strong class="cust-info-content"
+                >{{ fullResponse?.currency }}{{ authorizationAmt }}</strong
+              >
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="isOrderShipped && settlementAmt"
+            >
+              {{ 'order-tracking.settlementAmount' | cxTranslate }} :
+              <i [matTooltip]="'Settlement Amount'" class="material-icons"
+                >info</i
+              ><br />
+              <strong class="cust-info-content"
+                >{{ fullResponse?.currency }}{{ settlementAmt }}</strong
+              >
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="!isOrderShipped && authorizationDate"
+            >
+              {{ 'order-tracking.authorizationDate' | cxTranslate }} : <br />
+              <strong class="cust-info-content">{{ authorizationDate }}</strong>
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="isOrderShipped && settlementDate"
+            >
+              {{ 'order-tracking.settlementDate' | cxTranslate }} : <br />
+              <strong class="cust-info-content">{{ settlementDate }}</strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.paymentType' | cxTranslate }}<br /><strong
+                class="cust-info-content"
+                >{{ fullResponse?.purchaseOrderNumber }}</strong
+              >
+            </div>
+            <div
+              class="cust-info-header width33"
+              *ngIf="
+                !isOrderShipped &&
+                plannedShipDate &&
+                fullResponse?.purchaseOrderNumber === 'CREDIT CARD ORDER'
+              "
+            >
+              {{ 'order-tracking.plannedSettlementDate' | cxTranslate }} :
+              <br />
+              <strong class="cust-info-content">{{ plannedShipDate }}</strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.paymentTermHdr' | cxTranslate }}<br />
+              <strong class="cust-info-content">{{
+                fullResponse?.paymentTerm
+              }}</strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.orderTypeHdr' | cxTranslate }}<br />
+              <strong class="cust-info-content">{{
+                fullResponse?.orderType
+              }}</strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.orderShiptypeHdr' | cxTranslate }} <br />
+              <strong class="cust-info-content">
+                {{
+                  (fullResponse?.headerShippingMethod
+                    ? 'order-tracking.complete'
+                    : 'order-tracking.partial'
+                  ) | cxTranslate
+                }}
+              </strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.salesAreaHdr' | cxTranslate }} :<br />
+              <strong class="cust-info-content">{{
+                fullResponse?.salesArea
+              }}</strong>
+            </div>
+            <div class="cust-info-header width33">
+              {{ 'order-tracking.createdByHdr' | cxTranslate }} <br />
+              <strong class="cust-info-content">{{
+                fullResponse?.createdBy
+              }}</strong>
+            </div>
+            <div class="cust-info-header mb-3 width33" *ngIf="incoTerm">
+              {{ 'order-tracking.infoTermHdr' | cxTranslate }}<br />
+              <strong class="cust-info-content">{{ incoTerm }}</strong>
+            </div>
+          </div>
+          <ng-template #guestUserSection>
+            <div class="customer-info order-info-list">
+              <div class="cust-info-header width33">&nbsp;</div>
+              <div class="cust-info-header mb-3 width33" *ngIf="guestIncoTerm">
+                {{ 'order-tracking.infoTermHdr' | cxTranslate }}<br />
+                <strong class="cust-info-content">{{ guestIncoTerm }}</strong>
+              </div>
+
+              <div class="cust-info-header width33">
+                {{ 'order-tracking.orderShiptypeHdr' | cxTranslate }} <br />
+                <strong class="cust-info-content">
+                  {{
+                    (fullResponse?.headerShippingMethod
+                      ? 'order-tracking.complete'
+                      : 'order-tracking.partial'
+                    ) | cxTranslate
+                  }}
+                </strong>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="row custom-last-child-margin" *ngIf="displayContentsOnLoad">
+          <div class="col-md-12">
+            <div class="tabcontent-display-line-section-heading">
+              {{ 'order-tracking.lineItemBtn' | cxTranslate }}
+              <span
+                class="expand-txt"
+                (click)="expandAll = !expandAll"
+                [ngClass]="{ expanded: expandAll }"
+              >
+                <em class="material-icons keyboard-arrow">
+                  keyboard_arrow_down</em
+                >
+                <span *ngIf="!expandAll">{{
+                  'order-tracking.expandAllBtn' | cxTranslate
+                }}</span>
+                <span *ngIf="expandAll">{{
+                  'order-tracking.collapseAllBtn' | cxTranslate
+                }}</span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <vs-line-items
+              [expandAll]="expandAll"
+              [orderTrackingResponse]="orderTrackingResponse"
+            ></vs-line-items>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="categoryTwo" #categoryTwo class="tabcontent">
+      <div *ngIf="displayContentsOnLoad; else loading">
+        <vs-associated-documents
+          [fullResponse]="fullResponse"
+          [orderNo]="orderIdToBeTracked"
+        ></vs-associated-documents>
+      </div>
+    </div>
+    <div id="categoryThree" #categoryThree class="tabcontent pageBtnMargin">
+      <div
+        class="row custom-last-child-margin"
+        *ngIf="displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">{{
+              'order-tracking.share' | cxTranslate
+            }}</span>
+            <span class="backToList" (click)="backLink()">{{
+              'order-tracking.back' | cxTranslate
+            }}</span>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="heading-extras row">
+            <span class="info-item cust-info-header"
+              >{{ 'order-tracking.poHeader' | cxTranslate }}:<strong
+                class="cust-info-content"
+              >
+                {{ fullResponse?.purchaseOrderNumber }}</strong
+              >
+            </span>
+            <span class="info-item cust-info-header"
+              >{{ 'order-tracking.poDateHeader' | cxTranslate }}:<strong
+                class="cust-info-content"
+              >
+                {{ fullResponse?.purchaseOrderDate | date: 'd MMM, y' }}</strong
+              >
+            </span>
+            <span class="info-item cust-info-header">
+              {{ 'order-tracking.orderStatusHeader' | cxTranslate }} :
+              <span
+                [ngStyle]="{
+                  'background-color': fetchOrderStatusColor(
+                    fullResponse?.orderStatus
+                  ),
+                }"
+                class="status-label in-progress"
+              >
+                {{ fullResponse?.orderStatus }}</span
+              >
+            </span>
+          </div>
+          <h5
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="material-icons custom-margin-right-icon">rate_review</em>
+            {{ 'order-tracking.orderEnquiryBtn' | cxTranslate }}
+          </h5>
+        </div>
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 margintop"
+          *ngIf="displayFormHideMessage"
+        >
+          <form
+            [formGroup]="inquiryForm"
+            (submit)="
+              submitInquiry(
+                fullResponse?.purchaseOrderNumber,
+                fullResponse?.purchaseOrderDate
+              )
+            "
+          >
+            <span class="contact-txt">{{
+              'order-tracking.contactUs' | cxTranslate
+            }}</span>
+            <div
+              class="form-control-wrapper current-emai-block"
+              *ngIf="userType === 'anonymous'"
+            >
+              <label>
+                <div class="inquiry-label-txt required">
+                  <span class="star"></span>
+                  {{ 'order-tracking.email' | cxTranslate }}
+                </div>
+                <input
+                  type="email"
+                  class="form-control email"
+                  [ngClass]="
+                    (inquiryFormSubmitted &&
+                      f.inquiryEmail?.errors?.required) ||
+                    f.inquiryEmail?.errors?.pattern
+                      ? 'error'
+                      : ''
+                  "
+                  name="inquiryEmail"
+                  formControlName="inquiryEmail"
+                />
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.inquiryEmail?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'order-tracking.enterEmail' | cxTranslate }}
+                </label>
+                <label *ngIf="f.inquiryEmail?.errors?.pattern" class="error">
+                  {{ 'order-tracking.emailerror' | cxTranslate }}
+                </label>
+              </label>
+            </div>
+            <div class="inquiry-dropdown">
+              <label
+                ><div class="inquiry-label-txt required">
+                  <span class="star"></span
+                  >{{ 'order-tracking.typeOfEnquiry' | cxTranslate }}
+                </div>
+              </label>
+              <div class="dropdown">
+                <ng-select
+                  [ngClass]="
+                    inquiryFormSubmitted && f.orderInquiry?.errors?.required
+                      ? 'error-select'
+                      : ''
+                  "
+                  formControlName="orderInquiry"
+                  id="orderInquiry"
+                  class="inquiry-type"
+                  [searchable]="false"
+                  [clearable]="false"
+                  placeholder="{{ 'order-tracking.select' | cxTranslate }}"
+                >
+                  <ng-option
+                    *ngFor="let orderInq of orderInquiries; let i = index"
+                    [value]="orderInq.code"
+                  >
+                    {{ orderInq.name }}
+                  </ng-option>
+                </ng-select>
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.orderInquiry?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'order-tracking.selectInquiry' | cxTranslate }}
+                </label>
+              </div>
+            </div>
+
+            <div class="form-control-wrapper current-item-block">
+              <label>
+                <div class="inquiry-label-txt required">
+                  <span class="star"></span>
+                  {{ 'order-tracking.description' | cxTranslate }}
+                </div>
+                <textarea
+                  type="text"
+                  class="form-control textareadesc"
+                  [ngClass]="
+                    inquiryFormSubmitted && f.inquiryDesc?.errors?.required
+                      ? 'error'
+                      : ''
+                  "
+                  name="inquiryDesc"
+                  formControlName="inquiryDesc"
+                ></textarea>
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.inquiryDesc?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'order-tracking.enterDescription' | cxTranslate }}
+                </label>
+              </label>
+            </div>
+            <div class="right-sec">
+              <bh-button [type]="'submit'" [label]="'order-tracking.submit' | cxTranslate"></bh-button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="col-lg-12 col-md-12 col-sm-12"
+          *ngIf="!displayFormHideMessage"
+        >
+          <div class="success-txt-message">
+            <em class="material-icons">check_circle</em>
+            <span class="submittal-text">
+              <strong class="part1"
+                >&nbsp;{{ 'order-tracking.success' | cxTranslate }}</strong
+              >&nbsp;
+              <span class="part2">{{
+                'order-tracking.enquirySubmit' | cxTranslate
+              }}</span></span
+            >
+          </div>
+          <bh-button
+            class="another-enquiry-btn"
+            [label]="'order-tracking.sendAnotherQuery' | cxTranslate"
+            (click)="anotherQuery()"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+    <div id="categoryFour" #categoryFour class="tabcontent">
+      <div
+        class="row custom-last-child-margin"
+        *ngIf="displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">{{
+              'order-tracking.share' | cxTranslate
+            }}</span>
+            <span class="backToList" (click)="backLink()">{{
+              'order-tracking.back' | cxTranslate
+            }}</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="icons line-item-title-img custom-margin-right-icon"></em>
+            {{ 'order-tracking.lineItemBtn' | cxTranslate }}
+            <div class="heading-extras row">
+              <span class="info-item cust-info-header"
+                >{{ 'order-tracking.poHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{ fullResponse?.purchaseOrderNumber }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header"
+                >{{ 'order-tracking.poDateHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{
+                    fullResponse?.purchaseOrderDate | date: 'd MMM, y'
+                  }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header">
+                {{ 'order-tracking.orderStatusHeader' | cxTranslate }} :
+                <span
+                  [ngStyle]="{
+                    'background-color': fetchOrderStatusColor(
+                      fullResponse?.orderStatus
+                    ),
+                  }"
+                  class="status-label in-progress"
+                >
+                  {{ fullResponse?.orderStatus }}</span
+                >
+              </span>
+            </div>
+          </div>
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <span
+              class="expand-txt-section"
+              (click)="expandAll = !expandAll"
+              [ngClass]="{ expanded: expandAll }"
+            >
+              <em class="material-icons keyboard-arrow">keyboard_arrow_down</em>
+              <span *ngIf="!expandAll">{{
+                'rma-tracking.expandAllBtn' | cxTranslate
+              }}</span>
+              <span *ngIf="expandAll">{{
+                'rma-tracking.collapseAllBtn' | cxTranslate
+              }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <vs-line-items
+            [expandAll]="expandAll"
+            [orderTrackingResponse]="orderTrackingResponse"
+          ></vs-line-items>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB contents on the right - END-->
+  </div>
+
+  <!-- PAGINATION symbol to load on screen - START -->
+  <ng-template #loading class="spinner-class">
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+  <!-- PAGINATION symbol to load on screen - END -->
+</div>

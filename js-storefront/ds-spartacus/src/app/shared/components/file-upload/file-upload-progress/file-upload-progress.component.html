@@ -1,0 +1,46 @@
+<ng-container>
+  <div *ngIf="layout === this.layouts.BOX">
+    <div
+      class="progress-box"
+      [ngClass]="uploadSuccess == 'FAILURE' ? 'failure' : ''"
+    >
+      <div class="file-added">
+        <span class="file-name">{{ file?.name }}</span>
+        <span class="material-icons" (click)="removeFile()"> close </span>
+      </div>
+      <div class="progress" *ngIf="progressInfo && showProgress">
+        <div class="progress-bar" [style.width]="progressInfo + '%'"></div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="layout === this.layouts.LIST">
+    <div class="progress-list">
+      <span class="material-icons-outlined"> file_copy </span>
+      <div
+        class="progress-content"
+        [ngClass]="uploadSuccess == 'FAILURE' ? 'failure' : ''"
+      >
+        <strong class="file-name">{{ file?.name }}</strong>
+
+        <div class="progress" *ngIf="progressInfo && showProgress">
+          <div class="progress-bar" [style.width]="progressInfo + '%'"></div>
+        </div>
+        <div class="file-detail">{{ getFileSize(file?.size) }}</div>
+      </div>
+
+      <ng-container
+        *ngIf="
+          progressInfo &&
+            showProgress &&
+            (uploadSuccess == 'FAILURE' || uploadSuccess == 'LOADING');
+          else successScope
+        "
+      >
+        <div class="progress-percent">{{ progressInfo }}%</div>
+      </ng-container>
+      <ng-template #successScope>
+        <span class="material-icons" (click)="removeFile()">close</span>
+      </ng-template>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,32 @@
+
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+$jarResourceCms=jar:com.bhge.core.setup.CoreSystemSetup&/bhgecore/import/cockpits/cmscockpit
+$emailResourcePath=$jarResourceCms/structure-view
+$bhgeEmailResourcePath=$jarResourceCms/structure-view/email-templates
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+
+# CMS components and Email velocity templates                                                              
+
+UPDATE RendererTemplate ; code[unique=true]                  ; description[lang=$lang]         ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; bhge_Email_Order_Confirmation_Body ; "Order Confirmation Email Body" ; $emailResource/email-orderConfirmationBody.vm                                                                 
+                        
+INSERT_UPDATE RendererTemplate ; code[unique=true]                ; description[lang=$lang]   ; contextClass                                                    ; rendererType(code)[default='velocity'] ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                               ; bhge_Email_haveaquestion_Body    ; "Have a question Body"    ; com.bhge.core.mailmessages.context.BHGEHaveAQuestionMailContext ;                                        ; $emailResource/email-bhgeHaveAQuestionEmailBody.vm                                                            ;  
+                               ; bhge_Email_haveaquestion_Subject ; "Have a question Subject" ; com.bhge.core.mailmessages.context.BHGEHaveAQuestionMailContext ;                                        ; $emailResource/email-bhgeHaveAQuestionEmailSubject.vm                                                         ;  
+
+INSERT_UPDATE  EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]               ; name                           ; active ; frontendTemplateName   ; subject(code)                    ; htmlTemplate(code)            ; restrictedPageTypes(code)
+                                 ;                         ; bhgeHaveAQuestionEmailTemplate ; Have a question Email Template ; true   ; bhgeHaveAQuestionEmail ; bhge_Email_haveaquestion_Subject ; bhge_Email_haveaquestion_Body ; EmailPage                
+                                 
+                                 
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]       ; name                  ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved'] ; fromEmail                ; fromName    
+                        ;                         ; bhgeHaveAQuestionEmail ; Have a question Email ; bhgeHaveAQuestionEmailTemplate ; true        ;                                          ; no-reply@bakerhughes.com ; Baker Hughes

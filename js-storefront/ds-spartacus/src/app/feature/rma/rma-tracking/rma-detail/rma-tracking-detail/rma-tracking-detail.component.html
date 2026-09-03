@@ -1,0 +1,666 @@
+<ds-recaptcha *ngIf="userType != 'current'"></ds-recaptcha>
+<div class="container order-tracking">
+  <!--   *ngIf="rmaTrackingResponse; else loading" -->
+  <div class="row">
+    <!-- TAB Link on the left - START -->
+    <div class="tab col-lg-3 col-md-3 col-sm-12">
+      <button
+        class="tablinks"
+        id="defaultOpen"
+        #defaultOpen
+        (click)="openTab($event, 'categoryOne', categoryOne)"
+      >
+        <em class="material-icons custom-margin-right-icon">assignment</em>
+        {{ 'rma-tracking.orderSummryBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryTwo', categoryTwo)"
+        *ngIf="userType === 'current'"
+      >
+        <em class="material-icons custom-margin-right-icon">description</em>
+        {{ 'rma-tracking.associateDocBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryThree', categoryThree)"
+        *ngIf="userType === 'current'"
+      >
+        <em class="material-icons custom-margin-right-icon">rate_review</em>
+        {{ 'rma-tracking.orderEnquiryBtn' | cxTranslate }}
+      </button>
+      <button
+        class="tablinks"
+        (click)="openTab($event, 'categoryFour', categoryFour)"
+      >
+        <em class="icons line-item custom-margin-right-icon"></em>
+        <!-- <em class="material-icons custom-margin-right-icon">category</em> -->
+        {{ 'rma-tracking.lineItemBtn' | cxTranslate }} ({{
+          rmaTrackingResponse?.rmaItemStatusDetails.length
+        }})
+      </button>
+    </div>
+    <!-- TAB Link on the left - END -->
+    <!-- TAB contents on the right - START-->
+    <div
+      id="categoryOne"
+      #categoryOne
+      class="tabcontent col-lg-9 col-md-9 col-sm-12"
+    >
+      <div
+        class="row"
+        *ngIf="rmaTrackingResponse && displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">
+              {{ 'rma-tracking.share' | cxTranslate }}</span
+            >
+            <span class="backToList" (click)="backLink()">
+              {{ 'rma-tracking.back' | cxTranslate }}</span
+            >
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="material-icons custom-margin-right-icon">assignment</em>
+            {{ 'rma-tracking.orderSummryBtn' | cxTranslate }}
+            <div class="heading-extras row">
+              <span
+                class="info-item cust-info-header"
+                *ngIf="userType === 'current'"
+                >{{ 'rma-tracking.poHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{ rmaTrackingResponse?.purchaseOrderNumber }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header"
+                >{{ 'rma-tracking.poDateHeader' | cxTranslate }}:
+                <strong
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate == '0000-00-00'"
+                >
+                </strong>
+                <strong
+                  class="cust-info-content"
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate != '0000-00-00'"
+                >
+                  {{
+                    rmaTrackingResponse?.purchaseOrderDate | date: 'd MMM,y'
+                  }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header">
+                {{ 'rma-tracking.orderStatusHeader' | cxTranslate }} :
+                <span
+                  class="status-label in-progress"
+                  [ngStyle]="{
+                    'background-color': fetchOrderStatusColor(
+                      rmaTrackingResponse?.rmaStatus
+                    ),
+                  }"
+                >
+                  {{ rmaTrackingResponse?.rmaStatus }}</span
+                >
+                <div
+                  *ngIf="rmaTrackingResponse?.rmaStatus == 'RMA SUBMITTED'"
+                  class="text-danger"
+                  matTooltipClass="vs-tooltip capitalize"
+                  matTooltip="This RMA has some unusual situation.  We will be in contact with you to help move this ahead."
+                  matTooltipPosition="below"
+                >
+                  <strong>{{ 'rma-tracking.pending' | cxTranslate }}</strong> :
+                  {{ 'rma-tracking.doNotShip' | cxTranslate }}
+                </div>
+              </span>
+              <ng-continer
+                *ngIf="checkRMAProcessingStatus(rmaTrackingResponse?.rmaStatus)"
+              >
+                <div
+                  class="text-danger typography--body-small bh-form-message--error"
+                  matTooltipClass="vs-tooltip capitalize"
+                  matTooltipPosition="below"
+                >
+                  <span class="rma-processing-track-status">
+                    <i class="typography--icon-small bh-form-message__icon"
+                      >error_outline</i
+                    >
+                    <strong
+                      >{{ 'rma-tracking.pending' | cxTranslate }} :
+                      {{
+                        'rma-tracking.awaitingPurchaseOrder' | cxTranslate
+                      }}</strong
+                    >
+                  </span>
+                </div>
+              </ng-continer>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 bottom-space top-space">
+          <vs-status-bubble
+            [statusType]="setBubbleOrderStatus()"
+            [currentStatusIndex]="
+              setBubbleOrderStatusId(rmaTrackingResponse?.rmaStatus)
+            "
+            [isBlocked]="checkWhetherBlocked(rmaTrackingResponse?.rmaStatus)"
+          ></vs-status-bubble>
+        </div>
+
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 blocked-warning-message"
+          *ngIf="checkWhetherBlocked(rmaTrackingResponse?.rmaStatus)"
+        >
+          <em class="material-icons">info</em>
+          <span class="obsolete-text"
+            ><strong class="strong-text-message"
+              >&nbsp;{{ 'rma-tracking.information' | cxTranslate }}</strong
+            >
+            &nbsp;{{ getBlockText(rmaTrackingResponse?.blkText) }}</span
+          >
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 customer-info bottom-space">
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.cstmrAccntHdr' | cxTranslate }} :<br />
+            <strong class="cust-info-content">
+              <span *ngIf="rmaTrackingResponse?.customerAcct">{{
+                rmaTrackingResponse?.customerAcct
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.customerAcct" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.cstmrAccNoHdr' | cxTranslate }} :<br />
+            <strong class="cust-info-content">
+              <span *ngIf="rmaTrackingResponse?.soldToName">{{
+                rmaTrackingResponse?.soldToName
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.soldToName" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.paymentTermHdr' | cxTranslate }} :<br />
+            <strong class="cust-info-content"
+              ><span *ngIf="rmaTrackingResponse?.paymentTerm">{{
+                rmaTrackingResponse?.paymentTerm
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.paymentTerm" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.salesAreaHdr' | cxTranslate }} :<br />
+            <strong class="cust-info-content"
+              ><span *ngIf="rmaTrackingResponse?.salesArea">{{
+                rmaTrackingResponse?.salesArea
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.salesArea" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 customer-info bottom-space">
+          <div class="cust-info-header">
+            {{ 'rma-tracking.infoTermHdr' | cxTranslate }} <br />
+            <strong class="cust-info-content"
+              ><span *ngIf="rmaTrackingResponse?.incoterms">{{
+                rmaTrackingResponse?.incoterms
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.incoterms" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+          <div class="cust-info-header">
+            {{ 'rma-tracking.orderShiptypeHdr' | cxTranslate }} <br />
+            <strong class="cust-info-content"
+              ><span *ngIf="rmaTrackingResponse?.shippingMethod">{{
+                rmaTrackingResponse?.shippingMethod
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.shippingMethod" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+            <!-- rmaTrackingResponse?.shippingMethod -->
+          </div>
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.shippingAddress' | cxTranslate }} <br />
+            <span *ngIf="rmaTrackingResponse?.shippingAddress"
+              ><address>
+                <strong
+                  class="address-content cust-info-content"
+                  [innerHTML]="rmaTrackingResponse?.shippingAddress"
+                ></strong></address
+            ></span>
+            <span *ngIf="!rmaTrackingResponse?.shippingAddress" class="na"
+              >{{ 'rma-tracking.na' | cxTranslate }}
+            </span>
+
+            <!-- rmaTrackingResponse?.shippingMethod -->
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 customer-info bottom-space">
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.netPriceHeader' | cxTranslate }} :
+            <strong class="cust-info-content"
+              ><span *ngIf="rmaTrackingResponse?.netPrice"
+                >{{
+                  rmaTrackingResponse?.netPrice == 0.0
+                    ? ' '
+                    : rmaTrackingResponse?.currency
+                }}{{
+                  rmaTrackingResponse?.netPrice == 0.0
+                    ? '0.0'
+                    : rmaTrackingResponse?.netPrice
+                }}</span
+              >
+              <span *ngIf="!rmaTrackingResponse?.netPrice" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+
+          <div class="cust-info-header" *ngIf="userType === 'current'">
+            {{ 'rma-tracking.createdByHdr' | cxTranslate }} <br />
+            <strong class="cust-info-content">
+              <span *ngIf="rmaTrackingResponse?.rmaCreatedDate">{{
+                rmaTrackingResponse?.rmaCreatedDate
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.rmaCreatedDate" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+          </div>
+          <div class="cust-info-header">
+            {{ 'rma-tracking.repairordernum' | cxTranslate }} :<br />
+            <strong class="cust-info-content">
+              <span *ngIf="rmaTrackingResponse?.salesOrderNumber">{{
+                rmaTrackingResponse?.salesOrderNumber
+              }}</span>
+              <span *ngIf="!rmaTrackingResponse?.salesOrderNumber" class="na"
+                >{{ 'rma-tracking.na' | cxTranslate }}
+              </span></strong
+            >
+            <!-- rmaTrackingResponse?.shippingMethod -->
+          </div>
+        </div>
+        <div class="row custom-last-child-margin" *ngIf="displayContentsOnLoad">
+          <div class="col-md-12">
+            <div class="tabcontent-display-line-section-heading">
+              {{ 'rma-tracking.lineItemBtn' | cxTranslate }}
+              <span class="reOrderGroup">
+                <span>
+                  <bh-button
+                    class="reOrderBtn"
+                    fluid
+                    [type]="'primary'"
+                    label="{{ 'rma-tracking.reOrderEntireRMA' | cxTranslate }}"
+                    (click)="selectRepeatRma(rmaTrackingResponse)"
+                    *ngIf="
+                      this.rmaTrackingResponse?.rmaStatus == 'COMPLETE' &&
+                      userType === 'current'
+                    "
+                  ></bh-button>
+                </span>
+                <span
+                  class="expand-txt"
+                  (click)="expandAll = !expandAll"
+                  [ngClass]="{ expanded: expandAll }"
+                >
+                  <em class="material-icons keyboard-arrow"
+                    >keyboard_arrow_down</em
+                  >
+                  <span *ngIf="!expandAll">{{
+                    'rma-tracking.expandAllBtn' | cxTranslate
+                  }}</span>
+                  <span *ngIf="expandAll">{{
+                    'rma-tracking.collapseAllBtn' | cxTranslate
+                  }}</span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <vs-line-items
+              [expandAll]="expandAll"
+              [rmaTrackingResponse]="rmaTrackingResponse?.rmaItemStatusDetails"
+            ></vs-line-items>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="categoryTwo" #categoryTwo class="tabcontent">
+      <div *ngIf="displayContentsOnLoad; else loading">
+        <vs-associated-documents
+          [orderNo]="orderIdToBeTracked"
+          [rmaTrackingResponse]="rmaTrackingResponse"
+        ></vs-associated-documents>
+      </div>
+    </div>
+    <div id="categoryThree" #categoryThree class="tabcontent pageBtnMargin">
+      <div
+        class="row custom-last-child-margin"
+        *ngIf="displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">
+              {{ 'rma-tracking.share' | cxTranslate }}</span
+            >
+            <span class="backToList" (click)="backLink()">
+              {{ 'rma-tracking.back' | cxTranslate }}</span
+            >
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <h5
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="material-icons custom-margin-right-icon">rate_review</em>
+            {{ 'rma-tracking.orderEnquiryBtn' | cxTranslate }}
+            <div class="heading-extras row">
+              <span class="info-item cust-info-header"
+                >{{ 'rma-tracking.poHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{ rmaTrackingResponse?.purchaseOrderNumber }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header"
+                >{{ 'rma-tracking.poDateHeader' | cxTranslate }}:
+                <strong
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate == '0000-00-00'"
+                >
+                </strong>
+                <strong
+                  class="cust-info-content"
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate != '0000-00-00'"
+                >
+                  {{
+                    rmaTrackingResponse?.purchaseOrderDate | date: 'd MMM,y'
+                  }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header">
+                {{ 'rma-tracking.orderStatusHeader' | cxTranslate }} :
+                <span
+                  class="status-label in-progress"
+                  [ngStyle]="{
+                    'background-color': fetchOrderStatusColor(
+                      rmaTrackingResponse?.rmaStatus
+                    ),
+                  }"
+                >
+                  {{ rmaTrackingResponse?.rmaStatus }}</span
+                >
+              </span>
+            </div>
+          </h5>
+        </div>
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 margintop"
+          *ngIf="displayFormHideMessage"
+        >
+          <form
+            [formGroup]="inquiryForm"
+            (submit)="
+              submitInquiry(
+                rmaTrackingResponse?.customerPO,
+                rmaTrackingResponse?.purchaseOrderDate
+              )
+            "
+          >
+            <span class="contact-txt">{{
+              'rma-tracking.contactUs' | cxTranslate
+            }}</span>
+            <div
+              class="form-control-wrapper current-emai-block"
+              *ngIf="userType === 'anonymous'"
+            >
+              <label>
+                <div class="inquiry-label-txt required">
+                  <span class="star"></span>
+                  {{ 'rma-tracking.email' | cxTranslate }}
+                </div>
+                <input
+                  type="email"
+                  class="form-control email"
+                  [ngClass]="
+                    (inquiryFormSubmitted &&
+                      f.inquiryEmail?.errors?.required) ||
+                    f.inquiryEmail?.errors?.pattern
+                      ? 'error'
+                      : ''
+                  "
+                  name="inquiryEmail"
+                  formControlName="inquiryEmail"
+                />
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.inquiryEmail?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'rma-tracking.enterEmail' | cxTranslate }}
+                </label>
+                <label *ngIf="f.inquiryEmail?.errors?.pattern" class="error">
+                  {{ 'rma-tracking.emailError' | cxTranslate }}
+                </label>
+              </label>
+            </div>
+            <div class="inquiry-dropdown">
+              <label
+                ><div class="inquiry-label-txt required">
+                  <span class="star"></span
+                  >{{ 'rma-tracking.typeOfEnquiry' | cxTranslate }}
+                </div>
+              </label>
+              <div class="dropdown">
+                <ng-select
+                  [ngClass]="
+                    inquiryFormSubmitted && f.orderInquiry?.errors?.required
+                      ? 'error-select'
+                      : ''
+                  "
+                  formControlName="orderInquiry"
+                  id="orderInquiry"
+                  class="inquiry-type"
+                  [searchable]="false"
+                  [clearable]="false"
+                  placeholder=" {{ 'rma-tracking.select' | cxTranslate }}"
+                >
+                  <ng-option
+                    *ngFor="let orderInq of orderInquiries; let i = index"
+                    [value]="orderInq.code"
+                  >
+                    {{ orderInq.name }}
+                  </ng-option>
+                </ng-select>
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.orderInquiry?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'rma-tracking.selectInquiry' | cxTranslate }}
+                </label>
+              </div>
+            </div>
+
+            <div class="form-control-wrapper current-item-block">
+              <label>
+                <div class="inquiry-label-txt required">
+                  <span class="star"></span>
+                  {{ 'rma-tracking.description' | cxTranslate }}
+                </div>
+                <textarea
+                  type="text"
+                  class="form-control textareadesc"
+                  [ngClass]="
+                    inquiryFormSubmitted && f.inquiryDesc?.errors?.required
+                      ? 'error'
+                      : ''
+                  "
+                  name="inquiryDesc"
+                  formControlName="inquiryDesc"
+                ></textarea>
+                <label
+                  *ngIf="
+                    inquiryFormSubmitted && f.inquiryDesc?.errors?.required
+                  "
+                  class="error"
+                >
+                  {{ 'rma-tracking.enterDescription' | cxTranslate }}
+                </label>
+              </label>
+            </div>
+            <div class="right-sec">
+              <!-- <button type="submit" class="btn vs-primary-btn submit-btn">
+                {{ 'rma-tracking.submitBtn' | cxTranslate }}
+              </button> -->
+              <bh-button
+                [type]="'submit'"
+                [label]="'rma-tracking.submit' | cxTranslate"
+              ></bh-button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="col-lg-12 col-md-12 col-sm-12"
+          *ngIf="!displayFormHideMessage"
+        >
+          <div class="success-txt-message">
+            <em class="material-icons">check_circle</em>
+            <span class="submittal-text">
+              <strong class="part1"
+                >&nbsp;{{ 'rma-tracking.success' | cxTranslate }}</strong
+              >&nbsp;
+              <span class="part2">{{
+                'rma-tracking.enquirySubmit' | cxTranslate
+              }}</span></span
+            >
+          </div>
+          <bh-button
+            class="another-enquiry-btn"
+            [label]="'rma-tracking.sendAnotherQuery' | cxTranslate"
+            (click)="anotherQuery()"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+    <div id="categoryFour" #categoryFour class="tabcontent">
+      <div
+        class="row custom-last-child-margin"
+        *ngIf="displayContentsOnLoad; else loading"
+      >
+        <div class="share-detail">
+          <div class="right">
+            <span class="shareDetail" (click)="shareDetail()">{{
+              'rma-tracking.share' | cxTranslate
+            }}</span>
+            <span class="backToList" (click)="backLink()">{{
+              'rma-tracking.back' | cxTranslate
+            }}</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <em class="icons line-item-title-img custom-margin-right-icon"></em>
+            {{ 'rma-tracking.lineItemBtn' | cxTranslate }}
+            <div class="heading-extras row">
+              <span class="info-item cust-info-header"
+                >{{ 'rma-tracking.poHeader' | cxTranslate }}:<strong
+                  class="cust-info-content"
+                >
+                  {{ rmaTrackingResponse?.purchaseOrderNumber }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header"
+                >{{ 'rma-tracking.poDateHeader' | cxTranslate }}:
+                <strong
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate == '0000-00-00'"
+                >
+                </strong>
+                <strong
+                  class="cust-info-content"
+                  *ngIf="rmaTrackingResponse?.purchaseOrderDate != '0000-00-00'"
+                >
+                  {{
+                    rmaTrackingResponse?.purchaseOrderDate | date: 'd MMM,y'
+                  }}</strong
+                >
+              </span>
+              <span class="info-item cust-info-header">
+                {{ 'rma-tracking.orderStatusHeader' | cxTranslate }} :
+                <span
+                  class="status-label in-progress"
+                  [ngStyle]="{
+                    'background-color': fetchOrderStatusColor(
+                      rmaTrackingResponse?.rmaStatus
+                    ),
+                  }"
+                >
+                  {{ rmaTrackingResponse?.rmaStatus }}</span
+                >
+                <div
+                  *ngIf="rmaTrackingResponse?.rmaStatus == 'RMA SUBMITTED'"
+                  class="text-danger"
+                  matTooltipClass="vs-tooltip capitalize"
+                  matTooltip="This RMA has some unusual situation.  We will be in contact with you to help move this ahead."
+                  matTooltipPosition="below"
+                >
+                  <strong>{{ 'rma-tracking.pending' | cxTranslate }}</strong> :
+                  {{ 'rma-tracking.doNotShip' | cxTranslate }}
+                </div>
+              </span>
+            </div>
+          </div>
+          <div
+            class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+          >
+            <span
+              class="expand-txt-section"
+              (click)="expandAll = !expandAll"
+              [ngClass]="{ expanded: expandAll }"
+            >
+              <em class="material-icons keyboard-arrow">keyboard_arrow_down</em>
+              <span *ngIf="!expandAll">{{
+                'rma-tracking.expandAllBtn' | cxTranslate
+              }}</span>
+              <span *ngIf="expandAll">{{
+                'rma-tracking.collapseAllBtn' | cxTranslate
+              }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <vs-line-items
+            [expandAll]="expandAll"
+            [rmaTrackingResponse]="rmaTrackingResponse?.rmaItemStatusDetails"
+          ></vs-line-items>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB contents on the right - END-->
+  </div>
+
+  <!-- PAGINATION symbol to load on screen - START -->
+  <ng-template #loading class="spinner-class">
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+  <!-- PAGINATION symbol to load on screen - END -->
+</div>

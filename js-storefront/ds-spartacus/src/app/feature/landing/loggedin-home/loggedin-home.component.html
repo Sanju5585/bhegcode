@@ -1,0 +1,67 @@
+<ng-container *ngIf="currentUserAccess$ | async as userType">
+  <div
+    *ngIf="
+      userType.indexOf(userRoleEnum.ADMIN) == -1 &&
+        userType.indexOf(userRoleEnum.VIEW_ONLY) == -1 &&
+        (userType.indexOf(userRoleEnum.RMA) > -1 ||
+          userType.indexOf(userRoleEnum.ORDER_TRACK) > -1);
+      else nonOrderTrackingDashboard
+    "
+    class="order-track-dashboard row m-0"
+  >
+    <div class="col-md-6 column-left">
+      <div class="col-md-12 pr-0">
+        <div class="sub-card">
+          <app-order-rma-status></app-order-rma-status>
+        </div>
+        <div class="sub-card" *ngIf="isNewCalibration">
+          <app-create-new-rma></app-create-new-rma>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 column-right">
+      <div class="col-md-12 pl-0">
+        <div class="sub-card">
+          <app-order-and-return></app-order-and-return>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #nonOrderTrackingDashboard>
+  <div class="logggedin-home">
+    <div class="row login-home h-100">
+      <div class="col-md-6">
+        <div class="sub-card">
+          <app-create-new-order></app-create-new-order>
+        </div>
+        <div class="sub-card">
+          <app-price-availability-check></app-price-availability-check>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="sub-card">
+          <app-order-rma-status></app-order-rma-status>
+        </div>
+        <div class="sub-card" *ngIf="isNewCalibration">
+          <app-create-new-rma></app-create-new-rma>
+        </div>
+      </div>
+    </div>
+    <div class="row h-100">
+      <div class="col-md-6">
+        <div class="sub-card">
+          <app-order-and-return></app-order-and-return>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="sub-card"><app-my-cart></app-my-cart></div>
+      </div>
+    </div>
+
+    <div *ngIf="false">
+      <app-part-with-error></app-part-with-error>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,577 @@
+<ng-container *ngIf="showWaygate; else oldStore">
+  <app-waygate-nav-bar [class.show-home]="showWaygate"></app-waygate-nav-bar>
+</ng-container>
+
+<ng-template #oldStore>
+  <ng-container *ngIf="user$ | async; else guestMenuLinks">
+    <nav class="navigation-menu">
+      <ul class="menu left-menu">
+        <li [class.active]="navSelected == navItems.HOME">
+          <ng-container *ngIf="showWaygate; else notWaygate">
+            <a (click)="activeTabs(navItems.HOME)" routerLink="/waygate">{{
+              'navigation-menu.home' | cxTranslate
+            }}</a>
+          </ng-container>
+          <ng-template #notWaygate>
+            <a (click)="activeTabs(navItems.HOME)" routerLink="/">{{
+              'navigation-menu.home' | cxTranslate
+            }}</a>
+          </ng-template>
+        </li>
+        <li
+          #productCategoryLink
+          [class.active]="navSelected == navItems.PRODUCTS"
+        >
+          <a
+            type="button"
+            (click)="toggleProdCat(); activeTabs(navItems.PRODUCTS)"
+            >{{ 'navigation-menu.products' | cxTranslate }}
+            <span
+              *ngIf="showProdCat"
+              class="material-icons down-arrow"
+              (click)="toggleProdCat()"
+            >
+              keyboard_arrow_up
+            </span>
+            <span
+              *ngIf="!showProdCat"
+              class="material-icons up-arrow"
+              (click)="toggleProdCat()"
+            >
+              keyboard_arrow_down
+            </span></a
+          >
+        </li>
+        <ds-category-menu
+          *ngIf="showProdCat"
+          [clickSourceId]="productCategoryLink"
+          (clickOutside)="toggleProdCat()"
+          (toggleCategoryMenu)="toggleProdCat()"
+        ></ds-category-menu>
+        <li [class.active]="navSelected == navItems.MY_ORDERS">
+          <a routerLink="/my-orders" (click)="activeTabs(navItems.MY_ORDERS)">{{
+            'navigation-menu.myOrders' | cxTranslate
+          }}</a>
+        </li>
+        <li [class.active]="navSelected == navItems.MY_RETURNS">
+          <a
+            routerLink="/rma-tracking"
+            (click)="activeTabs(navItems.MY_RETURNS)"
+            >{{ 'navigation-menu.myReturns' | cxTranslate }}</a
+          >
+        </li>
+        <li
+          #equipmentMenuLink
+          [class.active]="navSelected == navItems.MY_EQUIPMENT_DATA"
+        >
+          <a
+            class="linkSubmenu"
+            type="button"
+            (click)="toggleEqMenu(); activeTabs(navItems.MY_EQUIPMENT_DATA)"
+            >{{ 'navigation-menu.myEquipment' | cxTranslate }}
+          </a>
+
+          <div
+            [clickSourceId]="equipmentMenuLink"
+            (clickOutside)="toggleEqMenu()"
+            *ngIf="showEqMenu"
+            class="my-equipments-menu"
+          >
+            <ul class="eq-sub-menu cursor-pointer">
+              <li (click)="toggleEqMenu()" routerLink="/my-equipments">
+                <a type="button">{{
+                  'navigation-menu.mySavedEquipment' | cxTranslate
+                }}</a>
+              </li>
+              <li
+                (click)="toggleEqMenu()"
+                routerLink="/add-equipment-to-watchlist"
+              >
+                <a type="button">{{
+                  'navigation-menu.addNewEquipment' | cxTranslate
+                }}</a>
+              </li>
+              <li (click)="toggleEqMenu()" routerLink="calibration-data">
+                <a type="button">{{
+                  'navigation-menu.viewCalibrationData' | cxTranslate
+                }}</a>
+              </li>
+
+              <!-- <li *ngIf="showCustomerFiles" (click)="toggleEqMenu()" routerLink="/search-private-folder">
+              <a type="button">{{'navigation-menu.customerFile' | cxTranslate }}</a>
+              <span class="new-text">{{
+                'navigation-menu.new' | cxTranslate
+                }}</span>
+            </li> -->
+              <li *ngIf="showCustomerFiles" (click)="redirectToBynder()">
+                <a type="button">{{
+                  'navigation-menu.customerFile' | cxTranslate
+                }}</a>
+                <span class="new-text">{{
+                  'navigation-menu.new' | cxTranslate
+                }}</span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li [class.active]="navSelected == navItems.OTHER_PORTALS_LINKS">
+          <a
+            routerLink="/list-of-portals"
+            (click)="activeTabs(navItems.OTHER_PORTALS_LINKS)"
+            >{{ 'navigation-menu.link' | cxTranslate }}
+            <!-- <span class="new-text">{{
+            'navigation-menu.new' | cxTranslate
+            }}</span> -->
+          </a>
+        </li>
+        <li
+          #productListTempRef
+          *ngIf="availableProductLines && availableProductLines.length > 1"
+        >
+          <a routerLink="/choose-brand">
+            <span class="link-anchor">{{
+              'waygate.brandsHeader' | cxTranslate
+            }}</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="menu right-menu link-anchor" #notificationMenuLink>
+        <li class="waygate-redirection" *ngIf="showWaygate">
+          <a routerLink="/waygate">
+            {{ 'navigation-menu.tryNewWaygatePage' | cxTranslate }}
+            <span class="material-icons">north_east</span>
+          </a>
+        </li>
+        <li *ngIf="showWaygate">
+          <div class="divider nav-content link-anchor">|</div>
+        </li>
+        <li class="mr-2" #notificationMenuLink>
+          <span class="notification-link" (click)="toggleNotification()">
+            <span class="material-icons notification-icon link-anchor"
+              >notifications</span
+            >
+            <span class="link-anchor">{{
+              'navigation-menu.notificationMenu' | cxTranslate
+            }}</span>
+            <span class="notification-badge">{{ getNotificationCount }}</span>
+            <app-notification-dropdown
+              [clickSourceId]="notificationMenuLink"
+              (clickOutside)="toggleNotification()"
+              *ngIf="notificationOpened"
+              [notificationsResponse]="notificationsResponse"
+            ></app-notification-dropdown>
+          </span>
+        </li>
+        <li>
+          <div class="divider nav-content link-anchor">|</div>
+        </li>
+        <li class="lang-dd-menu">
+          <bh-dropdown
+            (click)="languagedropdown()"
+            class="langDD nav-content link-anchor"
+            isFluid="true"
+            isSmall="true"
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="props"
+            [value]="currentLanguage"
+            (selected)="onLanguageChange($event)"
+          ></bh-dropdown>
+          <span class="material-icons lang-icon nav-content link-anchor"
+            >language</span
+          >
+        </li>
+        <li>
+          <div class="divider nav-content link-anchor">|</div>
+        </li>
+        <li class="help-li" #helpMenuLink>
+          <div class="help-menu link-anchor">
+            <span class="help" (click)="togglehelp()">{{
+              'navigation-menu.help' | cxTranslate
+            }}</span>
+            <span class="material-icons help-down-arrow" (click)="togglehelp()">
+              keyboard_arrow_down
+            </span>
+            <div
+              class="help-menu-content"
+              [clickSourceId]="helpMenuLink"
+              *ngIf="helpOpened"
+              (clickOutside)="togglehelp()"
+            >
+              <p>
+                <a routerLink="/contactus" (click)="togglehelp()">
+                  {{ 'navigation-menu.contactUs' | cxTranslate }}
+                </a>
+              </p>
+              <p>
+                <a routerLink="/list-of-portals" (click)="togglehelp()"
+                  >{{ 'navigation-menu.link' | cxTranslate }}
+                </a>
+              </p>
+              <!-- <p>
+                <bh-a
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  type="primary"
+                  (click)="togglehelp()"
+                  routerLink="/feedback"
+                  text="{{ 'navigation-menu.provideFeedback' | cxTranslate }}"
+                >
+                </bh-a>
+              </p> -->
+              <p>
+                <a (click)="togglehelp()" routerLink="/training-docs">
+                  {{ 'navigation-menu.trainingDocs' | cxTranslate }}
+                </a>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </ng-container>
+  
+  <ng-template #guestMenuLinks>
+    <nav class="navigation-menu no-display">
+      <ul class="menu left-menu">
+        <li [class.active]="navSelected == navItems.HOME">
+          <a routerLink="/" (click)="activeTabs(navItems.HOME)">{{
+            'navigation-menu.home' | cxTranslate
+          }}</a>
+        </li>
+        <li
+          #guestProductCategoryLink
+          [class.active]="navSelected == navItems.PRODUCTS"
+        >
+          <a
+            type="button"
+            (click)="toggleProdCat(); activeTabs(navItems.PRODUCTS)"
+            >{{ 'navigation-menu.products' | cxTranslate }}
+            <span
+              *ngIf="showProdCat"
+              class="material-icons down-arrow"
+              (click)="toggleProdCat()"
+            >
+              keyboard_arrow_up
+            </span>
+            <span
+              *ngIf="!showProdCat"
+              class="material-icons up-arrow"
+              (click)="toggleProdCat()"
+            >
+              keyboard_arrow_down
+            </span></a
+          >
+        </li>
+        <ds-category-menu
+          *ngIf="showProdCat"
+          [clickSourceId]="guestProductCategoryLink"
+          (clickOutside)="toggleProdCat()"
+          [legalEntities]="this.legalEntities"
+          (toggleCategoryMenu)="toggleProdCat()"
+        ></ds-category-menu>
+        <li [class.active]="navSelected == navItems.STATUS_TRACKER">
+          <a
+            routerLink="/quick-status"
+            (click)="activeTabs(navItems.STATUS_TRACKER)"
+            >{{ 'navigation-menu.trackStatus' | cxTranslate }}</a
+          >
+        </li>
+        <li [class.active]="navSelected == navItems.RETURN_PROCESS">
+          <a
+            class=""
+            href="/assets/pdf/BH_RMA_Process_Latest.pdf"
+            (click)="activeTabs(navItems.RETURN_PROCESS)"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ 'navigation-menu.returnProcess' | cxTranslate }}
+          </a>
+        </li>
+        <li [class.active]="navSelected == navItems.CALIBRATION_DATA">
+          <a
+            routerLink="/calibration-data"
+            (click)="activeTabs(navItems.CALIBRATION_DATA)"
+            >{{ 'navigation-menu.calibrationData' | cxTranslate }}
+          </a>
+        </li>
+        <li [class.active]="navSelected == navItems.OTHER_PORTALS_LINKS">
+          <a
+            routerLink="/list-of-portals"
+            (click)="activeTabs(navItems.OTHER_PORTALS_LINKS)"
+            >{{ 'navigation-menu.link' | cxTranslate }}
+            <!-- <span class="new-text">{{
+            'navigation-menu.new' | cxTranslate
+            }}</span> -->
+          </a>
+        </li>
+        <li></li>
+      </ul>
+      <ul class="menu right-menu">
+        <li class="lang-dd-menu">
+          <bh-dropdown
+            class="langDD nav-content link-anchor"
+            isFluid="true"
+            isSmall="true"
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="props"
+            [value]="currentLanguage"
+            (selected)="onLanguageChange($event)"
+          >
+          </bh-dropdown>
+          <span class="material-icons lang-icon nav-content link-anchor"
+            >language</span
+          >
+        </li>
+        <li>
+          <div class="divider nav-content link-anchor">|</div>
+        </li>
+        <li class="help-li" #helpMenuLink>
+          <div class="help-menu link-anchor">
+            <span class="help" (click)="togglehelp()">{{
+              'navigation-menu.help' | cxTranslate
+            }}</span>
+            <span class="material-icons help-down-arrow" (click)="togglehelp()">
+              keyboard_arrow_down
+            </span>
+            <div
+              class="help-menu-content"
+              [clickSourceId]="helpMenuLink"
+              *ngIf="helpOpened"
+              (clickOutside)="togglehelp()"
+            >
+              <p>
+                <a routerLink="/contactus">
+                  {{ 'navigation-menu.contactUs' | cxTranslate }}</a
+                >
+              </p>
+              <p>
+                <a routerLink="/list-of-portals">
+                  {{ 'navigation-menu.link' | cxTranslate }}</a
+                >
+              </p>
+              <!-- <p>
+                <bh-a
+                  type="primary"
+                  (click)="togglehelp()"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  routerLink="/feedback"
+                  text="{{ 'navigation-menu.provideFeedback' | cxTranslate }}"
+                ></bh-a>
+              </p> -->
+              <!-- <p>
+                <bh-a                            (DE155416 - hide training document link for guest users)
+                  type="primary"
+                  (click)="togglehelp()"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  routerLink="/training-docs"
+                  text="{{ 'navigation-menu.trainingDocs' | cxTranslate }}"
+                ></bh-a>
+              </p> -->
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="cat-flyout-menu" *ngIf="guestCustomerAcc && navbarAllBrands">
+      <div class="brand-category-holder d-none">
+        <ng-container>
+          <ul class="brand-category">
+            <li
+              class="brand-cat"
+              [ngClass]="{ 'active-link': selectedItem == 'waygate' }"
+            >
+              <div
+                (mouseover)="waygateText = true"
+                (mouseleave)="waygateText = false"
+              >
+                <img
+                  class="waygateOnHover"
+                  src="/assets/img/waygateOnClick.png"
+                />
+                <span routerLink="/Waygate" class="pl-2">{{
+                  'navigation-menu.waygateTechnologies' | cxTranslate
+                }}</span>
+                <span *ngIf="waygateText">
+                  <ul class="company-info">
+                    <li class="info-text">
+                      {{ 'navigation-menu.waygateDescription1' | cxTranslate }}
+                    </li>
+                    <li class="info-text-two">
+                      {{ 'navigation-menu.waygateDescription2' | cxTranslate }}
+                    </li>
+                    <li class="browse-products">
+                      <a
+                        class="other-companies"
+                        href="https://www.bakerhughesds.com/waygate-technologies"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{ 'navigation-menu.browseWaygate' | cxTranslate }}</a
+                      >
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </li>
+            <li
+              class="brand-cat"
+              [ngClass]="{ 'active-link': selectedItem == 'panametrics' }"
+            >
+              <div
+                (mouseover)="panametricsText = true"
+                (mouseleave)="panametricsText = false"
+              >
+                <div style="display: none">
+                  <img src="/assets/img/panametricsOnHover.png" />
+                </div>
+                <img
+                  class="panametricsOnHover"
+                  src="/assets/img/panametricsLogo.png"
+                />
+                <!-- (click)="onUpdateBtnClick('1830_GE_GE','panametrics')" -->
+                <span
+                  (click)="onUpdateBtnClick('1830_GE_GE', 'panametrics')"
+                  class="pl-2"
+                  >{{ 'navigation-menu.panametrics' | cxTranslate }}</span
+                >
+                <span *ngIf="panametricsText">
+                  <ul class="company-info">
+                    <li class="info-text">
+                      {{
+                        'navigation-menu.panametricDescription1' | cxTranslate
+                      }}
+                    </li>
+                    <li class="info-text-two">
+                      {{
+                        'navigation-menu.panametricDescription2' | cxTranslate
+                      }}
+                    </li>
+                    <li class="browse-products">
+                      <a
+                        class="other-companies"
+                        href="https://www.bakerhughesds.com/panametrics"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{
+                          'navigation-menu.browsePanametrics' | cxTranslate
+                        }}</a
+                      >
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </li>
+            <li
+              class="brand-cat"
+              [ngClass]="{ 'active-link': selectedItem == bently }"
+            >
+              <div
+                (mouseover)="bentlyText = true"
+                (mouseleave)="bentlyText = false"
+              >
+                <div style="display: none">
+                  <img src="/assets/img/bentlyOnHover.png" />
+                </div>
+                <img class="bentlyOnHover" src="/assets/img/bentlyNeveda.png" />
+                <span class="pl-2">{{
+                  'navigation-menu.bentlyNevada' | cxTranslate
+                }}</span>
+                <span *ngIf="bentlyText">
+                  <ul class="company-info">
+                    <li class="info-text">
+                      {{ 'navigation-menu.bentlyDescription1' | cxTranslate }}
+                    </li>
+                    <li class="info-text-two">
+                      {{ 'navigation-menu.bentlyDescription2' | cxTranslate }}
+                    </li>
+                    <li class="browse-products">
+                      <a
+                        class="other-companies"
+                        href="https://www.bakerhughesds.com/bently-nevada"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{ 'navigation-menu.browseNevada' | cxTranslate }}</a
+                      >
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </li>
+            <li class="brand-cat-other">
+              <div
+                (mouseover)="druckText = true"
+                (mouseleave)="druckText = false"
+              >
+                <div style="display: none">
+                  <img src="/assets/img/druckOnHover.png" />
+                </div>
+                <img class="druckOnHover" src="/assets/img/druckLogo.png" />
+                <span class="pl-2">{{
+                  'navigation-menu.druck' | cxTranslate
+                }}</span>
+                <span *ngIf="druckText">
+                  <ul class="company-info-druck">
+                    <li class="info-text">
+                      {{ 'navigation-menu.druckDescription1' | cxTranslate }}
+                    </li>
+                    <li class="info-text-two">
+                      {{ 'navigation-menu.druckDescription2' | cxTranslate }}
+                    </li>
+                    <li class="browse-products">
+                      <a
+                        class="other-companies"
+                        href="https://www.bakerhughesds.com/druck-pressure-measurement"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{ 'navigation-menu.browseDruck' | cxTranslate }}</a
+                      >
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </li>
+            <li class="brand-cat-other">
+              <div
+                (mouseover)="reuterStokesText = true"
+                (mouseleave)="reuterStokesText = false"
+              >
+                <div style="display: none">
+                  <img src="/assets/img/reuterStokesOnHover.png" />
+                </div>
+                <img class="reuterOnHover" src="/assets/img/reuterStokes.png" />
+                <span class="pl-2">{{
+                  'navigation-menu.reuterStokes' | cxTranslate
+                }}</span>
+                <span *ngIf="reuterStokesText">
+                  <ul class="company-info-reuter">
+                    <li class="info-text">
+                      {{ 'navigation-menu.ReuterDescription1' | cxTranslate }}
+                    </li>
+                    <li class="info-text-two">
+                      {{ 'navigation-menu.ReuterDescription2' | cxTranslate }}
+                    </li>
+                    <li class="browse-products">
+                      <a
+                        class="other-companies"
+                        href="https://www.bakerhughes.com/reuter-stokes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{
+                          'navigation-menu.browseReuterStokes' | cxTranslate
+                        }}</a
+                      >
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </nav>
+  </ng-template>
+</ng-template>

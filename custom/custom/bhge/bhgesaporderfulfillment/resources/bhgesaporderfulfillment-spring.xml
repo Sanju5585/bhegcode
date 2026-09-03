@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<alias name="defaultSapOrderProcessDefinitionResource" alias="sapOrderProcessDefinitionResource" />
+	<bean id="defaultSapOrderProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/bhgesaporderfulfillment/process/sap-order-process.xml" />
+	</bean>
+
+	<bean id="sapOrderexchangeRepairCronJob" class="com.bhge.sap.orderfulfilment.jobs.OrderExchangeRepairJob" parent="abstractJobPerformable">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="orderExchangeRepair" ref="sapOrderexchangeOrderExchangeRepair" />
+	</bean>
+
+
+	<bean id="sapOrderexchangeCancelRepairCronJob" class="com.bhge.sap.orderfulfilment.jobs.OrderCancelRepairJob"
+		parent="abstractJobPerformable">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="orderExchangeRepair" ref="sapOrderexchangeOrderExchangeRepair" />
+		<property name="sapOrderCancelService" ref="sapOrderexchangeOrderCancelService" />
+	</bean>
+
+	<import resource="/bhgesaporderfulfillment/process/order-process-spring.xml" />
+	
+	<alias name="bhgeSapCpiOmmOrderConversionService" alias="sapCpiOrderConversionService"/>
+    <bean id="bhgeSapCpiOmmOrderConversionService"  parent="sapCpiOmmOrderConversionService"
+         class="com.bhge.sap.orderfulfilment.sapcpiorderexchange.service.impl.BHGEVCSapCpiOmmOrderConversionService">
+    </bean>
+    
+    <!-- <alias name="bhgeSapCpiOmmOrderMapperService" alias="sapCpiOrderMapperService"/>
+    <bean id="bhgeSapCpiOmmOrderMapperService" parent="defaultSapCpiOrderMapperService"
+     class="com.bhge.sap.orderfulfilment.sapcpiorderexchange.service.impl.BHGEVCSapCpiOmmOrderMapperService">
+      	
+    </bean> -->
+    
+    <alias name="bhgeVCSapCpiOmmOrderMapperService" alias="bhgeVCSapCpiOmmOrderMapperService"/>
+    <bean id="bhgeVCSapCpiOmmOrderMapperService"
+          class="com.bhge.sap.orderfulfilment.sapcpiorderexchange.service.impl.BHGEVCSapCpiOmmOrderMapperService"
+          parent="sapCpiOmmOrderMapperService">
+       
+    </bean>
+	
+	<!-- Add BHGE OMM Order Mapper -->
+    <bean id="bhgeVCsapCpiOmmOrderMapper" depends-on="sapCpiOrderMappers" parent="listMergeDirective">
+        <property name="add" ref="bhgeVCSapCpiOmmOrderMapperService" />
+    </bean>
+    
+    <alias name="bhgeVCCPSConfigurationOrderEntryMapper" alias="sapProductConfigOrderEntryMapperCPS" />
+	<bean id="bhgeVCCPSConfigurationOrderEntryMapper"
+		class="com.bhge.sap.orderfulfilment.sapcpiorderexchange.service.impl.BHGEVCCPSConfigurationOrderEntryMapperImpl" parent="sapProductConfigDefaultOrderEntryMapperCPS">
+	</bean>
+
+</beans>

@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "Carrito de cotizaciones para invitados",
+    "checkoutBtn": "PASAR POR LA CAJA",
+    "delete": "eliminar",
+    "comments": "Comentarios",
+    "quantity": "Cantidad",
+    "each": "Cada Uno",
+    "saving": "Ahorro...",
+    "commentscart": "Comentarios no guardados, haga clic en el icono de guardar para guardar sus comentarios",
+    "commenterror": "Agregue algunos comentarios antes de guardar",
+    "characterlefft": "Caracteres que quedan:",
+    "item": "Articulo",
+    "cartEmpty": "Tu carrito esta vacío",
+    "noItemIncart": "No tienes ningún artículo en tu carrito.",
+    "explore": "Explorar ",
+    "ourCatalogue": "Nuestro Catalogo ",
+    "toAdditems": "para agregar elementos",
+    "error": {
+      "removeMsg": "Los elementos seleccionados se han eliminado correctamente",
+      "errorMessage": "Se produjo un error. Vuelve a intentarlo más tarde."
+    }
+  }
+}

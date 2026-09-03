@@ -1,0 +1,92 @@
+<ng-container>
+    <div class="waygate-product-list-card">
+        <div class="waygate-product-image">
+            <div class="cx-image-container">
+                <cx-media class="waygate-product-image" [container]="accessory?.product?.images"></cx-media>
+            </div>
+        </div>
+        <div class="waygate-product-content">
+            <div class="product-text mb-3" *ngIf=" accessory.partName">
+                <div class="product-lead-time">{{
+                    accessory.partName
+                    }}</div>
+                <label>
+                    {{ accessory.partNumber  }}
+                </label>
+            </div>
+
+            <div class="product-price mb-3">
+                <div class="price-container">
+                    {{accessory.quantity}}
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.unitList' | cxTranslate }}</div>
+                    <div *ngIf="accessory?.total?.value > 0; else toBeQuoted" class="price-values">
+                        {{ accessory?.total?.formattedValue  }}
+                    </div>
+                </div>
+                <div *ngIf="accessory?.totalDiscount?.value > 0" class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.discounts' | cxTranslate }}</div>
+                    <div class="price-values">
+                        {{ accessory?.totalDiscount?.formattedValue }}
+                    </div>
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.unitSelling' | cxTranslate }}</div>
+                    <div *ngIf="accessory?.unitSelling?.value > 0; else toBeQuoted" class="price-values">
+                        {{ accessory?.unitSelling?.formattedValue }}
+                    </div>
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.netSelling' | cxTranslate }}</div>
+                    <div *ngIf="accessory?.totalPrice?.value > 0; else toBeQuoted" class="price-values">
+                        {{ accessory?.totalPrice?.formattedValue }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-offering mb-3" >
+                <div class="offering-header">{{ 'rma-cart.selectedOffering' | cxTranslate }}</div>
+                <div class="offering-value">
+                    {{  accessory?.offeringList?.join(', ') }}
+                </div>
+            </div>
+            <div class="product-offering mb-3">
+                <div class="offering-header">{{ 'rma-cart.returnToLocation' | cxTranslate }}</div>
+                <div class="offering-value">
+                    <span *ngIf="!accessory?.returnLocation ">
+                        <i>N/A</i>
+                    </span>
+                    <span *ngIf="accessory?.returnLocation ">{{
+                        accessory?.returnLocation 
+                        }}</span>
+                </div>
+            </div>
+
+            <div class="product-fnct">
+                <div class="product-edit" (click)="editRma()"
+                [ngClass]="accessory.offeringList?.length <= 0 ? 'error-text' : ''">
+                <div *ngIf="accessory.offeringList?.length > 0" class="edit-offering">
+                    <span class="material-icons-outlined ">edit</span>
+                    <span >
+                        {{ 'rma-cart.editServiceOffering' | cxTranslate }}
+                    </span>
+                </div>
+                <div *ngIf="accessory.offeringList?.length <= 0" class="add-offering">
+                    <span class="material-icons-outlined ">add</span>
+                    <span >
+                        {{ 'rma-cart.addServiceOffering' | cxTranslate }}
+                    </span>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="horizontal-line" />
+</ng-container>
+
+<ng-template #toBeQuoted>
+    <span class="to-be-quoted-text price-values">{{
+        'rma-cart.toBeQuoted' | cxTranslate
+        }}</span>
+</ng-template>

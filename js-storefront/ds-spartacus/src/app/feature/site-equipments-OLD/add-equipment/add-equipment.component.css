@@ -1,0 +1,483 @@
+.add-equipment-header {
+  /* font-family: Poppins; */
+  font-size: 36px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.items-count-holder {
+  width: 319px;
+  height: 40px;
+  background-color: #e5f8f4;
+}
+.items-count-text {
+  font-size: 12px;
+}
+.add-equipment-form {
+  width: 100%;
+  height: auto;
+  /* border: 8px solid #e5f8f4; */
+  color: #666;
+  font-size: 12px;
+}
+.add-equipment-fields {
+  border: 8px solid #e5f8f4;
+  width: 100%;
+  height: auto;
+  /* border: 8px solid #e5f8f4; */
+  color: #666;
+  font-size: 12px;
+}
+.nav-link {
+  font-family: Poppins Bold;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #018374;
+}
+.w-150 {
+  width: 12%;
+}
+.w-300 {
+  width: 50%;
+}
+.upload-btn {
+  text-align: center;
+  padding: 10px;
+}
+.btn-fix {
+  font-size: 14px;
+  height: 40px;
+}
+.is-invalid {
+  border: solid 1px red !important;
+}
+.green-font {
+  color: #018374;
+}
+.font-bold {
+  font-weight: bold;
+}
+.part-help {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  /* overflow: hidden; */
+  padding-bottom: 20px;
+}
+.part-help-header {
+  color: #05322b;
+  font-size: 24px;
+}
+/* Auto part search */
+/* .search-list{
+    position: relative;
+    z-index: 1000;
+}
+.search-list ul{
+  position:absolute; 
+  top:100%; 
+  background-color: white; 
+  width: 100%;
+  z-index: 1000;
+  box-shadow: -5px 0 5px -5px #ccc;
+}
+.search-list li{
+  list-style: none;
+} */
+
+.search-list {
+  position: relative;
+  z-index: 1000;
+  height: auto;
+  top: -1px;
+  border: 0px;
+}
+.search-list ul {
+  position: absolute;
+  top: 38px;
+  background-color: #fff;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: -5px 0 5px -5px #ccc;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.search-list li {
+  list-style: none;
+  height: 55px;
+  z-index: 1000;
+  border: 0px;
+}
+.search-list .details-container {
+  width: 80%;
+}
+
+/* Part Result */
+.part-item {
+  /* width: 50%; */
+  height: 10%;
+  padding: 8px 10px;
+  border-bottom: solid 1px #dddddd;
+  border-left: solid 1px #dddddd;
+  border-right: solid 1px #dddddd;
+}
+
+.part-item:hover {
+  cursor: pointer;
+  background-color: #e5f8f4;
+}
+
+.part-image {
+  width: 45px;
+  height: 40px;
+  border: solid 2px #ddd;
+}
+
+.part-name-text {
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.85;
+  letter-spacing: normal;
+  display: block;
+  color: #018374;
+}
+.part-code-text {
+  font-size: 11px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.83;
+  letter-spacing: normal;
+  color: #636363;
+  display: block;
+  margin-top: 8px;
+}
+
+.partLoader {
+  height: 200px;
+  box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #cccccc;
+  background-color: #ffffff;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 38px;
+}
+.partLoader-icon {
+  display: block;
+  margin-top: 8%;
+  font-size: 40px;
+}
+.partLoader-text {
+  display: block;
+  margin-top: 3%;
+
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #999999;
+}
+
+/* Search Results */
+.search-results {
+  border-top: solid 1px #e4e4e4;
+}
+.search-results-header {
+  font-size: 14px;
+  color: #13294b;
+  height: 50px;
+  background-color: #fff;
+  font-family: GE Inspira Sans Bold;
+  text-transform: capitalize;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.search-results-image {
+  width: 40px;
+  height: 30px;
+  border: solid 1px #d7d7d7;
+}
+.search-results-data {
+  height: 50px;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.8;
+  letter-spacing: normal;
+  color: #666666;
+}
+.search-results-data .part-image-holder {
+  text-align: center;
+}
+.search-results-button-center {
+  line-height: 2%;
+}
+.red-border {
+  border-color: red !important;
+}
+.part-search-header {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.filterByCategoryText {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #666666;
+  margin-top: 2%;
+  margin-right: 2%;
+}
+.filterByCategoryDD {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+  display: inline-block;
+}
+.part-search-dd {
+  width: 150px;
+  height: 38px;
+  border-radius: 2px;
+  border: solid 1px #cccccc;
+  background-color: #ffffff;
+  display: inline-block;
+}
+.w-150 {
+  width: 150px;
+}
+.calender-position {
+  position: absolute;
+  top: 24px;
+  right: 12px;
+  z-index: 2;
+  display: block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 20px;
+  color: #999999;
+  pointer-events: none;
+}
+.calender-position.disabled-calendar-icon {
+  right: 42px;
+}
+/* Serial Search */
+.search-type-holder {
+  position: relative;
+}
+.part-number-text {
+  display: block;
+}
+.bhge-rmaform-input-inc {
+  border-radius: 4px !important;
+  margin-left: 3px;
+  width: 90% !important;
+  text-align: center;
+}
+.bhge-rmaform-input-minus {
+  border-right: solid 1px #cccccc !important;
+  border-radius: 4px !important;
+}
+
+.search-product-results .part-name {
+  width: 25%;
+  float: left;
+}
+
+.search-product-results .part-number {
+  width: 17%;
+  float: left;
+}
+
+.search-product-results .product-category {
+  width: 20%;
+  float: left;
+}
+
+.search-product-results .serial-no {
+  width: 15%;
+  float: left;
+}
+
+.search-product-results .action {
+  width: 33%;
+  float: left;
+}
+
+.results-table-header {
+  height: 50px;
+  background-color: #e5f8f4;
+  font-family: GE Inspira Sans Bold;
+  font-size: 14px;
+  color: #13294b;
+  text-align: left;
+}
+
+.results-table-row {
+  height: 50px;
+}
+
+.results-table-row .my-part-btn {
+  width: 150px;
+  height: 30px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.results-table-row .my-part-btn.highlight,
+.results-table-row .similar-part-btn.highlight {
+  background-color: #018374 !important;
+  color: #fff !important;
+}
+
+.results-table-row .similar-part-btn {
+  width: 150px;
+  height: 30px;
+  border-radius: 2px;
+  border: solid 1px #d1d1d1 !important;
+  color: #1c2f4d !important;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.result-name,
+.result-code,
+.prod-cat {
+  width: 90%;
+  display: block;
+}
+
+.btn-border-only.rma-btn-primary {
+  background-color: #02bc94 !important;
+  border: solid 1px #02bc94 !important;
+  color: #ffffff;
+}
+.rma_offering-dd {
+  height: 38px;
+  border-radius: 2px;
+  border: solid 1px #cccccc;
+  background-color: #ffffff;
+  box-shadow: none;
+  color: #018374;
+}
+
+.rma_offering-dd.caret {
+  position: relative;
+  top: 5px;
+}
+
+.part-number-type-text {
+  font-size: 21px;
+  margin-bottom: 25px;
+}
+.dropdown-menu {
+  position: absolute;
+  z-index: 100;
+  width: 97% !important;
+  left: auto;
+  top: auto;
+}
+.dropdown-menu > li > a {
+  padding: 0;
+}
+.rma-offering-content li a {
+  padding: 6px 12px;
+}
+/* .serial-block{
+    height: 180px;
+} */
+.red-font {
+  color: red;
+}
+.part-number-completed-icon {
+  margin-top: 7px;
+  font-size: 20px;
+  color: #07c072;
+}
+/* .add-equipment-fields.form-control[disabled]{
+    border: solid 1px #bed5eb !important;
+    background-color: #e5f8f4 !important;
+} */
+.add-equipment-fields .form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  border: solid 1px #bed5eb !important;
+  background-color: #e5f8f4 !important;
+  width: 95%;
+  float: left;
+}
+#searchclear {
+  position: absolute;
+  float: left;
+  top: 33px;
+  right: 35px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666666;
+}
+
+.serial-num-close-icon#searchclear {
+  right: 45px;
+}
+
+.infoText {
+  color: #05322b;
+  font-size: 12px;
+}
+.icon-fix {
+  font-size: 12px;
+}
+.w-150 {
+  width: 150px;
+}
+
+.part-number-form-group {
+  position: relative;
+}
+
+.char-count {
+  clear: both;
+  display: block;
+}
+
+.btn-light-green {
+  background: #e5f8f4;
+  height: 40px;
+  border: none;
+  width: 50%;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.btn-light-green .ico_aro_navdown_sm {
+  font-size: 10px;
+  position: relative;
+  top: 3px;
+  right: 13px;
+  transform: rotate(-90deg);
+}
+.ico_calendar_sm.calender-position {
+  float: left !important;
+  font-size: 15px;
+  text-align: right;
+  right: 16px;
+  top: 35px;
+}

@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "피드백 세부 정보",
+    "subject": "제목",
+    "name": "이름",
+    "phoneNumber": "전화번호",
+    "emailAddress": "이메일 주소",
+    "message": "메시지",
+    "characters": "문자",
+    "attachement": "첨부파일",
+    "clipboard": "여기에 파일 끌어놓기",
+    "selectFile": "파일을 선택합니다.(image, PDF만)",
+    "uploadFile": "파일 업로드",
+    "submit": "제출",
+    "successSubmit": "귀하의 피드백이 성공적으로 제출되었습니다.",
+    "errorMessage": "문제가 발생했습니다. 나중에 다시 시도해 주시기 바랍니다.",
+    "dragdropvalidfile": "유효한 파일 형식을 선택해 주시기 바랍니다. 유효한 파일 형식은 - jpg,pdf",
+    "error": {
+      "phoneNumberMessage": "전화번호는 숫자로만 표시해야 합니다.",
+      "emailMessage": "이메일 주소는 유효한 주소여야 합니다.",
+      "subjectMessage": "제목이 필요합니다.",
+      "nameMessage": "이름이 필요합니다.",
+      "phoneReq": "전화번호가 필요합니다.",
+      "emailReq": "이메일 주소가 필요합니다.",
+      "message": "메시지가 필요합니다."
+    }
+  }
+}

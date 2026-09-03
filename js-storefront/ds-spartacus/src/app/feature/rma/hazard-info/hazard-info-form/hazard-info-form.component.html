@@ -1,0 +1,283 @@
+<ng-container *ngIf="showForm == true; else noHazard">
+  <label for="" class="comtamination-label">{{
+    'hazardInfo.hazardousSubstancesExposedTo' | cxTranslate
+  }}</label>
+  <div class="hazard-title-warning">
+    <span class="material-icons mr-1"> info </span>
+    <span>{{ 'hazardInfo.decontaminatedNotice' | cxTranslate }}</span>
+  </div>
+  <section class="contamination-checks pb-0">
+    <bh-checkbox
+      *ngFor="let el of exposureElements"
+      [label]="getHazExposureLabels(el.translationKey) | async"
+      [value]="el.type"
+      [attr.checked]="el.isChecked"
+      (change)="exposureElChecked(el, $event)"
+    ></bh-checkbox>
+  </section>
+  <section class="other-contamination-check pb-4">
+    <div class="other-contamination">
+      <bh-checkbox
+        [label]="
+          getHazExposureLabels(otherContamination.translationKey) | async
+        "
+        [value]="otherContamination.type"
+        [attr.checked]="otherContamination.isChecked"
+        (change)="exposureElChecked(otherContamination, $event)"
+      ></bh-checkbox>
+      <bh-text-input
+        *ngIf="otherContamination.isChecked"
+        class="ml-3"
+        type="text"
+        readonly="false"
+        placeholder=""
+        [value]="hazardousForm.otherText"
+        (change)="hazardousForm.otherText = $event.target.value"
+        maxlength="40"
+        small
+      ></bh-text-input>
+    </div>
+    <div class="other-contamination">
+      <bh-checkbox
+        [label]="
+          getHazExposureLabels(fluidContamination.translationKey) | async
+        "
+        [value]="fluidContamination.type"
+        [attr.checked]="fluidContamination.isChecked"
+        (change)="exposureElChecked(fluidContamination, $event)"
+      ></bh-checkbox
+      ><bh-text-input
+        *ngIf="fluidContamination.isChecked"
+        class="ml-3"
+        type="text"
+        readonly="false"
+        placeholder=""
+        [value]="hazardousForm.fluidText"
+        (change)="hazardousForm.fluidText = $event.target.value"
+        maxlength="40"
+        small
+      ></bh-text-input>
+    </div>
+  </section>
+  <div class="contamination-header-container">
+    <label for="" class="comtamination-label">{{
+      'hazardInfo.chemicalDetails' | cxTranslate
+    }}</label>
+    <div class="chemical-line-actions">
+      <a (click)="addChemicalRow()" class="add-row-link mr-2"
+        ><span class="material-icons"> add_box </span></a
+      >
+      <a class="delete-row-link" (click)="deleteChemicalRow()"
+        ><span class="material-icons"> delete </span></a
+      >
+    </div>
+  </div>
+  <section class="equipments-hazard-data mb-4">
+    <div class="equipment-search-result--header">
+      <div
+        class="equipment-search-result--header-text eq-checkbox-chemical-text-holder col-4 p-0 pr-2"
+      >
+        <div
+          class="equipment-search-result--header-text eq-search-checkbox-holder mr-3"
+        >
+          <!-- <bh-checkbox></bh-checkbox> -->
+          <bh-checkbox
+            label=""
+            name="delete-check-box"
+            value="{{ true }}"
+            [attr.checked]="isAllChecked()"
+            [attr.indeterminate]="someRowsChecked()"
+            (change)="checkAll($event)"
+          ></bh-checkbox>
+        </div>
+        <div>{{ 'hazardInfo.chemicalName' | cxTranslate }}</div>
+      </div>
+      <div class="equipment-search-result--header-text col-3 p-0">UN No.</div>
+      <div class="equipment-search-result--header-text col-2">
+        {{ 'hazardInfo.msdsSupplied' | cxTranslate }}
+      </div>
+      <div class="equipment-search-result--header-text col-3 p-0">Notes</div>
+    </div>
+    <div
+      *ngFor="let chemEl of hazardousForm.chemicalDetails; let i = index"
+      class="equipment-search-result--body"
+    >
+      <div
+        class="equipment-search-result--body-text eq-search-checkbox-holder col-4 p-0 pr-2"
+      >
+        <bh-checkbox
+          class="mr-3"
+          (change)="checkChemRow($event, chemEl, i)"
+          [value]="chemEl"
+          [attr.checked]="chemEl.isSelected"
+        ></bh-checkbox>
+        <bh-text-input
+          type="text"
+          readonly="false"
+          [value]="chemEl.chemicalName"
+          (change)="hazardExposureChange($event, 'chemicalName', i)"
+          placeholder="{{ 'hazardInfo.placeholder' | cxTranslate }}"
+          value=""
+          maxlength="40"
+          small
+        ></bh-text-input>
+      </div>
+      <div class="equipment-search-result--body-text col-3 p-0">
+        <bh-text-input
+          type="text"
+          readonly="false"
+          [value]="chemEl.un"
+          (change)="hazardExposureChange($event, 'un', i)"
+          placeholder="{{ 'hazardInfo.placeholder' | cxTranslate }}"
+          value=""
+          maxlength="40"
+          small
+        ></bh-text-input>
+      </div>
+      <div class="equipment-search-result--body-text col-2">
+        <div class="msds">
+          <bh-radio-button
+            label="{{ 'hazardInfo.yes' | cxTranslate }}"
+            [name]="'msds-sipplied-yes-' + i"
+            class="mr-2"
+            [attr.value]="true"
+            [attr.checked]="chemEl.isMsdnSupplied == true ? true : false"
+            (change)="msdsRadioCheck($event, chemEl)"
+          ></bh-radio-button>
+          <bh-radio-button
+            label="{{ 'hazardInfo.no' | cxTranslate }}"
+            [name]="'msds-sipplied-no-' + i"
+            [attr.value]="false"
+            [attr.checked]="chemEl.isMsdnSupplied == false ? true : false"
+            (change)="msdsRadioCheck($event, chemEl)"
+          ></bh-radio-button>
+        </div>
+      </div>
+      <div
+        class="equipment-search-result--body-text equipment-box-btn-container col-3 p-0"
+      >
+        <bh-text-input
+          type="text"
+          readonly="false"
+          [value]="chemEl.chemicalNotes"
+          (change)="hazardExposureChange($event, 'chemicalNotes', i)"
+          placeholder="{{ 'hazardInfo.placeholder' | cxTranslate }}"
+          value=""
+          maxlength="40"
+          small
+        ></bh-text-input>
+      </div>
+    </div>
+  </section>
+
+  <section class="details-text mt-3 mb-3">
+    <label for="">{{ 'hazardInfo.details' | cxTranslate }}</label>
+    <bh-text-area
+      class="details-text-area"
+      placeholder="{{ 'hazardInfo.placeholder' | cxTranslate }}"
+      [value]="hazardousForm.hazardInfo"
+      (keyup)="hazardousFormDetails($event)"
+      messageType="count"
+      messageText=""
+      maxcharacters="250"
+      fluidVert="true"
+      fluidHorz="true"
+      (keypress)="stop($event)"
+      (paste)="myFunction($event)"
+      #textval
+      (focusout)="trimText()"
+    ></bh-text-area>
+  </section>
+
+  <section class="file-upload">
+    <ds-file-upload
+      label="{{ 'hazardInfo.addFile' | cxTranslate }}"
+      [maxLength]="5"
+      [maxSizeInMB]="30"
+      [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+      (selectedFiles)="selectedFiles($event)"
+      >upload</ds-file-upload
+    >
+    <span class="fileformat mt-1"
+      >{{ 'hazardInfo.fileFormat' | cxTranslate }}
+    </span>
+    <div class="file-list">
+      <ds-file-upload-progress
+        *ngFor="let file of files; let i = index"
+        [layout]="layouts.BOX"
+        [file]="file"
+        [uploaded]="uploaded"
+        [uploadParams]="uploadParams"
+        [uploadUrl]="uploadUrl"
+        [deleteUrl]="deleteUrl"
+        [deleteParams]="deleteParams"
+        (deletedFiles)="deletedFiles($event)"
+        [showProgress]="true"
+        [entryNumber]="i"
+      ></ds-file-upload-progress>
+    </div>
+  </section>
+
+  <section class="confirmation-section mt-5">
+    <bh-checkbox
+      label="{{ 'hazardInfo.declareMSDS' | cxTranslate }}"
+      [attr.checked]="hazardousForm.declarationA"
+      (change)="checkHazardDeclaration($event)"
+      [attr.error]="declarationAError"
+    ></bh-checkbox>
+    <div
+      class="bh-form-message typography--body-small bh-form-message--error"
+      *ngIf="declarationAError"
+    >
+      <i class="typography--icon-small bh-form-message__icon">error_outline</i
+      >{{ 'hazardInfo.declarationError' | cxTranslate }}
+    </div>
+  </section>
+
+  <section class="action-section mt-5">
+    <bh-button
+      class="mr-2"
+      [type]="'secondary'"
+      label="{{ 'hazardInfo.resetForm' | cxTranslate }}"
+      loading="false"
+      (click)="resetHazardousForm()"
+    ></bh-button>
+    <bh-button
+      [type]="'primary'"
+      label="{{ 'hazardInfo.saveGoCart' | cxTranslate }}"
+      loading="false"
+      (click)="saveHazardousForm()"
+    ></bh-button>
+  </section>
+</ng-container>
+<ng-template #noHazard>
+  <section class="confirmation-section">
+    <bh-checkbox
+      (change)="checkNoHazardDeclaration($event)"
+      [attr.error]="declarationAError"
+      label="{{ 'hazardInfo.notContaminated' | cxTranslate }}"
+    ></bh-checkbox>
+    <div
+      class="bh-form-message typography--body-small bh-form-message--error"
+      *ngIf="declarationAError"
+    >
+      <i class="typography--icon-small bh-form-message__icon">error_outline</i
+      >{{ 'hazardInfo.declarationError' | cxTranslate }}
+    </div>
+  </section>
+  <section class="action-section mt-2">
+    <!-- <bh-button
+      class="mr-2"
+      [type]="'secondary'"
+      label="{{ 'hazardInfo.resetForm' | cxTranslate }}"
+      loading="false"
+      (click)="resetHazardousForm()"
+    ></bh-button> -->
+    <bh-button
+      [type]="'primary'"
+      label="{{ 'hazardInfo.saveGoCart' | cxTranslate }}"
+      loading="false"
+      (click)="saveHazardousForm()"
+    ></bh-button>
+  </section>
+</ng-template>

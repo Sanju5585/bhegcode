@@ -1,0 +1,180 @@
+.box-wrapper {
+  height: 100%;
+  border: 1px solid #ced7d4;
+  border-radius: 4px;
+}
+
+.druck-form-wrapper {
+  border: 1px solid #ced7d4;
+  border-radius: 4px;
+  height: 100%;
+}
+
+.druck-form-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.druck-item {
+  flex: 1;
+  label {
+    font-family: var(--font-family-body-medium);
+    font-weight: var(--font-weight-title-medium);
+    font-size: var(--font-size-body-medium);
+    line-height: 1.6;
+    color: #14293a;
+  }
+  label:before {
+    content: '*';
+    color: red;
+    margin-right: 5px;
+  }
+  .serial-no-input {
+    border: 1px solid #ced7d4;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    height: 44px;
+  }
+}
+.info-icon {
+  font-size: 12px;
+  padding: 7px 5px;
+}
+
+.info-text {
+  font-family: var(--font-family-body-medium);
+  font-size: var(--font-base-font-size-10);
+  font-style: normal;
+  font-weight: var(--font-weight-body-small);
+  color: var(--color-base-cyan-900);
+  margin-bottom: 1.5rem;
+
+  padding-top: 5px;
+}
+
+.action-btn {
+  border: 1px solid #adbdb9;
+  padding: 12px 20px 12px 20px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 160px;
+}
+.save-btn {
+  color: #ffffff;
+  background-color: var(--color-fill-cta-primary-default);
+  margin-right: 20px;
+}
+.discard-btn {
+  color: #121212;
+  border: 1px solid #adbdb9;
+  background-color: #ffffff00;
+}
+
+.pdf-btn {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+button:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-fill-cta-disabled);
+  color: var(--color-text-label-disabled-highlighted);
+}
+
+.page-head {
+  font-family: var(--font-family-body-medium-semi-bold);
+  font-size: var(--font-size-body-medium);
+  font-style: normal;
+  text-transform: var(--font-base-text-transform-uppercase);
+  color: var(--color-fill-common-brand);
+  font-weight: var(--font-weight-headline-medium);
+  text-align: center;
+}
+
+.equipment-img {
+  max-width: 100%;
+  max-height: 200px;
+}
+
+.sub-description {
+  font-family: var(--font-family-subtitle-medium);
+  font-size: var(--font-size-subtitle-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-subtitle-medium);
+  color: var(--color-text-common-primary);
+  display: inline-block;
+  padding-right: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.right-box-title {
+  font-family: var(--font-family-body-medium);
+  font-size: var(--font-size-body-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-title-medium);
+  color: var(--color-base-teal-700);
+}
+
+.icon-style {
+  position: absolute;
+  margin-left: 5px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.material-icons.md-18 {
+  font-size: var(--font-line-height-body-small);
+  position: relative;
+  top: -1px;
+}
+
+.calibration-date[_ngcontent-uhw-c237] {
+  font-family: var(--font-base-font-family-body);
+  font-size: var(--font-size-body-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-body-medium);
+  margin-bottom: 15px;
+}
+
+.druck-img {
+  max-width: 400px;
+}
+.product-tag {
+  font-family: var(--font-family-body-medium);
+  font-style: normal;
+  font-weight: var(--font-base-font-weight-regular);
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: var(--font-size-body-small);
+}
+
+.druck-tag {
+  font-family: var(--font-family-body-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-body-small);
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: var(--font-size-body-small);
+  color: #a0a0a0;
+}
+.typography--button-link-medium {
+  font-size: var(--font-size-button-link-small);
+}
+
+.cert-sub-description {
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-body-small);
+  font-family: var(--font-family-body-small);
+}
+
+.view-data-link {
+  -webkit-text-decoration: var(--font-base-text-decoration-underline);
+  text-decoration: var(--font-base-text-decoration-underline);
+  color: var(--color-fill-cta-primary-default);
+}

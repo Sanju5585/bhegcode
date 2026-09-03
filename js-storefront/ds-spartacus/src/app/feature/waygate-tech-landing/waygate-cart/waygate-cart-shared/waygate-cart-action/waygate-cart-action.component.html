@@ -1,0 +1,115 @@
+<ng-container *ngIf="cart$ | async as cart">
+  <div class="waygate-cart-container my-3">
+    <div class="waygate-cart-action">
+      <h1>{{ 'buyCart.shoppingCart' | cxTranslate }}</h1>
+      <span class="material-icons mobile-view" (click)="headerMenuSelected()">more_horiz</span>
+    </div>
+    <div class="waygate-cart-action-content">
+      <div class="waygate-cart-shipment-preference row">
+        <div class="waygate-cart-shipment-preference-text mr-3">
+          <div>{{ 'buyCart.selectYourShipment' | cxTranslate }}</div>
+          <div class="vs-tooltip-icon">
+            <p class="vs-tooltip">
+              {{ 'buyCart.partialShipmentText' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <div class="waygate-cart-radio-btn mt-2 col-xs-12">
+          <!-- DE163507 As discussed with business shipment preference code for waygate productLine is reverted  -->
+          <bh-radio-button [attr.checked]="!isPartialShipment" label="{{ 'buyCart.complete' | cxTranslate }}"
+            value="'Complete'" name="group" checked="checked" (change)="handleChange($event)"
+            [attr.disabled]="isShipmentSelectionDisabled"></bh-radio-button>
+          <bh-radio-button [attr.checked]="isPartialShipment" label="{{ 'buyCart.partial' | cxTranslate }}"
+            value="'Partial'" name="group" (change)="handleChange($event)"
+            [attr.disabled]="isShipmentSelectionDisabled"></bh-radio-button>
+          <!-- DE163507 As discussed with business shipment preference code for waygate productLine is reverted  -->
+        </div>
+      </div>
+      <div class="waygate-cart-action-options">
+        <div class="waygate-cart-action-option" *ngIf="productLine !== productLines.bently">
+          <a class="action-links mr-4" (click)="printPage('large-device')">
+            <bh-button type="secondary" class="waygate-cart-action-option-text"
+              label="{{ 'buyCart.printScreen' | cxTranslate }}" [leftIcon]="'print'"></bh-button>
+          </a>
+        </div>
+        <div class="waygate-cart-action-option" *ngIf="productLine !== productLines.bently">
+          <a class="action-links mr-4" (click)="downloadCart('large-device')">
+            <bh-button type="secondary" class="waygate-cart-action-option-text"
+              label="{{ 'buyCart.downloadCSV' | cxTranslate }}" [leftIcon]="'save_alt'"></bh-button>
+          </a>
+        </div>
+        <div class="waygate-cart-action-option">
+          <a class="action-links mr-4" (click)="openSaveCartModal('large-device')">
+            <bh-button type="secondary" class="waygate-cart-action-option-text" label="{{ 'buyCart.savecart' | cxTranslate }}"
+              [leftIcon]="'save'"></bh-button>
+          </a>
+        </div>
+      </div>    
+    </div>
+   
+<div class="shipment-row" *ngIf="showEarlyShipment(cart?.cartType)">
+
+  <div class="waygate-cart-action-checkbox">
+    <input
+      type="checkbox"
+      [checked]="earlyShipment"
+      (change)="onEarlyShipmentChange($event)"
+      [disabled]="disableCheckboxItem"
+    />
+    <span>{{ 'buyCart.EarlyShipment' | cxTranslate }}</span>
+  </div>
+
+  <div class="budgetary-actions-container" *ngIf="productLine == productLines.bently">
+
+    <bh-button *ngIf="productLine == productLines.bently"
+      type="secondary"
+      label="{{ 'buyCart.budgetoryquotepdf' | cxTranslate }}"
+      (click)="generateBudgetaryPDF()"
+      [leftIcon]="'picture_as_pdf'"
+      >
+    
+    </bh-button>
+
+    <bh-button *ngIf="productLine == productLines.bently"
+      type="secondary"
+      label="{{ 'buyCart.budgetoryquotexlsx' | cxTranslate }}"
+      (click)="generateBudgetaryExcel()"
+      [leftIcon]="'table_view'"
+      >
+    </bh-button>
+
+  </div>
+
+</div>
+
+  </div>
+  <div class="login-menu" *ngIf="headerMenuOpened" (clickOutside)="headerMenuSelected()">
+    <ng-container>
+      <div class="waygate-cart-action-option">
+        <a class="action-links mr-4" (click)="printPage('smaller-device')">
+          <span class="material-icons"> print</span>
+          {{ 'buyCart.printScreen' | cxTranslate }}
+  
+        </a>
+      </div>
+      <hr>
+      <div class="waygate-cart-action-option">
+        <a class="action-links mr-4" (click)="downloadCart('smaller-device')">
+          <span class="material-icons">save_alt
+  
+          </span>
+          {{ 'buyCart.downloadCSV' | cxTranslate }}
+        </a>
+      </div>
+      <hr>
+      <div class="waygate-cart-action-option">
+        <a class="action-links mr-4" (click)="openSaveCartModal('smaller-device')">
+          <span class="material-icons">save
+  
+          </span>
+          {{ 'buyCart.savecart' | cxTranslate }}
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

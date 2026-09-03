@@ -1,0 +1,3 @@
+insert_update BHGEGlobalProperties;uid[unique=true]                       ; value
+                                  ;scpi.zhyb.invoice.tracking.endpoint.url  ; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/ListingInvoice
+ ;scpi.zhyb.invoice.checkout.endpoint.url;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/PostingInvoice

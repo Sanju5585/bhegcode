@@ -1,0 +1,27 @@
+<div class="total-container">
+  <div class="header">
+    <div class="left-items">
+      <mat-icon>info</mat-icon>
+      <h6>{{ 'waygate.confirmNavigation' | cxTranslate }}</h6>
+    </div>
+    <div class="right-items" (click)="closeModal()">
+      <i class="material-icons">close</i>
+    </div>
+  </div>
+  <div class="content">
+    <p>
+      {{ 'waygate.exitConfiguration' | cxTranslate }}
+    </p>
+  </div>
+  <div class="action-buttons" *ngIf="product$ | async as product">
+    <a
+      class="yes-btn"
+      (click)="exitConfiguration(product.code, product.name)"
+      >{{ 'waygate.yes' | cxTranslate }}</a
+    >
+    <a (click)="closeModal()" class="no-btn">
+      {{ 'waygate.notNow' | cxTranslate }}
+    </a>
+  </div>
+  <div></div>
+</div>

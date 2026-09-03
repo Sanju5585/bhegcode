@@ -1,0 +1,90 @@
+@mixin fontStyle($fontSize, $fontWeight, $lineHeight, $color) {
+  font-family: Poppins;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  letter-spacing: -0.25px;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $color;
+  text-align: left;
+}
+
+.summary {
+  border: 1px solid #ced7d4;
+  background-color: #f8faf9;
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  p {
+    margin: 0px;
+  }
+
+  hr {
+    border-color: #d0d0d0;
+    width: 100%;
+  }
+
+  &-title {
+    &-p {
+      margin-top: 10px !important;
+      @include fontStyle(18px, 600, 24px, #000000);
+    }
+  }
+  &-fee {
+    &-div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &-title {
+        @include fontStyle(12px, 500, 18px, #717171);
+      }
+      &-value {
+        @include fontStyle(14px, 600, 20px, #121212);
+      }
+    }
+  }
+
+  &-total {
+    &-cart {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &-title {
+        @include fontStyle(14px, 600, 20px, #717171);
+      }
+      &-value {
+        @include fontStyle(14px, 600, 20px, #1a2321);
+      }
+    }
+    &-order {
+      margin-top: 10px !important;
+      @include fontStyle(12px, 400, 18px, #717171);
+    }
+  }
+
+  &-agree {
+    input {
+      margin-top: -16px;
+    }
+    &-title {
+      margin-left: 40px !important;
+      margin-top: -15px !important;
+      margin-bottom: 10px !important;
+      @include fontStyle(14px, 400, 20px, #595959);
+      &-span {
+        color: #02a783;
+      }
+    }
+  }
+
+  &-checkout {
+    width: 100%;
+    bh-button {
+      width: 100%;
+    }
+  }
+}

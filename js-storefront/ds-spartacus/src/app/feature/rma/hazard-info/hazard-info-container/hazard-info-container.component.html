@@ -1,0 +1,93 @@
+<div *ngIf="hazardInfo$ | async as hazardInfo" class="container">
+  <h3 class="hazrad-info-title">
+    {{ 'hazardInfo.hazardousExposure' | cxTranslate }}
+  </h3>
+  <div class="hazard-title-warning">
+    <span class="material-icons mr-1"> info </span>
+    <span> {{ 'hazardInfo.hazardousInfo' | cxTranslate }}</span>
+  </div>
+
+  <section class="products-info">
+    <div class="product-info--toggle">
+      <span>
+        {{
+          'hazardInfo.showingCartLength'
+            | cxTranslate
+              : {
+                  maxPartList: getMaxViewCount(hazardInfo.partList),
+                  partLength: hazardInfo.partList?.length,
+                }
+        }}</span
+      >
+      <ng-container
+        *ngIf="hazardInfo.partList?.length > PRODUCT_DISPLAY_THRESHOLD"
+      >
+        <a
+          class="view-all-link"
+          *ngIf="showNumber < hazardInfo.partList?.length; else viewLess"
+          (click)="showNumber = hazardInfo.partList?.length"
+        >
+          {{ 'hazardInfo.viewAll' | cxTranslate }}
+        </a>
+        <ng-template #viewLess>
+          <a
+            class="view-all-link"
+            (click)="showNumber = PRODUCT_DISPLAY_THRESHOLD"
+            >{{ 'hazardInfo.viewLess' | cxTranslate }}</a
+          >
+        </ng-template>
+      </ng-container>
+    </div>
+  </section>
+  <section class="products-list">
+    <ng-container
+      *ngFor="let product of hazardInfo.partList | slice: 0 : showNumber"
+    >
+      <!-- <div *ngFor="let product of products"></div> -->
+      <ds-hazard-info-product [product]="product"></ds-hazard-info-product>
+    </ng-container>
+  </section>
+  <section class="hazard-info-form mt-5">
+    <div class="accessories">
+      <label class="accessories-title" for="">{{
+        'hazardInfo.exposedToHazardous' | cxTranslate
+      }}</label>
+      <div class="vs-tooltip-icon">
+        <p class="vs-tooltip">
+          {{ 'hazardInfo.tooltip' | cxTranslate }}
+        </p>
+      </div>
+      <div class="accessories-tabs-group mt-4">
+        <div
+          class="accessories-tab"
+          [ngClass]="index == 0 ? 'tab-active' : ''"
+          (click)="index = 0"
+        >
+          {{ 'hazardInfo.yes' | cxTranslate }}
+        </div>
+        <div
+          class="accessories-tab"
+          [ngClass]="index == 1 ? 'tab-active' : ''"
+          (click)="index = 1"
+        >
+          {{ 'hazardInfo.no' | cxTranslate }}
+        </div>
+      </div>
+      <div class="accessories-tab-details mb-5">
+        <div class="accessories-tab-details--section" *ngIf="index == 0">
+          <ds-hazard-info-form
+            [showForm]="true"
+            [hazardData]="hazardInfo"
+          ></ds-hazard-info-form>
+        </div>
+
+        <div class="accessories-tab-details--section" *ngIf="index == 1">
+          <ds-hazard-info-form
+            [showForm]="false"
+            [hazardData]="hazardInfo"
+          ></ds-hazard-info-form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

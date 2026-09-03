@@ -1,0 +1,52 @@
+<section class="container address-container">
+  <div>
+    <div class="title-line"></div>
+    <h2 class="page-title">{{ 'waygateQuickOrderAddress.addEndCustomerAddressesTitle' | cxTranslate }}</h2>
+  </div>
+  <table class="address-table">
+    <thead>
+      <tr>
+        <th style="width: 27%;">{{ 'waygateQuickOrderAddress.productLabel' | cxTranslate }}</th>
+        <th style="width: 16%;">{{ 'waygateQuickOrderAddress.partNumbersLabel' | cxTranslate }}</th>
+        <th style="width: 10%;">{{ 'waygateQuickOrderAddress.quantityLabel' | cxTranslate }}</th>
+        <th style="width: 32%;">{{ 'waygateQuickOrderAddress.endCustomerAddressLabel' | cxTranslate }}</th>
+        <th style="width: 10%;"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of bulkUploadSelection; track p.key){
+      <tr>
+        <td class="product-info">
+          <span class="product-name">{{p.description}}</span>
+          <!-- <span class="product-spec">[3"1/2X8"1/2]</span> -->
+        </td>
+        <td class="part-number">
+          {{p.partNum}}
+        </td>
+        <td class="quantity">
+          {{p.quantity}}
+        </td>
+        <td class="address-section">
+          @if(p?.ecaCode){
+          <span class="selected-address">{{p?.ecaText}}</span>
+          <bh-button type="secondary" label="{{ 'waygateQuickOrderAddress.changeAction' | cxTranslate }}" class="change-btn" (click)="openAddressModel(p.key)"></bh-button>
+          } @else {
+            <bh-button type="secondary" label="{{ 'waygateQuickOrderAddress.addAction' | cxTranslate }}" class="add-btn" (click)="openAddressModel(p.key)"></bh-button>
+          }
+        </td>
+        <td class="delete-col">
+          <div class="del-icon d-flex justify-content-end flex-row" (click)="onRemoveProduct(p.key)">
+            <bh-icon icon="delete"></bh-icon>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="action-buttons">
+    <bh-button type="secondary" [attr.disabled]="disableButtons" label="{{ 'waygateQuickOrderAddress.cancelAction' | cxTranslate }}" class="cancel-btn" (click)="cancelClick()"></bh-button>
+    <bh-button type="primary" [attr.disabled]="disableButtons" label="{{ 'waygateQuickOrderAddress.submitAction' | cxTranslate }}" (click)="submitClick()"></bh-button>
+  </div>
+</section>

@@ -1,0 +1,709 @@
+INSERT_UPDATE Paymentterm;code[unique=true];name[lang=pt]
+;	%COD	;	1/2 CASH IN ADVANCE, 1/2 COD
+;	.5%	;	Até 15 dias 0.5% de desconto, 30 dias valor total
+;	.5%1	;	Até 15 dias 0.5% de desconto, 30 dias valor total
+;	.5/1	;	Até 10 dias 0.5% de desconto, 30 dias valor total
+;	0001	;	não usar
+;	1%10	;	até 10 dias 1% de desconto, em 30 dias valor total
+;	1%15	;	até 15 dias 1% de desconto, em 30 dias valor total
+;	1-10	;	até 10 dias 1% de desconto, em 42 dias valor total
+;	1-15	;	até 15 dias 1% de desconto, em 42 dias valor total
+;	10NM	;	10TH OF NEXT MONTH
+;	1N30	;	Em 30 dias da data do faturamento
+;	2%10	;	até 10 dias 2% de desconto, em 30 dias valor total
+;	2%15	;	até 15 dias 2% de desconto, em 30 dias valor total
+;	2%40	;	2% 15 NET 45 DAYS
+;	2%45	;	2% 15 NET 45 DAYS
+;	2-10	;	até 10 dias 2% de desconto, em 42 dias valor total
+;	2-15	;	até 15 dias 2% de desconto, em 42 dias valor total
+;	2-20	;	Em 60 dias da data do faturamento
+;	2-30	;	até 15 dias 2% de desconto, em 30 dias valor total
+;	2-40	;	até 15 dias 2% de desconto, em 30 dias valor total
+;	2.5%	;	até 30 dias 2.5% de desconto, em 30 d valor total
+;	20NM	;	20TH OF NEXT MONTH
+;	25NM	;	10TH OF NEXT MONTH
+;	3%10	;	até 10 dias 3% de desconto, em 30 dias valor total
+;	3%15	;	até 15 dias 3% de desconto, em 30 dias valor total
+;	3%90	;	3.00/ 30 NET 90 DAYS
+;	3-10	;	até 10 dias 3% de desconto, em 42 dias valor total
+;	3-15	;	até 15 dias 3% de desconto, em 42 dias valor total
+;	30SD	;	30 dias da data de embarque
+;	4%10	;	até 10 dias 4% de desconto, em 30 dias valor total
+;	4%15	;	até 15 dias 4% de desconto, em 30 dias valor total
+;	4-10	;	até 10 dias 4% de desconto, em 42 dias valor total
+;	4-15	;	até 15 dias 4% de desconto, em 42 dias valor total
+;	5%10	;	até 10 dias 5% de desconto, em 30 dias valor total
+;	5%15	;	até 15 dias 5% de desconto, em 30 dias valor total
+;	5-10	;	até 10 dias 5% de desconto, em 42 dias valor total
+;	5-15	;	até 15 dias 5% de desconto, em 42 dias valor total
+;	50%N	;	50% adiantado 50% 30 dias da data de faturamento
+;	60SD	;	60 dias da data de embarque
+;	75SD	;	75 dias da data de embarque
+;	7_NM	;	7TH OF NEXT MONTH
+;	90SD	;	90 dias da data de embarque
+;	ACR1	;	25% receb.ordem/75% adiantado
+;	ACR2	;	15% receb.ordem/85% adiantado
+;	ACR3	;	10% receb.ordem/90% adiantado
+;	ALC	;	Aviso da carta de crédito
+;	AP	;	Pagamento Antecipado
+;	AP1	;	Pagto adiantado / Não Embarcar
+;	AP1A	;	Advice Payment Conditions
+;	AP1B	;	Advice Payment 50% Default
+;	AP1C	;	Advice Payment 50% Final
+;	AP30	;	25% receb.ordem/75% adiantado
+;	APCR	;	Pagto adiantado / Caixa Recebido
+;	APPD	;	Adv. Pay/Don’t Build/Past Due Balance
+;	BLNK	;	Payment term BLNK will not be printed on invoice
+;	CC	;	Cartão de crédito
+;	CC01	;	Cartão de crédito
+;	CCSD	;	Cartão de crédito, pagamento imediato
+;	CCSL	;	Em 30 dias da data do faturamento
+;	CIAD	;	Cash in Advance
+;	CLC	;	Carta de Crédito
+;	COD	;	Pagamento na entrega
+;	COO	;	Pagamento no recebimento da ordem
+;	CSAD	;	CASH IN ADVANCE           
+;	CVD	;	Cash VS Documents
+;	D322	;	até 10 dias 2% de desconto, em 30 dias valor total
+;	DV01	;	3.50/15 Net 120 Daily Tiers Variable
+;	E120	;	120 days End Of the month 10th of the following mt
+;	E301	;	30 dias fora o mês, dia 5 do mês seguinte
+;	E302	;	30 dias fora o mês, dia 10 do mês seguinte
+;	E303	;	30 dias fora o mês, 15to dia do mês seguinte
+;	E304	;	30 dias fora o mês, 25to dia do mês seguinte
+;	E601	;	60 dias fora o mês, dia 5 do mês seguinte
+;	E602	;	60 dias fora o mês, dia 10 do mês seguinte
+;	E603	;	60 dias fora o mês, 15to dia do mês seguinte
+;	E604	;	60 dias fora o mês, 25to dia do mês seguinte
+;	E901	;	90 dias fora o mês, dia 5 do mês seguinte
+;	E902	;	90 dias fora o mês, dia 10 do mês seguinte
+;	E903	;	90 dias fora o mês, 15to dia do mês seguinte
+;	E904	;	90 dias fora o mês, 25to dia do mês seguinte
+;	EM30	;	60 dias fora o mês
+;	EM45	;	45 days end of the month
+;	EM60	;	60 dias fora o mês
+;	EM90	;	90 dias fora o mês
+;	EMJP	;	90 dias fora o mês
+;	G1	;	Até 15 dias 1% de desconto, 75 dias valor total
+;	G1.5	;	Até 15 dias 1.5% de desconto, 75 dias valor total
+;	G10	;	Até 30 dias 1% de desconto, 60 dias valor total
+;	G102	;	2.00/15  NET 45
+;	G106	;	2.00/15  NET 75
+;	G107	;	2.00 % 15  NET 86
+;	G109	;	2.00/20  NET 75
+;	G11	;	Até 30 dias 1% de desconto, 75 dias valor total
+;	G110	;	2.00 % 25  NET 75
+;	G111	;	2.00/30 NET 45
+;	G112	;	2.00/ 30 NET 60
+;	G113	;	2.00/5  NET 60
+;	G114	;	2.03 % 15  NET 75
+;	G115	;	2.13 % 10  NET 75
+;	G116	;	2.17/10  NET 75
+;	G117	;	2.20/10  NET 60
+;	G118	;	2.20 % 15  NET 60
+;	G119	;	2.50/15  NET 45
+;	G12	;	Até 30 dias 1% de desconto, 90 dias valor total
+;	G120	;	2.50/15  NET 75
+;	G124	;	2.50/35  NET 90
+;	G125	;	2.50/18  NET 30
+;	G126	;	2.50/20  NET 60
+;	G127	;	2.50 % 5  NET 75
+;	G128	;	2.60 % 15  NET 75
+;	G129	;	3.00 % 15  NET 75
+;	G13	;	Até 45 dias 1% de desconto, 75 dias valor total
+;	G131	;	5.00 % 15  NET 60
+;	G132	;	3.5/15 NET 120 DAYS
+;	G133	;	2.50/15 NET 30 DAYS
+;	G134	;	1.5/30 NET 90 DAYS
+;	G135	;	2.00/15 NET 120 DAYS
+;	G136	;	1.5/15 NET 60 DAYS
+;	G137	;	3.00/20 net 90
+;	G138	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G139	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G14	;	Até 15 dias 1.5% de desconto, 30 dias valor total
+;	G140	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G141	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G142	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G143	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G144	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G145	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G146	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G147	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G148	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G149	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G15	;	Até 30 dias 1.5% de desconto, 75 dias valor total
+;	G150	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G151	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G152	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G153	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G154	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G155	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G156	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G157	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G158	;	Até 10 dias 0.5% de desconto, 30 dias valor total
+;	G159	;	2% 8, Net 30
+;	G16	;	Até 20 dias 2% de desconto, 45 dias valor total
+;	G160	;	5% 8, Net 30
+;	G161	;	4% 14, Net 30
+;	G162	;	0.33% 15, Net 30
+;	G163	;	0.42% 15, Net 30
+;	G164	;	1.75% 15, Net 30
+;	G165	;	3.50/15, Net 30
+;	G166	;	0.5% 18, Net 30
+;	G167	;	1% 18, Net 30
+;	G168	;	1.5% 18, Net 30
+;	G169	;	2.75/18, Net 30
+;	G17	;	Até 10 dias 2% de desconto, 60 dias valor total
+;	G170	;	2.5% 21, Net 30
+;	G171	;	3% 21, Net 30
+;	G172	;	1% 7, Net 45
+;	G173	;	0.50/10, Net 45
+;	G174	;	2.00/10, Net 45
+;	G175	;	3% 14, Net 45
+;	G176	;	1.15% 15, Net 45
+;	G177	;	1.25% 15, Net 45
+;	G178	;	3.5% 15, Net 45
+;	G179	;	1.00/18, Net 45
+;	G18	;	Até 15 dias 2% de desconto, 60 dias valor total
+;	G180	;	2.5% 18, Net 45
+;	G181	;	3% 21, Net 45
+;	G182	;	3% 30, Net 45
+;	G183	;	0.5% 15, Net 50
+;	G184	;	1.90/3, 1.40/18, Net 60
+;	G185	;	1% 13, Net 60
+;	G186	;	1% 14, Net 60
+;	G187	;	3% 14, Net 60
+;	G188	;	2.5% 15, Net 60
+;	G189	;	2.50/15, Net 60
+;	G19	;	Até 15 dias 2% de desconto, 90 dias valor total
+;	G190	;	2.5% 15, Net 60
+;	G191	;	2.59% 15, Net 60
+;	G192	;	3.00/15, Net 60
+;	G193	;	3.5% 15, Net 60
+;	G194	;	3.50/15, Net 60
+;	G195	;	1.5% 18, Net 60
+;	G196	;	2.00/18, Net 60
+;	G197	;	2.75/18, Net 60
+;	G198	;	2% 20, Net 60
+;	G199	;	3% 21, Net 60
+;	G2	;	Até 15d 2% desc, 30d 1.5% desc, 75d valor total
+;	G20	;	Até 30 dias 2% de desconto, 90 dias valor total
+;	G200	;	1.5% 30, Net 60
+;	G201	;	2.5% 30, Net 60
+;	G202	;	2.75% 30, Net 60
+;	G203	;	3.00/30 NET 60
+;	G204	;	2% 8, Net 67
+;	G205	;	2% 8, Net 68
+;	G206	;	1.75% 18, Net 70
+;	G207	;	2.40/3, 1.90/18 NET 75
+;	G208	;	2.4% 3, 1.9% 18, Net 75
+;	G209	;	1.5% 10, Net 75
+;	G21	;	Até 30 dias 2.5% de desconto, 90 dias valor total
+;	G210	;	2.36% 10, Net 75
+;	G211	;	0.7% 15, Net 75
+;	G212	;	1.75/15 NET 75
+;	G213	;	3.50/15 NET 75
+;	G214	;	1.875% 18, Net 75
+;	G215	;	2% 18, Net 75
+;	G216	;	2.5% 18, Net 75
+;	G217	;	3% 21, Net 75
+;	G218	;	3% 30, Net 75
+;	G219	;	0.64/45 NET 75
+;	G22	;	Até 15 dias 2.5% de desconto, 90 dias valor total
+;	G220	;	2% 45, Net 75
+;	G221	;	1% 60, Net 75
+;	G222	;	2.00/60 NET 75
+;	G223	;	2.50/15, 1.96/30 NET 85
+;	G224	;	3.50/15, 2.75/30 NET 85
+;	G225	;	2.32/3, 1.92/18 NET 90
+;	G226	;	2.90/3, 2.40/18 NET 90
+;	G227	;	2.50/5, 2.06/20 NET 90
+;	G228	;	3.00/5, 2.47/20 NET 90
+;	G229	;	2.00/10, 1.75/20 NET 90
+;	G23	;	Até 30 dias 2.7% de desconto, 120 dias valor total
+;	G230	;	2.50/10, 2.19/20 NET 90
+;	G231	;	2.67/10, 2.34/20 NET 90
+;	G232	;	2.84/10, 2.49/20 NET 90
+;	G233	;	3.00/10, 2.63/20 NET 90
+;	G234	;	0.02% 15, 0.016% 30, Net 90
+;	G235	;	0.03% 15, 0.024% 30, Net 90
+;	G237	;	1% 15, 0.8% 30, Net 90
+;	G238	;	1.00/15, 0.80/30 NET 90
+;	G239	;	1.10/15, 0.88/30 NET 90
+;	G24	;	Até 15 dias 3.5% de desconto, 120 dias valor total
+;	G240	;	1.70/15, 1.36/30 NET 90
+;	G241	;	1.75/15, 1.40/30 NET 90
+;	G242	;	2.20/15, 1.76/30 NET 90
+;	G243	;	2.70/15, 2.16/30 NET 90
+;	G244	;	2.90/15, 2.32/30 NET 90
+;	G245	;	2.9% 15, 2.32% 30, Net 90
+;	G246	;	3.00/15, 2.40/30 NET 90
+;	G247	;	3% 15, 2.4% 30, Net 90
+;	G248	;	3.25/15, 2.60/30 NET 90
+;	G249	;	3.50/15, 2.80/30 NET 90
+;	G25	;	Até 30 dias 1.5% de desconto, 90 dias valor total
+;	G250	;	3.5% 15, 2.8% 30, Net 90
+;	G251	;	4.00/15, 3.20/30 NET 90
+;	G252	;	1.00/18, 0.75/36 NET 90
+;	G253	;	1.50/18, 1.13/36 NET 90
+;	G254	;	1.80/18, 1.35/36 NET 90
+;	G255	;	2.00/18, 1.50/36 NET 90
+;	G256	;	2.20/18, 1.65/36 NET 90
+;	G257	;	2.50/18, 1.88/36 NET 90
+;	G258	;	2.5% 18, 1.88% 36, Net 90
+;	G259	;	2.59/18, 1.94/36 NET 90
+;	G260	;	2.75/18, 2.06/36 NET 90
+;	G261	;	3.00/18, 2.25/36 NET 90
+;	G262	;	3.25/18, 2.44/36 NET 90
+;	G263	;	3.50/18, 2.63/36 NET 90
+;	G264	;	2.33/20, 1.66/40 NET 90
+;	G265	;	3.00/21, 2.09/42 NET 90
+;	G266	;	10.00/30, 5.00/60 NET 90
+;	G267	;	0.93% 45, Net 90
+;	G268	;	2% 60, Net 90
+;	G269	;	3.50/18, 2.68/36 NET 95
+;	G27	;	0.50/15 NET 60
+;	G270	;	2.00/18, 1.56/36 NET 100
+;	G271	;	2.75/18, 2.15/36 NET 100
+;	G272	;	3.50/15, 2.92/30 NET 105
+;	G273	;	3.50/10, 3.18/20 NET 120
+;	G274	;	2.25/15, 1.93/30 NET 120
+;	G275	;	2.25% 15, 1.93% 30, Net 120
+;	G276	;	2.50/15, 2.14/30 NET 120
+;	G277	;	2.5% 15, 2.14% 30, Net 120
+;	G278	;	2.70/15, 2.31/30 NET 120
+;	G279	;	2.75/15, 2.36/30 NET 120
+;	G28	;	0.50/10 NET 30
+;	G280	;	2.57/30 NET 120
+;	G281	;	3.00/15, 2.57/30 NET 120
+;	G282	;	3.15/15, 2.70/30 NET 120
+;	G283	;	3.15% 15, 2.7% 30, Net 120
+;	G284	;	3.25/15, 2.79/30 NET 120
+;	G285	;	3.30/15, 2.83/30 NET 120
+;	G286	;	1.00/18, 0.82/36 NET 120
+;	G287	;	1.75/18, 1.44/36 NET 120
+;	G288	;	2.25/18, 1.85/36 NET 120
+;	G289	;	2.50/18, 2.06/36 NET 120
+;	G29	;	0.50% 15 NET 60
+;	G290	;	2.75/18, 2.26/36 NET 120
+;	G291	;	2.80/18, 2.31/36 NET 120
+;	G293	;	3.00/18, 2.47/36 NET 120
+;	G294	;	3.13/18, 2.57/36 NET 120
+;	G295	;	3.25/18, 2.68/36 NET 120
+;	G296	;	3.50/18, 2.88/36 NET 120
+;	G297	;	3.75/18, 3.09/36 NET 120
+;	G298	;	3.70/20, 2.96/40 NET 120
+;	G299	;	1.78/30, 1.19/60 NET 120
+;	G3	;	Até 15d 2.5% desc, 30d 2% desc, 90d valor total
+;	G30	;	0.50/30 NET 60
+;	G300	;	1.78% 30, 1.19% 60, Net 120
+;	G301	;	3.00/30, 2.00/60 NET 120
+;	G302	;	3.29/30, 2.19/60 NET 120
+;	G303	;	2.50/45, 1.00/90 NET 120
+;	G304	;	2.00/60 NET 120
+;	G305	;	1.5% 75, Net 120
+;	G306	;	1.00/90 NET 120
+;	G307	;	1.25/18, 1.05/36 NET 130
+;	G308	;	3.00/18, 2.52/36 NET 130
+;	G309	;	3.50/18, 2.94/36 NET 130
+;	G31	;	0.50% 45 NET 60
+;	G310	;	3.75/30, 2.81/60 NET 150
+;	G311	;	2.75/18, 2.42/36 NET 170
+;	G312	;	2.75/18, 2.42/36 NET 90
+;	G313	;	1.44/15 NET 60
+;	G314	;	1.16/30 NET 60
+;	G315	;	1% 14, Net 30
+;	G316	;	3.00/15 NET 45
+;	G317	;	2.15/15 NET 90
+;	G318	;	1.00/18 NET 60
+;	G319	;	3.50/10 NET 120
+;	G32	;	0.6% 12 NET 27
+;	G320	;	1.00/20 NET 120
+;	G321	;	1.00/20 NET 30
+;	G322	;	1% 20, Net 90
+;	G323	;	1.00/30 NET 90
+;	G324	;	1.2% 20, Net 120
+;	G325	;	1.25/15 NET 90
+;	G326	;	1.297% 45, Net 120
+;	G327	;	1.50/10 NET 90
+;	G328	;	1.5% 14, Net 30
+;	G329	;	1.50/15 NET 120
+;	G33	;	0.6% 12 NET 30
+;	G330	;	1.5% 18, Net 45
+;	G331	;	1.50/18 NET 90
+;	G332	;	1.50/20 NET 120
+;	G333	;	1.5% 20, Net 90
+;	G334	;	1.55% 30, Net 105
+;	G335	;	1.75/18 NET 45
+;	G336	;	1.8% 30, Net 120
+;	G337	;	10% 15, Net 30
+;	G338	;	2.00/10 NET 14
+;	G339	;	2% 10, Net 20
+;	G34	;	0.64% 30 NET 60
+;	G340	;	2.00/10 NET 40
+;	G341	;	2.00/10 NET 90
+;	G342	;	2% 14, Net 105
+;	G343	;	2% 14, Net 21
+;	G344	;	90 dias fora o mês, dia 5 do mês seguinte
+;	G345	;	3.00/10, 2.00/14 NET 30
+;	G346	;	3.00/7, 2.00/14 NET 30
+;	G347	;	3.00/8, 2.00/14 NET 30
+;	G348	;	2.00/14 NET 60
+;	G349	;	2.00/14 NET 75
+;	G35	;	0.70% 10 NET 30
+;	G350	;	2.00/14 NET 90
+;	G351	;	2% 18, Net 105
+;	G352	;	2.00/18 NET 120
+;	G353	;	2% 18, Net 30
+;	G354	;	2.00/18 NET 45
+;	G355	;	2.00/18 NET 90
+;	G356	;	2.00/20 NET 120
+;	G357	;	2.00/20 NET 30
+;	G358	;	2% 20, Net 35
+;	G359	;	2.00/7 NET 30
+;	G36	;	0.70% 10 NET 45
+;	G360	;	2% 8 , Net 14
+;	G361	;	2% 8 , Net 20
+;	G362	;	0.75/10 NET 60
+;	G363	;	2.50/10 NET 30
+;	G364	;	2.50/10 NET 90
+;	G365	;	2.5% 14, Net 105
+;	G366	;	2.5% 14, Net 30
+;	G368	;	2.50/18 NET 90
+;	G369	;	2.5% 20, Net 120
+;	G37	;	0.70/10 NET 60
+;	G370	;	2.50/20 NET 90
+;	G371	;	2.50/30 NET 75
+;	G372	;	2.6% 15, Net 45
+;	G373	;	2.7% 18, Net 105
+;	G374	;	2.70/18 NET 120
+;	G375	;	2.7% 18, Net 30
+;	G376	;	2.7% 18, Net 45
+;	G377	;	2.7% 18, Net 60
+;	G378	;	2.70/18 NET 90
+;	G379	;	2.70/45 NET 120
+;	G38	;	0.70% 20 NET 60
+;	G380	;	2.75/15 NET 60
+;	G381	;	2.75% 18, Net 105
+;	G382	;	2.75/18 NET 120
+;	G383	;	2.75/18 NET 45
+;	G384	;	2.75/18 NET 90
+;	G385	;	2.75% 20, Net 90
+;	G386	;	2.8% 18, Net 120
+;	G387	;	3.00/10 NET 120
+;	G388	;	3% 10, Net 50
+;	G39	;	0.70% 15 NET 45
+;	G390	;	3% 10, Net 60
+;	G391	;	3.00/10 NET 90
+;	G392	;	3.00/14 NET 30
+;	G393	;	3.00/14 NET 90
+;	G394	;	3.00/15 NET 120
+;	G395	;	3% 15, Net 35
+;	G396	;	3.00/15 NET 60 TIERS
+;	G397	;	3.00/15 NET 90
+;	G398	;	3.00/18 NET 120
+;	G399	;	3.00/18 NET 30
+;	G4	;	Até 15d 1.25% desc, 30d 1% desc, 90d valor total
+;	G40	;	0.70% 30 NET 60
+;	G400	;	3% 18, Net 45
+;	G401	;	3.00/18 NET 90
+;	G402	;	3.00/30 NET 120
+;	G403	;	3.15/15 NET 120
+;	G404	;	3.50/15 NET 90
+;	G405	;	3.5% 15, Net 100
+;	G406	;	3.50/18 NET 120
+;	G407	;	3.50/20 NET 120
+;	G408	;	3.5% 7 , Net 120
+;	G409	;	3.75% 15, Net 120
+;	G41	;	0.77% 10 NET 75
+;	G410	;	4% 10, Net 20
+;	G411	;	4% 18, Net 30
+;	G412	;	4% 20, Net 75
+;	G413	;	5.00/30 NET 30
+;	G414	;	0.50/10 NET 90
+;	G415	;	2.00/10 NET 120
+;	G416	;	1.00/15 NET 120
+;	G417	;	1.5% 15, Net 90
+;	G418	;	2% 10, Net 120
+;	G419	;	2.00/15 NET 45
+;	G42	;	0.77% 15 NET 75
+;	G420	;	2.5% 18, Net 30
+;	G421	;	1.00/8 NET 30
+;	G422	;	1.7% 45, Net 90
+;	G423	;	2% 7, Net 14
+;	G424	;	2% 8, Net 90
+;	G425	;	2.5% 14, Net 45
+;	G426	;	2.5% 20, Net 30
+;	G427	;	2.75% 10, Net 60
+;	G428	;	26 DAYS NO DISCOUNT
+;	G429	;	3.00/8 NET 30
+;	G43	;	0.80% 15 NET 60
+;	G431	;	3.5% 25, Net 120
+;	G432	;	4% 20, Net 90
+;	G433	;	5% 7, Net 30
+;	G434	;	1.00/10 NET 120
+;	G435	;	1.00/15 NET 90
+;	G436	;	1%/18, Net 60
+;	G437	;	1%/20, Net 120
+;	G438	;	1.50/18 NET 120
+;	G439	;	1.80/30, Net120
+;	G44	;	0.80% 25 NET 60
+;	G440	;	2%/10, Net 120
+;	G441	;	2%/18, Net 120
+;	G442	;	2%/18, Net 45
+;	G443	;	2.50/15 NET 120
+;	G444	;	2.50/18, Net 90
+;	G445	;	2.50/20, Net 120
+;	G446	;	2.50/20 NET 120
+;	G447	;	2.70/18 NET 30
+;	G448	;	2.70/18, Net 30
+;	G449	;	2.70/18 NET 45
+;	G45	;	0.85% 10 NET 60
+;	G450	;	2.70/18 NET 60
+;	G451	;	2.7% 18, Net 90
+;	G452	;	25 DAYS NO DISCOUNT
+;	G453	;	27 DAYS NO DISCOUNT
+;	G454	;	3%/15, Net 90
+;	G455	;	3.50/20, Net 120
+;	G456	;	CASH IN ADVANCE
+;	G46	;	0.85% 30 NET 75
+;	G47	;	0.90% 15 NET 55
+;	G48	;	0.90% 15 NET 60
+;	G49	;	0.90% 20 NET 60
+;	G5	;	Até 10 dias 2% de desconto, 75 dias valor total
+;	G50	;	1.00/10 NET 45
+;	G501	;	2.625/15 NET 120
+;	G502	;	1,50/20 NET 90
+;	G503	;	1,875/18 NET 75
+;	G504	;	1,00/18 NET 60
+;	G505	;	1,00/20 NET 90
+;	G506	;	1,20/30 NET 90
+;	G507	;	Within 45 d 1.297% cash disc,Within 120 d due net
+;	G508	;	1,44% 15 NET 90
+;	G509	;	1.45/15 NET 105
+;	G51	;	1.00/15 NET 45
+;	G510	;	1,5/15 NET 120
+;	G511	;	2,00/14 NET 30
+;	G512	;	2,00/15 NET 85
+;	G513	;	2,00/18 NET 120
+;	G514	;	2,00/20 NET 35
+;	G515	;	2,20/15 NET 60
+;	G516	;	2,50/20 NET 120
+;	G517	;	2,50/20 NET 90
+;	G518	;	2,70/18 NET 105
+;	G519	;	2,70/18 NET 120
+;	G520	;	2,70/18 NET 45
+;	G521	;	2,70/18 NET 60
+;	G522	;	2,70/45 NET 120
+;	G523	;	2,75/18 NET 105
+;	G524	;	2,75/18 NET 45
+;	G525	;	3,00/10 NET 50
+;	G526	;	3,00/14 NET 30
+;	G527	;	3,00/14 NET 90
+;	G528	;	3,00/15 NET 40
+;	G529	;	3,00/20 NET 85
+;	G53	;	1% 17 NET 32
+;	G530	;	3,00/30 NET 90
+;	G531	;	3,125/18 NET 120
+;	G532	;	3,5/20 NET120
+;	G533	;	3.50/16, 1.50/60 NET 90
+;	G534	;	40 DAYS NO DISCOUNT
+;	G535	;	80 DAYS NO DISCOUNT
+;	G536	;	2,25/15 NET 60
+;	G537	;	1,00/10 NET 55
+;	G538	;	1.15/15, 0.86/30 NET 75
+;	G539	;	1% 10, Net 120
+;	G54	;	1% 20 NET 60
+;	G540	;	1.00/10 NET 90
+;	G541	;	1% 15, Net 90
+;	G542	;	1.00/18 NET 120
+;	G543	;	2.25/15 NET 120
+;	G544	;	2.50/15, 2.00/30 NET 120
+;	G545	;	.93% 15/ .80% 30/N120
+;	G546	;	0.75/10 NET 60 TIERS VARIABLE
+;	G547	;	1.00/15 NET 75 TIERS
+;	G548	;	1.00/15 NET 75 TIERS VARIABLE
+;	G549	;	1.00/15 NET 90 TIERS
+;	G55	;	1% 25 NET 60
+;	G550	;	1.00/18 NET 90
+;	G551	;	1.15/15 NET 75 TIERS
+;	G552	;	1.45/15 NET 105 VARIABLE
+;	G553	;	1.50/15 NET 60 TIERS
+;	G554	;	1.78/30 NET 120
+;	G555	;	1.80/18 NET 90
+;	G556	;	1.95/15 NET 90
+;	G557	;	2.00/15 NET 120 TIERS
+;	G558	;	2.00/15 NET 75 TIERS
+;	G559	;	2.00/15 NET 90 TIERS
+;	G56	;	1% 30 NET 45
+;	G560	;	2.25/15 NET 120 TIERS
+;	G561	;	2.50/15 NET 120 TIERS
+;	G562	;	2.50/15 NET 75 TIERS
+;	G563	;	2.50/15 NET 90 TIERS
+;	G564	;	2.50/15 NET 90 TIERS VARIABLE
+;	G565	;	2.50/18 NET 120
+;	G566	;	2.50/18 NET 90 TIERS
+;	G567	;	2.50/45 NET 120
+;	G568	;	2.50/5 NET 90 TIERS
+;	G569	;	2.70/15 NET 120
+;	G57	;	1.05 % 15 NET 60
+;	G570	;	2.70/15 NET 90
+;	G571	;	2.75/30 NET 120
+;	G572	;	3.00/21 NET 90
+;	G573	;	3.15/15 NET 120 TIERS
+;	G574	;	3.15/15 NET 120 TIERS VARIABLE
+;	G575	;	3.25/18 NET 90
+;	G576	;	3.30/15 NET 120
+;	G577	;	3.50/15 NET 105
+;	G578	;	3.50/15 NET 120 TIERS
+;	G58	;	1.05 % 25 NET 60
+;	G580	;	ADVANCE PAYMENT
+;	G581	;	1.69/7 NET 113 VARIABLE
+;	G59	;	1.07 % 15 NET 75
+;	G6	;	Até 20 dias 2% de desconto, 90 dias valor total
+;	G60	;	1.10 % 10 NET 60
+;	G61	;	1.10 % 10 NET 75
+;	G62	;	1.10 % 15 NET 60
+;	G63	;	1.10 % 15 NET 75
+;	G64	;	1.10 % 20 NET 75
+;	G65	;	1.15/15 NET 60
+;	G66	;	1.15 % 15 NET 90
+;	G67	;	1.15 % 25 NET 60
+;	G68	;	1.20 % 10 NET 45
+;	G69	;	1.20 % 15 NET 60
+;	G7	;	Até 10 dias 1% de desconto, 60 dias valor total
+;	G70	;	1.20 % 15 NET 75
+;	G71	;	1.20 % 20 NET 60
+;	G72	;	1.20 % 25 NET 60
+;	G73	;	1.22 % 10 NET 60
+;	G74	;	1.25/15 NET 60
+;	G75	;	1.25 % 18 NET 60
+;	G76	;	1.25/20 NET 60
+;	G77	;	1.30 % 15 NET 60
+;	G78	;	1.33 % 15 NET 60
+;	G79	;	1.35 % 15 NET 60
+;	G8	;	Até 10 dias 1% de desconto, 75 dias valor total
+;	G80	;	1.40 % 15 NET 60
+;	G81	;	1.40 % 20 NET 60
+;	G82	;	1.50/10 NET 30
+;	G83	;	1.50 % 10 NET 60
+;	G84	;	1.50/15 NET 45
+;	G85	;	1.50 % 15 NET 50
+;	G88	;	1.50/15 NET 90
+;	G89	;	1.50 % 20 NET 60
+;	G9	;	Até 15 dias 1% de desconto, 60 dias valor total
+;	G90	;	1.60 % 10 NET 60
+;	G91	;	1.60 % 20 NET 60
+;	G92	;	1.75/15 NET 60
+;	G93	;	1.75 % 20 NET 75
+;	G94	;	1.80 % 15 NET 60
+;	G95	;	1.80 % 20 NET 60
+;	G96	;	1.90 % 15 NET 60
+;	G97	;	2.00 % 10 NET 75
+;	G98	;	2.00/1 NET 30
+;	G99	;	2.00/10 NET 25
+;	GE%	;	Até 15 dias 1.5% de desconto, 30 dias valor total
+;	GN75	;	Em 75 dias da data do faturamento
+;	IBS	;	GE IBS
+;	IR42	;	42 dias do recebimento da nota fiscal
+;	IR45	;	45 dias do recebimento da nota fiscal
+;	LCLD	;	Em 30 dias da data do faturamento
+;	LTC3	;	Em 30 dias da data do faturamento
+;	LTC6	;	Em 30 dias da data do faturamento
+;	LTCR	;	Em 30 dias da data do faturamento
+;	N100	;	100 DAYS NO DISCOUNT
+;	N105	;	105 DAYS NO DISCOUNT
+;	N110	;	110 days due net
+;	N120	;	Em 120 dias da data do faturamento
+;	N121	;	em 120 dias fora o mês
+;	N130	;	Within 130 days due net
+;	N135	;	Within 135 Days due net
+;	N150	;	150 DAYS NO DISCOUNT
+;	N160	;	160 days due net
+;	N180	;	Em 180 dias da data do faturamento
+;	N301	;	em 30 dias fora o mês de faturamento
+;	N30D	;	Em 30 dias da data do faturamento
+;	N45L	;	Em 30 dias da data do faturamento
+;	N60	;	Em 60 dias da data do faturamento
+;	N60L	;	Em 30 dias da data do faturamento
+;	NC	;	Não cobrável
+;	NT00	;	Pagamento imediato
+;	NT01	;	Pagamento imediato
+;	NT05	;	5 DAYS NO DISCOUNT
+;	NT08	;	8  DAYS NO DISCOUNT
+;	NT10	;	Em 10 dias da data do faturamento
+;	NT11	;	11 DAYS NO DISCOUNT
+;	NT12	;	12 DAYS NO DISCOUNT
+;	NT13	;	13 DAYS NO DISCOUNT
+;	NT14	;	Em 14 dias da data do faturamento
+;	NT15	;	Em 15 dias da data do faturamento
+;	NT17	;	Em 17 dias da data do faturamento
+;	NT18	;	18 DAYS NO DISCOUNT
+;	NT21	;	21 DAYS NO DISCOUNT
+;	NT23	;	Em 23 dias da data do faturamento
+;	NT25	;	25 DAYS NO DISCOUNT
+;	NT27	;	27 DAYS NO DISCOUNT
+;	NT28	;	28 DAYS NO DISCOUNT
+;	NT3	;	3 DAYS NO DISCOUNT
+;	NT30	;	Em 30 dias da data do faturamento
+;	NT31	;	31 DAYS NO DISCOUNT
+;	NT32	;	32 DAYS NO DISCOUNT
+;	NT35	;	Em 35 dias da data do faturamento
+;	NT38	;	Em 38 dias da data do faturamento
+;	NT40	;	40 DAYS NO DISCOUNT
+;	NT42	;	Em 42 dias da data do faturamento
+;	NT45	;	Em 45 dias da data do faturamento
+;	NT50	;	Em 50 dias da data do faturamento
+;	NT55	;	55 DAYS NO DISCOUNT
+;	NT60	;	Em 60 dias da data do faturamento
+;	NT65	;	65 DAYS NO DISCOUNT
+;	NT7	;	Em 7 dias da data do faturamento
+;	NT70	;	70 DAYS NO DISCOUNT
+;	NT75	;	Em 75 dias da data do faturamento
+;	NT82	;	Within 82 days due net
+;	NT85	;	85 DAYS NO DISCOUNT
+;	NT90	;	Em 90 dias da data do faturamento
+;	NT95	;	95 DAYS NO DISCOUNT
+;	NTRP	;	Em 30 dias da data do faturamento
+;	OTHR	;	Em 30 dias da data do faturamento
+;	PC	;	De acordo com o Contrato
+;	PRBL	;	Em 30 dias da data do faturamento
+;	SA	;	Credito em Observação
+;	SD	;	Saque á vista
+;	SD#1	;	Saque em 45 dias da data do faturamento
+;	SD#2	;	Saque em 60 dias da data do faturamento
+;	SD#3	;	Saque em 30 dias do envio dos documentos
+;	SD#4	;	Saque em 45 dias do envio dos documentos
+;	SD#5	;	Saque em 60 dias do envio dos documentos
+;	SIDR	;	Em 30 dias da data do faturamento
+;	T018	;	TPS 18 DAYS
+;	T020	;	TPS 20 DAYS
+;	T030	;	TPS 30 DAYS
+;	T045	;	TPS 45 DAYS
+;	T060	;	TPS 60 Days
+;	T075	;	TPS 75 Days
+;	T090	;	TPS 90 Days
+;	T105	;	TPS 105 Days
+;	T120	;	TPS 120 Days
+;	TEST	;	45 days end of the month
+;	TS30	;	60 days end of the month
+;	UPRT	;	Á VISTA
+;	UR	;	UPON RECEIPT
+;	XT17	;	Em 17 dias da data do faturamento
+;	Z001	;	Cash in Advance
+;	Z002	;	Cash in Advance
+;	Z003	;	Cash in Advance
+;	Z004	;	Cash in Advance
+;	Z005	;	Cash in Advance
+;	Z006	;	Cash in Advance
+;	Z007	;	Cash in Advance
+;	Z008	;	Cash in Advance
+;	Z009	;	Cash in Advance
+;	Z010	;	Cash in Advance
+;	Z020	;	20TH OF NEXT MONTH
+;	ZX30	;	em 30 dias fora o mês de faturamento
+;	ZY30	;	em 30 dias do recebimento da fatura
+;	ZY60	;	em 60 dias do recebimento da fatura
+;	ZY90	;	em 90 dias do recebimento da fatura
+#Added for PaymentTerms issue reported by Bettina for customer 164336 BW Plus NDT GmbH & Co. KG
+;	2%35	;	2% de desconto por 35 dias

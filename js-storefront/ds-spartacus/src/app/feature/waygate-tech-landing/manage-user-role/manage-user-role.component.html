@@ -1,0 +1,405 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-users-manage-role-container">
+    <div class="waygate-users-manage-role-header">
+      <div class="tab">
+        <button
+          class="tablinks"
+          [class.active]="!isInternalActive"
+          (click)="onUserClick(false)"
+        >
+          {{ 'waygate.manage-user.external' | cxTranslate }}
+        </button>
+        <button
+          class="tablinks"
+          [class.active]="isInternalActive"
+          (click)="onUserClick(true)"
+        >
+          {{ 'waygate.manage-user.internal' | cxTranslate }}
+        </button>
+      </div>
+    </div>
+    <div class="waygate-users-manage-role-header-actions">
+      <div class="gap-2 d-flex">
+        <div class="waygate-users-manage-role-title">
+          {{
+            customerNameNumberCopy ? customerNameNumberCopy : customerNameNumber
+          }}
+        </div>
+        <div class="edit-icon">
+          <span class="material-icons-outlined" (click)="onChangeAccount()">
+            edit
+          </span>
+        </div>
+        <app-search-customer-account
+          *ngIf="isPopupOpen"
+          [accounts]="accounts"
+          (close)="closePopup($event)"
+        ></app-search-customer-account>
+        <ng-template ng-option-tmp let-item="item">
+          {{ item.name }} - {{ item.id }}
+        </ng-template>
+        <ng-template ng-label-tmp let-item="item">
+          {{ item.name }} - {{ item.id }}
+        </ng-template>
+        <span class="text">
+          {{
+            'waygate.manage-user.members' | cxTranslate : { count: totalCount }
+          }}</span
+        >
+
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedRole"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="roleOptions"
+          (change)="onRoleChange($event)"
+        >
+        </ng-select>
+      </div>
+
+      <div class="users-manage-role-search-actions">
+        <div class="users-manage-role-search">
+          <input
+            type="text"
+            placeholder="{{
+              'waygate.manage-user.searchManageParameter' | cxTranslate
+            }}"
+            [formControl]="searchControl"
+          />
+          <span class="material-icons" (click)="search()"> search </span>
+        </div>
+        <div
+          class="my-order-actions"
+          (click)="downloadXls()"
+          title="{{ 'waygate.manage-user.exportToXLS' | cxTranslate }}"
+        >
+          <span class="material-icons"> vertical_align_bottom </span>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!showLoader; else loading">
+      <ng-container *ngIf="userData?.results?.length > 0; else noData">
+        <div class="users-manage-role-table-container">
+          <div class="table-title">
+            {{ 'waygate.manage-user.userList' | cxTranslate }}
+          </div>
+          <table class="waygate-my-order-table">
+            <thead>
+              <tr>
+                <!-- User Name -->
+                <th>
+                  <div class="header-title">
+                    {{ 'waygate.manage-user.name' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('byNameAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('byNameDsc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <!-- Role -->
+                <th>
+                  <div class="header-title">
+                    {{ 'waygate.manage-user.role' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('byRoleAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('byRoleDsc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <!-- Last active -->
+                <th>{{ 'waygate.manage-user.lastActive' | cxTranslate }}</th>
+                <!-- Status -->
+                <th>{{ 'waygate.manage-user.status' | cxTranslate }}</th>
+                <!-- Last edited -->
+                <th>{{ 'waygate.manage-user.lastEdited' | cxTranslate }}</th>
+                <!-- Empty -->
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container
+                *ngFor="let user of userData?.results; let i = index"
+              >
+                <tr>
+                  <!-- User Email/Name -->
+                  <td>
+                    {{ user?.email }}<br />
+                    {{ user?.name }}
+                  </td>
+                  <!-- Role -->
+                  <td [ngClass]="{ highlighted: editIndex === i }">
+                    <ng-container *ngIf="editIndex === i; else noEdit">
+                      <ng-container
+                        *ngIf="selectedTableRole === 'UG_VIEW_STORE'; else full"
+                        >{{
+                          'waygate.manage-user.viewAccess' | cxTranslate
+                        }}</ng-container
+                      >
+                      <ng-template #full>{{
+                        'waygate.manage-user.fullAccess' | cxTranslate
+                      }}</ng-template>
+                    </ng-container>
+                    <ng-template #noEdit>
+                      <ng-container
+                        *ngIf="user?.dsRoles === 'UG_VIEW_STORE'; else full"
+                        >{{
+                          'waygate.manage-user.viewAccess' | cxTranslate
+                        }}</ng-container
+                      >
+                      <ng-template #full>{{
+                        'waygate.manage-user.fullAccess' | cxTranslate
+                      }}</ng-template>
+                    </ng-template>
+                    <span
+                      class="material-icons"
+                      #access
+                      *ngIf="editIndex === i"
+                    >
+                      expand_less
+                    </span>
+                    <div
+                      clickOutside
+                      [clickSourceId]="access"
+                      (clickOutside)="(editIndex === -1)"
+                      class="userMenu"
+                      *ngIf="editIndex === i"
+                    >
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-12 horizontal">
+                              <div class="radio-group-label"></div>
+                              <bh-selection-group
+                                false
+                                layout="horizontal"
+                                message=""
+                                false
+                                false
+                              >
+                                <bh-radio-button
+                                  [label]="
+                                    'waygate.manage-user.viewAccess'
+                                      | cxTranslate
+                                  "
+                                  [attr.checked]="
+                                    selectedTableRole === 'UG_VIEW_STORE'
+                                  "
+                                  value="true"
+                                  name="viewAccessType"
+                                  (change)="
+                                    handleChange($event, 'viewAccessType', user)
+                                  "
+                                ></bh-radio-button>
+                                <p>
+                                  {{
+                                    'waygate.manage-user.viewAccessDes'
+                                      | cxTranslate
+                                  }}
+                                </p>
+
+                                <bh-radio-button
+                                  [label]="
+                                    'waygate.manage-user.fullAccess'
+                                      | cxTranslate
+                                  "
+                                  [attr.checked]="
+                                    selectedTableRole === 'UG_ADMIN_ORDER_STORE'
+                                  "
+                                  value="true"
+                                  name="fullAccessType"
+                                  (change)="
+                                    handleChange($event, 'fullAccessType', user)
+                                  "
+                                ></bh-radio-button>
+                                <p>
+                                  {{
+                                    'waygate.manage-user.fullAccessDes'
+                                      | cxTranslate
+                                  }}
+                                </p>
+                              </bh-selection-group>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- Last active -->
+                  <td>{{ user?.lastLogin | date : 'd MMM, y' }}</td>
+                  <!-- Status -->
+                  <td>
+                    <div class="switch-container">
+                      <span
+                        class="line-data"
+                        [ngbTooltip]="selectedStatus ? lineItemContent : ''"
+                        tooltipClass="waygate-line-item-tooltip"
+                        placement="top"
+                        triggers="hover focus"
+                      >
+                        <ng-container *ngIf="editIndex === i">
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="!user?.loginDisabled"
+                              (change)="loginChange($event, i, user)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </ng-container>
+                      </span>
+                      <ng-template #lineItemContent>
+                        <ng-container *ngIf="selectedStatus">
+                          {{
+                            'waygate.manage-user.disableUserTooltip'
+                              | cxTranslate
+                          }}
+                        </ng-container>
+                      </ng-template>
+                      <ng-container *ngIf="editIndex === i; else noStatusEdit">
+                        {{ selectedStatus ? 'Enabled' : 'Disabled' }}
+                      </ng-container>
+                      <ng-template #noStatusEdit>
+                        {{ !user?.loginDisabled ? 'Enabled' : 'Disabled' }}
+                      </ng-template>
+                    </div>
+                  </td>
+                  <!-- Last edited -->
+                  <td>
+                    <div>
+                      {{ user?.editedBy }}<br />
+                      {{ user?.editedTime }}
+                    </div>
+                  </td>
+                  <!-- Empty -->
+                  <td>
+                    <div class="edit-icon">
+                      <span
+                        class="material-icons-outlined"
+                        (click)="editUserDetail(i, user)"
+                        *ngIf="editIndex !== i"
+                      >
+                        edit
+                      </span>
+                      <ng-container *ngIf="editIndex === i">
+                        <div class="check-close">
+                          <span class="material-icons" (click)="updateUser()"
+                            >check</span
+                          >
+
+                          <span class="material-icons" (click)="closeEdit()"
+                            >close</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="quick-order-pagination" *ngIf="totalCount > 10">
+            <div class="page-size-container">
+              <div>{{ 'waygate.manage-user.itemsPerPage' | cxTranslate }}</div>
+              <div>
+                <select name="" id="" (change)="pageSizeChanged($event)">
+                  <ng-container *ngFor="let value of pageSizes">
+                    <option
+                      [value]="value"
+                      [selected]="value == currentPageSize"
+                    >
+                      {{ value }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div>{{ startRange }}-{{ endRange }} of {{ totalCount }}</div>
+            </div>
+            <div class="page-number-selector-container" *ngIf="totalPages > 1">
+              <span
+                class="material-icons"
+                (click)="pageSelected(1)"
+                [class.disabled]="currentPage == 1"
+              >
+                keyboard_double_arrow_left
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage - 1)"
+                [class.disabled]="currentPage == 1"
+              >
+                chevron_left
+              </span>
+              <div *ngIf="currentPage > 2" class="disabled">...</div>
+              <ng-container *ngFor="let value of getPageArray(); let i = index">
+                <ng-container
+                  *ngIf="
+                    currentPage == value ||
+                    currentPage - 1 == value ||
+                    currentPage + 1 == value
+                  "
+                >
+                  <div
+                    class="pagination-numbers"
+                    [class.active]="value == currentPage"
+                    (click)="pageSelected(value)"
+                  >
+                    {{ value }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <div *ngIf="currentPage < totalPages - 1" class="disabled">
+                ...
+              </div>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage + 1)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                chevron_right
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(totalPages)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                keyboard_double_arrow_right
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img
+      src="../../../../assets/img/Illustration.png"
+      alt="{{ 'waygate.manage-user.noUsersFound' | cxTranslate }}"
+    />
+    <h4>{{ 'waygate.manage-user.noUsersFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

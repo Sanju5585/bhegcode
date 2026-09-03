@@ -1,0 +1,299 @@
+<ng-container *ngIf="data.type === 'alert'">
+  <h2 class="header error">
+    <img
+      src="../../../../assets/img/outage.png"
+      class="img-responsive outageImg"
+    />
+    <div>{{ 'registration.alert' | cxTranslate }}</div>
+  </h2>
+  <mat-dialog-content class="msg-body">
+    <p>
+      <ng-container *ngIf="data.isI18n">
+        {{ 'registration.' + data.message | cxTranslate }}
+      </ng-container>
+      <ng-container *ngIf="!data.isI18n">
+        {{ data.message }}
+      </ng-container>
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-button class="popup-btn" [mat-dialog-close]="true">{{ 'registration.okay' | cxTranslate }}</button>
+  </mat-dialog-actions>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'manual_approval'">
+  <mat-dialog-content style="display: flex; flex-direction: column">
+    <div class="close">
+      <span [mat-dialog-close]="true" style="font-weight: bold">&times;</span>
+    </div>
+    <div class="registerCopyright">
+      <div
+        id="contantBody"
+        style="height: 200px; overflow-y: auto; margin-bottom: 5px"
+      >
+        <h3 class="color">{{ 'registration.TermsOfUse' | cxTranslate }}</h3>
+        <div class="mar-0">
+          <h4>
+            <spring:theme code="ge.edge.landing.lastUpdated" />
+            <span>{{
+              'registration.ge.edge.landing.lastUpdated' | cxTranslate
+            }}</span>
+          </h4>
+          <p class="color-grey content">
+            <!-- <spring:theme code="ge.edge.landing.para1" /> -->
+            <span>{{
+              'registration.ge.edge.landing.para1' | cxTranslate
+            }}</span>
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.accessGrant' | cxTranslate }}
+          </h4>
+          <p class="color-grey content">
+            {{ 'registration.ge.edge.landing.para2' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.restrictions' | cxTranslate }}
+          </h4>
+          <ul>
+            <li>
+              {{ 'registration.ge.edge.landing.para3' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.para4' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.userConduct' | cxTranslate }}
+              <ul>
+                <li>
+                  {{ 'registration.ge.edge.landing.li1' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li2' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li3' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li4' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li5' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li6' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li7' | cxTranslate }}
+                </li>
+                <li>
+                  {{ 'registration.ge.edge.landing.li8' | cxTranslate }}
+                </li>
+              </ul>
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.para5' | cxTranslate }}
+            </li>
+          </ul>
+          <h4>
+            {{ 'registration.ge.edge.landing.no' | cxTranslate }}
+          </h4>
+          <ul>
+            <li>
+              {{ 'registration.ge.edge.landing.li9' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.li10' | cxTranslate }}
+            </li>
+          </ul>
+          <h4>
+            {{ 'registration.ge.edge.landing.changes' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para6' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.accuracy' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para7' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.useOf' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para8' | cxTranslate }}
+          </p>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para9' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.exclusion' | cxTranslate }}
+          </h4>
+          <ul>
+            <li>
+              {{ 'registration.ge.edge.landing.li11' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.li12' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.li13' | cxTranslate }}
+            </li>
+          </ul>
+          <h4>
+            {{ 'registration.ge.edge.landing.limitation' | cxTranslate }}
+          </h4>
+          <ul>
+            <li>
+              {{ 'registration.ge.edge.landing.para10' | cxTranslate }}
+            </li>
+            <li>
+              {{ 'registration.ge.edge.landing.para11' | cxTranslate }}
+            </li>
+          </ul>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para12' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.jurisdiction' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            <spring:theme code="ge.edge.landing.para13" />
+            {{ 'registration.ge.edge.landing.para13' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.changes' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para14' | cxTranslate }}
+          </p>
+          <p>
+            {{ 'registration.ge.edge.landing.para15' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.agreement' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.policies' | cxTranslate }}
+          </p>
+          <h4>
+            {{ 'registration.ge.edge.landing.severability' | cxTranslate }}
+          </h4>
+          <p class="color-grey">
+            {{ 'registration.ge.edge.landing.para16' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="modal-body-no">
+        <strong>
+          <!-- {{'registration.ge.edge.landing.contant' | cxTranslate }} -->
+        </strong>
+      </div>
+      <!-- <div class="text-center" style="margin-left: 240px;">
+                <ul class="inline color-navi boldLabel radioinput-group" id="reg-links" style="list-style:none;">
+                    <li class="radioinput text-bold" style="color:#005eb8;font-weight:bold;">
+                        <input type="radio" name="regAgree" id="regYes" value="Yes"><label class="radio inline bold">
+                            {{'registration.ge.edge.gdpr.agree' | cxTranslate }}
+                        </label>
+                    </li>
+                    <li class="radioinput text-bold" style="color:#005eb8;font-weight:bold;">
+                        <input type="radio" checked="checked" name="regAgree" id="regNo" value="No"><label
+                            class="radio inline bold">
+                            {{'registration.ge.edge.gdpr.reject' | cxTranslate }}
+                        </label>
+                    </li>
+                </ul>
+            </div> -->
+      <div class="radio-group">
+        <div class="form-check">
+          <input
+            type="radio"
+            class="form-check-input"
+            name="regAgree"
+            id="yes"
+            (change)="radioBtnChange('yes')"
+            formControlName="bhCustAccNo"
+            value="Yes"
+          />
+          <label for="yes" class="form-check-label">{{
+            'registration.ge.edge.gdpr.agree' | cxTranslate
+          }}</label>
+        </div>
+        <div class="form-check">
+          <input
+            type="radio"
+            class="form-check-input"
+            checked="checked"
+            name="regAgree"
+            id="no"
+            (change)="radioBtnChange('no')"
+            formControlName="bhCustAccNo"
+            value="No"
+          />
+          <label for="no" class="form-check-label">{{
+            'registration.ge.edge.gdpr.reject' | cxTranslate
+          }}</label>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <div class="agreePopupButton text-center">
+      <button
+        class="btn btn-primary submitlogin"
+        (click)="doSubmit()"
+        [mat-dialog-close]="true"
+        [disabled]="disable"
+        style="border-radius: 4px"
+      >
+        <!-- <spring:theme code="bhge.header.submit" text="Submit" /> -->
+        {{ 'registration.bhge.header.submit' | cxTranslate }}
+      </button>
+    </div>
+  </mat-dialog-actions>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'email_exist'">
+  <mat-dialog-content>
+    <div class="outagePopup1">
+      <div class="htopBorder">
+        <div class="hheaderTitlepopup1">{{ 'registration.userAccountExists' | cxTranslate }}</div>
+      </div>
+      <div class="hheaderTitlepopup"></div>
+      <div class="DupEmailMessage">
+        {{ 'registration.usernameAlreadyRegisterd' | cxTranslate }}.
+      </div>
+      <div class="DupEmailMessage" style="padding-top: 10px">
+        {{ 'registration.cancelTrytoLogin' | cxTranslate }}.
+      </div>
+      <div class="DupEmailMessage" style="padding-top: 10px">
+        {{ 'registration.problemContactUs' | cxTranslate }}
+        <a href="/register/add-support-ticket" style="color: #4a59be"
+          >{{ 'registration.siteFeedback' | cxTranslate }}</a
+        >
+        {{ 'registration.forSupport' | cxTranslate }}.
+      </div>
+      <div class="DupEmailMessage" style="padding-top: 10px">
+        {{ 'registration.resetPassword' | cxTranslate }}
+        <a
+          href="https://login.bakerhughes.com/signin/forgot-password"
+          style="color: #4a59be"
+          >{{ 'registration.forgetPassword' | cxTranslate }}</a
+        >
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions style="justify-content: right">
+    <button mat-button class="popup-btn" [mat-dialog-close]="true">{{ 'registration.ok' | cxTranslate }}</button>
+  </mat-dialog-actions>
+</ng-container>
+
+<!-- <ng-container *ngIf="data.type === 'success'">
+    <h2 class="header error">
+        <img src="../../../../assets/img/BakerHughes_Icons_Checkmark.png" class="img-responsive outageImg" />
+        <div>Success!</div>
+    </h2>
+    <mat-dialog-actions align="center">
+        <button mat-button class="popup-btn" [mat-dialog-close]="true">OKAY</button>
+    </mat-dialog-actions>
+</ng-container> -->

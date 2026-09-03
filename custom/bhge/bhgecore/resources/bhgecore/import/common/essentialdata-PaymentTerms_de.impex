@@ -1,0 +1,668 @@
+INSERT_UPDATE Paymentterm;code[unique=true];name[lang=de]
+;	%COD	;	1/2 VORAUSZAHLUNG, 1/2 COD
+;	.5%	;	0,5% 15 netto 30
+;	.5%1	;	0,5% 15 netto 30
+;	.5/1	;	.5% 10 netto 30
+;	0001	;	Do not use
+;	1%10	;	1% 10 NETTO 30 TAGE
+;	1%15	;	1% 15 NETTO 30 TAGE
+;	1-10	;	1% 10 NETTO 42 TAGE
+;	1-15	;	1% 15 NETTO 42 TAGE
+;	10NM	;	10. DES FOLGEMONATS
+;	1N30	;	1 1/2% 10 N/30 RECHNUNGSDATUM
+;	2%10	;	2% 10 NETTO 30 TAGE
+;	2%15	;	2% 15 NETTO 30 TAGE
+;	2%40	;	2% 15 NETTO 45 TAGE
+;	2%45	;	2% 15 NETTO 45 TAGE
+;	2-10	;	2% 10 NETTO 42 TAGE
+;	2-15	;	2% 15 NETTO 42 TAGE
+;	2-20	;	Innerhalb 60 Tagen fällig ohne Abzug
+;	2-30	;	2% 15 NETTO 30 TAGE
+;	2-40	;	2% 15 NETTO 30 TAGE
+;	2.5%	;	2,5% innerhalb 30 Tagen
+;	20NM	;	20. DES FOLGEMONATS
+;	25NM	;	10. DES FOLGEMONATS
+;	3%10	;	3% 10 NETTO 30 TAGE
+;	3%15	;	3% 15 NETTO 30 TAGE
+;	3%90	;	3% 30 / NETTO 90 TAGE
+;	3-10	;	3% 10 NETTO 42 TAGE
+;	3-15	;	3% 15 NETTO 42 TAGE
+;	30SD	;	30 TAGE AB VERSANDDATUM
+;	4%10	;	4% 10 NETTO 30 TAGE
+;	4%15	;	4% 15 NETTO 30 TAGE
+;	4-10	;	4% 10 NETTO 42 TAGE
+;	4-15	;	4% 15 NETTO 42 TAGE
+;	5%10	;	5% 10 NETTO 30 TAGE
+;	5%15	;	5% 15 NETTO 30 TAGE
+;	5-10	;	5% 10 NETTO 42 TAGE
+;	5-15	;	5% 15 NETTO 42 TAGE
+;	50%N	;	50% VORAUSZAHLUNG / NETTO 30
+;	60SD	;	60 TAGE AB VERSANDDATUM
+;	75SD	;	75 TAGE AB VERSANDDATUM
+;	7_NM	;	7. DES FOLGEMONATS
+;	90SD	;	90 TAGE AB VERSANDDATUM
+;	ACR1	;	25% fällig bei Auftragseingang / 75% Vorauszahlung
+;	ACR2	;	15% fällig bei Auftragseingang / 85% Vorauszahlung
+;	ACR3	;	10% fällig bei Auftragseingang / 90% Vorauszahlung
+;	ALC	;	Benachrichtigen, dass Akkreditiv in 60 Tagen fälli
+;	AP	;	Vorauszahlung
+;	AP1	;	AP1 Build  /   Nicht versenden
+;	AP30	;	25% Vorauszahlung / Restbetrag Netto 30 Tage
+;	APCR	;	Vorauszahlung in bar erhalten
+;	APPD	;	Voraus zahlung/Nicht erstellen/Überfälliger Restbe
+;	BLNK	;	Zahlungsfristen LEER, kein Druck auf der Rechnung
+;	CC	;	Einkauf Kreditkarte
+;	CC01	;	Kreditkartenzahlung
+;	CCSD	;	Kreditkartenzahlung sofort
+;	CCSL	;	KREDITKARTENUMSATZ
+;	CIAD	;	Vorauszahlung
+;	CLC	;	Akkreditiv
+;	COD	;	Nachnahme
+;	COO	;	Nach Erhalt der Auftragsbestätigung
+;	CSAD	;	VORAUSZAHLUNG
+;	CVD	;	KASSE GEGEN DOKUMENTE
+;	D322	;	2% 10 NETTO 30 TAGE
+;	DV01	;	40 TAGE OHNE RABATT
+;	E120	;	120 Tage ab Monatsende, am 10. des Folgemonats
+;	E301	;	30 Tage ab Monatsende, am 5. des Folgemonats
+;	E302	;	30 Tage ab Monatsende, am 10. des Folgemonats
+;	E303	;	30 Tage ab Monatsende, am 15. des Folgemonats
+;	E304	;	30 Tage ab Monatsende, am 25. des Folgemonats
+;	E601	;	60 Tage ab Monatsende, am 5. des Folgemonats
+;	E602	;	60 Tage ab Monatsende, am 10. des Folgemonats
+;	E603	;	60 Tage ab Monatsende, am 15. des Folgemonats
+;	E604	;	60 Tage ab Monatsende, am 25. des Folgemonats
+;	E901	;	90 Tage ab Monatsende, am 5. des Folgemonats
+;	E902	;	90 Tage ab Monatsende, am 10. des Folgemonats
+;	E903	;	90 Tage ab Monatsende, am 15. des Folgemonats
+;	E904	;	90 Tage ab Monatsende, am 25. des Folgemonats
+;	EM30	;	30 Tage ab Monatsende
+;	EM45	;	45 Tage ab Monatsende
+;	EM60	;	60 Tage ab Monatsende
+;	EM90	;	90 Tage ab Monatsende
+;	EMJP	;	90 Tage ab Monatsende
+;	G1	;	1% 15 netto 75
+;	G1.5	;	1,5% 15 netto 75
+;	G10	;	1% 30 NETTO 60 TAGE
+;	G102	;	2,0 % 15 netto 45
+;	G106	;	2,00 % 15 netto 75
+;	G107	;	2,00 % 15 netto 86
+;	G109	;	2,00 % 20 netto 75
+;	G11	;	1% 30 NETTO 75 TAGE
+;	G110	;	2,00 % 25 netto 75
+;	G111	;	2,00 % 30 netto 45
+;	G112	;	2,00 % 30 netto 60
+;	G113	;	2,00 % 5 netto 60
+;	G114	;	2,03 % 15 netto 75
+;	G115	;	2,13 % 10 netto 75
+;	G116	;	2,17 % 10 netto 75
+;	G117	;	2,20 % 10 netto 60
+;	G118	;	2,20 % 15 netto 60
+;	G119	;	2,50 % 15 netto 45
+;	G12	;	1% 30 NETTO 90 TAGE
+;	G120	;	2,50 % 15 netto 75
+;	G124	;	2,50 % 35 netto 90
+;	G125	;	2,50 % 18 netto 30
+;	G126	;	2,50 % 20 netto 60
+;	G127	;	2,50 % 5 netto 75
+;	G128	;	2,60 % 15 netto 75
+;	G129	;	15 Tage 3%, 75 Tage netto
+;	G13	;	1% 45 NETTO 75 TAGE
+;	G131	;	5,00 % 15 netto 60
+;	G132	;	3,5% 15 NETTO 120 TAGE
+;	G133	;	2,5% 15 NETTO 30 TAGE
+;	G134	;	1,5% 30 NETTO 90 TAGE
+;	G135	;	2,0% 15 NETTO 120 TAGE
+;	G136	;	1,5% 15 NETTO 60 TAGE
+;	G137	;	3,00% 20 netto 90
+;	G138	;	3,0% 20, 2,35% 35 Netto 90
+;	G139	;	1% 15  .75% 30 Netto 75
+;	G14	;	1,5% 15 NETTO 30 TAGE
+;	G140	;	1,5% 15  1% 30 Netto 60
+;	G141	;	1,5% 15  1,13% 30 Netto 75
+;	G142	;	1,5 %  30 1% 45 Netto 75
+;	G143	;	1,75% 20  1,27% 35 Netto 75
+;	G144	;	2% 10  1,4% 25 Netto 60
+;	G145	;	2% 10  1,54% 25 Netto 75
+;	G146	;	2% 15  1,71 % 30 Netto 120
+;	G147	;	2% 15  1,33% 30 Netto 60
+;	G148	;	2,0% 15  1,6% 30 Netto 90
+;	G149	;	2% 30  1,5% 45 Netto 90
+;	G15	;	1,5% 30 NETTO 75 TAGE
+;	G150	;	2,5% 15  1,88% 30 Netto 75
+;	G151	;	2,5% 30  1,88% 45 Netto 90
+;	G152	;	2,5% 35  1,82% 50 Netto 90
+;	G153	;	3% 15  2,25% 30 Netto 75
+;	G154	;	3,5% 15  3% 30 Netto 120
+;	G155	;	5% 15  3,33% 30 Netto 60
+;	G156	;	3% 20 netto 120
+;	G157	;	3% 20  2,4% 40 Netto 120
+;	G158	;	3% 14, Netto 21
+;	G159	;	2% 8, Netto 30
+;	G16	;	2% 20 NETTO 45 TAGE
+;	G160	;	5% 8, Netto 30
+;	G161	;	4% 14, Netto 30
+;	G162	;	0,33% 15, Netto 30
+;	G163	;	0,42% 15, Netto 30
+;	G164	;	1,75% 15, Netto 30
+;	G165	;	3,5% 15, Netto 30
+;	G166	;	0,5% 18, Netto 30
+;	G167	;	1% 18, Netto 30
+;	G168	;	1,5% 18, Netto 30
+;	G169	;	2,75% 18, Netto 30
+;	G17	;	2% 10 NETTO 60 TAGE
+;	G170	;	2,5% 21, Netto 30
+;	G171	;	3% 21, Netto 30
+;	G172	;	1% 7, Netto 45
+;	G173	;	0,5% 10, Netto 45
+;	G174	;	2% 10, Netto 45
+;	G175	;	3% 14, Netto 45
+;	G176	;	1,15% 15, Netto 45
+;	G177	;	1,25% 15, Netto 45
+;	G178	;	3,5% 15, Netto 45
+;	G179	;	1% 18, Netto 45
+;	G18	;	2% 15 NETTO 60 TAGE
+;	G180	;	2,5% 18, Netto 45
+;	G181	;	3% 21, Netto 45
+;	G182	;	3% 30, Netto 45
+;	G183	;	0,5% 15, Netto 50
+;	G184	;	1,9% 3, 1,4% 18, Netto 60
+;	G185	;	1% 13, Netto 60
+;	G186	;	1% 14, Netto 60
+;	G187	;	3% 14, Netto 60
+;	G188	;	2,5% 15, Netto 60
+;	G189	;	2,5% 15, Netto 60
+;	G19	;	2% 15 NETTO 90 TAGE
+;	G190	;	2,5% 15, Netto 60
+;	G191	;	2,59% 15, Netto 60
+;	G192	;	3% 15, Netto 60
+;	G193	;	3,5% 15, Netto 60
+;	G194	;	3,5% 15, Netto 60
+;	G195	;	1,5% 18, Netto 60
+;	G196	;	2% 18, Netto 60
+;	G197	;	2,75% 18, Netto 60
+;	G198	;	2% 20, Netto 60
+;	G199	;	3% 21, Netto 60
+;	G2	;	2,0% 15  1,5% 30 Netto 75
+;	G20	;	2% 30 NETTO 90 TAGE
+;	G200	;	1,5% 30, Netto 60
+;	G201	;	2,5% 30, Netto 60
+;	G202	;	2,75% 30, Netto 60
+;	G203	;	3% 30, Netto 60
+;	G204	;	2% 8, Netto 67
+;	G205	;	2% 8, Netto 68
+;	G206	;	1,75% 18, Netto 70
+;	G207	;	2,4% 3, 1,9% 18, Netto 75
+;	G208	;	2,4% 3, 1,9% 18, Netto 75
+;	G209	;	1,5% 10, Netto 75
+;	G21	;	2,5% 30 NETTO 90 TAGE
+;	G210	;	2,36% 10, Netto 75
+;	G211	;	0,7% 15, Netto 75
+;	G212	;	1,75% 15, Netto 75
+;	G213	;	3,5% 15, Netto 75
+;	G214	;	1,875% 18, Netto 75
+;	G215	;	2% 18, Netto 75
+;	G216	;	2,5% 18, Netto 75
+;	G217	;	3% 21, Netto 75
+;	G218	;	3% 30, Netto 75
+;	G219	;	0,64% 45, Netto 75
+;	G22	;	2,5% 15 NETTO 90 TAGE
+;	G220	;	2% 45, Netto 75
+;	G221	;	1% 60, Netto 75
+;	G222	;	2% 60, Netto 75
+;	G223	;	2,5% 15, 1,96% 30, Netto 85
+;	G224	;	3,5% 15, 2,75% 30, Netto 85
+;	G225	;	2,32% 3, 1,92% 18, Netto 90
+;	G226	;	2,9% 3, 2,4% 18, Netto 90
+;	G227	;	2,5% 5, 2,06% 20, Netto 90
+;	G228	;	3% 5, 2,47% 20, Netto 90
+;	G229	;	2% 10, 1,75% 20, Netto 90
+;	G23	;	2,7% 30, Netto 120
+;	G230	;	2,5% 10, 2,19% 20, Netto 90
+;	G231	;	2,67% 10, 2,34% 20, Netto 90
+;	G232	;	2,84% 10, 2,49% 20, Netto 90
+;	G233	;	3% 10, 2,63% 20, Netto 90
+;	G234	;	0,02% 15, 0,016% 30, Netto 90
+;	G235	;	0,03% 15, 0,024% 30, Netto 90
+;	G237	;	1% 15, 0,8% 30, Netto 90
+;	G238	;	1% 15, 0,8% 30, Netto 90
+;	G239	;	1,1% 15, 0,88% 30, Netto 90
+;	G24	;	3,5% 15, Netto 120
+;	G240	;	1,7% 15, 1,36% 30, Netto 90
+;	G241	;	1,75% 15, 1,4% 30, Netto 90
+;	G242	;	2,2% 15, 1,76% 30, Netto 90
+;	G243	;	2,7% 15, 2,16% 30, Netto 90
+;	G244	;	2,9% 15, 2,32% 30, Netto 90
+;	G245	;	2,9% 15, 2,32% 30, Netto 90
+;	G246	;	3% 15, 2,4% 30, Netto 90
+;	G247	;	3% 15, 2,4% 30, Netto 90
+;	G248	;	3,25% 15, 2,6% 30, Netto 90
+;	G249	;	3,5% 15, 2,8% 30, Netto 90
+;	G25	;	1,5% 30, Netto 90
+;	G250	;	3,5% 15, 2,8% 30, Netto 90
+;	G251	;	4% 15, 3,2% 30, Netto 90
+;	G252	;	1% 18, 0,75% 36, Netto 90
+;	G253	;	1,5% 18, 1,13% 36, Netto 90
+;	G254	;	1,8% 18, 1,35% 36, Netto 90
+;	G255	;	2% 18, 1,5% 36, Netto 90
+;	G256	;	2,2% 18, 1,65% 36, Netto 90
+;	G257	;	2,5% 18, 1,88% 36, Netto 90
+;	G258	;	2,5% 18, 1,88% 36, Netto 90
+;	G259	;	2,59% 18, 1,94% 36, Netto 90
+;	G260	;	2,75% 18, 2,06% 36, Netto 90
+;	G261	;	3% 18, 2,25% 36, Netto 90
+;	G262	;	3,25% 18, 2,44% 36, Netto 90
+;	G263	;	3,5% 18, 2,63% 36, Netto 90
+;	G264	;	2,33% 20, 1,66% 40, Netto 90
+;	G265	;	3% 21, 2,09% 42, Netto 90
+;	G266	;	10% 30, 5% 60, Netto 90
+;	G267	;	0,93% 45, Netto 90
+;	G268	;	2% 60, Netto 90
+;	G269	;	3,5% 18, 2,68% 36, Netto 95
+;	G27	;	0,05 % 15 netto 60
+;	G270	;	2% 18, 1,56% 36, Netto 100
+;	G271	;	2,75% 18, 2,15% 36, Netto 100
+;	G272	;	3,5% 15, 2,92% 30, Netto 105
+;	G273	;	3,5% 10, 3,18% 20, Netto 120
+;	G274	;	2,25% 15, 1,93% 30, Netto 120
+;	G275	;	2,25% 15, 1,93% 30, Netto 120
+;	G276	;	2,5% 15, 2,14% 30, Netto 120
+;	G277	;	2,5% 15, 2,14% 30, Netto 120
+;	G278	;	2,7% 15, 2,31% 30, Netto 120
+;	G279	;	2,75% 15, 2,36% 30, Netto 120
+;	G28	;	0,50% 10 netto 30
+;	G280	;	3% 15, 2,57% 30, Netto 120
+;	G281	;	3% 15, 2,57% 30, Netto 120
+;	G282	;	3,15% 15, 2,7% 30, Netto 120
+;	G283	;	3,15% 15, 2,7% 30, Netto 120
+;	G284	;	3,25% 15, 2,79% 30, Netto 120
+;	G285	;	3,3% 15, 2,83% 30, Netto 120
+;	G286	;	1% 18, 0,82% 36, Netto 120
+;	G287	;	1,75% 18, 1,44% 36, Netto 120
+;	G288	;	2,25% 18, 1,85% 36, Netto 120
+;	G289	;	2,5% 18, 2,06% 36, Netto 120
+;	G29	;	0,50% 15 netto 60
+;	G290	;	2,75% 18, 2,26% 36, Netto 120
+;	G291	;	2,8% 18, 2,31% 36, Netto 120
+;	G293	;	3% 18, 2,47% 36, Netto 120
+;	G294	;	3,125% 18, 2,57% 36, Netto 120
+;	G295	;	3,25% 18, 2,68% 36, Netto 120
+;	G296	;	3,5% 18, 2,88% 36, Netto 120
+;	G297	;	3,75% 18, 3,09% 36, Netto 120
+;	G298	;	3,7% 20, 2,96% 40, Netto 120
+;	G299	;	1,78% 30, 1,19% 60, Netto 120
+;	G3	;	2,5% 15  2% 30 Netto 90
+;	G30	;	0,50% 30 netto 60
+;	G300	;	1,78% 30, 1,19% 60, Netto 120
+;	G301	;	3% 30, 2% 60, Netto 120
+;	G302	;	3,29% 30, 2,19% 60, Netto 120
+;	G303	;	2,5% 45, 1% 90, Netto 120
+;	G304	;	2% 60, Netto 120
+;	G305	;	1,5% 75, Netto 120
+;	G306	;	1% 90, Netto 120
+;	G307	;	1,25% 18, 1,05% 36, Netto 130
+;	G308	;	3% 18, 2,52% 36, Netto 130
+;	G309	;	3,5% 18, 2,94% 36, Netto 130
+;	G31	;	0,50% 45 netto 60
+;	G310	;	3,75% 30, 2,81% 60, Netto 150
+;	G311	;	2,75% 18, 2,42% 36, Netto 170
+;	G312	;	2,75% 18, 2,42% 36, Netto 90
+;	G313	;	1,44% 15, Netto 60
+;	G314	;	1,16% 30, Netto 60
+;	G315	;	1% 14, Netto 30
+;	G316	;	3/ 15 N 45
+;	G317	;	2.15/15 N90
+;	G318	;	1% 18, Netto 60
+;	G319	;	3,5% 15 NETTO 120 TAGE
+;	G32	;	0,6% 12 netto 27
+;	G320	;	20 Tage 1%, 120 Tage netto
+;	G321	;	20 Tage 1%, 30 Tage netto
+;	G322	;	20 Tage 1%, 90 Tage netto
+;	G323	;	30 Tage 1%, 90 Tage netto
+;	G324	;	20 Tage 1.2%, 120 Tage netto
+;	G325	;	15 Tage 1.25%, 90 Tage netto
+;	G327	;	10 Tage 1.5%, 90 Tage netto
+;	G328	;	14 Tage 1.5%, 30 Tage netto
+;	G329	;	15 Tage 1.5%, 120 Tage netto
+;	G33	;	0,6% 12 netto 30
+;	G330	;	18 Tage 1.5%, 45 Tage netto
+;	G331	;	18 Tage 1.5%, 90 Tage netto
+;	G332	;	20 Tage 1.5%, 120 Tage netto
+;	G333	;	20 Tage 1.5%, 90 Tage netto
+;	G334	;	30 Tage 1.55%, 105 Tage netto
+;	G335	;	18 Tage 1.75%, 45 Tage netto
+;	G336	;	30 Tage 1.8%, 120 Tage netto
+;	G337	;	15 Tage 10%, 30 Tage netto
+;	G338	;	10 Tage 2%, 14 Tage netto
+;	G339	;	10 Tage 2%, 20 Tage netto
+;	G34	;	0,64% 30 netto 60
+;	G340	;	10 Tage 2%, 40 Tage netto
+;	G341	;	10 Tage 2%, 90 Tage netto
+;	G342	;	14 Tage 2%, 105 Tage netto
+;	G343	;	14 Tage 2%, 21 Tage netto
+;	G344	;	2% 14, Net 30
+;	G345	;	10 Tage 3%,14 2%,30 Tage net
+;	G346	;	7 Tage 3%,14 2%,30 Tage net
+;	G347	;	8 Tage 3%,14 2%,30 Tage net
+;	G348	;	14 Tage 2%,60 Tage netto
+;	G349	;	14 Tage 2%,75 Tage netto
+;	G35	;	0,70% 10 netto 30
+;	G350	;	14 Tage 2%,90 Tage netto
+;	G351	;	18 Tage 2%,105  Tage netto
+;	G352	;	18 Tage 2%,120  Tage netto
+;	G353	;	18 Tage 2%,30  Tage netto
+;	G354	;	18 Tage 2%,45  Tage netto
+;	G355	;	18 Tage 2%,90  Tage netto
+;	G356	;	20 Tage 2%,120  Tage netto
+;	G357	;	20 Tage 2%,30  Tage netto
+;	G358	;	20 Tage 2%,35  Tage netto
+;	G359	;	7 Tage 2%,30 Tage netto
+;	G36	;	0,70% 10 netto 45
+;	G360	;	8 Tage 2%,14 Tage netto
+;	G361	;	8 Tage 2%,20 Tage netto
+;	G362	;	0,75% 10, Netto 60
+;	G363	;	10 Tage 2.5%,30 Tage netto
+;	G364	;	10 Tage 2.5%,90 Tage netto
+;	G365	;	14 Tage 2.5%,105 Tage netto
+;	G366	;	14 Tage 2.5%,30 Tage netto
+;	G368	;	18 Tage 2.5%,90 Tage netto
+;	G369	;	20 Tage 2.5%,120 Tage netto
+;	G37	;	0,70% 10 netto 60
+;	G370	;	20 Tage 2.5%,90 Tage netto
+;	G371	;	30 Tage 2.5%,75 Tage netto
+;	G372	;	15 Tage 2.6%,45 Tage netto
+;	G373	;	18 Tage 2.7%,105 Tage netto
+;	G374	;	18 Tage 2.7%,120 Tage netto
+;	G375	;	18 Tage 2.7%,30 Tage netto
+;	G376	;	18 Tage 2.7%,45 Tage netto
+;	G377	;	18 Tage 2.7%,60 Tage netto
+;	G378	;	2.7% 18, Net 90
+;	G379	;	45 Tage 2.7%,120 Tage netto
+;	G38	;	0,70% 20 netto 60
+;	G380	;	15 Tage 2.75%,60 Tage netto
+;	G381	;	18 Tage 2.75%,105 Tage netto
+;	G382	;	18 Tage 2.75%,120 Tage netto
+;	G383	;	18 Tage 2.75%,45 Tage netto
+;	G384	;	18 Tage 2.75%,90 Tage netto
+;	G385	;	20 Tage 2.75%,90 Tage netto
+;	G386	;	18 Tage 2.8%,120 Tage netto
+;	G387	;	10 Tage 3%,120 Tage netto
+;	G388	;	10 Tage 3%,50 Tage netto
+;	G39	;	0,70% 15 netto 45
+;	G390	;	10 Tage 3%,60 Tage netto
+;	G391	;	10 Tage 3%, 90 Tage netto
+;	G392	;	14 Tage 3%, 30 Tage netto
+;	G393	;	14 Tage 3%, 90 Tage netto
+;	G394	;	15 Tage 3%, 120 Tage netto
+;	G395	;	15 Tage 3%, 35 Tage netto
+;	G396	;	15 Tage 3%, 60 Tage netto
+;	G397	;	15 Tage 3%, 90 Tage netto
+;	G398	;	18 Tage 3%, 120 Tage netto
+;	G399	;	18 Tage 3%, 30 Tage netto
+;	G4	;	1,25% 15  1% 30 Netto 90
+;	G40	;	0,70% 30 netto 60
+;	G400	;	18 Tage 3%, 45Tage netto
+;	G401	;	18 Tage 3%, 90 Tage netto
+;	G402	;	30 Tage 3%, 120 Tage netto
+;	G403	;	15 Tage 3.15%, 120 Tage netto
+;	G404	;	15 Tage 3.5%, 90 Tage netto
+;	G405	;	15  Tage 3.5%, 100 Tage netto
+;	G406	;	18 Tage 3,5%, 120 Tage netto
+;	G407	;	20 Tage 3.5%, 120 Tage netto
+;	G408	;	7 Tage 3.5% , 120 Tage netto
+;	G409	;	15 Tage 3.75%, 120 Tage netto
+;	G41	;	0,77% 10 netto 75
+;	G410	;	10 Tage 4%, 20 Tage netto
+;	G411	;	18 Tage 4%, 30 Tage netto
+;	G412	;	20 Tage 4%, 75 Tage netto
+;	G414	;	10 Tage 0.5%, 90 Tage netto
+;	G415	;	2% 10, Net 120
+;	G416	;	15 Tage 1 %, 120 Tage netto
+;	G417	;	15 Tage 1.5%, 90 Tage netto
+;	G418	;	10 Tage 2%, 120 Tage netto
+;	G419	;	15 Tage 2%, 45 Tage netto
+;	G42	;	0,77% 15 netto 75
+;	G420	;	18 Tage 2.5%, 30 Tage netto
+;	G421	;	8 Tage 1%, 30 Tage netto
+;	G422	;	45 Tage 1.7%, 90 Tage netto
+;	G423	;	7 Tage 2%, 14 Tage netto
+;	G424	;	8 Tage 2%, 90 Tage netto
+;	G425	;	14 Tage 2.5%, 45 Tage netto
+;	G426	;	20 Tage 2.5%, 30 Tage netto
+;	G427	;	10 Tage 2.75%, 60 Tage netto
+;	G428	;	Netto innerhalb von 26 Tagen
+;	G429	;	8 Tage 3%, 30 Tage netto
+;	G43	;	0,80% 15 netto 60
+;	G431	;	25 Tage 3.5%, 120 Tage netto
+;	G432	;	20 Tage 4%, 90 Tage netto
+;	G433	;	7 Tage 5%, 30 Tage netto
+;	G434	;	10 Tage 1%, 120 Tage netto
+;	G435	;	15 Tage 1%, 90 Tage netto
+;	G436	;	18 Tage 1%, 60 Tage netto
+;	G437	;	20 Tage 1%, 120 Tage netto
+;	G438	;	18 Tage 1.5%, 120 Tage netto
+;	G439	;	30 Tage 1.8%, 120 Tage netto
+;	G44	;	0,80% 25 netto 60
+;	G440	;	10 Tage 2%, 120 Tage netto
+;	G441	;	18 Tage 2%, 120 Tage netto
+;	G442	;	18 Tage 2%, 45 Tage netto
+;	G443	;	15 Tage 2.5%, 120 Tage netto
+;	G444	;	18 Tage 2.5%, 90 Tage netto
+;	G445	;	20 Tage 2.5%, 120 Tage netto
+;	G446	;	20 Tage 2.5%,  90 Tage netto
+;	G447	;	2,70/18, Netto 30
+;	G448	;	18 Tage 2.7%, 30 Tage netto
+;	G449	;	18 Tage 2.7%, 45 Tage netto
+;	G45	;	0,85% 10 netto 60
+;	G450	;	18 Tage 2.7%, 60 Tage netto
+;	G451	;	2.7% 18, Net 90
+;	G452	;	Netto innerhalb von 25 Tagen
+;	G453	;	Netto innerhalb von 27 Tagen
+;	G454	;	15 Tage 3% Sko, 90 Tage netto
+;	G455	;	20 Tage 3.5%, 120 Tage netto
+;	G456	;	Vorauskasse
+;	G46	;	0,85% 30 netto 75
+;	G47	;	0,90% 15 netto 55
+;	G48	;	0,90% 15 netto 60
+;	G49	;	0,90% 20 netto 60
+;	G5	;	2% 10 netto 75
+;	G50	;	1% 10 netto 45
+;	G501	;	2,625/15, Netto 120
+;	G502	;	1,50/20, Netto 90
+;	G503	;	1.875/18, Netto 75
+;	G504	;	1,00/18, Netto 60
+;	G505	;	1,00/20, Netto 90
+;	G506	;	1,20/30, Netto 90
+;	G508	;	1,44% 15 netto 90
+;	G509	;	1,45/15, Netto 105
+;	G51	;	1% 15 netto 45
+;	G510	;	1,5/15, Netto 120
+;	G511	;	2,00/14, Netto 30
+;	G512	;	2,00/15, Netto 85
+;	G513	;	2,00/18, Netto 120
+;	G514	;	2,00/20, Netto 35
+;	G515	;	2,20/15, Netto 60
+;	G516	;	2,50/20, Netto 120
+;	G517	;	2,50/20, Netto 90
+;	G518	;	2,70/18, Netto 105
+;	G519	;	2,70/18, Netto 120
+;	G520	;	2,70/18, Netto 45
+;	G521	;	2,70/18, Netto 60
+;	G522	;	2,70/45, Netto 120
+;	G523	;	2,75/18, Netto 105
+;	G524	;	2,75/18, Netto 45
+;	G525	;	3,00/10, Netto 50
+;	G526	;	3,00/14, Netto 30
+;	G527	;	3,00/14, Netto 90
+;	G528	;	3,00/15, Netto 40
+;	G529	;	3,00/20, Netto 85
+;	G53	;	1% 17 netto 32
+;	G530	;	3,00/30, Netto 90
+;	G531	;	3.125/18, Netto 120
+;	G532	;	3,5/20 NETTO 120
+;	G533	;	3,50/16 1,5/60 NETTO 90
+;	G534	;	40 TAGE OHNE RABATT
+;	G535	;	80 TAGE OHNE RABATT
+;	G536	;	2,25/15, Netto 60
+;	G537	;	1,00/10, Netto 55
+;	G538	;	1,15% 15, 0,86% 30, Netto 75
+;	G539	;	1% 10, Netto 120
+;	G54	;	1% 20 netto 60
+;	G540	;	1% 10, Netto 90
+;	G541	;	1% 15, Netto 90
+;	G542	;	1% 18, Netto 120
+;	G543	;	2,25% 15, Netto 120
+;	G544	;	2.5% - 15 , 2% - 30 net 120
+;	G545	;	2.5% - 15 , 2% - 30 net 120
+;	G55	;	1% 25 netto 60
+;	G56	;	1% 30 netto 45
+;	G57	;	1,05 % 15 netto 60
+;	G58	;	1,05 % 25 netto 60
+;	G59	;	1,07 % 15 netto 75
+;	G6	;	2% 20 / Netto 90
+;	G60	;	1,10 % 10 netto 60
+;	G61	;	1,10 % 10 netto 75
+;	G62	;	15 Tage 1.1%, 60 Tage netto
+;	G63	;	1,10 % 15 netto 75
+;	G64	;	1,10 % 20 netto 75
+;	G65	;	1,15 % 15 netto 60
+;	G66	;	1,15 % 15 netto 90
+;	G67	;	1,15 % 25 netto 60
+;	G68	;	1,20 % 10 netto 45
+;	G69	;	1,20 % 15 netto 60
+;	G7	;	1% 10 NETTO 60 TAGE
+;	G70	;	1,20 % 15 netto 75
+;	G71	;	1,20 % 20 netto 60
+;	G72	;	1,20 % 25 netto 60
+;	G73	;	1,22 % 10 netto 60
+;	G74	;	1,25 % 15 netto 60
+;	G75	;	1,25 % 18 netto 60
+;	G76	;	1,25 % 20 netto 60
+;	G77	;	1,30 % 15 netto 60
+;	G78	;	1,33 % 15 netto 60
+;	G79	;	1,35 % 15 netto 60
+;	G8	;	1% 10 NETTO 75 TAGE
+;	G80	;	1,40 % 15 netto 60
+;	G81	;	1,40 % 20 netto 60
+;	G82	;	1,50 % 10 netto 30
+;	G83	;	1,50 % 10 netto 60
+;	G84	;	1,50 % 15 netto 45
+;	G85	;	1,50 % 15 netto 50
+;	G88	;	1,50 % 15 netto 90
+;	G89	;	1,50 % 20 netto 60
+;	G9	;	1% 15 NETTO 60 TAGE
+;	G90	;	1,60 % 10 netto 60
+;	G91	;	1,60 % 20 netto 60
+;	G92	;	1,75 % 15 netto 60
+;	G93	;	1,75 % 20 netto 75
+;	G94	;	1,80 % 15 netto 60
+;	G95	;	1,80 % 20 netto 60
+;	G96	;	1,90 % 15 netto 60
+;	G97	;	2,00 % 10 netto 75
+;	G98	;	2,00 % 1 netto 30
+;	G99	;	2,00 % 10 netto 25
+;	GE%	;	1,5% 15 netto 60
+;	GN75	;	Innerhalb 75 Tagen fällig ohne Abzug
+;	IBS	;	GE Internal Billing System
+;	IR42	;	42 Tage nach Rechnungseingang
+;	IR45	;	45 Tage nach Rechnungseingang beim Kunden
+;	LCLD	;	AKKREDITIV/SCHADENSPAUSCHALE
+;	LTC3	;	AKKREDITIV    
+;	LTC6	;	AKKREDITIV    
+;	LTCR	;	Akkreditiv
+;	N100	;	0% 0, %, Netto 100
+;	N105	;	Innerhalb 105 Tagen fällig ohne Abzug
+;	N110	;	Innerhalb 110 Tagen fällig ohne Abzug
+;	N120	;	120 TAGE OHNE RABATT
+;	N121	;	NETTO 120 AM 1. DES MONATS
+;	N130	;	Innerhalb 130 Tagen fällig ohne Abzug
+;	N135	;	Innerhalb 135 Tagen fällig ohne Abzug
+;	N150	;	150 TAGE OHNE RABATT
+;	N160	;	in 160 Tagen fällig netto
+;	N180	;	180 TAGE OHNE RABATT
+;	N301	;	NETTO 30 AM 1. DES MONATS
+;	N30D	;	NETTO 30/VERLUST ZAHLUNGSFÄHIGKEIT                
+;	N45L	;	NETTO 45/VERLUST ZAHLUNGSFÄHIGKEIT                
+;	N60	;	Innerhalb 60 Tagen fällig ohne Abzug
+;	N60L	;	NETTO 60/VERLUST ZAHLUNGSFÄHIGKEIT                
+;	NC	;	ohne Berechnung
+;	NT00	;	Zahlung sofort ohne Abzug
+;	NT01	;	Zahlung sofort ohne Abzug
+;	NT05	;	5 TAGE OHNE RABATT
+;	NT08	;	8 TAGE OHNE RABATT
+;	NT10	;	Innerhalb 10 Tagen fällig ohne Abzug
+;	NT11	;	11 TAGE OHNE RABATT
+;	NT12	;	Netto 12 Ohne Rabatt
+;	NT13	;	13 TAGE OHNE RABATT
+;	NT14	;	Innerhalb 14 Tagen fällig ohne Abzug
+;	NT15	;	15 TAGE OHNE RABATT
+;	NT17	;	17 TAGE OHNE RABATT
+;	NT18	;	Innerhalb 18 Tagen fällig ohne Abzug
+;	NT21	;	21 TAGE OHNE RABATT
+;	NT23	;	Zahlbar innerh. 23 Tagen
+;	NT25	;	Zahlbar innerh. 25 Tagen
+;	NT27	;	27 TAGE OHNE RABATT
+;	NT28	;	28 TAGE OHNE RABATT
+;	NT3	;	3 TAGE OHNE RABATT
+;	NT30	;	Innerhalb 30 Tagen fällig ohne Abzug
+;	NT31	;	Innerhalb 31 Tagen fällig ohne Abzug
+;	NT32	;	Innerhalb 32 Tagen fällig ohne Abzug
+;	NT35	;	Zahlbar innerh. 35 Tagen
+;	NT38	;	Innerhalb 38 Tagen fällig ohne Abzug
+;	NT40	;	Zahlbar innerh. 40 Tagen
+;	NT42	;	Zahlbar innerhalb 42 Tagen ohne Abzug
+;	NT45	;	Innerhalb 45 Tagen fällig ohne Abzug
+;	NT50	;	Zahlbar innerh. 50 Tagen
+;	NT55	;	55 TAGE OHNE RABATT
+;	NT60	;	Innerhalb 60 Tagen fällig ohne Abzug
+;	NT65	;	65 TAGE OHNE RABATT
+;	NT7	;	Innerhalb 7 Tagen fällig ohne Abzug
+;	NT70	;	Innerhalb 70 Tagen fällig ohne Abzug
+;	NT75	;	Innerhalb 75 Tagen fällig ohne Abzug
+;	NT82	;	Innerhalb 82 Tagen fällig ohne Abzug
+;	NT85	;	Innerhalb 85 Tagen fällig ohne Abzug
+;	NT90	;	Innerhalb 90 Tagen fällig ohne Abzug
+;	NT95	;	Zahlbar innerh. 95 Tagen
+;	NTRP	;	NETTO BEI EINGANG
+;	OTHR	;	SONSTIGES
+;	PC	;	GEMÄSS VERTRAG
+;	PRBL	;	TEILFAKTURA
+;	SA	;	Siehe Verbuchung Kreditsperre
+;	SD	;	Sichtwechsel
+;	SD#1	;	SICHTTRATTE 45 TAGE AB RECHNUNGSDATUM
+;	SD#2	;	SICHTTRATTE 60 TAGE AB RECHNUNGSDATUM
+;	SD#3	;	SICHTTRATTE 30 TAGE AB EINREICHUNG DER DOKUMENTE
+;	SD#4	;	SICHTTRATTE 45 TAGE AB EINREICHUNG VON DOKUMENTEN
+;	SD#5	;	SICHTTRATTE 60 TAGE AB EINREICHUNG VON DOKUMENTEN
+;	SIDR	;	SICHTTRATTE
+;	T018	;	TPS 18 TAGE
+;	T020	;	TPS 20 TAGE
+;	T030	;	TPS 30 TAGE
+;	T045	;	TPS 45 TAGE
+;	T060	;	TPS 60 Tage
+;	T075	;	TPS 75 TAGE
+;	T090	;	TPS 90 TAGE
+;	T105	;	TPS 105 TAGE
+;	T120	;	TPS 120 TAGE
+;	TEST	;	45 Tage Monatsende
+;	TS30	;	60 Tage Monatsende
+;	UPRT	;	Bei Eingang
+;	UR	;	Zahlbar nach Erhalt
+;	XT17	;	17 TAGE OHNE RABATT
+;	Z001	;	Vorauszahlung
+;	Z002	;	Vorauszahlung
+;	Z003	;	Vorauszahlung
+;	Z004	;	Vorauszahlung
+;	Z005	;	Vorauszahlung
+;	Z006	;	Vorauszahlung
+;	Z007	;	Vorauszahlung
+;	Z008	;	Vorauszahlung
+;	Z009	;	Vorauszahlung
+;	Z010	;	Vorauszahlung
+;	Z020	;	20. DES FOLGEMONATS
+;	ZX30	;	Netto 30 Tage ab Ende des Abrechnungsmonats
+;	ZY30	;	Netto innerhalb von 30 Tagen ab Rechnungseingang
+;	ZY60	;	Fällig innerhalb von 60 Tagen ab Rechnungseingang
+;	ZY90	;	Fällig innerhalb von 90 Tagen ab Rechnungseingang
+#Added for PaymentTerms issue reported by Bettina for customer 164336 BW Plus NDT GmbH & Co. KG
+;	2%35	;	2% Rabatt für 35 Tage

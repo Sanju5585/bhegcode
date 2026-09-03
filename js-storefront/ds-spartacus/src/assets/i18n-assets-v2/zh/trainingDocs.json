@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "培训资料",
+    "sortBy": "排序",
+    "searchInDocs": "在培训文档中搜索",
+    "name": "名称",
+    "dateModified": "修改的日期",
+    "noRecordFound": "没有找到记录",
+    "view": "查看"
+  }
+}

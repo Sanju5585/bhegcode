@@ -1,0 +1,142 @@
+<div class="part-error" *ngIf="!showLoader; else loading">
+  <div class="info-message" id="info" *ngIf="errorCount > 0">
+    <span class="material-icons-outlined image"> warning </span>
+    <span class="information-text">{{
+      'loggedinHome.messageText' | cxTranslate
+    }}</span
+    ><span class="material-icons-outlined clear-icon" (click)="close()">
+      clear
+    </span>
+  </div>
+  <div class="error-label">{{ 'loggedinHome.partError' | cxTranslate }}</div>
+  <div class="check-box">
+    <div class="left-actions col-md-1">
+      <div class="col-md-6 align-center">
+        <bh-checkbox
+          class="checkbox checkBoxColor"
+          label=""
+          name="checkAll"
+          id="checkall"
+          [attr.checked]="checkAll()"
+          [attr.indeterminate]="indeterminateValue"
+          (change)="selectAllchecbox($event)"
+        >
+        </bh-checkbox>
+      </div>
+
+      <div
+        class="col-md-6 align-center delete-icon"
+        (click)="openDeletePopup($event, 'bulkAllDelete', '')"
+      >
+        <span class="material-icons">delete</span>
+      </div>
+    </div>
+
+    <div class="col-md-11 add-cart add-button track-button">
+      <bh-button
+        type="primary"
+        label="{{ 'loggedinHome.addToCart' | cxTranslate }}"
+        class="add-button"
+        [attr.disabled]="addToCartFlag ? false : true"
+        (click)="addBulkOrder()"
+      >
+      </bh-button>
+    </div>
+  </div>
+  <div class="line"></div>
+  <mat-paginator
+    [length]="paginatorLength"
+    [pageSize]="pageDefaultSize"
+    (page)="onPageChange($event)"
+    [pageSizeOptions]="pageDropDownArr"
+  >
+  </mat-paginator>
+  <div class="error-box">
+    <div class="box-row" *ngFor="let bulk of bulkOrder; let i = index">
+      <div class="col-md-4 prod-row row p-0">
+        <div class="col-md-1">
+          <bh-checkbox
+            class="box-data checkBoxColor"
+            label=""
+            id="{{ i }}"
+            [attr.checked]="bulk.checked"
+            (change)="selectCheckbox($event, i)"
+          >
+          </bh-checkbox>
+        </div>
+        <div class="col-md-10 p-0 input-box">
+          <bh-text-input
+            type="text"
+            label=""
+            [value]="bulk.partNum"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="col-md-4 prod-row row p-0">
+        <div class="col-md-6 text-label">{{ bulk?.description }}</div>
+        <ng-container *ngIf="bulk?.statusMap?.length > 0; else Invalid">
+          <div class="col-md-6 box-data">
+            {{ bulk?.statusMap[1]?.value?.value ? status[i] : 'Invalid' }}
+          </div>
+        </ng-container>
+        <ng-template #Invalid>
+          <div class="col-md-6 box-data">
+            {{ 'Invalid' }}
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-md-4 prod-row row p-0">
+        <div class="col-md-6 quantity-col">
+          <span class="no-qty">{{
+            'loggedinHome.quantity' | cxTranslate
+          }}</span>
+          <cx-item-counter
+            id="{{ i }}"
+            class="counter-size"
+            [max]="maxQuantity"
+            [control]="bulkQty.get('text' + i)"
+          ></cx-item-counter>
+          <span class="each">{{ 'loggedinHome.each' | cxTranslate }}</span>
+        </div>
+        <div class="col-md-4 check-button">
+          <div *ngIf="bulk?.productAccessData?.isBuy">
+            <div *ngIf="bulk?.status != 'Validated'; else elseBlock">
+              <bh-button
+                id="{{ 'checkPrice_' + i }}"
+                type="secondary"
+                label="{{ 'loggedinHome.checkPrice' | cxTranslate }}"
+                class="price"
+                (click)="checkPrice(bulk, i)"
+              >
+              </bh-button>
+              <div class="" *ngIf="showPrice">
+                {{ priceData[i] }}
+              </div>
+            </div>
+            <ng-template #elseBlock>
+              <div *ngIf="showValidatedPrice">
+                {{ priceValidateData[i] }}
+              </div>
+            </ng-template>
+          </div>
+
+          <div *ngIf="!bulk?.productAccessData?.isBuy">
+            {{ this.status[i] }}
+          </div>
+        </div>
+        <div
+          class="col-md-2 delete-image"
+          (click)="deletePopup($event, 'rowDelete', i)"
+        >
+          <span class="material-icons">delete</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

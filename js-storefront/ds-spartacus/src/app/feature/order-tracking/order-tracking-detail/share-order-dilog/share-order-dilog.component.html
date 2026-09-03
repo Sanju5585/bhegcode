@@ -1,0 +1,34 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content share-order-space">
+    <div class="share-order">
+      <h2>{{ 'order-tracking.shareorder' | cxTranslate }}</h2>
+      <p>{{ 'order-tracking.shareordertext' | cxTranslate }}</p>
+      <div class="emailText">
+        <bh-text-input
+          type="text"
+          required
+          placeholder="{{ 'order-tracking.emailRecipientMail' | cxTranslate }}"
+          [value]="email"
+          [message]="emailError"
+          [attr.error]="emailError ? emailError : null"
+          (keyup)="onChange($event)"
+          maxlength="241"
+        >
+        </bh-text-input>
+      </div>
+      <div class="customeBtn">
+        <bh-button
+          [type]="'secondary'"
+          [label]="'order-tracking.cancel' | cxTranslate"
+          (click)="cancel()"
+        ></bh-button>
+        <bh-button
+          [type]="'tertiary'"
+          [label]="'order-tracking.share' | cxTranslate"
+          (click)="onSubmit()"
+          [attr.loading]="showLoading"
+        ></bh-button>
+      </div>
+    </div>
+  </div>
+</div>

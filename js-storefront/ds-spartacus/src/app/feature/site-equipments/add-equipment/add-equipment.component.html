@@ -1,0 +1,828 @@
+<div class="box-wrapper" *ngIf="searchEquipmentBox">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 box-layout">
+      <div class="row mb-2">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <h2 class="page-title">
+            {{ 'mySiteEquipment.findcalibrationCerificates' | cxTranslate }}
+          </h2>
+          <p class="page-description">
+            {{ 'mySiteEquipment.provideInfo' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <ng-container *ngIf="familySelect">
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span class="dd-label required-field">{{
+              'mySiteEquipment.productFamily' | cxTranslate
+            }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="row mb-2">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="dd-visible">
+            <bh-dropdown
+              class="salesarea-dd"
+              isFluid="false"
+              isSmall="false"
+              width="large"
+              menuWidth="large"
+              unselectable="false"
+              [menuItems]="productFamily"
+              value="{{ 'mySiteEquipment.selectProductFamily' | cxTranslate }}"
+              isEllipsis="false"
+              (selected)="productSelect($event)"
+            ></bh-dropdown>
+          </span>
+          <p class="product-tag pl-1 mt-1" *ngIf="panametricproduct">
+            {{ 'mySiteEquipment.productLinePana' | cxTranslate }}
+          </p>
+          <p class="product-tag pl-1 mt-1 mb-0" *ngIf="waygateProduct">
+            {{ 'mySiteEquipment.productLineWay' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-4" *ngIf="waygateProduct">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="dd-label required-field">
+            {{ 'mySiteEquipment.fabricationNumber' | cxTranslate }}</span
+          >
+          <div class="radio-btn d-flex">
+            <bh-radio-button
+              label="{{ 'mySiteEquipment.batch' | cxTranslate }}"
+              [attr.checked]="this.batch"
+              class="float-left button-space"
+              value="BATCH"
+              name="group"
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+            <bh-radio-button
+              label="{{ 'mySiteEquipment.fabrication' | cxTranslate }}"
+              [attr.checked]="!this.batch"
+              value="FABRICATION"
+              name="group"
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+          </div>
+          <ng-container *ngIf="selectedBatch">
+            <bh-text-input
+              class="m-t-4"
+              type="text"
+              placeholder="{{ 'mySiteEquipment.enterBatchNo' | cxTranslate }}"
+              value="{{ fabricationNumber }}"
+              maxlength="10"
+              fuild="true"
+              small="true"
+              contenteditable="true"
+              (paste)="pasteData($event, 'fabricationNumber')"
+              name="fabricationNumber"
+              (keyup)="onChange($event, 'fabricationNumber')"
+              [message]="error.serialNumber"
+              [attr.error]="error.serialNumber ? error.serialNumber : null"
+            ></bh-text-input>
+            <div>
+              <p class="product-tag druck-tag pl-1 mt-1">
+                {{ 'mySiteEquipment.EX' | cxTranslate }}. 12345678 {{ 'mySiteEquipment.OR' | cxTranslate }} 12345678N
+              </p>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="selectedFabric">
+            <bh-text-input
+              class="m-t-4"
+              type="text"
+              placeholder="{{ 'mySiteEquipment.enterFabricNo' | cxTranslate }}"
+              value="{{ fabricationNumber }}"
+              maxlength="12"
+              fuild="true"
+              small="true"
+              contenteditable="true"
+              (paste)="pasteData($event, 'fabricationNumber')"
+              name="fabricationNumber"
+              (keyup)="onChange($event, 'fabricationNumber')"
+              [message]="error.serialNumber"
+              [attr.error]="error.serialNumber ? error.serialNumber : null"
+            ></bh-text-input>
+            <div>
+              <p class="product-tag druck-tag pl-1 mt-1">
+                {{ 'mySiteEquipment.EX' | cxTranslate }}. A12-345678 {{ 'mySiteEquipment.OR' | cxTranslate }} A12345678
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <ng-container *ngIf="bentlyProduct">
+        <div class="row mt-4">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2 class="page-title">
+              {{ 'mySiteEquipment.bentlyCertificate' | cxTranslate }}
+            </h2>
+            <a
+              href="https://bakerhughes.sharepoint.com/sites/ProductCertificatePortal?web=1"
+              target="_blank" rel="noopener noreferrer"
+            >
+              {{ 'mySiteEquipment.clickHereImage' | cxTranslate }}
+            </a>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2 class="page-title">
+              {{ 'mySiteEquipment.calibrationData' | cxTranslate }}
+            </h2>
+          </div>
+          <div class="row">
+            <ul class="page-description inline-list">
+              <li class="list-item">
+                <div>
+                  {{ 'mySiteEquipment.calibrationEmail' | cxTranslate }}
+                  <a href="mailto:Bently.Returns@bakerhughes.com"
+                    >Bently.Returns&#64;bakerhughes.com</a
+                  >
+                </div>
+              </li>
+              <li
+                [innerHTML]="'mySiteEquipment.contactCcr' | cxTranslate"
+              >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="panametricproduct">
+        <div class="row mt-3">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <span class="dd-label required-field">
+              {{ 'mySiteEquipment.serialNumber' | cxTranslate }}</span
+            >
+            <bh-text-input
+              class="m-t-4"
+              type="text"
+              placeholder="{{
+                'mySiteEquipment.enterSerialNUmber' | cxTranslate
+              }}"
+              value="{{ probeSerialNumber }}"
+              contenteditable="true"
+              maxlength="18"
+              fuild="true"
+              small="true"
+              (paste)="pasteData($event, 'probeSerialNumber')"
+              name="probeSerialNumber"
+              (keyup)="onChange($event, 'probeSerialNumber')"
+              [message]="error.probeSerialNumber"
+              [attr.error]="
+                error.probeSerialNumber ? error.probeSerialNumber : null
+              "
+            ></bh-text-input>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <span class="dd-label required-field">{{
+              'mySiteEquipment.sensorType' | cxTranslate
+            }}</span>
+            <bh-dropdown
+              *ngIf="propsSensorsDropDown == true"
+              class="salesarea-dd"
+              isFluid="false"
+              isSmall="false"
+              width="large"
+              menuWidth="large"
+              unselectable="false"
+              [menuItems]="propsSensors"
+              placeholder="{{ 'mySiteEquipment.selectSensor' | cxTranslate }}"
+              isEllipsis="false"
+              name="probeType"
+              value="{{ probeType }}"
+              (selected)="onSensorSelect($event)"
+              [message]="error.sensorType"
+              [attr.error]="error.sensorType ? error.sensorType : null"
+            ></bh-dropdown>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-11 col-md-11 col-sm-12">
+            <span class="info-text">
+              <bh-icon
+                icon="info"
+                size="small"
+                color="#1F6362"
+                href=""
+                target=""
+                matTooltipClass="vs-tooltip"
+                matTooltipPosition="left"
+                matTooltip="Where is this equipment installed?"
+              ></bh-icon>
+            </span>
+            <p class="info-text">
+              {{ 'mySiteEquipment.findModelInfoText' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+      </ng-container>
+      <div class="row" *ngIf="druckProduct">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck1' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck2' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck3' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck4' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck5' | cxTranslate }}
+          </p>
+          <p class="druck-cert-tag pl-1">
+            {{ 'mySiteEquipment.productLineDruck6' | cxTranslate }}
+          </p>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12">
+          <span class="dd-label required-field">
+            {{ 'mySiteEquipment.serialNumber' | cxTranslate }}</span
+          >
+          <bh-text-input
+            class="m-t-4"
+            type="text"
+            placeholder="{{ 'mySiteEquipment.enterSerial' | cxTranslate }}"
+            value="{{ serialNumberDruck }}"
+            (paste)="pasteData($event, 'serialNumberDruck')"
+            contenteditable="true"
+            fuild="true"
+            small="true"
+            name="serialNumberDruck"
+            (keyup)="onChange($event, 'serialNumberDruck')"
+          ></bh-text-input>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p class="druck-tag pl-1 mt-1">
+            {{ 'mySiteEquipment.ukas' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="row mt-3" *ngIf="searchComponent">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <bh-button
+            type="secondary"
+            label="{{ 'mySiteEquipment.reset' | cxTranslate }}"
+            class="reset"
+            (click)="resetSearch()"
+          >
+          </bh-button>
+          <bh-button
+            type="primary"
+            label="{{ 'mySiteEquipment.search' | cxTranslate }}"
+            class="reset float-left button-space"
+            [attr.disabled]="false"
+            (click)="fetchSearchResults(searchType)"
+            [attr.disabled]="searchButttonFlag ? true : null"
+            [attr.loading]="showSpinner ? true : null"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-6 col-sm-6 p-0 right-box" *ngIf="rightBox">
+      <ng-container *ngIf="pancalRightSection">
+        <ng-container *ngIf="findSerialNumber">
+          <div class="row mb-2 ml-4">
+            <div class="col-md-12">
+              <h2 class="page-head">
+                {{ 'mySiteEquipment.whereTofind' | cxTranslate }}
+              </h2>
+            </div>
+          </div>
+
+          <div class="row mt-3 ml-4">
+            <div class="col-md-5">
+              <span class="dd-label">{{
+                'mySiteEquipment.probeModelType' | cxTranslate
+              }}</span>
+              <bh-dropdown
+                *ngIf="propsModelsDropDown == true"
+                class="salesarea-dd"
+                isFluid="false"
+                isSmall="false"
+                width="large"
+                menuWidth="large"
+                unselectable="false"
+                [menuItems]="propsModels"
+                placeholder="{{
+                  'mySiteEquipment.defaultModelType' | cxTranslate
+                }}"
+                value="{{ probeModelType }}"
+                isEllipsis="false"
+                (select)="onModelSelect($event)"
+              ></bh-dropdown>
+            </div>
+
+            <div class="col-md-7">
+              <img class="equipment-img" src="{{ sensorModelImageURL }}" />
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="row" *ngIf="alreadyInwatchList">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <ng-container>
+              <div class="row mb-2 ml-4">
+                <div class="col-md-12">
+                  <h3 class="sub-description">
+                    {{ 'mySiteEquipment.serialId' | cxTranslate }}
+                    {{ equipmentSerialNumber }}
+                  </h3>
+                  <span
+                    class="update-action-link"
+                    (click)="
+                      openEquipmentDetails(
+                        equipmentPartNumber,
+                        equipmentSerialNumber,
+                        customer,
+                        true
+                      )
+                    "
+                  >
+                    <bh-icon
+                      icon="edit"
+                      size="small"
+                      color="#014d40"
+                      href=""
+                      target=""
+                    ></bh-icon>
+                    {{ 'mySiteEquipment.updateDetails' | cxTranslate }}
+                  </span>
+                  <h2 class="right-box-title mt-2">
+                    {{ 'mySiteEquipment.weFoundEquipment' | cxTranslate }}
+                    <span class="icon-style">
+                      <i class="material-icons md-18">check_circle</i>
+                    </span>
+                  </h2>
+                  <p class="calibration-date">
+                    {{ 'mySiteEquipment.lastCalibrationDate' | cxTranslate }}
+                    {{ lastCalDate }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="buttons-row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <bh-button
+                    type="primary"
+                    label="{{
+                      'mySiteEquipment.calibrationData' | cxTranslate
+                    }}"
+                    class="calibartion-button mr-3"
+                    icon="description"
+                    [attr.disabled]="false"
+                    (click)="downloadCalibrationPDF()"
+                    [attr.disabled]="showPDFSpinner ? true : null"
+                    [attr.loading]="showPDFSpinner ? true : null"
+                  >
+                  </bh-button>
+                  <span *ngIf="productData">
+                    <bh-button
+                      *ngIf="
+                        productData.productAccessData.isService &&
+                        (rmaStatus === 'C' || rmaStatus === '')
+                      "
+                      class="rma-button"
+                      type="secondary"
+                      label="{{ 'mySiteEquipment.createRMA' | cxTranslate }}"
+                      (click)="createNewRma()"
+                    >
+                    </bh-button>
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="equipmentFound">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <ng-container>
+              <div class="row mb-2 ml-4">
+                <div class="col-md-12">
+                  <h3 class="sub-description">
+                    {{ 'mySiteEquipment.serialId' | cxTranslate }}
+                    {{ equipmentSerialNumber }}
+                  </h3>
+
+                  <span
+                    class="update-action-link"
+                    (click)="addEquipmentToWatchList()"
+                    *ngIf="showAddLink"
+                  >
+                    <i class="material-icons-outlined">bookmark_border</i>
+                    {{ 'mySiteEquipment.addTowatchList' | cxTranslate }}
+                  </span>
+
+                  <span
+                    class="update-action-link cursor-default"
+                    *ngIf="savedToWatchList"
+                  >
+                    <i class="material-icons">bookmark_added</i>
+                    {{ 'mySiteEquipment.savedToWatch' | cxTranslate }}
+                  </span>
+
+                  <span
+                    *ngIf="savedToWatchList"
+                    class="update-action-link"
+                    (click)="
+                      openEquipmentDetails(
+                        equipmentPartNumber,
+                        equipmentSerialNumber,
+                        customer,
+                        true
+                      )
+                    "
+                  >
+                    <bh-icon
+                      icon="edit"
+                      size="small"
+                      color="#014d40"
+                      href=""
+                      target=""
+                    ></bh-icon>
+                    {{ 'mySiteEquipment.updateDetails' | cxTranslate }}
+                  </span>
+
+                  <h2 class="right-box-title mt-2">
+                    {{ 'mySiteEquipment.weFoundEquipment' | cxTranslate }}
+                    <span class="icon-style">
+                      <i class="material-icons md-18">check_circle</i>
+                    </span>
+                  </h2>
+                  <p class="calibration-date">
+                    {{ 'mySiteEquipment.lastCalibrationDate' | cxTranslate }}
+                    {{ lastCalDate }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="buttons-row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span class="calibartion-button">
+                    <bh-button
+                      type="primary"
+                      label="{{
+                        'mySiteEquipment.calibrationData' | cxTranslate
+                      }}"
+                      class="calibration-button mr-3"
+                      icon="description"
+                      [attr.disabled]="false"
+                      (click)="downloadCalibrationPDF()"
+                      [attr.disabled]="showPDFSpinner ? true : null"
+                      [attr.loading]="showPDFSpinner ? true : null"
+                    >
+                    </bh-button>
+                  </span>
+                  <span *ngIf="productData">
+                    <bh-button
+                      *ngIf="
+                        productData.productAccessData.isService &&
+                        (rmaStatus === 'C' || rmaStatus === '')
+                      "
+                      class="rma-button"
+                      type="secondary"
+                      label="{{ 'mySiteEquipment.createRMA' | cxTranslate }}"
+                      (click)="createNewRma()"
+                    >
+                    </bh-button>
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="imageFound">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <img class="equipment-img" src="/assets/img/comingSoon.png" />
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="waygateImage">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="page-head" *ngIf="selectedBatch">
+                  {{ 'mySiteEquipment.whereTofindBatch' | cxTranslate }}
+                </h2>
+                <h2 class="page-head" *ngIf="selectedFabric">
+                  {{ 'mySiteEquipment.whereTofindFabric' | cxTranslate }}
+                </h2>
+                <div class="row mt-4 justify-content-center">
+                  <ng-container *ngIf="selectedBatch">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                      <img src="/assets/img/structurix-fab.png" />
+                      <p class="dd-label text-center mt-3">
+                        {{
+                          'mySiteEquipment.FabricationNumberLabel' | cxTranslate
+                        }}
+                      </p>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="selectedFabric">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <img src="/assets/img/agfa-batchnumber.png" />
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <img class="mt-2" src="/assets/img/agfa-batch.png" />
+                      </div>
+                      <p class="dd-label text-center mt-3">
+                        {{ 'mySiteEquipment.batchNumberLabel' | cxTranslate }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="batchFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-description">
+                  {{ 'mySiteEquipment.batchId' | cxTranslate }}
+                  {{ batchId }}
+                </h3>
+                <h2 class="right-box-title">
+                  {{ 'mySiteEquipment.fabricationFound' | cxTranslate }}
+                  <span class="icon-style">
+                    <i class="material-icons md-18">check_circle</i>
+                  </span>
+                </h2>
+                <p class="page-description">
+                  {{ 'mySiteEquipment.certificateView' | cxTranslate }}
+                </p>
+              </div>
+            </div>
+            <div class="row mt-3 ml-4">
+              <div class="col certificate-button">
+                <bh-button
+                  type="primary"
+                  label="{{
+                    'mySiteEquipment.certificateConform' | cxTranslate
+                  }}"
+                  class=""
+                  [attr.disabled]="false"
+                  (click)="downloadCertificationPDF()"
+                >
+                </bh-button>
+              </div>
+              <div class="col">
+                <bh-dropdown
+                  class="salesarea-dd language-dropdown"
+                  isFluid="false"
+                  isSmall="false"
+                  width="large"
+                  menuWidth="large"
+                  unselectable="false"
+                  [menuItems]="languages"
+                  placeholder="{{
+                    'mySiteEquipment.filmIdentification' | cxTranslate
+                  }}"
+                  #languageDropdown
+                  isEllipsis="false"
+                  (selected)="downloadTestresultsPDF($event)"
+                ></bh-dropdown>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="fabricationFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-description">
+                  {{ 'mySiteEquipment.batchId' | cxTranslate }}
+                  {{ batchId }}
+                </h3>
+                <h2 class="right-box-title">
+                  {{
+                    'mySiteEquipment.fabricationFoundCertificate' | cxTranslate
+                  }}
+                  <span class="icon-style">
+                    <i class="material-icons md-18">check_circle</i>
+                  </span>
+                </h2>
+              </div>
+            </div>
+            <div class="row mt-3 ml-4">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <bh-button
+                  type="primary"
+                  label="{{
+                    'mySiteEquipment.certificateConform' | cxTranslate
+                  }}"
+                  (click)="downloadCertificationPDF()"
+                  class="track"
+                  [attr.disabled]="false"
+                >
+                </bh-button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="fabricationNotFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-description">
+                  {{ 'mySiteEquipment.batchId' | cxTranslate }}
+                  {{ fabNumber }}
+                </h3>
+                <h2 class="right-box-title color-rose">
+                  {{ 'mySiteEquipment.certificateNotFound' | cxTranslate }}
+                  <span class="icon-error">
+                    <i class="material-icons md-18">report</i>
+                  </span>
+                </h2>
+                <p 
+                  class="page-description mt-2" 
+                  [innerHTML]="'mySiteEquipment.willHelpOut' | cxTranslate"
+                >
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="druckImage">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <img
+                  class="druck-img"
+                  src="/assets/img/druck_loading_img.png"
+                />
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="druckFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-description border-0">
+                  {{ 'mySiteEquipment.serialProduct' | cxTranslate }}
+                  {{ druckSerialNumber }}
+                </h3>
+                <div>
+                  <h2 class="right-box-title d-inline pr-4 mr-2">
+                    {{ 'mySiteEquipment.calCertificateFound' | cxTranslate }}
+                    <span class="icon-style">
+                      <i class="material-icons md-18">check_circle</i>
+                    </span>
+                  </h2>
+
+                  <span
+                    *ngIf="alreadyInwatchList"
+                    class="update-action-link pl-2 border-left"
+                    (click)="
+                      openEquipmentDetails(
+                        equipmentPartNumber,
+                        equipmentSerialNumber,
+                        customer,
+                        true
+                      )
+                    "
+                  >
+                    <bh-icon
+                      icon="edit"
+                      size="small"
+                      color="#014d40"
+                      href=""
+                      target=""
+                    ></bh-icon>
+                    {{ 'mySiteEquipment.updateDetails' | cxTranslate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3 ml-4">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <bh-button
+                  type="primary"
+                  label="{{
+                    'mySiteEquipment.calibrationCertificate' | cxTranslate
+                  }}"
+                  (click)="downloadDruckCalibrationPDF()"
+                  class="track"
+                  icon="description"
+                  [attr.disabled]="false"
+                  [attr.disabled]="showPDFSpinner ? true : null"
+                  [attr.loading]="showPDFSpinner ? true : null"
+                >
+                </bh-button>
+              </div>
+            </div>
+            <!-- <div class="row mt-2 ml-4">  ========(RITM00372276 - AS per business request disabled)
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="cert-sub-description">
+                  {{ 'mySiteEquipment.calCertificateFoundData' | cxTranslate }}
+                  <bh-a
+                    type="primary"
+                    class="view-data-link"
+                    routerLink="/training-docs"
+                    text="{{ 'mySiteEquipment.clickHereImage' | cxTranslate }}"
+                  ></bh-a>
+                  .
+                </p>
+              </div>
+            </div> -->
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="druckNotFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-description-druck">
+                  {{ 'mySiteEquipment.serialNumber' | cxTranslate }}
+                  {{ druckSerialNumber }}
+                </h3>
+                <h2 class="right-box-title color-rose">
+                  {{ 'mySiteEquipment.dataNotFound' | cxTranslate }}
+                  <span class="icon-error">
+                    <i class="material-icons md-18">report</i>
+                  </span>
+                </h2>
+                <p 
+                  class="page-description mt-2" 
+                  [innerHTML]="'mySiteEquipment.willHelpOut' | cxTranslate"
+                >
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <ng-container *ngIf="equipmentNotFound">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h3 class="sub-display">
+                  {{ 'mySiteEquipment.serialId' | cxTranslate }}
+                  {{ equipmentSerialNumber }}
+                </h3>
+                <h2 class="right-box-title color-rose">
+                  {{ 'mySiteEquipment.calDataNotFound' | cxTranslate }}
+                  <span class="icon-error">
+                    <i class="material-icons md-18">report</i>
+                  </span>
+                </h2>
+                <p 
+                  class="page-description mt-2" 
+                  [innerHTML]="'mySiteEquipment.willHelpOut' | cxTranslate"
+                >
+                </p>
+                <p class="page-description">
+                  {{ 'mySiteEquipment.enteredInfoIncorrect' | cxTranslate }}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

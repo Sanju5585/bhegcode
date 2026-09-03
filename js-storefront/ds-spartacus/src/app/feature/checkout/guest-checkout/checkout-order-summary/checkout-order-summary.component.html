@@ -1,0 +1,279 @@
+<div class="checkout-order-summary">
+  <div
+    *ngIf="getCartType === 'RETURNS'; else buySummary"
+    class="summary-details col-md-8"
+  >
+    <div class="heading">
+      <span class="heading-text">{{
+        'titles.orderSummary' | cxTranslate
+      }}</span>
+    </div>
+    <div class="order-item-summary">
+      <span class=".content-regular float-left">
+        {{ 'titles.totalItems' | cxTranslate }}</span
+      >
+      <span class=".content-regular float-right"> {{ totalItems }}</span>
+    </div>
+    <div class="order-price-summary">
+      <span class="content-bold float-left">{{
+        'titles.netEstimate' | cxTranslate
+      }}</span>
+      <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+      <span
+        *ngIf="cartData?.totalReturnCartPrice?.value > 0; else toBeQuoted"
+        class="content-bold float-right"
+        >{{ cartData?.totalReturnCartPrice?.formattedValue }}</span
+      >
+    </div>
+    <div
+      *ngIf="cartData?.totalReturnCartPriceDiscount?.value > 0"
+      class="order-price-summary"
+    >
+      <span class="content-bold float-left">{{
+        'titles.totalDiscount' | cxTranslate
+      }}</span>
+      <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+      <span class="content-bold float-right">{{
+        cartData?.totalReturnCartPriceDiscount?.formattedValue
+      }}</span>
+    </div>
+    <div class="surcharge">
+      <span class="surcharge-text">
+        {{ 'titles.plusTaxesCharges' | cxTranslate }}
+      </span>
+    </div>
+    <hr class="mt-3 mb-3" />
+
+    <div class="terms">
+      <bh-checkbox
+        class="float-left checkboxterms"
+        label=""
+        name="agreeTerms"
+        [value]="agreeTerms"
+        [attr.error]="error.agreeTerms ? error.agreeTerms : null"
+        (change)="onChange(agreeTerms, 'agreeTerms')"
+      >
+      </bh-checkbox>
+      <div>
+        <span class="required">*</span>      
+        <span 
+          class="terms-checkbox-label" 
+          *ngIf="selectedSalesArea !== '7140'"
+          [innerHtml]="'titles.termsConditions' | cxTranslate"
+        >
+        </span>
+      </div>
+    </div>
+    <div
+      class="required"
+      *ngIf="!agreeTermschecked && this.error.agreeTerms != ''"
+    >
+      {{ 'errors.terms' | cxTranslate }}
+    </div>
+
+    <div class="checkout-order-summary-actions">
+      <bh-button
+        class="float-left"
+        medium
+        type="primary"
+        label="{{ 'titles.placeOrder' | cxTranslate }}"
+        (click)="placeOrder()"
+      ></bh-button>
+      <bh-button
+        class="float-right"
+        medium
+        type="secondary"
+        label="{{ 'titles.returntocart' | cxTranslate }}"
+        (click)="goToCart()"
+      >
+      </bh-button>
+    </div>
+    <div class="checkout-order-summary-actions">
+      <div *ngIf="noCartEntriesData" class="availibility-error">
+        <i class="material-icons">report</i>
+        <span class="error-text">
+          {{ 'errors.technicalErrorsInCHeckout' | cxTranslate }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <ng-template #buySummary>
+    <div class="summary-details col-md-8">
+      <div class="heading">
+        <span class="heading-text">{{
+          'titles.orderSummary' | cxTranslate
+        }}</span>
+      </div>
+      <div class="order-item-summary">
+        <span class=".content-regular float-left">
+          {{ 'titles.totalItems' | cxTranslate }}</span
+        >
+        <span class=".content-regular float-right"> {{ totalItems }}</span>
+      </div>
+      <div class="order-price-summary">
+        <span class="content-bold float-left">{{
+          'titles.totalEstimate' | cxTranslate
+        }}</span>
+        <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+        <span
+          *ngIf="cartData?.totalListPrice?.value > 0; else toBeQuoted"
+          class="content-bold float-right"
+          >{{ cartData?.totalListPrice?.formattedValue }}</span
+        >
+      </div>
+      <div
+        *ngIf="
+          cartData?.silverClauseTotal && cartData?.silverClauseTotal?.value != 0
+        "
+        class="order-price-summary"
+      >
+        <span class="content-bold float-left">{{
+          'titles.silverClausePrice' | cxTranslate
+        }}</span>
+        <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+        <span
+          class="content-bold float-right silver-price-val"
+          [ngClass]="
+            cartData?.silverClauseTotal.value > 0 ? 'negative' : 'positive'
+          "
+        >
+          <span *ngIf="cartData?.silverClauseTotal.value < 0"> - </span>
+          <span *ngIf="cartData?.silverClauseTotal.value > 0"> + </span>
+          <span *ngIf="cartData?.silverClauseTotal.value > 0">{{
+            cartData?.silverClauseTotal?.formattedValue
+          }}</span>
+          <span *ngIf="cartData?.silverClauseTotal.value < 0"
+            >{{ cartData?.currencyIso }} {{ cartData?.currencySymbol }}
+            {{
+              getPositiveSilverClause(cartData?.silverClauseTotal?.value)
+            }}</span
+          >
+        </span>
+      </div>
+      <div
+        *ngIf="cartData?.yourPriceDiscount?.value > 0"
+        class="order-price-summary"
+      >
+        <span class="content-bold float-left">{{
+          'titles.totalDiscount' | cxTranslate
+        }}</span>
+        <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+        <span class="content-bold float-right">{{
+          cartData?.yourPriceDiscount?.formattedValue
+        }}</span>
+      </div>
+      <div class="surcharge">
+        <span class="surcharge-text">
+          {{ 'titles.plusTaxesCharges' | cxTranslate }}
+        </span>
+      </div>
+
+      <div *ngIf="cartData?.totalPrice?.value > 0" class="order-price-summary">
+        <span class="content-bold float-left">{{
+          'titles.cartTotal' | cxTranslate
+        }}</span>
+        <!-- <span class="content-bold float-right">{{totalEstimate}}</span> -->
+        <span class="content-bold float-right">{{
+          cartData?.totalPrice?.formattedValue
+        }}</span>
+      </div>
+      <div class="terms mt-2">
+        <bh-checkbox
+          class="float-left checkboxterms"
+          label=""
+          name="agreeTerms"
+          [value]="agreeTerms"
+          [attr.error]="error.agreeTerms ? error.agreeTerms : null"
+          (change)="onChange(agreeTerms, 'agreeTerms')"
+        >
+        </bh-checkbox>
+        <div>
+          <span class="required">*</span>
+          <span 
+          [innerHtml]="'titles.termsConditions' | cxTranslate"
+        >
+        </span>
+        </div>
+      </div>
+      <div
+        class="required mt-2"
+        *ngIf="!agreeTermschecked && this.error.agreeTerms != ''"
+      >
+        {{ 'errors.terms' | cxTranslate }}
+      </div>
+
+      <div class="checkout-order-summary-actions">
+        <bh-button
+          *ngIf="!makePaymrnt"
+          [attr.disabled]="!agreeTermschecked"
+          class="float-left"
+          medium
+          type="primary"
+          label="{{ 'titles.placeOrder' | cxTranslate }}"
+          (click)="placeOrder()"
+        ></bh-button>
+        <bh-button
+          *ngIf="makePaymrnt"
+          [attr.disabled]="!agreeTermschecked"
+          class="float-left"
+          medium
+          type="primary"
+          label="{{ 'titles.makePayment' | cxTranslate }}"
+          (click)="placeOrder()"
+        ></bh-button>
+        <bh-button
+          class="float-right"
+          medium
+          type="secondary"
+          label="{{ 'titles.returntocart' | cxTranslate }}"
+          (click)="goToCart()"
+        >
+        </bh-button>
+      </div>
+      <div class="checkout-order-summary-actions">
+        <div *ngIf="noCartEntriesData" class="availibility-error">
+          <i class="material-icons">report</i>
+          <span class="error-text">
+            {{ 'errors.technicalErrorsInCHeckout' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+      <hr class="hr-margin" *ngIf="getCartType != 'RETURNS'" />
+      <div class="product-box" *ngIf="getCartType != 'RETURNS'">
+        <ng-container *ngFor="let items of cartData?.entries">
+          <div class="product-list row">
+            <div class="product-img col-md-4">
+              <cx-media
+                [container]="items?.product?.images?.PRIMARY"
+              ></cx-media>
+            </div>
+            <div class="product-desc col-md-8">
+              <div class="font-bold mb-1">
+                <span> {{ 'titles.part' | cxTranslate }} </span>
+                <span> {{ items?.product?.code }} </span>
+              </div>
+              <div class="mb-1 prod-name">
+                {{ items?.product?.name }}
+              </div>
+              <div class="mb-1">
+                <span> {{ 'titles.qty' | cxTranslate }}: </span>
+                <span class="font-bold">{{ items?.quantity }} </span>
+              </div>
+              <div>
+                <span> {{ 'titles.unitPrice' | cxTranslate }}: </span>
+                <span class="font-bold"
+                  >{{ items?.listPrice?.formattedValue }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<ng-template #toBeQuoted>
+  <span class="content-bold float-right">{{
+    'titles.toBeQuoted' | cxTranslate
+  }}</span>
+</ng-template>

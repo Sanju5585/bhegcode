@@ -1,0 +1,82 @@
+<div class="shop-category">
+  <span class="shop-category-label">{{
+    'waygate.shopByCategory' | cxTranslate
+  }}</span>
+  <button
+    type="button"
+    class="exploreBtn float-right"
+    aria-label="explore"
+    (click)="exploreProds()"
+  >
+    <span class="icon-style"
+      >{{ 'waygate.exploreProdBtn' | cxTranslate }}
+      <i class="material-icons md-18">keyboard_arrow_right</i>
+    </span>
+  </button>
+</div>
+<div class="product-banners">
+  <div class="product-banners-image fistImage">
+    <img
+      class="product-banner-image"
+      src="../../../../../assets/img/radioSystem.svg"
+      alt=""
+    />
+    <h5 class="product-banner-title">
+      {{ 'waygate.industrialSystem' | cxTranslate }}
+    </h5>
+    <a
+      class="product-banner-explore"
+      routerLink="categories/ECOM_LVL2_00000013/Industrial%20Radiography%20Systems"
+      >{{ 'waygate.explore' | cxTranslate }}
+      <i class="material-icons">keyboard_arrow_right</i></a
+    >
+  </div>
+  <div class="product-banners-image secondImage">
+    <img
+      class="product-banner-image"
+      src="../../../../../assets/img/filmImg.svg"
+      alt=""
+    />
+    <h5 class="product-banner-title">
+      {{ 'waygate.filmImaging' | cxTranslate }}
+    </h5>
+    <a
+      class="product-banner-explore"
+      routerLink="categories/ECOM_LVL2_00000004/Film%20&%20Digital%20Imaging"
+      >{{ 'waygate.explore' | cxTranslate }}
+      <i class="material-icons">keyboard_arrow_right</i></a
+    >
+  </div>
+  <div class="product-banners-image thirdImage">
+    <img
+      class="product-banner-image"
+      src="../../../../../assets/img/probes.svg"
+      alt=""
+    />
+    <h5 class="product-banner-title">
+      {{ 'waygate.ultrasonicDevice' | cxTranslate }}
+    </h5>
+    <a
+      class="product-banner-explore"
+      routerLink="categories/ECOM_LVL2_00000001/Ultrasonic%20Devices%20&%20Probes"
+      >{{ 'waygate.explore' | cxTranslate }}
+      <i class="material-icons">keyboard_arrow_right</i></a
+    >
+  </div>
+  <div class="product-banners-image fourthImage">
+    <img
+      class="product-banner-image"
+      src="../../../../../assets/img/remoteVisual.svg"
+      alt=""
+    />
+    <h5 class="product-banner-title">
+      {{ 'waygate.remoteInspection' | cxTranslate }}
+    </h5>
+    <a
+      class="product-banner-explore"
+      routerLink="categories/ECOM_LVL2_00000041/Remote%20Visual%20Inspection"
+      >{{ 'waygate.explore' | cxTranslate }}
+      <i class="material-icons">keyboard_arrow_right</i></a
+    >
+  </div>
+</div>

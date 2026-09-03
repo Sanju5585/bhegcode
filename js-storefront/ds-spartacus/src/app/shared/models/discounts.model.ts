@@ -1,0 +1,18 @@
+export enum Discounts {
+  ZRGD = 'Region Discount',
+  ZCUD = 'Customer Discount',
+  ZQSD = 'Product/Volume Discount',
+  ZLVD = 'Product/Volume Discount',
+  ZHVD = 'Product/Volume Discount',
+  ZSQD = 'Stock Order Discount',
+  ZSVD = 'Stock Order Discount',
+  ZSD1 = 'Manual Discount Adjustment',
+  ZSD2 = 'Manual Discount Adjustment',
+  ZDSH = 'Same Day Shipment',
+  ZEDC = 'Express Delivery Adder',
+  ZDOA = 'Coupon',
+  ZR04 = 'List Price',
+  ZR03 = 'List Price for manual price from SAP',
+  ZF00 = 'Freight charge',
+  ZSCG = 'Surcharge',
+}

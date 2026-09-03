@@ -1,0 +1,195 @@
+@import '../../../../../../styles/responsive_mixins.scss';
+.waygate-payment-main {
+  font-family: Poppins;
+  .waygate-payment-label {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+    color: #000000;
+  }
+  .payment {
+    .terms-label {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      letter-spacing: -0.25px;
+      color: #121212;
+    }
+    .terms-val {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #595959;
+    }
+  }
+  .payment-warning {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #fefbe6;
+    border: 1px solid #fefbe6;
+
+    .charges-para {
+      padding: 5px 10px;
+    }
+  }
+  .payment-mode-main {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    .select-payment-mode {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 137px;
+      height: 98px;
+      border-radius: 2px;
+      border: 1px solid #ced7d4;
+      text-align: center;
+      .active-icon {
+        color: #02a783;
+      }
+      @include media-lg-max{
+        width: 300px;
+      }
+    }
+    .active-border {
+      border: 1.5px solid #02a783;
+    }
+    .disable {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .disable:hover + .vs-tooltip {
+      visibility: visible;
+    }
+    .vs-tooltip {
+      visibility: hidden;
+      position: relative;
+      max-width: 375px;
+      max-height: 70px;
+      align-items: center;
+      padding: 8px 12px;
+      background: white;
+      border-radius: 4px;
+      box-shadow: 2px 2px 5px grey;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      color: #595959;
+      z-index: 5;
+    }
+    @include media-lg-max{
+      flex-direction: column;
+    }
+  }
+  .agree-check {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .new-card-main {
+    // width: 700px;
+    // height: 125px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .main-card {
+      border-radius: 8px;
+      background: var(--fill-common-primary, #f8faf9);
+      // max-width: 24%;
+      // height: 72px;
+      padding: 10px;
+      .sub-card {
+        display: flex;
+        gap: 8px;
+      }
+      .card-icon {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .card-validity {
+        display: flex;
+        justify-content: space-around;
+
+        .valid-thru {
+          display: flex;
+          flex-direction: column;
+        }
+        .card-type-img {
+          height: 20px;
+          width: 25px;
+        }
+      }
+    }
+    @include media-lg-max{
+      flex-direction: column;
+    }
+  }
+}
+
+:host::ng-deep .payment-type-section{
+  @include media-xl-max{
+    flex-direction: row !important;
+  }
+}
+
+.required-asterisk {
+  color: #cf2333;
+}
+
+.test{
+  display: flex;
+  flex-direction: column;
+}
+
+.uploadattachment {
+  .fileformat {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #595959;
+  }
+
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  @include media-xl-max {
+    display: inline-block;
+  }
+
+  @include media-md-lg {
+    width: 50%;
+  }
+}
+
+:host::ng-deep {
+  .upload-files .upload-files--btn {
+    width: 280px !important;
+    height: 44px;
+    border: 1px solid #adbdb9 !important;
+    justify-content: center !important;
+    gap: 10px;
+  }
+
+  .upload-files .label-color {
+    color: #121212 !important;
+  }
+
+  .upload-files .icon-color {
+    color: #121212 !important;
+  }
+}
+
+.bh-form-message--error{
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}

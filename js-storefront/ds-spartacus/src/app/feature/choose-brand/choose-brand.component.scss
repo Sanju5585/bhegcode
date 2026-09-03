@@ -1,0 +1,66 @@
+@import '../../../styles/responsive_mixins.scss';
+.container {
+  padding: 40px 15px;
+  min-height: 100vh;
+  .heading {
+    text-align: center;
+    .our-brands {
+      font-family: var(--font-family-decorative-medium);
+      font-size: var(--font-base-font-size-18);
+      line-height: var(--font-base-line-height-26);
+      font-weight: 400;
+      letter-spacing: -0.25px;
+      color: #1f1f1f;
+    }
+    .looking-for {
+      font-family: var(--font-family-decorative-medium);
+      font-size: var(--font-base-font-size-14);
+      line-height: var(--font-base-line-height-20);
+      color: #1f1f1f;
+      font-weight: 600;
+    }
+  }
+  .brand-list {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    gap: 20px;
+    .brand-item {
+      border-radius: 4px;
+      padding: 25px;
+      border: 1px solid #ced7d4;
+      flex: 0 0 31.333333%;
+      max-width: 0 0 31.333333%;
+      cursor: pointer;
+      &:hover {
+        box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05), 0 0 4px #ced7d4;
+      }
+      .brand-img img {
+        height: 30px;
+        max-width: 100%;
+      }
+      .brand-desc {
+        margin-top: 16px;
+        font-size: var(--font-base-font-size-12);
+        line-height: var(--font-base-line-height-18);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #595959;
+      }
+    }
+    @include media-md-max {
+      display: grid;
+    }
+  }
+}
+.cordant-image {
+  height: 40px !important;
+}
+.change-acc{
+  display: flex;
+    font-weight: 600;
+    font-size: var(--font-base-font-size-14);
+    justify-content: center;
+    color: #02A783
+  }

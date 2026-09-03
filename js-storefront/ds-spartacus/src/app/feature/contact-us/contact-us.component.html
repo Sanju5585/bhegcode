@@ -1,0 +1,5 @@
+<ds-contact-us-details *ngIf="userType == 'current'"></ds-contact-us-details>
+<ds-contact-us-form
+  *ngIf="userType == 'anonymous'"
+  userType="userType"
+></ds-contact-us-form>

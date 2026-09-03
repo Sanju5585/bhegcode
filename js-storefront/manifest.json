@@ -1,0 +1,16 @@
+{
+  "applications": [
+    {
+      "name": "ds-spartacus",
+      "path": "ds-spartacus",
+      "ssr": {
+        "enabled": true,
+        "path": "dist/ds-spartacus/server/server.mjs"
+      },
+      "csr": {
+        "webroot": "dist/ds-spartacus/browser/"
+      }
+    }
+  ],
+  "nodeVersion": "22"
+}

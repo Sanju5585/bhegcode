@@ -1,0 +1,83 @@
+<div class="notification-menu">
+  <div class="col-md-12 tabcontent-display-line-section">
+    <div class="row tabcontent-bottom-border">
+      <div class="col-md-10">
+        <h5 class="tabcontent-display-line-section-heading-notification">
+          {{ 'notifications.pageTitle' | cxTranslate }} ({{
+            filteredNotification.length
+          }})
+        </h5>
+      </div>
+      <div
+        class="col-md-2 col-lg-2 col-sm-12 view-all"
+        *ngIf="filteredNotification.length !== 0"
+      >
+        <bh-a
+          class="clear-all-link"
+          text="View All"
+          (click)="viewDetailedNotifications()"
+        >
+        </bh-a>
+      </div>
+    </div>
+
+    <div
+      *ngFor="let notification of filteredNotification"
+      class="row tabcontent-bottom-border-data"
+    >
+      <div class="col-md-12 top-data">
+        <span 
+          class="tabcontent-display-line-label"
+          [innerHTML]="
+          'notifications.equipmentStatus' | cxTranslate : {
+            serial: notification.serialNumber,
+            message: notification.notificationMessage
+          }"
+        >
+          <!-- <strong>{{ 'notifications.equipment' | cxTranslate }} 
+             {{ notification.serialNumber }}
+          </strong> 
+          {{ 'notifications.IS' | cxTranslate }}
+          <strong>{{ notification.notificationMessage }}</strong> -->
+        </span>
+      </div>
+      <div>
+        <bh-icon
+          class="icon-position"
+          icon="warning"
+          size="small"
+          color="rose"
+          href=""
+          target=""
+        ></bh-icon>
+      </div>
+      <span class="icon-text"
+        >{{ 'notifications.equipment' | cxTranslate }} &middot;
+        {{ notification.notificationTime }}</span
+      >
+      <div class="inline-icon">
+        <bh-icon
+          class="cancel-icon"
+          icon="cancel"
+          size="small"
+          color="secondary"
+          href=""
+          target=""
+          (click)="
+            dismissedNotifications(
+              notification.partNumber,
+              notification.serialNumber,
+              true
+            )
+          "
+        ></bh-icon>
+      </div>
+    </div>
+    <h4
+      class="tabcontent-display-line-section-heading mt-3"
+      *ngIf="filteredNotification.length === 0"
+    >
+      {{ 'notifications.noNotifications' | cxTranslate }}
+    </h4>
+  </div>
+</div>

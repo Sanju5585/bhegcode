@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "ID",
+    "proceedToCheckout": "Weiter zum Kassenbereich.",
+    "cartName": "Warenkorb#{{code}}"
+  },
+  "cartItems": {
+    "id": "ID",
+    "description": "Beschreibung",
+    "item": "Artikel",
+    "itemPrice": "Artikelpreis",
+    "quantity": "ANZAHL",
+    "quantityTitle": "Die Menge gibt die Gesamtzahl dieses Artikels in Ihrem Warenkorb an.",
+    "total": "Summe",
+    "cartTotal": "Kompletter Warenkorb ({{count}} Teile)",
+    "cartTotal_plural": "Warenkorb total ({{count}} Teile)"
+  },
+  "orderCost": {
+    "orderSummary": "Bestellungszusammenfassung",
+    "subtotal": "Zwischensumme nach Rabatten:",
+    "shipping": "Versand:",
+    "estimatedShipping": "Geschätzter Versand:",
+    "discount": "Sie sparen:",
+    "salesTax": "Verkaufssteuern",
+    "grossTax": "Der Gesamtbetrag der Bestellung enthält nicht die Steuer von",
+    "total": "Gesamtsumme:",
+    "toBeDetermined": "TBD"
+  },
+  "voucher": {
+    "coupon": "Haben Sie einen Gutschein?",
+    "coupon_plural": "Gutscheincode",
+    "apply": "Anwenden",
+    "placeholder": "Promotioncode",
+    "applyVoucherSuccess": "{{voucherCode}} wurde angewendet.",
+    "removeVoucherSuccess": "{{voucherCode}} wurde entfernt.",
+    "anchorLabel": "Geben Sie ihren Gutscheincode ein oder entfernen Sie ihn",
+    "vouchersApplied": "Verwendete Gutscheincodes",
+    "availableCoupons": "Verfügbare Gutscheincodes",
+    "availableCouponsLabel": "Sie können diese Gutscheine ihrem Auftrag hinzufügen"
+  },
+  "saveForLaterItems": {
+    "itemTotal": "Für später gespeichert ({{count}} Teile)",
+    "itemTotal_plural": "Für später gespeichert ({{count}} Teile)",
+    "cartTitle": "Einkaufswagen",
+    "saveForLater": "Für später speichern",
+    "moveToCart": "In den Warenkorb",
+    "stock": "Lager",
+    "forceInStock": "Vorrätig"
+  }
+}

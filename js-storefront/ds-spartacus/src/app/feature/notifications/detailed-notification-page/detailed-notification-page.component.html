@@ -1,0 +1,364 @@
+<div class="row my-profile">
+  <div class="col-md-12 tabcontent-display-line">
+    <div class="row tabcontent-bottom-border">
+      <div class="col-md-10 col-lg-10 col-sm-12 pr-5">
+        <div class="search-box">
+          <bh-text-input
+            type="text"
+            class="search-product-input float-left"
+            placeholder="{{ 'notifications.searchbySerialPartNo' | cxTranslate }}"
+            value=""
+            end-icon="search"
+            maxlength="40"
+            fuild="true"
+            name="searchTerm"
+            (keydown.enter)="searchNotifications($event)"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="col-md-2 col-lg-2 col-sm-12">
+        <bh-dropdown
+          class="salesarea-dd sortby-dd"
+          isFluid="false"
+          isSmall="false"
+          width="small"
+          menuWidth="small"
+          unselectable="false"
+          [menuItems]="sortBy"
+          isEllipsis="false"
+          placeholder="{{ 'notifications.sortBy' | cxTranslate }}"
+          (selected)="sortBySelect($event)"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+    <ng-container *ngIf="currentlyLoading == false">
+      <div class="row tabcontent-bottom-border">
+        <div class="col-md-10 heading-top">
+          <h5 class="tabcontent-display-line-section-heading">
+            {{ 'notifications.unreadNotifications' | cxTranslate }}({{
+              unreadNotifications.length
+            }})
+          </h5>
+        </div>
+        <div
+          class="col-md-2 col-lg-2 col-sm-12 dismiss-all"
+          *ngIf="unreadNotifications.length !== 0"
+        >
+          <bh-a
+            class="clear-all-link"
+            text="Dismiss All"
+            (click)="openDismissAllPage()"
+          ></bh-a>
+        </div>
+      </div>
+      <div
+        *ngIf="unreadNotifications.length === 0"
+        class="row tabcontent-bottom-border"
+      >
+        <div class="col-md-12 top-data">
+          <h4 class="tabcontent-display-line-section-label">
+            {{ 'notifications.noNotifications' | cxTranslate }}
+          </h4>
+        </div>
+      </div>
+
+      <div
+        *ngFor="let notification of unreadNotifications"
+        class="row tabcontent-bottom-border-data"
+      >
+        <div class="col-md-12 top-data">
+          <div class="row" *ngIf="!notification.isDismissed">
+            <div class="col-md-6">
+              <span
+                class="tabcontent-display-line-label"
+                (click)="
+                  openEquipmentDetails(
+                    notification.partNumber,
+                    notification.serialNumber,
+                    notification.customer,
+                    true
+                  )
+                "
+                [innerHTML]="
+                'notifications.equipmentStatus' | cxTranslate : {
+                  serial: notification.serialNumber,
+                  message: notification.notificationMessage
+                }"
+              >
+                <!-- <strong>{{ 'notifications.equipment' | cxTranslate }} 
+                  {{ notification.serialNumber }}
+                </strong>
+                {{ 'notifications.IS' | cxTranslate }}
+                <strong>{{ notification.notificationMessage }}</strong> -->
+              </span>
+              <div class="warning-text">
+                <bh-icon
+                  class="icon-position"
+                  icon="warning"
+                  size="small"
+                  color="rose"
+                  href=""
+                  target=""
+                >
+                </bh-icon>
+                <span class="icon-text"
+                  >{{ 'notifications.equipment' | cxTranslate }} &middot;
+                  {{ notification.notificationTime }}</span
+                >
+              </div>
+              <p class="icon-text">&nbsp;</p>
+            </div>
+
+            <div class="col-md-6">
+              <span *ngIf="notification.isFlagged === true">
+                <bh-icon
+                  class="flag-icon isActive"
+                  icon="flag"
+                  size="medium"
+                  color="secondary"
+                  href=""
+                  target=""
+                  (click)="
+                    flagNotifcation(
+                      notification.partNumber,
+                      notification.serialNumber,
+                      false
+                    )
+                  "
+                ></bh-icon>
+              </span>
+              <div class="inline-icon" *ngIf="notification.isFlagged === false">
+                <span>
+                  <bh-icon
+                    class="flag-icon"
+                    icon="flag"
+                    size="medium"
+                    color="secondary"
+                    href=""
+                    target=""
+                    [ngClass]="{ active: isActive }"
+                    (click)="
+                      flagNotifcation(
+                        notification.partNumber,
+                        notification.serialNumber,
+                        true
+                      )
+                    "
+                  ></bh-icon>
+                </span>
+                <span>
+                  <bh-icon
+                    class="cancel-icon"
+                    icon="cancel"
+                    size="medium"
+                    color="secondary"
+                    href=""
+                    target=""
+                    #userAvatar
+                    (click)="
+                      dismissedNotifications(
+                        notification.partNumber,
+                        notification.serialNumber,
+                        true,
+                        true
+                      )
+                    "
+                  >
+                  </bh-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row tabcontent-bottom-border">
+        <div class="col-md-10 heading-top">
+          <h5 class="tabcontent-display-line-section-heading">
+            {{ 'notifications.readNotifications' | cxTranslate }}({{
+              readNotifcations.length
+            }})
+          </h5>
+        </div>
+        <div
+          class="col-md-2 col-lg-2 col-sm-12 dismiss-all"
+          *ngIf="readNotifcations.length !== 0"
+        >
+          <bh-a
+            class="clear-all-link"
+            text="Dismiss All"
+            (click)="openReadDismissAllPage()"
+          >
+          </bh-a>
+        </div>
+      </div>
+      <div
+        *ngIf="readNotifcations.length === 0"
+        class="row tabcontent-bottom-border"
+      >
+        <div class="col-md-12 top-data">
+          <h4 class="tabcontent-display-line-section-label">
+            {{ 'notifications.noNotifications' | cxTranslate }}
+          </h4>
+        </div>
+      </div>
+
+      <div
+        *ngFor="let notification of readNotifcations"
+        class="row tabcontent-bottom-border"
+      >
+        <div class="col-md-12 top-data">
+          <div class="row">
+            <div class="col-md-6">
+              <span
+                class="tabcontent-display-line-label"
+                (click)="
+                  openEquipmentDetails(
+                    notification.partNumber,
+                    notification.serialNumber,
+                    notification.customer,
+                    false
+                  )
+                "
+                [innerHTML]="
+                'notifications.equipmentStatus' | cxTranslate : {
+                  serial: notification.serialNumber,
+                  message: notification.notificationMessage
+                }"
+              >
+                <!-- <strong>{{ 'notifications.equipment' | cxTranslate }} 
+                  {{ notification.serialNumber }}
+                </strong> 
+                  {{ 'notifications.IS' | cxTranslate }}
+                <strong>{{ notification.notificationMessage }}</strong> -->
+              </span>
+              <div class="warning-text">
+                <bh-icon
+                  class="icon-position"
+                  icon="warning"
+                  size="small"
+                  color="rose"
+                  href=""
+                  target=""
+                >
+                </bh-icon>
+                <span class="icon-text"
+                  >{{ 'notifications.equipment' | cxTranslate }} &middot;
+                  {{ notification.notificationTime }}</span
+                >
+              </div>
+              <p class="icon-text">&nbsp;</p>
+            </div>
+            <div class="col-md-6">
+              <span *ngIf="notification.isFlagged === true">
+                <bh-icon
+                  class="flag-icon isActive"
+                  icon="flag"
+                  size="medium"
+                  color="secondary"
+                  href=""
+                  target=""
+                  (click)="
+                    flagNotifcation(
+                      notification.partNumber,
+                      notification.serialNumber,
+                      false
+                    )
+                  "
+                ></bh-icon>
+              </span>
+              <div class="inline-icon" *ngIf="notification.isFlagged === false">
+                <span>
+                  <bh-icon
+                    class="flag-icon"
+                    icon="flag"
+                    size="medium"
+                    color="secondary"
+                    href=""
+                    target=""
+                    [ngClass]="{ active: isActive }"
+                    (click)="
+                      flagNotifcation(
+                        notification.partNumber,
+                        notification.serialNumber,
+                        true
+                      )
+                    "
+                  ></bh-icon>
+                </span>
+                <span>
+                  <bh-icon
+                    class="cancel-icon"
+                    icon="cancel"
+                    size="medium"
+                    color="secondary"
+                    href=""
+                    target=""
+                    #userAvatar
+                    (click)="
+                      dismissedNotifications(
+                        notification.partNumber,
+                        notification.serialNumber,
+                        true,
+                        true
+                      )
+                    "
+                  >
+                  </bh-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="delete-tab" *ngIf="deleteTabOnSuccess === true">
+    <div class="row col-md-12 tabcontent-display-line-section">
+      <div class="col-md-1 image-position">
+        <img
+          class="float-right image-width"
+          src="/assets/img/deleteConfirmation.png"
+        />
+      </div>
+      <div class="col-md-11 delete-text-position">
+        <p class="tabcontent-display-line-delete">
+          {{ 'notifications.deleted' | cxTranslate }}
+          <span>
+            <bh-icon
+              icon="close"
+              class="close"
+              size="medium"
+              color="primary"
+              href=""
+              target=""
+              (click)="closeConfirmationTab()"
+            ></bh-icon>
+          </span>
+        </p>
+        <p class="tabcontent-display-line-delete-text">
+          {{ 'notifications.permantelyDeleted' | cxTranslate }}
+        </p>
+        <div>
+          <bh-button
+            type="secondary"
+            label="{{ 'notifications.undo' | cxTranslate }}"
+            class="reset"
+            (click)="undoDeletedNotification()"
+            [attr.disabled]="false"
+            [attr.disabled]="showSpinner ? true : null"
+            [attr.loading]="showSpinner ? true : null"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="currently-loading-spinner" *ngIf="currentlyLoading">
+  <cx-spinner></cx-spinner>
+</div>

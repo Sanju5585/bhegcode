@@ -1,0 +1,48 @@
+<ng-container *ngIf="userLoggedIn$ | async; else guestCustomerAccount">
+  <div
+    *ngIf="currentCustomerAccount$ | async as customerAcc"
+    class="customer-account-details"
+  >
+    <div class="top-tier">
+      <span class="customer-acc-name">{{ customerAcc.name }}</span>
+    </div>
+    <div class="middle-tier">
+      <span class="customer-acc-uid">{{ customerAcc.uid }}</span>
+      <span class="divider mr-2 ml-2">|</span>
+      <span class="customer-acc-name">{{
+        customerAcc.selectedSalesArea?.address?.country?.isocode
+      }}</span>
+    </div>
+    <div class="bottom-tier" *ngIf="!disabelChangeAcc">
+      <bh-a class="switch-acc"
+        noUnderline
+        *ngIf="customerAcc.uid"
+        type="inverse"
+        text="Switch Account"
+        (click)="openSlider()"
+      ></bh-a>
+
+    </div>
+    
+
+<div *ngIf="productLine?.toLowerCase() == allProductLine.bently">
+     <bh-button
+    class="reset-cart"
+    type="primary"
+    label="Reset Cart"
+    (click)="onResetCartClick()"
+  ></bh-button>
+</div>
+  </div>
+</ng-container>
+
+<ng-template #guestCustomerAccount>
+  <ds-guest-customer-acc (openSlider)="openSlider()"></ds-guest-customer-acc>
+</ng-template>
+
+<!-- <ds-waygate-customer-account-slider
+  *ngIf="showSlider"
+  [salesAreadata]="salesAreaData"
+  [activeSalesArea]="activeSalesArea"
+  (closeSlider)="showSlider = false"
+></ds-waygate-customer-account-slider> -->

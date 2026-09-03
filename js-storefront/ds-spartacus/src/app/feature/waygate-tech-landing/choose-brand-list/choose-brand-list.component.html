@@ -1,0 +1,120 @@
+<div class="conatiner">
+  <div class="brand-list">
+    <div
+      class="brand-item col-4"
+      *ngIf="availableProductLines.includes(productLine.waygate)"
+    >
+      <div class="brand-content">
+        <div class="brand-log">
+          <img
+            src="../../../../assets/img/bannernav1.png"
+            [alt]="productLine.waygate"
+          />
+        </div>
+        <div class="brand-desc">
+          {{ 'waygate.brand.waygateDesc' | cxTranslate }}
+        </div>
+        <a
+          href="javascript:void(0)"
+          (click)="routeToRedirect(productLine.waygate)"
+          >{{ 'waygate.brand.visitSite' | cxTranslate
+          }}<span class="material-icons"> call_made </span></a
+        >
+        <!-- <div class="vertical-line"></div> -->
+      </div>
+    </div>
+    <div
+      class="brand-item col-4"
+      *ngIf="availableProductLines.includes(productLine.druck)"
+    >
+      <div class="brand-content">
+        <div class="brand-log">
+          <img
+            src="../../../../assets/img/druck_homepage_logo.png"
+            [alt]="productLine.druck"
+          />
+        </div>
+        <div class="brand-desc">
+          {{ 'waygate.brand.druckDesc' | cxTranslate }}
+        </div>
+        <a
+          href="javascript:void(0)"
+          (click)="routeToRedirect(productLine.druck)"
+          >{{ 'waygate.brand.visitSite' | cxTranslate
+          }}<span class="material-icons"> call_made </span></a
+        >
+        <!-- <div class="vertical-line"></div> -->
+      </div>
+    </div>
+    <div
+      class="brand-item col-4"
+      *ngIf="availableProductLines.includes(productLine.bently)"
+    >
+      <div class="brand-content">
+        <div class="brand-log">
+          <img
+            src="../../../../assets/img/bannernav4.png"
+            [alt]="productLine.bently"
+            class="height-inherit"
+          />
+        </div>
+        <div class="brand-desc">
+          {{ 'waygate.brand.bentlyDesc' | cxTranslate }}
+        </div>
+        <a
+          href="javascript:void(0)"
+          (click)="routeToRedirect(productLine.bently)"
+          >{{ 'waygate.brand.visitSite' | cxTranslate
+          }}<span class="material-icons"> call_made </span></a
+        >
+        <!-- <div class="vertical-line"></div> -->
+      </div>
+    </div>
+    <div
+      class="brand-item col-4"
+      *ngIf="availableProductLines.includes(productLine.panametrics)"
+    >
+      <div class="brand-content">
+        <div class="brand-log">
+          <img
+            src="../../../../assets/img/Pana_brand_logo.png"
+            [alt]="productLine.panametrics"
+          />
+        </div>
+        <div class="brand-desc">
+          {{ 'waygate.brand.panametricsDesc' | cxTranslate }}
+        </div>
+        <a
+          href="javascript:void(0)"
+          (click)="routeToRedirect(productLine.panametrics)"
+          >{{ 'waygate.brand.visitSite' | cxTranslate
+          }}<span class="material-icons"> call_made </span></a
+        >
+        <!-- <div class="vertical-line"></div> -->
+      </div>
+    </div>
+    <div
+      class="brand-item col-4"
+      *ngIf="availableProductLines.includes(productLine.reuterStokes)"
+    >
+      <div class="brand-content">
+        <div class="brand-log">
+          <img
+            src="../../../../assets/img/bannernav5.png"
+            [alt]="productLine.reuterStokes"
+          />
+        </div>
+        <div class="brand-desc">
+          {{ 'waygate.brand.reuterStokesDesc' | cxTranslate }}
+        </div>
+        <a
+          href="javascript:void(0)"
+          (click)="routeToRedirect(productLine.reuterStokes)"
+          >{{ 'waygate.brand.visitSite' | cxTranslate
+          }}<span class="material-icons"> call_made </span></a
+        >
+        <!-- <div class="vertical-line"></div> -->
+      </div>
+    </div>
+  </div>
+</div>

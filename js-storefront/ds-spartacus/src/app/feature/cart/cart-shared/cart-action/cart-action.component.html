@@ -1,0 +1,138 @@
+<div class="availibility-error" *ngIf="showCheckAvalabilityAction">
+  <i class="material-icons">info</i
+  ><strong>{{ 'buyCart.errorqtytext' | cxTranslate }}</strong>
+</div>
+
+<div *ngIf="cart$ | async as cart" class="order-action-inner">
+  <div class="row order-ship-holder">
+    <div
+      class="col-md-5 pl-0"
+      *ngIf="cart?.cartType == cartType.Typ1 || cart?.cartType == cartType.Typ3"
+    >
+      <div>
+        <div class="section-container mb-3">
+          <div>
+            <div class="tooltipdp section-container mb-3">
+              <span class="text-danger">* </span>
+              <span class="tooltiplabel tooltipAddress">{{
+                'buyCart.customeraddress' | cxTranslate
+              }}</span>
+
+              <div class="vs-tooltip-icon deliveryPoint-icon">
+                <p class="vs-tooltip">
+                  {{ 'buyCart.endUserAdd' | cxTranslate }}
+                </p>
+              </div>
+              <span
+                class="selected enduserAddress"
+                *ngIf="cart?.enduserAddress"
+              >
+                <span class="sel">{{ 'buyCart.selected' | cxTranslate }}</span>
+              </span>
+            </div>
+          </div>
+          <div class="ter-btn-holder mt-3 ml-1" *ngIf="!cart?.enduserAddress">
+            <bh-button
+              type="primary"
+              label="{{ 'buyCart.selectAddress' | cxTranslate }}"
+              (click)="selectAddress()"
+              small
+            ></bh-button>
+          </div>
+        </div>
+        <address class="address" *ngIf="cart?.enduserAddress">
+          <div>
+            {{ cart?.enduserAddress?.firstName }}
+            {{ cart?.enduserAddress?.lastName }}
+          </div>
+          <div>{{ cart?.enduserAddress?.companyName }}</div>
+          <div>
+            {{ cart?.enduserAddress?.line1
+            }}{{ cart?.enduserAddress?.line1 ? ',' : ' ' }}
+            {{ cart?.enduserAddress?.line2
+            }}{{ cart?.enduserAddress?.line2 ? ',' : ' ' }}<br />
+            {{ cart?.enduserAddress?.town }}
+            <br />
+          </div>
+          <div>
+            {{ cart?.enduserAddress?.country?.isocode }}<br />
+            {{ cart?.enduserAddress?.postalCode }}
+          </div>
+        </address>
+
+        <div class="ter-btn-holder ml-1" *ngIf="cart?.enduserAddress">
+          <bh-button
+            type="secondary"
+            label="{{ 'buyCart.changeAddress' | cxTranslate }}"
+            (click)="selectAddress()"
+            small
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-ship-holder col-md-3 pl-0" *ngIf="cart?.enduserAddress">
+      <span class="customer-acc">{{
+        'buyCart.customerAccountNumber' | cxTranslate
+      }}</span>
+      <div class="address custom">{{ (cart?.saleaAreaID).split('_')[0] }}</div>
+    </div>
+    <div class="col-md-5 pl-0" *ngIf="userType !== 'current'">
+      <form [formGroup]="guestEmailAddressForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <bh-text-input
+            type="text"
+            label="{{ 'buyCart.guestEmail' | cxTranslate }}"
+            required="required"
+            [attr.error]="error.emailAddress ? error.emailAddress : null"
+            [value]="emailAddress"
+            [message]="error.emailAddress"
+            (keyup)="onChange($event, 'email')"
+          >
+          </bh-text-input>
+        </div>
+
+        <div class="form-group">
+          <bh-text-input
+            type="text"
+            label="{{ 'buyCart.guestConfirmEmail' | cxTranslate }}"
+            required="required"
+            [message]="error.confirmEmail"
+            [attr.error]="error.confirmEmail ? error.confirmEmail : null"
+            [value]="confirmEmailAddress"
+            (keyup)="onChange($event, 'confirmEmail')"
+            (paste)="$event.preventDefault()"
+          >
+          </bh-text-input>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-4 pl-0">
+      <div class="tooltipdp order-heading order-shipping-label">
+        <span class="tooltiplabel">{{ 'buyCart.shipmentPreference' | cxTranslate }}</span>
+        <div class="vs-tooltip-icon deliveryPoint-icon">
+          <p class="vs-tooltip">
+            {{ 'buyCart.partialShipmentText' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="radio-btn">
+        <bh-radio-button
+          label="{{ 'buyCart.complete' | cxTranslate }}"
+          [attr.checked]="cart?.isShipCompleteOrder"
+          value="'Complete'"
+          name="group"
+          (change)="handleChange($event)"
+        ></bh-radio-button>
+        <bh-radio-button
+          label="{{ 'buyCart.partial' | cxTranslate }}"
+          [attr.checked]="!cart?.isShipCompleteOrder"
+          value="'Partial'"
+          name="group"
+          (change)="handleChange($event)"
+        ></bh-radio-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.sap.sapcpiadapter.data.SapCpiOrder">
+		<property name="courier" type="String" />
+		<property name="shippingEmail" type="String" />
+		<property name="invoiceEmail" type="String" />
+		<property name="soaEmail" type="String" />
+		<property name="deliveryAccountNumber" type="String" />
+		<property name="endUser" type="String" />
+		<property name="noRdd" type="String" />
+		<property name="governmentFlag" type="String" />
+		<property name="nuclearFlag" type="String" />
+		<property name="exportAddress" type="String" />
+		<property name="shippingRemarks" type="String" />
+		<property name="nuclearOpptyFlag" type="String" />
+		<property name="exportFlag" type="String" />
+
+		<property name="govermentBuyer" type="String" />
+		<property name="alternateNumber" type="String" />
+		<property name="alternateName" type="String" />
+		<property name="alternateEmail" type="String" />
+		<property name="endUserNewDetails" type="String" />
+		<property name="csrHelp" type="String" />
+		<property name="endUserPO" type="String" />
+		<property name="invoiceContact" type="String" />
+		<property name="invoicePhone" type="String" />
+		<property name="soaContact" type="String" />
+		<property name="soaPhone" type="String" />
+		<property name="reqHeaderDeliveryDate" type="String" />
+		
+		<property name="shiptoContact" type="String" />
+		<property name="shiptoPhone" type="String" />
+		<property name="discountCode" type="String" />
+		<property name="shippingCharge" type="String" />
+		<property name="isShipCompleteOrder" type="String" />
+		<property name="configurationBlock" type="String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.sapcpiadapter.data.SapCpiOrderItem">
+		<property name="reqLineDeliveryDate " type="String" />
+		<property name="note" type="String" />
+		<property name="availableLineText" type="String" />
+		<property name="discountReason" type="String" />
+		<property name="voucherCode" type="String" />
+		<property name="saveForFuture" type="String" />
+		<property name="paymentTerms" type="String" />
+		<property name="referenceNumber" type="String" />
+		<property name="tagInformation" type="String" />
+		<property name="dummyProductDetails1" type="String" />
+		<property name="dummyProductDetails2" type="String" />
+		<property name="dummyProductDetails3" type="String" />
+		<property name="dummyProductDetails4" type="String" />
+		<property name="endCustomerPO" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.sapcpiadapter.data.SapCpiPartnerRole">
+        <property name="deliveryPoint" type="String"/>
+
+    </bean>
+    
+    <bean class="de.hybris.platform.sap.sapcpiadapter.data.SapCpiOrderAddress">
+        <property name="company" type="String"/>
+		<property name="checkStatus" type="String"/>
+    </bean>
+ 
+
+</beans>

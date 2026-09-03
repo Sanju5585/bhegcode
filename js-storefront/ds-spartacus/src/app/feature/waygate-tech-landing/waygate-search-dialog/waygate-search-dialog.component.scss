@@ -1,0 +1,251 @@
+@import '../../../../styles/responsive_mixins.scss';
+.waygate-search-backdrop {
+  height: 100%;
+  background: #ffffff;
+  .material-icons {
+    cursor: pointer;
+  }
+  .waygate-search-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    .material-icons {
+      font-size: 30px;
+    }
+  }
+  .waygate-search-container {
+    display: flex;
+    justify-content: center;
+    .waygate-search-dialog-input-container {
+      display: flex;
+      position: relative;
+      align-items: center;
+      .waygate-search-dialog-input {
+        border: 1px solid #a0a0a0;
+        border-radius: 20px;
+        width: 512px;
+        padding: 10px;
+        &:focus {
+          outline-color: transparent;
+        }
+      }
+      .waygate-search-dialog-icon {
+        position: absolute;
+        background: #147d64;
+        right: 0px;
+        padding: 10px;
+        border-radius: 50%;
+        color: #ffffff;
+      }
+
+      @include media-sm-max {
+        width: -webkit-fill-available;
+      }
+    }
+  }
+  .waygate-search-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .message {
+      font-size: 20px;
+      font-weight: 600;
+      padding: 10px 0;
+      width: 362px;
+    }
+    .waygate-search-results-box {
+      gap: 10px;
+      overflow-y: scroll;
+      max-height: 78vh;
+      a {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #e7e7e7;
+        &:hover {
+          text-decoration: none;
+          transition: all 0.2s ease;
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.125));
+        }
+        .search-product-image-container {
+          .waygate-product-image,
+          cx-media.is-missing {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        .search-product-content-container {
+          color: #595959;
+          .search-product-code,
+          .product-tag {
+            font-weight: 600;
+          }
+        }
+      }
+      @include media-md-min {
+        display: flex;
+        flex-direction: column;
+        width: 512px;
+      }
+    }
+  }
+}
+.image-container-offline-search {
+  width: 100px;
+  height: 100px;
+}
+.text-container-offline-search {
+  margin-left: -100px;
+}
+.text-container-offline-search > p:nth-child(2),
+.text-container-offline-search > p:nth-child(3) {
+  margin-top: -15px;
+}
+.waygate-details-image {
+  width: 100px;
+  height: 100px;
+}
+.no-results-found {
+  // display: flex;
+  // width: 255px;
+  // flex-direction: column;
+  // align-items: center;
+  // gap: 10px;
+  // padding: 30px 0;
+  color: #595959;
+  .img {
+    width: 120px;
+  }
+  h5 {
+    font-weight: 600;
+  }
+  // p {
+  //   text-align: center;
+  // }
+  .no-result-shown{
+    margin-top: 1rem;
+  }
+  span {
+    color: #02a783;
+    cursor: pointer;
+  }
+  // margin-left: -330px;
+  .completeLongPartNumberValid {
+    margin-top: 20px;
+    .text-content {
+      margin-left: -230px;
+    }
+    .button {
+      cursor: pointer;
+      float: right;
+      margin-right: -200px;
+      margin-top: -50px;
+      p {
+        background-color: #147d64;
+        padding: 7px;
+        color: white;
+        margin-top: 10px;
+      }
+    }
+  }
+  .isDummyProduct {
+    margin-top: 20px;
+    margin-left: 100px;
+    .text-content {
+      margin-left: -230px;
+      p {
+        margin-top: -15px;
+      }
+    }
+    .button {
+      cursor: pointer;
+      float: right;
+      margin-right: -200px;
+      margin-top: -35px;
+      p {
+        padding: 7px;
+        border: 1px solid black;
+        color: black;
+        margin-right: 60px;
+        font-weight: 600;
+      }
+    }
+  }
+  .onlyBaseProductValid {
+    margin-top: 20px;
+    margin-left: 180px;
+    margin-right: -100px;
+    .text-content {
+      margin-left: -290px;
+    }
+    .text-container-offline-search {
+      p {
+        margin-top: 10px;
+        float: left;
+        margin-right: 85px;
+      }
+    }
+    .button {
+      // cursor: pointer;
+      // float: right;
+      // margin-right: -200px;
+      // margin-top: -50px;
+      // p {
+      //   padding: 7px;
+      //   border: 1px solid black;
+      //   color: black;
+      //   margin-right: 60px;
+      // }
+    }
+    .body-container {
+      display: flex;
+      gap: 100px;
+      p {
+        margin-left: 100px;
+        cursor: pointer;
+      }
+      .button {
+        p {
+          border: 1px solid black;
+          padding: 7px;
+          color: black;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .zeroscenario {
+    margin-left: -230px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .waygate-search-dialog-input-container {
+    width: -webkit-fill-available;
+  }
+}
+
+@media (min-width: 768px) {
+  .waygate-search-results-box {
+    display: flex;
+    flex-direction: column;
+    width: 512px;
+  }
+}
+// .offline-search-container {
+//   margin-top: -25px;
+// }
+// .offline-search-msg {
+//   float: left;
+//   margin-left: -230px;
+// }
+// .offline-search-button {
+//   float: right;
+//   margin-right: -200px;
+//   cursor: pointer;
+//   color: #147d64;
+// }

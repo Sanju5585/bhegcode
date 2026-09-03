@@ -1,0 +1,72 @@
+{
+  "areaOfInterest": [
+    {
+      "id": "1",
+      "name": "Cyber Security Services"
+    },
+    {
+      "id": "2",
+      "name": "Downhole Sensors"
+    },
+    {
+      "id": "7",
+      "name": "Industrial Asset Inspection"
+    },
+    {
+      "id": "8",
+      "name": "Industrial Radiography & CT"
+    },
+    {
+      "id": "9",
+      "name": "Machinery Asset Health & Consulting Services"
+    },
+    {
+      "id": "10",
+      "name": "Machinery Diagnostic Services"
+    },
+    {
+      "id": "11",
+      "name": "Monitoring Systems"
+    },
+    {
+      "id": "12",
+      "name": "Non-Destructive Testing"
+    },
+    {
+      "id": "17",
+      "name": "Remote Monitoring & Diagnostics"
+    },
+    {
+      "id": "18",
+      "name": "Remote Visual Inspection (RVI)"
+    },
+    {
+      "id": "19",
+      "name": "Roller Bearing Condition Monitoring"
+    },
+    {
+      "id": "21",
+      "name": "Supporting Services Agreements"
+    },
+    {
+      "id": "22",
+      "name": "System 1 Condition Monitoring Software"
+    },
+    {
+      "id": "23",
+      "name": "System Design Installation"
+    },
+    {
+      "id": "25",
+      "name": "Ultrasonic Testing"
+    },
+    {
+      "id": "26",
+      "name": "VitalyX Lubricating Oil Monitoring Platform"
+    },
+    {
+      "id": "27",
+      "name": "Waygate Technologies Robotics (Inspection Robotics)"
+    }
+  ]
+}

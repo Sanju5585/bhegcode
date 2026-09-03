@@ -1,0 +1,16 @@
+$lang=en
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;32001;18;32001;REGISTER_MICROSITE;PENDING_APPROVAL;true;
+;32002;15;32001;REGISTER_MICROSITE;PENDING_APPROVAL;true;
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;32001;14;
+
+UPDATE Address;pk[unique=true];line1;line2;district;town;postalcode;company
+;8796093120535;Line1A;Line2A;DistrictA;TownA;191919A;CompanyA
+;8796093153303;Line1B;Line2B;DistrictB;TownB;191919B;CompanyB
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];damCompanyAddress(pk);damProductLine(attributeId)
+;15;8796093120535;32101
+;18;8796093153303;32101

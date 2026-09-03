@@ -1,0 +1,170 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the Powertools site emails
+#
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;bhge-BannerComponent-template;"CMSBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;bhge-CMSImageComponent-template;"CMSImageComponent Template";$emailResource/email-cmsImageComponentTemplate.vm
+ ;bhge-CMSLinkComponent-template;"CMSLinkComponent Template";$emailResource/email-cmsLinkComponentTemplate.vm
+ ;bhge-CMSParagraphComponent-template;"CMSParagraphComponent Template";$emailResource/email-cmsParagraphComponentTemplate.vm
+ ;bhge-SimpleBannerComponent-template;"CMSSimpleBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;bhge_Email_Customer_Registration_Body;"Customer Registration Email Body";$emailResource/email-customerRegistrationBody.vm
+ ;bhge_Email_Customer_Registration_Subject;"Customer Registration Email Subject";$emailResource/email-customerRegistrationSubject.vm
+ ;bhge_Email_Delivery_Sent_Body;"Delivery Sent Email Body";$emailResource/email-deliverySentBody.vm
+ ;bhge_Email_Delivery_Sent_Subject;"Delivery Sent Email Subject";$emailResource/email-deliverySentSubject.vm
+ ;bhge_Email_Forgotten_Password_Body;"Forgotten Password Email Body";$emailResource/email-forgottenPasswordBody.vm
+ ;bhge_Email_Forgotten_Password_Subject;"Forgotten Password Email Subject";$emailResource/email-forgottenPasswordSubject.vm
+ ;bhge_Email_NotPickedUpConsignment_Canceled_Body;"Not Picked Up Consignment Canceled Email Body";$emailResource/email-notPickedUpConsignmentCanceledBody.vm
+ ;bhge_Email_NotPickedUpConsignment_Canceled_Subject;"Not Picked Up Consignment Canceled Email Subject";$emailResource/email-notPickedUpConsignmentCanceledSubject.vm
+ ;bhge_Email_Order_Cancelled_Body;"Order Cancelled Email Body";$emailResource/email-orderCancelledBody.vm
+ ;bhge_Email_Order_Cancelled_Subject;"Order Cancelled Email Subject";$emailResource/email-orderCancelledSubject.vm
+ ;bhge_Email_Order_Collection_Reminder_Body;"Order Collection Reminder Body";$emailResource/email-orderCollectionReminderBody.vm
+ ;bhge_Email_Order_Collection_Reminder_Subject;"Order Collection Reminder Subject";$emailResource/email-orderCollectionReminderSubject.vm
+ ;bhge_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+ ;bhge_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$emailResource/email-orderConfirmationSubject.vm
+ ;bhge_Email_Order_Move_To_CS_Body;"Order Move To CS Body";$emailResource/email-orderMoveToCsBody.vm
+ ;bhge_Email_Order_Move_To_CS_Subject;"Order Move To CS Subject";$emailResource/email-orderMoveToCsSubject.vm
+ ;bhge_Email_Order_Partially_Canceled_Body;"Order Partially Canceled Email Body";$emailResource/email-orderPartiallyCanceledBody.vm
+ ;bhge_Email_Order_Partially_Canceled_Subject;"Order Partially Canceled Email Subject";$emailResource/email-orderPartiallyCanceledSubject.vm
+ ;bhge_Email_Order_Partially_Refunded_Body;"Order Partially Refunded Email Body";$emailResource/email-orderPartiallyRefundedBody.vm
+ ;bhge_Email_Order_Partially_Refunded_Subject;"Order Partially Refunded Email Subject";$emailResource/email-orderPartiallyRefundedSubject.vm
+ ;bhge_Email_Order_Refund_Body;"Order Refund Email Body";$emailResource/email-orderRefundBody.vm
+ ;bhge_Email_Order_Refund_Subject;"Order Refund Email Subject";$emailResource/email-orderRefundSubject.vm
+ ;bhge_Email_Quote_Buyer_Cancellation_Body;"Quote Buyer Cancellation Email Body";$emailResource/email-quoteBuyerCancellationBody.vm
+ ;bhge_Email_Quote_Buyer_Cancellation_Subject;"Quote Buyer Cancellation Email Subject";$emailResource/email-quoteBuyerCancellationSubject.vm
+ ;bhge_Email_Quote_Buyer_Submission_Body;"Quote Buyer Submission Email Body";$emailResource/email-quoteBuyerSubmissionBody.vm
+ ;bhge_Email_Quote_Buyer_Submission_Subject;"Quote Buyer Submission Email Subject";$emailResource/email-quoteBuyerSubmissionSubject.vm
+ ;bhge_Email_Quote_Expired_Body;"Quote Expired Body";$emailResource/email-quoteExpiredBody.vm
+ ;bhge_Email_Quote_Expired_Subject;"Quote Expired Subject";$emailResource/email-quoteExpiredSubject.vm
+ ;bhge_Email_Quote_To_Expire_Soon_Body;"Quote To Expire Soon Body";$emailResource/email-quoteToExpireSoonBody.vm
+ ;bhge_Email_Quote_To_Expire_Soon_Subject;"Quote To Expire Soon Subject";$emailResource/email-quoteToExpireSoonSubject.vm
+ ;bhge_Email_Ready_For_Pickup_Body;"Ready For Pickup Email Body";$emailResource/email-readyForPickupBody.vm
+ ;bhge_Email_Ready_For_Pickup_Subject;"Ready For Pickup Email Subject";$emailResource/email-readyForPickupSubject.vm
+ ;bhge_Ticket_Email_Subject;"BHGE Ticket Email Template";$emailResource/email-bhgeTicketEmailSubject.vm
+ ;bhge_Ticket_Email_Body;"BHGE Ticket Email Template";$emailResource/email-bhgeTicketEmailBody.vm
+ 
+;bhge_Email_Shipping_Address_Body;"Shipping Address Email Body";$emailResource/email-shippingAddressBody.vm
+;bhge_Email_Shipping_Address_Subject;"Shipping Address Email Subject";$emailResource/email-shippingAddressSubject.vm
+;bhge_Email_GuestUser_CalibrationPDF_Subject;"Guest User Calibration PDF Email Subject";$emailResource/email-guestCalibrationPDFSubject.vm
+;bhge_Email_GuestUser_CalibrationPDF_Body;"Guest User Calibration PDF Email Body";$emailResource/email-guestCalibrationPDFBody.vm
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;bhge_Email_Order_ApprovalRejection_Body;"Buyer Approval Rejection Email Body";$jarEmailResource/email-orderApprovalRejectionBody.vm
+ ;bhge_Email_Order_ApprovalRejection_Subject;"Order Approval Rejection Email Subject";$jarEmailResource/email-orderApprovalRejectionSubject.vm
+ ;bhge_Email_Order_PendingApproval_Body;"Order Pending Approval Email Body";$jarEmailResource/email-orderPendingApprovalBody.vm
+ ;bhge_Email_Order_PendingApproval_Subject;"Order Pending Approval Email Subject";$jarEmailResource/email-orderPendingApprovalSubject.vm
+ ;bhge_Email_Replenishment_Order_Confirmation_Body;"";$jarEmailResource/email-replenishmentOrderConfirmationBody.vm
+ ;bhge_Email_Replenishment_Order_Confirmation_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderConfirmationSubject.vm
+ ;bhge_Email_Replenishment_Order_Placed_Body;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedBody.vm
+ ;bhge_Email_Replenishment_Order_Placed_Subject;"Order Confirmation Email Subject";$jarEmailResource/email-replenishmentOrderPlacedSubject.vm
+
+# Email Pages
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;CustomerRegistrationEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;DeliverySentEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;ForgottenPasswordEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderApprovalRejectionEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderCancelledEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderCollectionReminderEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderConfirmationEmail;"SVC-Prod-DSStore@bakerhughes.com";"Baker Hughes DS Store"
+ ;;OrderMoveToCsEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderPartiallyCanceledEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderPartiallyRefundedEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderPendingApprovalEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;OrderRefundEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;QuoteBuyerCancellationEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;QuoteBuyerSubmissionEmail;"SVC-Prod-DSStore@bakerhughes.com";"Baker Hughes DS Store"
+ ;;QuoteExpiredEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;QuoteToExpireSoonEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;ReadyForPickupEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;ReplenishmentOrderConfirmationEmail;"customerservices@hybris.com";"Customer Services Team"
+ ;;ReplenishmentOrderPlacedEmail;"customerservices@hybris.com";"Customer Services Team"
+  ;;GuestUserCalibrationPDFEmail;"SVC-Prod-DSStore@bakerhughes.com";"Baker Hughes DS Store"
+
+ 
+ # Email templates:
+ 
+ "#% impex.info(""###############    email_template.impex  -start  ################"")"
+#
+# Import the Order History Email Content Catalog
+#
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default='Staged'])[default=$contentCatalog:Staged]
+$jarResourceCms=jar:com.bhge.core.setup.CoreSystemSetup&/bhgecore/import/cockpits/cmscockpit
+$emailResourcePath=$jarResourceCms/structure-view
+$bhgeEmailResourcePath=$jarResourceCms/structure-view/email-templates
+$emailResource=$jarResourceCms/structure-view
+ 
+# Language
+$lang=en
+ 
+# Order Email Template
+INSERT_UPDATE Media;code[unique=true];$contentCV[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+;bhgeCriticalErrorMailTemplate_media;;text/html;bhgeCriticalErrorEmailTemplate.vm;$bhgeEmailResourcePath/orderTemplates/bhgeCriticalErrorEmailTemplate.vm
+;bhgeRFCFailureMailTemplate_media;;text/html;bhgeRFCFailureMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeRFCFailureMail.vm
+;bhgeInvalidDataReportMailTemplate_media;;text/html;bhgeInvalidDataReportMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeInvalidDataReportMail.vm
+;bhgeWeeklyOrderReportMailTemplate_media;;text/html;bhgeWeeklyOrderReportMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeWeeklyOrderReportMail.vm
+;bhgeMaterialPushMailTemplate_media;;text/html;bhgeMaterialPushEmailTemplate.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeMaterialPushEmailTemplate.vm
+;bhgeNonCriticalErrorMailTemplate_media;;text/html;bhgeNonCriticalErrorDetails.vm;$bhgeEmailResourcePath/orderTemplates/bhgeNonCriticalErrorDetails.vm
+;bhgeOrderConfEmailFailureTemplate_media;;text/html;bhgeOrderConfEmailFailureTemplate.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeOrderConfEmailFailureTemplate.vm
+;bhgeActiveUsersEmailTemplate_media;;text/html;bhgeactiveUsersEmailTemplate.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeactiveUsersEmailTemplate.vm
+;bhgePendingActivationUsersReportMailTemplate_media;;text/html;bhgePendingActivationUsersReportMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgePendingActivationUsersReportMail.vm
+;bhgeInactiveUsersReportMailTemplate_media;;text/html;bhgeInactiveUsersReportMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeInactiveUsersReportMail.vm
+;bhgeGuestOrderNotificationMailTemplate_media;;text/html;bhgeGuestOrderNotificationEmailTemplate.vm;$bhgeEmailResourcePath/orderTemplates/bhgeGuestOrderNotificationEmailTemplate.vm
+;bhgeHaveAQuestionEmailTemplate_media;;text/html;bhgeHaveAQuestionEmailTemplate.vm ;$bhgeEmailResourcePath/adminEmailTemplates/bhgeHaveAQuestionEmailTemplate.vm
+
+
+# Renderer Templates
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;CriticalErrorMailTemplate;Velocity template for CriticalErrorMail;bhgeCriticalErrorMailTemplate_media;com.bhge.core.mailmessages.context.BHGECriticalErrorEmailContext;text/html;velocity
+;bhgeRFCFailureMailTemplate;Velocity template for BHGE RFC Failure ;bhgeRFCFailureMailTemplate_media;com.bhge.core.mailmessages.context.BHGERFCFailureMailContext;text/html;velocity
+;BHGEInvalidDataReportMailTemplate;Velocity template for BHGE Invalid Data Reportemail;bhgeInvalidDataReportMailTemplate_media;com.bhge.core.mailmessages.context.BHGEInvalidDataReportMailContext;text/html;velocity
+;BHGEWeeklyOrderReportMailTemplate;Velocity template for BHGE Weekly Order Report Email;bhgeWeeklyOrderReportMailTemplate_media;com.bhge.core.mailmessages.context.BHGEWeeklyOrdersReportMailContext;text/html;velocity
+;bhgeMaterialPushEmailTemplate;Velocity template for material push email;bhgeMaterialPushMailTemplate_media;com.bhge.core.mailmessages.context.BHGEMaterialPushEmailContext;text/html;velocity
+;NoNCriticalErrorMailTemplate;Velocity template for Non CriticalErrorMail;bhgeNonCriticalErrorMailTemplate_media;com.bhge.core.mailmessages.context.BHGENonCriticalErrorEmailContext;text/html;velocity
+;BHGEOrderConfEmailFaliureTemplate;Velocity template for BHGE Order Confirmation Email Failure ;bhgeOrderConfEmailFailureTemplate_media;com.bhge.core.mailmessages.context.BHGEOrderConfirmationEmailFailureContext;text/html;velocity
+;bhgeActiveUsersEmailTemplate;Velocity template for BHGE Active Users Report;bhgeActiveUsersEmailTemplate_media;com.bhge.core.mailmessages.context.BHGEActiveUsersEmailContext;text/html;velocity
+;BHGEPendingActivationUsersMailTemplate;Velocity template for BHGE Pending Actication Users Report Email;bhgePendingActivationUsersReportMailTemplate_media;com.bhge.core.mailmessages.context.BHGEPendingActivationUsersMailContext;text/html;velocity
+;BHGEInactiveUserListMailTemplate;Velocity template for BHGE Inactive Users Report Email;bhgeInactiveUsersReportMailTemplate_media;com.bhge.core.mailmessages.context.BHGEInactiveUsersMailContext;text/html;velocity
+;GuestOrderNotificationMailTemplate;Velocity template for GuestOrderNotificationMail;bhgeGuestOrderNotificationMailTemplate_media;com.bhge.core.mailmessages.context.BHGEGuestOrderNotificationEmailContext;text/html;velocity
+;bhgeHaveAQuestionEmailTemplate;Velocity template for bhgeHaveAQuestionEmailTemplate;bhgeHaveAQuestionEmailTemplate_media;com.bhge.core.mailmessages.context.BHGEHaveAQuestionMailContext;text/html;velocity
+
+ 
+ 
+ "#% impex.info(""###############    email_template.impex  -End  ################"")"
+
+"#% impex.info(""###############    Daily Monitoring and Weekly Order Related Impex Start ################"")"
+
+# Order Email Template
+INSERT_UPDATE Media;code[unique=true];$contentCV[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+;bhgeWeeklyOrderReportMailTemplate_media;;text/html;bhgeWeeklyOrderReportMail.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeWeeklyOrderReportMail.vm
+;bhgeMaterialPushMailTemplate_media;;text/html;bhgeMaterialPushEmailTemplate.vm;$bhgeEmailResourcePath/adminEmailTemplates/bhgeMaterialPushEmailTemplate.vm
+
+# Renderer Templates
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=en];content(code,$contentCV)[lang=en];contextClass;outputMimeType;rendererType(code)
+;BHGEWeeklyOrderReportMailTemplate;Velocity template for BHGE Weekly Order Report Email;bhgeWeeklyOrderReportMailTemplate_media;com.bhge.core.mailmessages.context.BHGEWeeklyOrdersReportMailContext;text/html;velocity
+;bhgeMaterialPushEmailTemplate;Velocity template for material push email;bhgeMaterialPushMailTemplate_media;com.bhge.core.mailmessages.context.BHGEMaterialPushEmailContext;text/html;velocity
+
+"#% impex.info(""###############    Daily Monitoring and Weekly Order Related Impex End ################"")"

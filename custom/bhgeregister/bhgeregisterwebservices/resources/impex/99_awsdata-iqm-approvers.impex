@@ -1,0 +1,33 @@
+$lang=en
+
+#select * from {BHGERegieterCustomer} where {sso} in ('212593022', '212654952')
+#select * from {BHGEUserAccessRequest} where {accessrequestid} in ('22001', '22002', '22003', '22004', '22005', '22006')
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg
+;iqm-22001;212593022;Peter Gobran;Peter;Gobran;peter.gobran@bhge.com;IQMRegister;true;22100;false
+;iqm-22002;212654952;Vicki Terpening;Vicki;Terpening;vicki.terpening@bhge.com;IQMRegister;true;22100;false
+;iqm-22003;503112764;Sameer Abdi;Sameer;Abdi;Sameer.Abdi@ge.com;IQMRegister;true;22100;false
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];groups(uid)
+;1903;BHGECSRApproverGroup,BHGEUserManagerGroup
+;iqm-22001;BHGECSRApproverGroup
+;iqm-22002;BHGECSRApproverGroup
+;iqm-22003;BHGECSRApproverGroup
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;22001;iqm-22001;22001;REGISTER_MICROSITE;COMPLETED;true;
+;22002;iqm-22002;22002;REGISTER_MICROSITE;COMPLETED;true;
+;22003;iqm-22001;22002;REGISTER_MICROSITE;COMPLETED;true;
+;22004;iqm-22002;22001;REGISTER_MICROSITE;COMPLETED;true;
+;22005;iqm-22003;22001;REGISTER_MICROSITE;COMPLETED;true;
+;22006;iqm-22003;22002;REGISTER_MICROSITE;COMPLETED;true;
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;22001;1903;
+;22001;iqm-22001;
+;22001;iqm-22002;
+;22002;1903;
+;22002;iqm-22001;
+;22002;iqm-22002;
+;22001;iqm-22003;
+;22002;iqm-22003;

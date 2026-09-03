@@ -1,0 +1,25 @@
+$contentCatalog=bhgeContentCatalog
+$contentCatalogName=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true]	;$contentCV[unique=true];name			;parent(uid, $contentCV);links(&componentRef)	;&nodeRef
+                               ;DsMyAccountNavNode	;						;My Account		;BhgeNavNode			;						;DsMyAccountNavNode
+
+INSERT_UPDATE CMSNavigationNode	;uid[unique=true]		;$contentCV[unique=true]	;name		;title			;parent(uid, $contentCV)	;links(&linkRef)		;&nodeRef
+                                   ;MyQuotesNavNode		;							;My Quotes	;My Quotes			;DsMyAccountNavNode			;						;MyQuotesNavNode
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry	;uid[unique=true]			;$contentCV[unique=true]	;name							;navigationNode(&nodeRef)	;item(&linkRef)			;
+                                    ;MyQuotesNavNodeEntry		;							;MyQuotesNavNodeEntry			;MyQuotesNavNode			;MyQuotesLink			;
+
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name            ;url           ;&linkRef         ;target(code)[default='sameWindow'] ;styleAttributes
+                              ;						  ;MyQuotesLink  ;MyQuotesLink  ;/my-quotes   ;MyQuotesLink   ;									 ;list_alt
+
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true]	;$contentCV[unique=true]	;children(uid,$contentCV)[mode=append]
+                               ;DsMyAccountNavNode ;							;MyQuotesNavNode
+
+UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];children(uid,$contentCV)
+                        ;DsMyAccountNavNode;;MyProfileNavNode,OrderHistoryNavNode,MyReturnsNavNode,MyQuotesNavNode,SavedCartsNavNode,MyEquipmentNavNode,MyFavNavNode,FeedbackLinksNavNode,AppDashboardNavNode,UserManageNavNode

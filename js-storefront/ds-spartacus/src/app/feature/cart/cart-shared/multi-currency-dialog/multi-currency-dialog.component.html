@@ -1,0 +1,45 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span>
+            {{ 'buyCart.multiCurrencyHeaderTxt' | cxTranslate }}
+        </span>
+      </div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="dismissModal('close')"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>
+            {{
+              'buyCart.multiCurrencyBodyTxt' | cxTranslate: { curr: activeCartCurrency }
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            [type]="'secondary'"
+            label="{{ 'buyCart.discard' | cxTranslate }}"
+            (click)="dismissModal('close')"
+          ></bh-button>
+
+          <bh-button
+            [type]="'tertiary'"
+            label="{{ 'buyCart.addToCart' | cxTranslate }}"
+            (click)="addToCartProceed()"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

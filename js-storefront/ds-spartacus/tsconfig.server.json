@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist/ds-spartacus/server",
+        "baseUrl": "./",
+        "module": "CommonJS",
+        "types": ["node"]
+    },
+    "files": ["src/main.server.ts", "src/server.ts"],
+    "angularCompilerOptions": {
+        "entryModule": "./src/app/app.server.module#AppServerModule"
+    }
+}

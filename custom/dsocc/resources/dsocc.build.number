@@ -1,0 +1,11 @@
+#Ant properties
+#Fri Jan 15 00:27:17 CET 2021
+version.api=2211
+vendor=hybris
+group.id=de.hybris.platform
+name=dsocc
+description=dsocc
+builddate=20210115 0022
+releasedate=20201119 1630
+version=2211
+module.name=platform-module

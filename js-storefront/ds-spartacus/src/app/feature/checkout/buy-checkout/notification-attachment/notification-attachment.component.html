@@ -1,0 +1,199 @@
+<div class="notification">
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.orderAckContactName' | cxTranslate }}"
+            placeholder="{{ 'labels.orderAckContactName' | cxTranslate }}"
+            [value]="orderAckContactName"
+            [message]="error.orderAckContactName"
+            [attr.error]="
+              error.orderAckContactName ? error.orderAckContactName : null
+            "
+            (keyup)="onChange($event, 'orderAckContactName')"
+            maxlength="35"
+          >
+          </bh-text-input>
+        </div>
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.orderAckContactNo' | cxTranslate }}"
+            placeholder="{{ 'labels.orderAckContactNo' | cxTranslate }}"
+            [value]="orderAckContactNo"
+            [message]="error.orderAckContactNo"
+            [attr.error]="
+              error.orderAckContactNo ? error.orderAckContactNo : null
+            "
+            (keyup)="onChange($event, 'orderAckContactNo')"
+            maxlength="20"
+          >
+          </bh-text-input>
+        </div>
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.orderAcknowledge' | cxTranslate }}"
+            placeholder="{{ 'labels.orderAcknowledge' | cxTranslate }}"
+            [value]="orderAck"
+            [message]="error.orderAck"
+            [attr.error]="error.orderAck ? error.orderAck : null"
+            (keyup)="onChange($event, 'orderAck')"
+            maxlength="241"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.invoiceContactName' | cxTranslate }}"
+            placeholder="{{ 'labels.invoiceContactName' | cxTranslate }}"
+            [value]="invoiceContactName"
+            [message]="error.invoiceContactName"
+            [attr.error]="
+              error.invoiceContactName ? error.invoiceContactName : null
+            "
+            (keyup)="onChange($event, 'invoiceContactName')"
+            maxlength="35"
+          >
+          </bh-text-input>
+        </div>
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.invoiceContactNo' | cxTranslate }}"
+            placeholder="{{ 'labels.invoiceContactNo' | cxTranslate }}"
+            [value]="invoiceContactNo"
+            [message]="error.invoiceContactNo"
+            [attr.error]="
+              error.invoiceContactNo ? error.invoiceContactNo : null
+            "
+            (keyup)="onChange($event, 'invoiceContactNo')"
+            maxlength="16"
+          >
+          </bh-text-input>
+        </div>
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.invoiceMail' | cxTranslate }}"
+            placeholder="{{ 'labels.invoiceMail' | cxTranslate }}"
+            [value]="invoiceMail"
+            [message]="error.invoiceMail"
+            [attr.error]="error.invoiceMail ? error.invoiceMail : null"
+            (keyup)="onChange($event, 'invoiceMail')"
+            maxlength="241"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+    </div>
+    <div class="uploadattachment">
+      <span>{{ 'labels.csrReviewConfirmation' | cxTranslate }}</span>
+
+      <div class="radio-btn">
+        <bh-radio-button
+          label="{{ 'labels.yes' | cxTranslate }}"
+          value="true"
+          name="group1"
+          (change)="handleChange($event)"
+        ></bh-radio-button>
+        <bh-radio-button
+          label="{{ 'labels.no' | cxTranslate }}"
+          value="false"
+          checked
+          name="group1"
+          (change)="handleChange($event)"
+        ></bh-radio-button>
+      </div>
+    </div>
+    <div class="warning-box" *ngIf="this.bhgeReview == 'true'">
+      <span class="material-icons-outlined alert-warning"> warning </span>
+      <span class="alert-text"> {{ 'labels.BHReview' | cxTranslate }}</span>
+    </div>
+
+    <div
+      class="row col-lg-12 col-md-12 col-sm-12 uploadattachment reasonforchange"
+      *ngIf="this.bhgeReview == 'true'"
+    >
+      <label class="textarea-label"
+        ><span class="star"></span>
+        {{ 'labels.csrReviewLbl' | cxTranslate }}</label
+      >
+
+      <textarea
+        required
+        class="textarea-buycheckout"
+        name="reasonForCsrReview"
+        [(ngModel)]="reason"
+        (keyup)="onChange($event, 'reason')"
+      ></textarea>
+      <div
+        *ngIf="this.error.reasonMsg"
+        class="bh-form-message typography--body-small bh-form-message--error"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ this.error.reasonMsg }}
+      </div>
+    </div>
+    <div class="row uploadattachment mt-2">
+      <span class="textarea-label col-lg-12 col-md-12 col-sm-12">{{
+        'labels.addAttachment' | cxTranslate
+      }}</span>
+    </div>
+    <div class="file-upload">
+      <div class="upload-all-files">
+        <div>
+          <div class="col-md-7">
+            <div class="row">
+              <ds-file-upload
+                label="{{ 'labels.upload' | cxTranslate }}"
+                [maxLength]="5"
+                [maxSizeInMB]="10"
+                [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                (selectedFiles)="selectedFiles($event)"
+                [showIcon]="showIcon"
+                [icon]="'backup'"
+                >upload</ds-file-upload
+              >
+              <div class="file-list">
+                <ds-file-upload-progress
+                  *ngFor="let file of files"
+                  [layout]="layouts.LIST"
+                  [deleteUrl]="deletUrl"
+                  [file]="file"
+                  (deletedFiles)="deletedFiles($event)"
+                  [uploadParams]="uploadParams"
+                  [uploadUrl]="uploadUrl"
+                  [showProgress]="true"
+                ></ds-file-upload-progress>
+              </div>
+              <span class="fileformat mt-1"
+                >{{ 'labels.fileFormat' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-md-12 col-lg-12 col-sm-12">
+        <label></label>
+      </div>
+    </div>
+  </form>
+</div>

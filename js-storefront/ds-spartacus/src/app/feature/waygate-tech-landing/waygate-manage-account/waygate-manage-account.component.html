@@ -1,0 +1,78 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-manage-account-container">
+    <div class="error-displays">
+      <div class="warning" *ngIf="state === 'customer'">
+        <span class="material-icons"> info_outline </span>
+        {{ 'customer-account.updateCustAccDetails' | cxTranslate }}
+      </div>
+      <div class="warning" *ngIf="state === 'profile'">
+        <span class="material-icons"> info_outline </span>
+        {{ 'customer-account.updateProfileDetails' | cxTranslate }}
+        <a href="mailto:ogmchybris.support@bakerhughes.com"
+          >ogmchybris.support&#64;bakerhughes.com</a
+        >
+        {{ 'customer-account.pleaseAllow' | cxTranslate }}
+      </div>
+    </div>
+    <div class="waygate-manage-account-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'customer-account.manageAccount' | cxTranslate }}</h1>
+    </div>
+    <ng-container>
+      <div class="waygate-order-details-body">
+        <div class="order-details-body-tabs">
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'profile'"
+            (click)="changeState('profile')"
+          >
+            <span class="material-icons-outlined"> account_circle </span>
+            {{ 'customer-account.profileDetails' | cxTranslate }}
+          </div>
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'customer'"
+            (click)="changeState('customer')"
+          >
+            <span class="material-icons-outlined"> people </span>
+            {{ 'customer-account.customerAccount' | cxTranslate }}
+          </div>
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'order'"
+            (click)="changeState('order')"
+          >
+            <span class="material-icons-outlined"> window </span>
+            {{ 'customer-account.orderSettings' | cxTranslate }}
+          </div>
+
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'notification'"
+            (click)="changeState('notification')"
+          >
+            <span class="material-icons-outlined"> email </span>
+            {{ 'notifications.emailNotification' | cxTranslate }}
+          </div>
+        </div>
+
+        <div class="order-details-body-details">
+          <ng-container *ngIf="state == 'profile'">
+            <app-waygate-profile></app-waygate-profile>
+          </ng-container>
+          <ng-container *ngIf="state === 'customer'">
+            <app-waygate-customer-account></app-waygate-customer-account>
+          </ng-container>
+          <ng-container>
+            <app-order-settings *ngIf="state == 'order'"> </app-order-settings>
+          </ng-container>
+          <ng-container>
+            <app-waygate-notification-email *ngIf="state == 'notification'">
+            </app-waygate-notification-email>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

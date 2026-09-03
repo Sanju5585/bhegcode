@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Related Products into Powertools Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='check']
+
+
+# Insert Product References
+#INSERT_UPDATE Productreference;description;source(code, catalogVersion(Catalog(id),version))[unique=true];target(code, catalogVersion(Catalog(id),version))[unique=true];referenceType(code);accessoryType(code);active;preselected
+#;mandatory;113-241-240:bhgeProductCatalog:Staged;113-241-260:bhgeProductCatalog:Staged;ACCESSORIES;MANDATORY_ACCESSORIES;1;1
+#;mandatory;113-241-240:bhgeProductCatalog:Staged;113-242-260:bhgeProductCatalog:Staged;ACCESSORIES;MANDATORY_ACCESSORIES;1;1
+#;optional;113-241-240:bhgeProductCatalog:Staged;113-243-240:bhgeProductCatalog:Staged;ACCESSORIES;OPTIONAL_ACCESSORIES;1;1
+#;case;113-241-240:bhgeProductCatalog:Staged;500035:bhgeProductCatalog:Staged;ACCESSORIES;CASE_ACCESSORIES;1;1
+#;case;113-241-240:bhgeProductCatalog:Staged;113-263-260:bhgeProductCatalog:Staged;ACCESSORIES;CASE_ACCESSORIES;1;1
+ 
+ 
+ 
+ #Base Product Reference
+#$productCatalog=bhgeProductCatalog							
+#$productCatalogName=bhgeProductCatalog							
+#$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]							
+							
+							
+# Insert Product References							
+#INSERT_UPDATE Productreference;source(code, $catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);accessoryType(code);description;active;preselected							
+#;	118-340-021	;	113-262-600	;BASE_PRODUCT	;OPTIONAL_ACCESSORIES;	base	;1;1

@@ -1,0 +1,399 @@
+<div
+  class="equipment-history-container p-30"
+  [ngClass]="{
+    'empty-history-div':
+      lstMELHistory.length == 0 && !isShowHistoryForm && isOwnerMismatch,
+  }"
+>
+  <div
+    class="equipment-service-history-main p-30 p-l-50 m-t-20 p-regular"
+    *ngIf="isShowHistoryForm && !isOwnerMismatch"
+  >
+    <div class="equipment-service-history-content">
+      <div class="service-offerings-container">
+        <div
+          class="col-lg-4 col-md-4 display-flex-justify-left p-0"
+          [ngClass]="{ 'service-tab-active': serviceOfferingType == 'return' }"
+        >
+          <!-- <input type="radio" class="rma-custom-radio" (click)="tabIndex = 1" id="serviceTabRadio" [(ngModel)]="serviceOfferingType" name="offeringServiceRadio" value="service"> -->
+          <label
+            for="serviceTabRadio"
+            class="m-0 text-uppercase evergreen-font large-font regular-font"
+            translate="bhge.ng.site.equipment.details.history.service_type_header"
+            >Repair / Calibrate / Upgrade the product</label
+          >
+        </div>
+
+        <div
+          class="col-lg-5 col-md-5 p-l-25 service-tabs display-flex-justify-left d-none"
+          [ngClass]="{ 'service-tab-active': serviceOfferingType == 'return' }"
+        >
+          <input
+            type="radio"
+            class="rma-custom-radio"
+            (click)="tabIndex = 2"
+            id="returnTabRadio"
+            [(ngModel)]="serviceOfferingType"
+            name="offeringServiceRadio"
+            value="return"
+          />
+          <label for="returnTabRadio" class="m-0 text-uppercase"
+            >Return the product for credit or scrap the product</label
+          >
+        </div>
+
+        <div
+          class="col-lg-3 col-md-3 p-l-25 service-tabs display-flex-justify-left d-none"
+          [ngClass]="{ 'service-tab-active': serviceOfferingType == 'rmaNo' }"
+        >
+          <input
+            type="radio"
+            class="rma-custom-radio"
+            id="rmaTabRadio"
+            (click)="tabIndex = 3"
+            [(ngModel)]="serviceOfferingType"
+            name="offeringServiceRadio"
+            value="rmaNo"
+          />
+          <label for="rmaTabRadio" class="m-0 text-uppercase"
+            >Add Services by RMA Number</label
+          >
+        </div>
+      </div>
+
+      <!-- Tab menu 1 -->
+      <div class="tab-content" *ngIf="showOfferingTab">
+        <div
+          class="tab-pane container active p-0"
+          style="width: auto"
+          id="menu1"
+        >
+          <div class="row col-md-12 m-t-20 m-b-30" *ngIf="tabIndex == 1">
+            <div class="row m-t-15">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label
+                    for="serviceDate"
+                    translate="bhge.ng.site.equipment.details.history.service_date"
+                    >Service date</label
+                  >
+                  <input
+                    id="serviceDate"
+                    placeholder="MM/DD/YYYY"
+                    type="text"
+                    class="form-control rma_offering-text m-t-10"
+                    name="serviceDate"
+                    [ngClass]="{ 'is-invalid': serviceDateDisabled }"
+                    [(ngModel)]="model.serviceDate"
+                    [matDatepicker]="serviceDate"
+                    [max]="dateValidation.max"
+                    [min]="dateValidation.min"
+                    (focus)="serviceDate.open()"
+                    #startDateInput
+                    (focus)="serviceDate.open(); serviceDateDisabled = false"
+                  />
+                  <mat-datepicker
+                    #serviceDate
+                    (closed)="startDateInput.blur()"
+                  ></mat-datepicker>
+                  <i
+                    class="bhge-icons ico_calendar_sm calender-position"
+                    (click)="serviceDate.open()"
+                  ></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row m-t-20">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label
+                    for="service-type"
+                    class="d-block"
+                    translate="bhge.ng.site.equipment.details.service_type"
+                    >Service type</label
+                  >
+                  <button
+                    style="width: 100%"
+                    id="service-type"
+                    (click)="changeServices()"
+                    class="form-control rma_offering-dd dropdown-toggle dd-text search-type-dd"
+                    [ngClass]="{ 'is-invalid': serviceTypeDisabled }"
+                    type="button"
+                    data-toggle="dropdown"
+                  >
+                    <!-- <span *ngIf="!selectedCustomer" class="overflow-ellipsis pull-left dd-selected">Select search criteria</span> -->
+                    <span
+                      *ngIf="selectedService"
+                      class="overflow-ellipsis pull-left dd-selected"
+                      >{{ selectedService.name }}</span
+                    >
+                    <i class="bhge-mcstore-icons icon-down-arrow-blue"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu rma-offering-content p-0 w-100"
+                    *ngIf="showServices"
+                    style="display: block"
+                  >
+                    <li *ngFor="let eachVal of arrServices; let i = index">
+                      <a
+                        class="option-text"
+                        (click)="onServiceSelect(eachVal, $event)"
+                        >{{ eachVal.name }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="row m-t-20">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label
+                    for="serviceDescription"
+                    translate="bhge.ng.site.equipment.details.history.service_description"
+                    >Service Description</label
+                  >
+                  <textarea
+                    class="m-t-10"
+                    maxlength="250"
+                    rows="5"
+                    style="width: 100%"
+                    [(ngModel)]="model.serviceDescription"
+                    name="serviceDescription"
+                    #service
+                  ></textarea>
+                </div>
+              </div>
+              <!-- <div class="col-md-3">
+                  <div class="form-group">
+                      <label for="ddRepair">Repair</label>
+                      <select class="form-control rma_offering-text w-300 d-inline-block" name="ddRepair" [(ngModel)]="model.repairSelected" #repair>
+                          <option value=""></option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="ddCalibrate">Calibrate</label>
+                        <select class="form-control rma_offering-text w-300 d-inline-block" name="ddCalibrate" [(ngModel)]="model.calibrateSelected"
+                            #calibrate>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="ddUpgrade">Upgrade</label>
+                        <select class="form-control rma_offering-text w-300 d-inline-block" name="ddUpgrade" [(ngModel)]="model.upgradeSelected"
+                            #upgrade>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="add-equipment-actions m-t-40">
+              <!-- <pre>{{f.value | json}}</pre> -->
+              <button
+                type="button"
+                (click)="createServiceHistory()"
+                class="btn text-uppercase pull-right rma-btn-primary w-200 m-l-10 btn-fix"
+                style="font-size: 1em"
+                translate="bhge.ng.site.equipment.details.history.add_service"
+              >
+                Add Service Details
+              </button>
+              <button
+                (click)="onCancelAddition()"
+                type="button"
+                class="secondary-btn-bhge text-uppercase pull-right w-200 btn-fix"
+                translate="bhge.ng.site.equipment.details.history.cancel_addition"
+              >
+                Cancel Addition
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab menu 3 -->
+      <div class="tab-content" *ngIf="showOfferingTab">
+        <div
+          class="tab-pane container active p-0"
+          style="width: auto"
+          id="menu3"
+        >
+          <div class="row col-md-12 m-t-20 m-b-30" *ngIf="tabIndex == 3">
+            <div class="row search-box">
+              <div class="col-md-6 p-r-0">
+                <div class="form-group">
+                  <label for="rmaNumber">Enter RMA number</label>
+                  <input
+                    type="text"
+                    class="form-control rma_offering-text m-t-10"
+                    name="rmaNumber"
+                    [(ngModel)]="rmaNumber"
+                    [ngClass]="{ 'is-invalid': rmaNumber == '' }"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 p-0">
+                <button
+                  type="button"
+                  class="btn text-uppercase pull-left rma-btn-primary w-150 m-l-10 btn-fix m-t-30"
+                  style="font-size: 1em"
+                >
+                  Find
+                </button>
+              </div>
+            </div>
+
+            <div class="search-results-block">
+              <span class="search-results-headline"
+                >Matching Service Details</span
+              >
+              <div class="search-results-data m-t-20">
+                <div
+                  class="search-results-data-head p-bold color-evergreen p-t-15"
+                >
+                  <div class="col-md-2">SERVICE TYPE</div>
+                  <div class="col-md-2">SERVICE DATE</div>
+                  <div class="col-md-3">SERVICE COMMENTS</div>
+                  <div class="col-md-3">SERVICE ALONG WITH</div>
+                  <div class="col-md-2">ACTIONS</div>
+                </div>
+                <div class="search-results-data-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="search-results-block"
+    *ngIf="!isShowHistoryForm && !isOwnerMismatch"
+  >
+    <!-- <span *ngIf="lstMELHistory.length > 0" class="search-results-headline d-inline-block" translate="bhge.ng.site.equipment.details.history.results.service_history">Service History</span> -->
+    <div *ngIf="lstMELHistory.length == 0" class="no-service-history-container">
+      <h3
+        class="text-center"
+        translate="bhge.ng.site.equipment.details.history.results.no_history"
+      >
+        No Service History Found
+      </h3>
+      <button
+        (click)="showHistoryForm()"
+        type="button"
+        class="primary-btn-bhge btn-history-add m-t-30"
+        translate="bhge.ng.site.equipment.details.history.results.add_service"
+      >
+        Add Service History Details
+      </button>
+    </div>
+    <div class="search-results-data" *ngIf="lstMELHistory.length > 0">
+      <button
+        (click)="showHistoryForm()"
+        type="button"
+        class="primary-btn-bhge btn-history-add m-t-0 m-b-20 pull-right"
+        translate="bhge.ng.site.equipment.details.history.results.add_service"
+      >
+        Add Service History Details
+      </button>
+      <div
+        class="search-results-data-head p-bold color-evergreen p-t-15 text-uppercase clearfix"
+      >
+        <div
+          class="col-md-2"
+          translate="bhge.ng.site.equipment.details.history.results.service_offering"
+        >
+          Service Offering
+        </div>
+        <div
+          class="col-md-2"
+          translate="bhge.ng.site.equipment.details.history.results.rma_number"
+        >
+          RMA Number
+        </div>
+        <div
+          class="col-md-2"
+          translate="bhge.ng.site.equipment.details.history.results.service_date"
+        >
+          Service Date
+        </div>
+        <div
+          class="col-md-4"
+          translate="bhge.ng.site.equipment.details.history.results.problem_desc"
+        >
+          Problem Description
+        </div>
+        <div
+          class="col-md-2"
+          translate="bhge.ng.site.equipment.details.history.results.actions"
+        >
+          Actions
+        </div>
+      </div>
+      <div
+        *ngFor="let eachHistory of lstMELHistory; index as i"
+        class="search-results-data-body m-b-10"
+      >
+        <div class="result-data p-20" style="overflow: hidden">
+          <div class="col-md-2">{{ eachHistory.serviceType }}</div>
+          <div class="col-md-2">{{ eachHistory.notification }}</div>
+          <div class="col-md-2">
+            {{ eachHistory.serviceDate.replace(',', '') }}
+          </div>
+          <div class="col-md-4">{{ eachHistory.serviceDescription }}</div>
+          <div class="col-md-2">
+            <button
+              *ngIf="false"
+              type="button"
+              class="secondary-btn-bhge text-uppercase pull-right w-150 btn-fix"
+              translate="bhge.ng.site.equipment.details.history.results.clone_rma"
+            >
+              Clone RMA
+            </button>
+            <div *ngIf="eachHistory.index != '000'" class="delete-history">
+              <button
+                (click)="deleteMELHistory(eachHistory.index)"
+                type="button"
+                class="secondary-btn-bhge text-uppercase pull-right w-150 btn-fix btn-history-delete"
+                translate="bhge.ng.site.equipment.details.history.results.delete"
+              >
+                <span
+                  class="BHGE-MCStore-Icons icon-delete delete-history-icon"
+                ></span>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="result-data p-20" style="overflow: hidden">
+            <div class="col-md-2">Calibrate</div>
+            <div class="col-md-2">123131312</div>
+            <div class="col-md-2">23 Jan 2020</div>
+            <div class="col-md-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</div>
+            <div class="col-md-2">
+              <button type="button" class="secondary-btn-bhge text-uppercase pull-right w-150 btn-fix" translate="bhge.ng.site.equipment.details.history.results.cancel_addition">
+                  Clone RMA
+              </button>
+            </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isOwnerMismatch" class="display-flex-center">
+    <h3 class="owner-mismatch-text">
+      <i class="bhge-mcstore-icons icon-male-telemarketer"></i>
+      <span
+        >As per our records, this item belongs to someone else. Please contact
+        customer care.</span
+      >
+    </h3>
+  </div>
+</div>

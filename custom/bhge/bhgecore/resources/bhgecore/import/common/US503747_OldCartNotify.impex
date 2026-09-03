@@ -1,0 +1,48 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+$emailPackageName=$config-emailContextPackageName
+
+# Language
+$lang=en
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true]					;name									;active		;frontendTemplateName		;subject(code)									;htmlTemplate(code)							;restrictedPageTypes(code)
+							   ;					   ;OldCartNotificationEmailTemplate	;Old Cart Notification Email Template	;true		;oldCartNotificationEmail	;bhge_Email_Old_Cart_Notification_Subject		;bhge_Email_Old_Cart_Notification_Body		;EmailPage
+
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true]						;contextClass										;rendererType(code)[default='velocity']
+							  ;bhge_Email_Old_Cart_Notification_Body	;$emailPackageName.OldCartNotificationEmailContext
+							  ;bhge_Email_Old_Cart_Notification_Subject	;$emailPackageName.OldCartNotificationEmailContext
+
+
+# CMS components and Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true]							;description[lang=$lang]							;templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];rendererType(code)[default='velocity']
+							  ;bhge_Email_Old_Cart_Notification_Body		;"Old Cart Notification Email Body Template"		;$emailResource/email-cartAwaiting.vm
+							  ;bhge_Email_Old_Cart_Notification_Subject		;"Old Cart Notification Email Subject Template"		;$emailResource/email-cartAwaitingSubject.vm
+
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true]			;name							;masterTemplate(uid,$contentCV)			;defaultPage;approvalStatus(code)[default='approved'];fromEmail;FromName
+					   ;					   ;OldCartNotificationEmail	;Old Cart Notification Email	;OldCartNotificationEmailTemplate		;true		;										 ;SVC-Prod-DSStore@bakerhughes.com;Baker Hughes
+					   
+					   
+					   
+					   
+# Cron Job Impex				   
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeOldCartNotificationJob;bhgeOldCartNotificationJob;true
+
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeOldCartNotificationCronJob;bhgeOldCartNotificationJob;en;true
+
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true]		;active ;cronExpression
+					 ;bhgeOldCartNotificationCronJob	;true	;0 0 0 1/1 * ? *

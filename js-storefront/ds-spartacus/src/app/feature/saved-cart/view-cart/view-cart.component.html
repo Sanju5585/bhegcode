@@ -1,0 +1,106 @@
+<section>
+  <div class="section-container">
+    <p class="header">{{ 'savedCart.saveCartTitle' | cxTranslate }}</p>
+    <div class="radio-btn">
+      <bh-radio-button
+        label="{{ 'savedCart.categoryAll' | cxTranslate }}"
+        value="All"
+        name="group1"
+        [attr.checked]="type == 'All' ? 'true' : 'false'"
+        (change)="handleChange($event)"
+      >
+      </bh-radio-button>
+      <bh-radio-button
+        label="{{ 'savedCart.categoryBuy' | cxTranslate }}"
+        value="Buy"
+        name="group1"
+        [attr.checked]="type == 'Buy' ? true : false"
+        (change)="handleChange($event)"
+      ></bh-radio-button>
+      <bh-radio-button
+        label="{{ 'savedCart.categoryReturn' | cxTranslate }}"
+        value="Returns"
+        name="group1"
+        [attr.checked]="type == 'Returns' ? true : false"
+        (change)="handleChange($event)"
+      ></bh-radio-button>
+    </div>
+
+    <div class="table-responsive" *ngIf="loadingFlag; else loading">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{ 'savedCart.dataSave' | cxTranslate }}</th>
+            <th>{{ 'savedCart.type' | cxTranslate }}</th>
+            <th>{{ 'savedCart.cartName' | cxTranslate }}</th>
+            <th>{{ 'savedCart.description' | cxTranslate }}</th>
+            <th>{{ 'savedCart.salesArea' | cxTranslate }}</th>
+            <th>{{ 'savedCart.salesAreaNo' | cxTranslate }}</th>
+            <th>{{ 'savedCart.items' | cxTranslate }}</th>
+            <th>{{ 'savedCart.cartPrice' | cxTranslate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of viewcartData">
+            <td>{{ item?.saveTime | date: 'd MMM y' }}</td>
+            <td class="commerceType">{{ item.commerceType }}</td>
+            <td>
+              <a (click)="viewDetail(item.code, item.name)" [routerLink]="">{{
+                item.name
+              }}</a>
+            </td>
+            <td>{{ item.description }}</td>
+            <td>
+              {{ item.saleaAreaName }}
+            </td>
+            <td>{{ item.saleaAreaID }}</td>
+            <td>{{ item?.totalUnitCount }}</td>
+            <td>
+              {{
+                item?.commerceType == 'RETURNS'
+                  ? item?.entries[0].basePrice?.formattedValue
+                  : item?.totalPrice?.formattedValue
+              }}
+            </td>
+            <td>
+              <a
+                ngbTooltip="{{ 'savedCart.toolTipViewCart' | cxTranslate }}"
+                (click)="viewDetail(item.code, item.name)"
+                [routerLink]=""
+                ><img src="/assets/img/restore.png"
+              /></a>
+            </td>
+            <td>
+              <a
+                ngbTooltip="{{ 'savedCart.toolTipRestoreCart' | cxTranslate }}"
+                [routerLink]=""
+                (click)="openPopup(item)"
+                ><img src="/assets/img/Vector.png"
+              /></a>
+            </td>
+            <td>
+              <i
+                ngbTooltip="{{ 'savedCart.toolTipDeleteCart' | cxTranslate }}"
+                class="material-icons sales-area-info"
+                (click)="openDeletePopup(item.code, item.name)"
+                >delete</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="this.viewcartData?.length == 0" class="row">
+      <span class="customMsg"> {{ Msg }}</span>
+    </div>
+    <div class="footer-header">
+      {{ viewcartData?.length }} {{ 'savedCart.savedCart' | cxTranslate }}
+    </div>
+  </div>
+</section>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

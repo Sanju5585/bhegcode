@@ -1,0 +1,144 @@
+.modal-header.saved-cart-modal-header {
+  height: 62px;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 0 20px;
+
+  .modal-title {
+    font-weight: 600;
+    font-size: var(--font-base-font-size-16);
+    line-height: 60px;
+  }
+
+  .close {
+    top: 25px;
+    right: 5px;
+    opacity: 10;
+  }
+}
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .bh-button__container {
+    margin-right: 5px;
+  }
+}
+
+.saved-cart-modal-body {
+  padding: 20px;
+  .dialog-hint {
+    font-size: var(--font-base-font-size-14);
+    color: #1a2321;
+  }
+  .label-content {
+    font-size: var(--font-base-font-size-12);
+    color: #1a2321;
+    line-height: 16px;
+    &.required:before {
+      content: ' *';
+      color: red;
+      margin-right: 4px;
+    }
+  }
+
+  .form-control-wrapper {
+    max-width: 280px;
+    margin-top: 25px;
+  }
+
+  .form-group-header {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .form-control {
+    max-width: 100%;
+    border: 1px solid #9e9e9e;
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  input {
+    height: 32px;
+  }
+
+  textarea {
+    height: 72px;
+  }
+
+  .char-left {
+    color: #757575;
+    font-size: var(--font-base-font-size-12);
+    height: 36px;
+    position: absolute;
+    right: 0;
+  }
+
+  .create-saved-cart-name-error {
+    width: calc(100% - 120px);
+    display: inline-block;
+    font-size: var(--font-base-font-size-12);
+    color: #e12d39;
+    height: 36px;
+    line-height: 15px;
+    margin-top: 10px;
+  }
+
+  .form-control {
+    font-size: var(--font-base-font-size-14);
+    line-height: 20px;
+  }
+}
+
+footer.saved-cart-modal-footer {
+  height: 76px;
+  background: #fafafa;
+  border-top: 1px solid #f5f5f5;
+  margin: 0 -20px -20px -20px;
+}
+
+.saved-cart-modal-footer .vs-modal-buttons {
+  width: 50%;
+  display: flex;
+
+  .vs-primary-btn,
+  .vs-text-btn {
+    width: 72px;
+    min-width: 72px;
+    float: left;
+    text-align: center;
+    height: 36px;
+    line-height: 34px;
+    box-shadow: none;
+    border: 0px;
+  }
+
+  .vs-text-btn:hover {
+    background-color: #ebefee;
+  }
+
+  .vs-primary-btn {
+    margin-left: 20px;
+    color: #ffffff;
+  }
+}
+.btnClass {
+  font-size: var(--font-base-font-size-12) !important;
+}
+.cancleBtnClass {
+  color: #415853 !important;
+}
+.bh-button__container {
+  margin-right: 5px;
+}
+
+.cart-exist {
+  text-align: center;
+  color: red !important;
+  position: relative;
+  bottom: 14px;
+}

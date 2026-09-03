@@ -1,0 +1,63 @@
+@import '../../../../../styles/responsive_mixins.scss';
+.waygate-returns-summary {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  padding: 20px;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ced7d4;
+  border-radius: 4px;
+  background: #f8faf9;
+  font-family: Poppins;
+  position: sticky;
+  top: 75px;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  width: 100%;
+
+  .returns-summary-heading {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .rma-cart-value {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.25px;
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  .rma-cart-info {
+    font-family: var(--font-family-body-medium);
+    font-size: var(--font-base-font-size-12);
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    color: #757575;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 0;
+
+    .rma-cart-value {
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-base-font-size-12);
+      line-height: 16px;
+      text-align: right;
+      letter-spacing: 0.25px;
+      color: #1a2321;
+    }
+  }
+  @include media-md-lg {
+    margin-left: 0;
+  }
+}
+.add-button-disabled{
+  pointer-events: none;
+  filter: opacity(0.5);
+}

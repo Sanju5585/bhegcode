@@ -1,0 +1,70 @@
+<div *ngIf="loading" class="cx-spinner">
+  <cx-spinner></cx-spinner>
+</div>
+
+<div calss="payer-details">
+  <form
+    (ngSubmit)="customerForm.form.valid && isSubmitted && onSubmit()"
+    #customerForm="ngForm"
+    novalidate
+  >
+    <div class="row">
+      <div class="row col-lg-6 col-md-6 col-sm-6">
+        <div class="shipping-checkout col-lg-12 col-md-12 col-sm-12 mb-1">
+          {{ 'labels.payerAddress' | cxTranslate }}
+        </div>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12"
+          >{{ this.payerAddress?.firstName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.companyName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.line1 }}</span
+        >
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.town }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.region?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.country?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.payerAddress?.postalCode }}</span
+        >
+
+        <div
+          *ngIf="this.error.payeredAddress"
+          class="bh-form-message typography--body-small bh-form-message--error col-lg-12 col-md-12 col-sm-12"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ this.error.payeredAddress }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 payerAddress">
+        <div
+          class="shipping-customer csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ 'labels.customerAccountNumber' | cxTranslate }}
+        </div>
+        <div
+          class="payer-checkouaddress csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ payerAddress?.sapCustomerID }}
+        </div>
+      </div>
+    </div>
+    <div class="row col-auto add-to-cart-buttons" *ngIf="!isChangeBtnDisabled">
+      <bh-button
+        type="secondary"
+        small
+        label="{{ 'labels.changeAddress' | cxTranslate }}"
+        (click)="openAddress()"
+      >
+      </bh-button>
+    </div>
+  </form>
+</div>

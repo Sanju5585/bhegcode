@@ -1,0 +1,620 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Countries
+# Full country list conforming to ISO 3166-1 alpha-2
+#
+
+# Language
+$lang=ru
+
+# Create Countries  #DE6820 Date:22-05-2020 
+
+UPDATE Country;isocode[unique=true];name[lang=ru]
+;AF;"Афганистан"
+;BN;"Бруней-Даруссалам"
+;BR;"Бразилия"
+;BV;"Остров Буве"
+;CF;"Центрально-Африканская Республика"
+;CM;"Камерун"
+;CO;"Колумбия"
+;CW;"Кюрасао"
+;DM;"Доминика"
+;EE;"Эстония"
+;ET;"Эфиопия"
+;FR;"Франция"
+;GF;"Французская Гвиана"
+;GN;"Гвинея"
+;GR;"Греция"
+;GC;"Gulf"
+;HK;"Гонконг"
+;IL;"Израиль"
+;IR;"Иран"
+;KY;"Каймановы острова"
+;LS;"Лесото"
+;ME;"Черногория"
+;MP;"Северные Марианские острова"
+;MW;"Малави"
+;NF;"Остров Норфолк"
+;NO;"Норвегия"
+;PE;"Перу"
+;PK;"Пакистан"
+;RO;"Румыния"
+;SE;"Швеция"
+;SX;"Синт-Мартен (голландская часть)"
+;TZ;"Танзания"
+;VC;"Святой Винсент и Гренадины"
+;ZM;"Замбия"
+;AN;"Голландские антильские острова"
+;AO;"Ангола"
+;AE;"Объединенные Арабские Эмираты"
+;AD;"андорра"
+;AS;"американское Самоа"
+;AU;"Австралия"
+;AX;"Аландские острова"
+;BA;"Босния и Герцеговина"
+;BD;"Бангладеш"
+;BG;"Болгария"
+;BJ;"Бенин"
+;BO;"Боливия"
+;BT;"Бутан"
+;BZ;"Белиз"
+;CA;"Канада"
+;CD;"Конго, Демократическая Республика"
+;CH;"Швейцария"
+;CK;"Острова Кука"
+;CR;"Коста Рика"
+;CU;"Куба"
+;DE;"Германия"
+;CX;"Остров Рождества"
+;DJ;"Джибути"
+;DO;"Доминиканская Республика"
+;EC;"Эквадор"
+;ER;"Эритрея"
+;ES;"Испания"
+;FK;"Фолклендские острова"
+;FM;"Микронезия, Федеративные Штаты"
+;GB;"объединенное Королевство"
+;GI;"Гибралтар"
+;GM;"Гамбия"
+;GD;"Гренада"
+;GQ;"Экваториальная Гвинея"
+;GT;"Гватемала"
+;GU;"Гуам"
+;GY;"Гайана"
+;HM;"Острова Херд и Макдональд"
+;HT;"Гаити"
+;ID;"Индонезия"
+;IM;"Остров Мэн"
+;IO;"Британская территория Индийского океана"
+;IQ;"Ирак"
+;IT;"Италия"
+;JO;"Иордания"
+;JM;"Ямайка"
+;KE;"Кения"
+;KI;"Кирибати"
+;KM;"Коморские острова"
+;KR;"Южная Корея"
+;LA;"Лаосская Народно-Демократическая Республика"
+;KW;"Кувейт"
+;LT;"Литва"
+;LU;"Люксембург"
+;SS;"южный Судан"
+;MC;"Монако"
+;MK;"Македония"
+;ML;"Мали"
+;GE;"Грузия"
+;MT;"Мальта"
+;MS;"Монсеррат"
+;MR;"Мавритания"
+;MU;"Маврикий"
+;MX;"Мексика"
+;MZ;"Мозамбик"
+;NA;"Намибия"
+;NE;"Нигер"
+;NI;"Никарагуа"
+;NP;"Непал"
+;NR;"Науру"
+;PG;"Папуа - Новая Гвинея"
+;NZ;"Новая Зеландия"
+;PA;"Панама"
+;PH;"Филиппины"
+;PL;"Польша"
+;PN;"Питкэрн"
+;PT;"Португалия"
+;PS;"Палестинская территория"
+;PY;"Парагвай"
+;QA;"Катар"
+;SA;"Саудовская Аравия"
+;RS;"Сербия"
+;RW;"Руанда"
+;SC;"Сейшельские острова"
+;RU;"Российская Федерация"
+;SI;"Словения"
+;SL;"Сьерра-Леоне"
+;SJ;"Шпицберген и Ян Майен"
+;SO;"Сомали"
+;SR;"Суринам"
+;ST;"Сан-Томе и Принсипи"
+;SV;"Сальвадор"
+;TC;"Острова Теркс и Кайкос"
+;TF;"Южные Французские Территории"
+;TG;"Идти"
+;TK;"Токелау"
+;TN;"Тунис"
+;TO;"Тонга"
+;TR;"индейка"
+;TP;"Восточный Тимор"
+;UM;"Малые отдаленные острова США"
+;YU;"НЕ ИСПОЛЬЗУЙТЕ"
+;VG;"Virgin Islands, British"
+;UG;"Уганда"
+;WF;"Уоллис и Футуна"
+;ZW;"Зимбабве"
+;ZA;"Южная Африка"
+;WS;"Самоа"
+;AI;"Ангилья"
+;GL;"Гренландия"
+;GW;"Гвинея-Бисау"
+;HN;"Гондурас"
+;HU;"Венгрия"
+;JE;"Джерси"
+;KP;"Северная Корея"
+;LI;"Лихтенштейн"
+;LK;"Шри-Ланка"
+;KZ;"Казахстан"
+;MG;"Мадагаскар"
+;MO;"Macao"
+;NC;"Новая Каледония"
+;NU;"Niue"
+;PM;"Сен-Пьер и Микелон"
+;RE;"воссоединение"
+;SH;"Святой Елены, Вознесения и Тристан-да-Кунья"
+;SN;"Сенегал"
+;TD;"Чад"
+;AZ;"Азербайджан"
+;TV;"Тувалу"
+;UY;"Уругвай"
+;VN;"Вьетнам"
+;YE;"Йемен"
+;VE;"Венесуэла"
+;KG;"Киргизия"
+;ZR;"Democ.Rep.Congo"
+;BY;"Беларусь"
+;AM;"Армения"
+;MD;"Молдова"
+;ZZ;"Необъявленный / множественный источник"
+;MM;"Мьянма"
+;SD;"Судан"
+;AL;"Албания"
+;AG;"Антигуа и Барбуда"
+;AQ;"Антарктида"
+;AR;"Аргентина"
+;AT;"Австрия"
+;AW;"Аруба"
+;TJ;"Таджикистан"
+;BB;"Барбадос"
+;BE;"Бельгия"
+;BF;"Буркина-Фасо"
+;BH;"Бахрейн"
+;BI;"Бурунди"
+;BM;"Бермудские острова"
+;BL;"Святой Бартелеми"
+;BQ;"Бонэйр, Синт-Эстатиус и Саба"
+;BS;"Багамские о-ва"
+;BW;"Ботсвана"
+;LY;"Ливийская арабская джамахирия"
+;CC;"Кокосовые (Килинг) острова"
+;CG;"Конго"
+;CL;"Чили"
+;CI;"Берег Слоновой Кости"
+;CN;"Китай"
+;CV;"Кабо-Верде"
+;CZ;"Республика Чехия"
+;CY;"Кипр"
+;DK;"Дания"
+;DZ;"Алжир"
+;EG;"Египет"
+;EH;"Западная Сахара"
+;FI;"Финляндия"
+;FJ;"Фиджи"
+;FO;"Фарерские острова"
+;GA;"Габон"
+;GH;"Гана"
+;GG;"шерстяная фуфайка"
+;GP;"Гваделупа"
+;GS;"Южная Георгия и Южные Сандвичевы острова"
+;HR;"Хорватия"
+;IE;"Ирландия"
+;IN;"Индия"
+;IS;"Исландия"
+;JP;"Япония"
+;KN;"Сент-Китс и Невис"
+;KH;"Камбоджа"
+;LB;"Ливан"
+;LC;"Сент-Люсия"
+;LR;"Либерия"
+;MA;"Марокко"
+;LV;"Латвия"
+;MF;"Сен-Мартен (французская часть)"
+;MH;"Маршалловы острова"
+;MN;"Монголия"
+;MQ;"Мартиника"
+;MV;"Мальдивы"
+;MY;"Малайзия"
+;NG;"Нигерия"
+;NL;"Нидерланды"
+;OM;"Оман"
+;PF;"Французская Полинезия"
+;PR;"Пуэрто-Рико"
+;PW;"Palau"
+;TM;"Туркменистан"
+;SB;"Соломоновы острова"
+;SG;"Сингапур"
+;SM;"Сан-Марино"
+;SK;"Словакия"
+;SY;"Сирийская Арабская Республика"
+;SZ;"Свазиленд"
+;TH;"Таиланд"
+;TL;"Восточный Тимор"
+;TT;"Тринидад и Тобаго"
+;TW;"Тайвань"
+;US;"Соединенные Штаты"
+;VA;"Святой Престол (город-государство Ватикан)"
+;VI;"Виргинские острова, США"
+;VU;"Вануату"
+;YT;"Майотта"
+;UZ;"Узбекистан"
+;SEA;"Юго-Восточная Азия"
+;NORDIC;"нордический"
+;OEC2;"Германия, страны Европы (AT, BE, BG, HR, CZ, DK, EE, FI, GR, HU, IS, IE, IL, XK, LV, LI, LU, MD, NL, NO, PL, RO, RS , SK, SI, SE, CH, Nordic, Португалия, Испания, Италия)"
+;OEC4;"Германия, страны Европы (AT, CH)"
+;RCIS;"ФРС России."
+;OEC1;"Германия, страны Европы (AT, BE, BG, HR, CZ, DK, EE, FI, GR, HU, IS, IE, IL, XK, LV, LI, LU, MD, NL, NO, PL, RO, RS , SK, SI, SE, CH, Nordic, Италия)"
+;OEC5;"Страны Европы (NO, SE, FI)"
+;OEC3;"Германия, страны Европы (AT, BE, BG, HR, CZ, DK, EE, FI, GR, HU, IS, IE, IL, XK, LV, LI, LU, MD, NL, NO, PL, RO, RS , SK, SI, SE, CH, PT, Nordic, FR, UK, ES, IT, Nordic, Испания, Португалия)"
+;OEC;"Страны Европы (AT, BE, BG, HR, CZ, DK, EE, FI, GR, HU, IS, IE, IL, XK, LV, LI, LU, MD, NL, NO, PL, RO, RS, SK , С.И., SE, СН)"
+;OLA;"Другая Латинская Америка"
+;UA;"Украина"
+
+ INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lang=ru];active[default=true]
+;US;US-AL;AL;"Alabama"
+;US;US-AK;AK;"Alaska"
+;US;US-AZ;AZ;"Arizona"
+;US;US-AR;AR;"Arkansas"
+;US;US-CA;CA;"California"
+;US;US-CO;CO;"Colorado"
+;US;US-CT;CT;"Connecticut"
+;US;US-DE;DE;"Delaware"
+;US;US-FL;FL;"Florida"
+;US;US-GA;GA;"Georgia"
+;US;US-HI;HI;"Hawaii"
+;US;US-ID;ID;"Idaho"
+;US;US-IL;IL;"Illinois"
+;US;US-IN;IN;"Indiana"
+;US;US-IA;IA;"Iowa"
+;US;US-KS;KS;"Kansas"
+;US;US-KY;KY;"Kentucky"
+;US;US-LA;LA;"Louisiana"
+;US;US-ME;ME;"Maine"
+;US;US-MD;MD;"Maryland"
+;US;US-MA;MA;"Massachusetts"
+;US;US-MI;MI;"Michigan"
+;US;US-MN;MN;"Minnesota"
+;US;US-MS;MS;"Mississippi"
+;US;US-MO;MO;"Missouri"
+;US;US-MT;MT;"Montana"
+;US;US-NE;NE;"Nebraska"
+;US;US-NV;NV;"Nevada"
+;US;US-NH;NH;"New Hampshire"
+;US;US-NJ;NJ;"New Jersey"
+;US;US-NM;NM;"New Mexico"
+;US;US-NY;NY;"New York"
+;US;US-NC;NC;"North Carolina"
+;US;US-ND;ND;"North Dakota"
+;US;US-OH;OH;"Ohio"
+;US;US-OK;OK;"Oklahoma"
+;US;US-OR;OR;"Oregon"
+;US;US-PA;PA;"Pennsylvania"
+;US;US-RI;RI;"Rhode Island"
+;US;US-SC;SC;"South Carolina"
+;US;US-SD;SD;"South Dakota"
+;US;US-TN;TN;"Tennessee"
+;US;US-TX;TX;"Texas"
+;US;US-UT;UT;"Utah"
+;US;US-VT;VT;"Vermont"
+;US;US-VA;VA;"Virginia"
+;US;US-WA;WA;"Washington"
+;US;US-WV;WV;"West Virginia"
+;US;US-WI;WI;"Wisconsin"
+;US;US-WY;WY;"Wyoming"
+;US;US-DC;DC;"District of Columbia"
+;US;US-AS;AS;"American Samoa"
+;US;US-GU;GU;"Guam"
+;US;US-MP;MP;"Northern Mariana Islands"
+;US;US-PR;PR;"Puerto Rico"
+;US;US-UM;UM;"United States Minor Outlying Islands"
+;US;US-VI;VI;"United States Virgin Islands"
+
+#
+# ISO 3166-2:CA
+#
+;CA;CA-AB;AB;"Alberta"
+;CA;CA-BC;BC;"British Columbia"
+;CA;CA-MB;MB;"Manitoba"
+;CA;CA-NB;NB;"New Brunswick"
+;CA;CA-NL;NL;"Newfoundland and Labrador"
+;CA;CA-NS;NS;"Nova Scotia"
+;CA;CA-ON;ON;"Ontario"
+;CA;CA-PE;PE;"Prince Edward Island"
+;CA;CA-QC;QC;"Quebec"
+;CA;CA-SK;SK;"Saskatchewan"
+;CA;CA-NT;NT;"Northern Territories"
+;CA;CA-NU;NU;"Nunavut"
+;CA;CA-YT;YT;"Yukon Territory"
+
+#
+# ISO 3166-2:CN
+#
+;CN;CN-11;11;"Beijing"
+;CN;CN-50;50;"Chongqing"
+;CN;CN-31;31;"Shanghai"
+;CN;CN-12;12;"Tianjin"
+;CN;CN-34;34;"Anhui"
+;CN;CN-35;35;"Fujan"
+;CN;CN-62;62;"Gansu"
+;CN;CN-44;44;"Guangdong"
+;CN;CN-52;52;"Guizhou"
+;CN;CN-46;46;"Hainan"
+;CN;CN-13;13;"Hebei"
+;CN;CN-23;23;"Heilongjiang"
+;CN;CN-41;41;"Henan"
+;CN;CN-42;42;"Hubei"
+;CN;CN-43;43;"Hunan"
+;CN;CN-32;32;"Jiangsu"
+;CN;CN-36;36;"Jiangzi"
+;CN;CN-22;22;"Jilin"
+;CN;CN-21;21;"Liaoning"
+;CN;CN-63;63;"Qinghai"
+;CN;CN-61;61;"Shaanxi"
+;CN;CN-37;37;"Shandong"
+;CN;CN-14;14;"Shanxi"
+;CN;CN-51;51;"Sichuan"
+;CN;CN-71;71;"Taiwan"
+;CN;CN-53;53;"Yunnan"
+;CN;CN-33;33;"Zhejiang"
+;CN;CN-45;45;"Guangxi"
+;CN;CN-15;15;"Nei Mongol"
+;CN;CN-64;64;"Ningxia"
+;CN;CN-65;65;"Xinjiang"
+;CN;CN-54;54;"Xizang"
+;CN;CN-91;91;"Xianggang"
+;CN;CN-92;92;"Aomen"
+
+#
+# ISO 3166-2:JP
+#
+;JP;JP-23;23;"Aiti"
+;JP;JP-05;05;"Akita"
+;JP;JP-02;02;"Aomori"
+;JP;JP-38;38;"Ehime"
+;JP;JP-21;21;"Gihu"
+;JP;JP-10;10;"Gunma"
+;JP;JP-34;34;"Hiroshima"
+;JP;JP-01;01;"Hokkaido"
+;JP;JP-18;18;"Hukui"
+;JP;JP-40;40;"Hukuoka"
+;JP;JP-07;07;"Hukushima"
+;JP;JP-28;28;"Hyogo"
+;JP;JP-08;08;"Ibaraki"
+;JP;JP-17;17;"Isikawa"
+;JP;JP-03;03;"Iwate"
+;JP;JP-37;37;"Kagawa"
+;JP;JP-46;46;"Kagoshima"
+;JP;JP-14;14;"Kanagawa"
+;JP;JP-39;39;"Kochi"
+;JP;JP-43;43;"Kumamoto"
+;JP;JP-26;26;"Kyoto"
+;JP;JP-24;24;"Mie"
+;JP;JP-04;04;"Miyagi"
+;JP;JP-45;45;"Miyazaki"
+;JP;JP-20;20;"Nagano"
+;JP;JP-42;42;"Nagasaki"
+;JP;JP-29;29;"Nara"
+;JP;JP-15;15;"Niigata"
+;JP;JP-44;44;"Oita"
+;JP;JP-33;33;"Okayama"
+;JP;JP-47;47;"Okinawa"
+;JP;JP-27;27;"Osaka"
+;JP;JP-41;41;"Saga"
+;JP;JP-11;11;"Saitama"
+;JP;JP-25;25;"Shiga"
+;JP;JP-32;32;"Shimane"
+;JP;JP-22;22;"Shizuoka"
+;JP;JP-12;12;"Chiba"
+;JP;JP-09;09;"Tochigi"
+;JP;JP-36;36;"Tokushima"
+;JP;JP-13;13;"Tokyo"
+;JP;JP-31;31;"Tottori"
+;JP;JP-16;16;"Toyama"
+;JP;JP-30;30;"Wakayama"
+;JP;JP-06;06;"Yamagata"
+;JP;JP-35;35;"Yamaguchi"
+;JP;JP-19;19;"Yamanashi"
+
+# India Region
+#
+
+;IN;IN-AN;AN;Andaman and Nico.In.
+;IN;IN-AP;AP;Andhra Pradesh
+;IN;IN-AR;AR;Arunachal Pradesh
+;IN;IN-AS;AS;Assam
+;IN;IN-BH;BH;Bihar
+;IN;IN-CH;CH;Chandigarh
+;IN;IN-CT;CT;Chhattisgarh
+;IN;IN-DN;DN;Dadra and Nagar Hav.
+;IN;IN-DD;DD;Daman and Diu
+;IN;IN-DL;DL;Delhi
+;IN;IN-GA;GA;Goa
+;IN;IN-GJ;GJ;Gujarat
+;IN;IN-HR;HR;Haryana
+;IN;IN-HP;HP;Himachal Pradesh
+;IN;IN-JK;JK;Jammu and Kashmir
+;IN;IN-JH;JH;Jharkhand
+;IN;IN-KA;KA;Karnataka
+;IN;IN-KL;KL;Kerala
+;IN;IN-LD;LD;Lakshadweep
+;IN;IN-MP;MP;Madhya Pradesh
+;IN;IN-MH;MH;Maharashtra
+;IN;IN-MN;MN;Manipur
+;IN;IN-ME;ME;Meghalaya
+;IN;IN-MZ;MZ;Mizoram
+;IN;IN-NL;NL;Nagaland
+;IN;IN-OR;OR;Odisha
+;IN;IN-PY;PY;Puducherry
+;IN;IN-PB;PB;Punjab
+;IN;IN-RJ;RJ;Rajasthan
+;IN;IN-SK;SK;Sikkim
+;IN;IN-TN;TN;Tamil Nadu
+;IN;IN-TS;TS;Telangana
+;IN;IN-TR;TR;Tripura
+;IN;IN-UP;UP;Uttar Pradesh
+;IN;IN-UT;UT;Uttarakhand
+;IN;IN-WB;WB;West Bengal
+
+
+# Saudi Arabia Region
+#
+
+;SA;SA-RI;RI;Riyadh
+;SA;SA-MA;MA;Makkah
+;SA;SA-DA;DA;Dammam
+;SA;SA-AB;AB;Abha
+;SA;SA-JA;JA;Jazan
+;SA;SA-MA;MA;Madinah
+;SA;SA-BU;BU;Buraidah
+;SA;SA-TA;TA;Tabuk
+;SA;SA-HA;HA;Hail
+;SA;SA-NA;NA;Najran
+;SA;SA-SA;SA;Sakaka
+;SA;SA-AL;AL;Al-Baha
+;SA;SA-AR;AR;Arar
+
+#PERU Country/Region#
+INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lang=ru];active[default=true]
+;PE;PE-AMA;AMA;"Amazonas"
+;PE;PE-ANC;ANC;"Ancash"
+;PE;PE-APU;APU;"Apurímac"
+;PE;PE-ARE;ARE;"Arequipa"
+;PE;PE-AYA;AYA;"Ayacucho"
+;PE;PE-CAJ;CAJ;"Cajamarca"
+;PE;PE-CAL;CAL;"Callao"
+;PE;PE-CUS;CUS;"Cusco"
+;PE;PE-HUV;HUV;"Huancavelica"
+;PE;PE-HUC;HUC;"Huánuco"
+;PE;PE-ICA;ICA;"Ica"
+;PE;PE-JUN;JUN;"Junín"
+;PE;PE-LAL;LAL;"La Libertad"
+;PE;PE-LAM;LAM;"Lambayeque"
+;PE;PE-LIM;LIM;"Lima"
+;PE;PE-LOR;LOR;"Loreto"
+;PE;PE-MDD;MDD;"Madre de Dios"
+;PE;PE-MOQ;MOQ;"Moquegua"
+;PE;PE-PAS;PAS;"Pasco"
+;PE;PE-PIU;PIU;"Piura"
+;PE;PE-PUN;PUN;"Puno"
+;PE;PE-SAM;SAM;"San Martín"
+;PE;PE-TAC;TAC;"Tacna"
+;PE;PE-TUM;TUM;"Tumbes"
+;PE;PE-UCA;UCA;"Ucayali"
+
+#Macedonia Country/Region
+INSERT_UPDATE Region;isocode[unique=true];isocodeShort;name[lang=ru];active[default=true];country(isocode)[default='MK']
+;MK-801;801;"Aerodrom";
+;MK-802;802;"Aračinovo";
+;MK-201;201;"Berovo";
+;MK-501;501;"Bitola";
+;MK-401;401;"Bogdanci";
+;MK-601;601;"Bogovinje";
+;MK-402;402;"Bosilovo";
+;MK-602;602;"Brvenica";
+;MK-803;803;"Butel";
+;MK-814;814;"Centar";
+;MK-313;313;"Centar Župa";
+;MK-815;815;"Čair";
+;MK-109;109;"Čaška";
+;MK-210;210;"Češinovo-Obleševo";
+;MK-816;816;"Čučer-Sandevo";
+;MK-303;303;"Debar";
+;MK-304;304;"Debarca";
+;MK-203;203;"Delčevo";
+;MK-502;502;"Demir Hisar";
+;MK-103;103;"Demir Kapija";
+;MK-406;406;"Dojran";
+;MK-503;503;"Dolneni";
+;MK-804;804;"Gazi Baba";
+;MK-405;405;"Gevgelija";
+;MK-805;805;"Gjorče Petrov";
+;MK-604;604;"Gostivar";
+;MK-102;102;"Gradsko";
+;MK-807;807;"Ilinden";
+;MK-606;606;"Jegunovce";
+;MK-205;205;"Karbinci";
+;MK-808;808;"Karpoš";
+;MK-104;104;"Kavadarci";
+;MK-307;307;"Kičevo";
+;MK-809;809;"Kisela Voda";
+;MK-206;206;"Kočani";
+;MK-407;407;"Konče";
+;MK-701;701;"Kratovo";
+;MK-702;702;"Kriva Palanka";
+;MK-504;504;"Krivogaštani";
+;MK-505;505;"Kruševo";
+;MK-703;703;"Kumanovo";
+;MK-704;704;"Lipkovo";
+;MK-105;105;"Lozovo";
+;MK-207;207;"Makedonska Kamenica";
+;MK-308;308;"Makedonski Brod";
+;MK-607;607;"Mavrovo i Rostuše";
+;MK-506;506;"Mogila";
+;MK-106;106;"Negotino";
+;MK-507;507;"Novaci";
+;MK-408;408;"Novo Selo";
+;MK-310;310;"Ohrid";
+;MK-208;208;"Pehčevo";
+;MK-810;810;"Petrovec";
+;MK-311;311;"Plasnica";
+;MK-508;508;"Prilep";
+;MK-209;209;"Probištip";
+;MK-409;409;"Radoviš";
+;MK-705;705;"Rankovce";
+;MK-509;509;"Resen";
+;MK-107;107;"Rosoman";
+;MK-811;811;"Saraj";
+;MK-812;812;"Sopište";
+;MK-706;706;"Staro Nagoričane";
+;MK-312;312;"Struga";
+;MK-410;410;"Strumica";
+;MK-813;813;"Studeničani";
+;MK-108;108;"Sveti Nikole";
+;MK-211;211;"Štip";
+;MK-817;817;"Šuto Orizari";
+;MK-608;608;"Tearce";
+;MK-609;609;"Tetovo";
+;MK-403;403;"Valandovo";
+;MK-404;404;"Vasilevo";
+;MK-101;101;"Veles";
+;MK-301;301;"Vevčani";
+;MK-202;202;"Vinica";
+;MK-603;603;"Vrapčište";
+;MK-806;806;"Zelenikovo";
+;MK-204;204;"Zrnovci";
+;MK-605;605;"Želino";

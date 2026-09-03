@@ -1,0 +1,293 @@
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;1;REGION;AsiaPacific;Asia Pacific;;1
+;2;REGION;ChinaRegion;ChinaRegion;;1
+;3;REGION;EuropeRegion;EuropeRegion;;1
+;4;REGION;IndiaRegion;IndiaRegion;;1
+;5;REGION;LatinAmerica;Latin America;;1
+;6;REGION;MENATRegion;MENAT;;1
+;7;REGION;NorthAmerica;North America;;1
+;8;REGION;RussiaCISRegion;Russia/CIS;;1
+;9;REGION;SSARegion;SSA;;1
+;0;REGION;ALL;ALL;;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;10;SUBREGION;ANZ;ANZSubregion;1;1
+;11;SUBREGION;Asia;AsiaSubregion;1;1
+;12;SUBREGION;ChinaSubregion;ChinaSubregion;2;1
+;13;SUBREGION;EuropeSubregion;EuropeSubregion;3;1
+;14;SUBREGION;IndiaSubregion;IndiaSubregion;4;1
+;15;SUBREGION;BrazilSubRegion;BraziSubregionl;5;1
+;16;SUBREGION;NorthLatAm;North LatAmSubregion;5;1
+;17;SUBREGION;SouthernCone;Southern ConeSubregion;5;1
+;18;SUBREGION;MENAT;MENATSubregion;6;1
+;19;SUBREGION;CanadaSubRegion;CanadaSubregion;7;1
+;20;SUBREGION;USSubRegion;USSubRegion;7;1
+;21;SUBREGION;RussiaCIS;Russia/CISSubregion;8;1
+;22;SUBREGION;SSA;SSASubregion;9;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;23;Country;As;American Samoa;10;1
+;24;Country;Au;Australia;10;1
+;25;Country;Fj;Fiji;10;1
+;26;Country;Pf;French Polynesia;10;1
+;27;Country;Ki;Kiribati;10;1
+;28;Country;Mh;Marshall Islands;10;1
+;29;Country;Fm;Micronesia, Federated States;10;1
+;30;Country;Nc;New Caledonia;10;1
+;31;Country;Nz;New Zealand;10;1
+;32;Country;Pg;Papua New Guinea;10;1
+;33;Country;Ws;Samoa;10;1
+;34;Country;Sb;Solomon Islands;10;1
+;35;Country;To;Tonga;10;1
+;36;Country;Vu;Vanuatu;10;1
+;37;Country;Aq;Antarctica;11;1
+;38;Country;Bn;Brunei Darussalam;11;1
+;39;Country;Kh;Cambodia;11;1
+;40;Country;Cx;Christmas Island;11;1
+;41;Country;Cc;Cocos (Keeling) Islands;11;1
+;42;Country;Ck;Cook Islands;11;1
+;43;Country;Tl;East Timor;11;1
+;44;Country;Gu;Guam;11;1
+;45;Country;Hm;Heard Island And Mcdonald Islands;11;1
+;46;Country;Id;Indonesia;11;1
+;47;Country;Jp;Japan;11;1
+;48;Country;Kp;North Korea;11;1
+;49;Country;Kr;South Korea;11;1
+;50;Country;La;Lao People'S Democratic Republic;11;1
+;51;Country;My;Malaysia;11;1
+;52;Country;Mm;Myanmar;11;1
+;53;Country;Nr;Nauru;11;1
+;54;Country;Np;Nepal;11;1
+;55;Country;Nu;Niue;11;1
+;56;Country;Nf;Norfolk Island;11;1
+;57;Country;Mp;Northern Mariana Islands;11;1
+;58;Country;Pw;Palau;11;1
+;59;Country;Ph;Philippines;11;1
+;60;Country;Pn;Pitcairn;11;1
+;61;Country;Sg;Singapore;11;1
+;62;Country;Ss;South Sudan;11;1
+;63;Country;Th;Thailand;11;1
+;64;Country;Tl;Timor-Leste;11;1
+;65;Country;Tk;Tokelau;11;1
+;66;Country;Tv;Tuvalu;11;1
+;67;Country;Vn;Vietnam;11;1
+;68;Country;Wf;Wallis & Fortuna;11;1
+;69;Country;Cn;China;12;1
+;70;Country;Hk;Hong Kong;12;1
+;71;Country;Mo;Macau;12;1
+;72;Country;Mn;Mongolia;12;1
+;73;Country;Tw;Taiwan, Province Of China;12;1
+;74;Country;Ax;Aland Islands;13;1
+;75;Country;Al;Albania;13;1
+;76;Country;Ad;Andorra;13;1
+;77;Country;Am;Armenia;13;1
+;78;Country;At;Austria;13;1
+;79;Country;Be;Belgium;13;1
+;80;Country;Ba;Bosnia And Herzegovina;13;1
+;81;Country;Io;British Indian Ocean Territory;13;1
+;82;Country;Bg;Bulgaria;13;1
+;83;Country;Hr;Croatia;13;1
+;84;Country;Cy;Cyprus;13;1
+;85;Country;Cz;Czech Republic;13;1
+;86;Country;Dk;Denmark;13;1
+;87;Country;Ee;Estonia;13;1
+;88;Country;Fo;Faroe Islands;13;1
+;89;Country;Fi;Finland;13;1
+;90;Country;Fr;France;13;1
+;91;Country;Tf;French Southern Territories;13;1
+;92;Country;De;Germany;13;1
+;93;Country;Gi;Gibraltar;13;1
+;94;Country;Gr;Greece;13;1
+;95;Country;Gl;Greenland;13;1
+;96;Country;Gg;Guernsey;13;1
+;97;Country;Va;Holy See (Vatican City State);13;1
+;98;Country;Hu;Hungary;13;1
+;99;Country;Is;Iceland;13;1
+;100;Country;Ie;Ireland;13;1
+;101;Country;Im;Isle Of Man;13;1
+;102;Country;Il;Israel;13;1
+;103;Country;It;Italy;13;1
+;104;Country;Je;Jersey;13;1
+;105;Country;Lv;Latvia;13;1
+;106;Country;Li;Liechtenstein;13;1
+;107;Country;Lt;Lithuania;13;1
+;108;Country;Lu;Luxembourg;13;1
+;109;Country;Mk;Macedonia, The Former Yugoslav;13;1
+;110;Country;Mt;Malta;13;1
+;111;Country;Md;Moldova;13;1
+;112;Country;Mc;Monaco;13;1
+;113;Country;Me;Montenegro;13;1
+;114;Country;Nl;Netherlands;13;1
+;115;Country;No;Norway;13;1
+;116;Country;Pl;Poland;13;1
+;117;Country;Pt;Portugal;13;1
+;118;Country;Ro;Romania;13;1
+;119;Country;Pm;Saint Pierre And Miquelon;13;1
+;120;Country;Sm;San Marino;13;1
+;121;Country;Rs;Serbia;13;1
+;122;Country;Rs;Serbia And Montenegro;13;1
+;123;Country;Sk;Slovakia;13;1
+;124;Country;Si;Slovenia;13;1
+;125;Country;Es;Spain;13;1
+;126;Country;Sj;Svalbard And Jan Mayen;13;1
+;127;Country;Se;Sweden;13;1
+;128;Country;Ch;Switzerland;13;1
+;129;Country;Gb;United Kingdom;13;1
+;130;Country;Bd;Bangladesh;14;1
+;131;Country;Bt;Bhutan;14;1
+;132;Country;In;India;14;1
+;133;Country;Mv;Maldives;14;1
+;134;Country;Lk;Sri Lanka;14;1
+;135;Country;Br;Brazil;15;1
+;136;Country;Ai;Anguilla;16;1
+;137;Country;Ag;Antigua And Barbuda;16;1
+;138;Country;Aw;Aruba;16;1
+;139;Country;Bs;Bahamas;16;1
+;140;Country;Bb;Barbados;16;1
+;141;Country;Bz;Belize;16;1
+;142;Country;Bm;Bermuda;16;1
+;143;Country;Bo;Bolivia, Plurinational State Of;16;1
+;144;Country;Bq;Bonaire, Sint Eustatius And Saba;16;1
+;145;Country;Ky;Cayman Islands;16;1
+;146;Country;Co;Colombia;16;1
+;147;Country;Cr;Costa Rica;16;1
+;148;Country;Cu;Cuba;16;1
+;149;Country;Cw;Cura�ao;16;1
+;150;Country;Dm;Dominica;16;1
+;151;Country;Do;Dominican Republic;16;1
+;152;Country;Sv;El Salvador;16;1
+;153;Country;Gf;French Guiana;16;1
+;154;Country;Gd;Grenada;16;1
+;155;Country;Gp;Guadeloupe;16;1
+;156;Country;Gt;Guatemala;16;1
+;157;Country;Gy;Guyana;16;1
+;158;Country;Ht;Haiti;16;1
+;159;Country;Hn;Honduras;16;1
+;160;Country;Jm;Jamaica;16;1
+;161;Country;Mq;Martinique;16;1
+;162;Country;Mx;Mexico;16;1
+;163;Country;Ms;Montserrat;16;1
+;164;Country;An;Netherlands Antilles;16;1
+;165;Country;Ni;Nicaragua;16;1
+;166;Country;Pa;Panama;16;1
+;167;Country;Bl;Saint Barthelemy;16;1
+;168;Country;Sh;Saint Helena, Ascension And Tristan Da Cunha;16;1
+;169;Country;Kn;Saint Kitts And Nevis;16;1
+;170;Country;Lc;Saint Lucia;16;1
+;171;Country;Mf;Saint Martin (French Part);16;1
+;172;Country;Vc;Saint Vincent And The Grenadines;16;1
+;173;Country;Sx;Sint Maarten;16;1
+;174;Country;Gs;South Georgia And The South Sandwich Islands;16;1
+;175;Country;Sr;Suriname;16;1
+;176;Country;Tt;Trinidad And Tobago;16;1
+;177;Country;Tc;Turks And Caicos Islands;16;1
+;178;Country;Uy;Uruguay;16;1
+;179;Country;Ve;Venezuela;16;1
+;180;Country;Vg;Virgin Islands, British;16;1
+;181;Country;Vi;Virgin Islands, U.S.;16;1
+;182;Country;Ar;Argentina;17;1
+;183;Country;Cl;Chile;17;1
+;184;Country;Ec;Ecuador;17;1
+;185;Country;Fk;Falkland Islands;17;1
+;186;Country;Py;Paraguay;17;1
+;187;Country;Pe;Peru;17;1
+;188;Country;Af;Afghanistan;18;1
+;189;Country;Dz;Algeria;18;1
+;190;Country;Bh;Bahrain;18;1
+;191;Country;Td;Chad;18;1
+;192;Country;Dj;Djibouti;18;1
+;193;Country;Eg;Egypt;18;1
+;194;Country;Ir;Iran, Islamic Republic Of;18;1
+;195;Country;Iq;Iraq;18;1
+;196;Country;Jo;Jordan;18;1
+;197;Country;Kw;Kuwait;18;1
+;198;Country;Lb;Lebanon;18;1
+;199;Country;Ly;Libya;18;1
+;200;Country;Ma;Morocco;18;1
+;201;Country;Om;Oman;18;1
+;202;Country;Pk;Pakistan;18;1
+;203;Country;Ps;Palestine, State Of;18;1
+;204;Country;Qa;Qatar;18;1
+;205;Country;Sa;Saudi Arabia;18;1
+;206;Country;Sy;Syrian Arab Republic;18;1
+;207;Country;Tn;Tunisia;18;1
+;208;Country;Tr;Turkey;18;1
+;209;Country;Ae;United Arab Emirates;18;1
+;210;Country;Eh;Western Sahara;18;1
+;211;Country;Ye;Yemen;18;1
+;212;Country;Ca;Canada;19;1
+;213;Country;Us;United States;20;1
+;214;Country;Az;Azerbaijan;21;1
+;215;Country;By;Belarus;21;1
+;216;Country;Ge;Georgia;21;1
+;217;Country;Kz;Kazakhstan;21;1
+;218;Country;Kg;Kyrgyzstan;21;1
+;219;Country;Ru;Russian Federation;21;1
+;220;Country;Tj;Tajikistan;21;1
+;221;Country;Tm;Turkmenistan;21;1
+;222;Country;Ua;Ukraine;21;1
+;223;Country;Uz;Uzbekistan;21;1
+;224;Country;Ao;Angola;22;1
+;225;Country;Bj;Benin;22;1
+;226;Country;Bw;Botswana;22;1
+;227;Country;Bv;Bouvet Island;22;1
+;228;Country;Bf;Burkina Faso;22;1
+;229;Country;Bi;Burundi;22;1
+;230;Country;Cm;Cameroon;22;1
+;231;Country;Cv;Cape Verde;22;1
+;232;Country;Cf;Central African Republic;22;1
+;233;Country;Km;Comoros;22;1
+;234;Country;Cd;Congo;22;1
+;235;Country;Cd;Congo, The Democratic Republic Of The;22;1
+;236;Country;Ci;Cote D'Ivoire;22;1
+;237;Country;Gq;Equatorial Guinea;22;1
+;238;Country;Er;Eritrea;22;1
+;239;Country;Et;Ethiopia;22;1
+;240;Country;Ga;Gabon;22;1
+;241;Country;Gm;Gambia;22;1
+;242;Country;Gh;Ghana;22;1
+;243;Country;Gn;Guinea;22;1
+;244;Country;Gw;Guinea-Bissau;22;1
+;245;Country;Ke;Kenya;22;1
+;246;Country;Ls;Lesotho;22;1
+;247;Country;Lr;Liberia;22;1
+;248;Country;Mg;Madagascar;22;1
+;249;Country;Mw;Malawi;22;1
+;250;Country;Ml;Mali;22;1
+;251;Country;Mr;Mauritania;22;1
+;252;Country;Mu;Mauritius;22;1
+;253;Country;Yt;Mayotte;22;1
+;254;Country;Mz;Mozambique;22;1
+;255;Country;Na;Namibia;22;1
+;256;Country;Ne;Niger;22;1
+;257;Country;Ng;Nigeria;22;1
+;258;Country;Re;Reunion;22;1
+;259;Country;Rw;Rwanda;22;1
+;260;Country;St;Sao Tome And Principe;22;1
+;261;Country;Sn;Senegal;22;1
+;262;Country;Sc;Seychelles;22;1
+;263;Country;Sl;Sierra Leone;22;1
+;264;Country;So;Somalia;22;1
+;265;Country;Za;South Africa;22;1
+;266;Country;Sd;Sudan;22;1
+;267;Country;Sz;Swaziland;22;1
+;268;Country;Tz;Tanzania, United Republic Of;22;1
+;269;Country;Tg;Togo;22;1
+;270;Country;Ug;Uganda;22;1
+;271;Country;Zm;Zambia;22;1
+;272;Country;Zw;Zimbabwe;22;1
+
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;273;PRODUCTLINE;IT-RVI;IT�-�RVI;1;1
+;274;PRODUCTLINE;IT-UT/EddyCurrent;IT�-�UT/Eddy�Current;2;1
+;275;PRODUCTLINE;IT-Film;IT�-�Film;3;1
+;276;PRODUCTLINE;IT-TestingMachines;IT�-�Testing�Machines;10;1
+;277;PRODUCTLINE;IT-Xray;IT�-�Xray;11;1
+;278;PRODUCTLINE;IT-Radiography;IT�-�Radiography;12;1
+;279;PRODUCTLINE;M&S-Pressure;M&S�-�Pressure;268;1
+;280;PRODUCTLINE;M&S-FG&M;M&S�-�FG&M;269;1
+;281;PRODUCTLINE;M&S-ReuterStokes;M&S�-�Reuter�Stokes;270;1
+;282;PRODUCTLINE;ControlSolutions;Control�Solutions;271;1
+;283;PRODUCTLINE;Cordant;Cordant;272;1
+;294;PRODUCTLINE;NotListedAbove;Not Listed Above;272;1

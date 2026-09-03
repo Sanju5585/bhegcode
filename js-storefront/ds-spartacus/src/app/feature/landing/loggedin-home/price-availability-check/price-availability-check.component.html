@@ -1,0 +1,337 @@
+<div class="price-box">
+  <div class="price-avail">
+    <div class="price-check">{{ 'loggedinHome.priceCheck' | cxTranslate }}</div>
+    <div class="avilability" *ngIf="!productInfo || productInfo?.error">
+      <div class="row mt-2" [formGroup]="addToCartForm">
+        <div class="price-padding">
+          <bh-text-input
+            type="text"
+            label="{{ 'loggedinHome.enterPartNumber' | cxTranslate }}"
+            [value]="partNumber"
+            (keyup)="onChange($event)"
+          ></bh-text-input>
+          <span class="error-message" *ngIf="productInfo?.error">{{
+            'loggedinHome.partNoError' | cxTranslate: { partNo: partNumber }
+          }}</span>
+        </div>
+        <div class="counter selectBox" *ngIf="!productInfo?.error">
+          <span class="counter-label">{{
+            'loggedinHome.requestQuantity' | cxTranslate
+          }}</span>
+          <cx-item-counter
+            class="counter-size"
+            [max]="maxQuantity"
+            [control]="addToCartForm.get('quantity')"
+          ></cx-item-counter>
+        </div>
+      </div>
+      <div class="row">
+        <div class="" *ngIf="showDropDown">
+          <bh-dropdown
+            required
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="shipItems"
+            placeholder="{{ 'loggedinHome.shiptoPlaceholder' | cxTranslate }}"
+            unselectable="false"
+            label="{{ 'loggedinHome.shipto' | cxTranslate }}"
+            isSmall="true"
+            (selected)="onSetShipto($event)"
+          >
+          </bh-dropdown>
+        </div>
+        <div class="" *ngIf="showDropDown">
+          <bh-dropdown
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="endItems"
+            placeholder="{{ 'loggedinHome.endCustPlaceholder' | cxTranslate }}"
+            unselectable="false"
+            label="{{ 'loggedinHome.endCustomerAddress' | cxTranslate }}"
+            isSmall="true"
+            (selected)="onSetEndAddress($event)"
+          >
+          </bh-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="check-button">
+          <bh-button
+            type="secondary"
+            label="{{ 'loggedinHome.check' | cxTranslate }}"
+            class="check"
+            (click)="checkPrice()"
+            [ngClass]="partValid ? 'check-green' : ''"
+            [attr.disabled]="showSpinner ? true : null"
+            [attr.loading]="showSpinner ? true : null"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class=""
+    *ngIf="
+      productInfo?.productData?.price?.value != 0 &&
+      productInfo?.cartData?.totalListPrice?.value != 0 &&
+      productInfo?.productData?.purchasable
+    "
+  >
+    <div class="search-text pl-4">
+      {{ 'loggedinHome.searchedProduct' | cxTranslate }}
+    </div>
+    <div class="serched-data">
+      <div class="price-data">
+        <div class="col-md-6">
+          <div class="product-number"># {{ productInfo.productData.code }}</div>
+          <div class="product-desc price-desc">
+            {{ productInfo.productData.name }}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="quantity-desc">
+            {{ 'loggedinHome.qty' | cxTranslate }}
+          </div>
+          <div class="quantity price-desc">{{ quantity }}</div>
+        </div>
+        <div class="col-md-3">
+          <div class="quantity-desc">
+            {{ 'loggedinHome.unitMeasure' | cxTranslate }}
+          </div>
+          <div class="quantity price-desc">
+            {{ productInfo.productData.uom }}
+          </div>
+        </div>
+      </div>
+      <div class="price-data">
+        <div class="col-md-12" *ngIf="shiptolabel">
+          <div class="quantity-desc">
+            {{ 'loggedinHome.shipto' | cxTranslate }}
+          </div>
+          <div class="quantity price-desc">{{ shiptolabel }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="price-details">
+      {{ 'loggedinHome.priceDetails' | cxTranslate }}
+    </div> -->
+    <div class="price-row mt-3">
+      <div class="col-md-6 row">
+        <div class="col-md-4">
+          <div class="list-price">
+            {{ 'loggedinHome.listPrice' | cxTranslate }}
+          </div>
+          <div class="price-ammount">
+            <div>
+              {{ productInfo.cartData.entries[0].listPrice.formattedValue }}
+            </div>
+            <div>{{ 'loggedinHome.each' | cxTranslate }}</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="list-price">
+            {{ 'loggedinHome.yourPrice' | cxTranslate }}
+          </div>
+          <div class="price-ammount">
+            <div>
+              {{
+                productInfo.cartData.entries[0].netSellingPrice.formattedValue
+              }}
+            </div>
+            <!-- <div>{{ 'loggedinHome.each' | cxTranslate }}</div> -->
+          </div>
+        </div>
+
+        <div
+          class="col-md-4"
+          *ngIf="productInfo.cartData.entries[0].silverClausePrice.value != 0"
+        >
+          <div class="list-price">
+            {{ 'loggedinHome.silverPrice' | cxTranslate }}
+          </div>
+          <div class="price-ammount silverPrice">
+            <div>
+              {{
+                productInfo.cartData.entries[0].silverClausePrice.formattedValue
+              }}
+            </div>
+            <div>{{ 'loggedinHome.each' | cxTranslate }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="list-price">
+          {{ 'loggedinHome.availableStock' | cxTranslate }}
+        </div>
+        <div class="price-ammount">
+          <bh-dropdown
+            placeholder="Select"
+            *ngIf="productInfo.cartData.entries[0].stockDetails"
+            [menuItems]="stockDetails"
+            [value]="stock"
+          >
+          </bh-dropdown>
+          <span *ngIf="!productInfo.cartData.entries[0].stockDetails">
+            {{ 'loggedinHome.noStockDetail' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="price-row">
+      <div class="col-md-12">
+        <div class="list-price">
+          {{ 'loggedinHome.shipDate' | cxTranslate }}
+        </div>
+        <div class="price-ammount">
+          <!-- 3 July 2019 (Quantity 5) | BHGE Team will confirm Availability
+              (Quantity 2) -->
+          <div class="availability-info">
+            <label
+              *ngIf="!productInfo.cartData.entries[0]?.availabilityDetails"
+              class="cart-entry-text-bold"
+            >
+              {{ 'loggedinHome.productShipDatebyCustCare' | cxTranslate }}
+            </label>
+            <div
+              class="availability-holder"
+              *ngIf="productInfo.cartData.entries[0]?.availabilityDetails"
+            >
+              <ng-container
+                *ngFor="
+                  let shipAvailability of productInfo?.cartData.entries[0]
+                    ?.availabilityDetails
+                "
+              >
+                <span
+                  class="col-12 bold-text p-0 mb-1 spec-value cart-entry-text-bold"
+                  *ngIf="shipAvailability.isDefaultPlant"
+                  >{{
+                    shipAvailability.committedDate
+                      ? shipAvailability.committedDate
+                      : 'Availability will be
+                  confirmed '
+                  }}
+                  (Quantity
+                  {{
+                    shipAvailability.committedQuantity !== 'null'
+                      ? shipAvailability.committedQuantity
+                      : '0'
+                  }})
+                </span>
+                <br />
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="button"
+      *ngIf="productInfo?.productData?.productAccessData?.isBuy"
+    >
+      <div class="clear-button">
+        <bh-button
+          type="secondary"
+          label="{{ 'loggedinHome.searchAgain' | cxTranslate }}"
+          class="clear"
+          (click)="backToSearch()"
+        >
+        </bh-button>
+      </div>
+      <div class="add-button">
+        <bh-button
+          type="primary"
+          label="{{ 'loggedinHome.addToCart' | cxTranslate }}"
+          class="add-cart"
+          [attr.disabled]="
+            productInfo?.cartData?.entries[0]?.listPrice?.value == 0
+          "
+          (click)="addToCart()"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 searchProduct" *ngIf="productInfo">
+    <div class="search-text">
+      {{ 'loggedinHome.searchedProduct' | cxTranslate }}
+    </div>
+    <div class="status" *ngIf="productInfo">
+      <div
+        class="info-message"
+        *ngIf="
+          !productInfo?.productData?.productAccessData?.isBuy &&
+          !productInfo?.productData?.productAccessData
+            ?.isBuyPresentInOtherSalesArea
+        "
+      >
+        <span class="material-icons icon">info</span
+        ><span class="purchase-text">{{
+          'loggedinHome.purchaseItemMeassage' | cxTranslate
+        }}</span>
+        <span class="tomake-text">{{
+          'loggedinHome.toMakePurchase' | cxTranslate
+        }}</span>
+        <span class="contact-color">{{
+          'loggedinHome.cusmtCare' | cxTranslate
+        }}</span>
+      </div>
+      <div
+        class="info-message"
+        *ngIf="
+          productInfo?.cartData?.totalListPrice?.value == 0 &&
+          productInfo?.productData?.purchasable
+        "
+      >
+        <span class="material-icons icon">info</span>
+        <span class="purchase-text">{{
+          'loggedinHome.priceNotFound' | cxTranslate
+        }}</span>
+        <span class="contact-color">{{
+          'loggedinHome.cusmtCare' | cxTranslate
+        }}</span>
+      </div>
+      <div
+        class="info-message"
+        *ngIf="
+          productInfo?.productData?.productAccessData
+            ?.isBuyPresentInOtherSalesArea
+        "
+      >
+        <span class="material-icons icon">info</span>
+        <span class="purchase-text">
+          {{ 'loggedinHome.notAvailableinSalesarea' | cxTranslate }}
+        </span>
+      </div>
+      <div class="button-price">
+        <div
+          class="mr-3 back-button"
+          *ngIf="
+            productInfo?.productData?.productAccessData
+              ?.isBuyPresentInOtherSalesArea
+          "
+        >
+          <bh-button
+            type="primary"
+            icon="shopping_basket"
+            label="{{ 'loggedinHome.switchDSStore' | cxTranslate }}"
+            class="switch"
+            (click)="switchDsCustomer()"
+          >
+          </bh-button>
+        </div>
+        <div class="back-button">
+          <bh-button
+            type="secondary"
+            label="{{ 'loggedinHome.searchAgain' | cxTranslate }}"
+            class="back"
+            (click)="backToSearch()"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

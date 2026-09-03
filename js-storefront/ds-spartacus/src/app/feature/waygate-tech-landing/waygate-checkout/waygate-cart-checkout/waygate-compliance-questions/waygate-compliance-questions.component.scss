@@ -1,0 +1,81 @@
+@import '../../../../../../styles/responsive_mixins.scss';
+.waygate-complaince-questions-main {
+  font-family: Poppins;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 725px;
+  .waygate-complaince-questions-heading {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+
+    color: #000000;
+  }
+  .waygate-complaince-questions {
+    .star {
+      color: #e12d39;
+    }
+    .question-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #000000;
+    }
+    .radio-btn {
+      display: flex;
+      gap: 20px;
+      .radio-btn-sub {
+        display: flex;
+        gap: 8px;
+
+        .radio-input {
+          position: relative;
+          margin: 0;
+          width: 24px;
+          height: 24px;
+        }
+
+        .radio-label {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          color: #595959;
+        }
+      }
+    }
+@include media-xl-max{
+  width: 100% !important;
+}
+  }
+  @include media-xl-max
+  {
+    width: 100% !important;
+  }
+}
+
+.err-msg-css {
+  display: flex;
+  cursor: default;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0px;
+  color: #e16e75;
+}
+
+.err-msg-icon-css {
+  margin-right: 4px;
+  line-height: inherit;
+  color: inherit;
+}
+
+.nuclear-error-msg{
+      display: flex;
+    font-size: 12px;
+    gap: 5px;
+    align-items: center;
+    color: var(--color-text-label-error);
+}

@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "cancelar",
+    "delete": "Eliminar",
+    "remove": "remover",
+    "edit": "Editar",
+    "back": "Back",
+    "submit": "Presione “submit” para enviar.",
+    "continue": "Crear una nueva cuenta",
+    "save": "Guardar",
+    "done": "Hecho\r",
+    "home": "Inicio",
+    "noData": "Sin datos.",
+    "confirm": "Confirmar"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} resultado para {{query}}",
+      "title_plural": "{{count}} resultado para {{query}}"
+    },
+    "checkout": {
+      "title": "Elemento {{count}} de pago",
+      "title_plural": "Elemento {{count}} de pago"
+    },
+    "search": {
+      "title": "{{count}} resultado para \"{{query}}\"",
+      "title_plural": "{{count}} resultado para \"{{query}}\"",
+      "findProductTitle": "{{count}} resultado para el cupón \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} resultado para el cupón \"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "Cargando..."
+  },
+  "navigation": {
+    "shopAll": "Comprar todo {{ navNode}} >"
+  },
+  "searchBox": {
+    "placeholder": "Busca aquí...",
+    "help": {
+      "insufficientChars": "Escriba 3 o más caracteres para buscar",
+      "noMatch": "No pudimos encontrar ningún resultado",
+      "exactMatch": "{{ term }}",
+      "empty": "Pregúntenos cualquier cosa"
+    }
+  },
+  "sorting": {
+    "date": "Fecha",
+    "orderNumber": "Número de pedido",
+    "rma": "Número de devolución",
+    "replenishmentNumber": "Número de reabastecimiento",
+    "nextOrderDate": "Próxima fecha de pedido"
+  },
+  "httpHandlers": {
+    "badGateway": "Ocurrió un error en el servidor. Por favor, inténtelo de nuevo más tarde.\r",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Please login again.",
+    "badRequestOldPasswordIncorrect": "Contraseña anterior incorrecta.",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} ya existe el correo electrónico. Realice la compra con un correo electrónico diferente para registrarse con una cuenta de invitado.",
+    "conflict": "Ya existe.",
+    "forbidden": "No está autorizado para realizar esta acción. Comuníquese con su administrador si cree que se trata de un error.",
+    "gatewayTimeout": "El servidor no respondió, inténtelo de nuevo más tarde.",
+    "internalServerError": "Se produjo un error interno del servidor. Por favor, inténtelo de nuevo más tarde.\r",
+    "sessionExpired": "Su sesión ha caducado. Ingrese nuevamente.",
+    "unknownError": "Un error desconocido ocurrió",
+    "unauthorized": {
+      "common": "Ocurrió un error de autorización desconocido",
+      "invalid_client": "Credenciales de cliente incorrectas"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "La tarjeta de crédito seleccionada no es compatible. Seleccione otro.",
+        "card_accountNumber": "El número de tarjeta de crédito ingresado no es válido.",
+        "card_cvNumber": "El código de seguridad ingresado no es válido.",
+        "card_expirationMonth": "La fecha de vencimiento de la tarjeta de crédito ingresada no es válida.",
+        "card_expirationYear": "La fecha de vencimiento de la tarjeta de crédito ingresada no es válida.",
+        "billTo_firstName": "El primer nombre ingresado no es válido.",
+        "billTo_lastName": "El apellido ingresado no es válido.",
+        "billTo_street1": "La dirección ingresada no es válida.",
+        "billTo_street2": "La dirección ingresada no es válida.",
+        "billTo_city": "La ciudad ingresada no es válida para esta tarjeta de crédito.",
+        "billTo_state": "El estado / provincia ingresado no es válido para esta tarjeta de crédito.",
+        "billTo_country": "El país ingresado no es válido para esta tarjeta de crédito.",
+        "billTo_postalCode": "El código postal no es válido para esta tarjeta de crédito.",
+        "country": {
+          "isocode": "País faltante"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "La fecha de vencimiento de la tarjeta de crédito ingresada no es válida.",
+        "firstName": "El nombre ingresado no es válido.",
+        "lastName": "El apellido ingresado no es válido.",
+        "password": "La contraseña ingresada no es válida.",
+        "uid": "UID no es válido.",
+        "code": "El código no es válido.",
+        "email": "El correo no es válido."
+      }
+    },
+    "cartNotFound": "Carrito no encontrado.",
+    "invalidCodeProvided": "Se proporcionó un código no válido."
+  },
+  "miniCart": {
+    "item": "{{count}} artículo actualmente en su carrito",
+    "item_plural": "{{count}} artículos actualmente en su carrito",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Hola, {{name}}",
+    "signInRegister": "Iniciar sesión / Registrarse"
+  },
+  "skipLink": {
+    "skipTo": "Pasemos a",
+    "labels": {
+      "header": "Encabezado",
+      "main": "Contenido principal",
+      "footer": "Pie de página",
+      "productFacets": "Facetas del producto",
+      "productList": "Lista de productos"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "El formulario que está intentando enviar contiene errores.",
+    "required": "Este campo es obligatorio",
+    "cxInvalidEmail": "Este no es un formato de correo electrónico válido",
+    "cxInvalidPassword": "Este no es un formato de contraseña válido",
+    "cxPasswordsMustMatch": "Los campos de contraseña deben coincidir",
+    "cxEmailsMustMatch": "Los campos de correo electrónico deben coincidir",
+    "cxStarRatingEmpty": "El campo de calificación es obligatorio",
+    "cxNoSelectedItemToCancel": "Seleccione al menos un elemento",
+    "cxNegativeAmount": "La cantidad debe ser igual o mayor que cero",
+    "cxContainsSpecialCharacters": "El campo no puede contener caracteres especiales",
+    "date": {
+      "required": "Este campo es obligatorio",
+      "min": "La fecha no puede ser anterior {{min}}",
+      "max": "La fecha no puede ser posterior {{max}}",
+      "pattern": "Usar formato de fecha aaaa-mm-dd",
+      "invalid": "Usa una fecha válida"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "No se pudo cargar la secuencia de comandos.",
+    "refreshThePage": "Actualice la página."
+  }
+}

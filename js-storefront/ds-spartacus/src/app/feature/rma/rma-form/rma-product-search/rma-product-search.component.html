@@ -1,0 +1,88 @@
+<section class="search-filter" [formGroup]="searchForm">
+  <ng-select
+    *ngIf="searchType == productSearchType.SERIAL"
+    class="filter-dropdown"
+    [searchable]="false"
+    formControlName="filterType"
+    [clearable]="false"
+    [placeholder]="'rma-form.search' | cxTranslate"
+    (change)="selectSearchType($event)"
+  >
+    <ng-option *ngFor="let type of searchTypeEnum" [value]="type.id">
+      {{ type.searchLabel }}
+    </ng-option>
+  </ng-select>
+  <!-- <bh-text-input
+    type="text"
+    placeholder="Enter"
+    maxlength="40"
+    [formControlName]="this.searchForm.get('searchTerm')"
+    pattern="undefined"
+    class="filter-input"
+  ></bh-text-input> -->
+  <input
+    *ngIf="searchType == productSearchType.SERIAL"
+    class="filter-input"
+    formControlName="searchTerm"
+    autocomplete="off"
+    maxlength="18"
+    placeholder="{{ 'rma-form.aleast3Char' | cxTranslate }}"
+  />
+  <bh-button
+    *ngIf="searchType == productSearchType.SERIAL"
+    [type]="'primary'"
+    class="filter-search-btn"
+    [label]="'rma-form.search' | cxTranslate"
+    [attr.loading]="searchingResults"
+    [attr.disabled]="isDisabled()"
+    (click)="search()"
+  ></bh-button>
+  <div class="part-number-input" *ngIf="searchType == productSearchType.PART">
+    <input
+      #partNumberInput
+      id="partNumberInput"
+      class="filter-input"
+      formControlName="searchTerm"
+      (input)="autoSearchResults($event)"
+      autofocus
+      autocomplete="off"
+    />
+    <div
+      *ngIf="searchingProducts"
+      class="part-input-side-loader side-loader cx-spinner"
+    >
+      <cx-spinner></cx-spinner>
+    </div>
+    <div
+      class="part-number-suggestions"
+      *ngIf="openSuggestions"
+      [clickSourceId]="partNumberInput"
+      (clickOutside)="openSuggestions = !openSuggestions"
+    >
+      <a
+        class="part-number-autocomplete"
+        *ngFor="let part of this.parts | slice: 0 : 5"
+        (click)="selectPart(part)"
+      >
+        <cx-media
+          class="col-2 p-0 part-image"
+          [container]="part.images"
+          format="thumbnail"
+          [alt]="part.summary"
+        ></cx-media>
+        <div class="col-10 product-details-holder">
+          <div class="part-name">{{ part.name }}</div>
+          <div class="part-number-code">
+            {{ 'rma-form.partNumber' | cxTranslate }} : {{ part.code }}
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<a
+  class="part-search-help-link mt-2 d-block"
+  *ngIf="searchType == productSearchType.PART"
+  (click)="openHelpSearch()"
+  >{{ 'rma-form.iNeedHelpIndentifying' | cxTranslate }}
+</a>

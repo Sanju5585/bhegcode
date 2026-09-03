@@ -1,0 +1,111 @@
+<div class="waygate-category-menu">
+  <div class="container">
+    <ng-container
+      *ngIf="productCategories$ | async as productCategories; else loading"
+    >
+      <div class="waygate-category-menu-banner">
+        <ng-container
+          *ngFor="
+            let productCategory of productCategories
+              | keyvalue
+              | selectedCategory: productLineCode
+          "
+        >
+          <!-- <div class="category-level-1">
+            <ng-container *ngFor="let level_1 of productCategory?.categories">
+              <div class="category-level-2">
+                <a class="level-1-name" [routerLink]="level_1?.url">{{
+                  level_1?.name
+                }}</a>
+                <ng-container *ngFor="let level_2 of level_1?.categories">
+                  <a class="level-2-name" [routerLink]="level_2.url">{{
+                    level_2?.name
+                  }}</a>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div> -->
+          <!-- <ng-container *ngIf="productCategory?.categories?.length > 0 ;else noProductsAvailable"> -->
+          <div class="category-level-1">
+            <div class="all-product-catalog" (mouseover)="categories = []">
+              <div class="title-label">
+                {{ 'waygate.browseProducts' | cxTranslate }}
+              </div>
+
+              <a
+                [routerLink]="getProductCatalogURL(productCategory)"
+                (click)="clicked($event)"
+                >{{ 'waygate.explore' | cxTranslate }} ></a
+              >
+            </div>
+            <ng-container
+              *ngFor="let level_1 of productCategory?.categories; let i = index"
+            >
+              <a
+                class="level-1-name"
+                [routerLink]="constructCategoryUrl(level_1)"
+                (click)="clicked($event)"
+                [class.selected]="selecteds[0] == i"
+                (mouseover)="openSubCategory(level_1.categories, 0, i)"
+                >{{ level_1?.name }}
+                <ng-container *ngIf="level_1?.categories?.length > 0"
+                  >></ng-container
+                ></a
+              >
+            </ng-container>
+          </div>
+          <div class="category-level-1" *ngIf="categories[0]?.length > 0">
+            <ng-container *ngFor="let level_1 of categories[0]; let i = index">
+              <a
+                class="level-1-name"
+                [routerLink]="constructCategoryUrl(level_1)"
+                (click)="clicked($event)"
+                [class.selected]="selecteds[1] == i"
+                (mouseover)="openSubCategory(level_1.categories, 1, i)"
+                >{{ level_1?.name }}
+                <ng-container *ngIf="level_1?.categories?.length > 0"
+                  >></ng-container
+                >
+              </a>
+            </ng-container>
+          </div>
+          <div class="category-level-1" *ngIf="categories[1]?.length > 0">
+            <ng-container *ngFor="let level_1 of categories[1]; let i = index">
+              <a
+                class="level-1-name"
+                [routerLink]="constructCategoryUrl(level_1)"
+                (click)="clicked($event)"
+                [class.selected]="selecteds[2] == i"
+                (mouseover)="openSubCategory(level_1.categories, 2, i)"
+                >{{ level_1?.name }}
+                <ng-container *ngIf="level_1?.categories?.length > 0"
+                  >></ng-container
+                ></a
+              >
+            </ng-container>
+          </div>
+          <div class="category-level-1" *ngIf="categories[2]?.length > 0">
+            <ng-container *ngFor="let level_1 of categories[2]">
+              <a
+                class="level-1-name"
+                (click)="clicked($event)"
+                [routerLink]="constructCategoryUrl(level_1)"
+                >{{ level_1?.name }}</a
+              >
+            </ng-container>
+          </div>
+          <!-- </ng-container> -->
+          <!-- <ng-template #noProductsAvailable>
+          <a class="no-data-link" href="{{productNotFoundList?.url}}" target="_blank">
+            {{productNotFoundList?.name}}</a>
+        </ng-template> -->
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

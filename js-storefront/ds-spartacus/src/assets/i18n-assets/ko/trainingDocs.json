@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "교육 문서",
+    "sortBy": "정렬",
+    "searchInDocs": "교육 문서에서 검색",
+    "name": "이름",
+    "dateModified": "수정 날짜",
+    "noRecordFound": "기록을 찾을 수 없습니다.",
+    "view": "보기"
+  }
+}

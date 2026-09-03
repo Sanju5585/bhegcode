@@ -1,0 +1,97 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  letter-spacing: -0.25px;
+  font-size: 16px;
+}
+
+.msg-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  text-align: center;
+}
+
+.popup-btn {
+  border: 1px solid #5c7b74;
+  border-radius: 4px;
+  background-color: white;
+  color: #5c7b74;
+  width: 25%;
+  font-weight: 600;
+}
+
+.DupEmailMessage {
+  font-size: 14px;
+}
+
+.hheaderTitlepopup1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #121212;
+}
+
+* {
+  font-family: 'Poppins';
+  letter-spacing: -0.25px;
+}
+
+.color {
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.content {
+  font-family: 'Poppins', sans-serif;
+  color: #212738;
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+li {
+  font-family: 'Poppins', sans-serif;
+  color: #212738;
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+h4 {
+  color: #121212;
+}
+p {
+  font-family: 'Poppins', sans-serif;
+  color: #212738;
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  padding-right: 20px;
+  font-size: 13px;
+}
+.close {
+  display: flex;
+  justify-content: end;
+  font-size: 28px;
+  color: #121212;
+}

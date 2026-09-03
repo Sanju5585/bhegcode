@@ -1,0 +1,221 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    z-index: 9999999;
+    position: relative;
+  }
+  
+  .new-home-page {
+    background-color: var(--earth-025, #f8faf9);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+  }
+  
+  .new-home-page-content {
+    width: 100%;
+    max-width: 1140px;
+    padding: 0 20px;
+    margin: 0 auto 80px auto;
+    box-sizing: border-box;
+  }
+  
+  .top-text {
+    width: 100%;
+    // max-width: 230px;
+    margin: 40px auto 0 auto;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .our-brands-text {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Poppins;
+    height: 26px;
+    color: #1F1F1F;
+  }
+  
+  .sub-text {
+    height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Poppins;
+    color: #717171;
+  }
+  
+  .banner-nav {
+    width: 100%;
+    max-width: 354px;
+    height: auto;
+  }
+  
+  .banner-nav-img {
+    width: 100%;
+    max-width: 354px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 155px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .brand-description {
+    font-family: Poppins;
+    font-size: 12px;
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none;
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 318px;
+    height: 80px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-clamp: 4;
+  }
+  
+  .box {
+    text-decoration: none;
+    box-sizing: border-box;
+    max-width: 354px;
+    position: relative;
+  }
+  
+  .box:hover .banner-nav-img {
+    height: auto;
+    overflow: visible;
+    background-color: #fff;
+    z-index: 10;
+  }
+  
+  .box:hover .brand-description {
+    position: absolute;
+    margin-top: 10px;
+    left: 0;
+    height: auto;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 10;
+    overflow: visible;
+    white-space: normal;
+    display: block;
+    padding-top: 0px;
+    max-width: 354px;
+  }
+  
+  .banner-grid-wrapper {
+    margin-top: 38px;
+    max-width: 1140px;
+  }
+  
+  /* Mobile: 1 item per row */
+  @media (max-width: 480px) {
+    .banner-grid-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  
+    .box {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  
+    .our-brands-text {
+      font-size: 16px;
+    }
+  
+    .sub-text {
+      font-size: 12px;
+    }
+  
+    .brand-description {
+      font-size: 12px;
+    }
+  
+    .new-home-page-content {
+      padding: 0 10px;
+    }
+    .box:hover .brand-description {
+      position: static;
+      padding: 0;
+    }
+  }
+  
+  /* Tablet: 2 items per row, custom layout */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .banner-grid-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  
+    .box {
+      width: 100%;
+    }
+  
+    .banner-grid-wrapper .box:nth-child(5) {
+      grid-column: 1 / span 1;
+    }
+  
+    .our-brands-text {
+      font-size: 16px;
+    }
+  
+    .sub-text {
+      font-size: 12px;
+    }
+  
+    .brand-description {
+      font-size: 12px;
+    }
+  
+    .new-home-page-content {
+      padding: 0 20px;
+    }
+    .box.last-item:hover .brand-description {
+      position: static;
+      padding: 0;
+    }
+  }
+  
+  
+  /* Between 769px and 1440px: 3 items in first row, 2 in second row */
+  @media (min-width: 769px) {
+    .banner-grid-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 38px;
+      justify-content: flex-start;
+      max-width: 1140px;
+    }
+  
+    .box {
+      width: 100%;
+      max-width: 354px;
+    }
+  
+    .banner-nav,
+    .banner-nav-img {
+      max-width: 100%;
+    }
+    .box.last-row:hover .brand-description {
+      position: static;
+      padding: 0;
+    } 
+  }
+  
+  
+  
+  

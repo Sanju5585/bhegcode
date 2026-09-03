@@ -1,0 +1,85 @@
+<div class="order-return">
+  <div class="order-return-text">
+    {{ 'loggedinHome.headerText' | cxTranslate }}
+    <a href="{{ index == 0 ? '/my-orders' : '/rma-tracking' }}"
+      ><span class="view-all">
+        {{ 'loggedinHome.viewAll' | cxTranslate }}</span
+      ></a
+    >
+  </div>
+  <div class="accessories select-tab">
+    <div class="accessories-tabs-group">
+      <div
+        class="accessories-tab"
+        [ngClass]="index == 0 ? 'tab-active' : ''"
+        (click)="index = 0"
+      >
+        {{ 'loggedinHome.recentOrders' | cxTranslate }}
+      </div>
+      <div
+        class="accessories-tab"
+        [ngClass]="index == 1 ? 'tab-active' : ''"
+        (click)="index = 1"
+      >
+        {{ 'loggedinHome.recentReturn' | cxTranslate }}
+      </div>
+    </div>
+    <div class="accessories-tab-details">
+      <div class="accessories-tab-details--section" *ngIf="index == 0">
+        <div class="order-return-table">
+          <table class="table">
+            <tr class="table-header">
+              <th>{{ 'loggedinHome.poNumber' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.order' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.cstmrAccount' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+            </tr>
+            <tr class="table-data" *ngFor="let item of orderData">
+              <td>{{ item?.purchaseOrderNumber }}</td>
+              <td>#{{ item?.code }}</td>
+              <td>{{ custmerAcc[0] }}</td>
+              <td>{{ item?.orderStatus }}</td>
+
+              <td class="linkButton">
+                <span>{{ 'loggedinHome.na' | cxTranslate }}</span>
+                <span
+                  class="material-icons-outlined custom-icon"
+                  (click)="orderredirect(item?.code, item)"
+                  >arrow_right</span
+                >
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="accessories-tab-details--section" *ngIf="index == 1">
+        <div class="order-return-table">
+          <table class="table">
+            <tr class="table-header">
+              <th>{{ 'loggedinHome.poNumber' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.rma' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.cstmrAccount' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+              <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+            </tr>
+            <tr class="table-data" *ngFor="let item of recentData">
+              <td>{{ item?.purchaseOrderNumber }}</td>
+              <td>#{{ item?.rmaNumber }}</td>
+              <td>{{ item?.customerAcct }}</td>
+              <td>{{ item?.rmaStatus }}</td>
+              <td class="linkButton">
+                <span>{{ 'loggedinHome.na' | cxTranslate }}</span>
+                <span
+                  class="material-icons-outlined custom-icon"
+                  (click)="rmaredirect(item?.rmaNumber, item)"
+                  >arrow_right</span
+                >
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

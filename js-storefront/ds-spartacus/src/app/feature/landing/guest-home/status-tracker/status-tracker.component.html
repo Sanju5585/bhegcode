@@ -1,0 +1,88 @@
+<h4 class="box-title">{{ 'guest-home.statusTracker' | cxTranslate }}</h4>
+<div class="box-container">
+  <p class="mb-0 noData" *ngIf="!trackData">
+    {{ 'guest-home.noDataAvailable' | cxTranslate }}
+  </p>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="question-icon">
+        <div class="help-section" (click)="trackorderstatus()">
+          <span class="material-icons-outlined icon-size"> help_outline </span>
+          <span class="find-order">{{
+            'guest-home.whereToFind' | cxTranslate
+          }}</span>
+        </div>
+      </div>
+      <bh-text-input
+        placeholder="{{ 'waygate.customerNoPLaceholder' | cxTranslate }}"
+        type="text"
+        required
+        name="customerNumber"
+        [value]="customerNumber"
+        [message]="error.customerNumber"
+        [attr.error]="error.customerNumber ? error.customerNumber : null"
+        (change)="onChange($event, 'customerNumber')"
+        label="{{ 'guest-home.cstmrNumber' | cxTranslate }}"
+        maxlength="10"
+        class="customer-number"
+      ></bh-text-input>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <bh-text-input
+        placeholder="{{ 'waygate.purchaseOrderNumberPlaceholder' | cxTranslate }}"
+        type="text"
+        required
+        name="purchaseNumber"
+        [value]="purchaseNumber"
+        maxlength="35"
+        [message]="error.purchaseNumber"
+        [attr.error]="error.purchaseNumber ? error.purchaseNumber : null"
+        (change)="onChange($event, 'purchaseNumber')"
+        label="{{ 'guest-home.purchaseNo' | cxTranslate }}"
+        class="purchase-number"
+      >
+      </bh-text-input>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12 pt-4 or-text">
+      {{ 'guest-home.or' | cxTranslate }}
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-12">
+      <bh-text-input
+        placeholder="{{ 'waygate.orderRefNumberPlaceholder' | cxTranslate }}"
+        type="text"
+        required
+        name="orderNumber"
+        [value]="orderNumber"
+        [message]="error.orderNumber"
+        [attr.error]="error.orderNumber ? error.orderNumber : null"
+        (change)="onChange($event, 'orderNumber')"
+        label="{{ 'guest-home.orderReference' | cxTranslate }}"
+        maxlength="12"
+        class="reference-number"
+      >
+      </bh-text-input>
+    </div>
+  </div>
+  <div class="buttons-row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
+      <bh-button
+        type="primary"
+        label="{{ 'guest-home.trackStatus' | cxTranslate }}"
+        class="float-left mr-3"
+        (click)="trackStatus()"
+      >
+      </bh-button>
+      <bh-button
+        type="secondary"
+        [attr.disabled]="showLoading ? true : null"
+        [attr.loading]="showLoading ? true : null"
+        label="{{ 'guest-home.reset' | cxTranslate }}"
+        class="btn-align-pos"
+        (click)="reset()"
+      >
+      </bh-button>
+    </div>
+  </div>
+</div>

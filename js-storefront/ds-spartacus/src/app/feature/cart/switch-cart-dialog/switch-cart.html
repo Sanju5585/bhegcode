@@ -1,0 +1,218 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container *ngIf="isLoggedIn">
+      <ng-container *ngIf="!savingAndLoadingCart; else savingCart">
+        <!-- <ng-container *ngIf="cartLoaded$ | async; else loadingCart"> -->
+        
+<ng-container *ngIf="!savingAndLoadingCart; else loadingCart">
+
+          <div class="cx-dialog-header modal-header">
+            <div *ngIf="switchToCartType == commerceCartType.RETURNS" class="cx-dialog-title modal-title">
+              <span>{{ 'buyCart.switchToReturnsCart' | cxTranslate }}</span>
+            </div>
+            <div *ngIf="switchToCartType == commerceCartType.BUY" class="cx-dialog-title modal-title">
+              <span>{{ 'buyCart.switchToBuyCart' | cxTranslate }}</span>
+            </div>
+            <div *ngIf="switchToCartType == commerceCartType.QUOTE" class="cx-dialog-title modal-title">
+              <span>{{ 'buyCart.switchToQuoteCart' | cxTranslate }}</span>
+            </div>
+            <div *ngIf="switchToCartType == 'QuoteToOrder'" class="cx-dialog-title modal-title">
+              <span>{{ 'buyCart.convertQuoteOrder' | cxTranslate }} </span>
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+              <i class="material-icons">close</i>
+            </button>
+          </div>
+          <div class="cx-dialog-body modal-body">
+            <div class="row">
+              <div class="cx-dialog-info col-md-12">
+                <ng-container *ngIf="currentCartType == commerceCartType.BUY && switchToCartType !== 'QuoteToOrder'">
+                  <p class="mb-4">
+                    <span *ngIf="switchToCartType == commerceCartType.RETURNS">{{ 'buyCart.createAnRmaDetails' |
+                      cxTranslate }}
+                    </span>
+                    <span *ngIf="switchToCartType == commerceCartType.QUOTE">{{ 'buyCart.createAQuoteDetails' |
+                      cxTranslate }}
+                    </span>
+                    <br /><br />
+                    <span>{{ 'buyCart.savedToMyCarts' | cxTranslate }} </span>
+                  </p>
+                </ng-container>
+                <ng-container *ngIf="currentCartType == commerceCartType.RETURNS && switchToCartType !== 'QuoteToOrder'">
+                  <p class="mb-4">
+                    <span *ngIf="switchToCartType == commerceCartType.QUOTE">{{ 'buyCart.quoteHelpText' | cxTranslate
+                      }}</span>
+
+                    <span *ngIf="switchToCartType == commerceCartType.BUY">{{ 'buyCart.buyHelpText' | cxTranslate
+                      }}</span>
+                    <br /><br />
+                    <span>{{ 'buyCart.saveToReturncart' | cxTranslate }}</span>
+                  </p>
+                </ng-container>
+                <ng-container *ngIf="currentCartType == commerceCartType.QUOTE && switchToCartType !== 'QuoteToOrder'">
+                  <p class="mb-4">
+                    <span *ngIf="switchToCartType == commerceCartType.BUY">{{ 'buyCart.buyQuoteText' | cxTranslate
+                      }}</span>
+
+                    <span *ngIf="switchToCartType == commerceCartType.RETURNS">{{ 'buyCart.quoteToReturnDetails' |
+                      cxTranslate }}</span>
+                    <span *ngIf="isFilmNonFilmType == cartType.Typ1">{{ 'buyCart.filmQuoteToNonFilm' |
+                      cxTranslate }}</span>
+                    <span *ngIf="isFilmNonFilmType == cartType.Typ2">{{ 'buyCart.nonFilmQuoteToFilm' |
+                      cxTranslate }}</span>
+                    <br /><br />
+                    <span>{{ 'buyCart.saveToQuotecart' | cxTranslate }}</span>
+                  </p>
+                </ng-container>
+                <ng-container *ngIf="switchToCartType == 'QuoteToOrder'">
+                  <p class="mb-4"> 
+                    <span *ngIf="currentCartType == commerceCartType.QUOTE">
+                      {{ 'buyCart.quoteOrderDetails' | cxTranslate }}
+                    </span>
+                    <span *ngIf="currentCartType == commerceCartType.BUY">
+                      {{ 'buyCart.quoteBuyDetails' | cxTranslate }}
+                    </span>
+                    <span *ngIf="currentCartType == commerceCartType.RETURNS">
+                      {{ 'buyCart.quoteReturnDetails' | cxTranslate }}
+                    </span>
+                    <br /><br />
+                    <span *ngIf="currentCartType == commerceCartType.BUY">{{ 'buyCart.savedToMyCarts' | cxTranslate }} </span>
+                    
+                    <span *ngIf="currentCartType == commerceCartType.RETURNS">{{ 'buyCart.saveToReturncart' | cxTranslate }} </span>
+                    <span *ngIf="currentCartType == commerceCartType.QUOTE">{{ 'buyCart.saveToQuotecart' | cxTranslate }} </span>
+                  </p>
+                </ng-container>
+                <span class="cart-name-input cart-exist" *ngIf="this.existFlag=='true'">{{ "buyCart.cartExist" |
+                  cxTranslate }}
+                </span>
+                <bh-text-input class="cart-name-input" type="text" readonly="false"
+                  label="{{ 'buyCart.saveAs' | cxTranslate }}" [value]="currentCartName"
+                  (keyup)="onCartNameChange($event)" small maxlength="40"></bh-text-input>
+              </div>
+              <span class="cart-name-input error" *ngIf="error">
+                {{ error }}
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 action-container mt-3">
+                <bh-button type="secondary" label="{{ 'buyCart.cancel' | cxTranslate }}" class="mr-2"
+                  (click)="closeModal('close')">
+                </bh-button>
+                <bh-button cxAutoFocus [type]="'primary'" [attr.disabled]="currentCartName == '' ? true : false"
+                  label="{{ 'buyCart.saveCartProceed' | cxTranslate }}" (click)="saveCart()">
+                </bh-button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-contanier *ngIf="!isLoggedIn">
+      <div class="cx-dialog-header modal-header">
+        <ng-container *ngIf="switchSame; else switchDifferent">
+          <div class="cx-dialog-title modal-title">
+            <span>Switch to another quote cart</span>
+          </div>
+        </ng-container>
+        <ng-template #switchDifferent>
+          <div *ngIf="switchToCartType == commerceCartType.GUESTBUY" class="cx-dialog-title modal-title">
+            <span>{{ 'buyCart.switchToBuyCart' | cxTranslate }}</span>
+          </div>
+          <div *ngIf="switchToCartType == commerceCartType.GUESTQUOTE" class="cx-dialog-title modal-title">
+            <span>{{ 'buyCart.switchToQuoteCart' | cxTranslate }}</span>
+          </div>
+        </ng-template>
+
+        <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <div class="cx-dialog-body modal-body">
+        <div class="row">
+          <div class="cx-dialog-info col-md-12">
+            <ng-container *ngIf="switchSame; else switchDifferentMsg">
+              <div class="cx-dialog-title modal-title">
+                <p class="mb-4">
+                  <span>You currently have an active quote cart with another DS
+                    business. If you want to add this product to a quote cart,
+                    your active quote cart will be discarded.
+                  </span>
+                  <br /><br />
+                  <span>Click on 'Discard' to discard your existing quote cart and
+                    add product to new quote cart or click on 'Cancel' to go
+                    back</span>
+                </p>
+              </div>
+            </ng-container>
+            <ng-template #switchDifferentMsg>
+              <ng-container *ngIf="currentCartType == commerceCartType.GUESTBUY">
+                <p class="mb-4">
+                  <span>{{ 'buyCart.addQouteCartDetails' | cxTranslate }}
+                  </span>
+                  <br /><br />
+                  <span>{{ 'buyCart.buycartDiscardDetails' | cxTranslate }}</span>
+                </p>
+              </ng-container>
+
+              <ng-container *ngIf="currentCartType == commerceCartType.GUESTQUOTE">
+                <p class="mb-4">
+                  <span>{{ 'buyCart.quoteTobuyDetails' | cxTranslate }}</span>
+                  <br /><br />
+                  <span>{{ 'buyCart.quotecartDiscardDetails' | cxTranslate }}</span>
+                </p>
+              </ng-container>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 action-container mt-3">
+            <bh-button type="secondary" label="{{ 'buyCart.cancel' | cxTranslate }}" class="mr-2"
+              (click)="closeModal('close')">
+            </bh-button>
+            <bh-button cxAutoFocus [type]="'primary'" label="{{ 'buyCart.discard' | cxTranslate }}"
+              (click)="discardCart()">
+            </bh-button>
+          </div>
+        </div>
+      </div>
+    </ng-contanier>
+
+    <ng-template #savingCart>
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          {{ 'buyCart.savingCartloading' | cxTranslate }}
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+          <span aria-hidden="true">
+            <cx-icon [type]="iconTypes.CLOSE"></cx-icon>
+          </span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="cx-dialog-body modal-body">
+        <div class="cx-dialog-row">
+          <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #loadingCart>
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          {{ 'buyCart.loadingActiveCart' | cxTranslate }}
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+          <span aria-hidden="true">
+            <cx-icon [type]="iconTypes.CLOSE"></cx-icon>
+          </span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="cx-dialog-body modal-body">
+        <div class="cx-dialog-row">
+          <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

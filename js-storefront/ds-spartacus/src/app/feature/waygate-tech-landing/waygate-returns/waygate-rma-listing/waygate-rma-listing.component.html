@@ -1,0 +1,364 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="my-returns-header">
+    <div class="header-green-border"></div>
+    <div class="my-returns-row">
+      <h1 class="my-returns-title">
+        {{ 'waygate-returns.myReturns' | cxTranslate }}
+      </h1>
+    </div>
+  </div>
+  <div class="waygate-my-returns-header-actions">
+    <div class="dropdown-action">
+      <div class="months">
+        <div>
+          {{
+            'waygate-returns.returnsInLast'
+              | cxTranslate : { count: totalCount }
+          }}
+        </div>
+
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedMonth"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="monthOptions"
+          (change)="onMonthChange()"
+        >
+        </ng-select>
+      </div>
+      <div class="allStatus">
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedTile"
+          [searchable]="false"
+          placeholder="{{ selectedTile.label }}"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="rmaTiles"
+          (change)="onTileClick($event)"
+        >
+        </ng-select>
+      </div>
+      <!-- commented code to hide dropdown as mentioned in ticket - RITM00650637
+      <div>
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedProduct"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="selectedProdLine"
+          (change)="onProductLineChange($event)"
+        >
+        </ng-select>
+      </div> -->
+    </div>
+
+    <div class="my-returns-search-actions">
+      <div class="my-returns-search">
+        <input
+          type="text"
+          placeholder="{{ 'waygate-returns.search' | cxTranslate }}"
+          [formControl]="searchControl"
+        />
+        <span class="material-icons" (click)="modelChange()"> search </span>
+      </div>
+      <div (click)="refreshList(true)" class="my-returns-actions">
+        <span class="material-icons"> refresh </span>
+      </div>
+      <div
+        class="my-returns-actions"
+        (click)="downloadXLS()"
+        title="{{ 'waygate-returns.exportToXLS' | cxTranslate }}"
+      >
+        <span class="material-icons"> vertical_align_bottom </span>
+      </div>
+      <div class="createRMA-button" (click)="createRMA()">
+        <span class="material-icons"> addition </span>
+        <span class="create-label">{{
+          'waygate-returns.createRMA' | cxTranslate
+        }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="example-contaner mat-elevation-z8 tb-parent">
+    <ng-container *ngIf="!noData && !isLoadMoreInProgress">
+      <mat-table
+        class="clearfix"
+        #table
+        [dataSource]="this.tableData"
+        [ngClass]="{ mt: !dateRange }"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="Order">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.rmaNumber' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+            <span
+              *ngIf="element.rmaStatus !== 'RMA SUBMITTED'"
+              class="code-hyperlink"
+              (click)="selectedOrder(element)"
+              >{{ element.rmaNumber }}</span
+            >
+            <span
+              class="code-hyperlink"
+              (click)="selectedOrder(element)"
+              *ngIf="element.rmaStatus == 'RMA SUBMITTED'"
+            >
+              {{ 'waygate-returns.pending' | cxTranslate }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="OrderNO">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.rmaOrderNO' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+            {{ element.zrasOrderNumber }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- PO Number Column -->
+        <!-- <ng-container matColumnDef="PO Number">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+              {{ 'waygate-returns.poNumberHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.purchaseOrderNumber }}
+          </mat-cell>
+        </ng-container> -->
+
+        <!-- <ng-container matColumnDef="PO Date">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            <div class="header-title">
+              {{ 'waygate-returns.poDateHeader' | cxTranslate }}
+              <div class="action-icons">
+                <span class="material-icons" (click)="sort('sortByrmaPoDSC')">
+                  expand_less
+                </span>
+
+                <span class="material-icons" (click)="sort('sortByrmaPOASC')">
+                  expand_more
+                </span>
+              </div>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <span *ngIf="element.purchaseOrderDate == '0000-00-00'"> </span>
+            <span *ngIf="element.purchaseOrderDate != '0000-00-00'">
+              {{ element.purchaseOrderDate | date: 'dd MMM yyyy' }}
+            </span>
+          </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="POInfo">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.poNumberHeader' | cxTranslate }} /
+            {{ 'waygate-returns.poDateHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <ng-container
+              *ngIf="element.purchaseOrderDate !== '0000-00-00'; else noDate"
+            >
+              {{ element.purchaseOrderNumber }} <br />
+              {{ element.purchaseOrderDate | date : 'dd MMM yyyy' }}
+            </ng-container>
+            <ng-template #noDate>
+              {{ element.purchaseOrderNumber }}
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Return to loacation">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.returnToLocation' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.returnSite }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Order Created">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            <div class="header-title">
+              {{ 'waygate-returns.orderCreated' | cxTranslate }}
+              <div class="action-icons">
+                <span
+                  class="material-icons"
+                  (click)="sort('sortByrmaCreatedASC')"
+                >
+                  expand_less
+                </span>
+                <span
+                  class="material-icons"
+                  (click)="sort('sortByrmaCreatedDSC')"
+                >
+                  expand_more
+                </span>
+              </div>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.rmaCreatedDate | date : 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Last Updated">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            <div class="header-title">
+              {{ 'waygate-returns.lastUpdated' | cxTranslate }}
+              <div class="action-icons">
+                <span
+                  class="material-icons"
+                  (click)="sort('sortBylastUpdatedASC')"
+                >
+                  expand_less
+                </span>
+
+                <span
+                  class="material-icons"
+                  (click)="sort('sortBylastUpdatedDSC')"
+                >
+                  expand_more
+                </span>
+              </div>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.lastUpdatedDate | date : 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Order Status">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.rmaStatus' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            class="tb-content tb-content {{ displaycolor(element.rmaStatus) }}"
+          >
+            <div [class]="displayStatus(element.rmaStatus)">
+              {{ toCamelCase(element.rmaStatus) }}
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reOrderBtn">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'waygate-returns.actions' | cxTranslate }}</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <div
+              class="reOrderBtn"
+              (click)="selectRepeatRma(element)"
+              *ngIf="
+                element.rmaStatus == 'COMPLETE' && isSalesAreaMatching(element)
+              "
+            >
+              <span class="material-icons"> refresh </span>
+              <div class="repeatTxt">
+                {{ 'waygate-returns.reOrderRMA' | cxTranslate }}
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <div class="quick-order-pagination" *ngIf="totalCount > 10">
+        <div class="page-size-container">
+          <div>{{ 'waygate-returns.itemsPerPage' | cxTranslate }}</div>
+          <div>
+            <select name="" id="" (change)="pageSizeChanged($event)">
+              <ng-container *ngFor="let value of pageSizes">
+                <option [value]="value" [selected]="value == currentPageSize">
+                  {{ value }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div>{{ startRange }}-{{ endRange }} of {{ totalCount }}</div>
+        </div>
+        <div class="page-number-selector-container" *ngIf="totalPages > 1">
+          <span
+            class="material-icons"
+            (click)="pageSelected(1)"
+            [class.disabled]="currentPage == 1"
+          >
+            keyboard_double_arrow_left
+          </span>
+          <span
+            class="material-icons"
+            (click)="pageSelected(currentPage - 1)"
+            [class.disabled]="currentPage == 1"
+          >
+            chevron_left
+          </span>
+          <div *ngIf="currentPage > 2" class="disabled">...</div>
+          <ng-container *ngFor="let value of getPageArray(); let i = index">
+            <ng-container
+              *ngIf="
+                currentPage == value ||
+                currentPage - 1 == value ||
+                currentPage + 1 == value
+              "
+            >
+              <div
+                class="pagination-numbers"
+                [class.active]="value == currentPage"
+                (click)="pageSelected(value)"
+              >
+                {{ value }}
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <div *ngIf="currentPage < totalPages - 1" class="disabled">...</div>
+          <span
+            class="material-icons"
+            (click)="pageSelected(currentPage + 1)"
+            [class.disabled]="currentPage == totalPages"
+          >
+            chevron_right
+          </span>
+          <span
+            class="material-icons"
+            (click)="pageSelected(totalPages)"
+            [class.disabled]="currentPage == totalPages"
+          >
+            keyboard_double_arrow_right
+          </span>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="isLoadMoreInProgress">
+      <cx-spinner></cx-spinner>
+    </div>
+    <div
+      class="currently-loading-spinner"
+      *ngIf="currentlyLoading && !isLoadMoreInProgress"
+    >
+      <cx-spinner></cx-spinner>
+    </div>
+  </div>
+  <div *ngIf="noData" class="noData">
+    <img
+      class="img"
+      src="../../../../assets/img/Illustration.png"
+      alt="{{ 'waygate-returns.noOrdersFound' | cxTranslate }}"
+    />
+    <h4 class="heading">{{ 'waygate-returns.noOrdersFound' | cxTranslate }}</h4>
+  </div>
+</div>

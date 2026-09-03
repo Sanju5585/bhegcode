@@ -1,0 +1,135 @@
+@import '../../../../../styles/responsive_mixins.scss';
+
+.waygate-cart-list-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1.5rem 0rem;
+
+  .waygate-cart-item-list {
+    display: flex;
+    flex-direction: column;
+    width: 810px;
+
+    .horizontal-line {
+      border: 1px solid #f0f0f0;
+      margin: 0px;
+    }
+
+    .waygate-cart-selectall-checkbox {
+      width: 810px;
+
+      .waygate-cart-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .selectall-checkbox {
+          display: flex;
+          flex: 2;
+
+          input[type='checkbox'] {
+            height: 18px;
+            width: 18px;
+          }
+
+          input[type='checkbox']:checked {
+            accent-color: #02a783;
+          }
+
+          .total-line-items {
+            font-size: 14px;
+            font-weight: 400;
+            color: #121212;
+            margin-left: 3.5rem;
+          }
+        }
+
+        .new-item,
+        .product-remove {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+          text-align: left;
+          color: #595959;
+
+          .action-links {
+            font-size: var(--font-base-font-size-12);
+            cursor: pointer;
+            text-decoration: none;
+            color: #02A783;
+            font-family: Poppins;
+            font-weight: 600;
+            font-style: SemiBold;
+            line-height: 18px;
+            letter-spacing: 0px;
+            text-align: right;
+            vertical-align: middle;
+
+          }
+
+          .material-icons-outlined {
+            position: relative;
+            font-size: 18px;
+            color: #02A783;
+            display: inline-flex;
+            vertical-align: top;
+          }
+
+          @include media-lg-max {
+            display: flex;
+          }
+        }
+
+        .new-item {
+          margin-left: 5%;
+        }
+      }
+
+      @include media-lg-max {
+        width: 720px;
+      }
+
+      @include media-lg-xl {
+        width: 680px;
+      }
+    }
+
+    .waygate-cart-body {
+      .filmProduct-container {
+        margin: 2rem 0rem;
+
+        .film-prod {
+          color: #121212;
+          font-family: Poppins;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 22px;
+          letter-spacing: -0.25px;
+          text-align: left;
+        }
+      }
+
+    }
+
+    @include media-sm-max {
+      width: 360px;
+    }
+
+    @include media-sm-md {
+      width: 700px !important;
+    }
+
+    @include media-md-lg {
+      width: 380px;
+    }
+  }
+
+  @include media-md-max {
+    flex-direction: column;
+  }
+
+  .product-remove {
+    display: flex;
+  }
+}

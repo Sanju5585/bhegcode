@@ -1,0 +1,67 @@
+<div class="waygate-notification-main mt-4" *ngIf="isOrderForChina">
+  <div class="waygate-notification-main-heading">
+    {{ 'waygate.uploadEUCForm' | cxTranslate
+    }}<span style="color: #cf2333" *ngIf="!eucUploadError"><sup>*</sup></span>
+  </div>
+  <div class="notification-remarks mt-3">
+    <div class="uploadattachment">
+      <div class="mt-3">
+        <div class="additional-attachment-label">
+          {{ 'labels.uploadEUCLabel' | cxTranslate }}
+          <span *ngIf="isChina"
+            ><a
+              href="../../../../../../assets/pdf/BH-LGL-137 (EN).docx"
+              target="_blank"
+              >{{ 'labels.downloadEUC' | cxTranslate }}</a
+            ></span
+          >
+          <span *ngIf="isApac"
+            ><a
+              href="../../../../../../assets/pdf/BH-LGL-086 (EN).pdf"
+              target="_blank"
+              >{{ 'labels.downloadEUC' | cxTranslate }}</a
+            ></span
+          >
+        </div>
+        <div class="mt-2">
+          <ds-file-upload
+            [multiple]="false"
+            label="{{ 'labels.uploadEUC' | cxTranslate }}"
+            [maxLength]="5"
+            [maxSizeInMB]="10"
+            [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+            (selectedFiles)="selectedFiles($event)"
+            [showIcon]="showIcon"
+            [icon]="'backup'"
+            [uploadId]="'uploadEUC'"
+            >upload</ds-file-upload
+          >
+        </div>
+
+        <div class="file-list">
+          <ds-file-upload-progress
+            #one
+            *ngFor="let file of files"
+            [layout]="layouts.LIST"
+            [deleteUrl]="deletUrl"
+            [file]="file"
+            (deletedFiles)="deletedFiles($event)"
+            [uploadParams]="uploadParams"
+            [uploadUrl]="uploadUrl"
+            [showProgress]="true"
+          ></ds-file-upload-progress>
+        </div>
+        <span class="fileformat mt-1"
+          >{{ 'labels.fileFormat' | cxTranslate }}
+        </span>
+      </div>
+      <div
+        *ngIf="!eucUploadError"
+        class="bh-form-message typography--body-small bh-form-message--error"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ 'labels.eucErrorReq' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+</div>

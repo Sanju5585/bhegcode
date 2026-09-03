@@ -1,0 +1,185 @@
+<div class="link-container container">
+  <mat-table
+    class="clearfix"
+    #table
+    [dataSource]="linkList"
+    matSort
+    class="mat-elevation-z8"
+  >
+    <!-- Name Column -->
+
+    <ng-container matColumnDef="siteName">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'link.tblSiteName' | cxTranslate }}
+        <div
+          class="arrow"
+          (click)="linkSortData('siteName', 'asc')"
+          *ngIf="acendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+        <div
+          class="arrow"
+          (click)="linkSortData('siteName', 'dsc')"
+          *ngIf="decendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        <a [attr.href]="element.url" target="_blank" rel="noopener noreferrer"> {{ element.siteName }}</a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="productLine">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'link.productLine' | cxTranslate }}
+        <div
+          class="arrow"
+          (click)="linkSortData('productLine', 'asc')"
+          *ngIf="acendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+        <div
+          class="arrow"
+          (click)="linkSortData('productLine', 'dsc')"
+          *ngIf="decendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.productLine }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell
+        mat-sort-header="description"
+        *matHeaderCellDef
+        class="tb-heading"
+        >{{ 'link.tblDescription' | cxTranslate }}
+        <div
+          class="arrow"
+          (click)="linkSortData('description', 'asc')"
+          *ngIf="acendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+        <div
+          class="arrow"
+          (click)="linkSortData('description', 'dsc')"
+          *ngIf="decendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.description }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'link.type' | cxTranslate }}
+        <div
+          class="arrow"
+          (click)="linkSortData('type', 'asc')"
+          *ngIf="acendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+        <div
+          class="arrow"
+          (click)="linkSortData('type', 'dsc')"
+          *ngIf="decendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.type }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="loginRequired">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'link.loginRequired' | cxTranslate }}
+        <div
+          class="arrow dd"
+          (click)="linkSortData('loginRequired', 'asc')"
+          *ngIf="acendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+        <div
+          class="arrow cc"
+          (click)="linkSortData('loginRequired', 'dsc')"
+          *ngIf="decendingOrder"
+        >
+          <div>
+            <em class="arrow-down">keyboard_arrow_up</em>
+          </div>
+          <div>
+            <em class="arrow-up">keyboard_arrow_down</em>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.loginRequired }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <div class="link-spinner cx-spinner" *ngIf="loadSpinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</div>

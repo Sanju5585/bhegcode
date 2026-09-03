@@ -1,0 +1,20 @@
+.modal-header {
+  float: right;
+}
+
+.cx-dialog-body {
+  font-family: var(--font-family-body-medium) !important;
+  font-size: var(--font-size-body-medium) !important;
+  letter-spacing: 0.1px !important;
+  color: var(--color-text-common-primary) !important;
+  line-height: 21px !important;
+}
+.image-width {
+  padding: 20px;
+}
+.guest-track {
+  .cx-modal-header {
+    display: flex;
+    justify-content: space-between;
+  }
+}

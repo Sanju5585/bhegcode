@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "remove": "Удалить",
+    "edit": "Изменить",
+    "back": "Вернуться",
+    "submit": "Отправить",
+    "continue": "Продолжить",
+    "save": "Сохранить",
+    "done": "Сделано",
+    "home": "Начальная страница",
+    "noData": "Нет данных.",
+    "confirm": "Подтвердить"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} результат для {{query}}",
+      "title_plural": "{{count}} результаты для {{query}}"
+    },
+    "checkout": {
+      "title": "Проверка {{count}} товара",
+      "title_plural": "Проверка {{count}} товаров"
+    },
+    "search": {
+      "title": "{{count}} результат для \"{{query}}\"",
+      "title_plural": "{{count}} результаты для \"{{query}}\"",
+      "findProductTitle": "{{count}} результат для купона \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} результаты для купона\"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "Загрузка..."
+  },
+  "navigation": {
+    "shopAll": "Купить все {{ navNode}}>"
+  },
+  "searchBox": {
+    "placeholder": "Искать здесь...",
+    "help": {
+      "insufficientChars": "Пожалуйста укажите 3 или более символов для поиска",
+      "noMatch": "Мы не смогли ничего найти",
+      "exactMatch": "{{ term }}",
+      "empty": "Спросите нас что-нибудь"
+    }
+  },
+  "sorting": {
+    "date": "Дата",
+    "orderNumber": "НОМЕР ЗАКАЗА",
+    "rma": "Номер возврата",
+    "replenishmentNumber": "Номер пополнения",
+    "nextOrderDate": "Дата следующего заказа"
+  },
+  "httpHandlers": {
+    "badGateway": "Возникла ошибка сервера. Пожалуйста попытайтесь позже. ",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Пожалуйста войдите заново. ",
+    "badRequestOldPasswordIncorrect": "Старый пароль неверный. ",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} электронный адрес уже существует.  Пожалуйста сделайте Чекаут с другим электронным адресом чтобы зарегистрировать учетную запись гостя. ",
+    "conflict": "Уже существует. ",
+    "forbidden": "Вы не авторизованы для выполнения этого действия.  Пожалуйста свяжитесь со своим администратором если вы считате что возникла ошибка. ",
+    "gatewayTimeout": "Сервер не отвечает, пожалуйста попытайтесь позже. ",
+    "internalServerError": "Возникла внутренняя ошибка сервера.  Пожалуйста попытайтесь позже. ",
+    "sessionExpired": "Время сеанса истекло.  Пожалуйста войдите снова. ",
+    "unknownError": "Возникла неизвестная ошибка",
+    "unauthorized": {
+      "common": "Возникла неизвестная ошибка авторизации. ",
+      "invalid_client": "Неверные учетные данные клиента"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "Выбранная кредитная карта не поддерживается.  Пожалуйста выберите другую. ",
+        "card_accountNumber": "Номер кредитной карты неверен. ",
+        "card_cvNumber": "Введенный секретный код недействителен. ",
+        "card_expirationMonth": "Указанная дата истечения кредитной карты неверна. ",
+        "card_expirationYear": "Указанная дата истечения кредитной карты неверна. ",
+        "billTo_firstName": "Указанное имя неверно.",
+        "billTo_lastName": "Указанная фамилия неверна. ",
+        "billTo_street1": "Указанный адрес неверен. ",
+        "billTo_street2": "Указанный адрес неверен. ",
+        "billTo_city": "Указанный город для этой кредитной карты неверен. ",
+        "billTo_state": "Регион указанный для этой кредитной карты неверен. ",
+        "billTo_country": "Страна указанная для этой кредитной карты неверна. ",
+        "billTo_postalCode": "Почтовый индекс указанный для этой кредитной карты неверен. ",
+        "country": {
+          "isocode": "Страна отсутствует"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "Указанная дата истечения кредитной карты неверна. ",
+        "firstName": "Указанное имя неверно.",
+        "lastName": "Указанная фамилия неверна. ",
+        "password": "Введенный пароль неверный. ",
+        "uid": "UID недействителен.",
+        "code": "Код недействителен.",
+        "email": "Электронный адрес неверный. "
+      }
+    },
+    "cartNotFound": "Cart not found.",
+    "invalidCodeProvided": "Указан неверный код. "
+  },
+  "miniCart": {
+    "item": "{{count}} товар находится в вашей корзине",
+    "item_plural": "{{count}} товар находится в вашей корзине",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Привет, {{name}}",
+    "signInRegister": "Войти/Зарегистрироваться"
+  },
+  "skipLink": {
+    "skipTo": "Пропустить",
+    "labels": {
+      "header": "Заголовок",
+      "main": "Главный контент",
+      "footer": "Нижний колонтитул",
+      "productFacets": "Аспекты продукта",
+      "productList": "Список товаров"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "Форма, которую вы пытаетесь отправить, содержит ошибки.",
+    "required": "этой области является необходимой,",
+    "cxInvalidEmail": "Это недопустимый формат электронной почты",
+    "cxInvalidPassword": "Это недопустимый формат пароля",
+    "cxPasswordsMustMatch": "Поля пароля должны совпадать",
+    "cxEmailsMustMatch": "Поля электронной почты должны совпадать",
+    "cxStarRatingEmpty": "Поле рейтинга обязательно для заполнения",
+    "cxNoSelectedItemToCancel": "Выберите хотя бы один элемент",
+    "cxNegativeAmount": "Сумма должна быть больше нуля или равна нулю.",
+    "cxContainsSpecialCharacters": "Поле не может содержать специальные символы",
+    "date": {
+      "required": "этой области является необходимой,",
+      "min": "Дата не может быть раньше {{min}}",
+      "max": "Дата не может быть позже {{max}}",
+      "pattern": "Использовать формат даты гггг-мм-дд",
+      "invalid": "Используйте действительную дату"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "Не удалось загрузить скрипт.",
+    "refreshThePage": "Обновите страницу."
+  }
+}

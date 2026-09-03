@@ -1,0 +1,221 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-my-orders-header">
+    <div class="header-green-border"></div>
+    <h1>{{ 'waygate.cart.mySavedCartTitle' | cxTranslate }}</h1>
+  </div>
+  <div class="table-responsive custom-table-des">
+    <div class="multi-cart-text">
+      <div class="cart-container">
+        <span (click)="navigate()" class="material-icons custom-cart">
+          keyboard_arrow_left
+        </span>
+        <span class="custom-cart-text">{{ data?.name }}</span>
+        <span class="custom-cart-id">{{ data?.code }}</span>
+        <span class="custom-cart-saved"
+          >{{ 'waygate.cart.lastSavedOn' | cxTranslate }}
+          {{ data?.saveTime | date: 'd MMM y' }}</span
+        >
+      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="cart-text">
+              {{ 'waygate.cart.type' | cxTranslate }}<br />
+              <a class="cart-details-text">{{ data?.commerceType }}</a>
+            </td>
+            <td class="cart-text">
+              {{ 'waygate.cart.totalLineItems' | cxTranslate }}<br />
+              <a class="cart-details-text">{{ data?.totalUnitCount }}</a>
+            </td>
+            <td class="cart-text">
+              {{ 'waygate.cart.estimatedTotal' | cxTranslate }}<br />
+              <a class="cart-details-text">{{
+                data?.totalPrice?.formattedValue
+              }}</a>
+            </td>
+            <td class="cart-text">
+              {{ 'waygate.cart.expiryDate' | cxTranslate }}<br />
+              <a class="cart-details-text">{{
+                data?.expirationTime | date: 'd MMM y'
+              }}</a>
+            </td>
+            <td class="cart-text">
+              {{ 'waygate.cart.lastRestoredBy' | cxTranslate }}<br />
+              <a class="cart-details-text">{{ data?.savedBy?.name }}</a>
+            </td>
+            <td class="custom-btns">
+              <bh-button
+                class="create-button2"
+                type="primary"
+                small
+                label="{{ 'waygate.cart.restore' | cxTranslate }}"
+                (click)="openPopup('detail')"
+              ></bh-button>
+              <bh-button
+                class="create-button3"
+                type="secondary"
+                small
+                label="{{ 'waygate.cart.deleteCart' | cxTranslate }}"
+                (click)="openDeletePopup(data?.code, data?.name)"
+              ></bh-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container custom-table-cart">
+  <table class="custom-table">
+    <tbody class="custom-body">
+      <tr
+        *ngFor="let entry of data?.entries; let i = index"
+        class="custom-border"
+      >
+        <td>
+          <div class="cx-image-container">
+            <a
+              (click)="gtmSelectItemEvent(entry)"
+              [routerLink]="[
+                '/',
+                productLine,
+                'product',
+                entry.product.code,
+                entry.product.name,
+              ]"
+            >
+              <cx-media [container]="entry?.product.images"></cx-media>
+            </a>
+          </div>
+        </td>
+        <td class="cart-text">
+          <a class="custom-text">{{ entry?.product?.name }}</a
+          ><br />
+          <a class="cart-details-text-id">{{ entry?.product.code }}</a>
+          <a class="custom-bar">|</a>
+          <a class="custom-lead-time">{{
+            'buyCart.leadTime6Weeks' | cxTranslate
+          }}</a>
+        </td>
+        <td class="cart-text">
+          {{ 'buyCart.quantity' | cxTranslate }}<br />
+          <a class="cart-details-text">{{ entry?.quantity }}</a>
+        </td>
+        <td class="cart-text custom-popup">
+          {{ 'buyCart.unitNetPrice' | cxTranslate }}<br />
+          <a class="cart-details-text">{{
+            entry?.totalPrice?.formattedValue
+          }}</a>
+          <a #breakup class="view-breakup-link" (click)="togglePriceBreakup(i)"
+            ><span>{{ 'buyCart.viewBreakup' | cxTranslate }}</span
+            ><span *ngIf="breakUpMenu != i" class="material-icons arrow">
+              expand_more </span
+            ><span *ngIf="breakUpMenu == i" class="material-icons arrow">
+              expand_less
+            </span>
+          </a>
+          <div
+            class="breakup-dropdown p-0"
+            [clickSourceId]="breakup"
+            (clickOutside)="togglePriceBreakup(-1)"
+            *ngIf="breakUpMenu == i"
+            #breakupContent
+          >
+            <div class="breakdown-price">
+              <div class="cart-entry-text-bold breakdown-heading p-2">
+                {{ 'buyCart.breakdownPrice' | cxTranslate }}
+              </div>
+              <hr class="horizontal-line" />
+              <div class="p-2">
+                <ng-container>
+                  <div *ngIf="entry.listPrice" class="extended-price row">
+                    <label>{{ 'buyCart.listPrice' | cxTranslate }}</label>
+                    <div class="cart-entry-text-bold">
+                      <span> {{ entry.listPrice?.formattedValue }}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="extended-price row"
+                    *ngIf="
+                      entry?.silverClausePrice?.value &&
+                      entry?.silverClausePrice?.value != 0
+                    "
+                  >
+                    <label>
+                      {{
+                        'buyCart.silverClausePrice'
+                          | cxTranslate
+                            : {
+                                percent:
+                                  entry?.silverClausePricePercentage
+                                  | number: '1.2-2',
+                              }
+                      }}
+                    </label>
+                    <div class="cart-entry-text-bold">
+                      <span
+                        class="silverLink"
+                        [ngClass]="
+                          entry?.silverClausePrice?.value > 0
+                            ? 'negative'
+                            : 'positive'
+                        "
+                      >
+                        <span *ngIf="entry?.silverClausePrice.value > 0">{{
+                          entry?.silverClausePrice?.formattedValue
+                        }}</span>
+                        <span *ngIf="entry?.silverClausePrice.value < 0">
+                          <!-- {{ data?.currencyIso }}  -->
+                          {{
+                            getPositiveSilverClause(
+                              entry?.silverClausePrice?.value
+                            ) | customNumber: data?.currencyIso
+                          }}</span
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div *ngIf="entry.totalPrice" class="extended-price row">
+                    <label>
+                      <span>{{ 'buyCart.discount' | cxTranslate }}</span></label
+                    >
+                    <label>
+                      <span *ngIf="entry.discountPercentage" class="ml-1"
+                        >{{ entry.discountPercentage | number: '1.2-2' }}%</span
+                      ></label
+                    >
+                    <div class="cart-entry-text-bold">
+                      <span>
+                        - {{ entry.yourPriceDiscount?.formattedValue }}</span
+                      >
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <hr class="horizontal-line" />
+              <div class="p-2">
+                <div *ngIf="entry.netSellingPrice" class="price-row">
+                  <label class="cart-entry-text">{{
+                    'buyCart.netSelling' | cxTranslate
+                  }}</label>
+                  <span class="cart-entry-text-bold">
+                    {{ entry.netSellingPrice?.formattedValue }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+
+        <td class="cart-text">
+          {{ 'buyCart.extendedPrice' | cxTranslate }}<br />
+          <a class="cart-details-text">{{
+            entry?.totalPrice?.formattedValue
+          }}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

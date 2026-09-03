@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "Mes préférés",
+    "items": " articles",
+    "delSelected": "SUPPRIMER SELECTIONNE",
+    "addedOn": "Ajouté sur",
+    "buy": "ACHETER",
+    "return": "RETOURNER",
+    "addtoEquip": "Ajouter à Mon équipement",
+    "switchSalesArea": "ECHANGER SECTEUR DE VENTE",
+    "salesAreaText": "Vous pouvez renvoyer ce produit à un autre secteur de vente.",
+    "contactCustomerCare": "CONTACTER LE SERVICE CLIENTELE",
+    "norecords": "Aucune entrée trouvée",
+    "listPrice": "Prix catalogue",
+    "unavailable": "Indisponible",
+    "priceNotrFound": "Prix introuvable",
+    "viewBreakup": "Voir la rupture",
+    "breakdownPrice": "Price Breakdown",
+    "discount": "Remise",
+    "netPrice": "Net Price",
+    "searchBYProductName": "Search by product name",
+    "removeSelected": "Remove selected",
+    "addToCart": "ajouter au panier",
+    "searchList": "Search this list",
+    "error": {
+      "removeMsg": "Les articles sélectionnés ont été supprimés avec succès",
+      "loadingMsg": "Un problème est survenu lors du chargement de la liste de vos commandes"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "duplicateEca": {
+    "productAlreadyExistsTitle": "カートにはすでに製品があります",
+    "productAlreadyExistsLine1": "カート内にすでに存在するエンドユーザー向けの製品を追加しようとしています",
+    "productAlreadyExistsLine2": "エンドユーザーの住所を変更するか、「数量を増やす」をクリックして、カート内の数量を追加してください",
+    "changeEndCustomerAddress": "エンドユーザーの住所を変更",
+    "increaseQuantity": "数量を増やす"
+  },
+  "waygateQuickOrderAddress": {
+    "addEndCustomerAddressesTitle": "エンドユーザーの住所を追加",
+    "productLabel": "製品",
+    "partNumbersLabel": "パートナンバー",
+    "quantityLabel": "台数",
+    "endCustomerAddressLabel": "エンドユーザー住所",
+    "changeAction": "変更",
+    "addAction": "追加",
+    "cancelAction": "キャンセル",
+    "submitAction": "送信"
+  },
+  "cartConflictDialog": {
+    "title": "新しいカートを開始しますか？",
+    "description": "現在のカートはすでに違うタイプの製品を含んでいます",
+    "info": "続けるには、現在のカートを保存して新規のカートを開始します",
+    "cancel": "キャンセル",
+    "saveAndContinue": "現在のカートを保存して続ける"
+  },
+  "ecaMissingDialog": {
+    "message": "続けるにはエンドユーザーの住所を追加してください",
+    "description": "以下の製品についてエンドユーザーの住所を追加する必要があります",
+    "ok": "OK"
+  }
+}

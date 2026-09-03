@@ -1,0 +1,28 @@
+{
+  "mini-cart": {
+    "showing": "제품 {{ total }}의 {{ shown }} 소개",
+    "of": " 의 ",
+    "products": "제품들",
+    "total": "합계",
+    "quantity": "수량",
+    "viewCart": "장바구니 보기",
+    "cartEmpty": "장바구니가 비었습니다.",
+    "browseOurProducts": "위의 카테고리를 선택하여 당사의 제품을 둘러보시기 바랍니다.",
+    "cartTrouble": "장바구니에 문제가 있으십니까?",
+    "deleteAllCarts": "모든 장바구니 재설정",
+    "buyCart": "구매 장바구니",
+    "returnCart": "반품 장바구니",
+    "activeGuestCart": "활성 게스트 장바구니",
+    "activeRFQCart": "게스트 RFQ 장바구니",
+    "quoteCart": "견적 장바구니",
+    "deleteAllCartsPopupTitle": "이 작업은 모든 고객 장바구니를 영구적으로 재설정합니다.",
+    "deleteAllCartsPopupPoint1": "현재 활성화된 장바구니가 사라집니다.",
+    "deleteAllCartsPopupPoint2": "이 작업은 되돌릴 수 없습니다.",
+    "deleteAllCartsPopupConfirmMessage": "계속 진행하시겠습니까?",
+    "deleteAllCartsPopupCancel": "취소",
+    "deleteAllCartsPopupConfirm": "예, 계속합니다.",
+    "deleteAllCartsPopupCartNotFoundTitle": "장바구니를 불러오는 중 문제가 발생한 것 같습니다.",
+    "deleteAllCartsPopupResetMessage": "계속하려면 장바구니를 초기화해 주시기 바랍니다.",
+    "deleteAllCartsPopupActiveLost": "현재 활성화된 장바구니가 사라집니다."
+  }
+}

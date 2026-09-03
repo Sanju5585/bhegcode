@@ -1,0 +1,57 @@
+<div class="current-account mt-3">
+  <ng-container *ngIf="!showChangeLegalEntity; else changeLegalEntity">
+    <ds-waygate-change-customer-account
+      (changeCustAccount)="changeCustAccount($event)"
+      (closeSlider)="close()"
+    ></ds-waygate-change-customer-account>
+  </ng-container>
+
+  <ng-template #changeLegalEntity class="current-legal-account">
+    <div class="acc-modal-header switch-region-sub-header">
+      <div class="header-back-link">
+        <span (click)="legalEntityToggle()" class="material-icons custom-cart">
+          keyboard_arrow_left
+        </span>
+        <span class="typography--subtitle-small">{{
+          selectedCustomerAccount.name
+        }}</span>
+      </div>
+
+      <span class="typography--decorative-small ml-custom-33">{{
+        selectedCustomerAccount.uid
+      }}</span>
+    </div>
+    <div class="accounts-wrapper">
+      <div
+        class="row-wrapper"
+        *ngFor="let salesArea of legalEntities; let i = index"
+        [ngClass]="salesArea.active ? 'activeAcc' : ''"
+      >
+        <div class="col-1" >          
+          <bh-radio-button
+            [attr.id]="salesArea?.salesAreaId"
+            [attr.checked]="tempLegalEntities[i]?.active ? true : false"
+            (change)="onLegalEntityRadioChange($event, salesArea)"
+            [attr.value]="salesArea?.salesAreaId"
+            [attr.name]="salesArea?.salesAreaId"
+          ></bh-radio-button>
+        </div>
+        <div class="col-8">
+          <span class="typography--subtitle-small">{{
+            getActiveSalesAreaName(salesArea)
+          }}</span
+          ><br />
+        </div>
+        <bh-divider></bh-divider>
+      </div>
+    </div>
+    <div class="margin-top">
+      <bh-button
+        class="update-button"
+        [type]="'primary'"
+        [label]="'customer-account.update' | cxTranslate "
+        (click)="onUpdateBtnClick()"
+      ></bh-button>
+    </div>
+  </ng-template>
+</div>

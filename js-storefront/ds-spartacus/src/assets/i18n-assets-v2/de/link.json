@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "Other Portals & Links",
+    "tblSiteName": "Site Name",
+    "productLine": "Spartenunternehmen",
+    "tblDescription": "Beschreibung",
+    "type": "Art",
+    "loginRequired": "Access",
+    "error": {
+      "errorMessage": "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal."
+    }
+  }
+}

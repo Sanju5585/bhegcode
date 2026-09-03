@@ -1,0 +1,20 @@
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;10;SUBREGION;ANZ;ANZSubregion;1;1
+;11;SUBREGION;Asia;AsiaSubregion;1;1
+;12;SUBREGION;ChinaSubregion;ChinaSubregion;2;1
+;13;SUBREGION;EuropeSubregion;EuropeSubregion;3;1
+;14;SUBREGION;IndiaSubregion;IndiaSubregion;4;1
+;15;SUBREGION;BrazilSubRegion;BraziSubregionl;5;1
+;16;SUBREGION;NorthLatAm;North LatAmSubregion;5;1
+;17;SUBREGION;SouthernCone;Southern ConeSubregion;5;1
+;18;SUBREGION;MENAT;MENATSubregion;6;1
+;19;SUBREGION;CanadaSubRegion;CanadaSubregion;7;1
+;20;SUBREGION;USSubRegion;USSubRegion;7;1
+;21;SUBREGION;RussiaCIS;Russia/CISSubregion;8;1
+;22;SUBREGION;SSA;SSASubregion;9;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;400;SUBREGION;Nordic;NordicSubregion;3;1
+;401;SUBREGION;Saudi;SaudiSubregion;6;1
+;402;SUBREGION;Gulf;GulfSubregion;6;1
+;403;SUBREGION;NorthAfrica;North AfricaSubregion;6;1

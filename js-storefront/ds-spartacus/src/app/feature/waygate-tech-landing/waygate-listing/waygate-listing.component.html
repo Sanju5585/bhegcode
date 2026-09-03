@@ -1,0 +1,198 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<ng-container *ngIf="searchResults; else loading">
+  <div class="container">
+    <div class="waygate-PLP-banner-container">
+      <div class="waygate-PLP-banner">
+        <h4 class="banner-title">
+          {{ searchResults?.currentQuery?.categoryName }}
+        </h4>
+        <p class="banner-description">
+          {{ searchResults?.currentQuery?.categoryDescription }}
+        </p>
+      </div>
+      <div 
+        class="waygate-PLP-contact-us"
+        [innerHTML]="'waygate.notAbleToFind' | cxTranslate : 
+        { contactus : contactUsUrl}"
+      >
+      </div>
+    </div>
+    <div class="waygate-product-listing-page">
+      <div class="waygate-facets">
+        <app-wayagte-product-type-facet></app-wayagte-product-type-facet>
+        <app-waygate-facets
+          [facets]="
+            searchResults?.facets
+              | facetFilter : currentPriority : selectedFilters?.length
+          "
+        ></app-waygate-facets>
+      </div>
+      <div class="waygate-results">
+        <div class="results-header-status">
+          <div class="results-header-filter">
+            <ng-container *ngIf="selectedFilters">
+              <ng-container
+                *ngIf="
+                  selectedFilters?.length > 0 && productTypeStatus?.length > 0
+                "
+              >
+                {{ 'waygate.listing.filter' | cxTranslate }}
+              </ng-container>
+              <ng-container *ngFor="let filter of productTypeStatus">
+                <ng-container *ngIf="filter?.selected">
+                  <a
+                    [routerLink]="productTypeStatus.length == 1 ? null : './'"
+                    [queryParams]="getProductTypeLinkParams(filter?.filterCode)"
+                    class="selected-filter"
+                  >
+                    {{ filter.name }}
+                    <span
+                      class="material-icons close-icon-size"
+                      *ngIf="productTypeStatus.length > 1"
+                    >
+                      close
+                    </span>
+                  </a>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngFor="let filter of selectedFilters">
+                <ng-container *ngIf="filter.selected">
+                  <a
+                    routerLink="./"
+                    [queryParams]="getLinkParams(filter)"
+                    class="selected-filter"
+                  >
+                    {{ filter.name }}
+                    <span class="material-icons close-icon-size"> close </span>
+                  </a>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="results-header-actions">
+            <div>
+              <strong>{{ searchResults?.pagination?.totalResults }} </strong>
+              <ng-container
+                *ngIf="searchResults?.pagination?.totalResults == 1; else items"
+              >
+                {{ 'waygate.listing.item' | cxTranslate }}
+              </ng-container>
+              <ng-template #items>
+                {{ 'waygate.listing.items' | cxTranslate }}
+              </ng-template>
+              <ng-container *ngIf="selectedFilters?.length">
+                {{ 'waygate.listing.found' | cxTranslate }}</ng-container
+              >
+            </div>
+            <div class="header-actions-container">
+              <div class="waygate-sortby-container">
+                {{ 'waygate.listing.sortBy' | cxTranslate }}
+                <select name="" id="" (change)="setSort($event.target.value)">
+                  <ng-container *ngFor="let sort of searchResults.sorts">
+                    <option hidden value="" disabled selected>
+                      {{ relevanceDefaultSort }}
+                    </option>
+                    <ng-container *ngIf="sort?.code != 'relevance'">
+                      <option [value]="sort.code" [selected]="sort.selected">
+                        {{ sort.name }}
+                      </option>
+                    </ng-container>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="filter-sort">
+                <bh-a
+                  class="filter_icn"
+                  noUnderline
+                  text="Filters & Sort by"
+                  (click)="openFilters()"
+                ></bh-a>
+                <span
+                  _ngcontent-ng-c1550551321=""
+                  class="material-icons-outlined"
+                  ng-reflect-ng-class=""
+                  >filter_alt
+                </span>
+              </div>
+              <div class="mode-container">
+                <div
+                  class="mode-selector"
+                  [class.active]="mode == 'LIST'"
+                  (click)="toggleMode('LIST')"
+                >
+                  <span class="material-icons"> list </span>
+                </div>
+                <div
+                  class="mode-selector"
+                  [class.active]="mode == 'GRID'"
+                  (click)="toggleMode('GRID')"
+                >
+                  <span class="material-icons"> grid_on </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-waygate-listing-filter-sort
+          class="filter-sort-cls"
+          *ngIf="showFiltersSlider"
+          [facetsList]="searchResults"
+          [selectedFilters]="selectedFilters"
+          [currentPriority]="currentPriority"
+          [toggleMarging]="fixed"
+          [filtersList]="searchResults.sorts"
+          (onSortSelect)="setSort($event)"
+        ></app-waygate-listing-filter-sort>
+        <div
+          class="results-main"
+          infinite-scroll
+          [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollThrottle]="throttle"
+          (scrolled)="onScrollDown(searchResults.pagination)"
+        >
+          <ng-container *ngIf="mode == 'GRID'; else listing">
+            <div class="grid">
+              <ng-container *ngFor="let product of products">
+                <app-waygate-grid-product
+                  [product]="product"
+                ></app-waygate-grid-product>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-template #listing>
+            <div class="list">
+              <ng-container *ngFor="let product of products">
+                <app-waygate-list-product
+                  [product]="product"
+                ></app-waygate-list-product>
+              </ng-container>
+            </div>
+          </ng-template>
+        </div>
+        <ng-container *ngIf="productsApiFlag; else loading">
+          <ng-container *ngIf="products.length === 0">
+            <div class="go-to-top">
+              <div>{{ 'waygate.productNotFound' | cxTranslate }}</div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="showScrollToTop && products.length > 6">
+    <a id="backToTop" class="back-to-top" (click)="goToTop()">
+      <svg class="icon__arrow-up" viewBox="0 0 24 24">
+        <title>Back to top</title>
+        <path
+          d="M18.71,11.71a1,1,0,0,1-1.42,0L13,7.41V19a1,1,0,0,1-2,0V7.41l-4.29,4.3a1,1,0,0,1-1.42-1.42l6-6a1,1,0,0,1,1.42,0l6,6A1,1,0,0,1,18.71,11.71Z"
+        />
+      </svg>
+    </a>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

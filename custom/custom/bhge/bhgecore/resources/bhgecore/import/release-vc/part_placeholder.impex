@@ -1,0 +1,7 @@
+$productCatalog = bhgeGlobalProductCatalog
+
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+INSERT_UPDATE GEEdgeProduct ; code[unique=true] ; name[lang=en]    ; $catalogVersion ; description[lang=en] ; unit(code)[default='EA'] ; approvalstatus(code)[default='approved'] ; productType(code)[default='PA']
+                            ; PART_PLACEHOLDER  ; Part Placeholder ;                 ; Part Placeholder     ;                                          

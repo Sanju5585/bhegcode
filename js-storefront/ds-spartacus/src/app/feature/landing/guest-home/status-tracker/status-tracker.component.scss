@@ -1,0 +1,110 @@
+.box-container {
+  border-radius: 8px;
+  border: 1px solid var(--border-form-hover, #e7e7e7);
+  background: var(--fill-common-secondary, #fff);
+  min-height: 365px;
+  padding: var(--spacing-padding-large);
+}
+
+.box-title {
+  font-size: var(--font-size-subtitle-medium);
+  font-family: var(--font-family-headline-small);
+  font-weight: var(--font-weight-headline-small);
+  padding-bottom: 5px;
+  color: var(--text-common-primary, #121212);
+}
+
+.box-container p {
+  font-family: var(--font-family-body-small);
+  font-size: var(--font-size-body-medium);
+  line-height: var(--font-line-height-body-medium);
+}
+
+.question-icon {
+  display: flex;
+  justify-content: end;
+}
+.icon-size {
+  font-size: var(--font-size-label-medium);
+  color: var(--text-link-primary-default, #02a783);
+}
+
+.or-text {
+  font-weight: var(--font-base-font-weight-semibold);
+  font-size: var(--font-size-body-small);
+  text-transform: var(--font-base-text-transform-uppercase);
+  color: #949494;
+  top: 8px !important;
+  position: relative;
+  padding: 10px 0;
+}
+
+.find-order {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-base-line-height-16);
+  align-items: center;
+  letter-spacing: var(--font-letter-spacing-label-small);
+  color: var(--text-link-primary-default, #02a783);
+  position: relative;
+}
+
+.find-order {
+  cursor: pointer;
+}
+
+.noData {
+  color: red;
+  padding: 5px 5px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.btn-align-pos {
+  display: contents;
+}
+
+:host::ng-deep {
+  @media only screen and (max-width: 768px) {
+    .or-text {
+      top: 0 !important;
+      position: relative;
+      padding-top: 10px !important;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+  }
+}
+
+.buttons-row {
+  margin-top: 40px;
+  margin-left: -15px;
+}
+
+.sub-title {
+  color: #1a2321;
+}
+:host::ng-deep {
+  .bh-text-input input {
+    width: 100%;
+    box-shadow: none;
+    height: 36px;
+  }
+  .bh-text-input label {
+    font-weight: 600;
+  }
+  .typography--button-link-medium {
+    font-size: var(--font-size-body-small);
+  }
+}
+.help-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  margin-bottom: -17px;
+}
+
+.or-text{
+  white-space: nowrap;
+}

@@ -1,0 +1,264 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #shippingForm="ngForm">
+    <div class="row mt-3">
+      <div class="col-12 ml-12">
+        <div class="soldtoaddress">
+          <bh-checkbox
+            class="float-left"
+            label="{{ 'labels.sameAsSoldToAddress' | cxTranslate }}"
+            name="soldtoaddress"
+            [value]="checkedSameAddress"
+            (change)="checkedSoldToAddress($event)"
+          >
+          </bh-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'labels.companyName' | cxTranslate }}"
+          name="companyName"
+          placeholder="{{ 'labels.companyName' | cxTranslate }}"
+          [value]="companyName"
+          maxlength="40"
+          (keyup)="onChange($event, 'companyName')"
+        >
+        </bh-text-input>
+      </div>
+
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.addressline1' | cxTranslate }}"
+          name="addressline1"
+          placeholder="{{ 'labels.addressline1' | cxTranslate }}"
+          [value]="addressline1"
+          [message]="error.addressline1"
+          [attr.error]="error.addressline1 ? error.addressline1 : null"
+          maxlength="40"
+          (keyup)="onChange($event, 'addressline1')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'labels.addressline2' | cxTranslate }}"
+          name="addressline2"
+          placeholder="{{ 'labels.addressline2' | cxTranslate }}"
+          [value]="addressline2"
+          maxlength="40"
+          (keyup)="onChange($event, 'addressline2')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-5 ml-12">
+        <bh-dropdown
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="countryItems"
+          unselectable="false"
+          label="{{ 'labels.country' | cxTranslate }}"
+          placeholder="{{ 'labels.select' | cxTranslate }}"
+          [value]="country"
+          [message]="error.country"
+          [attr.error]="error.country ? error.country : null"
+          isSmall="true"
+          (selected)="onGetStates($event, 'country')"
+          disabled
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-5 dropdown-loading">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="stateItems"
+          unselectable="false"
+          label="{{ 'labels.state' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'labels.select' | cxTranslate }}"
+          [value]="state"
+          [message]="error.state"
+          [attr.error]="error.state ? error.state : null"
+          isSmall="true"
+          (selected)="onChange($event, 'state')"
+        >
+        </bh-dropdown>
+        <div *ngIf="loadingFlag" class="address-search-spinner cx-spinner">
+          <cx-spinner></cx-spinner>
+        </div>
+      </div>
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.city' | cxTranslate }}"
+          name="city"
+          placeholder="{{ 'labels.city' | cxTranslate }}"
+          [value]="city"
+          [message]="error.city"
+          [attr.error]="error.city ? error.city : null"
+          maxlength="40"
+          (keyup)="onChange($event, 'city')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.zipcode' | cxTranslate }}"
+          name="zipcode"
+          placeholder="{{ 'labels.zipcode' | cxTranslate }}"
+          [value]="zipcode"
+          [message]="error.zipcode"
+          [attr.error]="error.zipcode ? error.zipcode : null"
+          maxlength="10"
+          (keyup)="onChange($event, 'zipcode')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-4 deliverypoint">
+      <div class="col-5">
+        <div class="tooltipdp">
+          <span class="tooltiplabel">{{
+            'labels.deliveryPoint' | cxTranslate
+          }}</span>
+          <div class="vs-tooltip-icon deliveryPoint-icon">
+            <p class="vs-tooltip">
+              {{ 'labels.deliveryPointToolTip' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <bh-text-input
+          type="text"
+          class="delivery-point"
+          small
+          label=""
+          placeholder="{{ 'labels.deliveryPoint' | cxTranslate }}"
+          maxlength="25"
+          [value]="deliveryPoint"
+          (keyup)="onChange($event, 'deliveryPoint')"
+        ></bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-4 deliverypoint">
+      <div class="col-5">
+        <span class="inco-terms"
+          >{{ 'titles.incoTerms' | cxTranslate }}
+          <div class="vs-tooltip-icon inco-terms-icon">
+            <p class="vs-tooltip">
+              {{ 'labels.incoTermToolTip' | cxTranslate }}
+              <span
+                ><a href="{{ incoTermUrl }}" target="_blank">{{
+                  'labels.here' | cxTranslate
+                }}</a></span
+              >
+              .
+            </p>
+          </div>
+        </span>
+        <p class="inco-terms-text">
+          {{ incoTerms }}
+        </p>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'labels.shipContactName' | cxTranslate }}"
+          required
+          [value]="shipContactName"
+          [message]="error.shipContactName"
+          [attr.error]="error.shipContactName ? error.shipContactName : null"
+          maxlength="35"
+          (keyup)="onChange($event, 'shipContactName')"
+          placeholder="{{ 'labels.shipContactName' | cxTranslate }}"
+        >
+        </bh-text-input>
+      </div>
+
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="tel"
+          required
+          [value]="shipContactNo"
+          [message]="error.shipContactNo"
+          [attr.error]="error.shipContactNo ? error.shipContactNo : null"
+          (keyup)="onChange($event, 'shipContactNo')"
+          small
+          label="{{ 'labels.shipContactNo' | cxTranslate }}"
+          placeholder="{{ 'labels.shipContactNo' | cxTranslate }}"
+          maxlength="10"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="email"
+          required
+          [value]="shipNotificationEmail"
+          [message]="error.shipNotificationEmail"
+          [attr.error]="
+            error.shipNotificationEmail ? error.shipNotificationEmail : null
+          "
+          maxlength="241"
+          (keyup)="onChange($event, 'shipNotificationEmail')"
+          small
+          label="{{ 'labels.shipNotificationEmail' | cxTranslate }}"
+          placeholder="{{ 'labels.shipNotificationEmail' | cxTranslate }}"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-10">
+        <div class="tooltipdp">
+          <span class="tooltiplabel">{{
+            'labels.shippingRemarks' | cxTranslate
+          }}</span>
+          <div class="vs-tooltip-icon deliveryPoint-icon">
+            <p class="vs-tooltip">
+              {{ 'labels.shippingRemarksTooltip' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <bh-text-area
+          class="shipping-remarks"
+          label=""
+          [value]="shippingRemarks"
+          placeholder=""
+          messageType="custom"
+          messageText=" "
+          maxcharacters="255"
+          (keyup)="onChange($event, 'shippingRemarks')"
+        ></bh-text-area>
+      </div>
+    </div>
+  </form>
+</div>

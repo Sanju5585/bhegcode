@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#UTF-8: √Ø¬ø¬Ω√Ø¬ø¬Ω√Ø¬ø¬Ω
+# Localization zh
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Language
+$lang=zh
+
+#UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];description[lang=$lang];summary[lang=$lang]
+# ;1101695;;充电式曲线锯;-更换锯条采用全金属杠杆式无匙更换，十分方便快捷。<br/>-全金属无匙调节底板，倾斜角度分别为 0°、15°、30°和 45°，斜切更加灵活、方便。<br/>-4 档跳刀控制，可调节锯割强度与平滑速度;XRP 18V 重型充电式曲线锯，可无匙更换锯条

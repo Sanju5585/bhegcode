@@ -1,0 +1,31 @@
+<div class="waygate-ship-to-address">
+  <div>
+    <div class="address-header">
+      {{ 'labels.shippingAddress' | cxTranslate }}
+    </div>
+    <div class="address-box">
+      <div class="address-header-text">
+        <div>{{ shippingAddress?.companyName }}</div>
+        <!-- <div class="address-header-content">
+          Customer Account Number: {{ customerAccount }}
+        </div> -->
+        <div class="address-header-content">
+          {{ 'labels.address' | cxTranslate }}: {{ shippingAddress?.line1 }},
+          {{ shippingAddress?.town }}, {{ shippingAddress?.region?.name }},
+          {{ shippingAddress?.country?.name }}
+          {{ shippingAddress?.postalCode }}
+        </div>
+      </div>
+      <div class="address-header-btn">
+        <button
+          type="button"
+          class="change-address-btn"
+          aria-label="change"
+          (click)="openAddress()"
+        >
+          {{ 'labels.changeAddress' | cxTranslate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

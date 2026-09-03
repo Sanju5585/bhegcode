@@ -1,0 +1,1414 @@
+INSERT_UPDATE GEEdgeSupportTeam;code[unique=true];name
+;customersupport;customersupport
+;ordersupport;ordersupport
+;defaultsupport;defaultsupport
+
+INSERT_UPDATE GEEdgeContactUsRegion;code[unique=true];name;
+;Americas;Americas
+;Europe;Europe
+;Russia-CIS;Russia, CIS
+;Asia;Asia
+
+#
+# country list for contact us page
+#
+INSERT_UPDATE Country;isocode[unique=true];name[lang=en];active[default=true]
+;US;"United States"
+;CA;"Canada"
+;BR;"Brazil"
+;MX;"Mexico"
+;CO;"Colombia"
+;AR;"Argentina"
+;OLA;Other Latin America
+;GB;"United Kingdom"
+;IT;"Italy"
+;FR;"France"
+;ES;"Spain"
+;PT;"Portugal"
+;DE;"Germany"
+;OEC;Europe Countries (AT,BE,BG,HR,CZ,DK,EE,FI,GR,HU,IS,IE,IL,XK,LV,LI,LU,MD,NL,NO,PL,RO,RS,SK,SI,SE,CH)
+;OEC1;Germany, Europe Countries (AT,BE,BG,HR,CZ,DK,EE,FI,GR,HU,IS,IE,IL,XK,LV,LI,LU,MD,NL,NO,PL,RO,RS,SK,SI,SE,CH, Nordic, Italy)
+;OEC2;Germany, Europe Countries (AT,BE,BG,HR,CZ,DK,EE,FI,GR,HU,IS,IE,IL,XK,LV,LI,LU,MD,NL,NO,PL,RO,RS,SK,SI,SE,CH, Nordic, Portugal, Spain, Italy)
+;OEC3;Germany, Europe Countries (AT,BE,BG,HR,CZ,DK,EE,FI,GR,HU,IS,IE,IL,XK,LV,LI,LU,MD,NL,NO,PL,RO,RS,SK,SI,SE,CH,PT,Nordic,FR,UK,ES,IT, Nordic, Spain, Portugal )
+;OEC4;Germany, Europe Countries (AT,CH)
+;OEC5;Europe Countries (NO, SE, FI)
+;RCIS;Russian Fed.
+;CN;"China"
+;AU;"Australia"
+;JP;"Japan"
+;KR;"Korea, Republic of"
+;SEA;"South East Asia"
+;NORDIC;"Nordic"
+;IE;"Ireland"
+
+
+#For BUY
+INSERT_UPDATE ContactusSettings;code[unique=true];supportTeam(code);productLineType(code);contactUsProductLine;contactUsRegion(code);email;phoneNum;workingHours;contactUsCountry(isocode);contactUsCommerceType;commerceTypeValue[default='Sales']
+#Americas
+;1800_usa_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Americas;customer.care@bhge.com;866-243-2638 or 832-325-4368;08:00 AM to 05:00 PM CST;US;BUY;
+1800_usa_portables_guestbuy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Americas;customer.care@bhge.com;866-243-2638 or 832-325-4368;08:00 AM to 05:00 PM CST;US;GUESTBUY;
+;1720_canada_film_buy;ordersupport;FILM;Waygate Film;Americas;customer.care@bhge.com;888-777-6666;10:00 AM to 05:00 PM EST;CA;BUY;
+;3000_brazil_film_buy;ordersupport;FILM;IT Film;Americas;cc.inspection.brasil@ge.com;+55 (19) 2104-6901;08:00 AM to 5:00 PM (UTC -3);BR;BUY;
+;3020_mexico_portables_buy;ordersupport;NONFILM;IT Portables;Americas;cc.mc.la@ge.com;+55 (19) 2104-6974;08:00 AM to 5:00 PM (UTC -3);MX;BUY;
+;1800_colombia_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Americas;cc.mc.la@ge.com;+571 742 56 15;08:00 AM to 5:00 PM (UTC -5);CO;BUY;
+;3040_argentina_portables_buy;ordersupport;NONFILM;IT Portables;Americas;cc.films.argentina@ge.com;+54 11 5444 2453;08:00 AM to 5:00 PM (UTC -3);AR;BUY;
+;1800_latinAmerica_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Americas;cc.mc.la@ge.com;+55 (19) 2104-6974;08:00 AM to 5:00 PM (UTC -3);OLA;BUY;
+;6040_latinAmerica_film_buy;ordersupport;FILM;Waygate Film;Americas;cc.mc.la@ge.com;Not Available;9:00 AM to 05:00 PM CET;OLA;BUY;
+#Europe
+;6210_uk_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;trans.geituksales@bhge.com;+44 (0)845 601 5771;9:00 AM to 05:30 PM CET;GB;BUY;
+;6210_uk_film_buy;ordersupport;FILM;Waygate Film;Europe;trans.geituksales@bhge.com;+44 (0)845 601 5771;9:00 AM to 05:30 PM CET;GB;BUY;
+;6020_italy_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;geitsales.emea@bhge.com;+49 2233 601 102 ;9:00 AM to 05:30 PM CET;IT;BUY;
+;6020_italy_film_buy;ordersupport;FILM;Waygate Film;Europe;GEIT.CustCare.Italia@ge.com; +39 02 38590513;8:00 AM to 05:30 PM CET;IT;BUY;
+;6030_france_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;geit.fr@bhge.com; +33 472 17 92 20;8:00 AM to 05:30 PM CET;FR;BUY;
+;6030_france_film_buy;ordersupport;FILM;Waygate Film;Europe;geit.fr@bhge.com; +33 472 17 92 20;8:00 AM to 05:30 PM CET;FR;BUY;
+;6270_spain_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;Sales.SensInsp.es@bhge.com; +34 91 792 1054;8:00 AM to 05:30 PM CET;ES;BUY;
+;6270_spain_film_buy;ordersupport;FILM;Waygate Film;Europe;Sales.SensInsp.es@bhge.com; +34 91 792 1054;8:00 AM to 05:30 PM CET;ES;BUY;
+;6040_portugal_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;Sales.SensInsp.es@bhge.com; +34 91 792 1054;8:00 AM to 05:30 PM CET;PT;BUY;
+;6040_germany_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;geitsales.emea@bhge.com; +49 2233 601 465;8:00 AM to 05:30 PM CET;DE;BUY;
+;6040_germany_film_buy;ordersupport;FILM;Waygate Film (DE);Europe;salesInspTech.defilm@ge.com; 4319281388;8:00 AM to 05:30 PM CET;DE;BUY;
+;6040_otherEurope_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Europe;geitsales.emea@bhge.com; +49 2233 601 102;8:00 AM to 05:30 PM CET;OEC;BUY;
+;6040_otherEurope_film_buy;ordersupport;FILM;Waygate Film (EMEA);Europe;sales.InspTech.emeafilm@bhge.com; 4319281388;8:00 AM to 05:30 PM CET;OEC;BUY;
+;6040_nordic_film_buy;ordersupport;FILM;Waygate Film (Nordic);Europe;geit.nordic@bhge.com; 46855950371;8:00 AM to 05:30 PM CET;NORDIC;BUY;
+#Russia, CIS
+;6040_russiaCis_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Russia-CIS;geitsales.emea@bhge.com; +49 2233 601 102;8:00 AM to 05:30 PM CET;RCIS;BUY;
+;6040_russiaCis_film_buy;ordersupport;FILM;Waygate Film (RU);Russia-CIS;geit.custcare.film@bhge.com; 3234562846;8:00 AM to 05:30 PM CET;RCIS;BUY;
+#Asia
+;7140_china_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Asia;custsvcchina@bhge.com;+8621 38777114;10:00 am - 5:00 PM China (GMT+08:00);CN;BUY;
+;7140_china_film_buy;ordersupport;FILM;Waygate Film;Asia;custsvcchina@bhge.com;+8621 38777114;10:00 am - 5:00 PM China (GMT+08:00);CN;BUY;
+;7030_australia_portables_buy;ordersupport;NONFILM;IT Portables;Asia;custcare.au@ge.com;61466457010;09:00 AM AEST to 5:00 PM AEST;AU;BUY;
+;tbd_japan_portables_buy;ordersupport;NONFILM;IT Portables;Asia;cc.gesitj@ge.com;+81-3-6890-4567;00:00 AM GMT to 09:00 AM GMT;JP;BUY;
+;tbd_korea_portables_buy;ordersupport;NONFILM;IT Portables;Asia;sarah.oh@ge.com;+82 31 620 6601;00:00 AM GMT to 09:00 AM GMT;KR;BUY;
+;1800_southEastAsia_portables_buy;ordersupport;NONFILM;Waygate RVI, UT, Eddy Current;Asia;cybill.chen@ge.com;+852 2100 6609;01:00 AM GMT - 10:00 AM GMT;SEA;BUY;
+;6040_southEastAsia_film_buy;ordersupport;FILM;Waygate Film;Asia;cybill.chen@ge.com;+852 2100 6609;01:00 AM GMT - 10:00 AM GMT;SEA;BUY;
+#;6040_germany_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;sensing.de.cc@ge.com; +49 69 2222 2973;9:00 AM to 05:30 PM CET;DE;BUY;
+#;6040_portugal_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50;9:00 AM to 05:30 PM CET;PT;BUY;
+#;6040_nordic_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;nl.sensing.sales@bhge.com; +31 33 467 8950;9:00 AM to 05:30 PM CET;NORDIC;BUY;
+#;6030_france_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50;9:00 AM to 05:30 PM CET;FR;BUY;
+#;6210_UK_PRS_buy;ordersupport;NONFILM;PRS;Europe;sensing.grobycc@ge.com; +44 116 231 7106;9:00 AM to 05:30 PM CET;GB;BUY;
+#;6180_ireland_FGM_buy;ordersupport;NONFILM;FGM;Europe;gesensingorders@ge.com; +36 27 565314 ;9:00 AM to 05:30 PM CET;IE;BUY;
+#;6270_spain_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50 ;9:00 AM to 05:30 PM CET;ES;BUY;
+#;6020_italy_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Europe;csd.italia@ge.com; +39 02 36 04 28 42 ;9:00 AM to 05:30 PM CET;IT;BUY;
+;6040_germany_otherEurope_Austria_Swiss_BN_buy;ordersupport;NONFILM;BN;Europe;bnkundendienst@ge.com;DE+49 (0) 800 182 3669, AT+43 (0) 800 295 037, CH+41 (0) 800 561-293;9:00 AM to 05:30 PM CET;OEC4;BUY;
+;1200_germany_otherEurope_Austria_Swiss_BN_buy;ordersupport;NONFILM;BN;Europe;bnkundendienst@ge.com;DE+49 (0) 800 182 3669, AT+43 (0) 800 295 037, CH+41 (0) 800 561-293;9:00 AM to 05:30 PM CET;OEC4;BUY;
+;6070_portugal_BN_buy;ordersupport;NONFILM;BN;Europe;servicioaclientes@ge.com;+ 911557035;9:00 AM to 05:30 PM CET;PT;BUY;
+;1200_portugal_BN_buy;ordersupport;NONFILM;BN;Europe;servicioaclientes@ge.com;+ 911557035;9:00 AM to 05:30 PM CET;PT;BUY;
+;6040_otherEurope_Norway_Sweden_Finland_BN_buy;ordersupport;NONFILM;BN;Europe;kundtjanst@bently.com;NO +47 800 13810,SE 0207 98531,FI +36 27 620 094;9:00 AM to 05:30 PM CET;OEC5;BUY;
+;1200_otherEurope_Norway_Sweden_Finland_BN_buy;ordersupport;NONFILM;BN;Europe;kundtjanst@bently.com;NO +47 800 13810,SE 0207 98531,FI +36 27 620 094;9:00 AM to 05:30 PM CET;OEC5;BUY;
+;6030_france_BN_buy;ordersupport;NONFILM;BN;Europe;serviceclientel@bently.com;+0800 900 359;9:00 AM to 05:30 PM CET;FR;BUY;
+;1200_france_BN_buy;ordersupport;NONFILM;BN;Europe;serviceclientel@bently.com;+0800 900 359;9:00 AM to 05:30 PM CET;FR;BUY;
+;6010_UK_BN_buy;ordersupport;NONFILM;BN;Europe;customerservice_uk@ge.com;+440800 0328981;9:00 AM to 05:30 PM CET;GB;BUY;
+;1200_UK_BN_buy;ordersupport;NONFILM;BN;Europe;customerservice_uk@ge.com;+440800 0328981;9:00 AM to 05:30 PM CET;GB;BUY;
+;6270_spain_BN_buy;ordersupport;NONFILM;BN;Europe;servicioaclientes@ge.com;+911557035;9:00 AM to 05:30 PM CET;ES;BUY;
+;1200_spain_BN_buy;ordersupport;NONFILM;BN;Europe;servicioaclientes@ge.com;+911557035;9:00 AM to 05:30 PM CET;ES;BUY;
+;6020_italy_BN_buy;ordersupport;NONFILM;BN;Europe;bnservizioclienti@bhge.com;+39 0239192157, +39 800146903;9:00 AM to 05:30 PM CET;IT;BUY;
+;1200_italy_BN_buy;ordersupport;NONFILM;BN;Europe;bnservizioclienti@bhge.com;+39 0239192157, +39 800146903;9:00 AM to 05:30 PM CET;IT;BUY;
+#;6180_russiaCis_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Russia-CIS;gesensingorders@ge.com, sensing.grobycc@ge.com;+ 36 27 565314, + 44 116 231 7106;9:00 AM to 05:30 PM CET;RCIS;BUY;
+#;6210_russiaCis_FGM&PRS_buy;ordersupport;NONFILM;FGM & PRS;Russia-CIS;gesensingorders@ge.com, sensing.grobycc@ge.com;+ 36 27 565314, + 44 116 231 7106;9:00 AM to 05:30 PM CET;RCIS;BUY;
+;6130_russiaCis_BN_buy;ordersupport;NONFILM;BN;Russia-CIS;customerservice_ee@bhge.com;+ 7 495 7717245;9:00 AM to 05:30 PM CET;RCIS;BUY;
+;1200_russiaCis_BN_buy;ordersupport;NONFILM;BN;Russia-CIS;customerservice_ee@bhge.com;+ 7 495 7717245;9:00 AM to 05:30 PM CET;RCIS;BUY;
+
+
+#For RETURNS
+INSERT_UPDATE ContactusSettings;code[unique=true];supportTeam(code);productLineType(code);contactUsProductLine;contactUsRegion(code);email;phoneNum;workingHours;contactUsCountry(isocode);contactUsCommerceType;commerceTypeValue[default='Return']
+#Americas
+#;1800_usa_portables_returns;ordersupport;NONFILM;IT Portables;Americas;customer.care@bhge.com;866-243-2638;10:00 AM to 05:00 PM EST;US;RETURNS;
+#;1800_usa_rvi_returns;ordersupport;NONFILM;IT RVI;Americas;NAMService@bhge.com;281.542.3650, 4;08:00 AM to 05:00 PM EST (Mon-Fri);US;RETURNS;
+#;1720_canada_film_returns;ordersupport;FILM;IT Film;Americas;customer.care@bhge.com;888-777-6666;10:00 AM to 05:00 PM EST;CA;RETURNS;
+#;3000_brazil_film_returns;ordersupport;FILM;IT Film;Americas;cc.inspection.brasil@ge.com;+55 (19) 2104-6901;08:00 AM to 5:00 PM (UTC -3);BR;RETURNS;
+#;3020_mexico_portables_returns;ordersupport;NONFILM;IT Portables;Americas;cc.mc.la@ge.com;+55 (19) 2104-6974;08:00 AM to 5:00 PM (UTC -3);MX;RETURNS;
+#;1800_colombia_portables_returns;ordersupport;NONFILM;IT Portables;Americas;cc.mc.la@ge.com;+571 742 56 15;08:00 AM to 5:00 PM (UTC -5);CO;RETURNS;
+#;3040_argentina_portables_returns;ordersupport;NONFILM;IT Portables;Americas;cc.films.argentina@ge.com;+54 11 5444 2453;08:00 AM to 5:00 PM (UTC -3);AR;RETURNS;
+#;1800_latinAmerica_portables_returns;ordersupport;NONFILM;IT Portables;Americas;cc.mc.la@ge.com;+55 (19) 2104-6974;08:00 AM to 5:00 PM (UTC -3);OLA;RETURNS;
+#;6040_latinAmerica_film_returns;ordersupport;FILM;IT Film;Americas;cc.mc.la@ge.com;Not Available;9:00 AM to 05:00 PM CET;OLA;RETURNS;
+#Europe
+#;6040_germany_otherEurope_Nordic_Italy_UT_film_returns;ordersupport;FILM;WayGate Service UT, Film;Europe;GEITHuerth.service@ge.com;+49 2233 601 111;8:00 AM to 5:30 PM CET;OEC1;RETURNS;
+#;6040_germany_otherEurope_Nordic_Italy_UT_nonfilm_returns;ordersupport;NONFILM;WayGate Service UT;Europe;GEITHuerth.service@ge.com;+49 2233 601 111;8:00 AM to 5:30 PM CET;OEC1;RETURNS;
+#;6040_germany_otherEurope_Nordic_Portugal_Spain_Italy_rvi_returns;ordersupport;NONFILM;WayGate Service RVI;Europe;GEIT.Service.RVI@ge.com;+49 2233 601 111 ;8:00 AM to 5:30 PM CET;OEC2;RETURNS;
+#;6040_germany_otherEurope_Nordic_Spain_Portugal_testing_returns;ordersupport;NONFILM;WayGate Service Testing Machine;Europe;tm-service-huerth@ge.com;+49 2233 601 500;8:00 AM to 5:30 PM CET;OEC3;RETURNS;
+#;6030_france_film_returns;ordersupport;FILM;Film;Europe;corpservices.insptech.fr@ge.com; +33 4 72 17 92 18;9:00 AM to 05:30 PM CET;FR;RETURNS;
+#;6030_france_nonfilm_returns;ordersupport;NONFILM;WayGate Service UT, RVI;Europe;corpservices.insptech.fr@ge.com; +33 4 72 17 92 18;9:00 AM to 05:30 PM CET;FR;RETURNS;
+#;6210_uk_nonfilm_returns;ordersupport;NONFILM;WayGate Service UT, RVI;Europe;admin.coventryservices@ge.com;0044 116 231 7901;8:00 AM to 4:30 PM CET;GB;RETURNS;
+#;6210_uk_film_returns;ordersupport;FILM;Film;Europe;admin.coventryservices@ge.com;0044 116 231 7901;8:00 AM to 4:30 PM CET;GB;RETURNS;
+#;6270_spain_portugal_nonfilm_returns;ordersupport;NONFILM;WayGate Service UT, Film;Europe;geithuerth.service@ge.com, Servicio.IT@ge.com; 0034917924125, 00492233601402;8:00 AM to 4:30 PM CET;ES;RETURNS;
+#;6270_spain_portugal_film_returns;ordersupport;FILM;WayGate Service UT, Film;Europe;geithuerth.service@ge.com, Servicio.IT@ge.com; 0034917924125, 00492233601402;8:00 AM to 4:30 PM CET;ES;RETURNS;
+#Russia, CIS
+#;6040_russiaCis_nonfilm_returns;ordersupport;NONFILM;WayGate Service UT;Russia-CIS;GEITHuerth.service@ge.com; +49 2233 601 111;8:00 AM to 4:30 PM CET;RCIS;RETURNS;
+#;6040_russiaCis_film_returns;ordersupport;FILM;Film;Russia-CIS;GEITHuerth.service@ge.com; +49 2233 601 111;8:00 AM to 4:30 PM CET;RCIS;RETURNS;
+#;6040_russiaCis_rvi_returns;ordersupport;NONFILM;WayGate Service RVI;Russia-CIS;GEIT.Service.RVI@ge.com; +49 2233 601 111;8:00 AM to 4:30 PM CET;RCIS;RETURNS;
+#;6040_russiaCis_testingmachine_returns;ordersupport;NONFILM;WayGate Service Testing Machine;Russia-CIS;tm-service-huerth@ge.com; Not Available;8:00 AM to 4:30 PM CET;RCIS;RETURNS;
+;6040_germany_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;sensing.de.cc@ge.com; +49 69 2222 2973;9:00 AM to 05:30 PM CET;DE;RETURNS;
+;6040_portugal_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50;9:00 AM to 05:30 PM CET;PT;RETURNS;
+;6040_nordic_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;nl.sensing.sales@bhge.com; +31 33 467 8950;9:00 AM to 05:30 PM CET;NORDIC;RETURNS;
+;6030_france_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50;9:00 AM to 05:30 PM CET;FR;RETURNS;
+;6210_UK_PRS_nonfilm_returns;ordersupport;NONFILM;Pressure;Europe;sensing.grobycc@ge.com; +44 116 231 7106;9:00 AM to 05:30 PM CET;GB;RETURNS;
+;6180_ireland_FGM_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture;Europe;gesensingorders@ge.com; +36 27 565314 ;9:00 AM to 05:30 PM CET;IE;RETURNS;
+;6270_spain_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;sensing.fr.cc@ge.com; +33 5 62 88 82 50 ;9:00 AM to 05:30 PM CET;ES;RETURNS;
+;6020_italy_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Europe;csd.italia@ge.com; +39 02 36 04 28 42 ;9:00 AM to 05:30 PM CET;IT;RETURNS;
+;6180_russiaCis_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Russia-CIS;gesensingorders@ge.com, sensing.grobycc@ge.com;+ 36 27 565314, + 44 116 231 7106;9:00 AM to 05:30 PM CET;RCIS;RETURNS;
+;6210_russiaCis_FGM&PRS_nonfilm_returns;ordersupport;NONFILM;Flow, Gas, & Moisture & Pressure;Russia-CIS;gesensingorders@ge.com, sensing.grobycc@ge.com;+ 36 27 565314, + 44 116 231 7106;9:00 AM to 05:30 PM CET;RCIS;RETURNS;
+
+#default contact info
+INSERT_UPDATE ContactusSettings;code[unique=true];supportTeam(code);contactUsProductLine;contactUsRegion(code);email;phoneNum;workingHours;contactUsCountry(isocode);contactUsCommerceType;commerceTypeValue[default='Sales']
+#For BUY
+;1800_default_buy;defaultsupport;;Americas;customer.care@bhge.com;866-243-2638;10:00 AM to 05:00 PM EST;;BUY;
+;1800_default_guestbuy;defaultsupport;;Americas;customer.care@bhge.com;866-243-2638;10:00 AM to 05:00 PM EST;;GUESTBUY;
+;1720_default_buy;defaultsupport;;Americas;customer.care@bhge.com;888-777-6666;10:00 AM to 05:00 PM EST;;BUY;
+;3000_default_buy;defaultsupport;;Americas;cc.inspection.brasil@ge.com ;+55 (19) 2104-6901;08:00 AM – 5:00 PM (UTC -3);;BUY;
+;3020_default_buy;defaultsupport;;Americas;cc.mc.la@ge.com ;+55 (19) 2104-6974;08:00 AM – 5:00 PM (UTC -3);;BUY;
+;3040_default_buy;defaultsupport;;Americas;cc.mc.la@ge.com ;+54 11 5444 2453;08:00 AM – 5:00 PM (UTC -3);;BUY;
+;6210_default_buy;defaultsupport;;Europe;trans.geituksales@bhge.com;+44 (0)845 601 5771;9:00 AM to 05:00 PM GMT;;BUY;
+;6020_default_buy;defaultsupport;;Europe;geitsales.emea@bhge.com;+49 2233 601 465;9:00 AM to 05:00 PM CET;;BUY;
+;6030_default_buy;defaultsupport;;Europe;geit.fr@ge.com; +33 472 17 92 20 ;9:00 AM to 05:00 PM CET;;BUY;
+;6270_default_buy;defaultsupport;;Europe;Sales.SensInsp.es@ge.com; +34 91 792 1054;9:00 AM to 05:00 PM CET;;BUY;
+;6040_default_buy;defaultsupport;;Europe;geitsales.emea@bhge.com;+49 2233 601 465;9:00 AM to 05:00 PM CET;;BUY;
+;7140_default_buy;defaultsupport;;Asia;custsvcchina@bhge.com;+8621 38777114;10:00 am - 5:00 PM China (GMT+08:00);;BUY;
+;7030_default_buy;defaultsupport;;Asia;custcare.au@ge.com;61466457010;09:00 AM AEST – 5:00 PM AEST;;BUY;
+
+#For RETURNS
+INSERT_UPDATE ContactusSettings;code[unique=true];supportTeam(code);contactUsProductLine;contactUsRegion(code);email;phoneNum;workingHours;contactUsCountry(isocode);contactUsCommerceType;commerceTypeValue[default='Return']
+;1800_default_returns;defaultsupport;;Americas;customer.care@bhge.com;866-243-2638;10:00 AM to 05:00 PM EST;;RETURNS;
+;1720_default_returns;defaultsupport;;Americas;customer.care@bhge.com;888-777-6666;10:00 AM to 05:00 PM EST;;RETURNS;
+;3000_default_returns;defaultsupport;;Americas;cc.inspection.brasil@ge.com ;+55 (19) 2104-6901;08:00 AM – 5:00 PM (UTC -3);;RETURNS;
+;3020_default_returns;defaultsupport;;Americas;cc.mc.la@ge.com ;+55 (19) 2104-6974;08:00 AM – 5:00 PM (UTC -3);;RETURNS;
+;3040_default_returns;defaultsupport;;Americas;cc.mc.la@ge.com ;+54 11 5444 2453;08:00 AM – 5:00 PM (UTC -3);;RETURNS;
+;6210_default_returns;defaultsupport;;Europe;trans.geituksales@bhge.com;+44 (0)845 601 5771;9:00 AM to 05:00 PM GMT;;RETURNS;
+;6020_default_returns;defaultsupport;;Europe;geitsales.emea@bhge.com;+49 2233 601 465;9:00 AM to 05:00 PM CET;;RETURNS;
+;6030_default_returns;defaultsupport;;Europe;geit.fr@ge.com; +33 472 17 92 20 ;9:00 AM to 05:00 PM CET;;RETURNS;
+;6270_default_returns;defaultsupport;;Europe;Sales.SensInsp.es@ge.com; +34 91 792 1054;9:00 AM to 05:00 PM CET;;RETURNS;
+;6040_default_returns;defaultsupport;;Europe;geitsales.emea@bhge.com;+49 2233 601 465;9:00 AM to 05:00 PM CET;;RETURNS;
+;7140_default_returns;defaultsupport;;Asia;custsvcchina@bhge.com;+8621 38777114;10:00 am - 5:00 PM China (GMT+08:00);;RETURNS;
+;7030_default_returns;defaultsupport;;Asia;custcare.au@ge.com;61466457010;09:00 AM AEST – 5:00 PM AEST;;RETURNS;
+
+INSERT_UPDATE BaseStore;uid[unique=true];ContactusSettings(code)[mode=append]
+#For BUY
+#Americas
+;1800_BaseStore;1800_usa_portables_buy
+;1800_BaseStore;1800_usa_rvi_buy
+;1800_BaseStore;1800_usa_portables_guestbuy
+;1720_BaseStore;1720_canada_film_buy
+;3000_BaseStore;3000_brazil_film_buy
+;3020_BaseStore;3020_mexico_portables_buy
+;1800_BaseStore;1800_colombia_portables_buy
+;3040_BaseStore;3040_argentina_portables_buy
+;1800_BaseStore;1800_latinAmerica_portables_buy
+;6040_BaseStore;6040_latinAmerica_film_buy
+#Europe:
+;6210_BaseStore;6210_uk_portables_buy
+;6210_BaseStore;6210_uk_film_buy
+;6020_BaseStore;6020_italy_portables_buy
+;6020_BaseStore;6020_italy_film_buy
+;6030_BaseStore;6030_france_portables_buy
+;6030_BaseStore;6030_france_film_buy
+;6270_BaseStore;6270_spain_portables_buy
+;6270_BaseStore;6270_spain_film_buy
+;6040_BaseStore;6040_portugal_portables_buy
+;6040_BaseStore;6040_germany_portables_buy
+;6040_BaseStore;6040_germany_film_buy
+;6040_BaseStore;6040_otherEurope_portables_buy
+;6040_BaseStore;6040_otherEurope_film_buy
+;6040_BaseStore;6040_nordic_film_buy
+#Russia, CIS
+;6040_BaseStore;6040_russiaCis_portables_buy
+;6040_BaseStore;6040_russiaCis_film_buy
+#Asia
+;7140_BaseStore;7140_china_portables_buy
+;7140_BaseStore;7140_china_film_buy
+;7030_BaseStore;7030_australia_portables_buy
+;tbd_BaseStore;tbd_japan_portables_buy
+;tbd_BaseStore;tbd_korea_portables_buy
+;1800_BaseStore;1800_southEastAsia_portables_buy
+;6040_BaseStore;6040_southEastAsia_film_buy
+#;6040_BaseStore;6040_germany_FGM&PRS_buy
+#;6040_BaseStore;6040_portugal_FGM&PRS_buy
+#;6040_BaseStore;6040_nordic_FGM&PRS_buy
+#;6030_BaseStore;6030_france_FGM&PRS_buy
+#;6210_BaseStore;6210_france_PRS_buy
+#;6180_BaseStore;6180_ireland_FGM_buy
+#;6270_BaseStore;6270_spain_FGM&PRS_buy
+#;6020_BaseStore;6020_italy_FGM&PRS_buy
+;6040_BaseStore;6040_germany_otherEurope_Austria_Swiss_BN_buy
+;1200_BaseStore;1200_germany_otherEurope_Austria_Swiss_BN_buy
+;6070_BaseStore;6070_portugal_BN_buy
+;1200_BaseStore;1200_portugal_BN_buy
+;6040_BaseStore;6040_otherEurope_Norway_Sweden_Finland_BN_buy
+;1200_BaseStore;1200_otherEurope_Norway_Sweden_Finland_BN_buy
+;6030_BaseStore;6030_france_BN_buy
+;1200_BaseStore;1200_france_BN_buy
+;6010_BaseStore;6010_UK_BN_buy
+;1200_BaseStore;1200_UK_BN_buy
+;6270_BaseStore;6270_spain_BN_buy
+;1200_BaseStore;1200_spain_BN_buy
+;6020_BaseStore;6020_italy_BN_buy
+;1200_BaseStore;1200_italy_BN_buy
+#;6180_BaseStore;6180_russiaCis_FGM&PRS_buy
+#;6210_BaseStore;6210_russiaCis_FGM&PRS_buy
+;6130_BaseStore;6130_russiaCis_BN_buy
+;1200_BaseStore;1200_russiaCis_BN_buy
+
+INSERT_UPDATE BaseStore;uid[unique=true];ContactusSettings(code)[mode=append]
+#For RETURNS
+#Americas
+#;1800_BaseStore;1800_usa_portables_returns
+#;1800_BaseStore;1800_usa_rvi_returns
+#;1720_BaseStore;1720_canada_film_returns
+#;3000_BaseStore;3000_brazil_film_returns
+#;3020_BaseStore;3020_mexico_portables_returns
+#;1800_BaseStore;1800_colombia_portables_returns
+#;3040_BaseStore;3040_argentina_portables_returns
+#;1800_BaseStore;1800_latinAmerica_portables_returns
+#;6040_BaseStore;6040_latinAmerica_film_returns
+#Europe:
+#;6210_BaseStore;6210_uk_portables_returns
+#;6210_BaseStore;6210_uk_film_returns
+#;6020_BaseStore;6020_italy_portables_returns
+#;6020_BaseStore;6020_italy_film_returns
+#;6030_BaseStore;6030_france_portables_returns
+#;6030_BaseStore;6030_france_film_returns
+#;6270_BaseStore;6270_spain_portables_returns
+#;6270_BaseStore;6270_spain_film_returns
+#;6040_BaseStore;6040_portugal_portables_returns
+#;6040_BaseStore;6040_germany_portables_returns
+#;6040_BaseStore;6040_germany_film_returns
+#;6040_BaseStore;6040_otherEurope_portables_returns
+#;6040_BaseStore;6040_otherEurope_film_returns
+#;6040_BaseStore;6040_nordic_film_returns
+#;6040_BaseStore;6040_germany_otherEurope_Nordic_Italy_UT_film_returns
+#;6040_BaseStore;6040_germany_otherEurope_Nordic_Italy_UT_nonfilm_returns
+#;6040_BaseStore;6040_germany_otherEurope_Nordic_Portugal_Spain_Italy_rvi_returns
+#;6040_BaseStore;6040_germany_otherEurope_Nordic_Spain_Portugal_testing_returns
+#;6030_BaseStore;6030_france_film_returns
+#;6030_BaseStore;6030_france_nonfilm_returns
+#;6210_BaseStore;6210_uk_nonfilm_returns
+#;6210_BaseStore;6210_uk_film_returns
+#;6270_BaseStore;6270_spain_portugal_nonfilm_returns
+#;6270_BaseStore;6270_spain_portugal_film_returns
+#Russia, CIS
+#;6040_BaseStore;6040_russiaCis_nonfilm_returns
+#;6040_BaseStore;6040_russiaCis_film_returns
+#;6040_BaseStore;6040_russiaCis_rvi_returns
+#;6040_BaseStore;6040_russiaCis_testingmachine_returns
+#Asia
+#;7140_BaseStore;7140_china_portables_returns
+#;7140_BaseStore;7140_china_film_returns
+#;7030_BaseStore;7030_australia_portables_returns
+#;tbd_BaseStore;tbd_japan_portables_returns
+#;tbd_BaseStore;tbd_korea_portables_returns
+#;1800_BaseStore;1800_southEastAsia_portables_returns
+#;6040_BaseStore;6040_southEastAsia_film_returns
+
+;6040_BaseStore;6040_germany_FGM&PRS_nonfilm_returns
+;6040_BaseStore;6040_portugal_FGM&PRS_nonfilm_returns
+;6040_BaseStore;6040_nordic_FGM&PRS_nonfilm_returns
+;6030_BaseStore;6030_france_FGM&PRS_nonfilm_returns
+;6210_BaseStore;6210_UK_PRS_nonfilm_returns
+;6180_BaseStore;6180_ireland_FGM_nonfilm_returns
+;6270_BaseStore;6270_spain_FGM&PRS_nonfilm_returns
+;6020_BaseStore;6020_italy_FGM&PRS_nonfilm_returns
+;6180_BaseStore;6180_russiaCis_FGM&PRS_nonfilm_returns
+;6210_BaseStore;6210_russiaCis_FGM&PRS_nonfilm_returns
+
+
+#default contact info
+INSERT_UPDATE BaseStore;uid[unique=true];ContactusSettings(code)[mode=append]
+#For BUY
+;1800_BaseStore;1800_default_buy
+;1800_BaseStore;1800_default_guestbuy
+;1720_BaseStore;1720_default_buy
+;3000_BaseStore;3000_default_buy
+;3020_BaseStore;3020_default_buy
+;3040_BaseStore;3040_default_buy
+;6210_BaseStore;6210_default_buy
+;6020_BaseStore;6020_default_buy
+;6030_BaseStore;6030_default_buy
+;6270_BaseStore;6270_default_buy
+;6040_BaseStore;6040_default_buy
+;7140_BaseStore;7140_default_buy
+;7030_BaseStore;7030_default_buy
+
+#For RETURNS
+;1800_BaseStore;1800_default_returns
+;1720_BaseStore;1720_default_returns
+;3000_BaseStore;3000_default_returns
+;3020_BaseStore;3020_default_returns
+;3040_BaseStore;3040_default_returns
+;6210_BaseStore;6210_default_returns
+;6020_BaseStore;6020_default_returns
+;6030_BaseStore;6030_default_returns
+;6270_BaseStore;6270_default_returns
+;6040_BaseStore;6040_default_returns
+;7140_BaseStore;7140_default_returns
+;7030_BaseStore;7030_default_returns
+
+#GERITM11973069 : ContactUs info for 1500_GC_GC,3000_GC_GC,7170_GC_GC
+INSERT_UPDATE GEEdgeContactUsRegion;code[unique=true];name;
+;India;India
+;Africa;Africa
+;MiddleEast;Middle East
+
+INSERT_UPDATE ContactusSettings;code[unique=true];supportTeam(code);productLineType(code);contactUsProductLine;contactUsRegion(code);email;phoneNum;workingHours;contactUsCountry(isocode);contactUsCommerceType;commerceTypeValue[default='Sales']
+;1500_northAmerica_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Americas;controlparts@bakerhughes.com;1-888-943-2272, 1-540-387-8726;9:00 AM to 05:00 PM Central US Time;OLA;BUYANDRETURN;
+;1500_latinAmerica_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Americas;controlparts@bakerhughes.com;+55-11-3958-98;9:00 AM to 05:00 PM Brasil Time;BR;BUYANDRETURN;
+;3000_latinAmerica_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Americas;controlparts@bakerhughes.com;+55-11-3958-98;9:00 AM to 05:00 PM Brasil Time;BR;BUYANDRETURN;
+;1500_europe_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Europe;controlparts@bakerhughes.com;+33-2-72-249901;9:00 AM to 05:00 PM Central Europe Time;FR;BUYANDRETURN;
+;1500_Africa_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Africa;controlparts@bakerhughes.com;+971-2-699 7119;9:00 AM to 05:00 PM Gulf Time;AE;BUYANDRETURN;
+;1500_midEast_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;MiddleEast;controlparts@bakerhughes.com;+971-2-699 7119;9:00 AM to 05:00 PM Gulf Time;AE;BUYANDRETURN;
+;1500_India_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;India;controlparts@bakerhughes.com;+971-2-699 7119;9:00 AM to 05:00 PM Gulf Time;AE;BUYANDRETURN;
+;1500_asia_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Asia;controlparts@bakerhughes.com;+66-6622 1623;9:00 AM to 05:00 PM China Time;TH;BUYANDRETURN;
+;7170_asia_nexusControls_buyAndReturn;ordersupport;NONFILM;Nexus Controls;Asia;controlparts@bakerhughes.com;+66-6622 1623;9:00 AM to 05:00 PM China Time;TH;BUYANDRETURN;
+
+
+UPDATE BaseStore;uid[unique=true];ContactusSettings(code)[mode=append]
+;1500_GC_BaseStore;1500_northAmerica_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_latinAmerica_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_europe_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_Africa_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_midEast_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_India_nexusControls_buyAndReturn
+;1500_GC_BaseStore;1500_asia_nexusControls_buyAndReturn
+;3000_GC_BaseStore;3000_latinAmerica_nexusControls_buyAndReturn
+;7170_GC_BaseStore;7170_asia_nexusControls_buyAndReturn
+
+
+# US13585: Updating the contact information Like EMAIL, CONTACT_NUMBER and WORKING_HOURS
+
+# EMAIL Updation
+UPDATE ContactusSettings;code[unique=true];email
+;6040_germany_otherEurope_Austria_Swiss_BN_buy;bnkundendienst@bakerhughes.com
+;1200_germany_otherEurope_Austria_Swiss_BN_buy;bnkundendienst@bakerhughes.com
+;6020_italy_BN_buy;bnservizioclienti@bakerhughes.com
+;1200_italy_BN_buy;bnservizioclienti@bakerhughes.com
+;3000_brazil_film_buy;cc.inspection.brasil@bakerhughes.com
+;3000_default_buy;cc.inspection.brasil@bakerhughes.com
+;3000_default_returns;cc.inspection.brasil@bakerhughes.com
+;3020_mexico_portables_buy;cc.mc.la@bakerhughes.com
+;1800_colombia_portables_buy;cc.mc.la@bakerhughes.com
+;1800_latinAmerica_portables_buy;cc.mc.la@bakerhughes.com
+;6040_latinAmerica_film_buy;cc.mc.la@bakerhughes.com
+;3020_default_buy;cc.mc.la@bakerhughes.com
+;3040_default_buy;cc.mc.la@bakerhughes.com
+;3020_default_returns;cc.mc.la@bakerhughes.com
+;3040_default_returns;cc.mc.la@bakerhughes.com
+;6020_italy_FGM&PRS_nonfilm_returns;csd.italia@bakerhughes.com
+;7030_australia_portables_buy;custcare.au@bakerhughes.com
+;7030_default_buy;custcare.au@bakerhughes.com
+;7030_default_returns;custcare.au@bakerhughes.com
+;1800_usa_portables_buy;customer.care@bakerhughes.com
+;1800_usa_portables_guestbuy;customer.care@bakerhughes.com
+;1800_default_guestbuy;customer.care@bakerhughes.com
+;6130_russiaCis_BN_buy;customerservice_ee@bakerhughes.com
+;1200_russiaCis_BN_buy;customerservice_ee@bakerhughes.com
+;6010_UK_BN_buy;customerservice_uk@bakerhughes.com
+;1200_UK_BN_buy;customerservice_uk@bakerhughes.com
+;7140_china_portables_buy;custsvcchina@bakerhughes.com
+;7140_china_film_buy;custsvcchina@bakerhughes.com
+;7140_default_buy;custsvcchina@bakerhughes.com
+;7140_default_returns;custsvcchina@bakerhughes.com
+;6040_russiaCis_film_buy;geit.custcare.film@bakerhuhges.com
+;6020_italy_film_buy;geit.custcare.italia@bakerhuhges.com
+;6030_france_portables_buy;geit.fr@bakerhughes.com
+;6030_france_film_buy;geit.fr@bakerhughes.com
+;6030_default_buy;geit.fr@bakerhughes.com
+;6030_default_returns;geit.fr@bakerhughes.com
+;6040_nordic_film_buy;geit.nordic@bakerhuhges.com
+;6020_italy_portables_buy;geitsales.emea@bakerhughes.com
+;6040_germany_portables_buy;geitsales.emea@bakerhughes.com
+;6040_otherEurope_portables_buy;geitsales.emea@bakerhughes.com
+;6040_russiaCis_portables_buy;geitsales.emea@bakerhughes.com
+;6020_default_buy;geitsales.emea@bakerhughes.com
+;6040_default_buy;geitsales.emea@bakerhughes.com
+;6020_default_returns;geitsales.emea@bakerhughes.com
+;6040_default_returns;geitsales.emea@bakerhughes.com
+;6180_ireland_FGM_nonfilm_returns;gesensingorders@bakerhughes.com
+;6180_russiaCis_FGM&PRS_nonfilm_returns;"gesensingorders@bakerhughes.com, sensing.grobycc@bakerhughes.com";
+;6210_russiaCis_FGM&PRS_nonfilm_returns;"gesensingorders@bakerhughes.com, sensing.grobycc@bakerhughes.com";
+;1800_usa_rvi_buy;namservice@bakerhughes.com
+;6040_nordic_FGM&PRS_nonfilm_returns;nl.sensing.sales@bakerhughes.com
+;6040_otherEurope_film_buy;sales.insptech.emea_film@bakerhughes.com
+;6270_spain_portables_buy;Sales.SensInsp.es@bakerhuhges.com
+;6270_spain_film_buy;Sales.SensInsp.es@bakerhuhges.com
+;6040_portugal_portables_buy;Sales.SensInsp.es@bakerhuhges.com
+;6270_default_buy;Sales.SensInsp.es@bakerhuhges.com
+;6270_default_returns;Sales.SensInsp.es@bakerhuhges.com
+;6040_germany_FGM&PRS_nonfilm_returns;sensing.de.cc@bakerhughes.com
+;6040_portugal_FGM&PRS_nonfilm_returns;sensing.fr.cc@bakerhughes.com
+;6030_france_FGM&PRS_nonfilm_returns;sensing.fr.cc@bakerhughes.com
+;6270_spain_FGM&PRS_nonfilm_returns;sensing.fr.cc@bakerhughes.com
+;6210_UK_PRS_nonfilm_returns;sensing.grobycc@bakerhughes.com
+;1200_portugal_BN_buy;servicioaclientes@bakerhughes.com
+;6070_portugal_BN_buy;servicioaclientes@bakerhughes.com
+;1200_spain_BN_buy;servicioaclientes@bakerhughes.com
+;6270_spain_BN_buy;servicioaclientes@bakerhughes.com
+;6210_uk_portables_buy;trans.geituksales@bakerhughes.com
+;6210_uk_film_buy;trans.geituksales@bakerhughes.com
+;6210_default_buy;trans.geituksales@bakerhughes.com
+;6210_default_returns;trans.geituksales@bakerhughes.com
+
+# CONTACT_NUMBER Updation
+UPDATE ContactusSettings;code[unique=true];phoneNum
+;7030_australia_portables_buy;"+1300 057 348 (East Australia),+1300 018 351 (Western Australia)"
+;7030_default_buy;"+1300 057 348 (East Australia),+1300 018 351 (Western Australia)"
+;7030_default_returns;"+1300 057 348 (East Australia),+1300 018 351 (Western Australia)"
+;6130_russiaCis_BN_buy;nodirectnumber
+;1200_russiaCis_BN_buy;nodirectnumber
+;6010_UK_BN_buy;8000328981 / 0800 0329008
+;1200_UK_BN_buy;8000328981 / 0800 0329008
+;7140_china_film_buy;+86 21 38773544
+;6040_germany_portables_buy;+49 2233 601 102
+;6020_default_buy;+49 2233 601 102
+;6040_default_buy;+49 2233 601 102
+;6020_default_returns;+49 2233 601 102
+;6040_default_returns;+49 2233 601 102
+;1200_portugal_BN_buy;+34 900 838 318
+;6070_portugal_BN_buy;+34 900 838 318
+;1200_spain_BN_buy;+34 900 838 318
+;6270_spain_BN_buy;+34 900 838 318
+
+# WORKING_HOURS Updation
+UPDATE ContactusSettings;code[unique=true];workingHours
+;6020_italy_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;7030_australia_portables_buy;"09:00 - 17:30 Australia Eastern Time,09:00 - 17:30 Australia Western Time"
+;7030_default_buy;"09:00 - 17:30 Australia Eastern Time,09:00 - 17:30 Australia Western Time"
+;7030_default_returns;"09:00 - 17:30 Australia Eastern Time,09:00 - 17:30 Australia Western Time"
+;6130_russiaCis_BN_buy;08:00 - 17:30 Central Europe Time
+;1200_russiaCis_BN_buy;08:00 - 17:30 Central Europe Time
+;6010_UK_BN_buy;08:00 - 17:30 Central Europe Time
+;1200_UK_BN_buy;08:00 - 17:30 Central Europe Time
+;7140_china_portables_buy;09:00 - 17:30 Beijing Time
+;7140_china_film_buy;09:00 - 17:30 Beijing Time
+;7140_default_buy;09:00 - 17:30 Beijing Time
+;7140_default_returns;09:00 - 17:30 Beijing Time
+;6020_italy_portables_buy;08:00 - 17:30 Central Europe Time
+;6040_germany_portables_buy;08:00 - 17:30 Central Europe Time
+;6040_otherEurope_portables_buy;08:00 - 17:30 Central Europe Time
+;6040_russiaCis_portables_buy;08:00 - 17:30 Central Europe Time
+;6020_default_buy;08:00 - 17:30 Central Europe Time
+;6040_default_buy;08:00 - 17:30 Central Europe Time
+;6020_default_returns;08:00 - 17:30 Central Europe Time
+;6040_default_returns;08:00 - 17:30 Central Europe Time
+;6180_ireland_FGM_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6040_nordic_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6270_spain_portables_buy;08:00 - 17:00 Central Europe Time
+;6270_spain_film_buy;08:00 - 17:00 Central Europe Time
+;6040_portugal_portables_buy;08:00 - 17:00 Central Europe Time
+;6270_default_buy;08:00 - 17:00 Central Europe Time
+;6270_default_returns;08:00 - 17:00 Central Europe Time
+;6040_germany_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6040_portugal_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6030_france_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6270_spain_FGM&PRS_nonfilm_returns;08:00 - 17:00 Central Europe Time
+;6210_uk_portables_buy;09:00 - 17:00 Central Europe Time
+;6210_uk_film_buy;09:00 - 17:00 Central Europe Time
+;6210_default_buy;09:00 - 17:00 Central Europe Time
+;6210_default_returns;09:00 - 17:00 Central Europe Time
+
+
+#Update Email, PhoneNum and WorkingHours
+UPDATE ContactusSettings;code[unique=true];email;phoneNum;workingHours
+                        ;1720_canada_film_buy;customer.care@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+                        ;1800_default_buy;customer.care@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+                        ;1720_default_buy;customer.care@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+                        ;1720_default_returns;customer.care@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+                        ;1800_default_returns;customer.care@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+                        ;6040_southEastAsia_film_buy;custcaresea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+                        ;1800_southEastAsia_portables_buy;custcaresea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+
+
+#Remove Impex (User Story - US13585)
+REMOVE ContactusSettings;code[unique=true]
+                        ;3040_argentina_portables_buy
+                        ;tbd_japan_portables_buy
+                        ;tbd_korea_portables_buy
+
+# New Regions
+INSERT_UPDATE GEEdgeContactUsRegion;code[unique=true]	;name;
+                                   ;Asia				;Asia
+                                   ;Europe				;Europe
+                                   ;Russia-CIS			;Russia & CIS countries
+                                   ;LatinAmerica		;Latin America
+                                   ;NorthAmerica		;North America
+                                   ;MiddleEast			;MidEast, India & Africa
+
+# Static Contact Us Page Bottom all data impex
+INSERT_UPDATE BHStaticContactUs	   ;code[unique=true]					;commerceTypeValue	;region(code)			;subRegion							;country									;contactUsProductLine										;email															;phoneNum																	;workingHours
+                                   ;1_Sales_MiddleEast_BN				;Sales				;MiddleEast				;Gulf								;											;"Bently Nevada condition monitoring"						;custcare.bentlygulf@bakerhughes.com							;no direct number															;09:00 - 17:00 Gulf Standard Time (Sun-Thurs)
+                                   ;2_Sales_MiddleEast_BN				;Sales				;MiddleEast				;India								;											;"Bently Nevada condition monitoring"						;cc.bn.india@bakerhughes.com									;+0124-4610400																;09:00 - 17:30 India Standard Time
+                                   ;3_Sales_MiddleEast_PA				;Sales				;MiddleEast				;India								;											;"Panametrics flow, gas, & moisture measurement"			;cc.ms.india@bakerhughes.com									;+91 22 615 958 56															;08:00 - 17:00 India Standard Time
+                                   ;4_Sales_MiddleEast_ITFILM			;Sales				;MiddleEast				;India								;											;"Waygate film and film products"							;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;5_Sales_MiddleEast_WT				;Sales				;MiddleEast				;India								;											;"Waygate ultrasonic & eddy current inspection"				;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;6_Sales_MiddleEast_WT				;Sales				;MiddleEast				;India								;											;"Waygate visual inspection"								;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;7_Sales_MiddleEast_WT				;Sales				;MiddleEast				;India								;											;"Waygate x-ray"											;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;8_Sales_MiddleEast_BN				;Sales				;MiddleEast				;"North Africa, Turkey"				;											;"Bently Nevada condition monitoring"						;custcare.bentlyeastmed@bakerhughes.com							;+27 565226																	;08:00 - 14:00 Central Europe Time
+                                   ;9_Sales_MiddleEast_BN				;Sales				;MiddleEast				;Saudi								;											;"Bently Nevada condition monitoring"						;custcare.bentlysaudi@bakerhughes.com							;no direct number															;09:00 - 17:00 PM Arabia Standard Time
+                                   ;10_Sales_MiddleEast_BN				;Sales				;MiddleEast				;"Sub-Saharan Africa"				;											;"Bently Nevada condition monitoring"						;custcare.bentlyafrica@bakerhughes.com							;+27 (66) 2887381?															;08:00 - 17:30 Central Europe Time
+                                   ;11_Sales_MiddleEast_DR				;Sales				;MiddleEast				;									;											;"Druck pressure sensing"									;custcare.sensingmea@bakerhughes.com							;+97 152 8007168															;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;12_Sales_MiddleEast_NC				;Sales				;MiddleEast				;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+971 2 699 7119															;9:00 - 17:00 Gulf Time
+                                   ;13_Sales_MiddleEast_PA				;Sales				;MiddleEast				;									;											;"Panametrics flow, gas, & moisture measurement"			;custcare.sensingmea@bakerhughes.com							;+97 152 8007168															;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;14_Sales_MiddleEast_ITFILM			;Sales				;MiddleEast				;									;											;"Waygate film and film products"							;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;15_Sales_MiddleEast_WT				;Sales				;MiddleEast				;									;											;"Waygate ultrasonic & eddy current inspection"				;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;16_Sales_MiddleEast_WT				;Sales				;MiddleEast				;									;											;"Waygate visual inspection"								;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;17_Sales_MiddleEast_WT				;Sales				;MiddleEast				;									;											;"Waygate x-ray"											;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;18_Sales_Asia_NC					;Sales				;Asia					;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+66 6622 1623																;09:00 - 17:00 Singapore Time
+                                   ;19_Sales_Asia_BN					;Sales				;Asia					;"Australia/New Zealand"			;											;"Bently Nevada condition monitoring"						;custcare.au@bakerhughes.com									;"+1300 057 348 (East Australia) +1300 018 351 (Western Australia)"			;"09:00 - 17:30 Australia Eastern Time 09:00 - 17:30 Australia Western Time"
+                                   ;20_Sales_Asia_DR					;Sales				;Asia					;"Australia/New Zealand"			;											;"Druck pressure sensing"									;custcare.au@bakerhughes.com									;			                                                                ;
+                                   ;21_Sales_Asia_PA					;Sales				;Asia					;"Australia/New Zealand"			;											;"Panametrics flow, gas, & moisture measurement"			;custcare.au@bakerhughes.com									;			                                                                ;
+                                   ;22_Sales_Asia_ITFILM				;Sales				;Asia					;"Australia/New Zealand"			;											;"Waygate film and film products"							;custcare.au@bakerhughes.com									;+61 466 457 010															;08.30 - 17.30 UTC +11
+                                   ;23_Sales_Asia_WT					;Sales				;Asia					;"Australia/New Zealand"			;											;"Waygate ultrasonic & eddy current inspection"				;custcare.au@bakerhughes.com									;+61 466 457 010															;08.30 - 17.30 UTC +11
+                                   ;24_Sales_Asia_WT					;Sales				;Asia					;"Australia/New Zealand"			;											;"Waygate visual inspection"								;custcare.au@bakerhughes.com									;+61 466 457 010															;08.30 - 17.30 UTC +11
+                                   ;25_Sales_Asia_BN					;Sales				;Asia					;China								;											;"Bently Nevada condition monitoring"						;cc.bn.china@bakerhughes.com									;"+86 10 84007836  (Beijing) +86 13564582835 (Shanghai)"					;08:00 -17:00 China Standard Time
+                                   ;26_Sales_Asia_DR					;Sales				;Asia					;China								;											;"Druck pressure sensing"									;custsvcchina@bakerhughes.com									;																			;09:00 - 18:00 China Standard Time
+                                   ;27_Sales_Asia_PA					;Sales				;Asia					;China								;											;"Panametrics flow, gas, & moisture measurement"			;custsvcchina@bakerhughes.com									;																			;09:00 - 18:00 China Standard Time
+                                   ;28_Sales_Asia_ITFILM				;Sales				;Asia					;China								;											;"Waygate film and film products"							;custsvcchina@bakerhughes.com									;+86 21 38773544															;09:00 - 17:30 Beijing Time
+                                   ;29_Sales_Asia_WT					;Sales				;Asia					;China								;											;"Waygate ultrasonic & eddy current inspection"				;custsvcchina@bakerhughes.com									;+86 21 38777114															;09:00 - 17:30 Beijing Time
+                                   ;30_Sales_Asia_WT					;Sales				;Asia					;China								;											;"Waygate visual inspection"								;custsvcchina@bakerhughes.com									;+86 21 38778376 															;09:00 - 17:30 Beijing Time
+                                   ;31_Sales_Asia_BN					;Sales				;Asia					;Indonesia							;											;"Bently Nevada condition monitoring"						;custcare.id@bakerhughes.com									;+62 81 280 49456															;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;32_Sales_Asia_BN					;Sales				;Asia					;Japan								;											;"Bently Nevada condition monitoring"						;bncustcare.jp@bakerhughes.com									;+81 3 6890 4520															;09:00 - 17:30  Tokyo Time
+                                   ;33_Sales_Asia_DR					;Sales				;Asia					;Japan								;											;"Druck pressure sensing"									;druckcustcare.jp@bakerhughes.com								;+03 6890 4538																;09:00 - 17:30  Tokyo Time
+                                   ;34_Sales_Asia_PA					;Sales				;Asia					;Japan								;											;"Panametrics flow, gas, & moisture measurement"			;panacustcare.jp@bakerhughes.com								;+03 6890 4538																;09:00 - 17:30  Tokyo Time
+                                   ;35_Sales_Asia_ITFILM				;Sales				;Asia					;Japan								;											;"Waygate film and film products"							;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																;09:00 - 17:30  Tokyo Time
+                                   ;36_Sales_Asia_WT					;Sales				;Asia					;Japan								;											;"Waygate ultrasonic & eddy current inspection"				;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																;09:00 - 17:30  Tokyo Time
+                                   ;37_Sales_Asia_WT					;Sales				;Asia					;Japan								;											;"Waygate visual inspection"								;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																;09:00 - 17:30  Tokyo Time
+                                   ;38_Sales_Asia_BN					;Sales				;Asia					;Korea								;											;"Bently Nevada condition monitoring"						;custcare.kr@bakerhughes.com									;"+82 31 620 6000 (Pangyo) +82 52 296 9666 (Ulsan) +82 61 691 4902 (Yeosu)"	;09:00 - 18:00 Korea Standard Time
+                                   ;39_Sales_Asia_DR					;Sales				;Asia					;Korea								;											;"Druck pressure sensing"									;custcaremckorea@bakerhughes.com								;																			;09:00 - 17:30 Japan Standard Time
+                                   ;40_Sales_Asia_PA					;Sales				;Asia					;Korea								;											;"Panametrics flow, gas, & moisture measurement"			;custcaremckorea@bakerhughes.com								;																			;09:00 - 17:30 Japan Standard Time
+                                   ;41_Sales_Asia_ITFILM				;Sales				;Asia					;Korea								;											;"Waygate film and film products"							;custcaremckorea@bakerhughes.com								;" +82-31-620-6601 ( direct line )"											;09:00 - 17:30 Seoul Time
+                                   ;42_Sales_Asia_WT					;Sales				;Asia					;Korea								;											;"Waygate ultrasonic & eddy current inspection"				;custcaremckorea@bakerhughes.com								;" ;+82-31-620-6601 ( direct line )"										;09:00 - 17:30 Seoul Time
+                                   ;43_Sales_Asia_WT					;Sales				;Asia					;Korea								;											;"Waygate visual inspection"								;custcaremckorea@bakerhughes.com								;" +82-31-620-6601 ( direct line )"											;09:00 - 17:30 Seoul Time
+                                   ;44_Sales_Asia_BN					;Sales				;Asia					;Malaysia							;											;"Bently Nevada condition monitoring"						;custcare.my@bakerhughes.com									;+60 12 241 0760															;08:30 - 17:30 Malaysia Time (Mon - Fri)
+                                   ;45_Sales_Asia_BN					;Sales				;Asia					;									;Philippines								;"Bently Nevada condition monitoring"						;custcare.ph@bakerhughes.com									;+61 437995987																;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;46_Sales_Asia_BN					;Sales				;Asia					;									;Singapore									;"Bently Nevada condition monitoring"						;custcare.sg@bakerhughes.com									;+65 62135500 																;08:30 - 17:30 Singapore Time (Mon - Fri)
+                                   ;47_Sales_Asia_ITFILM				;Sales				;Asia					;"Southeast Asia"					;											;"Waygate film and film products"							;custcaresea@bakerhughes.com									;+852 91327801																;08.00 - 17.00 UTC +8
+                                   ;48_Sales_Asia_WT					;Sales				;Asia					;"Southeast Asia"					;											;"Waygate ultrasonic & eddy current inspection"				;custcaresea@bakerhughes.com									;+852 91327801																;08.00 - 17.00 UTC +8
+                                   ;49_Sales_Asia_WT					;Sales				;Asia					;"Southeast Asia"					;											;"Waygate visual inspection"								;custcaresea@bakerhughes.com									;+852 91327801																;08.00 - 17.00 UTC +8
+                                   ;50_Sales_Asia_BN					;Sales				;Asia					;									;Taiwan										;"Bently Nevada condition monitoring"						;cc.bn.china@bakerhughes.com									;+886 (2) 21837082															;09:00 - 18:00 China Standard Time
+                                   ;51_Sales_Asia_BN					;Sales				;Asia					;									;Thailand									;"Bently Nevada condition monitoring"						;custcare.th@bakerhughes.com									;+66 92 259 4976															;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;52_Sales_Asia_BN					;Sales				;Asia					;									;Vietnam									;"Bently Nevada condition monitoring"						;custcare.vt@bakerhughes.com									;+84 471067288																;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;53_Sales_Europe_BN					;Sales				;Europe					;									;Belgium									;"Bently Nevada condition monitoring"						;serviceclientel@bently.com, klantenservice@bakerhughes.com	FR 	;+0800 900 359 / NL 0800 71419												;08:00 - 17:30 Central Europe Time
+                                   ;54_Sales_Europe_DR					;Sales				;Europe					;									;"Belgium, Netherlands, Luxembourg"			;"Druck pressure sensing"									;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950															;08:00 - 17:00 Central Europe Time
+                                   ;55_Sales_Europe_PA					;Sales				;Europe					;									;"Belgium, Netherlands, Luxembourg"			;"Panametrics flow, gas, & moisture measurement"			;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950															;08:00 - 17:00 Central Europe Time
+                                   ;56_Sales_Europe_BN					;Sales				;Europe					;"Eastern Europe"					;											;"Bently Nevada condition monitoring"						;customerservice_ee@bakerhughes.com								;+36 27 565 025																;08:00 - 17:30 Central Europe Time
+                                   ;57_Sales_Europe_BN					;Sales				;Europe					;									;France										;"Bently Nevada condition monitoring"						;serviceclientel@bently.com										;+0800 900 359																;08:00 - 17:30 Central Europe Time
+                                   ;58_Sales_Europe_ITFILM				;Sales				;Europe					;									;France										;"Waygate film and film products"							;geit.fr@bakerhughes.com										;+33 472 17 92 20															;08:00 - 17:30 Central Europe Time
+                                   ;59_Sales_Europe_WT					;Sales				;Europe					;									;France										;"Waygate ultrasonic & eddy current inspection"				;geit.fr@bakerhughes.com										;+33 472 17 92 20															;08:00 - 17:30 Central Europe Time
+                                   ;60_Sales_Europe_WT					;Sales				;Europe					;									;France										;"Waygate visual inspection"								;geit.fr@bakerhughes.com										;+33 472 17 92 20															;08:00 - 17:30 Central Europe Time
+                                   ;61_Sales_Europe_ITFILM				;Sales				;Europe					;									;Germany									;"Waygate film and film products"							;Sales.InspTech.de_film@bakerhughes.com							;+43 1 928 1388																;08:00 - 17:30 Central Europe Time
+                                   ;62_Sales_Europe_WT					;Sales				;Europe					;									;Germany									;"Waygate ultrasonic & eddy current inspection"				;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;63_Sales_Europe_WT					;Sales				;Europe					;									;Germany									;"Waygate visual inspection"								;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;64_Sales_Europe_BN					;Sales				;Europe					;									;"Germany, Austria, Switzerland"			;"Bently Nevada condition monitoring"						;bnkundendienst@bakerhughes.com	DE 								;+49 (0) 800 182 3669, AT +43 (0) 800 295 037, CH +41 (0) 800 561-293		;08:00 - 17:30 Central Europe Time
+                                   ;65_Sales_Europe_PA					;Sales				;Europe					;									;Ireland									;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+36 27 565314																;08:00 - 17:00 Central Europe Time
+                                   ;66_Sales_Europe_DR					;Sales				;Europe					;									;Italy										;"Druck pressure sensing"									;csd.italia@bakerhughes.com										;+39 02 36 04 28 42															;08:00 - 17:00 Central Europe Time
+                                   ;67_Sales_Europe_PA					;Sales				;Europe					;									;Italy										;"Panametrics flow, gas, & moisture measurement"			;csd.italia@bakerhughes.com										;+39 02 36 04 28 42															;08:00 - 17:00 Central Europe Time
+                                   ;68_Sales_Europe_ITFILM				;Sales				;Europe					;									;Italy										;"Waygate film and film products"							;geit.custcare.italia@bakerhuhges.com							;+39 02 38590513															;08:00 - 17:30 Central Europe Time
+                                   ;69_Sales_Europe_WT					;Sales				;Europe					;									;Italy										;"Waygate ultrasonic & eddy current inspection"				;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;09:00 - 17:30 Central Europe Time
+                                   ;70_Sales_Europe_WT					;Sales				;Europe					;									;Italy										;"Waygate visual inspection"								;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;09:00 - 17:30 Central Europe Time
+                                   ;71_Sales_Europe_BN					;Sales				;Europe					;									;"Italy, Greece"							;"Bently Nevada condition monitoring"						;bnservizioclienti@bakerhughes.com								;+390239192157 / 800146903													;08:00 - 17:30 Central Europe Time
+                                   ;72_Sales_Europe_BN					;Sales				;Europe					;									;Netherlands								;"Bently Nevada condition monitoring"						;klantenservice@bakerhughes.com									;0800 0231917																;08:00 - 17:30 Central Europe Time
+                                   ;73_Sales_Europe_ITFILM				;Sales				;Europe					;Nordic								;											;"Waygate film and film products"							;geit.nordic@bakerhuhges.com									;46855950371																;08:00 - 17:30 Central Europe Time
+                                   ;74_Sales_Europe_BN					;Sales				;Europe					;									;"Norway, Denmark, Iceland"					;"Bently Nevada condition monitoring"						;kundeservice@bakerhughes.com									;+47 800 13810																;08:00 - 17:30 Central Europe Time
+                                   ;75_Sales_Europe_ITFILM				;Sales				;Europe					;									;											;"Waygate film and film products"							;geit.custcare.film@bakerhuhges.com								;+32 34562846																;08:00 - 17:30 Central Europe Time
+                                   ;76_Sales_Europe_BN					;Sales				;Europe					;									;Poland										;"Bently Nevada condition monitoring"						;customerservice_ee@bakerhughes.com								;+48 22 520 5389															;08:00 - 17:30 Central Europe Time
+                                   ;77_Sales_Europe_DR					;Sales				;Europe					;									;Portugal									;"Druck pressure sensing"									;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;78_Sales_Europe_PA					;Sales				;Europe					;									;Portugal									;"Panametrics flow, gas, & moisture measurement"			;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;79_Sales_Europe_ITFILM				;Sales				;Europe					;									;Portugal									;"Waygate film and film products"							;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:00 Central Europe Time
+                                   ;80_Sales_Europe_WT					;Sales				;Europe					;									;Portugal									;"Waygate ultrasonic & eddy current inspection"				;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:30 Central Europe Time
+                                   ;81_Sales_Europe_WT					;Sales				;Europe					;									;Portugal									;"Waygate visual inspection"								;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:30 Central Europe Time
+                                   ;82_Sales_Europe_PA					;Sales				;Europe					;									;Spain										;"Panametrics flow, gas, & moisture measurement"			;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;83_Sales_Europe_ITFILM				;Sales				;Europe					;									;Spain										;"Waygate film and film products"							;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:00 Central Europe Time
+                                   ;84_Sales_Europe_WT					;Sales				;Europe					;									;Spain										;"Waygate ultrasonic & eddy current inspection"				;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:00 Central Europe Time
+                                   ;85_Sales_Europe_WT					;Sales				;Europe					;									;Spain										;"Waygate visual inspection"								;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054															;08:00 - 17:00 Central Europe Time
+                                   ;86_Sales_Europe_BN					;Sales				;Europe					;									;"Spain, Portugal"							;"Bently Nevada condition monitoring"						;servicioaclientes@bakerhughes.com								;+34 900 838 318															;08:00 - 17:30 Central Europe Time
+                                   ;87_Sales_Europe_BN					;Sales				;Europe					;									;"Sweden, Finland"							;"Bently Nevada condition monitoring"						;kundtjanst@bently.com											;SE 0207 98531,FI +36 27 620 094											;08:00 - 17:00 Central Europe Time
+                                   ;88_Sales_Europe_ITFILM				;Sales				;Europe					;									;"United Kingdom"							;"Waygate film and film products"							;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771														;09:00 - 17:00 Central Europe Time
+                                   ;89_Sales_Europe_WT					;Sales				;Europe					;									;"United Kingdom"							;"Waygate ultrasonic & eddy current inspection"				;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771														;09:00 - 17:00 Central Europe Time
+                                   ;90_Sales_Europe_WT					;Sales				;Europe					;									;"United Kingdom"							;"Waygate visual inspection"								;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771														;09:00 - 17:00 Central Europe Time
+                                   ;91_Sales_Europe_BN					;Sales				;Europe					;									;"United Kingdom, Ireland"					;"Bently Nevada condition monitoring"						;customerservice_uk@bakerhughes.com								;8000328981 / 0800 0329008													;08:00 - 17:30 Central Europe Time
+                                   ;92_Sales_Europe_BN					;Sales				;Europe					;									;											;"Bently Nevada condition monitoring"						;customerservice_ee@bakerhughes.com								;+36 27 565 025																;08:00 - 17:30 Central Europe Time
+                                   ;93_Sales_Europe_NC					;Sales				;Europe					;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+33 2 72 249901															;09:00 - 17:00 Central Europe Time
+                                   ;94_Sales_Europe_PA					;Sales				;Europe					;									;											;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+36 27 565314																;08:00 - 17:00 Central Europe Time
+                                   ;95_Sales_Europe_ITFILM				;Sales				;Europe					;									;											;"Waygate film and film products"							;sales.insptech.emea_film@bakerhughes.com						;+43 1 928 1388																;08:00 - 17:30 Central Europe Time
+                                   ;96_Sales_Europe_WT					;Sales				;Europe					;									;											;"Waygate ultrasonic & eddy current inspection"				;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;97_Sales_Europe_WT					;Sales				;Europe					;									;											;"Waygate visual inspection"								;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;98_Sales_Europe_WT					;Sales				;Europe					;									;											;"Waygate xray"												;customercare.ahrensburg@bakerhughes.com						;+49 4102 807 0																;08:00 - 17:30 Central Europe Time
+                                   ;99_Sales_LatinAmerica_BN			;Sales				;LatinAmerica			;									;Argentina									;"Bently Nevada condition monitoring"						;cc.bn.la@bakerhughes.com										;																			;09:00 - 18:00 UTC - 3
+                                   ;100_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Argentina									;"Waygate ultrasonic & eddy current inspection"				;cc.mc.la@bakerhughes.com										;+54 11 5444 2453															;08:00 - 17:00 UTC - 3
+                                   ;101_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Argentina									;"Waygate visual inspection"								;cc.mc.la@bakerhughes.com										;+54 11 5444 2453															;08:00 - 17:00 UTC - 3
+                                   ;102_Sales_LatinAmerica_BN			;Sales				;LatinAmerica			;									;Brazil										;"Bently Nevada condition monitoring"						;cc.bn.la@bakerhughes.com										;																			;08:00 - 17:00 UTC - 3
+                                   ;103_Sales_LatinAmerica_ITFILM		;Sales				;LatinAmerica			;									;Brazil										;"Waygate film and film products"							;cc.inspection.brasil@bakerhughes.com                           ;+55 19 2104 6901															;08:00 - 17:00 UTC - 3
+                                   ;104_Sales_LatinAmerica_ITFILM		;Sales				;LatinAmerica			;									;Canada										;"Waygate film and film products"							;customer.care@bakerhughes.com									;+1 832 325 4368															;08:00 - 17:00 US Central Time
+                                   ;105_Sales_LatinAmerica_BN			;Sales				;LatinAmerica			;									;Colombia									;"Bently Nevada condition monitoring"						;cc.bn.la@bakerhughes.com										;																			;08:00 - 17:00 UTC - 5
+                                   ;106_Sales_LatinAmerica_ITFILM		;Sales				;LatinAmerica			;									;Colombia									;"Waygate film and film products"							;cc.mc.la@bakerhughes.com										;+571 742 56 15																;08:00 - 17:00 UTC - 5
+                                   ;107_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Colombia									;"Waygate ultrasonic & eddy current inspection"				;cc.mc.la@bakerhughes.com										;+571 742 56 15																;08:00 - 17:00 UTC - 5
+                                   ;108_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Colombia									;"Waygate visual inspection"								;cc.mc.la@bakerhughes.com										;+571 742 56 15																;08:00 - 17:00 UTC - 5
+                                   ;109_Sales_LatinAmerica_BN			;Sales				;LatinAmerica			;									;Mexico										;"Bently Nevada condition monitoring"						;cc.bn.la@bakerhughes.com										;																			;09:00 - 18:00 US Central Time
+                                   ;110_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Mexico										;"Waygate ultrasonic & eddy current inspection"				;cc.mc.la@bakerhughes.com										;+55 19 2104 6974															;08:00 - 17:00 UTC - 3
+                                   ;111_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;Mexico										;"Waygate visual inspection"								;cc.mc.la@bakerhughes.com										;+55 19 2104 6974															;08:00 - 17:00 UTC - 3
+                                   ;112_Sales_LatinAmerica_DR			;Sales				;LatinAmerica			;									;											;"Druck pressure sensing"									;ccpressureusa@bakerhughes.com									;+1 800 833 9438															;08:00 - 17:00 US Eastern Time
+                                   ;113_Sales_LatinAmerica_NC			;Sales				;LatinAmerica			;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+55 11 3958 98																;09:00 - 17:00 Brasil Time
+                                   ;114_Sales_LatinAmerica_PA			;Sales				;LatinAmerica			;									;											;"Panametrics flow, gas, & moisture measurement"			;customer.care@bakerhughes.com									;																			;08:00 - 17:00 US Eastern Time
+                                   ;115_Sales_LatinAmerica_ITFILM		;Sales				;LatinAmerica			;									;											;"Waygate film and film products"							;cc.mc.la@bakerhughes.com										;Not Available																;08:00 - 17:00 US Central Time
+                                   ;116_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;											;"Waygate ultrasonic & eddy current inspection"				;cc.mc.la@bakerhughes.com										;+55 (19) 2104 6974															;08:00 - 17:00 UTC - 3
+                                   ;117_Sales_LatinAmerica_WT			;Sales				;LatinAmerica			;									;											;"Waygate visual inspection"								;cc.mc.la@bakerhughes.com										;+55 (19) 2104 6974															;08:00 - 17:00 UTC - 3
+                                   ;118_Sales_NorthAmerica_BN			;Sales				;NorthAmerica			;									;											;"Bently Nevada condition monitoring"						;bently.customercare@bakerhughes.com							;+1 877 238 8808															;07:00 - 17:00 US Central Time
+                                   ;119_Sales_NorthAmerica_DR			;Sales				;NorthAmerica			;									;											;"Druck pressure sensing"									;ccpressureusa@bakerhughes.com									;+1 800 833 9438															;08:00 - 17:00 US Eastern Time
+                                   ;120_Sales_NorthAmerica_NC			;Sales				;NorthAmerica			;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+1 888 943 2272,  +1 540 387 8726											;09:00 - 17:00 US Central Time
+                                   ;121_Sales_NorthAmerica_PA			;Sales				;NorthAmerica			;									;											;"Panametrics flow, gas, & moisture measurement"			;customer.care@bakerhughes.com									;+1 800 833 9438																			;08:00 - 17:00 US Eastern Time
+                                   ;122_Sales_NorthAmerica_ITFILM		;Sales				;NorthAmerica			;									;											;"Waygate film and film products"							;customer.care@bakerhughes.com									;+1 832 325 4368															;09:00 - 17:00 US Central Time
+                                   ;123_Sales_NorthAmerica_WT			;Sales				;NorthAmerica			;									;											;"Waygate ultrasonic & eddy current inspection"				;customer.care@bakerhughes.com									;+1 832 325 4368															;08:00 - 17:00 US Central Time
+                                   ;124_Sales_NorthAmerica_WT			;Sales				;NorthAmerica			;									;											;"Waygate visual inspection"								;customer.care@bakerhughes.com									;+1 832 325 4368															;08:00 - 17:00 US Central Time
+                                   ;125_Sales_Russia-CIS_BN			    ;Sales				;Russia-CIS				;"CIS Countries"					;											;"Bently Nevada condition monitoring"						;customerservice_ee@bakerhughes.com								;+36 27 565 025																;08:00 - 17:30 Central Europe Time
+                                   ;126_Sales_Russia-CIS_ITFILM		    ;Sales				;Russia-CIS				;"CIS Countries"					;											;"Waygate film and film products"							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;127_Sales_Russia-CIS_WT			    ;Sales				;Russia-CIS				;"CIS Countries"					;											;"Waygate ultrasonic & eddy current inspection"				;geitsales.emea@bakerhughes.com 								;3234562846																	;08:00 - 17:30 Central Europe Time
+                                   ;128_Sales_Russia-CIS_BN			    ;Sales				;Russia-CIS				;"Russian Federation"				;											;"Bently Nevada condition monitoring"						;customerservice_ee@bakerhughes.com								;no direct number															;08:00 - 17:30 Central Europe Time
+                                   ;129_Sales_Russia-CIS_ITFILM		    ;Sales				;Russia-CIS				;"Russian Federation"				;											;"Waygate film and film products"							;geitsales.emea@bakerhughes.com 								;3234562846																	;08:00 - 17:30 Central Europe Time
+                                   ;130_Sales_Russia-CIS_WT			    ;Sales				;Russia-CIS				;"Russian Federation"				;											;"Waygate ultrasonic & eddy current inspection"				;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;131_Sales_Russia-CIS_WT			    ;Sales				;Russia-CIS				;"Russian Federation"				;											;"Waygate visual inspection"								;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;132_Sales_Russia-CIS_PA			    ;Sales				;Russia-CIS				;									;											;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+ 36 27 565314																;09:00 - 17:30 Central Europe Time
+                                   ;133_Returns_MiddleEast_ITFILM		;Returns			;MiddleEast				;India								;											;"Waygate film and film products"							;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;134_Returns_MiddleEast_WT			;Returns			;MiddleEast				;India								;											;"Waygate ultrasonic & eddy current inspection"				;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;135_Returns_MiddleEast_WT			;Returns			;MiddleEast				;India								;											;"Waygate visual inspection"								;cc.it.india@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;136_Returns_MiddleEast_BN			;Returns			;MiddleEast				;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:30 - 16:30 US Central Time
+                                   ;137_Returns_MiddleEast_DR			;Returns			;MiddleEast				;									;											;"Druck pressure sensing"									;custcare.sensingmea@bakerhughes.com							;+97 152 8007168															;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;138_Returns_MiddleEast_NC			;Returns			;MiddleEast				;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+971 2 699 7119												;																			;9:00 - 17:00 Gulf Time
+                                   ;139_Returns_MiddleEast_PA			;Returns			;MiddleEast				;									;											;"Panametrics flow, gas, & moisture measurement"			;custcare.sensingmea@bakerhughes.com							;+97 152 8007168															;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;140_Returns_MiddleEast_PA			;Returns			;MiddleEast				;									;											;"Panametrics flow, gas, & moisture measurement"			;cc.ms.india@bakerhughes.com									;+91 22 615 958 56															;08:00 - 17:00 India Standard Time
+                                   ;141_Returns_MiddleEast_ITFILM		;Returns			;MiddleEast				;									;											;"Waygate film and film products"							;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;142_Returns_MiddleEast_WT			;Returns			;MiddleEast				;									;											;"Waygate ultrasonic & eddy current inspection"				;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;143_Returns_MiddleEast_WT			;Returns			;MiddleEast				;									;											;"Waygate visual inspection"								;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;144_Returns_Asia_BN				    ;Returns			;Asia					;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:30 - 16:30 US Central Time
+                                   ;145_Returns_Asia_DR				    ;Returns			;Asia					;									;											;"Druck pressure sensing"			                        ;                                                               ;                                                                           ;
+                                   ;146_Returns_Asia_NC				    ;Returns			;Asia					;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+66 6622 1623																;09:00 - 17:00 Singapore Time
+                                   ;147_Returns_Asia_PA				    ;Returns			;Asia					;									;											;"Panametrics flow, gas, & moisture measurement"			;                                                               ;														                    ;
+                                   ;148_Returns_Asia_ITFILM			    ;Returns			;Asia					;									;											;"Waygate film and film products"			                ;                                                               ;														                    ;
+                                   ;149_Returns_Asia_WT				    ;Returns			;Asia					;									;											;"Waygate ultrasonic & eddy current inspection"			    ;                                                               ;														                    ;
+                                   ;150_Returns_Asia_WT				    ;Returns			;Asia					;									;											;"Waygate visual inspection"			                    ;                                                               ;														                    ;
+                                   ;151_Returns_Europe_DR				;Returns			;Europe					;									;"Belgium, Netherlands, Luxembourg"			;"Druck pressure sensing"									;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950															;08:00 - 17:00 Central Europe Time
+                                   ;152_Returns_Europe_PA				;Returns			;Europe					;									;"Belgium, Netherlands, Luxembourg"			;"Panametrics flow, gas, & moisture measurement"			;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950															;08:00 - 17:00 Central Europe Time
+                                   ;153_Returns_Europe_DR				;Returns			;Europe					;									;France										;"Druck pressure sensing"									;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;154_Returns_Europe_PA				;Returns			;Europe					;									;France										;"Panametrics flow, gas, & moisture measurement"			;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;155_Returns_Europe_DR				;Returns			;Europe					;									;Germany									;"Druck pressure sensing"									;sensing.de.cc@bakerhughes.com									;+49 69 2222 2973															;08:00 - 17:00 Central Europe Time
+                                   ;156_Returns_Europe_PA				;Returns			;Europe					;									;Germany									;"Panametrics flow, gas, & moisture measurement"			;sensing.de.cc@bakerhughes.com									;+49 69 2222 2973															;08:00 - 17:00 Central Europe Time
+                                   ;157_Returns_Europe_PA				;Returns			;Europe					;									;Ireland									;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+36 27 565314																;08:00 - 17:00 Central Europe Time
+                                   ;158_Returns_Europe_DR				;Returns			;Europe					;									;Italy										;"Druck pressure sensing"									;csd.italia@bakerhughes.com										;+39 02 36 04 28 42															;08:00 - 17:00 Central Europe Time
+                                   ;159_Returns_Europe_PA				;Returns			;Europe					;									;Italy										;"Panametrics flow, gas, & moisture measurement"			;csd.italia@bakerhughes.com										;+39 02 36 04 28 42															;08:00 - 17:00 Central Europe Time
+                                   ;160_Returns_Europe_DR				;Returns			;Europe					;Nordic								;											;"Druck pressure sensing"									;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950															;09:00 - 17:30 Central Europe Time
+                                   ;161_Returns_Europe_DR				;Returns			;Europe					;									;"Spain, Portugal"							;"Druck pressure sensing"									;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;09:00 - 17:30 Central Europe Time
+                                   ;162_Returns_Europe_PA				;Returns			;Europe					;									;"Spain, Portugal"							;"Panametrics flow, gas, & moisture measurement"			;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50															;08:00 - 17:00 Central Europe Time
+                                   ;163_Returns_Europe_DR				;Returns			;Europe					;									;"United Kingdom"							;"Druck pressure sensing"									;sensing.grobycc@bakerhughes.com								;+44 116 231 7106															;09:00 - 17:30 Central Europe Time
+                                   ;164_Returns_Europe_BN				;Returns			;Europe					;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:30 - 16:30 US Central Time (UTC-6)
+                                   ;165_Returns_Europe_NC				;Returns			;Europe					;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+33 2 72 249901															;09:00 - 17:00 Central Europe Time
+                                   ;166_Returns_Europe_PA				;Returns			;Europe					;									;											;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+36 27 565314																;08:00 - 17:00 Central Europe Time
+                                   ;167_Returns_Europe_ITFILM			;Returns			;Europe					;									;											;"Waygate film and film products"							;geitsales.emea@bakerhughes.com									;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;168_Returns_Europe_WT				;Returns			;Europe					;									;											;"Waygate ultrasonic & eddy current inspection"				;geithuerth.service@bakerhuhges.com								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;169_Returns_Europe_WT				;Returns			;Europe					;									;											;"Waygate visual inspection"								;geit.service.rvi@bakerhughes.com								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;170_Returns_LatinAmerica_BN		    ;Returns			;LatinAmerica			;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:30 - 16:30 US Central Time
+                                   ;171_Returns_LatinAmerica_NC		    ;Returns			;LatinAmerica			;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+55 11 3958 98																;09:00 - 17:00 Brasil Time
+                                   ;172_Returns_LatinAmerica_ITFILM	    ;Returns			;LatinAmerica			;									;											;"Waygate film and film products"							;custcareboston@bakerhughes.com										;																			;08:00 - 17:00 US Eastern Time
+                                   ;173_Returns_LatinAmerica_WT		    ;Returns			;LatinAmerica			;									;											;"Waygate ultrasonic & eddy current inspection"				;custcareboston@bakerhughes.com										;																			;08:00 - 17:00 US Eastern Time
+                                   ;174_Returns_LatinAmerica_WT		    ;Returns			;LatinAmerica			;									;											;"Waygate visual inspection"								;custcareboston@bakerhughes.com										;+1 281-542-3650, option 4													;08:00 - 17:00 US Eastern Time
+                                   ;175_Returns_NorthAmerica_BN		    ;Returns			;NorthAmerica			;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:30 - 16:30 US Central Time
+                                   ;176_Returns_NorthAmerica_DR		    ;Returns			;NorthAmerica			;									;											;"Druck pressure sensing"									;custcareboston@bakerhughes.com										;+1 281 542 3650															;08:00 - 17:00 US Eastern Time
+                                   ;177_Returns_NorthAmerica_NC		    ;Returns			;NorthAmerica			;									;											;"Nexus Controls"											;controlparts@bakerhughes.com									;+1 888 943 2272,  +1 540 387 8726											;09:00 - 17:00 US Central Time
+                                   ;178_Returns_NorthAmerica_PA		    ;Returns			;NorthAmerica			;									;											;"Panametrics flow, gas, & moisture measurement"			;custcareboston@bakerhughes.com										;+1 800 833 9438																			;08:00 - 17:00 US Eastern Time
+                                   ;179_Returns_NorthAmerica_ITFILM	    ;Returns			;NorthAmerica			;									;											;"Waygate film and film products"							;customer.care@bakerhughes.com										;+1 832 325 4368																			;08:00 - 17:00 US Eastern Time
+                                   ;180_Returns_NorthAmerica_WT		    ;Returns			;NorthAmerica			;									;											;"Waygate ultrasonic & eddy current inspection"				;customer.care@bakerhughes.com										;																			;08:00 - 17:00 US Eastern Time
+                                   ;181_Returns_NorthAmerica_WT		    ;Returns			;NorthAmerica			;									;											;"Waygate visual inspection"								;customer.care@bakerhughes.com										;+1 281-542-3650, option 4													;08:00 - 17:00 US Eastern Time
+                                   ;182_Returns_Russia-CIS_ITFILM		;Returns			;Russia-CIS				;									;											;"Waygate film and film products"							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;183_Returns_Russia-CIS_WT			;Returns			;Russia-CIS				;									;											;"Waygate ultrasonic & eddy current inspection"				;geithuerth.service@bakerhuhges.com								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;184_Returns_Russia-CIS_WT			;Returns			;Russia-CIS				;									;											;"Waygate visual inspection"								;geit.service.rvi@bakerhughes.com								;+49 2233 601 102															;08:00 - 17:30 Central Europe Time
+                                   ;185_Returns_Russia-CIS_PA			;Returns			;Russia-CIS				;									;											;"Panametrics flow, gas, & moisture measurement"			;gesensingorders@bakerhughes.com								;+ 36 27 565314																;09:00 - 17:30 Central Europe Time
+                                   ;186_Returns_Russia-CIS_BN			;Returns			;Russia-CIS				;									;											;"Bently Nevada condition monitoring"						;bently.returns@bakerhughes.com									;+1 775 215 1259															;08:00 - 17:30 Central Europe Time
+                                   ;187_Returns_Russia-CIS_DR			;Returns			;Russia-CIS				;									;											;"Druck pressure sensing"									;sensing.grobycc@bakerhughes.com								;+ 44 116 231 7106 or + 36 27 565314?										;09:00 - 17:30 Central Europe Time
+
+
+##### Contact Us Bottom Section data #####
+# Country for Gulf
+# Language
+$lang=en
+# Create Countries
+INSERT_UPDATE Country	;isocode[unique=true];name[lang=$lang]
+                        ;GC;"Gulf"
+
+
+# Bottom Section Contact Us new data.
+INSERT_UPDATE ContactusSettings	   ;code[unique=true]						;commerceTypeValue	;contactUsRegion(code)		;contactUsCountry(isocode)		;contactUsProductLine								;email															;phoneNum																		;workingHours
+                                   ;Sales_MiddleEast_Gulf_BN				;Sales				;MiddleEast					;GC								;Bently Nevada condition monitoring					;custcare.bentlygulf@bakerhughes.com							;no direct number																;09:00 - 17:00 Gulf Standard Time (Sun-Thurs)
+                                   ;Sales_MiddleEast_IN_BN					;Sales				;MiddleEast					;IN								;Bently Nevada condition monitoring					;cc.bn.india@bakerhughes.com									;+0124-4610400																	;09:00 - 17:30 India Standard Time
+                                   ;Sales_MiddleEast_IN_PA					;Sales				;MiddleEast					;IN								;Panametrics flow, gas, & moisture measurement		;cc.ms.india@bakerhughes.com									;+91 22 615 958 56																;08:00 - 17:00 India Standard Time
+                                   ;Sales_MiddleEast_IN_ITFILM				;Sales				;MiddleEast					;IN								;Waygate film and film products						;cc.it.india@bakerhughes.com									;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_IN_WTUT				;Sales				;MiddleEast					;IN								;Waygate ultrasonic & eddy current inspection		;cc.it.india@bakerhughes.com									;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_IN_WTVI				;Sales				;MiddleEast					;IN								;Waygate visual inspection							;cc.it.india@bakerhughes.com									;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_IN_WTXR				;Sales				;MiddleEast					;IN								;Waygate x-ray										;cc.it.india@bakerhughes.com									;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_TR_BN					;Sales				;MiddleEast					;TR								;Bently Nevada condition monitoring					;custcare.bentlyeastmed@bakerhughes.com							;+27 565226																		;08:00 - 14:00 Central Europe Time
+                                   ;Sales_MiddleEast_SA_BN					;Sales				;MiddleEast					;SA								;Bently Nevada condition monitoring					;custcare.bentlysaudi@bakerhughes.com							;no direct number																;09:00 - 17:00 PM Arabia Standard Time
+                                   ;Sales_MiddleEast_SSA_BN				    ;Sales				;MiddleEast					;ZA								;Bently Nevada condition monitoring					;custcare.bentlyafrica@bakerhughes.com							;+27 (66) 2887381?																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_DR					    ;Sales				;MiddleEast					;								;Druck pressure sensing								;custcare.sensingmea@bakerhughes.com							;+97 152 8007168																;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;Sales_MiddleEast_NC					    ;Sales				;MiddleEast					;								;Nexus Controls										;controlparts@bakerhughes.com									;+971 2 699 7119																;9:00 - 17:00 Gulf Time
+                                   ;Sales_MiddleEast_PA					    ;Sales				;MiddleEast					;								;Panametrics flow, gas, & moisture measurement		;custcare.sensingmea@bakerhughes.com							;+97 152 8007168																;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;Sales_MiddleEast_ITFILM				    ;Sales				;MiddleEast					;								;Waygate film and film products						;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_WTUT					;Sales				;MiddleEast					;								;Waygate ultrasonic & eddy current inspection		;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_WTVI					;Sales				;MiddleEast					;								;Waygate visual inspection							;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_MiddleEast_WTXR					;Sales				;MiddleEast					;								;Waygate x-ray										;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Asia_NC							;Sales				;Asia						;								;Nexus Controls										;controlparts@bakerhughes.com									;+66 6622 1623																	;09:00 - 17:00 Singapore Time
+                                   ;Sales_Asia_AU_BN						;Sales				;Asia						;AU								;Bently Nevada condition monitoring					;custcare.au@bakerhughes.com									;"+1300 057 348 (East Australia) +1300 018 351 (Western Australia)"				;"09:00 - 17:30 Australia Eastern Time 09:00 - 17:30 Australia Western Time"
+                                   ;Sales_Asia_AU_DR						;Sales				;Asia						;AU								;Druck pressure sensing								;custcare.au@bakerhughes.com								    ;	                                                                            ;
+                                   ;Sales_Asia_AU_PA						;Sales				;Asia						;AU								;Panametrics flow, gas, & moisture measurement		;custcare.au@bakerhughes.com								    ;	                                                                            ;
+                                   ;Sales_Asia_AU_ITFILM					;Sales				;Asia						;AU								;Waygate film and film products						;custcare.au@bakerhughes.com									;+61 466 457 010																;08.30 - 17.30 UTC +11
+                                   ;Sales_Asia_AU_WTUT						;Sales				;Asia						;AU								;Waygate ultrasonic & eddy current inspection		;custcare.au@bakerhughes.com									;+61 466 457 010																;08.30 - 17.30 UTC +11
+                                   ;Sales_Asia_AU_WTVI						;Sales				;Asia						;AU								;Waygate visual inspection							;custcare.au@bakerhughes.com									;+61 466 457 010																;08.30 - 17.30 UTC +11
+                                   ;Sales_Asia_CN_BN						;Sales				;Asia						;CN								;Bently Nevada condition monitoring					;cc.bn.china@bakerhughes.com									;"+86 10 84007836  (Beijing) +86 13564582835 (Shanghai)"						;08:00 -17:00 China Standard Time
+                                   ;Sales_Asia_CN_DR						;Sales				;Asia						;CN								;Druck pressure sensing								;custsvcchina@bakerhughes.com									;																				;09:00 - 18:00 China Standard Time
+                                   ;Sales_Asia_CN_PA						;Sales				;Asia						;CN								;Panametrics flow, gas, & moisture measurement		;custsvcchina@bakerhughes.com									;																				;09:00 - 18:00 China Standard Time
+                                   ;Sales_Asia_CN_ITFILM					;Sales				;Asia						;CN								;Waygate film and film products						;custsvcchina@bakerhughes.com									;+86 21 38773544																;09:00 - 17:30 Beijing Time
+                                   ;Sales_Asia_CN_WTUT						;Sales				;Asia						;CN								;Waygate ultrasonic & eddy current inspection		;custsvcchina@bakerhughes.com									;+86 21 38777114																;09:00 - 17:30 Beijing Time
+                                   ;Sales_Asia_CN_WTVI						;Sales				;Asia						;CN								;Waygate visual inspection							;custsvcchina@bakerhughes.com									;+86 21 38778376 																;09:00 - 17:30 Beijing Time
+                                   ;Sales_Asia_ID_BN						;Sales				;Asia						;ID								;Bently Nevada condition monitoring					;custcare.id@bakerhughes.com									;+62 81 280 49456																;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;Sales_Asia_JP_BN						;Sales				;Asia						;JP								;Bently Nevada condition monitoring					;bncustcare.jp@bakerhughes.com									;+81 3 6890 4520																;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_JP_DR						;Sales				;Asia						;JP								;Druck pressure sensing								;druckcustcare.jp@bakerhughes.com								;+03 6890 4538																	;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_JP_PA						;Sales				;Asia						;JP								;Panametrics flow, gas, & moisture measurement		;panacustcare.jp@bakerhughes.com								;+03 6890 4538																	;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_JP_ITFILM					;Sales				;Asia						;JP								;Waygate film and film products						;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																	;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_JP_WTUT						;Sales				;Asia						;JP								;Waygate ultrasonic & eddy current inspection		;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																	;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_JP_WTVI						;Sales				;Asia						;JP								;Waygate visual inspection							;wgcustcare.jp@bakerhughes.com									;+03 6890 4567																	;09:00 - 17:30  Tokyo Time
+                                   ;Sales_Asia_KR_BN						;Sales				;Asia						;KR								;Bently Nevada condition monitoring					;custcare.kr@bakerhughes.com									;"+82 31 620 6000 (Pangyo) +82 52 296 9666 (Ulsan) +82 61 691 4902 (Yeosu)"		;09:00 - 18:00 Korea Standard Time
+                                   ;Sales_Asia_KR_DR						;Sales				;Asia						;KR								;Druck pressure sensing								;custcaremckorea@bakerhughes.com								;																				;09:00 - 17:30 Japan Standard Time
+                                   ;Sales_Asia_KR_PA						;Sales				;Asia						;KR								;Panametrics flow, gas, & moisture measurement		;custcaremckorea@bakerhughes.com								;																				;09:00 - 17:30 Japan Standard Time
+                                   ;Sales_Asia_KR_ITFILM					;Sales				;Asia						;KR								;Waygate film and film products						;custcaremckorea@bakerhughes.com								;" +82-31-620-6601 ( direct line )"												;09:00 - 17:30 Seoul Time
+                                   ;Sales_Asia_KR_WTUT						;Sales				;Asia						;KR								;Waygate ultrasonic & eddy current inspection		;custcaremckorea@bakerhughes.com								;" +82-31-620-6601 ( direct line )"												;09:00 - 17:30 Seoul Time
+                                   ;Sales_Asia_KR_WTVI						;Sales				;Asia						;KR								;Waygate visual inspection							;custcaremckorea@bakerhughes.com								;" +82-31-620-6601 ( direct line )"												;09:00 - 17:30 Seoul Time
+                                   ;Sales_Asia_MY_BN						;Sales				;Asia						;MY								;Bently Nevada condition monitoring					;custcare.my@bakerhughes.com									;+60 12 241 0760																;08:30 - 17:30 Malaysia Time (Mon - Fri)
+                                   ;Sales_Asia_PH_BN						;Sales				;Asia						;PH								;Bently Nevada condition monitoring					;custcare.ph@bakerhughes.com									;+61 437995987																	;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;Sales_Asia_SG_BN						;Sales				;Asia						;SG								;Bently Nevada condition monitoring					;custcare.sg@bakerhughes.com									;+65 62135500 																	;08:30 - 17:30 Singapore Time (Mon - Fri)
+                                   ;Sales_Asia_ITFILM						;Sales				;Asia						;								;Waygate film and film products						;custcaresea@bakerhughes.com									;+852 91327801																	;08.00 - 17.00 UTC +8
+                                   ;Sales_Asia_WTUT						    ;Sales				;Asia						;								;Waygate ultrasonic & eddy current inspection		;custcaresea@bakerhughes.com									;+852 91327801																	;08.00 - 17.00 UTC +8
+                                   ;Sales_Asia_WTVI						    ;Sales				;Asia						;								;Waygate visual inspection							;custcaresea@bakerhughes.com									;+852 91327801																	;08.00 - 17.00 UTC +8
+                                   ;Sales_Asia_TW_BN						;Sales				;Asia						;TW								;Bently Nevada condition monitoring					;cc.bn.china@bakerhughes.com									;+886 (2) 21837082																;09:00 - 18:00 China Standard Time
+                                   ;Sales_Asia_TH_BN						;Sales				;Asia						;TH								;Bently Nevada condition monitoring					;custcare.th@bakerhughes.com									;+66 92 259 4976																;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;Sales_Asia_VN_BN						;Sales				;Asia						;VN								;Bently Nevada condition monitoring					;custcare.vt@bakerhughes.com									;+84 471067288																	;08:00 - 17:00 Indochina Time (Mon - Fri)
+                                   ;Sales_Europe_BE_BN						;Sales				;Europe						;BE								;Bently Nevada condition monitoring					;serviceclientel@bently.com, klantenservice@bakerhughes.com		;FR +0800 900 359 / NL 0800 71419												;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_BE_DR						;Sales				;Europe						;BE								;Druck pressure sensing								;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_BE_PA						;Sales				;Europe						;BE								;Panametrics flow, gas, & moisture measurement		;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_EuropeSubregion_BN		    ;Sales				;Europe						;								;Bently Nevada condition monitoring					;customerservice_ee@bakerhughes.com								;+36 27 565 025																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_FR_BN						;Sales				;Europe						;FR								;Bently Nevada condition monitoring					;serviceclientel@bently.com										;+0800 900 359																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_FR_ITFILM					;Sales				;Europe						;FR								;Waygate film and film products						;geit.fr@bakerhughes.com										;+33 472 17 92 20																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_FR_WTUT					;Sales				;Europe						;FR								;Waygate ultrasonic & eddy current inspection		;geit.fr@bakerhughes.com										;+33 472 17 92 20																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_FR_WTVI					;Sales				;Europe						;FR								;Waygate visual inspection							;geit.fr@bakerhughes.com										;+33 472 17 92 20																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_DE_ITFILM					;Sales				;Europe						;DE								;Waygate film and film products						;Sales.InspTech.de_film@bakerhughes.com							;+43 1 928 1388																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_DE_WTUT					;Sales				;Europe						;DE								;Waygate ultrasonic & eddy current inspection		;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_DE_WTVI					;Sales				;Europe						;DE								;Waygate visual inspection							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_DE_BN						;Sales				;Europe						;DE								;Bently Nevada condition monitoring					;bnkundendienst@bakerhughes.com									;DE +49 (0) 800 182 3669, AT +43 (0) 800 295 037, CH +41 (0) 800 561-293		;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_IE_PA						;Sales				;Europe						;IE								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+36 27 565314																	;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_IT_DR						;Sales				;Europe						;IT								;Druck pressure sensing								;csd.italia@bakerhughes.com										;+39 02 36 04 28 42																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_IT_PA						;Sales				;Europe						;IT								;Panametrics flow, gas, & moisture measurement		;csd.italia@bakerhughes.com										;+39 02 36 04 28 42																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_IT_ITFILM					;Sales				;Europe						;IT								;Waygate film and film products						;geit.custcare.italia@bakerhuhges.com							;+39 02 38590513																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_IT_WTUT					;Sales				;Europe						;IT								;Waygate ultrasonic & eddy current inspection		;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;09:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_IT_WTVI					;Sales				;Europe						;IT								;Waygate visual inspection							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;09:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_IT_BN						;Sales				;Europe						;IT								;Bently Nevada condition monitoring					;bnservizioclienti@bakerhughes.com								;+390239192157 / 800146903														;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_NL_BN						;Sales				;Europe						;NL								;Bently Nevada condition monitoring					;klantenservice@bakerhughes.com									;0800 0231917																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_NORDIC_ITFILM				;Sales				;Europe						;NORDIC							;Waygate film and film products						;geit.nordic@bakerhuhges.com									;46855950371																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_NO_BN						;Sales				;Europe						;NO								;Bently Nevada condition monitoring					;kundeservice@bakerhughes.com									;+47 800 13810																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_ITFILM					    ;Sales				;Europe						;								;Waygate film and film products						;geit.custcare.film@bakerhuhges.com								;+32 34562846																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_PL_BN						;Sales				;Europe						;PL								;Bently Nevada condition monitoring					;customerservice_ee@bakerhughes.com								;+48 22 520 5389																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_PT_DR						;Sales				;Europe						;PT								;Druck pressure sensing								;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_PT_PA						;Sales				;Europe						;PT								;Panametrics flow, gas, & moisture measurement		;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_PT_ITFILM					;Sales				;Europe						;PT								;Waygate film and film products						;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_PT_WTUT					;Sales				;Europe						;PT								;Waygate ultrasonic & eddy current inspection		;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_PT_WTVI					;Sales				;Europe						;PT								;Waygate visual inspection							;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_ES_PA						;Sales				;Europe						;ES								;Panametrics flow, gas, & moisture measurement		;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_ES_ITFILM					;Sales				;Europe						;ES								;Waygate film and film products						;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_ES_WTUT					;Sales				;Europe						;ES								;Waygate ultrasonic & eddy current inspection		;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_ES_WTVI					;Sales				;Europe						;ES								;Waygate visual inspection							;Sales.SensInsp.es@bakerhuhges.com								;+34 91 792 1054																;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_ES_BN						;Sales				;Europe						;ES								;Bently Nevada condition monitoring					;servicioaclientes@bakerhughes.com								;+34 900 838 318																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_SE_BN						;Sales				;Europe						;SE								;Bently Nevada condition monitoring					;kundtjanst@bently.com	SE 0207 98531,FI 						;+36 27 620 094																	;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_GB_ITFILM					;Sales				;Europe						;GB								;Waygate film and film products						;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771															;09:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_GB_WTUT					;Sales				;Europe						;GB								;Waygate ultrasonic & eddy current inspection		;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771															;09:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_GB_WTVI					;Sales				;Europe						;GB								;Waygate visual inspection							;trans.geituksales@bakerhughes.com								;+44 (0)845 601 5771															;09:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_GB_BN						;Sales				;Europe						;GB								;Bently Nevada condition monitoring					;customerservice_uk@bakerhughes.com								;8000328981 / 0800 0329008														;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_BN						    ;Sales				;Europe						;								;Bently Nevada condition monitoring					;customerservice_ee@bakerhughes.com								;+36 27 565 025																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_NC						    ;Sales				;Europe						;								;Nexus Controls										;controlparts@bakerhughes.com									;+33 2 72 249901																;09:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_PA						    ;Sales				;Europe						;								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+36 27 565314																	;08:00 - 17:00 Central Europe Time
+                                   ;Sales_Europe_ITFILM					    ;Sales				;Europe						;								;Waygate film and film products						;sales.insptech.emea_film@bakerhughes.com						;+43 1 928 1388																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_WTUT						;Sales				;Europe						;								;Waygate ultrasonic & eddy current inspection		;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_WTVI						;Sales				;Europe						;								;Waygate visual inspection							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Europe_WTXR						;Sales				;Europe						;								;Waygate xray										;customercare.ahrensburg@bakerhughes.com						;+49 4102 807 0																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_LatinAmerica_AR_BN				;Sales				;LatinAmerica				;AR								;Bently Nevada condition monitoring					;cc.bn.la@bakerhughes.com										;																				;09:00 - 18:00 UTC - 3
+                                   ;Sales_LatinAmerica_AR_WTUT				;Sales				;LatinAmerica				;AR								;Waygate ultrasonic & eddy current inspection		;cc.mc.la@bakerhughes.com										;+54 11 5444 2453																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_AR_WTVI				;Sales				;LatinAmerica				;AR								;Waygate visual inspection							;cc.mc.la@bakerhughes.com										;+54 11 5444 2453																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_CA_BN				;Sales				;LatinAmerica				;CA								;Bently Nevada condition monitoring					;cc.bn.la@bakerhughes.com										;																				;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_BR_ITFILM			;Sales				;LatinAmerica				;BR								;Waygate film and film products						;cc.inspection.brasil@bakerhughes.com        					;+55 19 2104 6901																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_CA_ITFILM			;Sales				;LatinAmerica				;CA								;Waygate film and film products						;customer.care@bakerhughes.com									;+1 832 325 4368																;08:00 - 17:00 US Central Time
+                                   ;Sales_LatinAmerica_CO_BN				;Sales				;LatinAmerica				;CO								;Bently Nevada condition monitoring					;cc.bn.la@bakerhughes.com										;																				;08:00 - 17:00 UTC - 5
+                                   ;Sales_LatinAmerica_CO_ITFILM			;Sales				;LatinAmerica				;CO								;Waygate film and film products						;cc.mc.la@bakerhughes.com										;+571 742 56 15																	;08:00 - 17:00 UTC - 5
+                                   ;Sales_LatinAmerica_CO_WTUT				;Sales				;LatinAmerica				;CO								;Waygate ultrasonic & eddy current inspection		;cc.mc.la@bakerhughes.com										;+571 742 56 15																	;08:00 - 17:00 UTC - 5
+                                   ;Sales_LatinAmerica_CO_WTVI				;Sales				;LatinAmerica				;CO								;Waygate visual inspection							;cc.mc.la@bakerhughes.com										;+571 742 56 15																	;08:00 - 17:00 UTC - 5
+                                   ;Sales_LatinAmerica_MX_BN				;Sales				;LatinAmerica				;MX								;Bently Nevada condition monitoring					;cc.bn.la@bakerhughes.com										;																				;09:00 - 18:00 US Central Time
+                                   ;Sales_LatinAmerica_MX_WTUT				;Sales				;LatinAmerica				;MX								;Waygate ultrasonic & eddy current inspection		;cc.mc.la@bakerhughes.com										;+55 19 2104 6974																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_MX_WTVI				;Sales				;LatinAmerica				;MX								;Waygate visual inspection							;cc.mc.la@bakerhughes.com										;+55 19 2104 6974																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_DR					;Sales				;LatinAmerica				;								;Druck pressure sensing								;ccpressureusa@bakerhughes.com									;+1 800 833 9438																;08:00 - 17:00 US Eastern Time
+                                   ;Sales_LatinAmerica_NC					;Sales				;LatinAmerica				;								;Nexus Controls										;controlparts@bakerhughes.com									;+55 11 3958 98																	;09:00 - 17:00 Brasil Time
+                                   ;Sales_LatinAmerica_PA					;Sales				;LatinAmerica				;								;Panametrics flow, gas, & moisture measurement		;customer.care@bakerhughes.com									;																				;08:00 - 17:00 US Eastern Time
+                                   ;Sales_LatinAmerica_ITFILM				;Sales				;LatinAmerica				;								;Waygate film and film products						;cc.mc.la@bakerhughes.com										;Not Available																	;08:00 - 17:00 US Central Time
+                                   ;Sales_LatinAmerica_WTUT				    ;Sales				;LatinAmerica				;								;Waygate ultrasonic & eddy current inspection		;cc.mc.la@bakerhughes.com										;+55 (19) 2104 6974																;08:00 - 17:00 UTC - 3
+                                   ;Sales_LatinAmerica_WTVI				    ;Sales				;LatinAmerica				;								;Waygate visual inspection							;cc.mc.la@bakerhughes.com										;+55 (19) 2104 6974																;08:00 - 17:00 UTC - 3
+                                   ;Sales_NorthAmerica_BN					;Sales				;NorthAmerica				;								;Bently Nevada condition monitoring					;bently.customercare@bakerhughes.com							;+1 877 238 8808																;07:00 - 17:00 US Central Time
+                                   ;Sales_NorthAmerica_DR					;Sales				;NorthAmerica				;								;Druck pressure sensing								;ccpressureusa@bakerhughes.com									;+1 800 833 9438																;08:00 - 17:00 US Eastern Time
+                                   ;Sales_NorthAmerica_NC					;Sales				;NorthAmerica				;								;Nexus Controls										;controlparts@bakerhughes.com									;+1 888 943 2272,  +1 540 387 8726												;09:00 - 17:00 US Central Time
+                                   ;Sales_NorthAmerica_PA					;Sales				;NorthAmerica				;								;Panametrics flow, gas, & moisture measurement		;customer.care@bakerhughes.com									;+1 800 833 9438																				;08:00 - 17:00 US Eastern Time
+                                   ;Sales_NorthAmerica_ITFILM				;Sales				;NorthAmerica				;								;Waygate film and film products						;customer.care@bakerhughes.com									;+1 832 325 4368																;09:00 - 17:00 US Central Time
+                                   ;Sales_NorthAmerica_WTUT				    ;Sales				;NorthAmerica				;								;Waygate ultrasonic & eddy current inspection		;customer.care@bakerhughes.com									;+1 832 325 4368																;08:00 - 17:00 US Central Time
+                                   ;Sales_NorthAmerica_WTVI				    ;Sales				;NorthAmerica				;								;Waygate visual inspection							;customer.care@bakerhughes.com									;+1 832 325 4368																;08:00 - 17:00 US Central Time
+                                   ;Sales_Russia-CIS_RussiaCIS_BN			;Sales				;Russia-CIS					;RU								;Bently Nevada condition monitoring					;customerservice_ee@bakerhughes.com								;+36 27 565 025																	;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RussiaCIS_ITFILM		;Sales				;Russia-CIS					;RU								;Waygate film and film products						;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RussiaCIS_WTUT		    ;Sales				;Russia-CIS					;RU								;Waygate ultrasonic & eddy current inspection		;geitsales.emea@bakerhughes.com 								;3234562846																		;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RU_BN					;Sales				;Russia-CIS					;RU								;Bently Nevada condition monitoring					;customerservice_ee@bakerhughes.com								;no direct number																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RU_ITFILM				;Sales				;Russia-CIS					;RU								;Waygate film and film products						;geitsales.emea@bakerhughes.com 								;3234562846																		;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RU_WTUT				;Sales				;Russia-CIS					;RU								;Waygate ultrasonic & eddy current inspection		;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_RU_WTVI				;Sales				;Russia-CIS					;RU								;Waygate visual inspection							;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Sales_Russia-CIS_PA					    ;Sales				;Russia-CIS					;								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+ 36 27 565314																	;09:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_IN_ITFILM			;Returns			;MiddleEast					;IN								;Waygate film and film products						;cc.it.india@bakerhughes.com	+49 							;2233 601 102																	;08:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_IN_WTUT				;Returns			;MiddleEast					;IN								;Waygate ultrasonic & eddy current inspection		;cc.it.india@bakerhughes.com	+49 							;2233 601 102																	;08:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_IN_WTVI				;Returns			;MiddleEast					;IN								;Waygate visual inspection							;cc.it.india@bakerhughes.com	+49 							;2233 601 102																	;08:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_BN					;Returns			;MiddleEast					;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:30 - 16:30 US Central Time
+                                   ;Returns_MiddleEast_DR					;Returns			;MiddleEast					;								;Druck pressure sensing								;custcare.sensingmea@bakerhughes.com							;+97 152 8007168																;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;Returns_MiddleEast_NC					;Returns			;MiddleEast					;								;Nexus Controls										;controlparts@bakerhughes.com									;+971 2 699 7119																;9:00 - 17:00 Gulf Time
+                                   ;Returns_MiddleEast_PA					;Returns			;MiddleEast					;								;Panametrics flow, gas, & moisture measurement		;custcare.sensingmea@bakerhughes.com							;+97 152 8007168																;8:00 - 17:00 GMT + 4  (Sun-Thurs)
+                                   ;Returns_MiddleEast_PA					;Returns			;MiddleEast					;								;Panametrics flow, gas, & moisture measurement		;cc.ms.india@bakerhughes.com									;+91 22 615 958 56																;08:00 - 17:00 India Standard Time
+                                   ;Returns_MiddleEast_ITFILM				;Returns			;MiddleEast					;								;Waygate film and film products						;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_WTUT				    ;Returns			;MiddleEast					;								;Waygate ultrasonic & eddy current inspection		;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_MiddleEast_WTVI				    ;Returns			;MiddleEast					;								;Waygate visual inspection							;custcare.inspectionmea@bakerhughes.com							;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Asia_BN						    ;Returns			;Asia						;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:30 - 16:30 US Central Time
+                                   ;Returns_Asia_DR						    ;Returns			;Asia						;								;Druck pressure sensing								;		                                                        ;	                                                                            ;
+                                   ;Returns_Asia_NC						    ;Returns			;Asia						;								;Nexus Controls										;controlparts@bakerhughes.com									;+66 6622 1623																	;09:00 - 17:00 Singapore Time
+                                   ;Returns_Asia_PA						    ;Returns			;Asia						;								;Panametrics flow, gas, & moisture measurement		;		                                                        ;	                                                                            ;
+                                   ;Returns_Asia_ITFILM					    ;Returns			;Asia						;								;Waygate film and film products				        ;                                                               ;	                                                                            ;
+                                   ;Returns_Asia_WTUT						;Returns			;Asia						;								;Waygate ultrasonic & eddy current inspection		;		                                                        ;	                                                                            ;
+                                   ;Returns_Asia_WTVI						;Returns			;Asia						;								;Waygate visual inspection				            ;                                                               ;	                                                                            ;
+                                   ;Returns_Europe_BE_DR					;Returns			;Europe						;BE								;Druck pressure sensing								;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_BE_PA					;Returns			;Europe						;BE								;Panametrics flow, gas, & moisture measurement		;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_FR_DR					;Returns			;Europe						;FR								;Druck pressure sensing								;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_FR_PA					;Returns			;Europe						;FR								;Panametrics flow, gas, & moisture measurement		;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_DE_DR					;Returns			;Europe						;DE								;Druck pressure sensing								;sensing.de.cc@bakerhughes.com									;+49 69 2222 2973																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_DE_PA					;Returns			;Europe						;DE								;Panametrics flow, gas, & moisture measurement		;sensing.de.cc@bakerhughes.com									;+49 69 2222 2973																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_IE_PA					;Returns			;Europe						;IE								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+36 27 565314																	;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_IT_DR					;Returns			;Europe						;IT								;Druck pressure sensing								;csd.italia@bakerhughes.com										;+39 02 36 04 28 42																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_IT_PA					;Returns			;Europe						;IT								;Panametrics flow, gas, & moisture measurement		;csd.italia@bakerhughes.com										;+39 02 36 04 28 42																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_NORDIC_DR				;Returns			;Europe						;NORDIC							;Druck pressure sensing								;nl.sensing.sales@bakerhughes.com								;+31 33 467 8950																;09:00 - 17:30 Central Europe Time
+                                   ;Returns_Europe_ES_DR					;Returns			;Europe						;ES								;Druck pressure sensing								;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;09:00 - 17:30 Central Europe Time
+                                   ;Returns_Europe_ES_PA					;Returns			;Europe						;ES								;Panametrics flow, gas, & moisture measurement		;sensing.fr.cc@bakerhughes.com									;+33 5 62 88 82 50																;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_GB_DR					;Returns			;Europe						;GB								;Druck pressure sensing								;sensing.grobycc@bakerhughes.com								;+44 116 231 7106																;09:00 - 17:30 Central Europe Time
+                                   ;Returns_Europe_BN						;Returns			;Europe						;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:30 - 16:30 US Central Time (UTC-6)
+                                   ;Returns_Europe_NC						;Returns			;Europe						;								;Nexus Controls										;controlparts@bakerhughes.com									;+33 2 72 249901																;09:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_PA						;Returns			;Europe						;								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+36 27 565314																	;08:00 - 17:00 Central Europe Time
+                                   ;Returns_Europe_ITFILM					;Returns			;Europe						;								;Waygate film and film products						;geitsales.emea@bakerhughes.com									;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Europe_WTUT					    ;Returns			;Europe						;								;Waygate ultrasonic & eddy current inspection		;geithuerth.service@bakerhuhges.com								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Europe_WTVI					    ;Returns			;Europe						;								;Waygate visual inspection							;geit.service.rvi@bakerhughes.com								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_LatinAmerica_BN				    ;Returns			;LatinAmerica				;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:30 - 16:30 US Central Time
+                                   ;Returns_LatinAmerica_NC				    ;Returns			;LatinAmerica				;								;Nexus Controls										;controlparts@bakerhughes.com									;+55 11 3958 98																	;09:00 - 17:00 Brasil Time
+                                   ;Returns_LatinAmerica_ITFILM			    ;Returns			;LatinAmerica				;								;Waygate film and film products						;custcareboston@bakerhughes.com									;																				;08:00 - 17:00 US Eastern Time
+                                   ;Returns_LatinAmerica_WTUT				;Returns			;LatinAmerica				;								;Waygate ultrasonic & eddy current inspection		;custcareboston@bakerhughes.com									;																				;08:00 - 17:00 US Eastern Time
+                                   ;Returns_LatinAmerica_WTVI				;Returns			;LatinAmerica				;								;Waygate visual inspection							;custcareboston@bakerhughes.com									;+1 281-542-3650, option 4														;08:00 - 17:00 US Eastern Time
+                                   ;Returns_NorthAmerica_BN				    ;Returns			;NorthAmerica				;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:30 - 16:30 US Central Time
+                                   ;Returns_NorthAmerica_DR				    ;Returns			;NorthAmerica				;								;Druck pressure sensing								;custcareboston@bakerhughes.com									;+1 281 542 3650																;08:00 - 17:00 US Eastern Time
+                                   ;Returns_NorthAmerica_NC				    ;Returns			;NorthAmerica				;								;Nexus Controls										;controlparts@bakerhughes.com									;+1 888 943 2272,  +1 540 387 8726												;09:00 - 17:00 US Central Time
+                                   ;Returns_NorthAmerica_PA				    ;Returns			;NorthAmerica				;								;Panametrics flow, gas, & moisture measurement		;custcareboston@bakerhughes.com									;+1 800 833 9438																;08:00 - 17:00 US Eastern Time
+                                   ;Returns_NorthAmerica_ITFILM			    ;Returns			;NorthAmerica				;								;Waygate film and film products						;customer.care@bakerhughes.com									;+1 832 325 4368																				;08:00 - 17:00 US Eastern Time
+                                   ;Returns_NorthAmerica_WTUT				;Returns			;NorthAmerica				;								;Waygate ultrasonic & eddy current inspection		;customer.care@bakerhughes.com									;																				;08:00 - 17:00 US Eastern Time
+                                   ;Returns_NorthAmerica_WTVI				;Returns			;NorthAmerica				;								;Waygate visual inspection							;customer.care@bakerhughes.com									;+1 281-542-3650, option 4														;08:00 - 17:00 US Eastern Time
+                                   ;Returns_Russia-CIS_ITFILM				;Returns			;Russia-CIS					;								;Waygate film and film products						;geitsales.emea@bakerhughes.com 								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Russia-CIS_WTUT				    ;Returns			;Russia-CIS					;								;Waygate ultrasonic & eddy current inspection		;geithuerth.service@bakerhuhges.com								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Russia-CIS_WTVI				    ;Returns			;Russia-CIS					;								;Waygate visual inspection							;geit.service.rvi@bakerhughes.com								;+49 2233 601 102																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Russia-CIS_PA					;Returns			;Russia-CIS					;								;Panametrics flow, gas, & moisture measurement		;gesensingorders@bakerhughes.com								;+ 36 27 565314																	;09:00 - 17:30 Central Europe Time
+                                   ;Returns_Russia-CIS_BN					;Returns			;Russia-CIS					;								;Bently Nevada condition monitoring					;bently.returns@bakerhughes.com									;+1 775 215 1259																;08:00 - 17:30 Central Europe Time
+                                   ;Returns_Russia-CIS_DR					;Returns			;Russia-CIS					;								;Druck pressure sensing								;sensing.grobycc@bakerhughes.com								;+ 44 116 231 7106 or + 36 27 565314?											;09:00 - 17:30 Central Europe Time
+
+
+#DE117364:Contactus email update
+
+UPDATE ContactusSettings;code[unique=true];email;phoneNum;workinghours;
+;Sales_MiddleEast_IN_PA;panacustcare.india@bakerhughes.com;+91 22 615 958 56;08:00 - 17:00 India Standard Time
+;Sales_Asia_AU_PA;panacustcare.apac@bakerhughes.com;;
+;Sales_Asia_CN_PA;panacustcare.cn@bakerhughes.com;;09:00 - 18:00 China Standard Time
+;Sales_Asia_JP_PA;panacustcare.jp@bakerhughes.com;+81 03-6890-4538;09:00 - 17:30� Tokyo Time
+;Sales_Asia_KR_PA;panacustcare.apac@bakerhughes.com;;09:00 - 17:30 Japan Standard Time
+;Sales_Europe_BE_PA;panacustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;Sales_Europe_IE_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;Sales_Europe_IT_PA;panacustcare.IT@bakerhughes.com;+39 0 236 042 842;08:00 - 17:00 Central Europe Time
+
+;Sales_Europe_PT_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;Sales_Europe_ES_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;Sales_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+;Returns_Europe_BE_PA;panacustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;Returns_Europe_FR_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;Returns_Europe_IE_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+;Returns_Europe_DE_PA;panacustcare.Shannon@bakerhughes.com;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;Returns_Europe_IT_PA;panacustcare.IT@bakerhughes.com;+39 0 236 042 842;08:00 - 17:00 Central Europe Time
+
+;Returns_Europe_ES_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;Returns_NorthAmerica_PA;custcareboston@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+;Returns_Russia-CIS_PA;panacustcare.Shannon@bakerhughes.com;+ 36 27 565314;09:00 - 17:30 Central Europe Time
+;Returns_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+;Sales_Russia-CIS_PA;panacustcare.Shannon@bakerhughes.com;+ 36 27 565314;09:00 - 17:30 Central Europe Time
+;Sales_MiddleEast_PA;panacustcare.mea@bakerhughes.com;+97 152 8007168;8:00 - 17:00 GMT + 4 (Sun-Thurs)
+;Returns_MiddleEast_PA;panacustcare.mea@bakerhughes.com;+97 152 8007168;8:00 - 17:00 GMT + 4 (Sun-Thurs)
+;Sales_NorthAmerica_PA;custcareboston@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+;Sales_LatinAmerica_PA;panacustcare.LATAM@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;Returns_Asia_PA;panacustcare.apac@bakerhughes.com;;
+
+;Sales_MiddleEast_IN_ITFILM;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_MiddleEast_ITFILM;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Asia_AU_ITFILM;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;Sales_Asia_CN_ITFILM;wgcustcare.cn@bakerhughes.com;+86 21 38582264;09:00 - 17:30 Beijing Time
+;Sales_Asia_JP_ITFILM;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30� Tokyo Time
+;Sales_Asia_KR_ITFILM;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;Sales_Asia_ITFILM;wgcustcare.sea@bakerhughes.com;;
+;Sales_Europe_FR_ITFILM;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;Sales_Europe_DE_ITFILM;waygate.film.de@bakerhughes.com;+43 800 017815;08:00 - 17:30 Central Europe Time
+
+;Sales_Europe_IT_ITFILM;waygate.italia@bakerhughes.com;+39 02 38590513;08:00 - 17:30 Central Europe Time
+;Sales_Europe_NORDIC_ITFILM;waygate.nordic@bakerhughes.com;46855950371;08:00 - 17:30 Central Europe Time
+;Sales_Europe_PT_ITFILM;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;Sales_Europe_ES_ITFILM;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;Sales_Europe_GB_ITFILM;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;Sales_Europe_ITFILM;waygate.film.emea@bakerhughes.com;+43 800 017815;08:00 - 17:30 Central Europe Time
+
+;Sales_LatinAmerica_BR_ITFILM;waygate.latam@bakerhughes.com;+55 19 2104 6901;08:00 - 17:00 UTC - 3
+;Sales_LatinAmerica_CA_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+;Sales_LatinAmerica_CO_ITFILM;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;Sales_LatinAmerica_ITFILM;waygate.latam@bakerhughes.com;;08:00 - 17:00 US Central Time
+;Sales_Russia-CIS_RussiaCIS_ITFILM;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Russia-CIS_RU_ITFILM;waygate.utsp@bakerhughes.com;3234562846;08:00 - 17:30 Central Europe Time
+;Returns_MiddleEast_IN_ITFILM;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_MiddleEast_ITFILM;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_Europe_ITFILM;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_LatinAmerica_ITFILM;waygate.usa@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;Sales_NorthAmerica_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+;Returns_NorthAmerica_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Eastern Time
+
+;Sales_MiddleEast_IN_WTUT;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_MiddleEast_WTUT;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Asia_AU_WTUT;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;Sales_Asia_CN_WTUT;wgcustcare.cn@bakerhughes.com;+86 21 38582219 ;09:00 - 17:30 Beijing Time
+;Sales_Asia_JP_WTUT;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30� Tokyo Time
+;Sales_Asia_KR_WTUT;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;Sales_Asia_WTUT;wgcustcare.sea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+;Sales_Europe_FR_WTUT;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+;Sales_Europe_DE_WTUT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Europe_IT_WTUT;waygate.utsp@bakerhughes.com;+49 2233 601 102;09:00 - 17:30 Central Europe Time
+;Sales_Europe_PT_WTUT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:30 Central Europe Time
+;Sales_Europe_ES_WTUT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;Sales_Europe_GB_WTUT;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+;Sales_Europe_WTUT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_LatinAmerica_AR_WTUT;waygate.latam@bakerhughes.com;+54 11 5444 2453;08:00 - 17:00 UTC - 3
+;Sales_LatinAmerica_CO_WTUT;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;Sales_LatinAmerica_MX_WTUT;waygate.latam@bakerhughes.com;+55 19 2104 6974;08:00 - 17:00 UTC - 3
+;Sales_LatinAmerica_WTUT;waygate.latam@bakerhughes.com;+55 (19) 2104 6974;08:00 - 17:00 UTC - 3
+;Sales_Russia-CIS_RussiaCIS_WTUT;waygate.utsp@bakerhughes.com;3234562846;08:00 - 17:30 Central Europe Time
+;Sales_Russia-CIS_RU_WTUT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_MiddleEast_IN_WTUT;waygate.india@bakerhughes.com;"+91 9375009878 (SP)
+;'+91 9375009878 (TM)";08:00 - 17:30 Central Europe Time
+;Returns_MiddleEast_WTUT;waygate.mea@bakerhughes.com;+971 24079333;08:00 - 17:30 Central Europe Time
+;Returns_LatinAmerica_WTUT;waygate.usa@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;Returns_Russia-CIS_WTUT;wt.service.RCIS@bakerhughes.com;+7-495-771-72-40 ext 4320;08:00 - 17:30 Central Europe Time
+;Returns_NorthAmerica_WTUT;waygate.usa@bakerhughes.com;"+1-281-542-3650
+'+1-832-325-4368";08:00 - 17:00 US Eastern Time
+;Sales_NorthAmerica_WTUT;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+;Returns_Europe_WTUT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_Asia_WTUT;UT.Services.Japan@bakerhughes.com;+81 3-6864-1737;
+
+;Sales_MiddleEast_IN_WTVI;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Asia_AU_WTVI;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;Sales_Asia_CN_WTVI;wgcustcare.cn@bakerhughes.com;+86 21 38582216 ;09:00 - 17:30 Beijing Time
+;Sales_Asia_JP_WTVI;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30� Tokyo Time
+;Sales_Asia_KR_WTVI;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;Sales_Asia_WTVI;wgcustcare.sea@bakerhughes.com;+852 91327801;
+;Sales_Europe_FR_WTVI;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+;Sales_Europe_DE_WTVI;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Europe_IT_WTVI;waygate.utsp@bakerhughes.com;+49 2233 601 102;09:00 - 17:30 Central Europe Time
+;Sales_Europe_PT_WTVI;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:30 Central Europe Time
+;Sales_Europe_ES_WTVI;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;Sales_Europe_GB_WTVI;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+;Sales_LatinAmerica_AR_WTVI;waygate.latam@bakerhughes.com;+54 11 5444 2453;08:00 - 17:00 UTC - 3
+;Sales_LatinAmerica_CO_WTVI;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;Sales_LatinAmerica_MX_WTVI;waygate.latam@bakerhughes.com;+55 19 2104 6974;08:00 - 17:00 UTC - 3
+;Sales_Russia-CIS_RU_WTVI;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_MiddleEast_IN_WTVI;India.Service@bakerhughes.com;+91 2135620679 ;08:00 - 17:30 Central Europe Time
+;Sales_Europe_SE_WTVI;waygate.rvi@bakerhughes.com;+49 2233 601 102;08:00 - 17:00 Central Europe Time
+;Returns_MiddleEast_WTVI;adservice@bakerhughes.com ;+971 24079331 ;08:00 - 17:30 Central Europe Time
+;Sales_MiddleEast_WTVI;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Europe_WTVI;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Returns_Europe_WTVI;waygate.service.rvi@bakerhughes.com;+49 2233 601 111;08:00 - 17:30 Central Europe Time
+;Sales_LatinAmerica_WTVI;waygate.latam@bakerhughes.com;+55 (19) 2104 6974;08:00 - 17:00 UTC - 3
+;Returns_LatinAmerica_WTVI;waygate.latam@bakerhughes.com;+55 (19) 2104 6974;08:00 - 17:00 UTC - 3
+;Returns_NorthAmerica_WTVI;customer.care@bakerhughes.com;+1 281-542-3650, option 4;08:00 - 17:00 US Eastern Time
+;Sales_NorthAmerica_WTVI;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+;Returns_Russia-CIS_WTVI;waygate.service.rvi@bakerhughes.com;+49 2233 601 111;08:00 - 17:30 Central Europe Time
+;Returns_Asia_WTVI;Asia.Servicervi@bakerhughes.com;+65 6213 5507;
+
+
+;Sales_MiddleEast_IN_WTXR;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_MiddleEast_WTXR;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;Sales_Europe_WTXR;waygate.seifert@bakerhughes.com;+49 4102 807 0;08:00 - 17:30 Central Europe Time
+
+;Sales_Asia_AU_DR;druckcustcare.APAC@bakerhughes.com;;
+;Sales_Asia_CN_DR;druckcustcare.CN@bakerhughes.com;021-38582280;09:00 - 18:00 China Standard Time
+;Sales_Asia_JP_DR;druckcustcare.jp@bakerhughes.com;+81 3 6894 1838;09:00 - 17:30� Tokyo Time
+;Sales_Asia_KR_DR;custcaremckorea@bakerhughes.com;;09:00 - 17:30 Japan Standard Time
+;Sales_Europe_BE_DR;druckcustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;Sales_Europe_IT_DR;druckcustcare.IT@bakerhughes.com;+39 02 36 04 28 42;08:00 - 17:00 Central Europe Time
+;Returns_Russia-CIS_DR;druckservices@bakerhughes.com;+ 44 116 231 7106 or + 36 27 565314;09:00 - 17:30 Central Europe Time
+;Returns_NorthAmerica_DR;NAMservice@bakerhughes.com;+1 281 542 3650;08:00 - 17:00 US Eastern Time
+;Sales_NorthAmerica_DR;ccpressureusa@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+;Returns_Europe_BE_DR;druckcustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;Returns_Europe_FR_DR;druckcustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 16:30 Central Europe Time
+;Returns_Europe_DE_DR;druckcustcare.DACH@bakerhughes.com ;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+;Returns_Europe_IT_DR;druckcustcare.IT@bakerhughes.com;+39 02 36 04 28 42;08:00 - 17:00 Central Europe Time
+;Returns_Europe_GB_DR;druckservices@bakerhughes.com;+44 116 231 7107;09:00 - 17:30 Central Europe Time
+
+
+INSERT ContactusSettings;code[unique=true];commerceTypeValue;contactusregion(code);contactuscountry(isocode);contactUsProductLine;email;phoneNum;workingHours;
+;Sales_MiddleEast_IN_DR;Sales;MiddleEast;IN;Druck pressure sensing;druckcustcare.india@bakerhughes.com;+91 9740655988;8:00 - 17:00 India Time
+;Returns_MiddleEast_IN_DR;Returns;MiddleEast;IN;Druck pressure sensing;druckihservice.india@bakerhughes.com;+91 213 5620426;8:00 - 16:00 India Time
+;Sales_Russia-CIS_DR;Sales;Russia-CIS;;Druck pressure sensing;druckcustcare@bakerhughes.com;+44 116 231 7106;09:00 - 17:30 Central Europe Time
+;Sales_Europe_FR_DR;Sales;Europe;FR;Druck pressure sensing;druckcustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 16:30 Central Europe Time
+;Sales_Europe_DE_DR;Sales;Europe;DE;Druck pressure sensing;druckcustcare.DACH@bakerhughes.com;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+;Sales_Europe_GB_DR;Sales;Europe;GB;Druck pressure sensing;druckcustcare@bakerhughes.com;+44 116 231 7106;09:00 - 17:30 Central Europe Time
+;Sales_LatinAmerica_BR_DR;Sales;LatinAmerica;BR;Druck pressure sensing;druckcustcare.BR@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;Returns_LatinAmerica_BR_DR;Returns;LatinAmerica;BR;Druck pressure sensing;druckcustcare.BR@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;Returns_LatinAmerica_DR;Returns;LatinAmerica;;Druck pressure sensing;druckcustcare.LATAM@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;Returns_LatinAmerica_BR_WTUT;Returns;LatinAmerica;BR;Waygate ultrasonic & eddy current inspection;waygate.latam@bakerhughes.com;+55-11-3958-0098 and +55 19 2104-6983
+;Returns_Asia_JP_WTVI;Returns;Asia;JP;Waygate visual inspection;service.itsv_jp@bakerhughes.com;+81 3-6864-1737;
+;Returns_Asia_CN_WTVI;Returns;Asia;CN;Waygate visual inspection;China_inhouse_service@bakerhughes.com;400 818 1099;
+;Returns_Europe_FR_WTUT;Returns;Europe;FR;Waygate ultrasonic & eddy current inspection;waygate.service.fr@bakerhughes.com;"+ 33 4 72 17 92 16 or 
++33 4 72 17 92 22 or 
++33 4 72 17 92 23";08:00 - 16:30 Central Europe Time
+;Returns_Europe_ES_WTUT;Returns;Europe;ES;Waygate ultrasonic & eddy current inspection;waygate.service.es@bakerhughes.com;+34 91 7920321;08:00 - 17:00 Central Europe Time
+;Returns_Europe_GB_WTUT;Returns;Europe;GB;Waygate ultrasonic & eddy current inspection;waygate.service.uk@bakerhughes.com;+44 (0) 845 601 5771 (Option 3 for Service);09:00 - 17:30 Central Europe Time
+
+Remove:
+REMOVE ContactusSettings;code[unique=true];
+;Returns_Asia_ITFILM;
+;Returns_Asia_WTUT;
+;Sales_Europe_PT_DR
+;Returns_Europe_ES_DR
+;Returns_Europe_NORDIC_DR
+;Returns_Asia_DR
+
+#Druck
+INSERT_UPDATE BHStaticContactUs;code[unique=true];email;phoneNum;workingHours;
+;54_Sales_Europe_DR;druckcustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;66_Sales_Europe_DR;druckcustcare.IT@bakerhughes.com;+39 02 36 04 28 42;08:00 - 17:00 Central Europe Time
+#77_Sales_Europe_DR;sensing.fr.cc@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;151_Returns_Europe_DR;druckcustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+#druckcustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 16:30 Central Europe Time
+;153_Returns_Europe_DR;druckcustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 16:30 Central Europe Time
+;155_Returns_Europe_DR;druckcustcare.DACH@bakerhughes.com ;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+;158_Returns_Europe_DR;druckcustcare.IT@bakerhughes.com;+39 02 36 04 28 42;08:00 - 17:00 Central Europe Time
+#160_Returns_Europe_DR;nl.sensing.sales@bakerhughes.com;+31 33 467 8950;09:00 - 17:30 Central Europe Time
+#161_Returns_Europe_DR;sensing.fr.cc@bakerhughes.com;+33 5 62 88 82 50;09:00 - 17:30 Central Europe Time
+;163_Returns_Europe_DR;druckservices@bakerhughes.com;+44 116 231 7107;09:00 - 17:30 Central Europe Time
+#145_Returns_Asia_DR;;;
+;20_Sales_Asia_DR;druckcustcare.APAC@bakerhughes.com;;
+;26_Sales_Asia_DR;druckcustcare.CN@bakerhughes.com;021-38582280;09:00 - 18:00 China Standard Time
+;33_Sales_Asia_DR;druckcustcare.jp@bakerhughes.com;+81 3 6894 1838;09:00 - 17:30  Tokyo Time
+;39_Sales_Asia_DR;custcaremckorea@bakerhughes.com;;09:00 - 17:30 Japan Standard Time
+;187_Returns_Russia-CIS_DR;druckservices@bakerhughes.com;+ 44 116 231 7106 or + 36 27 565314;09:00 - 17:30 Central Europe Time
+;137_Returns_MiddleEast_DR;druckihservice.india@bakerhughes.com;+91 213 5620426 ;8:00 - 16:00 India Time
+;11_Sales_MiddleEast_DR;druckcustcare.india@bakerhughes.com;+91 9740655988;8:00 - 17:00 India Time
+;112_Sales_LatinAmerica_DR;druckcustcare.LATAM@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;176_Returns_NorthAmerica_DR;NAMservice@bakerhughes.com;+1 281 542 3650;08:00 - 17:00 US Eastern Time
+;119_Sales_NorthAmerica_DR;ccpressureusa@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+
+#Pana
+;55_Sales_Europe_PA;panacustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;65_Sales_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;67_Sales_Europe_PA;panacustcare.IT@bakerhughes.com;+39 0 236 042 842;08:00 - 17:00 Central Europe Time
+
+;78_Sales_Europe_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;82_Sales_Europe_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;94_Sales_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+;152_Returns_Europe_PA;panacustcare.NL@bakerhughes.com;+31 33 467 8950;08:00 - 17:00 Central Europe Time
+;154_Returns_Europe_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;156_Returns_Europe_PA;panacustcare.Shannon@bakerhughes.com;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+;157_Returns_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;159_Returns_Europe_PA;panacustcare.IT@bakerhughes.com;+39 0 236 042 842;08:00 - 17:00 Central Europe Time
+
+;162_Returns_Europe_PA;panacustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 17:00 Central Europe Time
+;166_Returns_Europe_PA;panacustcare.Shannon@bakerhughes.com;+36 27 565314;08:00 - 17:00 Central Europe Time
+;147_Returns_Asia_PA;panacustcare.apac@bakerhughes.com;;
+;21_Sales_Asia_PA;panacustcare.apac@bakerhughes.com;;
+;27_Sales_Asia_PA;panacustcare.cn@bakerhughes.com;;09:00 - 18:00 China Standard Time
+;34_Sales_Asia_PA;panacustcare.jp@bakerhughes.com;+81 03-6890-4538;09:00 - 17:30  Tokyo Time
+;40_Sales_Asia_PA;panacustcare.apac@bakerhughes.com;;09:00 - 17:30 Japan Standard Time
+;132_Sales_Russia-CIS_PA;panacustcare.Shannon@bakerhughes.com;+ 36 27 565314;09:00 - 17:30 Central Europe Time
+;185_Returns_Russia-CIS_PA;panacustcare.Shannon@bakerhughes.com;+ 36 27 565314;09:00 - 17:30 Central Europe Time
+;139_Returns_MiddleEast_PA;panacustcare.mea@bakerhughes.com;+97 152 8007168;8:00 - 17:00 GMT + 4 (Sun-Thurs)
+;140_Returns_MiddleEast_PA;panacustcare.mea@bakerhughes.com;+97 152 8007168;08:00 - 17:00 India Standard Time
+;3_Sales_MiddleEast_PA;panacustcare.india@bakerhughes.com;+91 22 615 958 56;08:00 - 17:00 India Standard Time
+;13_Sales_MiddleEast_PA;panacustcare.mea@bakerhughes.com;+97 152 8007168;8:00 - 17:00 GMT + 4 (Sun-Thurs)
+;114_Sales_LatinAmerica_PA;panacustcare.LATAM@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;178_Returns_NorthAmerica_PA;custcareboston@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+;121_Sales_NorthAmerica_PA;custcareboston@bakerhughes.com;+1 800 833 9438;08:00 - 17:00 US Eastern Time
+
+#Film
+;58_Sales_Europe_ITFILM;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;61_Sales_Europe_ITFILM;waygate.film.de@bakerhughes.com;+43 800 017815;08:00 - 17:30 Central Europe Time
+
+;68_Sales_Europe_ITFILM;waygate.italia@bakerhughes.com;+39 02 38590513;08:00 - 17:30 Central Europe Time
+;73_Sales_Europe_ITFILM;waygate.nordic@bakerhughes.com;46855950371;08:00 - 17:30 Central Europe Time
+;75_Sales_Europe_ITFILM;waygate.film@bakerhughes.com;+32 34562846;08:00 - 17:30 Central Europe Time
+;79_Sales_Europe_ITFILM;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;83_Sales_Europe_ITFILM;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;88_Sales_Europe_ITFILM;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+#SD: Updated the phone number BHI-22369456
+;95_Sales_Europe_ITFILM;waygate.film.emea@bakerhughes.com;+43 800 017815;08:00 - 17:30 Central Europe Time
+
+;167_Returns_Europe_ITFILM;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;22_Sales_Asia_ITFILM;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;28_Sales_Asia_ITFILM;wgcustcare.cn@bakerhughes.com;+86 21 38582264;09:00 - 17:30 Beijing Time
+;35_Sales_Asia_ITFILM;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30  Tokyo Time
+;41_Sales_Asia_ITFILM;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;47_Sales_Asia_ITFILM;wgcustcare.sea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+;126_Sales_Russia-CIS_ITFILM;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;129_Sales_Russia-CIS_ITFILM;waygate.utsp@bakerhughes.com;3234562846;08:00 - 17:30 Central Europe Time
+;182_Returns_Russia-CIS_ITFILM;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;133_Returns_MiddleEast_ITFILM;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;141_Returns_MiddleEast_ITFILM;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;4_Sales_MiddleEast_ITFILM;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;14_Sales_MiddleEast_ITFILM;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;103_Sales_LatinAmerica_ITFILM;waygate.latam@bakerhughes.com;+55 19 2104 6901;08:00 - 17:00 UTC - 3
+;104_Sales_LatinAmerica_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+;106_Sales_LatinAmerica_ITFILM;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;115_Sales_LatinAmerica_ITFILM;waygate.latam@bakerhughes.com;;08:00 - 17:00 US Central Time
+;172_Returns_LatinAmerica_ITFILM;waygate.usa@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;179_Returns_NorthAmerica_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Eastern Time
+;122_Sales_NorthAmerica_ITFILM;waygate.usa@bakerhughes.com;+1 832 325 4368;09:00 - 17:00 US Central Time
+
+#ultrasonic
+;59_Sales_Europe_WT;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+;62_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;69_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;09:00 - 17:30 Central Europe Time
+;80_Sales_Europe_WT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:30 Central Europe Time
+;84_Sales_Europe_WT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;89_Sales_Europe_WT;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+;96_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;168_Returns_Europe_WT;"waygate.service.utsp@bakerhughes.com
+waygate.service.uttm@bakerhughes.com";"+49 2233 601 111 (UTSP)
++49 2233 601 500 (UTTM)";08:00 - 17:30 Central Europe Time
+;149_Returns_Asia_WT;UT.Services.Japan@bakerhughes.com;'+81 3-6864-1737;
+;23_Sales_Asia_WT;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;29_Sales_Asia_WT;wgcustcare.cn@bakerhughes.com;+86 21 38582219 ;09:00 - 17:30 Beijing Time
+;36_Sales_Asia_WT;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30  Tokyo Time
+;42_Sales_Asia_WT;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;48_Sales_Asia_WT;wgcustcare.sea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+;127_Sales_Russia-CIS_WT;waygate.utsp@bakerhughes.com;3234562846;08:00 - 17:30 Central Europe Time
+;130_Sales_Russia-CIS_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;183_Returns_Russia-CIS_WT;wt.service.RCIS@bakerhughes.com;+7-495-771-72-40 ext 4320;08:00 - 17:30 Central Europe Time
+;134_Returns_MiddleEast_WT;waygate.india@bakerhughes.com;"+91 9375009878 (SP)
+'+91 9375009878 (TM)";08:00 - 17:30 Central Europe Time
+;142_Returns_MiddleEast_WT;waygate.mea@bakerhughes.com;+971 24079333;08:00 - 17:30 Central Europe Time
+;5_Sales_MiddleEast_WT;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;15_Sales_MiddleEast_WT;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;100_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+54 11 5444 2453;08:00 - 17:00 UTC - 3
+;107_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;110_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+55 19 2104 6974;08:00 - 17:00 UTC - 3
+;116_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+55 (19) 2104 6974;08:00 - 17:00 UTC - 3
+;173_Returns_LatinAmerica_WT;waygate.usa@bakerhughes.com;;08:00 - 17:00 US Eastern Time
+;180_Returns_NorthAmerica_WT;waygate.usa@bakerhughes.com;"+1-281-542-3650
+'+1-832-325-4368";08:00 - 17:00 US Eastern Time
+;123_Sales_NorthAmerica_WT;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+
+#RVI
+;60_Sales_Europe_WT;waygate.fr@bakerhughes.com;+33 472 17 92 20;08:00 - 17:30 Central Europe Time
+;63_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;70_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;09:00 - 17:30 Central Europe Time
+;81_Sales_Europe_WT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:30 Central Europe Time
+;85_Sales_Europe_WT;waygate.es@bakerhughes.com;+34 91 792 1054;08:00 - 17:00 Central Europe Time
+;90_Sales_Europe_WT;waygate.uk@bakerhughes.com;+44 (0)845 601 5771;09:00 - 17:00 Central Europe Time
+;97_Sales_Europe_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;169_Returns_Europe_WT;waygate.service.rvi@bakerhughes.com;+49 2233 601 111;08:00 - 17:30 Central Europe Time
+;150_Returns_Asia_WT;Asia.Servicervi@bakerhughes.com;+65 6213 5507;
+;24_Sales_Asia_WT;wgcustcare.ANZ@bakerhughes.com;+61 1300 171 502;08.30 - 17.30 UTC +11
+;30_Sales_Asia_WT;wgcustcare.cn@bakerhughes.com;+86 21 38582216 ;09:00 - 17:30 Beijing Time
+;37_Sales_Asia_WT;wgcustcare.jp@bakerhughes.com;+03 6890 4567;09:00 - 17:30  Tokyo Time
+;43_Sales_Asia_WT;wgcustcare.kr@bakerhughes.com;82-31-620-6601;09:00 - 17:30 Seoul Time
+;49_Sales_Asia_WT;wgcustcare.sea@bakerhughes.com;+852 91327801;08.00 - 17.00 UTC +8
+;131_Sales_Russia-CIS_WT;waygate.utsp@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;184_Returns_Russia-CIS_WT;waygate.service.rvi@bakerhughes.com;+49 2233 601 111;08:00 - 17:30 Central Europe Time
+;135_Returns_MiddleEast_WT;India.Service@bakerhughes.com;+91 2135620679 ;08:00 - 17:30 Central Europe Time
+;143_Returns_MiddleEast_WT;adservice@bakerhughes.com ;+971 24079331 ;08:00 - 17:30 Central Europe Time
+;6_Sales_MiddleEast_WT;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;16_Sales_MiddleEast_WT;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;101_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+54 11 5444 2453;08:00 - 17:00 UTC - 3
+;108_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+571 742 56 15;08:00 - 17:00 UTC - 5
+;111_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+55 19 2104 6974;08:00 - 17:00 UTC - 3
+;117_Sales_LatinAmerica_WT;waygate.latam@bakerhughes.com;+55 (19) 2104 6974;08:00 - 17:00 UTC - 3
+;174_Returns_LatinAmerica_WT;MCS.services@bakerhughes.com;+55 19 2104-6983 ;08:00 - 17:00 US Eastern Time
+;181_Returns_NorthAmerica_WT;customer.care@bakerhughes.com;+1 281-542-3650, option 4;08:00 - 17:00 US Eastern Time
+;124_Sales_NorthAmerica_WT;waygate.usa@bakerhughes.com;+1 832 325 4368;08:00 - 17:00 US Central Time
+
+#x-ray
+;7_Sales_MiddleEast_WT;waygate.india@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;17_Sales_MiddleEast_WT;waygate.mea@bakerhughes.com;+49 2233 601 102;08:00 - 17:30 Central Europe Time
+;98_Sales_Europe_WT;waygate.seifert@bakerhughes.com;+49 4102 807 0;08:00 - 17:30 Central Europe Time
+
+
+INSERT BHStaticContactUs;code[unique=true];commerceTypeValue;region(code);subregion;country;contactUsProductLine;email;phoneNum;workingHours;
+;188_Sales_Europe_DR;Sales;Europe;;France;Druck pressure sensing;druckcustcare.FR@bakerhughes.com;+33 5 62 88 82 50;08:00 - 16:30 Central Europe Time
+;189_Sales_Europe_DR;Sales;Europe;;Germany;Druck pressure sensing;druckcustcare.DACH@bakerhughes.com ;+49 69 2222 2973;08:00 - 17:00 Central Europe Time
+;190_Sales_Europe_DR;Sales;Europe;;United Kingdom;Druck pressure sensing;druckcustcare@bakerhughes.com;+44 116 231 7106;09:00 - 17:30 Central Europe Time
+;191_Sales_Russia-CIS_DR;Sales;Russia-CIS;;;Druck pressure sensing;druckcustcare@bakerhughes.com;+44 116 231 7106;09:00 - 17:30 Central Europe Time
+;192_Returns_MiddleEast_DR;Returns;MiddleEast;;;Druck pressure sensing;druckihservice.meat@bakerhughes.com;+44 116 231 7107;09:00 - 17:30 Central Europe Time
+;193_Returns_LatinAmerica_DR;Returns;LatinAmerica;;;Druck pressure sensing;druckcustcare.LATAM@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;194_Sales_LatinAmerica_DR;Sales;LatinAmerica;Brazil;;Druck pressure sensing;druckcustcare.BR@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;195_Returns_LatinAmerica_DR;Returns;LatinAmerica;Brazil;;Druck pressure sensing;druckcustcare.BR@bakerhughes.com;+55 21 3262-1801;08:00 - 17:00 US GMT + 3
+;196_Returns_Europe_WT;Returns;Europe;;France;Waygate ultrasonic & eddy current inspection;waygate.service.fr@bakerhughes.com;"+ 33 4 72 17 92 16 or 
++33 4 72 17 92 22 or 
++33 4 72 17 92 23"
+;197_Returns_Europe_WT;Returns;Europe;;Spain;Waygate ultrasonic & eddy current inspection;waygate.service.es@bakerhughes.com;+34 91 7920321
+;198_Returns_Europe_WT;Returns;Europe;;UK;Waygate ultrasonic & eddy current inspection;waygate.service.uk@bakerhughes.com;+44 (0) 845 601 5771 (Option 3 for Service)
+;199_Returns_Asia_WT;Returns;Asia;;Singapore;Waygate ultrasonic & eddy current inspection;asiaservice.rvi@bakerhughes.com;+65 6213 5507
+;200_Returns_Asia_WT;Returns;Asia;;China;Waygate ultrasonic & eddy current inspection;UT.Services.China@bakerhughes.com;+86 400-818-1099
+;201_Returns_Asia_WT;Returns;Asia;Japan;;Waygate visual inspection;service.itsv_jp@bakerhughes.com;+81 3-6864-1737
+;202_Returns_Asia_WT;Returns;Asia;China;;Waygate visual inspection;China_inhouse_service@bakerhughes.com;400 818 1099
+
+REMOVE BHStaticContactUs;code[unique=true];
+;148_Returns_Asia_ITFILM;
+;145_Returns_Asia_DR;
+;77_Sales_Europe_DR;
+;160_Returns_Europe_DR;
+;161_Returns_Europe_DR;
+
+#Bently contact update
+UPDATE BHStaticContactUs;code[unique=true];email[default='www.bently.com/support'];phonenum;workinghours;
+;1_Sales_MiddleEast_BN; 
+;99_Sales_LatinAmerica_BN;
+;56_Sales_Europe_BN;
+;52_Sales_Asia_BN;
+;125_Sales_Russia-CIS_BN;
+;118_Sales_NorthAmerica_BN;
+;136_Returns_MiddleEast_BN;
+;144_Returns_Asia_BN;
+;164_Returns_Europe_BN;
+;170_Returns_LatinAmerica_BN;
+;175_Returns_NorthAmerica_BN;
+;186_Returns_Russia-CIS_BN;
+
+REMOVE BHStaticContactUs;code[unique=true];
+;9_Sales_MiddleEast_BN;
+;92_Sales_Europe_BN;
+;91_Sales_Europe_BN;
+;8_Sales_MiddleEast_BN;
+;87_Sales_Europe_BN;
+;86_Sales_Europe_BN;
+;76_Sales_Europe_BN;
+;74_Sales_Europe_BN;
+;72_Sales_Europe_BN;
+;71_Sales_Europe_BN;
+;64_Sales_Europe_BN;
+;57_Sales_Europe_BN;
+;53_Sales_Europe_BN;
+;51_Sales_Asia_BN;
+;50_Sales_Asia_BN;
+;46_Sales_Asia_BN;
+;45_Sales_Asia_BN;
+;44_Sales_Asia_BN;
+;38_Sales_Asia_BN;
+;32_Sales_Asia_BN;
+;31_Sales_Asia_BN;
+;2_Sales_MiddleEast_BN;
+;25_Sales_Asia_BN;
+;19_Sales_Asia_BN;
+;128_Sales_Russia-CIS_BN;
+;10_Sales_MiddleEast_BN;
+;109_Sales_LatinAmerica_BN;
+;105_Sales_LatinAmerica_BN;
+;102_Sales_LatinAmerica_BN;
+
+UPDATE ContactusSettings;code[unique=true];email[default='www.bently.com/support'];phonenum;workinghours;
+;Sales_MiddleEast_Gulf_BN;
+;Sales_MiddleEast_IN_BN;
+;Sales_MiddleEast_TR_BN;
+;Sales_MiddleEast_SA_BN;
+;Sales_MiddleEast_SSA_BN;
+;Sales_Asia_AU_BN;
+;Sales_Asia_CN_BN;
+;Sales_Asia_JP_BN;
+;Sales_Asia_ID_BN;
+;Sales_Asia_KR_BN;
+;Sales_Asia_MY_BN;
+;Sales_Asia_PH_BN;
+;Sales_Asia_SG_BN;
+;Sales_Asia_TH_BN;
+;Sales_Asia_TW_BN;
+;Sales_Asia_VN_BN;
+;Sales_Europe_BE_BN;
+;Sales_Europe_EuropeSubregion_BN;
+;Sales_Europe_FR_BN;
+;Sales_Europe_DE_BN;
+;Sales_Europe_IT_BN;
+;Sales_Europe_NL_BN;
+;Sales_Europe_NO_BN;
+;Sales_Europe_PL_BN;
+;Sales_Europe_SE_BN;
+;Sales_Europe_ES_BN;
+;Sales_Europe_GB_BN;
+;Sales_Europe_BN;
+;Sales_LatinAmerica_AR_BN;
+;Sales_LatinAmerica_CO_BN;
+;Sales_LatinAmerica_CA_BN;
+;Sales_LatinAmerica_MX_BN;
+;Sales_NorthAmerica_BN;
+;Sales_Russia-CIS_RussiaCIS_BN;
+;Sales_Russia-CIS_RU_BN;
+;Returns_MiddleEast_BN;
+;Returns_Asia_BN;
+;Returns_Europe_BN;
+;Returns_LatinAmerica_BN;
+;Returns_NorthAmerica_BN;
+;Returns_Russia-CIS_BN;
+
+#Remove country specific Bently rows
+REMOVE ContactusSettings;code[unique=true]
+;Sales_Asia_CN_BN
+;Sales_Asia_ID_BN
+;Sales_Asia_JP_BN
+;Sales_Asia_KR_BN
+;Sales_Asia_MY_BN
+;Sales_Asia_PH_BN
+;Sales_Asia_SG_BN
+;Sales_Asia_TH_BN
+;Sales_Asia_TW_BN
+;Sales_Asia_VN_BN
+;Sales_Europe_BE_BN
+;Sales_Europe_DE_BN
+;Sales_Europe_ES_BN
+;Sales_Europe_EuropeSubregion_BN
+;Sales_Europe_FR_BN
+;Sales_Europe_GB_BN
+;Sales_Europe_IT_BN
+;Sales_Europe_NL_BN
+;Sales_Europe_NO_BN
+;Sales_Europe_PL_BN
+;Sales_Europe_SE_BN
+;Sales_LatinAmerica_CA_BN
+;Sales_LatinAmerica_CO_BN
+;Sales_LatinAmerica_MX_BN
+;Sales_MiddleEast_IN_BN
+;Sales_MiddleEast_SA_BN
+;Sales_MiddleEast_SSA_BN
+;Sales_MiddleEast_TR_BN
+;Sales_Russia-CIS_RussiaCIS_BN
+;Sales_Asia_CN_BN
+;Sales_Asia_ID_BN
+;Sales_Asia_JP_BN
+;Sales_Asia_KR_BN
+;Sales_Asia_MY_BN
+;Sales_Asia_PH_BN
+;Sales_Asia_SG_BN
+;Sales_Asia_TH_BN
+;Sales_Asia_TW_BN
+;Sales_Asia_VN_BN

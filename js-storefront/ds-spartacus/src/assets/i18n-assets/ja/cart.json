@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "ID",
+    "proceedToCheckout": "チェックアウトへ進む",
+    "cartName": "カート番号#{{code}}"
+  },
+  "cartItems": {
+    "id": "ID",
+    "description": "説明",
+    "item": "アイテム",
+    "itemPrice": "商品価格",
+    "quantity": "数量",
+    "quantityTitle": "数量はカート内の合計アイテム数を意味します",
+    "total": "合計",
+    "cartTotal": "カート合計({{count}}アイテム)",
+    "cartTotal_plural": "カート合計({{count}}アイテム)"
+  },
+  "orderCost": {
+    "orderSummary": "注文内容",
+    "subtotal": "値引後小計",
+    "shipping": "出荷:",
+    "estimatedShipping": "出荷予定：",
+    "discount": "保存しました：",
+    "salesTax": "消費税：",
+    "grossTax": "ご注文の合計金額に消費税は含まれておりません",
+    "total": "合計:",
+    "toBeDetermined": "後報"
+  },
+  "voucher": {
+    "coupon": "クーポンはお持ちですか？",
+    "coupon_plural": "クーポンコード",
+    "apply": "適用",
+    "placeholder": "プロモコード",
+    "applyVoucherSuccess": "{{voucherCode}}が適用されました",
+    "removeVoucherSuccess": "{{voucherCode}}が削除されました",
+    "anchorLabel": "クーポンコードは入力もしくは削除します",
+    "vouchersApplied": "クーポンを適用",
+    "availableCoupons": "有効なクーポン",
+    "availableCouponsLabel": "これらのクーポンをこのご注文にお使いいただけます"
+  },
+  "saveForLaterItems": {
+    "itemTotal": "一旦保存({{count}}アイテム)",
+    "itemTotal_plural": "一旦保存({{count}}アイテム)",
+    "cartTitle": "カート",
+    "saveForLater": "一旦保存",
+    "moveToCart": "カートへ移動",
+    "stock": "在庫",
+    "forceInStock": "在庫有り"
+  }
+}

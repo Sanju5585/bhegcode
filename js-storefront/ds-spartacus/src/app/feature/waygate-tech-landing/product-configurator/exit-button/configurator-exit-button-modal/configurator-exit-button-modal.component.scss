@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 54%;
+}
+.left-items {
+  display: flex;
+  gap: 5px;
+}
+.left-items h6 {
+  color: #121212;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+.right-items {
+  color: #595959;
+  cursor: pointer;
+}
+.content {
+  margin-left: 8%;
+  color: #595959;
+}
+.action-buttons {
+  margin-left: 8%;
+  display: flex;
+  gap: 2%;
+  cursor: pointer;
+}
+.total-container {
+  padding: 20px 10px;
+}
+.yes-btn {
+  background-color: #147d64;
+  color: white;
+  padding: 5px 15px;
+}
+.no-btn {
+  background-color: white;
+  color: black;
+  padding: 0px 20px 0pm 20px;
+  border: 1px solid #adbdb9;
+  padding: 5px 10px;
+}
+a {
+  text-decoration: none;
+}

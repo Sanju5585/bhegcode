@@ -1,0 +1,219 @@
+<div class="payment-details">
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="row">
+      <span
+        class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{ 'titles.paymentTerms' | cxTranslate }}</span
+      >
+
+      <span class="shipping-checkout col-lg-12 col-md-12 col-sm-12">
+        {{ paymentTerm }}</span
+      >
+    </div>
+    <div class="row">
+      <span
+        class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{ 'titles.bussinessLegal' | cxTranslate }}</span
+      >
+      <span class="shipping-checkout col-lg-12 col-md-12 col-sm-12">
+        {{ businessEntity }}</span
+      >
+    </div>
+    <ng-container *ngFor="let locDetail of locationList; let i = index">
+      <div class="row locationpay">
+        <span
+          class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+          >{{ 'titles.accountPaymentfor' | cxTranslate }}
+          <span class="ml-2">{{ locDetail }}</span></span
+        >
+        <span class="shipping-checkout shipping-pay floatright">
+          <!-- {{"titles.accountPaymentitems" |cxTranslate}} -->
+          <!-- {{ }} -->
+        </span>
+      </div>
+
+      <div class="row mb-0 locationnamepayment">
+        <span class="shipping-checkout col-lg-12 col-md-12 col-sm-12">{{
+          'labels.accountPaymentterm' | cxTranslate
+        }}</span>
+        <div class="row mb-0 locationpayfor">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="vs-text-field">
+              <span class="custom-po" *ngIf="this.cartTotal > 0">*</span>
+              <bh-text-input
+                type="text"
+                small
+                label="{{ 'labels.poNumber' | cxTranslate }}"
+                placeholder="{{ 'labels.poNumber' | cxTranslate }}"
+                [value]="PoNumber[i]"
+                [message]="error.PoNumber[i]"
+                [attr.error]="error.PoNumber[i] ? error.PoNumber[i] : null"
+                maxlength="35"
+                (keyup)="onChange($event, 'PoNumber', i)"
+              >
+              </bh-text-input>
+            </div>
+            <div class="vs-text-field">
+              <bh-text-input
+                type="text"
+                small
+                label="{{ 'labels.endCustomerPO' | cxTranslate }}"
+                placeholder="{{ 'labels.endCustomerPO' | cxTranslate }}"
+                [value]="endPoNumber[i]"
+                [message]="error.endPoNumber[i]"
+                [attr.error]="
+                  error.endPoNumber[i] ? error.endPoNumber[i] : null
+                "
+                maxlength="35"
+                (keyup)="onChange($event, 'endPoNumber', i)"
+              >
+              </bh-text-input>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="vs-text-field">
+              <span class="custom" *ngIf="this.cartTotal > 0">*</span>
+              <span
+                class="shipping-checkout textarea-label col-lg-12 col-md-12 col-sm-12"
+                >{{ 'labels.poUpload' | cxTranslate }}</span
+              >
+              <div class="file-upload">
+                <div class="upload-all-files">
+                  <div>
+                    <div class="col-md-7">
+                      <div class="row">
+                        <ds-checkout-fileupload
+                          [dynamicId]="id + i"
+                          (setAttachment)="getFile($event)"
+                          [fileCheck]="this.fileFlag"
+                          [locationList]="this.returnList"
+                          [cartTotal]="this.cartTotal"
+                        ></ds-checkout-fileupload>
+                        <!-- <ds-file-upload
+                          [label]="'Upload file'"
+                          [maxLength]="5"
+                          [maxSizeInMB]="30"
+                          [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                          (selectedFiles)="selectedPoFiles($event)"
+                          [showIcon]="true"
+                          [uploadId]="id"
+                          [icon]="'backup'"
+                          >upload</ds-file-upload
+                        > -->
+                        <!-- <div *ngIf="this.error.attachment" class="bh-form-message typography--body-small bh-form-message--error">
+                          <i class="typography--icon-small bh-form-message__icon">error_outline</i>{{this.error.attachment}}</div> -->
+                        <span class="fileformat mt-1"
+                          >{{ 'labels.fileFormat' | cxTranslate }}
+                        </span>
+
+                        <!-- <div class="file-list" id="text_+'{{i}}'">
+                          <ds-file-upload-progress
+                            *ngFor="let file of files"
+                            [layout]="layouts.LIST"
+                            [deleteUrl]="deletUrl"
+                            [file]="file"
+                            (deletedFiles)="deletedFiles($event)"
+                            [uploadParams]="uploadParams"
+                            [deleteParams]="deleteParams"
+                            [uploadUrl]="uploadUrl"
+                            [showProgress]="true"
+                            [uploadId]='i'
+                          ></ds-file-upload-progress>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row col-md-12 col-lg-12 col-sm-12">
+                                <label></label>
+                            </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-0 locationpayfor">
+          <div class="col-lg-12 col-md-12 col-sm-12"></div>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <div class="row locationpay" *ngIf="locationList">
+      <span class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{"titles.accountPayment" | cxTranslate}} for [Location 2 Name]</span
+      >
+      <span class="shipping-checkout shipping-pay floatright"
+        >{{"titles.accountPaymentitems" | cxTranslate}}</span
+      >
+    </div>
+    <div class="row locationnamepayment" *ngIf="locationList">
+      <span class="shipping-checkout col-lg-12 col-md-12 col-sm-12"
+        >{{"labels.accountPaymentterm" | cxTranslate}}</span
+      >
+      <div class="row locationpayfor">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="vs-text-field">
+            <bh-text-input
+              type="text"
+              small
+              label='{{"labels.poNumber" | cxTranslate}}'
+              placeholder='{{"labels.poNumber" | cxTranslate}}'
+              [value]=""
+            >
+            </bh-text-input>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="vs-text-field">
+            <span class="shipping-checkout col-lg-12 col-md-12 col-sm-12"
+              >{{"labels.poUpload" | cxTranslate}}</span
+            >
+            <div class="file-upload">
+              <div class="upload-all-files">
+                <div>
+                  <div class="col-md-7">
+                    <div class="row">
+                      <bh-button
+                        type="secondary"
+                        small
+                        label='{{"labels.uploadFile" | cxTranslate}}'
+                        icon="backup"
+                      >
+                      </bh-button>
+
+                      <input
+                        class="hidden upload-input"
+                        #fileInput
+                        hidden
+                        multiple
+                        (click)="fileInput.click()"
+                        type="file"
+                      />
+
+                      <span class="fileformat mt-1"
+                        >{{"labels.fileFormat" | cxTranslate}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row locationpayfor">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="vs-text-field">
+            <bh-text-input
+              type="text"
+              small
+              label='{{"labels.endCustomerPO" | cxTranslate}}'
+              placeholder='{{"labels.endCustomerPO" | cxTranslate}}'
+              value=""
+              maxlength="40 "
+            >
+            </bh-text-input>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </form>
+</div>

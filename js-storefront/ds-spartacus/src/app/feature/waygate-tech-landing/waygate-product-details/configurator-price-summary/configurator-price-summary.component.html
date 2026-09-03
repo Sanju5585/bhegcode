@@ -1,0 +1,401 @@
+<ng-container *ngIf="product$ | async as product">
+  <div class="configure-product-summary">
+    <h4>
+      <strong class="title">{{ 'pdp.overview' | cxTranslate }}</strong>
+    </h4>
+    <label
+      ><span class="sub-title">{{ 'pdp.partNumbers' | cxTranslate }} : </span
+      ><span class="productCode">{{ product.code }}</span></label
+    >
+    <div
+      class="config-product-image"
+      *ngIf="!!product.images?.GALLERY; else missingImage"
+    >
+      <cx-media
+        class="cx-product-image waygate-product-image"
+        [container]="product.images?.PRIMARY"
+        format="product"
+        [alt]="getProductImageAlt(product)"
+      ></cx-media>
+    </div>
+    <ng-container *ngIf="configuration$ | async as configuration">
+      <div class="quantity-container">
+        <label class="configure-quantity-label">{{
+          'pdp.quantity' | cxTranslate
+        }}</label>
+        <div class="waygatecart-counter">
+          <form [formGroup]="quantityForm">
+            <app-custom-quantity-counter
+              [max]="9999"
+              [control]="quantityForm.get('quantity')"
+              (quantityAdded)="quantityAdded($event)"
+              (quantityIncrement)="increaseQuantity($event)"
+              (quantityDecrement)="decreaseQuantity($event)"
+            ></app-custom-quantity-counter>
+          </form>
+        </div>
+      </div>
+      <div class="">
+        <div class="">
+          <!-- <div class="base-price-container" *ngIf="product?.breadCrumbs[1].name!='Panametrics' || 
+                    product?.breadCrumbs[1].name!='Bently Nevada'">
+            <div class="base-price-label">
+              {{ 'configurator.priceSummary.basePrice' | cxTranslate }}:
+            </div>
+            <div class="base-price-amount">
+              {{ configuration?.priceSummary?.basePrice?.formattedValue }}
+            </div>
+          </div>
+
+          <br> -->
+          <!-- <ul class="extra-fast-premium-container">
+                      <li style="margin-left: 10%;"><input type="checkbox" [(ngModel)]="isChecked" class="premium-checkbox"></li>
+                      <li class="extra-fast-premium-label" >Extra Fast P</li>
+                      <li class="extra-fast-premium-amount" style="margin-left:65%">$100.00</li>
+                    </ul> -->
+          <!-- <div class="selected-price-container" *ngIf="product?.breadCrumbs[1].name!='Panametrics' || 
+                    product?.breadCrumbs[1].name!='Bently Nevada'">
+            <div class="selected-price-label">
+              {{ 'configurator.priceSummary.selectedOptions' | cxTranslate }}:
+            </div>
+            <div class="selected-price-amount">
+              {{ configuration?.priceSummary?.selectedOptions?.formattedValue }}
+            </div>
+          </div> -->
+          <hr />
+          <!--           <div class="premium-container">
+            <div>
+              <input type="checkbox" class="premium-checkbox" style="height:17px;width:17px;background-color: red;">
+              <div id="premium-label">Extra Fast Premium</div>
+            </div>
+
+            <div>$0</div>
+          </div>
+
+          <br> -->
+          <div
+            class="configure-price-container"
+            *ngIf="productLine == AllProductLine.bently"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.configuredPrice' | cxTranslate }}:
+            </div>
+            <!--             <ng-template #Bently>
+              <div class="total-price-label">Configured Price:</div>
+            </ng-template> -->
+            <div
+              class="total-price-amount"
+              *ngIf="bentlyConfiguredPrice$ | async as price; else loading"
+            >
+              {{ price.basePrice?.formattedValue }}
+            </div>
+          </div>
+          <div
+            class="configure-price-container"
+            *ngIf="!(productLine == AllProductLine.bently)"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.configuredPrice' | cxTranslate }}:
+            </div>
+            <!--             <ng-template #Bently>
+              <div class="total-price-label">Configured Price:</div>
+            </ng-template> -->
+            <div class="total-price-amount" *ngIf="totalPriceCheck">
+              {{ configuration?.priceSummary?.basePrice?.formattedValue }}
+            </div>
+          </div>
+          <br />
+          <div
+            class="customer-discount-container"
+            *ngIf="productLine == AllProductLine.bently"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.customerDiscount' | cxTranslate }}:
+            </div>
+            <!--             <ng-template #Bently>
+              <div class="total-price-label">Configured Price:</div>
+            </ng-template> -->
+            <div
+              class="total-price-amount"
+              *ngIf="bentlyConfiguredPrice$ | async as price; else loading"
+            >
+              {{ price.currentTotalSavings?.formattedValue }}
+            </div>
+          </div>
+          <div
+            class="customer-discount-container"
+            *ngIf="!(productLine == AllProductLine.bently)"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.customerDiscount' | cxTranslate }}:
+            </div>
+            <!--             <ng-template #Bently>
+              <div class="total-price-label">Configured Price:</div>
+            </ng-template> -->
+            <div class="total-price-amount" *ngIf="totalPriceCheck">
+              {{
+                configuration?.priceSummary?.currentTotalSavings?.formattedValue
+              }}
+            </div>
+          </div>
+          <br /><br />
+          <div
+            class="total-price-container"
+            *ngIf="productLine == AllProductLine.bently"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.unitTotal' | cxTranslate }}
+            </div>
+
+            <div
+              class="total-price-amount"
+              *ngIf="bentlyConfiguredPrice$ | async as price; else loading"
+            >
+              {{ price.currentTotal?.formattedValue }}
+            </div>
+          </div>
+          <div
+            class="total-price-container"
+            *ngIf="!(productLine == AllProductLine.bently)"
+          >
+            <div class="total-price-label">
+              {{ 'pdp.unitTotal' | cxTranslate }}
+            </div>
+
+            <div class="total-price-amount" *ngIf="totalPriceCheck">
+              {{ configuration?.priceSummary?.currentTotal?.formattedValue }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <hr />
+    <div *ngIf="productLine == 'panametrics'">
+      <div class="product-attachment-detail">
+        <a (click)="addAttachmentToggle()">
+          <i class="material-icons" *ngIf="addAttachment">
+            add_circle_outline
+          </i>
+          <i class="material-icons" *ngIf="!addAttachment">
+            remove_circle_outline
+          </i>
+          {{ 'pdp.addAttachment' | cxTranslate }}
+        </a>
+        <div class="vs-tooltip-icon">
+          <p class="vs-tooltip">
+            {{ 'pdp.attachmentInclude' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="addAttachment" *ngIf="!addAttachment">
+        <div class="mt-3">
+          <div class="upload-section">
+            <div class="myfile">
+              <ds-file-upload
+                label="{{ 'pdp.upload' | cxTranslate }}"
+                [maxLength]="5"
+                [maxSizeInMB]="2"
+                [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                (selectedFiles)="selectedFiles($event, product.code)"
+                [showIcon]="showIcon"
+                [icon]="'cloud_upload'"
+                >upload</ds-file-upload
+              >
+            </div>
+            <div class="attachment-info-section">
+              <span class="fileformat">
+                {{ 'pdp.fileFormatt' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+          <div class="file-list">
+            <ds-file-upload-progress
+              *ngFor="let file of files"
+              [layout]="layouts.LIST"
+              (deletedFiles)="deletedFiles($event)"
+              [file]="file"
+            ></ds-file-upload-progress>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <ng-container *ngIf="configuration$ | async as configuration">
+      <ng-container *ngIf="container$ | async as container">
+        <ng-container *ngIf="!container.routerData.displayOnly">
+          <div
+            class="cx-add-to-cart-btn-container container price-summary-btn-container"
+          >
+            <bh-button
+              *ngIf="!showSpinner"
+              [type]="'secondary'"
+              label="{{ 'pdp.updatePrice' | cxTranslate }}"
+              class="update-price-btn-cls"
+              [rightIcon]="'credit_card'"
+              (click)="
+                updatePrice(
+                  container.configuration.configId,
+                  container.configuration.productCode,
+                  configuration
+                )
+              "
+              medium
+            >
+            </bh-button>
+            <bh-button
+              *ngIf="showSpinner"
+              [type]="'secondary'"
+              label="{{ 'pdp.updating' | cxTranslate }}"
+              [attr.loading]="showSpinner"
+              smalll
+            >
+            </bh-button>
+            <div *ngIf="!checkLastProduct(configuration.productCode)">
+              <button
+                *ngIf="!(productLine == AllProductLine.bently)"
+                [disabled]="
+                  !configurationCompleteChecker(configuration) ||
+                  (configuration?.priceSummary?.basePrice?.value == 0 &&
+                    !(zeroBuyCheck$ | async)?.isZeroBuy)
+                "
+                [ngClass]="{
+                'add-to-cart-btn-config':
+                  configurationCompleteChecker(configuration) &&
+                  configuration?.priceSummary?.basePrice?.value > 0||(zeroBuyCheck$ | async)?.isZeroBuy,
+                'add-to-cart-btn-config-disabled':
+                  !configurationCompleteChecker(configuration) ||
+                  (configuration?.priceSummary?.basePrice?.value == 0 && !(zeroBuyCheck$ | async)?.isZeroBuy),
+              }"
+                (click)="nextConfiguration(configuration.productCode)"
+              >
+                Next >
+              </button>
+            </div>
+            <div *ngIf="checkLastProduct(configuration.productCode)">
+              <button
+                *ngIf="!(productLine == AllProductLine.bently)"
+                [disabled]="
+                  !configurationCompleteChecker(configuration) ||
+                  (configuration?.priceSummary?.basePrice?.value == 0 &&
+                    !(zeroBuyCheck$ | async)?.isZeroBuy) && isAddToCartCalled
+                "
+                [ngClass]="{
+                'add-to-cart-btn-config':
+                  configurationCompleteChecker(configuration) &&
+                  configuration?.priceSummary?.basePrice?.value > 0||(zeroBuyCheck$ | async)?.isZeroBuy,
+                'add-to-cart-btn-config-disabled':
+                  !configurationCompleteChecker(configuration) ||
+                  (configuration?.priceSummary?.basePrice?.value == 0 && !(zeroBuyCheck$ | async)?.isZeroBuy),
+              }"
+                (click)="
+                  addToCart(container.configuration, container.routerData)
+                "
+              >
+                <span *ngIf="!quickOrderFlow"
+                  >{{ 'pdp.addToCart' | cxTranslate }} ></span
+                >
+                <span *ngIf="quickOrderFlow">Finish</span>
+              </button>
+            </div>
+            <div *ngIf="checkLastProduct(configuration.productCode)">
+              <button
+                *ngIf="productLine == AllProductLine.bently"
+                [disabled]="
+                  !configurationCompleteChecker(configuration) ||
+                  !(bentlyConfiguredPrice$ | async) ||
+                  ((bentlyConfiguredPrice$ | async)?.basePrice?.value == 0 &&
+                    !(zeroBuyCheck$ | async)?.isZeroBuy)
+                "
+                [ngClass]="{
+          'add-to-cart-btn-config-bently':
+          configurationCompleteChecker(configuration) &&
+            (bentlyConfiguredPrice$ | async)?.basePrice?.value > 0||(zeroBuyCheck$ | async)?.isZeroBuy,
+          'add-to-cart-btn-config-disabled-bently':
+                  
+            !configurationCompleteChecker(configuration) ||
+            !(bentlyConfiguredPrice$ | async) ||
+            ((bentlyConfiguredPrice$ | async)?.basePrice?.value == 0 && !(zeroBuyCheck$ | async)?.isZeroBuy) ,
+        }"
+                (click)="
+                  addToCart(container.configuration, container.routerData)
+                "
+              >
+                <span
+                  *ngIf="!quickOrderFlow"
+                  (click)="
+                    addToCart(container.configuration, container.routerData)
+                  "
+                  >{{ 'pdp.addToCart' | cxTranslate }} ></span
+                >
+                <span
+                  *ngIf="quickOrderFlow"
+                  >Finish</span
+                >
+              </button>
+            </div>
+            <div *ngIf="!checkLastProduct(configuration.productCode)">
+              <button
+                *ngIf="productLine == AllProductLine.bently"
+                [disabled]="
+                  !configurationCompleteChecker(configuration) ||
+                  !(bentlyConfiguredPrice$ | async) ||
+                  ((bentlyConfiguredPrice$ | async)?.basePrice?.value == 0 &&
+                    !(zeroBuyCheck$ | async)?.isZeroBuy)
+                "
+                [ngClass]="{
+          'add-to-cart-btn-config-bently':
+          configurationCompleteChecker(configuration) &&
+            (bentlyConfiguredPrice$ | async)?.basePrice?.value > 0||(zeroBuyCheck$ | async)?.isZeroBuy,
+          'add-to-cart-btn-config-disabled-bently':
+                 
+            !configurationCompleteChecker(configuration) ||
+            !(bentlyConfiguredPrice$ | async) ||
+            ((bentlyConfiguredPrice$ | async)?.basePrice?.value == 0 && !(zeroBuyCheck$ | async)?.isZeroBuy) ,
+        }"
+                (click)="nextConfiguration(configuration.productCode)"
+              >
+                Next >
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <div *ngIf="configuration$ | async as configuration">
+      <br />
+      <h6
+        *ngIf="!configurationCompleteChecker(configuration)"
+        class="fill-details-notification"
+      >
+        {{ 'pdp.mandatoryFields' | cxTranslate }}
+      </h6>
+      <h6
+        *ngIf="
+          zeroBuyMessageFlag &&
+          !(zeroBuyCheck$ | async)?.isZeroBuy &&
+          (configuration?.priceSummary?.basePrice?.value == 0 ||
+            (bentlyConfiguredPrice$ | async)?.basePrice?.value == 0)
+        "
+        class="fill-details-notification"
+      >
+        {{ 'pdp.priceShouldNotZero' | cxTranslate }}
+      </h6>
+    </div>
+  </div>
+  <ng-template #missingImage>
+    <div class="waygate-details-image">
+      <cx-media
+        class="cx-product-image waygate-product-image default-image"
+        [container]="product?.images?.PRIMARY"
+        format="product"
+        [alt]="getProductImageAlt(product)"
+      ></cx-media>
+    </div>
+  </ng-template>
+  <ng-template #loading>
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+</ng-container>

@@ -1,0 +1,2153 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# Import the Powertools Product and Classification Catalogs
+#
+
+$productCatalog=bhgeProductCatalog
+#$classificationCatalog=bhgeClassification
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$languages=ja,en,de,zh
+
+# Product catalog
+INSERT_UPDATE Catalog;id[unique=true]
+;$productCatalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid)
+;$productCatalog;Staged;false;$languages;employeegroup
+;$productCatalog;Online;true;$languages;employeegroup
+
+# Powertools Classification catalog
+#INSERT_UPDATE ClassificationSystem;id[unique=true]
+#;$classificationCatalog
+
+# Insert Classifications System Version
+#INSERT_UPDATE ClassificationSystemVersion;catalog(id)[unique=true];version[unique=true];active;inclPacking[virtual=true,default=true];inclDuty[virtual=true,default=true];inclFreight[virtual=true,default=true];inclAssurance[virtual=true,default=true]
+#;$classificationCatalog;1.0;true
+
+# Create default tax row for all products in product catalog
+INSERT_UPDATE TaxRow;$catalogVersion;tax(code)[unique=true];pg(code)[unique=true];ug(code)[unique=true]
+;;us-sales-tax-full;us-sales-tax-full;us-taxes
+;;ca-sales-tax-full;ca-sales-tax-full;ca-taxes
+
+# ERP_CLASSIFICATION_HYB Classification catalog
+$ERP_classificationCatalog=ERP_CLASSIFICATION_HYB
+
+INSERT_UPDATE ClassificationSystem;id[unique=true]
+;$ERP_classificationCatalog
+
+# Insert Classifications System Version
+INSERT_UPDATE ClassificationSystemVersion;catalog(id)[unique=true];version[unique=true];active;inclPacking[virtual=true,default=true];inclDuty[virtual=true,default=true];inclFreight[virtual=true,default=true];inclAssurance[virtual=true,default=true]
+;$ERP_classificationCatalog;ERP_IMPORT;true
+
+$serviceProductCatalog=bhgeServiceProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$serviceProductCatalog]),version[default='Staged'])[unique=true,default=$serviceProductCatalog]
+$languages=ja,en,de,zh
+
+# Product catalog
+INSERT_UPDATE Catalog;id[unique=true]
+;$serviceProductCatalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid)
+;$serviceProductCatalog;Staged;false;$languages;employeegroup
+;$serviceProductCatalog;Online;true;$languages;employeegroup
+
+"#% impex.info(""###############   BHGE catalog.impex  -start  ################"")"
+#
+# Import the Product Catalog and Classification Catalog
+#
+
+$1720_productCatalog=1720_GE
+$catalogVersion=catalogversion(catalog(id[default=$1720_productCatalog]),version[default='Staged'])[unique=true,default=$1720_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$1720_productCatalog]),version[default='Staged'])[unique=true,default='$1720_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1720_productCatalog]),version[default='Online'])[unique=true,default='$1720_productCatalog:Online']
+
+# 1720 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1720_productCatalog;1720 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1720_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1720_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1720_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$1800_productCatalog=1800_GE
+$catalogVersion=catalogversion(catalog(id[default=$1800_productCatalog]),version[default='Staged'])[unique=true,default=$1800_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$1800_productCatalog]),version[default='Staged'])[unique=true,default='$1800_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1800_productCatalog]),version[default='Online'])[unique=true,default='$1800_productCatalog:Online']
+$bhgeProductCatalogTarget=targetVersion(catalog(id[default=bhgeProductCatalog]),version[default='Staged'])[unique=true,default='bhgeProductCatalog:Staged']
+
+# 1800 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1800_productCatalog;1800 Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1800_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1800_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1800_ProductCatalog_StagedToOnlineSync;;;;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$bhgeProductCatalogTarget;
+;1800_Staged_To_bhgeProductCatalog_StagedSync;;;;
+
+
+
+$3000_productCatalog=3000_GE
+$catalogVersion=catalogversion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default=$3000_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default='$3000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3000_productCatalog]),version[default='Online'])[unique=true,default='$3000_productCatalog:Online']
+
+# 3000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3000_productCatalog;3000 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3000_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6020_productCatalog=6020_GE
+$catalogVersion=catalogversion(catalog(id[default=$6020_productCatalog]),version[default='Staged'])[unique=true,default=$6020_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6020_productCatalog]),version[default='Staged'])[unique=true,default='$6020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6020_productCatalog]),version[default='Online'])[unique=true,default='$6020_productCatalog:Online']
+
+# 6020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6020_productCatalog;6020 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6020_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6030_productCatalog=6030_GE
+$catalogVersion=catalogversion(catalog(id[default=$6030_productCatalog]),version[default='Staged'])[unique=true,default=$6030_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6030_productCatalog]),version[default='Staged'])[unique=true,default='$6030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6030_productCatalog]),version[default='Online'])[unique=true,default='$6030_productCatalog:Online']
+
+# 6030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6030_productCatalog;6030 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6030_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6040_productCatalog=6040_GE
+$catalogVersion=catalogversion(catalog(id[default=$6040_productCatalog]),version[default='Staged'])[unique=true,default=$6040_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6040_productCatalog]),version[default='Staged'])[unique=true,default='$6040_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6040_productCatalog]),version[default='Online'])[unique=true,default='$6040_productCatalog:Online']
+
+# 6040 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6040_productCatalog;6040 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6040_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6040_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6040_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+
+
+
+
+$6210_productCatalog=6210_GE
+$catalogVersion=catalogversion(catalog(id[default=$6210_productCatalog]),version[default='Staged'])[unique=true,default=$6210_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6210_productCatalog]),version[default='Staged'])[unique=true,default='$6210_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6210_productCatalog]),version[default='Online'])[unique=true,default='$6210_productCatalog:Online']
+
+# 6210 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6210_productCatalog;6210 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6210_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6210_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6210_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+
+$6240_productCatalog=6240_GE
+$catalogVersion=catalogversion(catalog(id[default=$6240_productCatalog]),version[default='Staged'])[unique=true,default=$6240_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6240_productCatalog]),version[default='Staged'])[unique=true,default='$6240_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6240_productCatalog]),version[default='Online'])[unique=true,default='$6240_productCatalog:Online']
+
+# 6240 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6240_productCatalog;6240 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6240_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6240_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6240_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6270_productCatalog=6270_GE
+$catalogVersion=catalogversion(catalog(id[default=$6270_productCatalog]),version[default='Staged'])[unique=true,default=$6270_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6270_productCatalog]),version[default='Staged'])[unique=true,default='$6270_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6270_productCatalog]),version[default='Online'])[unique=true,default='$6270_productCatalog:Online']
+
+# 6270 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6270_productCatalog;6270 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6270_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6270_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6270_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$7030_productCatalog=7030_GE
+$catalogVersion=catalogversion(catalog(id[default=$7030_productCatalog]),version[default='Staged'])[unique=true,default=$7030_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$7030_productCatalog]),version[default='Staged'])[unique=true,default='$7030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7030_productCatalog]),version[default='Online'])[unique=true,default='$7030_productCatalog:Online']
+
+# 7030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7030_productCatalog;7030 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7030_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$5020_productCatalog=5020_GE
+$catalogVersion=catalogversion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default=$5020_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default='$5020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5020_productCatalog]),version[default='Online'])[unique=true,default='$5020_productCatalog:Online']
+
+# 5020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5020_productCatalog;5020 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5020_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+$1810_productCatalog=1810_GE
+$catalogVersion=catalogversion(catalog(id[default=$1810_productCatalog]),version[default='Staged'])[unique=true,default=$1810_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$1810_productCatalog]),version[default='Staged'])[unique=true,default='$1810_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1810_productCatalog]),version[default='Online'])[unique=true,default='$1810_productCatalog:Online']
+
+# 1810 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1810_productCatalog;1810 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1810_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1810_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1810_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+
+$7160_productCatalog=7160_GE
+$catalogVersion=catalogversion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default=$7160_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default='$7160_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7160_productCatalog]),version[default='Online'])[unique=true,default='$7160_productCatalog:Online']
+
+# 7160 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7160_productCatalog;7160 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7160_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7160_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7160_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6170_productCatalog=6170_GE
+$catalogVersion=catalogversion(catalog(id[default=$6170_productCatalog]),version[default='Staged'])[unique=true,default=$6170_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6170_productCatalog]),version[default='Staged'])[unique=true,default='$6170_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6170_productCatalog]),version[default='Online'])[unique=true,default='$6170_productCatalog:Online']
+
+# 6170 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6170_productCatalog;6170 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6170_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6170_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6170_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+$6060_productCatalog=6060_GE
+$catalogVersion=catalogversion(catalog(id[default=$6060_productCatalog]),version[default='Staged'])[unique=true,default=$6060_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6060_productCatalog]),version[default='Staged'])[unique=true,default='$6060_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6060_productCatalog]),version[default='Online'])[unique=true,default='$6060_productCatalog:Online']
+
+# 6060 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6060_productCatalog;6060 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6060_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6060_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6060_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$1820_productCatalog=1820_GE
+$catalogVersion=catalogversion(catalog(id[default=$1820_productCatalog]),version[default='Staged'])[unique=true,default=$1820_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$1820_productCatalog]),version[default='Staged'])[unique=true,default='$1820_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1820_productCatalog]),version[default='Online'])[unique=true,default='$1820_productCatalog:Online']
+
+# 1820 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1820_productCatalog;1820 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1820_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1820_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1820_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+$7140_productCatalog=7140_GE
+$catalogVersion=catalogversion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default=$7140_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default='$7140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7140_productCatalog]),version[default='Online'])[unique=true,default='$7140_productCatalog:Online']
+
+# 7140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7140_productCatalog;7140 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7140_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$1830_productCatalog=1830_GE
+$catalogVersion=catalogversion(catalog(id[default=$1830_productCatalog]),version[default='Staged'])[unique=true,default=$1830_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$1830_productCatalog]),version[default='Staged'])[unique=true,default='$1830_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1830_productCatalog]),version[default='Online'])[unique=true,default='$1830_productCatalog:Online']
+
+# 1830 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1830_productCatalog;1830 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1830_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1830_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1830_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+
+$6180_productCatalog=6180_GE
+$catalogVersion=catalogversion(catalog(id[default=$6180_productCatalog]),version[default='Staged'])[unique=true,default=$6180_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6180_productCatalog]),version[default='Staged'])[unique=true,default='$6180_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6180_productCatalog]),version[default='Online'])[unique=true,default='$6180_productCatalog:Online']
+
+# 6180 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6180_productCatalog;6180 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6180_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6180_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6180_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+
+
+$6250_productCatalog=6250_GE
+$catalogVersion=catalogversion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default=$6250_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default='$6250_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6250_productCatalog]),version[default='Online'])[unique=true,default='$6250_productCatalog:Online']
+
+# 6250 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6250_productCatalog;6250 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6250_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6250_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6250_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6250_BN_productCatalog=6250_BN
+$catalogVersion=catalogversion(catalog(id[default=$6250_BN_productCatalog]),version[default='Staged'])[unique=true,default=$6250_BN_productCatalog:Staged]
+$languages=en
+$sourceProductCV=sourceVersion(catalog(id[default=$6250_BN_productCatalog]),version[default='Staged'])[unique=true,default='$6250_BN_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6250_BN_productCatalog]),version[default='Online'])[unique=true,default='$6250_BN_productCatalog:Online']
+
+# 6250 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6250_BN_productCatalog;6250 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6250_BN_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6250_BN_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6250_BNProductCatalog_StagedToOnlineSync;;;;
+
+
+##NEW CATALOG##
+$1200_productCatalog=1200_BN
+$catalogVersion=catalogversion(catalog(id[default=$1200_productCatalog]),version[default='Staged'])[unique=true,default=$1200_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1200_productCatalog]),version[default='Staged'])[unique=true,default='$1200_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1200_productCatalog]),version[default='Online'])[unique=true,default='$1200_productCatalog:Online']
+
+#1200 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1200_productCatalog;1200 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1200_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1200_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1200_BNProductCatalog_StagedToOnlineSync;;;; 
+
+$1500_productCatalog=1500_GC
+$catalogVersion=catalogversion(catalog(id[default=$1500_productCatalog]),version[default='Staged'])[unique=true,default=$1500_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1500_productCatalog]),version[default='Staged'])[unique=true,default='$1500_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1500_productCatalog]),version[default='Online'])[unique=true,default='$1500_productCatalog:Online']
+
+#1500 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1500_productCatalog;1500 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1500_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1500_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1500_GCProductCatalog_StagedToOnlineSync;;;; 
+
+$1600_productCatalog=1600_RS
+$catalogVersion=catalogversion(catalog(id[default=$1600_productCatalog]),version[default='Staged'])[unique=true,default=$1600_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1600_productCatalog]),version[default='Staged'])[unique=true,default='$1600_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1600_productCatalog]),version[default='Online'])[unique=true,default='$1600_productCatalog:Online']
+
+#	1600 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1600_productCatalog;1600 RS Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1600_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1600_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1600_RSProductCatalog_StagedToOnlineSync;;;; 
+
+$1700_productCatalog=1700_BN
+$catalogVersion=catalogversion(catalog(id[default=$1700_productCatalog]),version[default='Staged'])[unique=true,default=$1700_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1700_productCatalog]),version[default='Staged'])[unique=true,default='$1700_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1700_productCatalog]),version[default='Online'])[unique=true,default='$1700_productCatalog:Online']
+
+#	1700 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1700_productCatalog;1700 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1700_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1700_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1700_BNProductCatalog_StagedToOnlineSync;;;;
+
+$1820_productCatalog=1820_GE
+$catalogVersion=catalogversion(catalog(id[default=$1820_productCatalog]),version[default='Staged'])[unique=true,default=$1820_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1820_productCatalog]),version[default='Staged'])[unique=true,default='$1820_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1820_productCatalog]),version[default='Online'])[unique=true,default='$1820_productCatalog:Online']
+
+#	1820 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1820_productCatalog;1820 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1820_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1820_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1820_GEProductCatalog_StagedToOnlineSync;;;;
+
+$1830_productCatalog=1830_GE
+$catalogVersion=catalogversion(catalog(id[default=$1830_productCatalog]),version[default='Staged'])[unique=true,default=$1830_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$1830_productCatalog]),version[default='Staged'])[unique=true,default='$1830_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$1830_productCatalog]),version[default='Online'])[unique=true,default='$1830_productCatalog:Online']
+
+#	1830 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$1830_productCatalog;1830 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$1830_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$1830_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;1830_GEProductCatalog_StagedToOnlineSync;;;;
+
+$3000_productCatalog=3000_BN
+$catalogVersion=catalogversion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default=$3000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default='$3000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3000_productCatalog]),version[default='Online'])[unique=true,default='$3000_productCatalog:Online']
+
+#	3000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3000_productCatalog;3000 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3000_BNProductCatalog_StagedToOnlineSync;;;;
+
+$3000_productCatalog=3000_GC
+$catalogVersion=catalogversion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default=$3000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3000_productCatalog]),version[default='Staged'])[unique=true,default='$3000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3000_productCatalog]),version[default='Online'])[unique=true,default='$3000_productCatalog:Online']
+
+#	3000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3000_productCatalog;3000 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3000_GCProductCatalog_StagedToOnlineSync;;;;
+
+$3010_productCatalog=3010_BN
+$catalogVersion=catalogversion(catalog(id[default=$3010_productCatalog]),version[default='Staged'])[unique=true,default=$3010_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3010_productCatalog]),version[default='Staged'])[unique=true,default='$3010_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3010_productCatalog]),version[default='Online'])[unique=true,default='$3010_productCatalog:Online']
+
+#	3010 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3010_productCatalog;3010 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3010_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3010_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3010_BNProductCatalog_StagedToOnlineSync;;;;
+
+
+$3020_productCatalog=3020_BN
+$catalogVersion=catalogversion(catalog(id[default=$3020_productCatalog]),version[default='Staged'])[unique=true,default=$3020_productCatalog]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3020_productCatalog]),version[default='Staged'])[unique=true,default='$3020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3020_productCatalog]),version[default='Online'])[unique=true,default='$3020_productCatalog:Online']
+
+#	3020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3020_productCatalog;3020 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3020_BNProductCatalog_StagedToOnlineSync;;;;
+
+$3030_productCatalog=3030_BN
+$catalogVersion=catalogversion(catalog(id[default=$3030_productCatalog]),version[default='Staged'])[unique=true,default=$3030_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3030_productCatalog]),version[default='Staged'])[unique=true,default='$3030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3030_productCatalog]),version[default='Online'])[unique=true,default='$3030_productCatalog:Online']
+
+#	3030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3030_productCatalog;3030 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3030_BNProductCatalog_StagedToOnlineSync;;;;
+
+
+$3040_productCatalog=3040_BN
+$catalogVersion=catalogversion(catalog(id[default=$3040_productCatalog]),version[default='Staged'])[unique=true,default=$3040_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3040_productCatalog]),version[default='Staged'])[unique=true,default='$3040_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3040_productCatalog]),version[default='Online'])[unique=true,default='$3040_productCatalog:Online']
+
+#	3040 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3040_productCatalog;3040 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3040_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3040_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3040_BNProductCatalog_StagedToOnlineSync;;;;
+
+$3050_productCatalog=3050_BN
+$catalogVersion=catalogversion(catalog(id[default=$3050_productCatalog]),version[default='Staged'])[unique=true,default=$3050_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3050_productCatalog]),version[default='Staged'])[unique=true,default='$3050_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3050_productCatalog]),version[default='Online'])[unique=true,default='$3050_productCatalog:Online']
+
+#	3050 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3050_productCatalog;3050 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3050_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3050_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3050_BNProductCatalog_StagedToOnlineSync;;;;
+
+$3140_productCatalog=3140_BN
+$catalogVersion=catalogversion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default=$3140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default='$3140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3140_productCatalog]),version[default='Online'])[unique=true,default='$3140_productCatalog:Online']
+
+#	3140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3140_productCatalog;3140 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3140_BNProductCatalog_StagedToOnlineSync;;;;
+
+$3140_productCatalog=3140_GC
+$catalogVersion=catalogversion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default=$3140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default='$3140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3140_productCatalog]),version[default='Online'])[unique=true,default='$3140_productCatalog:Online']
+
+#	3140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3140_productCatalog;3140 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3140_GCProductCatalog_StagedToOnlineSync;;;;
+
+$3140_productCatalog=3140_GE
+$catalogVersion=catalogversion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default=$3140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$3140_productCatalog]),version[default='Staged'])[unique=true,default='$3140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$3140_productCatalog]),version[default='Online'])[unique=true,default='$3140_productCatalog:Online']
+
+#	3140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$3140_productCatalog;3140 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$3140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$3140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;3140_GEProductCatalog_StagedToOnlineSync;;;;
+
+$5000_productCatalog=5000_BN
+$catalogVersion=catalogversion(catalog(id[default=$5000_productCatalog]),version[default='Staged'])[unique=true,default=$5000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5000_productCatalog]),version[default='Staged'])[unique=true,default='$5000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5000_productCatalog]),version[default='Online'])[unique=true,default='$5000_productCatalog:Online']
+
+#	5000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5000_productCatalog;5000 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5000_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5010_productCatalog=5010_BN
+$catalogVersion=catalogversion(catalog(id[default=$5010_productCatalog]),version[default='Staged'])[unique=true,default=$5010_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5010_productCatalog]),version[default='Staged'])[unique=true,default='$5010_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5010_productCatalog]),version[default='Online'])[unique=true,default='$5010_productCatalog:Online']
+
+#	5010 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5010_productCatalog;5010 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5010_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5010_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5010_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5020_productCatalog=5020_BN
+$catalogVersion=catalogversion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default=$5020_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default='$5020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5020_productCatalog]),version[default='Online'])[unique=true,default='$5020_productCatalog:Online']
+
+#	5020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5020_productCatalog;5020 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5020_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5020_productCatalog=5020_GE
+$catalogVersion=catalogversion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default=$5020_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5020_productCatalog]),version[default='Staged'])[unique=true,default='$5020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5020_productCatalog]),version[default='Online'])[unique=true,default='$5020_productCatalog:Online']
+
+#	5020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5020_productCatalog;5020 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5020_GEProductCatalog_StagedToOnlineSync;;;;
+
+$5030_productCatalog=5030_BN
+$catalogVersion=catalogversion(catalog(id[default=$5030_productCatalog]),version[default='Staged'])[unique=true,default=$5030_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5030_productCatalog]),version[default='Staged'])[unique=true,default='$5030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5030_productCatalog]),version[default='Online'])[unique=true,default='$5030_productCatalog:Online']
+
+#	5030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5030_productCatalog;5030 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5030_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5040_productCatalog=5040_BN
+$catalogVersion=catalogversion(catalog(id[default=$5040_productCatalog]),version[default='Staged'])[unique=true,default=$5040_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5040_productCatalog]),version[default='Staged'])[unique=true,default='$5040_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5040_productCatalog]),version[default='Online'])[unique=true,default='$5040_productCatalog:Online']
+
+#	5040 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5040_productCatalog;5040 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5040_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5040_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5040_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5050_productCatalog=5050_BN
+$catalogVersion=catalogversion(catalog(id[default=$5050_productCatalog]),version[default='Staged'])[unique=true,default=$5050_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5050_productCatalog]),version[default='Staged'])[unique=true,default='$5050_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5050_productCatalog]),version[default='Online'])[unique=true,default='$5050_productCatalog:Online']
+
+#	5050 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5050_productCatalog;5050 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5050_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5050_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5050_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5060_productCatalog=5060_BN
+$catalogVersion=catalogversion(catalog(id[default=$5060_productCatalog]),version[default='Staged'])[unique=true,default=$5060_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5060_productCatalog]),version[default='Staged'])[unique=true,default='$5060_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5060_productCatalog]),version[default='Online'])[unique=true,default='$5060_productCatalog:Online']
+
+#	5060 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5060_productCatalog;5060 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5060_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5060_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5060_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5070_productCatalog=5070_BN
+$catalogVersion=catalogversion(catalog(id[default=$5070_productCatalog]),version[default='Staged'])[unique=true,default=$5070_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5070_productCatalog]),version[default='Staged'])[unique=true,default='$5070_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5070_productCatalog]),version[default='Online'])[unique=true,default='$5070_productCatalog:Online']
+
+#	5070 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5070_productCatalog;5070 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5070_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5070_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5070_BNProductCatalog_StagedToOnlineSync;;;;
+
+$5500_productCatalog=5500_GE
+$catalogVersion=catalogversion(catalog(id[default=$5500_productCatalog]),version[default='Staged'])[unique=true,default=$5500_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$5500_productCatalog]),version[default='Staged'])[unique=true,default='$5500_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$5500_productCatalog]),version[default='Online'])[unique=true,default='$5500_productCatalog:Online']
+
+#	5500 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$5500_productCatalog;5500 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$5500_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$5500_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;5500_GEProductCatalog_StagedToOnlineSync;;;;
+
+$6000_productCatalog=6000_BN
+$catalogVersion=catalogversion(catalog(id[default=$6000_productCatalog]),version[default='Staged'])[unique=true,default=$6000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6000_productCatalog]),version[default='Staged'])[unique=true,default='$6000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6000_productCatalog]),version[default='Online'])[unique=true,default='$6000_productCatalog:Online']
+
+#	6000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6000_productCatalog;6000 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6000_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6000_productCatalog=6000_GC
+$catalogVersion=catalogversion(catalog(id[default=$6000_productCatalog]),version[default='Staged'])[unique=true,default=$6000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6000_productCatalog]),version[default='Staged'])[unique=true,default='$6000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6000_productCatalog]),version[default='Online'])[unique=true,default='$6000_productCatalog:Online']
+
+#	6000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6000_productCatalog;6000 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6000_GCProductCatalog_StagedToOnlineSync;;;;
+
+$6010_productCatalog=6010_BN
+$catalogVersion=catalogversion(catalog(id[default=$6010_productCatalog]),version[default='Staged'])[unique=true,default=$6010_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6010_productCatalog]),version[default='Staged'])[unique=true,default='$6010_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6010_productCatalog]),version[default='Online'])[unique=true,default='$6010_productCatalog:Online']
+
+#	6010 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6010_productCatalog;6010 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6010_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6010_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6010_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6020_productCatalog=6020_GE
+$catalogVersion=catalogversion(catalog(id[default=$6020_productCatalog]),version[default='Staged'])[unique=true,default=$6020_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6020_productCatalog]),version[default='Staged'])[unique=true,default='$6020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6020_productCatalog]),version[default='Online'])[unique=true,default='$6020_productCatalog:Online']
+
+#	6020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6020_productCatalog;6020 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6020_GEProductCatalog_StagedToOnlineSync;;;;
+
+
+$6020_BN_productCatalog=6020_BN
+$catalogVersion=catalogversion(catalog(id[default=$6020_BN_productCatalog]),version[default='Staged'])[unique=true,default=$6020_BN_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6020_BN_productCatalog]),version[default='Staged'])[unique=true,default='$6020_BN_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6020_BN_productCatalog]),version[default='Online'])[unique=true,default='$6020_BN_productCatalog:Online']
+
+#	6020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6020_BN_productCatalog;6020 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6020_BN_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6020_BN_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6020_BN_ProductCatalog_StagedToOnlineSync;;;;
+
+
+$6030_productCatalog=6030_BN
+$catalogVersion=catalogversion(catalog(id[default=$6030_productCatalog]),version[default='Staged'])[unique=true,default=$6030_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6030_productCatalog]),version[default='Staged'])[unique=true,default='$6030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6030_productCatalog]),version[default='Online'])[unique=true,default='$6030_productCatalog:Online']
+
+#	6030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6030_productCatalog;6030 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6030_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6040_productCatalog=6040_BN
+$catalogVersion=catalogversion(catalog(id[default=$6040_productCatalog]),version[default='Staged'])[unique=true,default=$6040_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6040_productCatalog]),version[default='Staged'])[unique=true,default='$6040_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6040_productCatalog]),version[default='Online'])[unique=true,default='$6040_productCatalog:Online']
+
+#	6040 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6040_productCatalog;6040 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6040_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6040_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6040_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6050_productCatalog=6050_BN
+$catalogVersion=catalogversion(catalog(id[default=$6050_productCatalog]),version[default='Staged'])[unique=true,default=$6050_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6050_productCatalog]),version[default='Staged'])[unique=true,default='$6050_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6050_productCatalog]),version[default='Online'])[unique=true,default='$6050_productCatalog:Online']
+
+#	6050 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6050_productCatalog;6050 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6050_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6050_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6050_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6060_productCatalog=6060_BN
+$catalogVersion=catalogversion(catalog(id[default=$6060_productCatalog]),version[default='Staged'])[unique=true,default=$6060_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6060_productCatalog]),version[default='Staged'])[unique=true,default='$6060_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6060_productCatalog]),version[default='Online'])[unique=true,default='$6060_productCatalog:Online']
+
+#	6060 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6060_productCatalog;6060 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6060_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6060_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6060_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6070_productCatalog=6070_BN
+$catalogVersion=catalogversion(catalog(id[default=$6070_productCatalog]),version[default='Staged'])[unique=true,default=$6070_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6070_productCatalog]),version[default='Staged'])[unique=true,default='$6070_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6070_productCatalog]),version[default='Online'])[unique=true,default='$6070_productCatalog:Online']
+
+#	6070 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6070_productCatalog;6070 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6070_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6070_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6070_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6080_productCatalog=6080_BN
+$catalogVersion=catalogversion(catalog(id[default=$6080_productCatalog]),version[default='Staged'])[unique=true,default=$6080_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6080_productCatalog]),version[default='Staged'])[unique=true,default='$6080_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6080_productCatalog]),version[default='Online'])[unique=true,default='$6080_productCatalog:Online']
+
+#	6080 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6080_productCatalog;6080 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6080_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6080_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6080_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6090_productCatalog=6090_BN
+$catalogVersion=catalogversion(catalog(id[default=$6090_productCatalog]),version[default='Staged'])[unique=true,default=$6090_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6090_productCatalog]),version[default='Staged'])[unique=true,default='$6090_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6090_productCatalog]),version[default='Online'])[unique=true,default='$6090_productCatalog:Online']
+
+#	6090 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6090_productCatalog;6090 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6090_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6090_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6090_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6100_productCatalog=6100_BN
+$catalogVersion=catalogversion(catalog(id[default=$6100_productCatalog]),version[default='Staged'])[unique=true,default=$6100_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6100_productCatalog]),version[default='Staged'])[unique=true,default='$6100_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6100_productCatalog]),version[default='Online'])[unique=true,default='$6100_productCatalog:Online']
+
+#	6100 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6100_productCatalog;6100 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6100_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6100_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6100_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6110_productCatalog=6110_BN
+$catalogVersion=catalogversion(catalog(id[default=$6110_productCatalog]),version[default='Staged'])[unique=true,default=$6110_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6110_productCatalog]),version[default='Staged'])[unique=true,default='$6110_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6110_productCatalog]),version[default='Online'])[unique=true,default='$6110_productCatalog:Online']
+
+#	6110 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6110_productCatalog;6110 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6110_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6110_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6110_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6120_productCatalog=6120_BN
+$catalogVersion=catalogversion(catalog(id[default=$6120_productCatalog]),version[default='Staged'])[unique=true,default=$6120_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6120_productCatalog]),version[default='Staged'])[unique=true,default='$6120_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6120_productCatalog]),version[default='Online'])[unique=true,default='$6120_productCatalog:Online']
+
+#	6120 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6120_productCatalog;6120 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6120_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6120_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6120_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6130_productCatalog=6130_BN
+$catalogVersion=catalogversion(catalog(id[default=$6130_productCatalog]),version[default='Staged'])[unique=true,default=$6130_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6130_productCatalog]),version[default='Staged'])[unique=true,default='$6130_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6130_productCatalog]),version[default='Online'])[unique=true,default='$6130_productCatalog:Online']
+
+#	6130 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6130_productCatalog;6130 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6130_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6130_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6130_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6140_productCatalog=6140_BN
+$catalogVersion=catalogversion(catalog(id[default=$6140_productCatalog]),version[default='Staged'])[unique=true,default=$6140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6140_productCatalog]),version[default='Staged'])[unique=true,default='$6140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6140_productCatalog]),version[default='Online'])[unique=true,default='$6140_productCatalog:Online']
+
+#	6140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6140_productCatalog;6140 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6140_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6150_productCatalog=6150_BN
+$catalogVersion=catalogversion(catalog(id[default=$6150_productCatalog]),version[default='Staged'])[unique=true,default=$6150_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6150_productCatalog]),version[default='Staged'])[unique=true,default='$6150_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6150_productCatalog]),version[default='Online'])[unique=true,default='$6150_productCatalog:Online']
+
+#	6150 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6150_productCatalog;6150 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6150_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6150_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6150_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6160_productCatalog=6160_BN
+$catalogVersion=catalogversion(catalog(id[default=$6160_productCatalog]),version[default='Staged'])[unique=true,default=$6160_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6160_productCatalog]),version[default='Staged'])[unique=true,default='$6160_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6160_productCatalog]),version[default='Online'])[unique=true,default='$6160_productCatalog:Online']
+
+#	6160 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6160_productCatalog;6160 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6160_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6160_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6160_BNProductCatalog_StagedToOnlineSync;;;;
+
+$6180_productCatalog=6180_GE
+$catalogVersion=catalogversion(catalog(id[default=$6180_productCatalog]),version[default='Staged'])[unique=true,default=$6180_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6180_productCatalog]),version[default='Staged'])[unique=true,default='$6180_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6180_productCatalog]),version[default='Online'])[unique=true,default='$6180_productCatalog:Online']
+
+#	6180 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6180_productCatalog;6180 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6180_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6180_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6180_GEProductCatalog_StagedToOnlineSync;;;;
+
+$6200_productCatalog=6200_GC
+$catalogVersion=catalogversion(catalog(id[default=$6200_productCatalog]),version[default='Staged'])[unique=true,default=$6200_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6200_productCatalog]),version[default='Staged'])[unique=true,default='$6200_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6200_productCatalog]),version[default='Online'])[unique=true,default='$6200_productCatalog:Online']
+
+#	6200 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6200_productCatalog;6200 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6200_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6200_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6200_GCProductCatalog_StagedToOnlineSync;;;;
+
+$6230_productCatalog=6230_GE
+$catalogVersion=catalogversion(catalog(id[default=$6230_productCatalog]),version[default='Staged'])[unique=true,default=$6230_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6230_productCatalog]),version[default='Staged'])[unique=true,default='$6230_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6230_productCatalog]),version[default='Online'])[unique=true,default='$6230_productCatalog:Online']
+
+#	6230 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6230_productCatalog;6230 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6230_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6230_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6230_GEProductCatalog_StagedToOnlineSync;;;;
+
+$6250_productCatalog=6250_GC
+$catalogVersion=catalogversion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default=$6250_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default='$6250_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6250_productCatalog]),version[default='Online'])[unique=true,default='$6250_productCatalog:Online']
+
+#	6250 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6250_productCatalog;6250 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6250_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6250_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6250_GCProductCatalog_StagedToOnlineSync;;;;
+
+$6250_productCatalog=6250_GE
+$catalogVersion=catalogversion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default=$6250_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6250_productCatalog]),version[default='Staged'])[unique=true,default='$6250_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6250_productCatalog]),version[default='Online'])[unique=true,default='$6250_productCatalog:Online']
+
+#	6250 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6250_productCatalog;6250 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6250_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6250_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6250_GEProductCatalog_StagedToOnlineSync;;;;
+
+$6260_productCatalog=6260_GE
+$catalogVersion=catalogversion(catalog(id[default=$6260_productCatalog]),version[default='Staged'])[unique=true,default=$6260_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$6260_productCatalog]),version[default='Staged'])[unique=true,default='$6260_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$6260_productCatalog]),version[default='Online'])[unique=true,default='$6260_productCatalog:Online']
+
+#	6260 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$6260_productCatalog;6260 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$6260_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$6260_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;6260_GEProductCatalog_StagedToOnlineSync;;;;
+
+$7000_productCatalog=7000_BN
+$catalogVersion=catalogversion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default=$7000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default='$7000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7000_productCatalog]),version[default='Online'])[unique=true,default='$7000_productCatalog:Online']
+
+#	7000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7000_productCatalog;7000 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7000_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7000_productCatalog=7000_GC
+$catalogVersion=catalogversion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default=$7000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default='$7000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7000_productCatalog]),version[default='Online'])[unique=true,default='$7000_productCatalog:Online']
+
+#	7000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7000_productCatalog;7000 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7000_GCProductCatalog_StagedToOnlineSync;;;;
+
+$7000_productCatalog=7000_GE
+$catalogVersion=catalogversion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default=$7000_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7000_productCatalog]),version[default='Staged'])[unique=true,default='$7000_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7000_productCatalog]),version[default='Online'])[unique=true,default='$7000_productCatalog:Online']
+
+#	7000 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7000_productCatalog;7000 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7000_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7000_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7000_GEProductCatalog_StagedToOnlineSync;;;;
+
+$7010_productCatalog=7010_BN
+$catalogVersion=catalogversion(catalog(id[default=$7010_productCatalog]),version[default='Staged'])[unique=true,default=$7010_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7010_productCatalog]),version[default='Staged'])[unique=true,default='$7010_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7010_productCatalog]),version[default='Online'])[unique=true,default='$7010_productCatalog:Online']
+
+#	7010 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7010_productCatalog;7010 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7010_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7010_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7010_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7020_productCatalog=7020_BN
+$catalogVersion=catalogversion(catalog(id[default=$7020_productCatalog]),version[default='Staged'])[unique=true,default=$7020_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7020_productCatalog]),version[default='Staged'])[unique=true,default='$7020_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7020_productCatalog]),version[default='Online'])[unique=true,default='$7020_productCatalog:Online']
+
+#	7020 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7020_productCatalog;7020 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7020_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7020_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7020_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7030_productCatalog=7030_BN
+$catalogVersion=catalogversion(catalog(id[default=$7030_productCatalog]),version[default='Staged'])[unique=true,default=$7030_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7030_productCatalog]),version[default='Staged'])[unique=true,default='$7030_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7030_productCatalog]),version[default='Online'])[unique=true,default='$7030_productCatalog:Online']
+
+#	7030 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7030_productCatalog;7030 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7030_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7030_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7030_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7040_productCatalog=7040_BN
+$catalogVersion=catalogversion(catalog(id[default=$7040_productCatalog]),version[default='Staged'])[unique=true,default=$7040_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7040_productCatalog]),version[default='Staged'])[unique=true,default='$7040_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7040_productCatalog]),version[default='Online'])[unique=true,default='$7040_productCatalog:Online']
+
+#	7040 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7040_productCatalog;7040 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7040_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7040_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7040_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7050_productCatalog=7050_BN
+$catalogVersion=catalogversion(catalog(id[default=$7050_productCatalog]),version[default='Staged'])[unique=true,default=$7050_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7050_productCatalog]),version[default='Staged'])[unique=true,default='$7050_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7050_productCatalog]),version[default='Online'])[unique=true,default='$7050_productCatalog:Online']
+
+#	7050 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7050_productCatalog;7050 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7050_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7050_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7050_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7060_productCatalog=7060_BN
+$catalogVersion=catalogversion(catalog(id[default=$7060_productCatalog]),version[default='Staged'])[unique=true,default=$7060_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7060_productCatalog]),version[default='Staged'])[unique=true,default='$7060_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7060_productCatalog]),version[default='Online'])[unique=true,default='$7060_productCatalog:Online']
+
+#	7060 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7060_productCatalog;7060 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7060_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7060_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7060_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7080_productCatalog=7080_BN
+$catalogVersion=catalogversion(catalog(id[default=$7080_productCatalog]),version[default='Staged'])[unique=true,default=$7080_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7080_productCatalog]),version[default='Staged'])[unique=true,default='$7080_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7080_productCatalog]),version[default='Online'])[unique=true,default='$7080_productCatalog:Online']
+
+#	7080 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7080_productCatalog;7080 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7080_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7080_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7080_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7090_productCatalog=7090_BN
+$catalogVersion=catalogversion(catalog(id[default=$7090_productCatalog]),version[default='Staged'])[unique=true,default=$7090_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7090_productCatalog]),version[default='Staged'])[unique=true,default='$7090_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7090_productCatalog]),version[default='Online'])[unique=true,default='$7090_productCatalog:Online']
+
+#	7090 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7090_productCatalog;7090 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7090_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7090_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7090_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7110_productCatalog=7110_GE
+$catalogVersion=catalogversion(catalog(id[default=$7110_productCatalog]),version[default='Staged'])[unique=true,default=$7110_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7110_productCatalog]),version[default='Staged'])[unique=true,default='$7110_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7110_productCatalog]),version[default='Online'])[unique=true,default='$7110_productCatalog:Online']
+
+#	7110 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7110_productCatalog;7110 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7110_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7110_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7110_GEProductCatalog_StagedToOnlineSync;;;;
+
+$7120_productCatalog=7120_GE
+$catalogVersion=catalogversion(catalog(id[default=$7120_productCatalog]),version[default='Staged'])[unique=true,default=$7120_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7120_productCatalog]),version[default='Staged'])[unique=true,default='$7120_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7120_productCatalog]),version[default='Online'])[unique=true,default='$7120_productCatalog:Online']
+
+#	7120 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7120_productCatalog;7120 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7120_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7120_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7120_GEProductCatalog_StagedToOnlineSync;;;;
+
+$7140_productCatalog=7140_BN
+$catalogVersion=catalogversion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default=$7140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default='$7140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7140_productCatalog]),version[default='Online'])[unique=true,default='$7140_productCatalog:Online']
+
+#	7140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7140_productCatalog;7140 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7140_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7140_productCatalog=7140_GC
+$catalogVersion=catalogversion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default=$7140_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7140_productCatalog]),version[default='Staged'])[unique=true,default='$7140_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7140_productCatalog]),version[default='Online'])[unique=true,default='$7140_productCatalog:Online']
+
+#	7140 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7140_productCatalog;7140 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7140_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7140_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7140_GCProductCatalog_StagedToOnlineSync;;;;
+
+$7160_productCatalog=7160_BN
+$catalogVersion=catalogversion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default=$7160_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default='$7160_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7160_productCatalog]),version[default='Online'])[unique=true,default='$7160_productCatalog:Online']
+
+#	7160 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7160_productCatalog;7160 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7160_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7160_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7160_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7160_productCatalog=7160_GE
+$catalogVersion=catalogversion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default=$7160_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7160_productCatalog]),version[default='Staged'])[unique=true,default='$7160_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7160_productCatalog]),version[default='Online'])[unique=true,default='$7160_productCatalog:Online']
+
+#	7160 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7160_productCatalog;7160 GE Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7160_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7160_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7160_GEProductCatalog_StagedToOnlineSync;;;;
+
+$7170_productCatalog=7170_GC
+$catalogVersion=catalogversion(catalog(id[default=$7170_productCatalog]),version[default='Staged'])[unique=true,default=$7170_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7170_productCatalog]),version[default='Staged'])[unique=true,default='$7170_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7170_productCatalog]),version[default='Online'])[unique=true,default='$7170_productCatalog:Online']
+
+#	7170 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7170_productCatalog;7170 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7170_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7170_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7170_GCProductCatalog_StagedToOnlineSync;;;;
+
+$7200_productCatalog=7200_BN
+$catalogVersion=catalogversion(catalog(id[default=$7200_productCatalog]),version[default='Staged'])[unique=true,default=$7200_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7200_productCatalog]),version[default='Staged'])[unique=true,default='$7200_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7200_productCatalog]),version[default='Online'])[unique=true,default='$7200_productCatalog:Online']
+
+#	7200 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7200_productCatalog;7200 BN Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7200_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7200_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7200_BNProductCatalog_StagedToOnlineSync;;;;
+
+$7200_productCatalog=7200_GC
+$catalogVersion=catalogversion(catalog(id[default=$7200_productCatalog]),version[default='Staged'])[unique=true,default=$7200_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$7200_productCatalog]),version[default='Staged'])[unique=true,default='$7200_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$7200_productCatalog]),version[default='Online'])[unique=true,default='$7200_productCatalog:Online']
+
+#	7200 Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+;$7200_productCatalog;7200 GC Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+;$7200_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+;$7200_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+;7200_GCProductCatalog_StagedToOnlineSync;;;;
+
+# GLOBAL CATALOG  -- RMA Change: START
+$global_productCatalog=bhgeGlobalProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$global_productCatalog]),version[default='Staged'])[unique=true,default=$global_productCatalog:Staged]
+$languages=en,de,pt,es,zh
+$sourceProductCV=sourceVersion(catalog(id[default=$global_productCatalog]),version[default='Staged'])[unique=true,default='$global_productCatalog:Staged']
+$targetProductCV=targetVersion(catalog(id[default=$global_productCatalog]),version[default='Online'])[unique=true,default='$global_productCatalog:Online']
+
+# Global Product Catalog
+INSERT_UPDATE Catalog;id[unique=true];name
+                     ;$global_productCatalog;BHGE GLOBAL Product Catalog
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid);writePrincipals(uid);
+                            ;$global_productCatalog;Staged;false;$languages;employeegroup;productmanagergroup;
+                            ;$global_productCatalog;Online;true;$languages;employeegroup;productmanagergroup;
+
+INSERT_UPDATE CatalogVersionSyncJob;code[unique=true];$sourceProductCV;$targetProductCV;
+                                   ;BHGEGlobalProductCatalog_StagedToOnlineSync;;;;
+
+
+# GLOBAL CATALOG  -- RMA Change: END
+
+#remove salesorg specific catalog version and catalog
+#staged version
+Remove CATALOGVERSION;pk[unique=true];
+;8796224651865;
+;8796224717401;
+;8796224782937;
+;8796224848473;
+;8796093481561;
+;8796093547097;
+;8796191392345;
+;8796224389721;
+;8796224455257;
+;8796224914009;
+;8796224979545;
+;8796093612633;
+;8796225045081;
+;8796225110617;
+;8796225176153;
+;8796225241689;
+;8796225307225;
+;8796225372761;
+;8796225438297;
+;8796225503833;
+;8796225569369;
+;8796225634905;
+;8796225700441;
+;8796224258649;
+;8796225765977;
+;8796225831513;
+;8796225897049;
+;8796225962585;
+;8796226028121;
+;8796226093657;
+;8796226159193;
+;8796226224729;
+;8796226290265;
+;8796289663577;
+;8796093678169;
+;8796226355801;
+;8796093743705;
+;8796226421337;
+;8796093809241;
+;8796226486873;
+;8796226552409;
+;8796125856345;
+;8796226617945;
+;8796226683481;
+;8796226749017;
+;8796226847321;
+;8796226880089;
+;8796226945625;
+;8796227011161;
+;8796227076697;
+;8796227142233;
+;8796227207769;
+;8796125921881;
+;8796224520793;
+;8796227273305;
+;8796093874777;
+;8796227338841;
+;8796093940313;
+;8796322431577;
+;8796227404377;
+;8796224586329;
+;8796227469913;
+;8796094005849;
+;8796227535449;
+;8796227600985;
+;8796227666521;
+;8796227732057;
+;8796227797593;
+;8796227863129;
+;8796094071385;
+;8796227928665;
+;8796227994201;
+;8796228059737;
+;8796228125273;
+;8796228190809;
+;8796228256345;
+;8796228321881;
+;8796228420185;
+;8796228452953;
+;8796125987417;
+;8796228518489;
+;8796224324185;
+;8796228584025;
+;8796228649561;
+;8796228715097;
+;8796224127577;
+
+# update active as false in Online version
+UPDATE CATALOGVERSION;pk[unique=true];active[default=true]
+;8796224684633;
+;8796224750169;
+;8796224815705;
+;8796224881241;
+;8796093514329;
+;8796093579865;
+;8796191359577;
+;8796224422489;
+;8796224488025;
+;8796224946777;
+;8796225012313;
+;8796093645401;
+;8796225077849;
+;8796225143385;
+;8796225208921;
+;8796225274457;
+;8796225339993;
+;8796225405529;
+;8796225471065;
+;8796225536601;
+;8796225602137;
+;8796225667673;
+;8796225733209;
+;8796224291417;
+;8796225798745;
+;8796225864281;
+;8796225929817;
+;8796225995353;
+;8796226060889;
+;8796226126425;
+;8796226191961;
+;8796226257497;
+;8796226323033;
+;8796289696345;
+;8796093710937;
+;8796226388569;
+;8796093776473;
+;8796226454105;
+;8796093842009;
+;8796226519641;
+;8796226585177;
+;8796125889113;
+;8796226650713;
+;8796226716249;
+;8796226781785;
+;8796226814553;
+;8796226912857;
+;8796226978393;
+;8796227043929;
+;8796227109465;
+;8796227175001;
+;8796227240537;
+;8796125954649;
+;8796224553561;
+;8796227306073;
+;8796093907545;
+;8796227371609;
+;8796093973081;
+;8796322464345;
+;8796227437145;
+;8796224619097;
+;8796227502681;
+;8796094038617;
+;8796227568217;
+;8796227633753;
+;8796227699289;
+;8796227764825;
+;8796227830361;
+;8796227895897;
+;8796094104153;
+;8796227961433;
+;8796228026969;
+;8796228092505;
+;8796228158041;
+;8796228223577;
+;8796228289113;
+;8796228354649;
+;8796228387417;
+;8796228485721;
+;8796126020185;
+;8796228551257;
+;8796224356953;
+;8796228616793;
+;8796228682329;
+;8796228747865;
+;8796224160345;
+
+# remove online catalog
+REMOVE CATALOGVERSION;pk[unique=true];
+;8796224684633;
+;8796224750169;
+;8796224815705;
+;8796224881241;
+;8796093514329;
+;8796093579865;
+;8796191359577;
+;8796224422489;
+;8796224488025;
+;8796224946777;
+;8796225012313;
+;8796093645401;
+;8796225077849;
+;8796225143385;
+;8796225208921;
+;8796225274457;
+;8796225339993;
+;8796225405529;
+;8796225471065;
+;8796225536601;
+;8796225602137;
+;8796225667673;
+;8796225733209;
+;8796224291417;
+;8796225798745;
+;8796225864281;
+;8796225929817;
+;8796225995353;
+;8796226060889;
+;8796226126425;
+;8796226191961;
+;8796226257497;
+;8796226323033;
+;8796289696345;
+;8796093710937;
+;8796226388569;
+;8796093776473;
+;8796226454105;
+;8796093842009;
+;8796226519641;
+;8796226585177;
+;8796125889113;
+;8796226650713;
+;8796226716249;
+;8796226781785;
+;8796226814553;
+;8796226912857;
+;8796226978393;
+;8796227043929;
+;8796227109465;
+;8796227175001;
+;8796227240537;
+;8796125954649;
+;8796224553561;
+;8796227306073;
+;8796093907545;
+;8796227371609;
+;8796093973081;
+;8796322464345;
+;8796227437145;
+;8796224619097;
+;8796227502681;
+;8796094038617;
+;8796227568217;
+;8796227633753;
+;8796227699289;
+;8796227764825;
+;8796227830361;
+;8796227895897;
+;8796094104153;
+;8796227961433;
+;8796228026969;
+;8796228092505;
+;8796228158041;
+;8796228223577;
+;8796228289113;
+;8796228354649;
+;8796228387417;
+;8796228485721;
+;8796126020185;
+;8796228551257;
+;8796224356953;
+;8796228616793;
+;8796228682329;
+;8796228747865;
+;8796224160345;
+
+
+
+#Remove salesorg specif catalogs.
+REMOVE catalog;id[unique=true];
+;1200_BN;
+;1500_GC;
+;1600_RS;
+;1700_BN;
+;1720_GE;
+;1800_GE;
+;1810_GE;
+;1820_GE;
+;1830_GE;
+;3000_BN;
+;3000_GC;
+;3000_GE;
+;3010_BN;
+;3020_BN;
+;3030_BN;
+;3040_BN;
+;3050_BN;
+;3140_BN;
+;3140_GC;
+;3140_GE;
+;5000_BN;
+;5010_BN;
+;5020_BN;
+;5020_GE;
+;5030_BN;
+;5040_BN;
+;5050_BN;
+;5060_BN;
+;5070_BN;
+;5500_GE;
+;6000_BN;
+;6000_GC;
+;6010_BN;
+;6020_BN;
+;6020_GE;
+;6030_BN;
+;6030_GE;
+;6040_BN;
+;6040_GE;
+;6050_BN;
+;6060_BN;
+;6060_GE;
+;6070_BN;
+;6080_BN;
+;6090_BN;
+;6100_BN;
+;6110_BN;
+;6120_BN;
+;6130_BN;
+;6140_BN;
+;6150_BN;
+;6160_BN;
+;6170_GE;
+;6180_GE;
+;6200_GC;
+;6210_GE;
+;6230_GE;
+;6240_GE;
+;6250_BN;
+;6250_GC;
+;6250_GE;
+;6260_GE;
+;6270_GE;
+;7000_BN;
+;7000_GC;
+;7000_GE;
+;7010_BN;
+;7020_BN;
+;7030_BN;
+;7030_GE;
+;7040_BN;
+;7050_BN;
+;7060_BN;
+;7080_BN;
+;7090_BN;
+;7110_GE;
+;7120_GE;
+;7140_BN;
+;7140_GC;
+;7140_GE;
+;7160_BN;
+;7160_GE;
+;7170_GC;
+;7200_BN;
+;7200_GC;
+;bhgeProductCatalog;
+

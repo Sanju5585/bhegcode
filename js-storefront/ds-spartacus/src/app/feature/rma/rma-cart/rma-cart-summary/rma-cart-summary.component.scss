@@ -1,0 +1,40 @@
+.rma-cart-summary {
+  width: 30em;
+  padding: 1.5em;
+
+  border-radius: 4px;
+  font-family: var(--font-family-label-medium);
+  font-size: var(--font-size-label-small);
+  border: 1px solid var(--color-border-common-primary);
+
+  .rma-cart-info {
+    font-family: var(--font-family-body-medium);
+    font-size: var(--font-base-font-size-12);
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    color: #757575;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 0;
+
+    .rma-cart-value {
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-base-font-size-12);
+      line-height: 16px;
+      text-align: right;
+      letter-spacing: 0.25px;
+      color: #1a2321;
+    }
+  }
+}
+
+.bold {
+  font-weight: 600;
+}
+:host::ng-deep {
+  .bh-button {
+    width: 320px;
+  }
+}

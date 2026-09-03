@@ -1,0 +1,32 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+                          ;;WaygateCartCheckoutPageTemplate;Waygate Cart Checkout Page Template;layout/landingLayout2Page;ContentPage
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)
+                         ;;WaygateCartCheckoutPage;Waygate Cart Checkout Page;WaygateCartCheckoutPageTemplate;waygateCartCheckout
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WaygateCartCheckoutPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+                             ;SiteLogo;;;logo
+                             ;HeaderLinks;;;headerlinks
+                             ;SearchBox;;;searchbox
+                             ;MiniCart;;;minicart
+                             ;NavigationBar;;;navigation
+                             ;BodyContent;;;wide
+                             ;Footer;;;footer
+                             ;TopHeaderSlot;;;wide
+                             ;BottomHeaderSlot;;;wide
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WaygateCartCheckoutPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+                                    ;;SiteLogo-WaygateCartCheckoutPage;SiteLogo;;SiteLogoSlot;true
+                                    ;;HomepageLink-WaygateCartCheckoutPage;HomepageNavLink;;HomepageNavLinkSlot;true
+                                    ;;NavigationBar-WaygateCartCheckoutPage;NavigationBar;;NavigationBarSlot;true
+                                    ;;MiniCart-WaygateCartCheckoutPage;MiniCart;;MiniCartSlot;true
+                                    ;;Footer-WaygateCartCheckoutPage;Footer;;FooterSlot;true
+                                    ;;HeaderLinks-WaygateCartCheckoutPage;HeaderLinks;;HeaderLinksSlot;true
+                                    ;;SearchBox-WaygateCartCheckoutPage;SearchBox;;SearchBoxSlot;true
+                                    ;;TopHeaderSlot-WaygateCartCheckoutPage;TopHeaderSlot;;TopHeaderSlot;true
+                                    ;;BottomHeaderSlot-WaygateCartCheckoutPage;BottomHeaderSlot;;BottomHeaderSlot;true
+                                    ;;PlaceholderContentSlot-WaygateCartCheckoutPage;PlaceholderContentSlot;;PlaceholderContentSlot;true

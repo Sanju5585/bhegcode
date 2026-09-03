@@ -1,0 +1,49 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Powertools Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+
+#INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+#;0059171;pieces;USD;179,93;1;1;false
+#;0058639;pieces;USD;86,86;1;1;false
+#;0059167;pieces;USD;134,95;1;1;false
+#;0058638;pieces;USD;102,37;1;1;false
+#;0059169;pieces;USD;35,68;1;1;false
+#;0058637;pieces;USD;136,5;1;1;false
+#
+#INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+#;68433;pieces;USD;179,93;1;1;false
+#;66506;pieces;USD;86,86;1;1;false
+#;113-241-240;pieces;USD;134,95;1;1;false
+#;500035;pieces;USD;102,37;1;1;false
+#;113-262-240;pieces;USD;35,68;1;1;false
+#;113-263-260;pieces;USD;136,5;1;1;false
+#
+#;100729;pieces;USD;179,93;1;1;false
+#;113-241-260;pieces;USD;186,86;1;1;false
+#;113-242-240;pieces;USD;1134,95;1;1;false
+#;113-242-260;pieces;USD;202,37;1;1;false
+#;113-243-240;pieces;USD;335,68;1;1;false
+#;113-243-260;pieces;USD;536,5;1;1;false
+#
+##FILM
+#;293DC;pieces;USD;293,37;1;1;false
+#;29DJQ;pieces;USD;29,68;1;1;false
+#;28XSC;pieces;USD;28,5;1;1;false

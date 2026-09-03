@@ -1,0 +1,23 @@
+<div class="footer">
+  <div class="footer-bottom container">
+    <div class="footer-logo">
+      <img
+        class="bh-img"
+        src="../../../../../assets/img/BH_Logo_Home_footer.svg"
+        alt="click"
+      />
+    </div>
+    <div class="footer-links">
+      <a href="https://www.bakerhughes.com/company/about-us" target="_blank">{{
+        'waygate.aboutUs' | cxTranslate
+      }}</a>
+      <a href="https://www.bakerhughes.com/privacy" target="_blank">{{
+        'waygate.privacy' | cxTranslate
+      }}</a>
+      <a [routerLink]="contactUsUrl">{{ 'waygate.contactUs' | cxTranslate }}</a>
+      <a (click)="openCookies()">{{ 'waygate.cookies' | cxTranslate }}</a>
+      <a (click)="openTerms()">{{ 'waygate.termsOfUse' | cxTranslate }}</a>
+    </div>
+    <div class="footer-copyright">{{ 'waygate.copyRight' | cxTranslate:{year: copyRightYear} }}</div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+.quote-checkout {
+  padding: 24px 75px 24px 75px;
+}
+
+.quotenormalsmall {
+  font-family: var(--font-family-body-medium);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-base-line-height-20);
+  color: #000000;
+}
+
+.quotenormal {
+  font-family: var(--font-family-body-medium);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-16);
+  line-height: var(--font-base-line-height-20);
+  color: var(--color-text-common-primary);
+}
+
+.quotebold {
+  font-family: var(--font-family-decorative-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-headline-medium);
+  font-size: var(--font-base-font-size-16);
+  line-height: var(--font-base-line-height-22);
+  color: var(--color-base-gray-900);
+}
+
+.quotecartquoted {
+  padding: 9px 0px;
+  .quotecartid {
+    margin-top: 22px;
+  }
+}
+
+.continueshopping {
+  color: var(--color-text-common-primary);
+  border: 2px solid var(--color-base-teal-700);
+  padding: 10px;
+  width: 176px;
+  height: 44px;
+}
+
+.bh-button__container {
+  padding-right: 16px;
+}
+
+.bh-button__container span.bh-button__label {
+  font-family: var(--font-family-decorative-medium);
+  font-style: normal;
+  font-weight: var(--font-weight-headline-medium);
+  font-size: var(--font-base-font-size-14);
+  line-height: var(--font-base-line-height-20);
+  letter-spacing: 0.5px !important;
+}
+
+.bh-button__container .bh-button--type-secondary span.bh-button__label {
+  color: var(--cx-color-primary) !important;
+}
+
+.emailtabrow {
+  margin-left: -16px;
+}
+
+.accessories {
+  margin: 0 0 2em 0;
+  .accessories-tabs-group {
+    display: flex;
+    margin-bottom: 27px;
+    .accessories-tab {
+      padding: 0.25em;
+      border-bottom: 1px solid lightgray;
+      min-width: 8em;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 60px;
+    }
+    .tab-active {
+      border-bottom: 3px solid var(--color-fill-avatar-primary);
+      color: var(--color-fill-avatar-primary);
+    }
+  }
+}
+
+.flag-icon {
+  width: 15px;
+  height: 17px;
+  margin-right: 17px;
+  vertical-align: text-top;
+  color: var(--color-text-common-primary);
+}
+
+.quotesqnchor {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.quotecart {
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.quotebtn {
+  text-align: -webkit-right;
+}

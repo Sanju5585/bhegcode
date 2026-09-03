@@ -1,0 +1,16 @@
+<ng-container>
+  <div class="sso-page">
+    <div class="unauthorized-error">
+      <div class="container">
+        <div class="unauth-img"></div>
+        <h1> {{ 'waygate.insufficientRights' | cxTranslate }} </h1>
+        <p>
+          403: {{ 'waygate.dontHaveRights' | cxTranslate }}.
+          <br />
+          {{ 'waygate.believeItAsError' | cxTranslate }},
+          <a (click)="redirectToContactUs()">let us know</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,42 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span>{{ 'savedCart.deleteTilte' | cxTranslate }}</span>
+      </div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal('close')"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>
+            {{
+              'savedCart.deleteConfirmation' | cxTranslate: { cartName: name }
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            [type]="'secondary'"
+            label="{{ 'savedCart.cancel' | cxTranslate }}"
+            (click)="closeModal('close')"
+          ></bh-button>
+          <bh-button
+            [type]="'tertiary'"
+            label="{{ 'savedCart.delete' | cxTranslate }}"
+            (click)="closeModal('delete')"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

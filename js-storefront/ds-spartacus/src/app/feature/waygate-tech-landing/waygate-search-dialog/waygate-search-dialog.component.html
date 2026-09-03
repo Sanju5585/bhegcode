@@ -1,0 +1,155 @@
+<div class="waygate-search-backdrop">
+  <div class="waygate-search-close">
+    <span class="material-icons" (click)="closeDialog('close')"> close </span>
+  </div>
+  <div class="waygate-search-container">
+    <div class="waygate-search-dialog-input-container">
+      <input
+        #searchInputWaygate
+        type="text"
+        class="waygate-search-dialog-input"
+        placeholder="{{ 'waygate.searchByProductNamePartNo' | cxTranslate }}"
+        tabindex="0"
+        (input)="search($event)"
+        (keydown.enter)="closeDialog('goToSearch'); goToPage()"
+        autofocus
+      /><span class="material-icons waygate-search-dialog-icon"> search </span>
+    </div>
+  </div>
+  <div class="waygate-search-results-container">
+    <ng-container *ngIf="results$ | async as result; else loading">
+      <ng-container
+        *ngIf="
+          result?.products?.length > 0 && searchQuery?.length > 2;
+          else noProduct
+        "
+      >
+        <div class="message">
+          {{
+            'waygate.searchResult.countSearchResult'
+              | cxTranslate : { count: result.products.length }
+          }}
+        </div>
+        <div class="waygate-search-results-box">
+          <ng-container *ngFor="let product of result.products">
+            <a
+              [routerLink]="[
+                '/',
+                productLine,
+                'product',
+                product.code,
+                product.name
+              ]"
+              (click)="closeDialog('go to product')"
+            >
+              <div class="search-product-image-container">
+                <cx-media
+                  class="cx-product-image waygate-product-image"
+                  [container]="product.images?.PRIMARY"
+                  format="product"
+                  [alt]="product?.name"
+                ></cx-media>
+              </div>
+              <div class="search-product-content-container">
+                <div class="search-product-code">{{ product.code }}</div>
+
+                <div
+                  class="search-product-name"
+                  [innerHTML]="product?.name"
+                ></div>
+
+                <div class="product-tag">
+                  {{ 'waygate.searchResult.productHeader' | cxTranslate }}
+                </div>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #noProduct>
+  <ng-container *ngIf="results$ | async as result">
+    <div
+      class="no-results-found"
+      *ngIf="searchQuery?.length > 2 && result?.products?.length == 0"
+    >
+      <!-- <div class="offline-search-container" *ngIf="productLine !== 'waygate'">
+        <span class="offline-search-msg">No matching parts found</span>
+        <span class="offline-search-button" (click)="searchOffline()"
+          >Search in offline catalog</span
+        >
+      </div> -->
+
+      <!-- <img
+        src="../../../../assets/img/empty-box.svg"
+        alt="{{ 'waygate.searchResult.noResultsfound' | cxTranslate }}"
+      /> -->
+      <ng-container
+        *ngIf="productLine === allProductLine.bently || productLine === allProductLine.panametrics; else nonVCProduct">
+        <div *ngIf="zeroscenario" class="zeroscenario">
+          <h5>{{ 'waygate.searchResult.noResultsfound' | cxTranslate }}</h5>
+          <p><span (click)="validatePartNumber()">Validate</span> Part Number</p>
+        </div>
+        <div *ngIf="completeLongPartNumberValid" class="completeLongPartNumberValid">
+          <div class="text-content">
+            <h5>1 product identified</h5>
+      
+            <div>
+              <h6>{{ longPartNumber }}</h6>
+            </div>
+          </div>
+          <div class="button">
+            <p *ngIf="productIsBuyValue" (click)="addToCart(longPartNumber)">
+              {{ 'buyCart.addToCart' | cxTranslate }}
+            </p>
+            <p *ngIf="!productIsBuyValue" (click)="navigateTo()">Continue</p>
+          </div>
+        </div>
+        <div *ngIf="isDummyProduct" class="isDummyProduct">
+          <div class="text-content">
+            <h5>Invalid base part number</h5>
+            <br />
+            <div>
+              <p>Do you want to continue with your known part number?</p>
+              <h6>{{ actualProductCode }}</h6>
+            </div>
+          </div>
+          <div class="button">
+            <p (click)="searchOffline()">Proceed</p>
+          </div>
+        </div>
+        <div *ngIf="onlyBaseProductValid" class="onlyBaseProductValid">
+          <div class="text-content">
+            <h5>Configuration not valid</h5>
+            <p>Verify the configuration entered</p>
+            <h5>1 Base product found</h5>
+      
+            <div class="body-container">
+              <div class="image-container-offline-search" *ngIf="!!productImages?.GALLERY; else missingImage">
+                <img src="" />
+              </div>
+              <div class="text-container-offline-search">
+                <p>{{ actualProductCode }}</p>
+              </div>
+              <div class="button">
+                <p (click)="navigateTo()">Continue</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #nonVCProduct>
+        <div class="no-result-shown">
+          <h5>{{ 'waygate.searchResult.noResultsfound' | cxTranslate }}</h5>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

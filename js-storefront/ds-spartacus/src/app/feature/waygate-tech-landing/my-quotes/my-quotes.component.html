@@ -1,0 +1,353 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-my-orders-container">
+    <div class="waygate-my-orders-header">
+      <div class="header-green-border"></div>
+      <div class="waygate-my-order-row">
+        <h1 class="waygate-my-order-title">
+          {{ 'my-quotes.myQuotes' | cxTranslate }}
+        </h1>
+        <div class="waygate-my-accounts">
+          {{ customerAccountName }}
+          <!-- <ng-select
+            class="border-0"
+            id="accountDropdown"
+            class="account-dropdown"
+            [(ngModel)]="selectedAccount"
+            [searchable]="false"
+            [clearable]="false"
+            [items]="b2bUnits"
+            bindLabel="label"
+            bindValue="id"
+            (change)="onAccountChange()"
+          >
+          </ng-select> -->
+        </div>
+      </div>
+    </div>
+    <div class="waygate-my-orders-header-actions">
+      <div class="gap-2 d-flex">
+        <span>
+          {{
+            'my-quotes.quotesPlacedInLast' | cxTranslate : { count: totalCount }
+          }}</span
+        >
+
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedMonth"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="monthOptions"
+          (change)="onMonthChange()"
+        >
+        </ng-select>
+        <ng-select
+          class="border-0"
+          id="monthDropdown"
+          [(ngModel)]="selectedTile"
+          bindLabel="label"
+          bindValue="value"
+          [searchable]="false"
+          [clearable]="false"
+          [items]="orderTiles"
+          (change)="onStatusChange()"
+        >
+        </ng-select>
+      </div>
+
+      <div class="my-orders-search-actions">
+        <div class="my-orders-search">
+          <input
+            type="text"
+            placeholder="{{ 'my-quotes.searchQuoteParameter' | cxTranslate }}"
+            [formControl]="searchControl"
+          />
+          <span class="material-icons" (click)="search()"> search </span>
+        </div>
+        <!-- #waygateActions
+        (click)="showActions = !showActions" -->
+        <!-- <div
+          class="my-order-actions"
+          (click)="downloadXls()"
+          title="{{ 'my-quotes.exportToXLS' | cxTranslate }}"
+        >
+          <span class="material-icons"> vertical_align_bottom </span>
+        </div> -->
+      </div>
+    </div>
+    <ng-container *ngIf="myQuoteData$ | async as orderData; else loading">
+      <ng-container *ngIf="orderData?.quoteResponse?.length > 0; else noData">
+        <div class="my-orders-table-container">
+          <table class="waygate-my-order-table">
+            <thead>
+              <tr>
+                <!-- 1 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.quoteNumber' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('quoteasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('quotedesc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <!-- 2 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.createdOn' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('dateasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('datedesc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+
+                <!-- 3 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.quoteStatus' | cxTranslate }}
+                    <!-- <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div> -->
+                  </div>
+                </th>
+
+                <!-- 4 -->
+                <!-- <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.reference' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th> -->
+
+                <!-- 5 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.amount' | cxTranslate }}
+
+                    <!-- <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div> -->
+                  </div>
+                </th>
+
+                <!-- 6 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-quotes.validuntil' | cxTranslate }}
+                    <!-- <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div> -->
+                  </div>
+                </th>
+
+                <!-- 7 -->
+                <th>{{ 'my-quotes.action' | cxTranslate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container
+                *ngFor="let order of orderData?.quoteResponse; let i = index"
+              >
+                <tr>
+                  <!-- 1 -->
+                  <td>
+                    <span
+                      class="order-number"
+                      (click)="goToQuoteDetailPage(order)"
+                    >
+                      {{ order?.quoteCode }}
+                    </span>
+                  </td>
+
+                  <!-- 2 -->
+                  <td>{{ order?.createdOn }}</td>
+
+                  <!-- 3 -->
+                  <td>
+                    {{ order?.quoteStatus }}
+                  </td>
+
+                  <!-- 4 -->
+                  <!-- <td>
+                    <div>
+                      {{ order?.reference || 'N/A' }}
+                    </div>
+                  </td> -->
+
+                  <!-- 5 -->
+                  <td>
+                    {{ order?.totalListPrice ? order?.currency : '' }}
+                    {{ order?.totalListPrice }}
+                  </td>
+
+                  <!-- 6 -->
+                  <td class="last-updated-wrapper">
+                    <div>{{ order?.validUntill }}</div>
+                  </td>
+
+                  <!-- 7 -->
+                  <td>
+                    <div
+                      class="accept"
+                      (click)="acceptQuote(order?.quoteCode)"
+                      *ngIf="
+                        ![
+                          'Rejected',
+                          'Expired',
+                          'Completed',
+                          'Blocked',
+                          'blocked'
+                        ].includes(order?.quoteStatus)
+                      "
+                    >
+                      <span class="material-icons check">check</span
+                      ><span class="text">{{
+                        'my-quotes.accept' | cxTranslate
+                      }}</span>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="quick-order-pagination" *ngIf="totalCount > 10">
+            <div class="page-size-container">
+              <div>{{ 'waygate-order.itemsPerPage' | cxTranslate }}</div>
+              <div>
+                <select name="" id="" (change)="pageSizeChanged($event)">
+                  <ng-container *ngFor="let value of pageSizes">
+                    <option
+                      [value]="value"
+                      [selected]="value == currentPageSize"
+                    >
+                      {{ value }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div>
+                {{
+                  'waygate.rangeSummary'
+                    | cxTranslate
+                      : {
+                          start: startRange,
+                          end: endRange,
+                          total: totalCount
+                        }
+                }}
+              </div>
+            </div>
+            <div class="page-number-selector-container" *ngIf="totalPages > 1">
+              <span
+                class="material-icons"
+                (click)="pageSelected(1)"
+                [class.disabled]="currentPage == 1"
+              >
+                keyboard_double_arrow_left
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage - 1)"
+                [class.disabled]="currentPage == 1"
+              >
+                chevron_left
+              </span>
+              <div *ngIf="currentPage > 2" class="disabled">...</div>
+              <ng-container *ngFor="let value of getPageArray(); let i = index">
+                <ng-container
+                  *ngIf="
+                    currentPage == value ||
+                    currentPage - 1 == value ||
+                    currentPage + 1 == value
+                  "
+                >
+                  <div
+                    class="pagination-numbers"
+                    [class.active]="value == currentPage"
+                    (click)="pageSelected(value)"
+                  >
+                    {{ value }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <div *ngIf="currentPage < totalPages - 1" class="disabled">
+                ...
+              </div>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage + 1)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                chevron_right
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(totalPages)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                keyboard_double_arrow_right
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img
+      src="../../../../assets/img/Illustration.png"
+      alt="{{ 'waygate-order.noOrdersFound' | cxTranslate }}"
+    />
+    <h4>{{ 'my-quotes.noQuotesFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

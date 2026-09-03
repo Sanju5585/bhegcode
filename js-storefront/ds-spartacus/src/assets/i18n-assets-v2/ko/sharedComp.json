@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "업로드",
+    "dropfile": "여기에 파일을 끌어다 놓으세요.",
+    "uploadimage": "이미지 업로드"
+  },
+  "datanotfound": {
+    "norecords": "를 위한 기록을 찾을 수 없습니다."
+  },
+  "dateRange": {
+    "today": "오늘",
+    "done": "완료",
+    "cancel": "취소",
+    "from": "로부터",
+    "to": "에게",
+    "timeperiod": "선택한 기간",
+    "selectDate": "날짜 선택"
+  },
+  "file-upload": {
+    "fileLengthError": "최대 {{maxLength}} 파일까지 업로드할 수 있습니다.",
+    "maxSizeError": "Total upload size cannot exceed {{ maxSizeInMB}} {{ sizeUnit}}",
+    "maxFileSizeError": "Individual file size cannot exceed {{ maxFileSizeInMB}} {{ sizeUnit}}",
+    "fileTypeError": "유효한 파일 형식을 선택해 주시기 바랍니다. 유효한 파일 형식은 - ",
+    "logicalError": "개별 파일 크기는 총 파일 크기를 초과할 수 없습니다.",
+    "close": "닫기",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "이 사이트에 대한 접근 권한 요청",
+    "accountInfoNotExist": "귀하의 계정 정보가 존재하지 않습니다. ",
+    "pleaseClickOn": "클랙해 주시기 바랍니다.",
+    "ForrequestAccessToSite": "사이트 접근 권한 요청을 위해",
+    "accountDisabled": "계정 비활성화됨",
+    "accountHasBeenDisabled": "귀하의 계정이 비활성화되었습니다.",
+    "speakToCustomerCare": "고객 서비스 담당자와 상담하거나 다시 시도해 주시기 바랍니다.  ",
+    "Again": "다시",
+    "activationPending": "계정 활성화 대기 중",
+    "needYourConfirmation": "접근 요청은 수신되었지만, 귀하의 확인 응답이 아직 필요합니다.",
+    "confirmLinkInEmail": "Baker Hughes DS Store로부터 온 이메일을 확인하고, 요청 완료를 위해 확인 링크를 클릭해 주시기 바랍니다. ",
+    "requestPending": "요청 처리 대기 중",
+    "pendingWithCustomerCare": "귀하의 접근 요청이 고객 지원팀에 의해 처리 대기 중입니다. ",
+    "processAndNotify": "처리가 완료되는 대로 가능한 한 빨리 알려 드리겠습니다. ",
+    "accessRejected": "접근 요청 거부됨",
+    "accessRequestDenied": "현재 귀하의 접근 요청이 거부되었습니다. ",
+    "cannotReachYou": "이는 일반적으로 귀하의 기존 계정을 식별할 수 없거나, 데이터 확인을 위해 연락이 닿지 않았기 때문입니다.  논의가 필요한 경우, 고객 서비스팀에 문의하거나 사이트 피드백에 매시지를 남겨 주시기 바랍니다. ",
+    "accessDenied": "접근 거부됨",
+    "notAssignedToReequiredGroup": "귀하의 사용자 계정이 로그인 서버에서 필요한 그룹에 할당되어 있지 않습니다. ",
+    "accessPending": "접근 대기 중",
+    "accessPendingWithUS": "귀하의 접근 요청이 보류 중입니다. ",
+    "workingOnSameWillNotify": "당사도 같은 작업을 진행 중이며 최대한 빨리 알려드리겠습니다.",
+    "loginFail": "로그인 실패",
+    "donotHaveAccessToDSstore": "DS Store에 액세스할 수 없습니다.",
+    "toRegister": " 등록을 위해",
+    "loginDisabled": "로그인 비활성화",
+    "inactiveFor90Days": "90일 이상 활동하지 않아 자동으로 귀하의 접근이 비활성화되었습니다.",
+    "Please": "해주시기 바랍니다.  ",
+    "reactivateYourAccount": " 귀하의 계정을 다시 활성화하기 위해",
+    "accountDisabledBYManager": "귀하의 계정이 귀하의 매니저에 의해 비활성화되었습니다. 더 자세한 세부 정보를 위해 이메일을 확인해 주시기 바랍니다."
+  }
+}

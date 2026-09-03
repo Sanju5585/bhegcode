@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "Feedback Details",
+    "subject": "Subject",
+    "name": "Name",
+    "phoneNumber": "Phone number",
+    "emailAddress": "Email Address",
+    "message": "Message",
+    "characters": "Characters",
+    "attachement": "Attachment",
+    "clipboard": "Drag and drop file here",
+    "selectFile": "Select a file (image, pdf only)",
+    "uploadFile": "UPLOAD FILE",
+    "submit": "Submit",
+    "successSubmit": "Your feedback is successfully submitted",
+    "errorMessage": "Something went wrong, please try again later.",
+    "dragdropvalidfile": "Please select a valid file type. Valid file types are - jpg,pdf",
+    "error": {
+      "phoneNumberMessage": "Phone Number must be digit only",
+      "emailMessage": "Email Address must be a valid email address",
+      "subjectMessage": "Subject is required",
+      "nameMessage": "Name is required",
+      "phoneReq": "Phone Number is required",
+      "emailReq": "Email Address is required",
+      "message": "Message is required"
+    }
+  }
+}

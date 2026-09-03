@@ -1,0 +1,118 @@
+<div class="container">
+  <ng-container *ngIf="deletedProductsCodeList?.length > 0">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="d-flex alert-wrapper">
+          <span class="material-icons info-icon"> info_outline </span>
+          <span class="info-text">
+            {{
+              'buyCart.technicalErrOnCart' | cxTranslate
+            }}
+            <ul *ngFor="let item of deletedProductsCodeList">
+              <li>
+                {{ item }}
+              </li>
+            </ul>
+          </span>
+          <button type="button" aria-label="Close" class="close">
+            <i class="material-icons" (click)="onCloseClick()">close</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="cart$ | async as cart; else loading">
+    <ng-container *ngIf="(cart | json) != '{}'; else loading">
+      <ng-container
+        *ngIf="
+          cart.totalItems > 0 && cart.commerceType !== 'RETURNS';
+          else noCartEntries
+        "
+      >
+        <ng-container>
+          <div *ngIf="cart?.isMinOrderQtyProductExists" class="min-order-error">
+            <i class="material-icons">report</i
+            ><span class="min-order-text">{{
+              'buyCart.minOrderError' | cxTranslate
+            }}</span>
+          </div>
+          <!-- <app-waygate-breadcrumbs
+            [breadcrumbs]="breadcrumbs"
+          ></app-waygate-breadcrumbs> -->
+
+          <!-- WAYGATE Cart actions -->
+          <div class="background-shade">
+            <div class="order-actions-container">
+              <app-waygate-cart-action
+                [userType]="userType"
+                [cart$]="cart$"
+                [cart]="cart"
+                (scrollToEntry)="scrollCartEntryIntoView($event)"
+                (updateCart)="reloadCart($event)"
+                (isPartialShipping)="(isPartialShipment)"
+                [earlyShipment]="earlyShipment"
+              >
+              </app-waygate-cart-action>
+            </div>
+          </div>
+        </ng-container>
+        <!-- WAYGATE Cart item list -->
+        <ng-container *ngIf="entries$ | async as entries">
+          <div *ngIf="cart.totalItems > 0" class="cart-details-wrapper">
+            <app-waygate-cart-item-list
+              [items]="entries"
+              [hasHeader]="true"
+              [userType]="userType"
+              [cart$]="cart$"
+              [cart]="cart"
+              (cartEntryList)="setCartEntryList($event)"
+              [isPartialShipment]="isPartialShipment"
+              [profileType]="customerType$ | async"
+            ></app-waygate-cart-item-list>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #noCartEntries>
+      <div class="empty-cart-page">
+        <div class="container">
+          <div class="empty-img"></div>
+          <h1>{{ 'buyCart.cartEmpty' | cxTranslate }}</h1>
+          <p class="noitems">
+            {{ 'buyCart.noItemIncart' | cxTranslate }}
+          </p>
+          <p class="noitems">
+            <span>{{ 'buyCart.explore' | cxTranslate }}</span>
+            <span>
+              <a
+                class="view-data-link"
+                routerLink="/waygate/categories/ECOM_LVL0_00000001/Digital-Solutions"
+                >{{ 'buyCart.ourCatalogue' | cxTranslate }}</a
+              ></span
+            >
+            <span>{{ 'buyCart.toAdditems' | cxTranslate }}</span>
+          </p>
+          <p class="noitems">{{ 'buyCart.or' | cxTranslate }}</p>
+          <p class="noitems">
+            <span>{{ 'buyCart.visit' | cxTranslate }}</span>
+            <span>
+              <a
+                class="view-data-link"
+                [routerLink]="['/', productLine, 'saved-carts']"
+                >{{ 'buyCart.myCarts' | cxTranslate }}</a
+              ></span
+            >
+            <span>{{ 'buyCart.toExistingCarts' | cxTranslate }}</span>
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner>{{ 'buyCart.loading' | cxTranslate }}</cx-spinner>
+  </div>
+</ng-template>

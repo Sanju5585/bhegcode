@@ -1,0 +1,59 @@
+<div class="change-parent sidenav" id="mySidenav" (click)="close()"></div>
+
+<ng-container *ngIf="userLoggedIn$ | async; else guestSlider">
+  <div class="change-cust-main">
+    <div class="customer-title">
+      {{ 'customer-account.waygateCustAccTitle' | cxTranslate }}
+      <span class="material-icons" role="button" (click)="close()">close</span>
+    </div>
+    <div class="customer-desc-text">
+      {{ 'customer-account.changeSalesArea' | cxTranslate }}
+    </div>
+    <ds-waygate-current-customer-account
+      (closeSlider)="close()"
+    ></ds-waygate-current-customer-account>
+  </div>
+</ng-container>
+
+<ng-template #guestSlider>
+  <div class="change-cust-main">
+    <div class="customer-title">
+      {{ 'customer-account.changeDSCompany' | cxTranslate }}
+      <span class="material-icons close-icn" role="button" (click)="close()">close</span>
+    </div>
+    <ng-container *ngIf="guestSalesAreas$ | async as legalEntities">
+      <div class="change-legal-entity mt-3">
+        <div class="title-label mb-2">
+          {{ 'customer-account.changeLegalEntity' | cxTranslate }}
+        </div>
+        <div
+          class="legal-entity-action-list-item"
+          *ngFor="let entity of legalEntities | keyvalue"
+        >
+          <bh-radio-button
+            [label]="getLegalEntityRadioBtnLabel(entity.value)"
+            name="legal-entity"
+            [value]="entity.value.salesAreaId"
+            [attr.checked]="entity.value.active == true ? true : false"
+            (change)="onLegalEntityRadioChange($event)"
+          ></bh-radio-button>
+        </div>
+        <div class="change-legal-entity-action mt-3">
+          <bh-button
+            type="secondary"
+            label="{{ 'customer-account.back' | cxTranslate }}"
+            small="true"
+            (click)="close()"
+          ></bh-button>
+          <bh-button
+            class="ml-3"
+            type="primary"
+            label="{{ 'customer-account.update' | cxTranslate }}"
+            small="true"
+            (click)="onUpdateBtnClick()"
+          ></bh-button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

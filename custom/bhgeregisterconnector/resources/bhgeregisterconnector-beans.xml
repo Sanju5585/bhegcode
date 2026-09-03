@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+	<!-- DATA -->
+	<bean class="com.bhge.register.connector.data.UserDataList">
+		<property name="users" type="java.util.List&lt;com.bhge.register.connector.data.UserData>"/>
+	</bean>
+
+	<bean class="com.bhge.register.connector.data.UserData" >
+		<property name="defaultBillingAddress" type="com.bhge.register.connector.data.AddressData"/>
+		<property name="defaultShippingAddress" type="com.bhge.register.connector.data.AddressData"/>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.connector.data.AddressData>"/>
+		<property name="description" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.connector.data.AddressData>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.data.AddressData">
+		<property name="streetname" type="String"/>
+		<property name="streetnumber" type="String"/>
+		<property name="town" type="String"/>
+		<property name="shippingAddress" type="boolean"/>
+		<property name="billingAddress" type="boolean"/>
+		<property name="defaultAddress" type="boolean"/>
+		<property name="formattedAddress" type="String"/>
+	</bean>
+
+	<!-- DTO -->
+	<bean class="com.bhge.register.connector.dto.SampleWsDTO">
+		<description>Sample DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">sample</hint>
+		</hints>
+		<property name="value" type="String">
+			<description>sample value</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+	</bean>
+
+	<bean class="com.bhge.register.connector.dto.UsersListWsDTO">
+		<description>User list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersList</hint>
+		</hints>
+		<property name="users" type="java.util.List&lt;com.bhge.register.connector.dto.UserWsDTO>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.dto.UsersPageWsDTO" extends="de.hybris.platform.webservicescommons.dto.SearchPageWsDTO&lt;com.bhge.register.connector.dto.UserWsDTO>" >
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersPage</hint>
+		</hints>
+	</bean>
+
+	<bean class="com.bhge.register.connector.dto.UserWsDTO">
+		<description>User DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">user</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.connector.dto.AddressWsDTO>"/>
+		<property name="firstName" type="String">
+			<description>First Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="lastName" type="String">
+			<description>Last Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="info" type="String" />
+		<property name="billingAddress" type="com.bhge.register.connector.dto.AddressWsDTO">
+			<description>Billing Address</description>
+		</property>
+		<property name="shippingAddress" type="com.bhge.register.connector.dto.AddressWsDTO">
+			<description>Shipping Address</description>
+		</property>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.dto.AddressListWsDTO">
+		<description>List of addresses</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">addressList</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.connector.dto.AddressWsDTO>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.dto.AddressWsDTO">
+		<description>Address DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">address</hint>
+		</hints>
+		<property name="street" type="String"/>
+		<property name="town" type="String"/>
+		<property name="streetNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.register.connector.dto.TestMapWsDTO">
+		<description>Example of DTO with map</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">testMap</hint>
+		</hints>
+		<property name="stringMap" type="java.util.Map&lt;String,String>"/>
+		<property name="integerMap" type="java.util.Map&lt;String,Integer>"/>
+	</bean>
+	
+		
+	<bean class="com.bhgeregister.dto.BHGEUserManagerRequest">
+		<property name="firstName" type="java.lang.String"/>
+		<property name="lastName" type="java.lang.String"/>
+		<property name="userId" type="java.lang.String"/>
+		<property name="email" type="java.lang.String"/>
+		<property name="disableList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="generatedUID" type="java.lang.String"/>
+		<property name="flag" type="java.lang.String"/>
+		<property name="accessLevelName" type="java.lang.String"/>
+		<property name="accessLevelId" type="long"/>
+		<property name="approvedAccessLevelList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="pendingAccessLevelList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="activeFlag" type="java.lang.String"/>
+		<property name="accessName" type="java.lang.String"/>
+        <!-- Anish User Comment -->
+		<property name="requestorComment" type="java.lang.String"/>
+		<!-- Anish User Comment -->
+		<property name="accessObject" type="com.bhgeregister.dto.BHGEUserManagerAccessObject"/>
+	</bean>
+
+
+   <bean class="com.bhgeregister.dto.BHGEUserManagerAccessObject">
+		<property name="OrderTracking" type="java.lang.String"/>
+		<property name="Services" type="java.lang.String"/>
+		<property name="ViewProductPrices" type="java.lang.String"/>
+		<property name="PlaceOrder" type="java.lang.String"/>
+		<property name="productView" type="java.lang.String"/>
+		<property name="statusId" type="java.lang.String"/>
+	</bean>
+
+
+	<bean class="com.bhgeregister.dto.BHGEUserManagerResponse">
+		<property name="statusCode" type="java.lang.String"/>
+		<property name="errorMessage" type="java.lang.String"/>
+		<property name="statusDetails" type="java.lang.String"/>
+		<property name="userMessage" type="java.lang.String"/>
+		<property name="sapLevel" type="java.lang.String"/>
+		<property name="linkedAccounts" type="java.lang.String"/>
+		<property name="userMessageList" type="java.util.List&lt;java.lang.String>"/>
+        <!-- Anish POST -->
+		<property name="approvedAccessList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="pendingAccessList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="disableAccessList" type="java.util.List&lt;java.lang.String>"/>
+		<!-- anish POST -->
+		<property name="customerList" type="java.util.List&lt;com.bhgeregister.dto.BHGEUserManagerRequest>"/>
+		<property name="filteredList" type="java.util.List&lt;com.bhgeregister.dto.BHGEUserManagerRequest>"/>
+		<property name="userAccessMap" type="java.util.Map&lt;String,java.util.List&lt;com.bhgeregister.dto.BHGEUserManagerRequest&gt;>"/>
+	</bean>
+	
+	
+
+</beans>

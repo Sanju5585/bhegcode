@@ -1,0 +1,57 @@
+.my-profile {
+  max-width: 75%;
+  margin: 0 auto;
+  margin-top: -24px;
+  position: relative;
+  .my-profile-header-message {
+    font-family: var(--font-base-font-family-body);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-14);
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.1px;
+    color: var(--color-base-gray-600);
+    opacity: 0.7;
+    margin: 23px 0px 30px;
+  }
+  .tab {
+    float: left;
+    margin-right: 50px;
+    width: 28%;
+    button.tablinks {
+      display: flex;
+      justify-content: left;
+      background-color: var(--color-base-white-100);
+      padding: 12px 8px 12px 18px;
+      width: 100%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: var(--font-base-font-family-decorative);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-medium);
+      font-size: var(--font-base-font-size-14);
+      line-height: 21px;
+      text-transform: capitalize;
+      color: var(--color-base-gray-600);
+      transition: 0.3s;
+      text-align: left;
+      border-left: 2px solid transparent;
+    }
+    button.tablinks:hover {
+      background: var(--color-base-teal-050);
+      border-left: 2px solid transparent;
+    }
+    button.tablinks.active {
+      color: var(--color-base-teal-700);
+      background: var(--color-base-teal-050);
+      border-left: 2px solid var(--color-base-teal-700);
+    }
+  }
+
+  .margin-right-icon {
+    margin-right: 7px;
+  }
+}

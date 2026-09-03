@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "나의 즐겨찾기",
+    "items": " 제품",
+    "delSelected": "선택한 항목을 삭제합니다.",
+    "addedOn": "에 추가되었습니다.",
+    "buy": "구매",
+    "return": "반품",
+    "addtoEquip": "나의 장비에 추가",
+    "switchSalesArea": "세일즈 지역 변경",
+    "salesAreaText": "이 제품을 다른 세일즈 지역으로 반품할 수 있습니다.",
+    "contactCustomerCare": "고객 지원팀에 문의하기",
+    "norecords": "기록을 찾을 수 없습니다.",
+    "listPrice": "정가",
+    "unavailable": "제공되지 않음",
+    "priceNotrFound": "가격을 찾을 수 없습니다.",
+    "viewBreakup": "세부내역 보기",
+    "breakdownPrice": "가격 세부내역",
+    "discount": "할인",
+    "netPrice": "순가격",
+    "searchBYProductName": "제품 이름으로 검색",
+    "removeSelected": "선택한 항목 제거",
+    "addToCart": "장바구니에 추가하기",
+    "searchList": "이 목록 검색",
+    "error": {
+      "removeMsg": "제품이 성공적으로 삭제되었습니다.",
+      "loadingMsg": "주문 목록을 로드하는 동안 문제가 발생했습니다."
+    }
+  }
+}

@@ -1,0 +1,119 @@
+<div class="deslast">
+  <p>{{ 'rma-form.descriptionlast' | cxTranslate }}</p>
+</div>
+<div class="documentation-container">
+  <section class="search-filter">
+    <div class="dropdown-returns">
+      <label for="">{{ 'rma-form.yearOfManufacture' | cxTranslate }}</label>
+      <div class="vs-tooltip-icon">
+        <p class="vs-tooltip">
+          {{ 'rma-form.tooltipestimated' | cxTranslate }}
+        </p>
+      </div>
+      <ng-select
+        class="filter-dropdown"
+        [searchable]="false"
+        [ngModel]="manufactureYearSelected"
+        [clearable]="false"
+        placeholder="{{ 'rma-form.select' | cxTranslate }}"
+        (change)="changeYearOfManufacture($event)"
+      >
+        <ng-option
+          *ngFor="let year of yearRange(START_YEAR, END_YEAR, STEP)"
+          [value]="year"
+        >
+          {{ year }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </section>
+  <section class="documentation-info">
+    <div class="documentation-info--icons mt-1">
+      <span class="material-icons-outlined"> info </span>
+    </div>
+    <div class="documentation-info--texts">
+      <p>{{ warrantyText }}</p>
+    </div>
+  </section>
+  <section class="warranty-claim">
+    <label for="">{{ 'rma-form.warrantyClaimInfo' | cxTranslate }}</label>
+
+    <bh-text-area
+      class="problem-desc-input"
+      [placeholder]="'rma-form.warrantyClaimPlaceholder' | cxTranslate"
+      [value]="additionalInfo.warrantyStatement"
+      (change)="warrantyClaimInput($event)"
+      messageType="count"
+      maxcharacters="255"
+      fluidhorz
+      fluidvert
+      (keypress)="stop($event)"
+      (paste)="myFunction($event)"
+      #textval
+      (focusout)="trimText()"
+    >
+    </bh-text-area>
+    <div class="text-center" *ngIf="warrentyClaimFlag">
+      <span class="warranty-claim-text">
+        {{ 'rma-form.warrantyClaimPlaceholder' | cxTranslate }}</span
+      >
+    </div>
+  </section>
+  <section class="warranty-claim">
+    <label class="service-notes-label" for="">
+      <span>{{ 'rma-form.serviceNotes' | cxTranslate }}</span>
+    </label>
+    <div class="vs-tooltip-icon">
+      <p class="vs-tooltip">
+        {{ 'rma-form.tooltipservice' | cxTranslate }}
+      </p>
+    </div>
+    <bh-text-area
+      class="problem-desc-input"
+      [placeholder]="'rma-form.serviceNotesPlaceholder' | cxTranslate"
+      [value]="additionalInfo.serviceNotes"
+      (change)="serviceNotesInput($event)"
+      messageType="count"
+      maxcharacters="2000"
+      fluidhorz
+      fluidvert
+      (keypress)="stopServiceNotes($event)"
+      (paste)="myFunctionServiceNotes($event)"
+      #textval2
+      (focusout)="trimTextServiceNotes()"
+    >
+    </bh-text-area>
+  </section>
+</div>
+<div class="documentation-container attcahment-separte">
+  <section class="accessories">
+    <label for=""> {{ 'rma-form.attachmentsLabel' | cxTranslate }} </label>
+
+    <ds-file-upload
+      [label]="'rma-form.addFile' | cxTranslate"
+      [maxLength]="5"
+      [maxSizeInMB]="30"
+      [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+      (selectedFiles)="selectedFiles($event)"
+      >upload</ds-file-upload
+    >
+    <div class="file-list">
+      <ds-file-upload-progress
+        *ngFor="let file of files; let i = index"
+        [layout]="layouts.BOX"
+        [file]="file"
+        [uploadParams]="uploadParams"
+        [uploadUrl]="uploadUrl"
+        [deleteUrl]="deleteUrl"
+        [deleteMethod]="'GET'"
+        [deleteParams]="deleteParams"
+        (deletedFiles)="deletedFiles($event)"
+        [showProgress]="true"
+        [entryNumber]="i"
+      ></ds-file-upload-progress>
+    </div>
+    <span class="fileformat mt-1"
+      >{{ 'rma-form.fileFormat' | cxTranslate }}
+    </span>
+  </section>
+</div>

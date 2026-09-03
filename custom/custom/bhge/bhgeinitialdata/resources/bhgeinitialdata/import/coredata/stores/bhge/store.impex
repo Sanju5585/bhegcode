@@ -1,0 +1,1206 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# Create the BHGE BaseStore
+#
+
+$productCatalog=bhgeProductCatalog
+#$classificationCatalog=bhgeClassification
+$currencies=USD
+$net=true
+$storeUid=bhge
+$defaultCurrency=USD
+$languages=ja,en,de,zh
+$defaultLanguage=en
+$unitedKingdom=GB,GG,IM,JE
+$europeNotUK=AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+$asianCountries=CN,JP,VN,HK,KP,KR,IN
+$deliveryCountries=$unitedKingdom,$europeNotUK,$asianCountries,US,CA
+$orderProcessCode=order-process
+$pickupInStoreMode=DISABLED
+$customerAllowedToIgnoreSuggestions=true
+$paymentProvider=Mockup
+$expressCheckoutEnabled=false
+$checkoutGroup=b2bCheckoutGroup
+$returnProcessCode=return-process
+$siteUid=bhge
+$facetSearchConfigName=bhgeIndex
+$defaultLanguage=en
+
+#Service Macros
+$serviceProductCatalog=bhgeServiceProductCatalog
+$serviceStoreUid=bhgeService
+
+#Global Catalog
+$bhgeGlobalProductCatalog=bhgeGlobalProductCatalog
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;bhgePromoGrp;
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;paymentProvider;pickupInStoreMode(code);customerAllowedToIgnoreSuggestions;expressCheckoutEnabled;maxRadiusForPoSSearch;checkoutFlowGroup;createReturnProcessCode;
+;$storeUid;$bhgeGlobalProductCatalog;$currencies;$net;us-taxes;miles;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$orderProcessCode;$paymentProvider;$pickupInStoreMode;$customerAllowedToIgnoreSuggestions;$expressCheckoutEnabled;300;$checkoutGroup;$returnProcessCode;
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;$storeUid;premium-net
+;$storeUid;standard-net
+;$storeUid;premium-gross
+;$storeUid;standard-gross
+;$storeUid;free-standard-shipping
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;paymentProvider;pickupInStoreMode(code);customerAllowedToIgnoreSuggestions;expressCheckoutEnabled;maxRadiusForPoSSearch;checkoutFlowGroup;createReturnProcessCode;
+;$serviceStoreUid;$serviceProductCatalog;$currencies;$net;us-taxes;miles;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$orderProcessCode;$paymentProvider;$pickupInStoreMode;$customerAllowedToIgnoreSuggestions;$expressCheckoutEnabled;300;$checkoutGroup;$returnProcessCode;
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;$serviceStoreUid;premium-net
+;$serviceStoreUid;standard-net
+;$serviceStoreUid;premium-gross
+;$serviceStoreUid;standard-gross
+;$serviceStoreUid;free-standard-shipping
+
+"#% impex.info(""###############   BHGE B2B Base Store store.impex  -start  ################"")"
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+## This Impex is for SAP and other Integration related configuration ##
+
+#SAP Integration
+INSERT_UPDATE SAPGlobalConfiguration;core_name[unique=true];replicateregistereduser[allownull=true];sapcommon_erpHttpDestination(httpDestinationName);sapcommon_erpLogicalSystem
+;GLOBAL;false;;
+
+# Import config properties into impex macros
+INSERT_UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$rfcDestination=$config-SAP_RFC_SERVER_NAME
+$rfcDestinationInstance=$config-SAP_RFC_SERVER_INSTANCE
+$rfcDestinationClient=$config-SAP_RFC_SERVER_CLIENT
+$rfcHttpDestination=$config-SAP_RFC_HTTP_DESTINATION
+$rfcTargethost=$config-SAP_RFC_TARGET_HOST
+
+
+#SAP HTTP Destination
+INSERT_UPDATE SAPHTTPDESTINATION;HTTPDESTINATIONNAME[unique=true];TARGETURL;AUTHENTICATIONTYPE(code);USERID;PASSWORD
+;$rfcDestination;$rfcHttpDestination=$rfcDestinationClient;BASIC_AUTHENTICATION;EORDER;Weborder@123;
+
+
+#SAP RFC Destination
+INSERT_UPDATE SAPRFCDestination;RFCDESTINATIONNAME[unique=true];TARGETHOST;BACKENDTYPE(code);INSTANCE;CONNECTIONTYPE;CLIENT;USERID;PASSWORD;OFFLINEMODE;JCOTRACELEVEL(code);
+;$rfcDestination;$rfcTargethost;ERP;$rfcDestinationInstance;true;$rfcDestinationClient;EORDER;Weborder@123;false;ERRORS;
+
+"#% impex.info(""###############   Creating 5010_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5010_BaseStore;5010 BN Base Store;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);name;languages(isocode)
+;5010_BaseStore;INR;INR;GEIIPL,Div-BN,Mumbai;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5010_BaseStoreConfiguration;BN;BN;5010;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5010_BaseStore;GEIIPL,Div-BN,Mumbai;5010_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5010;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5010;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5010_BN:Staged;BN;5010;GLOBAL;IN;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5010_BN:Staged;BN;5010;GLOBAL;
+
+"#% impex.info(""###############   Creating 5010_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 5020_BN_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5020_BN_BaseStore;GEIIPL,Div-BN, Delhi;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;5020_BN_BaseStore;INR;INR;;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5020_BN_BaseStoreConfiguration;BN;BN;5020;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5020_BN_BaseStore;5020_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5020;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5020;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5020_BN:Staged;BN;5020;GLOBAL;IN;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5020_BN:Staged;BN;5020;GLOBAL;
+
+"#% impex.info(""###############   Creating 5020_BN_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 5030_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5030_BaseStore;5030 Base Store;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;5030_BaseStore;ZAR;ZAR;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5030_BaseStoreConfiguration;BN;BN;5030;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5030_BaseStore;5030_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5030;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5030;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5030_BN:Staged;BN;5030;GLOBAL;ZA;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5030_BN:Staged;BN;5030;GLOBAL;
+
+"#% impex.info(""###############   Creating 5030_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 5040_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5040_BaseStore;General electric Sau;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;5040_BaseStore;SAR;SAR;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5040_BaseStoreConfiguration;BN;BN;5040;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5040_BaseStore;5040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5040;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5040;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5040_BN:Staged;BN;5040;GLOBAL;SA;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5040_BN:Staged;BN;5040;GLOBAL;
+
+"#% impex.info(""###############   Creating 5040_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 5050_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5050_BaseStore;GEIOC, Abu Dhabi;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;5050_BaseStore;AED;AED;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5050_BaseStoreConfiguration;BN;BN;5050;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5050_BaseStore;5050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5050;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5050;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5050_BN:Staged;BN;5050;GLOBAL;AE;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5050_BN:Staged;BN;5050;GLOBAL;
+
+"#% impex.info(""###############   Creating 5050_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 5050_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;5050_BaseStore;GEIOC, Abu Dhabi;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;5050_BaseStore;AED;AED;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5050_BaseStoreConfiguration;BN;BN;5050;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5050_BaseStore;5050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;5050;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;5050;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;5050_BN:Staged;BN;5050;GLOBAL;AE;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;5050_BN:Staged;BN;5050;GLOBAL;
+
+"#% impex.info(""###############   Creating 5050_BaseStore  -End  ################"")"
+
+"#% impex.info(""###############   Creating 6040_BN_BaseStore  -start  ################"")"
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;6040_BN_BaseStore;Bently Nevada-DE;$bhgeGlobalProductCatalog;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+UPDATE BaseStore;uid[unique=true];defaultCurrency(isocode);currencies(isocode);languages(isocode)
+;6040_BN_BaseStore;EUR;EUR;en,de,zh,es,pt
+
+# SAP Base Store Configurations
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType;sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;6040_BN_BaseStoreConfiguration;BN;BN;6040;ZOR;;;;
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;6040_BaseStore;6040_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;6040;BN;;"BN Dist Channel";BN;BN;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;6040;BN;;"BN Dist Channel";BN;BN;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;6040_BN:Staged;BN;6040;GLOBAL;DE;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;6040_BN:Staged;BN;6040;GLOBAL;
+
+"#% impex.info(""###############   Creating 6040_BN_BaseStore  -End  ################"")"
+
+
+# GEEDGE B2B Base Store
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;catalogs(id)[default=$global_productCatalog];defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true]
+;1720_BaseStore;1720 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1800_BaseStore;1800 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1810_BaseStore;1810 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3000_BaseStore;3000 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6020_BaseStore;6020 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6030_BaseStore;6030 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6040_BaseStore;6040 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6210_BaseStore;6210 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6240_BaseStore;6240 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6270_BaseStore;6270 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7030_BaseStore;7030 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6060_BaseStore;6060 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+	#NEW#
+;1200_BaseStore;1200 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1500_BaseStore;1500 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1600_BaseStore;1600 RS Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1700_BaseStore;1700 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1820_BaseStore;1820 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;1830_BaseStore;1830 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3000_BN_BaseStore;3000 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3000_GC_BaseStore;3000 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3010_BaseStore;3010 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3020_BaseStore;3020 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3030_BaseStore;3030 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3040_BaseStore;3040 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3050_BaseStore;3050 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3140_BN_BaseStore;3140 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3140_GC_BaseStore;3140 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;3140_GE_BaseStore;3140 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;5000_BaseStore;5000 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5010_BaseStore;5010 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5020_BaseStore;5020 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5020_BaseStore;5020 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5030_BaseStore;5030 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5040_BaseStore;5040 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;5050_BaseStore;5050 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;5060_BaseStore;5060 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;5070_BaseStore;5070 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;5500_BaseStore;5500 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6000_BN_BaseStore;6000 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6000_GC_BaseStore;6000 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6010_BaseStore;6010 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6020_BN_BaseStore;6020 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6030_BN_BaseStore;6030 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+#;6040_BaseStore;6040 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6050_BaseStore;6050 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6060_BN_BaseStore;6060 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6070_BaseStore;6070 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6080_BaseStore;6080 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6090_BaseStore;6090 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6100_BaseStore;6100 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6110_BaseStore;6110 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6120_BaseStore;6120 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6130_BaseStore;6130 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6140_BaseStore;6140 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6150_BaseStore;6150 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6160_BaseStore;6160 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6180_BaseStore;6180 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6200_BaseStore;6200 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6230_BaseStore;6230 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6250_BN_BaseStore;6250 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6250_GC_BaseStore;6250 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6250_BaseStore;6250 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;6260_BaseStore;6260 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7000_BN_BaseStore;7000 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7000_GC_BaseStore;7000 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7000_BaseStore;7000 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7010_BaseStore;7010 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7020_BaseStore;7020 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7030_BN_BaseStore;7030 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7040_BaseStore;7040 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7050_BaseStore;7050 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7060_BaseStore;7060 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7080_BaseStore;7080 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7090_BaseStore;7090 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7110_BaseStore;7110 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7120_BaseStore;7120 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7140_BN_BaseStore;7140 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7140_GC_BaseStore;7140 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7160_BN_BaseStore;7160 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7160_BaseStore;7160 GE Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7170_BaseStore;7170 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7200_BN_BaseStore;7200 BN Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+;7200_GC_BaseStore;7200 GC Base Store;;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE
+
+
+
+UPDATE BaseStore;cmsSites(uid)[default=$siteUid];uid[unique=true];defaultCurrency(isocode);currencies(isocode);name;languages(isocode)
+;$siteUid;1720_BaseStore;CAD;CAD;GE Inspection Technologies Canada, LTD;en,de,zh,es,pt
+;$siteUid;1800_BaseStore;USD;USD;GE Inspection Technologies LP;en,de,zh,es,pt
+;$siteUid;1810_BaseStore;USD;USD;DRESSER, INC.;en,de,zh,es,pt
+;$siteUid;3000_BaseStore;BRL;BRL;Bently do Brasil Ltda;en,de,zh,es,pt
+;$siteUid;6020_BaseStore;EUR;EUR;Bently Nevada Italia S.r.L;en,de,zh,es,pt
+;$siteUid;6030_BaseStore;EUR;EUR;Bently Nevada a division of GE FR;en,de,zh,es,pt
+;$siteUid;6040_BaseStore;EUR;EUR;GE Sensing&Inspection Technologies Gmbh;en,de,zh,es,pt
+;$siteUid;6210_BaseStore;GBP;GBP;GE Druck Limited;en,de,zh,es,pt
+;$siteUid;6240_BaseStore;EUR;EUR;Bently Nevada-BV;en,de,zh,es,pt
+;$siteUid;6270_BaseStore;EUR;EUR;GE Energy Spain S.L.;en,de,zh,es,pt
+;$siteUid;7030_BaseStore;AUD;AUD;Bently Nevada a division of GE Australia;en,de,zh,es,pt
+;$siteUid;6060_BaseStore;EUR;EUR;Bently Nevada-NL;en,de,zh,es,pt
+#NEW#
+;$siteUid;1200_BaseStore;USD;USD;Bently Nevada LLC.;en,de,zh,es,pt
+;$siteUid;1500_BaseStore;USD;USD;GCS-Loveland;en,de,zh,es,pt
+;$siteUid;1600_BaseStore;USD;USD;GE Reuter Stokes;en,de,zh,es,pt
+;$siteUid;1700_BaseStore;CAD;CAD;Bently Nevada-Canada;en,de,zh,es,pt
+;$siteUid;1820_BaseStore;USD;USD;GE Druck Inc;en,de,zh,es,pt
+;$siteUid;1830_BaseStore;USD;USD;GE Infrastr. Sensing;en,de,zh,es,pt
+;$siteUid;3000_BN_BaseStore;BRL;BRL;Bently do Brasil Ltd;en,de,zh,es,pt
+;$siteUid;3000_GC_BaseStore;BRL;BRL;Bently do Brasil Ltd;en,de,zh,es,pt
+;$siteUid;3010_BaseStore;CLP;CLP;Bently Nevada-Chile;en,de,zh,es,pt
+;$siteUid;3020_BaseStore;MXN;MXN;Bently Nevada-Mexico;en,de,zh,es,pt
+;$siteUid;3030_BaseStore;VEB;VEB;BN - Venezuela;en,de,zh,es,pt
+;$siteUid;3040_BaseStore;ARS;ARS;BN - Argentina;en,de,zh,es,pt
+;$siteUid;3050_BaseStore;USD;USD;BN - Puerto Rico;en,de,zh,es,pt
+;$siteUid;3140_BN_BaseStore;ARS;ARS;GEIT GmbH- Argentina;en,de,zh,es,pt
+;$siteUid;3140_GC_BaseStore;ARS;ARS;GEIT GmbH- Argentina;en,de,zh,es,pt
+;$siteUid;3140_GE_BaseStore;ARS;ARS;GEIT GmbH- Argentina;en,de,zh,es,pt
+;$siteUid;5000_BaseStore;BHD;BHD;GE Bahrain Company;en,de,zh,es,pt
+#;$siteUid;5010_BaseStore;INR;INR;GEIIPL,Div-BN,Mumbai;en,de,zh,es,pt
+#;$siteUid;5020_BaseStore;INR;INR;GEIIPL,Div-BN, Delhi;en,de,zh,es,pt
+#;$siteUid;5020_BaseStore;INR;INR;GEIIPL,Div-GE, Delhi;en,de,zh,es,pt
+#;$siteUid;5030_BaseStore;ZAR;ZAR;Bently Nevada-So. Af;en,de,zh,es,pt
+#;$siteUid;5040_BaseStore;SAR;SAR;General electric Sau;en,de,zh,es,pt
+#;$siteUid;5050_BaseStore;AED;AED;GEIOC, Abu Dhabi;en,de,zh,es,pt
+;$siteUid;5060_BaseStore;QAR;QAR;GEII Qatar;en,de,zh,es,pt
+;$siteUid;5070_BaseStore;AED;AED;GE Energy FZE;en,de,zh,es,pt
+;$siteUid;5500_BaseStore;INR;INR;GE Oil&Gas Ind P Ltd;en,de,zh,es,pt
+;$siteUid;6000_BN_BaseStore;EUR;EUR;GE Hungary ZRT vw;en,de,zh,es,pt
+;$siteUid;6000_GC_BaseStore;EUR;EUR;GE Hungary ZRT vw;en,de,zh,es,pt
+;$siteUid;6010_BaseStore;GBP;GBP;DRUCK LIMITED;en,de,zh,es,pt
+;$siteUid;6020_BN_BaseStore;EUR;EUR;Bently Nevada Italia;en,de,zh,es,pt
+;$siteUid;6030_BN_BaseStore;EUR;EUR;Bently Nevada-FR;en,de,zh,es,pt
+#;$siteUid6040_BaseStore;EUR;EUR;Bently Nevada-DE;en,de,zh,es,pt
+;$siteUid;6050_BaseStore;EUR;EUR;Bently Nevada-Spain;en,de,zh,es,pt
+;$siteUid;6060_BN_BaseStore;EUR;EUR;Bently Nevada-NL;en,de,zh,es,pt
+;$siteUid;6070_BaseStore;EUR;EUR;Bently Nevada-AT;en,de,zh,es,pt
+;$siteUid;6080_BaseStore;SEK;SEK;Bently Nevada-Sweden;en,de,zh,es,pt
+;$siteUid;6090_BaseStore;NOK;NOK;Bently Nevada Norge;en,de,zh,es,pt
+;$siteUid;6100_BaseStore;PLN;PLN;Bently Nevada Poland;en,de,zh,es,pt
+;$siteUid;6110_BaseStore;RON;RON;Bently Nevada-RO;en,de,zh,es,pt
+;$siteUid;6120_BaseStore;SKK;SKK;BentlyNevadaSlovakia;en,de,zh,es,pt
+;$siteUid;6130_BaseStore;USD;USD;Bently Nevada Russia;en,de,zh,es,pt
+;$siteUid;6140_BaseStore;USD;USD;GEII Azerbaijan-OS;en,de,zh,es,pt
+;$siteUid;6150_BaseStore;USD;USD;GEII Algeria;en,de,zh,es,pt
+;$siteUid;6160_BaseStore;USD;USD;GEII Pakistan;en,de,zh,es,pt
+;$siteUid;6180_BaseStore;EUR;EUR;GE Sensing EMEA;en,de,zh,es,pt
+;$siteUid;6200_BaseStore;GBP;GBP;GCS-Bracknell UK;en,de,zh,es,pt
+;$siteUid;6230_BaseStore;EUR;EUR;GE InspTechnologies ;en,de,zh,es,pt
+;$siteUid;6250_BN_BaseStore;EUR;EUR;GE InspTechnologies ;en,de,zh,es,pt
+;$siteUid;6250_GC_BaseStore;EUR;EUR;GE InspTechnologies ;en,de,zh,es,pt
+;$siteUid;6250_BaseStore;EUR;EUR;GE InspTechnologies ;en,de,zh,es,pt
+;$siteUid;6260_BaseStore;EUR;EUR;Conde F&PT SalesOrg;en,de,zh,es,pt
+;$siteUid;7000_BN_BaseStore;USD;USD;GE Pacific Singapore;en,de,zh,es,pt
+;$siteUid;7000_GC_BaseStore;USD;USD;GE Pacific Singapore;en,de,zh,es,pt
+;$siteUid;7000_BaseStore;USD;USD;GE Pacific Singapore;en,de,zh,es,pt
+;$siteUid;7010_BaseStore;MYR;MYR;GE Power Systems MY;en,de,zh,es,pt
+;$siteUid;7020_BaseStore;USD;USD;BN - Indonesia;en,de,zh,es,pt
+;$siteUid;7030_BN_BaseStore;AUD;AUD;BN - Australia;en,de,zh,es,pt
+;$siteUid;7040_BaseStore;PHP;PHP;BN - Philippines;en,de,zh,es,pt
+;$siteUid;7050_BaseStore;JPY;JPY;Bently Nevada-Japan;en,de,zh,es,pt
+;$siteUid;7060_BaseStore;KRW;KRW;Bently Nevada-Korea;en,de,zh,es,pt
+;$siteUid;7080_BaseStore;USD;USD;GEII Taiwan;en,de,zh,es,pt
+;$siteUid;7090_BaseStore;THB;THB;BN Thailand;en,de,zh,es,pt
+;$siteUid;7110_BaseStore;CNY;CNY;Changzhou Sales Org.;en,de,zh,es,pt
+;$siteUid;7120_BaseStore;USD;USD;GE InsTechnologiesHK;en,de,zh,es,pt
+;$siteUid;7140_BN_BaseStore;CNY;CNY;Shanghai Sales org.;en,de,zh,es,pt
+;$siteUid;7140_GC_BaseStore;CNY;CNY;Shanghai Sales org.;en,de,zh,es,pt
+;$siteUid;7160_BN_BaseStore;JPY;JPY;GE S&I Japan;en,de,zh,es,pt
+;$siteUid;7160_BaseStore;JPY;JPY;GE S&I Japan;en,de,zh,es,pt
+;$siteUid;7170_BaseStore;CNY;CNY;XinHua ConEng S.org;en,de,zh,es,pt
+;$siteUid;7200_BN_BaseStore;USD;USD;GEII Singapore;en,de,zh,es,pt
+;$siteUid;7200_GC_BaseStore;USD;USD;GEII Singapore;en,de,zh,es,pt
+
+#Added new laguage FR,RU
+UPDATE BaseStore;uid[unique=true]; languages(isocode)[mode=append]
+;   bhge            ;   ru,fr,ja
+;	1720_BaseStore	;	 ru,fr,ja
+;	1800_BaseStore	;	 ru,fr,ja
+;	1810_BaseStore	;	 ru,fr,ja
+;	3000_BaseStore	;	 ru,fr,ja
+;	6020_BaseStore	;	 ru,fr,ja
+;	6030_BaseStore	;	 ru,fr,ja
+;	6040_BaseStore	;	 ru,fr,ja
+;	6210_BaseStore	;	 ru,fr,ja
+;	6240_BaseStore	;	 ru,fr,ja
+;	6270_BaseStore	;	 ru,fr,ja
+;	7030_BaseStore	;	 ru,fr,ja
+;	6060_BaseStore	;	 ru,fr,ja
+;	1200_BaseStore	;	 ru,fr,ja
+;	1500_BaseStore	;	 ru,fr,ja
+;	1600_BaseStore	;	 ru,fr,ja
+;	1700_BaseStore	;	 ru,fr,ja
+;	1820_BaseStore	;	 ru,fr,ja
+;	1830_BaseStore	;	 ru,fr,ja
+;	3000_BN_BaseStore	;	 ru,fr,ja
+;	3000_GC_BaseStore	;	 ru,fr,ja
+;	3010_BaseStore	;	 ru,fr,ja
+;	3020_BaseStore	;	 ru,fr,ja
+;	3030_BaseStore	;	 ru,fr,ja
+;	3040_BaseStore	;	 ru,fr,ja
+;	3050_BaseStore	;	 ru,fr,ja
+;	3140_BN_BaseStore	;	 ru,fr,ja
+;	3140_GC_BaseStore	;	 ru,fr,ja
+;	3140_GE_BaseStore	;	 ru,fr,ja
+;	5000_BaseStore	;	 ru,fr,ja
+;	5060_BaseStore	;	 ru,fr,ja
+;	5070_BaseStore	;	 ru,fr,ja
+;	5500_BaseStore	;	 ru,fr,ja
+;	6000_BN_BaseStore	;	 ru,fr,ja
+;	6000_GC_BaseStore	;	 ru,fr,ja
+;	6010_BaseStore	;	 ru,fr,ja
+;	6020_BN_BaseStore	;	 ru,fr,ja
+;	6030_BN_BaseStore	;	 ru,fr,ja
+;	6050_BaseStore	;	 ru,fr,ja
+;	6060_BN_BaseStore	;	 ru,fr,ja
+;	6070_BaseStore	;	 ru,fr,ja
+;	6080_BaseStore	;	 ru,fr,ja
+;	6090_BaseStore	;	 ru,fr,ja
+;	6100_BaseStore	;	 ru,fr,ja
+;	6110_BaseStore	;	 ru,fr,ja
+;	6120_BaseStore	;	 ru,fr,ja
+;	6130_BaseStore	;	 ru,fr,ja
+;	6140_BaseStore	;	 ru,fr,ja
+;	6150_BaseStore	;	 ru,fr,ja
+;	6160_BaseStore	;	 ru,fr,ja
+;	6180_BaseStore	;	 ru,fr,ja
+;	6200_BaseStore	;	 ru,fr,ja
+;	6230_BaseStore	;	 ru,fr,ja
+;	6250_BN_BaseStore	;	 ru,fr,ja
+;	6250_GC_BaseStore	;	 ru,fr,ja
+;	6250_BaseStore	;	 ru,fr,ja
+;	6260_BaseStore	;	 ru,fr,ja
+;	7000_BN_BaseStore	;	 ru,fr,ja
+;	7000_GC_BaseStore	;	 ru,fr,ja
+;	7000_BaseStore	;	 ru,fr,ja
+;	7010_BaseStore	;	 ru,fr,ja
+;	7020_BaseStore	;	 ru,fr,ja
+;	7030_BN_BaseStore	;	 ru,fr,ja
+;	7040_BaseStore	;	 ru,fr,ja
+;	7050_BaseStore	;	 ru,fr,ja
+;	7060_BaseStore	;	 ru,fr,ja
+;	7080_BaseStore	;	 ru,fr,ja
+;	7090_BaseStore	;	 ru,fr,ja
+;	7110_BaseStore	;	 ru,fr,ja
+;	7120_BaseStore	;	 ru,fr,ja
+;	7140_BN_BaseStore	;	 ru,fr,ja
+;	7140_GC_BaseStore	;	 ru,fr,ja
+;	7160_BN_BaseStore	;	 ru,fr,ja
+;	7160_BaseStore	;	 ru,fr,ja
+;	7170_BaseStore	;	 ru,fr,ja
+;	7200_BN_BaseStore	;	 ru,fr,ja
+;	7200_GC_BaseStore	;	 ru,fr,ja
+
+
+
+
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;1800_BaseStore;premium-net
+;1800_BaseStore;standard-net
+;1800_BaseStore;premium-gross
+;1800_BaseStore;standard-gross
+
+;6040_BaseStore;premium-net
+;6040_BaseStore;standard-net
+;6040_BaseStore;premium-gross
+;6040_BaseStore;standard-gross
+
+;1820_BaseStore;premium-net
+;1820_BaseStore;standard-net
+;1820_BaseStore;premium-gross
+;1820_BaseStore;standard-gross
+
+;1830_BaseStore;premium-net
+;1830_BaseStore;standard-net
+;1830_BaseStore;premium-gross
+;1830_BaseStore;standard-gross
+
+# SAP Base Store Configurations - Added all the details for 1800 only (as per QA)
+INSERT_UPDATE SAPConfiguration;SAPRFCDestination(rfcDestinationName);core_name[unique=true];sapcommon_distributionChannel;sapcommon_division;sapcommon_salesOrganization;sapcommon_transactionType[default=ZOR];sappricingbol_cartPricing[default=false];sappricingbol_catalogPricing[default=false];sappricingbol_cachePrice[default=false]
+;$rfcDestination;5020_BaseStoreConfiguration;GE;GE;5020;;;;;
+;$rfcDestination;1810_BaseStoreConfiguration;GE;GE;1810;;;;;
+;$rfcDestination;7160_BaseStoreConfiguration;GE;GE;7160;;;;;
+;$rfcDestination;6170_BaseStoreConfiguration;GE;GE;6170;;;;;
+;$rfcDestination;6060_BaseStoreConfiguration;GE;GE;6060;;;;;
+;$rfcDestination;1820_BaseStoreConfiguration;GE;GE;1820;;;;;
+;$rfcDestination;7140_BaseStoreConfiguration;GE;GE;7140;;;;;
+;$rfcDestination;1830_BaseStoreConfiguration;GE;GE;1830;;;;;
+;$rfcDestination;6180_BaseStoreConfiguration;GE;GE;6180;;;;;
+;$rfcDestination;6250_BaseStoreConfiguration;GE;GE;6250;;;;;
+;$rfcDestination;7030_BaseStoreConfiguration;GE;GE;7030;;;;;
+;$rfcDestination;6270_BaseStoreConfiguration;GE;GE;6270;;;;;
+;$rfcDestination;3000_BaseStoreConfiguration;GE;GE;3000;;;;;
+;$rfcDestination;6210_BaseStoreConfiguration;GE;GE;6210;;;;;
+;$rfcDestination;6030_BaseStoreConfiguration;GE;GE;6030;;;;;
+;$rfcDestination;6020_BaseStoreConfiguration;GE;GE;6020;;;;;
+;$rfcDestination;1720_BaseStoreConfiguration;GE;GE;1720;;;;;
+;$rfcDestination;1800_BaseStoreConfiguration;GE;GE;1800;;;;;
+;$rfcDestination;6040_BaseStoreConfiguration;GE;GE;6040;;;;;
+;$rfcDestination;6240_BaseStoreConfiguration;GE;GE;6240;;;;;
+;$rfcDestination;bhge_BaseStoreConfiguration;GE;GE;BHGE;;;;;
+#NEW#
+;$rfcDestination;1200_BaseStoreConfiguration;BN;BN;1200;;;;;
+;$rfcDestination;1500_BaseStoreConfiguration;GC;GC;1500;;;;;
+;$rfcDestination;1600_BaseStoreConfiguration;RS;RS;1600;;;;;
+;$rfcDestination;1700_BaseStoreConfiguration;BN;BN;1700;;;;;
+;$rfcDestination;1820_BaseStoreConfiguration;GE;GE;1820;;;;;
+;$rfcDestination;1830_BaseStoreConfiguration;GE;GE;1830;;;;;
+;$rfcDestination;3000_BN_BaseStoreConfiguration;BN;BN;3000;;;;;
+;$rfcDestination;3000_GC_BaseStoreConfiguration;GC;GC;3000;;;;;
+;$rfcDestination;3010_BaseStoreConfiguration;BN;BN;3010;;;;;
+;$rfcDestination;3020_BaseStoreConfiguration;BN;BN;3020;;;;;
+;$rfcDestination;3030_BaseStoreConfiguration;BN;BN;3030;;;;;
+;$rfcDestination;3040_BaseStoreConfiguration;BN;BN;3040;;;;;
+;$rfcDestination;3050_BaseStoreConfiguration;BN;BN;3050;;;;;
+;$rfcDestination;3140_BN_BaseStoreConfiguration;BN;BN;3140;;;;;
+;$rfcDestination;3140_GC_BaseStoreConfiguration;GC;GC;3140;;;;;
+;$rfcDestination;3140_GE_BaseStoreConfiguration;GE;GE;3140;;;;;
+;$rfcDestination;5000_BaseStoreConfiguration;BN;BN;5000;;;;;
+#;$rfcDestination;5010_BaseStoreConfiguration;BN;BN;5010;;;;;
+#;$rfcDestination;5020_BaseStoreConfiguration;BN;BN;5020;;;;;
+#;$rfcDestination;5020_BaseStoreConfiguration;GE;GE;5020;;;;;
+#;$rfcDestination;5030_BaseStoreConfiguration;BN;BN;5030;;;;;
+#;$rfcDestination;5040_BaseStoreConfiguration;BN;BN;5040;;;;;
+#;$rfcDestination;5050_BaseStoreConfiguration;BN;BN;5050;;;;;
+;$rfcDestination;5060_BaseStoreConfiguration;BN;BN;5060;;;;;
+;$rfcDestination;5070_BaseStoreConfiguration;BN;BN;5070;;;;;
+;$rfcDestination;5500_BaseStoreConfiguration;GE;GE;5500;;;;;
+;$rfcDestination;6000_BN_BaseStoreConfiguration;BN;BN;6000;;;;;
+;$rfcDestination;6000_GC_BaseStoreConfiguration;GC;GC;6000;;;;;
+;$rfcDestination;6010_BaseStoreConfiguration;BN;BN;6010;;;;;
+;$rfcDestination;6020_BN_BaseStoreConfiguration;BN;BN;6020;;;;;
+;$rfcDestination;6030_BN_BaseStoreConfiguration;BN;BN;6030;;;;;
+#;$rfcDestination;6040_BaseStoreConfiguration;BN;BN;6040;;;;;
+;$rfcDestination;6050_BaseStoreConfiguration;BN;BN;6050;;;;;
+;$rfcDestination;6060_BN_BaseStoreConfiguration;BN;BN;6060;;;;;
+;$rfcDestination;6070_BaseStoreConfiguration;BN;BN;6070;;;;;
+;$rfcDestination;6080_BaseStoreConfiguration;BN;BN;6080;;;;;
+;$rfcDestination;6090_BaseStoreConfiguration;BN;BN;6090;;;;;
+;$rfcDestination;6100_BaseStoreConfiguration;BN;BN;6100;;;;;
+;$rfcDestination;6110_BaseStoreConfiguration;BN;BN;6110;;;;;
+;$rfcDestination;6120_BaseStoreConfiguration;BN;BN;6120;;;;;
+;$rfcDestination;6130_BaseStoreConfiguration;BN;BN;6130;;;;;
+;$rfcDestination;6140_BaseStoreConfiguration;BN;BN;6140;;;;;
+;$rfcDestination;6150_BaseStoreConfiguration;BN;BN;6150;;;;;
+;$rfcDestination;6160_BaseStoreConfiguration;BN;BN;6160;;;;;
+;$rfcDestination;6180_BaseStoreConfiguration;GE;GE;6180;;;;;
+;$rfcDestination;6200_BaseStoreConfiguration;GC;GC;6200;;;;;
+;$rfcDestination;6230_BaseStoreConfiguration;GE;GE;6230;;;;;
+;$rfcDestination;6250_BN_BaseStoreConfiguration;BN;BN;6250;;;;;
+;$rfcDestination;6250_GC_BaseStoreConfiguration;GC;GC;6250;;;;;
+;$rfcDestination;6250_BaseStoreConfiguration;GE;GE;6250;;;;;
+;$rfcDestination;6260_BaseStoreConfiguration;GE;GE;6260;;;;;
+;$rfcDestination;7000_BN_BaseStoreConfiguration;BN;BN;7000;;;;;
+;$rfcDestination;7000_GC_BaseStoreConfiguration;GC;GC;7000;;;;;
+;$rfcDestination;7000_BaseStoreConfiguration;GE;GE;7000;;;;;
+;$rfcDestination;7010_BaseStoreConfiguration;BN;BN;7010;;;;;
+;$rfcDestination;7020_BaseStoreConfiguration;BN;BN;7020;;;;;
+;$rfcDestination;7030_BN_BaseStoreConfiguration;BN;BN;7030;;;;;
+;$rfcDestination;7040_BaseStoreConfiguration;BN;BN;7040;;;;;
+;$rfcDestination;7050_BaseStoreConfiguration;BN;BN;7050;;;;;
+;$rfcDestination;7060_BaseStoreConfiguration;BN;BN;7060;;;;;
+;$rfcDestination;7080_BaseStoreConfiguration;BN;BN;7080;;;;;
+;$rfcDestination;7090_BaseStoreConfiguration;BN;BN;7090;;;;;
+;$rfcDestination;7110_BaseStoreConfiguration;GE;GE;7110;;;;;
+;$rfcDestination;7120_BaseStoreConfiguration;GE;GE;7120;;;;;
+;$rfcDestination;7140_BN_BaseStoreConfiguration;BN;BN;7140;;;;;
+;$rfcDestination;7140_GC_BaseStoreConfiguration;GC;GC;7140;;;;;
+;$rfcDestination;7160_BN_BaseStoreConfiguration;BN;BN;7160;;;;;
+;$rfcDestination;7160_BaseStoreConfiguration;GE;GE;7160;;;;;
+;$rfcDestination;7170_BaseStoreConfiguration;GC;GC;7170;;;;;
+;$rfcDestination;7200_BN_BaseStoreConfiguration;BN;BN;7200;;;;;
+;$rfcDestination;7200_GC_BaseStoreConfiguration;GC;GC;7200;;;;;
+
+
+
+# Base Store and Configurations Mappings
+INSERT_UPDATE BaseStore;uid[unique=true,allownull=true];Name;SAPConfiguration(core_name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];languages(isocode);checkoutFlowGroup
+;5020_BaseStore;DS India;5020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1810_BaseStore;DRESSER;1810_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7160_BaseStore;GE S&I Japan;7160_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6170_BaseStore;GE IT Belgium;6170_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6060_BaseStore;Bently Nevada-NL;6060_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;1820_BaseStore;GE Druck Inc;1820_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;7140_BaseStore;7140 GE Base Store;7140_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;1830_BaseStore;1830 GE Base Store;1830_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6180_BaseStore;6180_BaseStore;6180_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6250_BaseStore;6250 BaseStore;6250_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;7030_BaseStore;Bently Nevada a division of GE Australia;7030_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6270_BaseStore;GE Energy Spain S.L.;6270_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;3000_BaseStore;Bently do Brasil Ltda;3000_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6210_BaseStore;GE Druck Limited;6210_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6030_BaseStore;Bently Nevada a division of GE FR;6030_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6020_BaseStore;Bently Nevada Italia S.r.L;6020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;1720_BaseStore;GE Inspection Technologies Canada;1720_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;1800_BaseStore;GE Inspection Technologies LP;1800_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6040_BaseStore;GE Sensing&Inspection Technologies Gmbh;6040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;6240_BaseStore;Bently Nevada-BV;6240_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup 
+;bhge;BHGE Base Store;bhge_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#NEW#
+;1200_BaseStore;Bently Nevada LLC;1200_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1500_BaseStore;GCS-Loveland;1500_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1600_BaseStore;GE Reuter Stokes;1600_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1700_BaseStore;Bently Nevada-Canada;1700_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1820_BaseStore;GE Druck Inc;1820_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;1830_BaseStore;GE Infrastr. Sensing;1830_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3000_BN_BaseStore;Bently do Brasil Ltd;3000_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3000_GC_BaseStore;Bently do Brasil Ltd;3000_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3010_BaseStore;Bently Nevada-Chile;3010_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3020_BaseStore;Bently Nevada-Mexico;3020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3030_BaseStore;BN - Venezuela;3030_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3040_BaseStore;BN - Argentina;3040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3050_BaseStore;BN - Puerto Rico;3050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3140_BN_BaseStore;GEIT GmbH- Argentina;3140_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3140_GC_BaseStore;GEIT GmbH- Argentina;3140_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;3140_GE_BaseStore;GEIT GmbH- Argentina;3140_GE_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;5000_BaseStore;GE Bahrain Company;5000_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5010_BaseStore;GEIIPL,Div-BN,Mumbai;5010_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5020_BaseStore;GEIIPL,Div-BN, Delhi;5020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5020_BaseStore;GEIIPL,Div-GE, Delhi;5020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5030_BaseStore;Bently Nevada-So. Af;5030_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5040_BaseStore;General electric Sau;5040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;5050_BaseStore;GEIOC, Abu Dhabi;5050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;5060_BaseStore;GEII Qatar;5060_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;5070_BaseStore;GE Energy FZE;5070_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;5500_BaseStore;GE Oil&Gas Ind P Ltd;5500_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6000_BN_BaseStore;GE Hungary ZRT vw;6000_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6000_GC_BaseStore;GE Hungary ZRT vw;6000_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6010_BaseStore;DRUCK LIMITED;6010_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6020_BN_BaseStore;Bently Nevada Italia;6020_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6030_BN_BaseStore;Bently Nevada-FR;6030_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+#;6040_BaseStore;Bently Nevada-DE;6040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6050_BaseStore;Bently Nevada-Spain;6050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6060_BN_BaseStore;Bently Nevada-NL;6060_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6070_BaseStore;Bently Nevada-AT;6070_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6080_BaseStore;Bently Nevada-Sweden;6080_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6090_BaseStore;Bently Nevada Norge;6090_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6100_BaseStore;Bently Nevada Poland;6100_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6110_BaseStore;Bently Nevada-RO;6110_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6120_BaseStore;BentlyNevadaSlovakia;6120_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6130_BaseStore;Bently Nevada Russia;6130_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6140_BaseStore;GEII Azerbaijan-OS;6140_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6150_BaseStore;GEII Algeria;6150_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6160_BaseStore;GEII Pakistan;6160_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6180_BaseStore;GE Sensing EMEA;6180_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6200_BaseStore;GCS-Bracknell UK;6200_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6230_BaseStore;GE InspTechnologies ;6230_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6250_BN_BaseStore;GE InspTechnologies ;6250_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6250_GC_BaseStore;GE InspTechnologies ;6250_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6250_BaseStore;GE InspTechnologies ;6250_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;6260_BaseStore;Conde F&PT SalesOrg;6260_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7000_BN_BaseStore;GE Pacific Singapore;7000_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7000_GC_BaseStore;GE Pacific Singapore;7000_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7000_BaseStore;GE Pacific Singapore;7000_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7010_BaseStore;GE Power Systems MY;7010_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7020_BaseStore;BN - Indonesia;7020_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7030_BN_BaseStore;BN - Australia;7030_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7040_BaseStore;BN - Philippines;7040_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7050_BaseStore;Bently Nevada-Japan;7050_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7060_BaseStore;Bently Nevada-Korea;7060_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7080_BaseStore;GEII Taiwan;7080_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7090_BaseStore;BN Thailand;7090_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7110_BaseStore;Changzhou Sales Org.;7110_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7120_BaseStore;GE InsTechnologiesHK;7120_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7140_BN_BaseStore;Shanghai Sales org.;7140_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7140_GC_BaseStore;Shanghai Sales org.;7140_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7160_BN_BaseStore;GE S&I Japan;7160_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7160_BaseStore;GE S&I Japan;7160_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7170_BaseStore;XinHua ConEng S.org;7170_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7200_BN_BaseStore;GEII Singapore;7200_BN_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+;7200_GC_BaseStore;GEII Singapore;7200_GC_BaseStoreConfiguration;en;TRUE;FALSE;100;FALSE;Mockup;miles:DistanceUnit;order-process;FALSE;en,zh,es,de,pt;b2bCheckoutGroup
+
+
+INSERT_UPDATE ReferenceDistributionChannelMapping;salesOrganization[unique=true];distChannel[unique=true];distChannelName[lang=en];refDistChannelCustMat;refDistChannelConditions
+;1800;GE;;"GE Dist Channel";GE;GE;
+;6210;GE;;"GE Dist Channel";GE;GE;
+;1720;GE;;"GE Dist Channel";GE;GE;
+;1810;GE;;"GE Dist Channel";GE;GE;
+;1830;GE;;"GE Dist Channel";GE;GE;
+;3000;GE;;"GE Dist Channel";GE;GE;
+;5020;GE;;"GE Dist Channel";GE;GE;
+;6020;GE;;"GE Dist Channel";GE;GE;
+;6030;GE;;"GE Dist Channel";GE;GE;
+;6040;GE;;"GE Dist Channel";GE;GE;
+;6170;GE;;"GE Dist Channel";GE;GE;
+;6180;GE;;"GE Dist Channel";GE;GE;
+;6240;GE;;"GE Dist Channel";GE;GE;
+;6270;GE;;"GE Dist Channel";GE;GE;
+;7030;GE;;"GE Dist Channel";GE;GE;
+;7140;GE;;"GE Dist Channel";GE;GE;
+;1820;GE;;"GE Dist Channel";GE;GE;
+;6060;GE;;"GE Dist Channel";GE;GE;
+;BHGE;GE;;"GE Dist Channel";GE;GE;
+#NEW#
+;1200;BN;;"BN Dist Channel";BN;BN;
+;1500;GC;;"GC Dist Channel";GC;GC;
+;1600;RS;;"RS Dist Channel";RS;RS;
+;1700;BN;;"BN Dist Channel";BN;BN;
+;1820;GE;;"GE Dist Channel";GE;GE;
+;1830;GE;;"GE Dist Channel";GE;GE;
+;3000;BN;;"BN Dist Channel";BN;BN;
+;3000;GC;;"GC Dist Channel";GC;GC;
+;3010;BN;;"BN Dist Channel";BN;BN;
+;3020;BN;;"BN Dist Channel";BN;BN;
+;3030;BN;;"BN Dist Channel";BN;BN;
+;3040;BN;;"BN Dist Channel";BN;BN;
+;3050;BN;;"BN Dist Channel";BN;BN;
+;3140;BN;;"BN Dist Channel";BN;BN;
+;3140;GC;;"GC Dist Channel";GC;GC;
+;3140;GE;;"GE Dist Channel";GE;GE;
+;5000;BN;;"BN Dist Channel";BN;BN;
+#;5010;BN;;"BN Dist Channel";BN;BN;
+#;5020;BN;;"BN Dist Channel";BN;BN;
+#;5020;GE;;"GE Dist Channel";GE;GE;
+#;5030;BN;;"BN Dist Channel";BN;BN;
+#;5040;BN;;"BN Dist Channel";BN;BN;
+#;5050;BN;;"BN Dist Channel";BN;BN;
+;5060;BN;;"BN Dist Channel";BN;BN;
+;5070;BN;;"BN Dist Channel";BN;BN;
+;5500;GE;;"GE Dist Channel";GE;GE;
+;6000;BN;;"BN Dist Channel";BN;BN;
+;6000;GC;;"GC Dist Channel";GC;GC;
+;6010;BN;;"BN Dist Channel";BN;BN;
+;6020;BN;;"BN Dist Channel";BN;BN;
+;6030;BN;;"BN Dist Channel";BN;BN;
+#;6040;BN;;"BN Dist Channel";BN;BN;
+;6050;BN;;"BN Dist Channel";BN;BN;
+;6060;BN;;"BN Dist Channel";BN;BN;
+;6070;BN;;"BN Dist Channel";BN;BN;
+;6080;BN;;"BN Dist Channel";BN;BN;
+;6090;BN;;"BN Dist Channel";BN;BN;
+;6100;BN;;"BN Dist Channel";BN;BN;
+;6110;BN;;"BN Dist Channel";BN;BN;
+;6120;BN;;"BN Dist Channel";BN;BN;
+;6130;BN;;"BN Dist Channel";BN;BN;
+;6140;BN;;"BN Dist Channel";BN;BN;
+;6150;BN;;"BN Dist Channel";BN;BN;
+;6160;BN;;"BN Dist Channel";BN;BN;
+;6180;GE;;"GE Dist Channel";GE;GE;
+;6200;GC;;"GC Dist Channel";GC;GC;
+;6230;GE;;"GE Dist Channel";GE;GE;
+;6250;BN;;"BN Dist Channel";BN;BN;
+;6250;GC;;"GC Dist Channel";GC;GC;
+;6250;GE;;"GE Dist Channel";GE;GE;
+;6260;GE;;"GE Dist Channel";GE;GE;
+;7000;BN;;"BN Dist Channel";BN;BN;
+;7000;GC;;"GC Dist Channel";GC;GC;
+;7000;GE;;"GE Dist Channel";GE;GE;
+;7010;BN;;"BN Dist Channel";BN;BN;
+;7020;BN;;"BN Dist Channel";BN;BN;
+;7030;BN;;"BN Dist Channel";BN;BN;
+;7040;BN;;"BN Dist Channel";BN;BN;
+;7050;BN;;"BN Dist Channel";BN;BN;
+;7060;BN;;"BN Dist Channel";BN;BN;
+;7080;BN;;"BN Dist Channel";BN;BN;
+;7090;BN;;"BN Dist Channel";BN;BN;
+;7110;GE;;"GE Dist Channel";GE;GE;
+;7120;GE;;"GE Dist Channel";GE;GE;
+;7140;BN;;"BN Dist Channel";BN;BN;
+;7140;GC;;"GC Dist Channel";GC;GC;
+;7160;BN;;"BN Dist Channel";BN;BN;
+;7160;GE;;"GE Dist Channel";GE;GE;
+;7170;GC;;"GC Dist Channel";GC;GC;
+;7200;BN;;"BN Dist Channel";BN;BN;
+;7200;GC;;"GC Dist Channel";GC;GC;
+
+INSERT_UPDATE ReferenceDivisionMapping;salesOrganization[unique=true];division[unique=true];divisionName[lang=en];refDivisionCustomer;refDivisionConditions
+;1800;GE;;"GE Dist Channel";GE;GE;
+;6210;GE;;"GE Dist Channel";GE;GE;
+;1720;GE;;"GE Dist Channel";GE;GE;
+;1810;GE;;"GE Dist Channel";GE;GE;
+;1830;GE;;"GE Dist Channel";GE;GE;
+;3000;GE;;"GE Dist Channel";GE;GE;
+;5020;GE;;"GE Dist Channel";GE;GE;
+;6020;GE;;"GE Dist Channel";GE;GE;
+;6030;GE;;"GE Dist Channel";GE;GE;
+;6040;GE;;"GE Dist Channel";GE;GE;
+;6170;GE;;"GE Dist Channel";GE;GE;
+;6180;GE;;"GE Dist Channel";GE;GE;
+;6240;GE;;"GE Dist Channel";GE;GE;
+;6270;GE;;"GE Dist Channel";GE;GE;
+;7030;GE;;"GE Dist Channel";GE;GE;
+;7140;GE;;"GE Dist Channel";GE;GE;
+;1820;GE;;"GE Dist Channel";GE;GE;
+;6060;GE;;"GE Dist Channel";GE;GE;
+;BHGE;GE;;"GE Dist Channel";GE;GE;
+#NEW#
+;1200;BN;;"BN Dist Channel";BN;BN;
+;1500;GC;;"GC Dist Channel";GC;GC;
+;1600;RS;;"RS Dist Channel";RS;RS;
+;1700;BN;;"BN Dist Channel";BN;BN;
+;1820;GE;;"GE Dist Channel";GE;GE;
+;1830;GE;;"GE Dist Channel";GE;GE;
+;3000;BN;;"BN Dist Channel";BN;BN;
+;3000;GC;;"GC Dist Channel";GC;GC;
+;3010;BN;;"BN Dist Channel";BN;BN;
+;3020;BN;;"BN Dist Channel";BN;BN;
+;3030;BN;;"BN Dist Channel";BN;BN;
+;3040;BN;;"BN Dist Channel";BN;BN;
+;3050;BN;;"BN Dist Channel";BN;BN;
+;3140;BN;;"BN Dist Channel";BN;BN;
+;3140;GC;;"GC Dist Channel";GC;GC;
+;3140;GE;;"GE Dist Channel";GE;GE;
+;5000;BN;;"BN Dist Channel";BN;BN;
+#;5010;BN;;"BN Dist Channel";BN;BN;
+#;5020;BN;;"BN Dist Channel";BN;BN;
+#;5020;GE;;"GE Dist Channel";GE;GE;
+#;5030;BN;;"BN Dist Channel";BN;BN;
+#;5040;BN;;"BN Dist Channel";BN;BN;
+#;5050;BN;;"BN Dist Channel";BN;BN;
+;5060;BN;;"BN Dist Channel";BN;BN;
+;5070;BN;;"BN Dist Channel";BN;BN;
+;5500;GE;;"GE Dist Channel";GE;GE;
+;6000;BN;;"BN Dist Channel";BN;BN;
+;6000;GC;;"GC Dist Channel";GC;GC;
+;6010;BN;;"BN Dist Channel";BN;BN;
+;6020;BN;;"BN Dist Channel";BN;BN;
+;6030;BN;;"BN Dist Channel";BN;BN;
+#;6040;BN;;"BN Dist Channel";BN;BN;
+;6050;BN;;"BN Dist Channel";BN;BN;
+;6060;BN;;"BN Dist Channel";BN;BN;
+;6070;BN;;"BN Dist Channel";BN;BN;
+;6080;BN;;"BN Dist Channel";BN;BN;
+;6090;BN;;"BN Dist Channel";BN;BN;
+;6100;BN;;"BN Dist Channel";BN;BN;
+;6110;BN;;"BN Dist Channel";BN;BN;
+;6120;BN;;"BN Dist Channel";BN;BN;
+;6130;BN;;"BN Dist Channel";BN;BN;
+;6140;BN;;"BN Dist Channel";BN;BN;
+;6150;BN;;"BN Dist Channel";BN;BN;
+;6160;BN;;"BN Dist Channel";BN;BN;
+;6180;GE;;"GE Dist Channel";GE;GE;
+;6200;GC;;"GC Dist Channel";GC;GC;
+;6230;GE;;"GE Dist Channel";GE;GE;
+;6250;BN;;"BN Dist Channel";BN;BN;
+;6250;GC;;"GC Dist Channel";GC;GC;
+;6250;GE;;"GE Dist Channel";GE;GE;
+;6260;GE;;"GE Dist Channel";GE;GE;
+;7000;BN;;"BN Dist Channel";BN;BN;
+;7000;GC;;"GC Dist Channel";GC;GC;
+;7000;GE;;"GE Dist Channel";GE;GE;
+;7010;BN;;"BN Dist Channel";BN;BN;
+;7020;BN;;"BN Dist Channel";BN;BN;
+;7030;BN;;"BN Dist Channel";BN;BN;
+;7040;BN;;"BN Dist Channel";BN;BN;
+;7050;BN;;"BN Dist Channel";BN;BN;
+;7060;BN;;"BN Dist Channel";BN;BN;
+;7080;BN;;"BN Dist Channel";BN;BN;
+;7090;BN;;"BN Dist Channel";BN;BN;
+;7110;GE;;"GE Dist Channel";GE;GE;
+;7120;GE;;"GE Dist Channel";GE;GE;
+;7140;BN;;"BN Dist Channel";BN;BN;
+;7140;GC;;"GC Dist Channel";GC;GC;
+;7160;BN;;"BN Dist Channel";BN;BN;
+;7160;GE;;"GE Dist Channel";GE;GE;
+;7170;GC;;"GC Dist Channel";GC;GC;
+;7200;BN;;"BN Dist Channel";BN;BN;
+;7200;GC;;"GC Dist Channel";GC;GC;
+
+#Material - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPProductSalesAreaToCatalogMapping;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapGlobalConfiguration(core_name);taxClassCountry(isocode)
+;1720_GE:Staged;GE;1720;GLOBAL;CA;
+;1800_GE:Staged;GE;1800;GLOBAL;US;
+;3000_GE:Staged;GE;3000;GLOBAL;BR;
+;6020_GE:Staged;GE;6020;GLOBAL;IT;
+;6030_GE:Staged;GE;6030;GLOBAL;FR;
+;6040_GE:Staged;GE;6040;GLOBAL;DE;
+;6210_GE:Staged;GE;6210;GLOBAL;GB;
+;6240_GE:Staged;GE;6240;GLOBAL;BE;
+;6270_GE:Staged;GE;6270;GLOBAL;ES;
+;7030_GE:Staged;GE;7030;GLOBAL;AU;
+;6060_GE:Staged;GE;6060;GLOBAL;DE;
+;5020_GE:Staged;GE;5020;GLOBAL;IN;
+#NEW#
+;1200_BN:Staged;BN;1200;GLOBAL;US;
+;1500_GC:Staged;GC;1500;GLOBAL;US;
+;1600_RS:Staged;RS;1600;GLOBAL;US;
+;1700_BN:Staged;BN;1700;GLOBAL;CA;
+;1820_GE:Staged;GE;1820;GLOBAL;US;
+;1830_GE:Staged;GE;1830;GLOBAL;US;
+;3000_BN:Staged;BN;3000;GLOBAL;BR;
+;3000_GC:Staged;GC;3000;GLOBAL;BR;
+;3010_BN:Staged;BN;3010;GLOBAL;CL;
+;3020_BN:Staged;BN;3020;GLOBAL;MX;
+;3030_BN:Staged;BN;3030;GLOBAL;VE;
+;3040_BN:Staged;BN;3040;GLOBAL;AR;
+;3050_BN:Staged;BN;3050;GLOBAL;US;
+;3140_BN:Staged;BN;3140;GLOBAL;AR;
+;3140_GC:Staged;GC;3140;GLOBAL;AR;
+;3140_GE:Staged;GE;3140;GLOBAL;AR;
+;5000_BN:Staged;BN;5000;GLOBAL;BH;
+#;5010_BN:Staged;BN;5010;GLOBAL;IN;
+#;5020_BN:Staged;BN;5020;GLOBAL;IN;
+#;5020_GE:Staged;GE;5020;GLOBAL;IN;
+#;5030_BN:Staged;BN;5030;GLOBAL;ZA;
+#;5040_BN:Staged;BN;5040;GLOBAL;SA;
+#;5050_BN:Staged;BN;5050;GLOBAL;AE;
+;5060_BN:Staged;BN;5060;GLOBAL;QA;
+;5070_BN:Staged;BN;5070;GLOBAL;AE;
+;5500_GE:Staged;GE;5500;GLOBAL;IN;
+;6000_BN:Staged;BN;6000;GLOBAL;DE;
+;6000_GC:Staged;GC;6000;GLOBAL;DE;
+;6010_BN:Staged;BN;6010;GLOBAL;GB;
+;6020_BN:Staged;BN;6020;GLOBAL;IT;
+;6030_BN:Staged;BN;6030;GLOBAL;FR;
+#;6040_BN:Staged;BN;6040;GLOBAL;DE;
+;6050_BN:Staged;BN;6050;GLOBAL;ES;
+;6060_BN:Staged;BN;6060;GLOBAL;NL;
+;6070_BN:Staged;BN;6070;GLOBAL;NL;
+;6080_BN:Staged;BN;6080;GLOBAL;SE;
+;6090_BN:Staged;BN;6090;GLOBAL;NO;
+;6100_BN:Staged;BN;6100;GLOBAL;PL;
+;6110_BN:Staged;BN;6110;GLOBAL;RO;
+;6120_BN:Staged;BN;6120;GLOBAL;SK;
+;6130_BN:Staged;BN;6130;GLOBAL;US;
+;6140_BN:Staged;BN;6140;GLOBAL;US;
+;6150_BN:Staged;BN;6150;GLOBAL;US;
+;6160_BN:Staged;BN;6160;GLOBAL;US;
+;6180_GE:Staged;GE;6180;GLOBAL;DE;
+;6200_GC:Staged;GC;6200;GLOBAL;GB;
+;6230_GE:Staged;GE;6230;GLOBAL;DE;
+;6250_BN:Staged;BN;6250;GLOBAL;DE;
+;6250_GC:Staged;GC;6250;GLOBAL;DE;
+;6250_GE:Staged;GE;6250;GLOBAL;DE;
+;6260_GE:Staged;GE;6260;GLOBAL;DE;
+;7000_BN:Staged;BN;7000;GLOBAL;US;
+;7000_GC:Staged;GC;7000;GLOBAL;US;
+;7000_GE:Staged;GE;7000;GLOBAL;US;
+;7010_BN:Staged;BN;7010;GLOBAL;MY;
+;7020_BN:Staged;BN;7020;GLOBAL;US;
+;7030_BN:Staged;BN;7030;GLOBAL;AU;
+;7040_BN:Staged;BN;7040;GLOBAL;PH;
+;7050_BN:Staged;BN;7050;GLOBAL;JP;
+;7060_BN:Staged;BN;7060;GLOBAL;KR;
+;7080_BN:Staged;BN;7080;GLOBAL;US;
+;7090_BN:Staged;BN;7090;GLOBAL;TH;
+;7110_GE:Staged;GE;7110;GLOBAL;CN;
+;7120_GE:Staged;GE;7120;GLOBAL;US;
+;7140_BN:Staged;BN;7140;GLOBAL;CN;
+;7140_GC:Staged;GC;7140;GLOBAL;CN;
+;7160_BN:Staged;BN;7160;GLOBAL;JP;
+;7160_GE:Staged;GE;7160;GLOBAL;JP;
+;7170_GC:Staged;GC;7170;GLOBAL;CN;
+;7200_BN:Staged;BN;7200;GLOBAL;US;
+;7200_GC:Staged;GC;7200;GLOBAL;US;
+
+#List Price - SalesArea To Catalog Mapping
+INSERT_UPDATE SAPPricingSalesAreaToCatalog;catalogVersion(catalog(id),version);distributionChannel[unique=true];salesOrganization[unique=true];sapcommon_sapGlobalConfiguration(core_name);
+;1720_GE:Staged;GE;1720;GLOBAL;
+;1800_GE:Staged;GE;1800;GLOBAL;
+;1810_GE:Staged;GE;1810;GLOBAL;
+;3000_GE:Staged;GE;3000;GLOBAL;
+;6020_GE:Staged;GE;6020;GLOBAL;
+;6030_GE:Staged;GE;6030;GLOBAL;
+;6040_GE:Staged;GE;6040;GLOBAL;
+;6210_GE:Staged;GE;6210;GLOBAL;
+;6240_GE:Staged;GE;6240;GLOBAL;
+;6270_GE:Staged;GE;6270;GLOBAL;
+;7030_GE:Staged;GE;7030;GLOBAL;
+;6060_GE:Staged;GE;6060;GLOBAL;
+;5020_GE:Staged;GE;5020;GLOBAL;
+#NEW#
+;1200_BN:Staged;BN;1200;GLOBAL;
+;1500_GC:Staged;GC;1500;GLOBAL;
+;1600_RS:Staged;RS;1600;GLOBAL;
+;1700_BN:Staged;BN;1700;GLOBAL;
+;1820_GE:Staged;GE;1820;GLOBAL;
+;1830_GE:Staged;GE;1830;GLOBAL;
+;3000_BN:Staged;BN;3000;GLOBAL;
+;3000_GC:Staged;GC;3000;GLOBAL;
+;3010_BN:Staged;BN;3010;GLOBAL;
+;3020_BN:Staged;BN;3020;GLOBAL;
+;3030_BN:Staged;BN;3030;GLOBAL;
+;3040_BN:Staged;BN;3040;GLOBAL;
+;3050_BN:Staged;BN;3050;GLOBAL;
+;3140_BN:Staged;BN;3140;GLOBAL;
+;3140_GC:Staged;GC;3140;GLOBAL;
+;3140_GE:Staged;GE;3140;GLOBAL;
+;5000_BN:Staged;BN;5000;GLOBAL;
+#;5010_BN:Staged;BN;5010;GLOBAL;
+#;5020_BN:Staged;BN;5020;GLOBAL;
+#;5020_GE:Staged;GE;5020;GLOBAL;
+#;5030_BN:Staged;BN;5030;GLOBAL;
+#;5040_BN:Staged;BN;5040;GLOBAL;
+#;5050_BN:Staged;BN;5050;GLOBAL;
+;5060_BN:Staged;BN;5060;GLOBAL;
+;5070_BN:Staged;BN;5070;GLOBAL;
+;5500_GE:Staged;GE;5500;GLOBAL;
+;6000_BN:Staged;BN;6000;GLOBAL;
+;6000_GC:Staged;GC;6000;GLOBAL;
+;6010_BN:Staged;BN;6010;GLOBAL;
+;6020_BN:Staged;BN;6020;GLOBAL;
+;6030_BN:Staged;BN;6030;GLOBAL;
+;6040_BN:Staged;BN;6040;GLOBAL;
+;6050_BN:Staged;BN;6050;GLOBAL;
+;6060_BN:Staged;BN;6060;GLOBAL;
+;6070_BN:Staged;BN;6070;GLOBAL;
+;6080_BN:Staged;BN;6080;GLOBAL;
+;6090_BN:Staged;BN;6090;GLOBAL;
+;6100_BN:Staged;BN;6100;GLOBAL;
+;6110_BN:Staged;BN;6110;GLOBAL;
+;6120_BN:Staged;BN;6120;GLOBAL;
+;6130_BN:Staged;BN;6130;GLOBAL;
+;6140_BN:Staged;BN;6140;GLOBAL;
+;6150_BN:Staged;BN;6150;GLOBAL;
+;6160_BN:Staged;BN;6160;GLOBAL;
+;6180_GE:Staged;GE;6180;GLOBAL;
+;6200_GC:Staged;GC;6200;GLOBAL;
+;6230_GE:Staged;GE;6230;GLOBAL;
+;6250_BN:Staged;BN;6250;GLOBAL;
+;6250_GC:Staged;GC;6250;GLOBAL;
+;6250_GE:Staged;GE;6250;GLOBAL;
+;6260_GE:Staged;GE;6260;GLOBAL;
+;7000_BN:Staged;BN;7000;GLOBAL;
+;7000_GC:Staged;GC;7000;GLOBAL;
+;7000_GE:Staged;GE;7000;GLOBAL;
+;7010_BN:Staged;BN;7010;GLOBAL;
+;7020_BN:Staged;BN;7020;GLOBAL;
+;7030_BN:Staged;BN;7030;GLOBAL;
+;7040_BN:Staged;BN;7040;GLOBAL;
+;7050_BN:Staged;BN;7050;GLOBAL;
+;7060_BN:Staged;BN;7060;GLOBAL;
+;7080_BN:Staged;BN;7080;GLOBAL;
+;7090_BN:Staged;BN;7090;GLOBAL;
+;7110_GE:Staged;GE;7110;GLOBAL;
+;7120_GE:Staged;GE;7120;GLOBAL;
+;7140_BN:Staged;BN;7140;GLOBAL;
+;7140_GC:Staged;GC;7140;GLOBAL;
+;7160_BN:Staged;BN;7160;GLOBAL;
+;7160_GE:Staged;GE;7160;GLOBAL;
+;7170_GC:Staged;GC;7170;GLOBAL;
+;7200_BN:Staged;BN;7200;GLOBAL;
+;7200_GC:Staged;GC;7200;GLOBAL;
+
+#Single catalog change
+;bhgeGlobalProductCatalog:Staged;GE;1830;GLOBAL;
+;bhgeGlobalProductCatalog:Staged;GE;6180;GLOBAL;
+
+
+#SAP Company Names for eCommerce
+UPDATE BaseStore;uid[unique=true];name;
+;1200_BaseStore;Bently Nevada, LLC     
+;1500_BaseStore;Control Solutions LLC
+;1600_BaseStore;Reuter-Stokes, Inc.
+;1700_BaseStore;Baker Hughes Energy Services Canada Inc.
+;1720_BaseStore;GE Oil & Gas Canada Inc.
+;1800_BaseStore;GE Inspection Technologies, LP
+;1820_BaseStore;Druck, LLC               
+;1830_BaseStore;GE Infrastructure Sensing, Inc.
+;3000_BaseStore;Bently do Brasil Ltda 
+;3020_BaseStore;BENTLY DE MÉXICO, S. DE R.L. DE C.V.
+;5020_BaseStore;GE OIL & GAS INDIA PRIVATE LIMITED
+;5030_BaseStore;Baker Hughes Energy South Africa
+;5050_BaseStore;Baker Hughes EHO Ltd - Abu Dhabi
+;6000_BaseStore;Baker Hughes Hungary Kft.
+;6010_BaseStore;Druck Limited, Bently Nevada division
+;6020_BaseStore;BAKER HUGHES DIGITAL SOLUTIONS ITALIA SRL
+;6030_BaseStore;Baker Hughes Digital Solutions France
+;6040_BaseStore;Baker Hughes Digital Solutions GmbH
+;6060_BaseStore;Baker Hughes Energy International B.V.
+;6080_BaseStore;Bently Nevada Sweden A.B.
+;6090_BaseStore;BAKER HUGHES BENTLY NEVADA NORWAY AS
+;6100_BaseStore;BH POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ
+;6170_BaseStore;GE Industrial Belgium BVBA
+;6180_BaseStore;GE Sensing EMEA
+;6210_BaseStore;Druck Limited
+;6250_BaseStore;GE Energy Slovakia, s.r.o.
+;6270_BaseStore;GE Energy Spain S.L.
+;7000_BaseStore;Baker Hughes Solutions (Singapore) Pte. Ltd..
+;7010_BaseStore;BAKER HUGHES ENERGY SYSTEMS (MALAYSIA) SDN BHD
+;7020_BaseStore;PT Baker Hughes Energy Indonesia
+;7030_BaseStore;BAKER HUGHES DIGITAL SOLUTIONS AUSTRALIA PTY LTD
+;7040_BaseStore;BAKER HUGHES PHILIPPINES, INC.
+;7050_BaseStore;Baker Hughes Energy Japan, Ltd.
+;7060_BaseStore;Baker Hughes Korea Ltd. (Bently Nevada Korea).
+;7090_BaseStore;Baker Hughes Energy (Thailand) Limited
+;7110_BaseStore;GE S&I (Changzhou)Co.Ltd.
+;7140_BaseStore;GE Sensing & Inspection Technologies (Shanghai) Co., Ltd
+;7160_BaseStore;GE Sensing & Inspection Technologies Co., Ltd.
+;7170_BaseStore;Xin Hua Control Engineering Co., Ltd.
+"#% impex.info(""###############    BHGE Base Store store.impex  -end  ################"")"

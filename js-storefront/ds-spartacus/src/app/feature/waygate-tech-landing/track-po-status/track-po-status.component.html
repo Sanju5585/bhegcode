@@ -1,0 +1,83 @@
+<div class="mt-3 ml-3">
+  <label class="track-status-label">{{
+    'waygate.trackStatusLabel' | cxTranslate
+  }}</label>
+</div>
+<div class="d-flex">
+  <div class="col-md-3 space-right-cn">
+    <div class="question-icon" (click)="trackorderstatus()">
+      <div class="help-section">
+        <span class="material-icons-outlined icon-size"> help_outline </span>
+        <span class="find-order">{{
+          'guest-home.whereToFind' | cxTranslate
+        }}</span>
+      </div>
+    </div>
+    <bh-text-input
+      type="text"
+      required
+      name="customerNumber"
+      [value]="customerNumber"
+      [message]="error.customerNumber"
+      [attr.error]="error.customerNumber ? error.customerNumber : null"
+      (change)="onChange($event, 'customerNumber')"
+      label="{{ 'guest-home.cstmrNumber' | cxTranslate }} "
+      placeholder="{{ 'waygate.customerNoPLaceholder' | cxTranslate }}"
+      maxlength="10"
+      class="customer-number"
+    ></bh-text-input>
+  </div>
+  <div class="col-md-3">
+    <bh-text-input
+      type="text"
+      required
+      name="purchaseNumber"
+      [value]="purchaseNumber"
+      maxlength="35"
+      [message]="error.purchaseNumber"
+      [attr.error]="error.purchaseNumber ? error.purchaseNumber : null"
+      (change)="onChange($event, 'purchaseNumber')"
+      label="{{ 'guest-home.purchaseNo' | cxTranslate }}"
+      class="purchase-number"
+      placeholder="{{ 'waygate.purchaseOrderNumberPlaceholder' | cxTranslate }}"
+    >
+    </bh-text-input>
+  </div>
+  <div class="or-divide space-right-or">{{ 'waygate.or' | cxTranslate }}</div>
+  <div class="col-md-3">
+    <bh-text-input
+      type="text"
+      required
+      name="orderNumber"
+      [value]="orderNumber"
+      [message]="error.orderNumber"
+      [attr.error]="error.orderNumber ? error.orderNumber : null"
+      (change)="onChange($event, 'orderNumber')"
+      label="{{ 'guest-home.orderReference' | cxTranslate }}"
+      maxlength="12"
+      class="reference-number"
+      placeholder="{{ 'waygate.orderRefNumberPlaceholder' | cxTranslate }}"
+    >
+    </bh-text-input>
+  </div>
+
+  <div class="col-md-3 d-flex track-btn">
+    <bh-button
+      type="primary"
+      [attr.disabled]="showLoading ? true : null"
+      [attr.loading]="showLoading ? true : null"
+      label="{{ 'waygate.trackStatus' | cxTranslate }}"
+      class="track btn-align-pos"
+      (click)="trackStatus()"
+    >
+    </bh-button
+    >&nbsp;&nbsp;
+    <bh-button
+      type="secondary"
+      label="{{ 'waygate.resetBtn' | cxTranslate }}"
+      class="reset float-left mr-3"
+      (click)="reset()"
+    >
+    </bh-button>
+  </div>
+</div>

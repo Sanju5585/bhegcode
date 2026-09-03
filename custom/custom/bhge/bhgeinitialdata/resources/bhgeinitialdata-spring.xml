@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+	<!-- System Setup -->
+
+	<alias alias="b2bAcceleratorCoreSystemSetup" name="bhgeStoreSystemSetup" />
+	<bean id="bhgeStoreSystemSetup" class="com.bhge.initialdata.setup.InitialDataSystemSetup" parent="abstractCoreSystemSetup">
+		<property name="bhgeCoreDataImportService" ref="bhgeCoreDataImportService"/>
+		<property name="bhgeSampleDataImportService" ref="bhgeSampleDataImportService"/>
+	</bean>
+
+	<bean id="bhgeSampleDataImportService" class="com.bhge.initialdata.services.dataimport.impl.BHGESampleDataImportService"
+		  parent="sampleDataImportService">
+	</bean>
+	<bean id="bhgeCoreDataImportService" class="com.bhge.initialdata.services.dataimport.impl.BHGECoreDataImportService"
+		  parent="coreDataImportService">
+	</bean>
+
+	<!-- Solr field value providers TEMPORARY FOR NOW SO DO NOT NEED TO DEPEND ON yb2bacceleratorcore -->
+
+	<bean id="bhgeCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="bhgeCategorySource"/>
+	</bean>
+	<bean id="bhgeBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="bhgeBrandCategorySource"/>
+	</bean>
+	<bean id="bhgeVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="bhgeVariantCategorySource"/>
+	</bean>
+
+
+	<bean id="bhgeCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="bhgeCategorySource"/>
+	</bean>
+
+	<bean id="bhgeBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="bhgeBrandCategorySource"/>
+	</bean>
+
+	<bean id="bhgeCategorySource" parent="variantCategorySource">
+		<property name="rootCategory" value="1"/> <!-- '1' is the root icecat category -->
+	</bean>
+	<bean id="bhgeVariantCategorySource" parent="variantCategorySource"/>
+
+	<bean id="bhgeBrandCategorySource" parent="defaultCategorySource">
+		<!-- <property name="rootCategory" value="brands"/> --> <!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+	<!--Override for enabling localization fallback language -->
+	<alias alias="categoryFacetDisplayNameProvider" name="bhgecategoryFacetDisplayNameProvider" />
+	<bean id="bhgecategoryFacetDisplayNameProvider"
+		  class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGECategoryFacetDisplayNameProvider">
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+	<!-- Solr field value providers TEMPORARY FOR NOW SO DO NOT NEED TO DEPEND ON yb2bacceleratorcore -->
+
+</beans>

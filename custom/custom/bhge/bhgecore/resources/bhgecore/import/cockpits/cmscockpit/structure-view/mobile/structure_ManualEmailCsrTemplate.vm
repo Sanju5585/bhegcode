@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Manual Approval Pending  Mail</title>
+</head>
+
+<body style="font-family:Verdana, Geneva, sans-serif; font-size:12px;">
+<div style="border:1px solid #3b73b9">
+ <table width="100%" style="background-color: #13161a; height:36px; padding:0.3em">
+  <tr>
+      <td valign="center" width="5%">
+      <img width="200" valign="center" src="bhge_lg_wht_4cp_rev.png">
+      </td>
+      <td width="95%"><span style="color: #fff;font-size: 18px;line-height: 0; padding-left: 11px;">Manual Approval Pending  Mail</span></td>
+  </tr>
+</table>
+  <div style="padding: 10px;">
+    <p>Hello ${ctx.userName},${ctx.email},${ctx.sso}</p>
+    <p>This is to notify that registration is pending for approval for DS Store application. </p>
+    <br />
+    <p>Log in to CSR to approve!</p>
+  </div>
+</div>
+</body>
+</html>

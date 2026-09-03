@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#UTF-8: √Ø¬ø¬Ω√Ø¬ø¬Ω√Ø¬ø¬Ω
+# Localization de
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Language
+$lang=de
+
+#UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];description[lang=$lang];summary[lang=$lang]
+# ;1101695;;Kabellose Stichsäge;-Der werkzeuglose Metallhebel ermöglicht einen schnellen und einfachen Sägeblattwechsel.<br/>-Der metallene Sägeschuh kann werkzeuglos bei 0°, 15°, 30° und 45° arretiert werden und ermöglicht vielseitiges und einfaches Fasenschneiden.<br/>-Der vierstufige Orbitalhub sorgt für eine optimale Kontrolle des Sägeschnitts.;Leistungsfähiges XRP 18 V kabelloses Stichsägekit mit werkzeuglosem Blattwechsel

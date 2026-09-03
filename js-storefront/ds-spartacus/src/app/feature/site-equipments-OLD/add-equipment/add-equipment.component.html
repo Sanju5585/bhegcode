@@ -1,0 +1,1229 @@
+<div class="container add-equipment-holder w-100 m-t-10">
+  <div class="add-equipment-header">
+    <div class="row m-r-0">
+      <div class="col-md-6" *ngIf="!isEquipUpdate">
+        <span
+          class="add-equipment-header text-uppercase"
+          translate="bhge.ng.site.equipment.add_new_equipment"
+          >ADD NEW EQUIPMENT</span
+        >
+      </div>
+      <div class="col-md-6" *ngIf="isEquipUpdate">
+        <span
+          class="add-equipment-header text-uppercase"
+          translate="bhge.ng.site.equipment.update_equipment"
+          >UPDATE EQUIPMENT DETAILS</span
+        >
+      </div>
+      <div class="col-md-6 p-0">
+        <!-- <button class="text-bold btn-light-green w-300 pull-right m-t-5 m-l-10" [routerLink]="['/site-equipment/manEL']">
+          {{ 'All items in our records' | translate:'bhge.ng.site.equipment.mel.item_record_not_list'}}
+          <i class="bhge-icons ico_aro_navdown_sm pull-right"></i>
+        </button>  -->
+        <button
+          translate="bhge.ng.site.equipment.manel.back_equipment"
+          class="secondary-btn-bhge text-uppercase pull-right w-200 m-t-5 m-l-10 fs-12"
+          [routerLink]="['/site-equipment']"
+          [queryParams]="{ isReload: true }"
+        >
+          Back to My Equipment
+        </button>
+        <!-- <a [routerLink] = "['/site-equipment/manEL']">
+          <div class="items-count-holder m-t-5 pull-right" style="text-align: center;">
+            <span class="items-count-text d-block m-t-10 text-uppercase green-font font-bold d-inline-block" translate="bhge.ng.site.equipment.item_in_record">Item in our record but not in this list:</span>
+            <span class="items-count-text d-block m-t-10 text-uppercase green-font font-bold d-inline-block"></span>
+        </div>
+        </a>-->
+      </div>
+    </div>
+  </div>
+  <div class="add-equipment-form">
+    <form
+      name="form"
+      (ngSubmit)="onSubmit(scrollTarget)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="add-equipment-fields m-t-20 p-30">
+        <div class="row">
+          <div class="col-md-6" #scrollTarget>
+            <div class="form-group">
+              <label
+                class="d-block"
+                for="serialNo"
+                translate="bhge.ng.site.equipment.serial_num"
+                >Serial number</label
+              >
+              <input
+                maxlength="18"
+                [disabled]="disableSerialNumber"
+                (blur)="invokePartSerialLookup($event)"
+                type="text"
+                autocomplete="off"
+                (input)="onSerialInput($event)"
+                class="form-control rma_offering-text d-inline-block pull-left"
+                name="serialNo"
+                [(ngModel)]="model.serialNumber"
+                #serialNo="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (f.submitted && serialNo.invalid) || isSerialInvalid,
+                }"
+              />
+              <span
+                *ngIf="disableSerialNumber && !isEquipUpdate"
+                (click)="onSerialCloseClick()"
+                class="BHGE-MCStore-Icons icon-close-new serial-num-close-icon"
+                id="searchclear"
+                style="pointer-events: auto"
+              ></span>
+              <span
+                *ngIf="disableSerialNumber"
+                class="bhge-mcstore-icons icon-tick-fill part-number-completed-icon d-inline-block pull-right"
+              ></span>
+
+              <!-- <a href="#" (click)="onSerialHelpClick($event)" class="nav-link d-block m-t-10" translate="bhge.ng.site.equipment.serial_help">Help me find the serial number</a> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group part-number-form-group">
+              <label
+                class="d-block"
+                for="partNo"
+                translate="bhge.ng.site.equipment.part_num"
+                >Part Number</label
+              >
+              <input
+                maxlength="18"
+                [disabled]="disablePartNumber"
+                (keyup)="onPartChange($event)"
+                type="text"
+                autocomplete="off"
+                (input)="onPartInput($event)"
+                class="form-control rma_offering-text d-inline-block pull-left"
+                name="partNo"
+                [(ngModel)]="model.partNumber"
+                #partNo="ngModel"
+                [ngClass]="{
+                  'is-invalid':
+                    (f.submitted && partNo.invalid) || isPartInvalid,
+                }"
+                #partNumberInput
+              />
+              <span
+                *ngIf="disablePartNumber && !isEquipUpdate"
+                (click)="onPartCloseClick()"
+                class="BHGE-MCStore-Icons icon-close-new"
+                id="searchclear"
+                style="pointer-events: auto"
+              ></span>
+              <span
+                *ngIf="disablePartNumber"
+                class="bhge-mcstore-icons icon-tick-fill part-number-completed-icon d-inline-block pull-right"
+              ></span>
+
+              <div *ngIf="isEquipUpdate" class="pull-left">
+                <i
+                  class="BHGE-Icons ico_info_rnd_lg o_info_rnd_sm icon-fi m-t-12 m-r-5"
+                ></i>
+                <span class="infoText m-t-10 d-inline-block"
+                  >If you change Part Details, Service History will be
+                  deleted</span
+                >
+              </div>
+
+              <!-- part auto suggestion -->
+              <div *ngIf="showPartList" class="search-list">
+                <ul class="p-0" #partNumberList>
+                  <li
+                    class="part-item"
+                    *ngFor="
+                      let eachProduct of arrPartAutoSearchResult;
+                      let i = index
+                    "
+                    (click)="setPartNumberToField(eachProduct)"
+                  >
+                    <div class="pull-left img-container">
+                      <img
+                        [src]="eachProduct.mediaurl"
+                        class="part-image"
+                        alt="no-part"
+                      />
+                    </div>
+                    <div class="pull-left p-l-10 m-t-7 details-container">
+                      <span class="part-name-text d-block">{{
+                        eachProduct.name
+                      }}</span>
+                      <span class="part-code-text"
+                        >{{
+                          'Part Number'
+                            | translate: 'bhge.ng.site.equipment.part_num'
+                        }}: {{ eachProduct.code }}</span
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="search-list">
+                <div *ngIf="showPartLoader" class="partLoader">
+                  <i
+                    class="BHGE-MCStore-Icons icon-loading partLoader-icon"
+                  ></i>
+                  <span
+                    class="partLoader-text"
+                    translate="bhge.ng.site.equipment.matching_part_text"
+                    >Searching matching Part Numbers</span
+                  >
+                </div>
+              </div>
+
+              <!-- <a href="#" (click)="onPartHelpClick($event)" class="nav-link d-block m-t-10" translate="bhge.ng.site.equipment.part_help">Help me find the part number</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Part Search -->
+        <div class="part-help p-t-8 p-l-22" *ngIf="showPartHelp">
+          <span
+            class="d-inline-block part-help-header text-uppercase"
+            translate="bhge.ng.site.equipment.part_help_header"
+            >Help find part number</span
+          >
+          <span
+            (click)="onPartHelpClose()"
+            class="BHGE-MCStore-Icons icon-close-new attached-icon-fix pull-right m-t-20 m-r-20"
+            style="font-size: 16px; color: #05322b"
+          ></span>
+          <div class="row m-t-26">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label
+                  for="partialPartNo"
+                  translate="bhge.ng.site.equipment.partial_part_num"
+                  >Partial part number</label
+                >
+                <input
+                  maxlength="30"
+                  id="partialPartNo"
+                  name="partialPartNo"
+                  type="text"
+                  class="form-control rma_offering-text"
+                  [(ngModel)]="partialPartNumber"
+                  (keyup)="onPartialPartChange($event)"
+                  (blur)="clearSearchResults()"
+                />
+
+                <div *ngIf="showPartialPartList" class="search-list">
+                  <ul class="p-0">
+                    <li
+                      class="part-item p-t-5 m-t-15"
+                      *ngFor="
+                        let eachProduct of arrPartialPartAutoSearchResult;
+                        let i = index
+                      "
+                      (click)="
+                        setPartialPartNumberToField(
+                          eachProduct.code,
+                          eachProduct.mediaurl
+                        )
+                      "
+                    >
+                      <div class="pull-left img-container col-md-3">
+                        <img
+                          [src]="eachProduct.mediaurl"
+                          class="part-image"
+                          alt="no-part"
+                        />
+                      </div>
+                      <div
+                        class="pull-left p-l-10 p-t-10 details-container col-md-9"
+                      >
+                        <span class="part-name-text d-block">{{
+                          eachProduct.name
+                        }}</span>
+                        <span class="part-code-text"
+                          >{{
+                            'Part Number'
+                              | translate: 'bhge.ng.site.equipment.part_num'
+                          }}: {{ eachProduct.code }}</span
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="search-list">
+                  <div *ngIf="showPartialPartLoader" class="partLoader">
+                    <i
+                      class="BHGE-MCStore-Icons icon-loading partLoader-icon"
+                    ></i>
+                    <span
+                      class="partLoader-text"
+                      translate="bhge.ng.site.equipment.matching_part_text"
+                      >Searching matching Part Numbers</span
+                    >
+                  </div>
+                </div>
+
+                <a
+                  href="#"
+                  (click)="setOtherPart($event)"
+                  class="nav-link d-block m-t-10 d-none"
+                  translate="bhge.ng.site.equipment.part_not_found"
+                >
+                  Can't find the part number</a
+                >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label
+                  for="serialNoHelp"
+                  translate="bhge.ng.site.equipment.serial_num"
+                  >Serial number</label
+                >
+                <input
+                  maxlength="30"
+                  id="serialNoHelp"
+                  type="text"
+                  class="form-control rma_offering-text"
+                  [(ngModel)]="serialNoHelp"
+                  [ngClass]="{ 'red-border': showSerialSearchError }"
+                />
+                <span
+                  *ngIf="showSerialSearchError"
+                  class="text-error m-t-0"
+                  style="clear: both"
+                  translate="bhge.ng.site.equipment.search_characters_serial"
+                >
+                  Enter atleast 3 characters to search
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <button
+                translate="bhge.ng.site.equipment.search_part"
+                type="button"
+                (click)="invokePartSearch()"
+                class="btn text-uppercase pull-right rma-btn-primary w-200 m-l-10 btn-fix pull-left m-t-20"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+
+          <!-- Search Results -->
+          <div
+            class="search-results p-t-45 m-t-20 m-b-20 m-r-30"
+            *ngIf="showPartResult"
+          >
+            <div class="row m-0">
+              <div class="col-lg-6 col-md-6 m-b-29 p-0">
+                <span
+                  class="part-search-header"
+                  translate="bhge.ng.site.equipment.search_results"
+                  >SEARCH RESULTS</span
+                >
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <!-- <select class="form-control part-search-dd pull-right" [(ngModel)]="selectedPartCategoryFilter" id="ddPartCategoryFilter">
+                      <option><span class="filterByCategoryDD">All</span></option>
+                  </select>  
+                  <label for="ddPartCategoryFilter" class="filterByCategoryText pull-right">Filter By Category</label>   -->
+              </div>
+            </div>
+            <div
+              class="row m-t-0 search-results-header display-flex-justify-left"
+            >
+              <div class="col-lg-1 col-md-1 p-0"></div>
+              <div class="col-lg-3 col-md-3 p-0">
+                <span
+                  class=""
+                  translate="bhge.ng.site.equipment.results_part_name"
+                  >Part name</span
+                >
+              </div>
+              <div class="col-lg-3 col-md-3 p-0">
+                <span
+                  class=""
+                  translate="bhge.ng.site.equipment.results_part_number"
+                  >Part number</span
+                >
+              </div>
+              <div class="col-lg-5 col-md-5 text-center p-0">
+                <span class="" translate="bhge.ng.site.equipment.results_action"
+                  >Action</span
+                >
+              </div>
+            </div>
+            <div
+              class="row search-results-data display-flex-justify-left"
+              *ngFor="let eachPart of arrPartSearchResult; let i = index"
+            >
+              <div class="col-lg-1 col-md-1 p-0 part-image-holder">
+                <img
+                  [src]="eachPart.partImageIRL"
+                  class="search-results-image"
+                  alt="no image"
+                  height="42"
+                  width="42"
+                />
+              </div>
+              <div class="col-lg-3 col-md-3 p-0">
+                <span class="search-results-text">{{ eachPart.partName }}</span>
+              </div>
+              <div class="col-lg-3 col-md-3 p-0">
+                <span class="search-results-text">{{
+                  eachPart.partNumber
+                }}</span>
+                <span
+                  class="salesAreaTableMsg d-none"
+                  *ngIf="showSalesAreaMsg(eachPart)"
+                  translate="bhge.ng.site.equipment.change.salesarea"
+                  >If you select this, sales area will change</span
+                >
+                <!-- (click)="invokeSalesAreaModal(eachPart)" -->
+              </div>
+              <div class="col-lg-5 col-md-5 p-0">
+                <button
+                  type="button"
+                  (click)="
+                    copyPartNumber(
+                      eachPart.partNumber,
+                      false,
+                      eachPart.partImageIRL,
+                      eachPart
+                    )
+                  "
+                  class="secondary-btn-bhge text-uppercase button-fix w-150 h-30 search-results-button-center m-l-40"
+                  translate="bhge.ng.site.equipment.results_select"
+                >
+                  SELECT
+                </button>
+                <button
+                  translate="bhge.ng.site.equipment.results_similar_part"
+                  type="button"
+                  (click)="
+                    copyPartNumber(
+                      eachPart.partNumber,
+                      true,
+                      eachPart.partImageIRL,
+                      eachPart
+                    )
+                  "
+                  class="tertiary-btn text-uppercase button-fix w-200 m-l-20 h-30 search-results-button-center"
+                >
+                  MY PART IS SIMILAR
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="search-results p-t-45 m-t-45 p-b-50"
+            style="border-bottom: 1px solid #e3e3e3"
+            *ngIf="showNoResult"
+          >
+            <div class="row m-0">
+              <div class="col-lg-6 col-md-6 m-b-29 p-0">
+                <span
+                  class="part-search-header"
+                  translate="bhge.ng.site.equipment.search_results"
+                  >SEARCH RESULTS</span
+                >
+              </div>
+              <div class="col-lg-6 col-md-6"></div>
+            </div>
+            <div class="row m-t-12" style="text-align: center; font-size: 50px">
+              <span class="BHGE-MCStore-Icons icon-File-not-found_icon"></span>
+            </div>
+            <div class="row m-t-30" style="text-align: center">
+              <span
+                class="noMatchingText"
+                translate="bhge.ng.site.equipment.no_matching_results"
+                >No matching result found</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Serial Search -->
+        <div
+          *ngIf="showSerialHelp"
+          class="form-group m-t-15 pull-left full-width part-help p-t-8 p-l-22"
+        >
+          <span
+            class="d-inline-block part-help-header text-uppercase"
+            translate="bhge.ng.site.equipment.serial_help_header"
+            >Help find serial number</span
+          >
+          <span
+            (click)="onPartHelpClose()"
+            class="BHGE-MCStore-Icons icon-close-new attached-icon-fix pull-right m-t-20 m-r-20"
+            style="font-size: 16px; color: #05322b"
+          ></span>
+
+          <div class="row m-0 p-20 serial-block">
+            <div class="row pull-left search-type-holder col-md-3 p-0 m-r-20">
+              <label
+                for="serial-search-type"
+                class="part-number-text form-text m-b-10"
+                translate="bhge.ng.rma.form.serial.no"
+                >Search criteria</label
+              >
+              <button
+                id="serial-search-type"
+                (click)="changeSearchType()"
+                #serialSearchType
+                class="form-control rma_offering-dd dropdown-toggle dd-text search-type-dd"
+                type="button"
+                data-toggle="dropdown"
+              >
+                <span
+                  *ngIf="!selectedSerialSearchType"
+                  class="overflow-ellipsis pull-left dd-selected"
+                  translate="bhge.ng.site.equipment.change.search.criteria"
+                  >Select search criteria</span
+                >
+                <span
+                  *ngIf="selectedSerialSearchType"
+                  class="overflow-ellipsis pull-left dd-selected"
+                  >{{ selectedSerialSearchType.name }}</span
+                >
+                <span class="caret dd-arrow pull-right"></span>
+              </button>
+              <ul
+                class="dropdown-menu rma-offering-content p-0 w-100"
+                #serialSearchTypeListEl
+                *ngIf="showSearchType"
+                style="
+                  display: block;
+                  position: relative;
+                  width: 100% !important;
+                "
+              >
+                <li *ngFor="let type of serialSearchTypeList; let i = index">
+                  <a
+                    class="option-text"
+                    href
+                    (click)="onSearchTypeSelect(type, $event)"
+                    >{{ type.name }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="pull-left col-md-4 p-0 m-r-20">
+              <label
+                for="serial-number"
+                class="part-number-text form-text m-b-10"
+                translate="bhge.ng.rma.form.serial.no"
+                >Serial number</label
+              >
+              <input
+                maxlength="30"
+                type="text"
+                [ngClass]="{ 'red-border': showSerialSearchError }"
+                [(ngModel)]="selectedSerialNumber"
+                class="form-control rma_offering-text m-b-10 w-100"
+                name="serial-number"
+                id="serial-number"
+                [disabled]="disableSerialNumberInput"
+                maxlength="200"
+                placeholder="Enter atleast 3 characters to search"
+                placeholderTranslate="bhge.ng.rma.form.search.character.limit"
+                #serialNumberInput
+              />
+              <span
+                *ngIf="showSerialSearchError"
+                class="text-error m-t-0"
+                style="clear: both"
+                translate="bhge.ng.rma.form.problem.desc.mandatory"
+              >
+                Enter atleast 3 characters to search
+              </span>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-border-only text-uppercase rma-btn-primary w-200 button-fix m-t-30"
+              (click)="fetchSerialNumSearchResults(); setButtonEvent()"
+              [disabled]="serialSearchInProgress || !selectedSerialNumber"
+            >
+              <i
+                *ngIf="serialSearchInProgress"
+                class="fa fa-spinner fa-spin m-r-10"
+              ></i>
+              <span translate="bhge.ng.rma.form.search">Search</span>
+            </button>
+          </div>
+          <div class="clearfix"></div>
+
+          <div *ngIf="showSerialNumResults" class="m-t-50">
+            <div
+              class="part-number-type-text d-none"
+              translate="bhge.ng.rma.form.type.part"
+            >
+              Type in your part number or select from the list below
+            </div>
+
+            <div class="part-number-input-container pull-left d-none">
+              <label
+                for="part-number"
+                class="part-number-text form-text m-b-10"
+                translate="bhge.ng.rma.form.part.no"
+                >Part number</label
+              >
+              <input
+                type="text"
+                [ngClass]="{ 'red-border': showError }"
+                [(ngModel)]="partNumber"
+                class="form-control rma_offering-text m-b-10"
+                name="part_number"
+                id="part-number"
+                (ngModelChange)="onPartChange($event)"
+                (blur)="showErrorMsg()"
+                [disabled]="disablePartField"
+                #partNumberInput
+              />
+              <span
+                id="searchclear"
+                class="BHGE-MCStore-Icons icon-close-new"
+                *ngIf="disablePartField"
+                (click)="activatePartField()"
+              ></span>
+              <span
+                *ngIf="showPartValidateBox"
+                class="bhge-mcstore-icons icon-tick-fill part-number-completed-icon"
+              ></span>
+              <span
+                *ngIf="isSimilarPart"
+                class="similar-part-text-serial-num"
+                translate="bhge.ng.rma.form.part.similar"
+                >My part is similar</span
+              >
+
+              <div *ngIf="showPartList" class="search-list">
+                <ul class="p-0" #partNumberList>
+                  <li
+                    class="part-item"
+                    *ngFor="
+                      let eachProduct of arrPartAutoSearchResult;
+                      let i = index
+                    "
+                    (mousedown)="setPartNumberToField(eachProduct)"
+                  >
+                    <div class="pull-left img-container">
+                      <img
+                        [src]="eachProduct.mediaurl"
+                        class="part-image"
+                        alt="no-part"
+                      />
+                    </div>
+                    <div class="pull-left p-l-10 details-container">
+                      <span class="part-name-text overflow-ellipsis">{{
+                        eachProduct.name
+                      }}</span>
+                      <span class="part-code-text overflow-ellipsis">
+                        {{
+                          'Part Number' | translate: 'bhge.ng.rma.form.part.no'
+                        }}: {{ eachProduct.code }}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pull-left d-none">
+              <div class="form-group m-l-60 pull-left">
+                <label
+                  for="quantity-btn"
+                  class="form-text m-b-10"
+                  style="font-family: GE Inspira Sans Bold"
+                  translate="bhge.ng.rma.form.quantity"
+                  >Quantity</label
+                >
+                <div
+                  class="input-group bhge-increment-btn"
+                  style="width: 130px"
+                >
+                  <span
+                    (click)="countSerialNo('minus')"
+                    class="input-group-addon border-shadow bhge-rmaform-input-minus"
+                    ><i
+                      class="BHGE-MCStore-Icons icon-qty-minus"
+                      style="font-size: 2px; cursor: pointer"
+                    ></i
+                  ></span>
+                  <input
+                    type="number"
+                    min="1"
+                    [(ngModel)]="serialNumberCount"
+                    (keypress)="validateQuantity($event)"
+                    class="form-control bhge-rmaform-input-inc rma_offering-text"
+                    id="quantity-btn"
+                  />
+                  <span
+                    (click)="countSerialNo('plus')"
+                    class="input-group-addon border-shadow bhge-rmaform-input-plus"
+                    ><i
+                      class="BHGE-MCStore-Icons icon-qty-plus"
+                      style="cursor: pointer"
+                    ></i
+                  ></span>
+                </div>
+              </div>
+              <div class="each-text pull-left">
+                <span translate="bhge.ng.rma.form.each">Each</span>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div *ngIf="serialNumberCount > 1" class="d-none">
+              <div class="form-group m-t-15 pull-left">
+                <label
+                  for="additional-serial-nos"
+                  class="part-number-text form-text m-b-10"
+                  translate="bhge.ng.rma.form.add.serial.no"
+                  >Additional Serial numbers</label
+                >
+                <textarea
+                  [(ngModel)]="additionalSerialNums"
+                  class="form-control rma_offering-text m-t-10"
+                  rows="5"
+                  id="additional-serial-nos"
+                  style="height: 96px !important"
+                  maxlength="200"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="search-product-results m-t-30">
+              <div class="results-table">
+                <div class="results-table-header display-flex-justify-left">
+                  <div class="part-image-holder"></div>
+                  <div class="part-name">
+                    <span translate="bhge.ng.rma.form.part_name"
+                      >Part name</span
+                    >
+                  </div>
+                  <div class="part-number">
+                    <span translate="bhge.ng.rma.form.part_number"
+                      >Part number</span
+                    >
+                  </div>
+                  <div class="product-category">
+                    <span translate="bhge.ng.rma.form.product_catelog"
+                      >Product category</span
+                    >
+                  </div>
+                  <div class="serial-no">
+                    <span translate="bhge.ng.rma.form.serial_no"
+                      >Serial Number</span
+                    >
+                  </div>
+                  <div class="action">
+                    <span translate="bhge.ng.rma.form.action">Action</span>
+                  </div>
+                </div>
+                <div
+                  *ngFor="let result of serialNumSearchResults; let i = index"
+                  class="results-table-row display-flex-justify-left"
+                >
+                  <div class="part-image-holder">
+                    <img
+                      [src]="result.partImage"
+                      class="search-results-image"
+                      alt="no image"
+                      height="42"
+                      width="42"
+                    />
+                  </div>
+                  <div class="part-name">
+                    <span class="result-name overflow-ellipsis">{{
+                      result.name
+                    }}</span>
+                  </div>
+                  <div class="part-number">
+                    <span class="result-code overflow-ellipsis">{{
+                      result.code
+                    }}</span>
+                  </div>
+                  <div class="product-category">
+                    <span
+                      class="prod-cat overflow-ellipsis"
+                      [tooltip]="result.categoryHierarchy"
+                      >{{ result.currentCategory }}</span
+                    >
+                  </div>
+                  <div class="serial-no">
+                    <span class="result-code overflow-ellipsis">{{
+                      result.summary
+                    }}</span>
+                  </div>
+                  <div class="action">
+                    <button
+                      type="button"
+                      (click)="selectPart(result.code, i, result.summary)"
+                      class="secondary-btn-bhge pull-left my-part-btn"
+                      [ngClass]="{
+                        highlight: i == selectedId && !isSimilarPart,
+                      }"
+                      [disabled]="i == selectedId && !isSimilarPart"
+                    >
+                      <span
+                        *ngIf="
+                          i != selectedId || (i == selectedId && isSimilarPart)
+                        "
+                        translate="bhge.ng.rma.form.thisis.my.part"
+                        >This is my part</span
+                      >
+                      <span
+                        *ngIf="i == selectedId && !isSimilarPart"
+                        translate="bhge.ng.rma.form.part.selected"
+                        >Part selected</span
+                      >
+                    </button>
+                    <button
+                      type="button"
+                      (click)="
+                        selectSimilarPart(result.code, i, result.summary)
+                      "
+                      class="secondary-btn-bhge pull-left m-l-20 similar-part-btn"
+                      [ngClass]="{
+                        highlight: i == selectedId && isSimilarPart,
+                      }"
+                      [disabled]="i == selectedId && isSimilarPart"
+                    >
+                      <span
+                        *ngIf="
+                          i != selectedId || (i == selectedId && !isSimilarPart)
+                        "
+                        translate="bhge.ng.rma.form.mypart.similar"
+                        >My part is similar</span
+                      >
+                      <span
+                        *ngIf="i == selectedId && isSimilarPart"
+                        translate="bhge.ng.rma.form.similar.selected"
+                        >Similar selected</span
+                      >
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="noSerialSearchResults">
+            <span
+              class="no-results-text display-flex-center"
+              translate="bhge.ng.rma.form.norecord.found"
+              >No Results Found</span
+            >
+          </div>
+        </div>
+
+        <div class="row m-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="partName" translate="bhge.ng.site.equipment.part_name"
+                >Part name</label
+              >
+              <input
+                maxlength="40"
+                type="text"
+                autocomplete="off"
+                class="form-control rma_offering-text"
+                name="partName"
+                [(ngModel)]="model.partName"
+                #partName="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && partName.invalid }"
+              />
+              <div *ngIf="isEquipUpdate">
+                <i
+                  class="BHGE-Icons ico_info_rnd_lg o_info_rnd_sm icon-fi pull-left d-inline-block m-t-12 m-r-2"
+                ></i>
+                <span class="infoText m-t-10 d-inline-block"
+                  >If you change Part Details, Service History will be
+                  deleted</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label
+                for="assetNum"
+                translate="bhge.ng.site.equipment.asset_num"
+                class="pull-left"
+                >Tag/Asset number</label
+              >
+              <i
+                class="bhge-mcstore-icons icon-info m-l-5 m-t-3 pull-left"
+                matTooltip="{{
+                  eqService.getTooltipText(
+                    'bhge.ng.site.equipment.tooltip.asset.number'
+                  )
+                }}"
+                matTooltipPosition="right"
+              ></i>
+              <input
+                maxlength="30"
+                type="text"
+                autocomplete="off"
+                class="form-control rma_offering-text"
+                name="assetNum"
+                [(ngModel)]="model.assetNumber"
+                #assetNum="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && assetNum.invalid }"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label
+                for="lastServiceDate"
+                translate="bhge.ng.site.equipment.service_date"
+                >Last service date</label
+              >
+              <input
+                type="text"
+                class="form-control rma_offering-text"
+                placeholder="MM/DD/YYYY"
+                [disabled]="disableLastServiceDate"
+                autocomplete="off"
+                name="lastServiceDate"
+                [(ngModel)]="model.lastServiceDate"
+                #lastServiceDate="ngModel"
+                #lastDate
+                [matDatepicker]="serviceDate"
+                [max]="dateValidation.max"
+                [min]="dateValidation.min"
+                (focus)="serviceDate.open()"
+              />
+              <i
+                class="bhge-icons ico_calendar_sm calender-position"
+                [ngClass]="{ 'disabled-calendar-icon': disableLastServiceDate }"
+              ></i>
+              <span
+                *ngIf="disableLastServiceDate"
+                class="bhge-mcstore-icons icon-tick-fill part-number-completed-icon d-inline-block pull-right"
+              ></span>
+              <mat-datepicker
+                #serviceDate
+                (closed)="lastDate.blur()"
+              ></mat-datepicker>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label
+                for="serviceInterval"
+                class="d-block pull-left"
+                translate="bhge.ng.site.equipment.service_interval"
+                >Service interval</label
+              >
+              <i
+                class="bhge-mcstore-icons icon-info m-l-5 m-t-3 pull-left"
+                matTooltip="{{
+                  eqService.getTooltipText(
+                    'bhge.ng.site.equipment.tooltip.service.interval'
+                  )
+                }}"
+                matTooltipPosition="right"
+              ></i>
+              <span class="clearfix"></span>
+              <input
+                (input)="checkRange()"
+                maxlength="2"
+                type="number"
+                min="1"
+                max="60"
+                class="form-control rma_offering-text w-300 pull-left"
+                name="serviceInterval"
+                [(ngModel)]="model.serviceInterval"
+                #serviceInterval="ngModel"
+              />
+              <span
+                class="pull-left m-l-10 m-t-10"
+                translate="bhge.ng.site.equipment.service_months"
+                >Months</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label
+                for="location"
+                translate="bhge.ng.site.equipment.location"
+                class="pull-left"
+                >Site Location</label
+              >
+              <i
+                class="bhge-mcstore-icons icon-info m-l-5 m-t-3 pull-left"
+                matTooltip="{{
+                  eqService.getTooltipText(
+                    'bhge.ng.site.equipment.tooltip.site.location'
+                  )
+                }}"
+                matTooltipPosition="right"
+              ></i>
+              <input
+                maxlength="20"
+                type="text"
+                autocomplete="off"
+                class="form-control rma_offering-text"
+                name="location"
+                [(ngModel)]="model.location"
+                #location="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && location.invalid }"
+                placeholderTranslate="bhge.ng.site.equipment.location.maxlimit"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- <div class="form-group">
+            <label for="endCustName">End customer name & number</label>
+            <input type="text" class="form-control rma_offering-text" name="endCustName" [(ngModel)]="model.endCustomer" #endCustName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && endCustName.invalid }" required />
+          </div> -->
+            <div class="form-group">
+              <label
+                for="endCustName"
+                class="d-block"
+                translate="bhge.ng.site.equipment.end_customer"
+                >End customer name & number</label
+              >
+              <button
+                id="serial-search-type"
+                #endCustomerDropdownButton
+                (click)="changeCustomersInfo()"
+                class="form-control rma_offering-dd dropdown-toggle dd-text search-type-dd"
+                type="button"
+                data-toggle="dropdown"
+              >
+                <!-- <span *ngIf="!selectedCustomer" class="overflow-ellipsis pull-left dd-selected">Select search criteria</span> -->
+                <span
+                  *ngIf="selectedCustomer"
+                  class="overflow-ellipsis pull-left dd-selected"
+                  >{{ selectedCustomer.name }}</span
+                >
+                <span class="caret dd-arrow pull-right"></span>
+              </button>
+              <ul
+                class="dropdown-menu rma-offering-content p-0 w-100"
+                #endCustomerDropdown
+                *ngIf="showCustomersInfo"
+                style="display: block"
+              >
+                <li *ngFor="let eachVal of arrCustomers; let i = index">
+                  <a
+                    class="option-text"
+                    href
+                    (click)="onCustomerSelect(eachVal, $event)"
+                    >{{ eachVal.name }}</a
+                  >
+                </li>
+              </ul>
+              <!-- <select class="form-control rma_offering-text d-inline-block" style="width: 430px" name="endCustName" [(ngModel)]="model.endCustomer" ##endCust="ngModel">
+                <option value="">Please select an End Customer</option>
+                <option>Name 1</option>
+                <option>Name 2</option>
+            </select> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label
+                for="htsCode"
+                translate="bhge.ng.site.equipment.customer_tariff_code"
+                class="pull-left"
+                >Customs tariff code (HTS Code)</label
+              >
+              <i
+                class="bhge-mcstore-icons icon-info m-l-5 m-t-3 pull-left"
+                matTooltip="{{
+                  eqService.getTooltipText(
+                    'bhge.ng.site.equipment.tooltip.customs.tariff.code'
+                  )
+                }}"
+                matTooltipPosition="right"
+              ></i>
+              <input
+                maxlength="17"
+                type="text"
+                class="form-control rma_offering-text"
+                name="htsCode"
+                [(ngModel)]="model.htsCode"
+                #htsCode="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && htsCode.invalid }"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 d-none">
+            <div class="form-group">
+              <span class="d-block" translate="bhge.ng.site.equipment.documents"
+                >Documents</span
+              >
+              <label
+                for="documents"
+                class="secondary-btn-bhge text-uppercase w-200 upload-btn m-t-10"
+                translate="bhge.ng.site.equipment.add_file"
+                >Add File</label
+              >
+              <input
+                type="file"
+                id="documents"
+                accept=".xls,.doc,.pdf,image/jpeg"
+                class="btn btn-default"
+                style="display: none"
+              />
+              <h5
+                style="color: #05322b"
+                translate="bhge.ng.rma.status.upload_support"
+              >
+                Note: File formats supported - .pdf, .jpg, .png, .bmp, .gif,
+                .doc, .docx, .zip, .mov (max. file size is 10MB)
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0 m-t-20">
+          <div class="form-group">
+            <label for="addInfo" translate="bhge.ng.site.equipment.add_info"
+              >Additional information</label
+            >
+            <textarea
+              maxlength="250"
+              class="form-control rma_offering-text m-t-10"
+              style="height: auto !important"
+              name="addInfo"
+              [(ngModel)]="model.additionalInfo"
+              #addInfo="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && addInfo.invalid }"
+              rows="5"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="alert alert-success m-t-10 hidden"
+        style="margin: auto; width: 40%; text-align: center"
+        *ngIf="isEquipmentAdded"
+      >
+        <strong class="green-font">Data added Successfully!</strong>
+      </div>
+
+      <div
+        class="alert alert-danger m-t-10 hidden"
+        style="margin: auto; width: 40%; text-align: center"
+        *ngIf="isEquipmentError"
+      >
+        <strong class="red-font">{{ errorMsg }}</strong>
+      </div>
+
+      <div class="add-equipment-actions m-t-50">
+        <!-- <pre>{{f.value | json}}</pre> -->
+        <button
+          *ngIf="!isEquipUpdate"
+          type="submit"
+          class="btn text-uppercase pull-right rma-btn-primary w-200 m-l-10 btn-fix"
+          translate="bhge.ng.site.equipment.add_equipment"
+        >
+          Add Equipment
+        </button>
+        <button
+          *ngIf="!isEquipUpdate"
+          type="button"
+          (click)="onResetForm()"
+          class="secondary-btn-bhge text-uppercase pull-right w-200 btn-fix"
+          translate="bhge.ng.site.equipment.reset_form"
+        >
+          Reset
+        </button>
+
+        <button
+          *ngIf="isEquipUpdate"
+          type="submit"
+          class="btn text-uppercase pull-right rma-btn-primary w-200 m-l-10 btn-fix"
+          translate="bhge.ng.site.equipment.update_equipment_form"
+        >
+          Update
+        </button>
+        <button
+          *ngIf="isEquipUpdate"
+          type="button"
+          (click)="onRestoreForm()"
+          class="secondary-btn-bhge text-uppercase pull-right w-200 btn-fix m-l-10"
+          translate="bhge.ng.site.equipment.restore_form"
+        >
+          Restore
+        </button>
+        <button
+          *ngIf="isEquipUpdate"
+          type="button"
+          class="tertiary-btn-bhge text-uppercase pull-right w-200 btn-fix"
+          translate="bhge.ng.site.equipment.cancel_form"
+          [routerLink]="[
+            '/site-equipment',
+            model.partNumber,
+            model.serialNumber,
+          ]"
+          routerLinkActive="router-link-active"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal modal-center fade" id="addAllToMEL" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="padding: 7px 16px 15px 18px">
+      <div
+        class="modal-header p-b-0 text-bold p-t-12"
+        style="border-bottom: none"
+      >
+        <button
+          type="button"
+          class="close pull-right share-close-btn"
+          data-dismiss="modal"
+          style="opacity: 1"
+        >
+          <i class="bhge-mcstore-icons icon-close-new"></i>
+        </button>
+      </div>
+      <div class="modal-body gray-text">
+        <h3>Do you want to add all to My equipment list?</h3>
+
+        <div style="text-align: right" class="m-t-30">
+          <button
+            class="primary-btn-bhge share-btn-primary m-t-20 w-150 m-r-10"
+            data-dismiss="modal"
+            [routerLink]="['/site-equipment', 'manEL', 'addAll']"
+          >
+            Yes
+          </button>
+          <button
+            class="secondary-btn-bhge share-btn-cancel m-t-20 m-r-15 w-150"
+            data-dismiss="modal"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

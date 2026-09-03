@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Baker Hughes Registrations – Inactive User Notification</title>
+
+    <style>
+    * {
+	color: #05322b; 
+	font-family: 'Poppins','Lucida Sans'; 
+	text-align: left;
+   }
+        @font-face {
+            font-family: GEInspiraSans;
+            src: url('$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+        }
+    </style>
+</head>
+
+
+<body style="font-family:GEInspiraSans; font-size: 11pt;width:550px;color: #13294b;border: solid 0.3px #979797;">
+
+    <div class="header">
+        <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" alt="headerImage"/>
+    </div>
+    
+
+	<div class="emailBody" style="padding:14px 22px 0px 34px;">
+		<div class="headerInformation" style="padding-bottom:27px;letter-spacing: -0.4px;">
+		    <p>Dear Support Team,</p>
+		    <p>We have got failure - Please find details below to analyze the issue.</p>
+		    <br><br>
+		    
+		    <p><H3 >Error Message: </H3></p>
+		    $ctx.errorMessage
+		    
+		    <p><H3>Detailed Message: </H3></p>
+		    $ctx.stackTraceMessage    
+		      
+		    <div class="table2">
+			    <table width="100%" cellpadding="0" cellspacing="0">
+					<thead style="  letter-spacing: -0.5px;color: #ffffff;"><tr style="background-color: #028474;">
+					<th style="padding: 9px;text-align: left; color: #FFFFFF;">Attribute</th>
+					<th style="padding: 9px;text-align: left; color: #FFFFFF;">Details</th>
+					</tr></thead>
+					<tbody style="letter-spacing: -0.4px;color: #000000; line-height: 1.2; font-size: 11pt;">
+					#set( $count = 0 )
+			        #foreach( $entryName in $ctx.attribName )
+			        	#set ( $entryValue = $ctx.attribValue.get($count) )
+						<tr style="background-color: #f9f9f9;">
+						<td style="padding: 9px;text-align: left;">$entryName</td>
+						<td style="padding: 9px;text-align: left;">$entryValue</td>
+						</tr>
+						#set( $count = $count + 1 )
+					#end
+					</tbody>
+			    </table>
+			</div>
+		    
+		    <br><br>
+		    <p>Best regards,<br>
+			F&PT ValvStore Support Team</p>
+		</div>
+	</div>
+
+
+</body>
+</html>

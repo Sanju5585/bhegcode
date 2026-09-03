@@ -1,0 +1,54 @@
+##  -------------------------------------------------------
+## # used 'header validation mode' during script generation was: import_strict
+#"#% impex.setLocale( new Locale( ""en"" , """" ) );"
+##  -------------------------------------------------------
+## ---- Extension: bhgecore ---- Type: BHGEGlobalProperties ----
+#"#% impex.setTargetFile( ""BHGEGlobalProperties.csv"" );"
+#insert_update BHGEGlobalProperties;pk;creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];modifiedtime[dateformat=dd.MM.yyyy hh:mm:ss];owner(pk)[allownull=true,forceWrite=true];uid[unique=true];value
+#"#% impex.exportItems( ""BHGEGlobalProperties"" , false );"
+#
+#
+#
+##  -------------------------------------------------------
+## # used 'header validation mode' during script generation was: import_strict
+#"#% impex.setLocale( new Locale( ""en"" , """" ) );"
+##  -------------------------------------------------------
+## ---- Extension: bhgecore ---- Type: BHGEGlobalProperties ----
+#"#% impex.setTargetFile( ""BHGEGlobalProperties.csv"" );"
+#insert_update BHGEGlobalProperties;uid[unique=true];value
+#"#% impex.exportItems( ""BHGEGlobalProperties"" , false );"
+
+
+insert_update BHGEGlobalProperties;uid[unique=true];value
+#                                  ;captchaPageForScore;guestCheckout
+#                                  ;captchaScore;0.6
+#                                  ;customerAccountGroups;0001,ZSUB
+#                                  ;customerClassListForEndUserDiscount;DS
+#                                  ;fptCategories;ECOM_LVL1_00000005,ECOM_LVL1_00000017,ECOM_LVL1_00000018,ECOM_LVL1_00000019,ECOM_LVL1_00000020
+#                                  ;guestCategories;ECOM_LVL2_00000001,ECOM_LVL1_00000007
+                                  ;SCPI_Z_ORDERCREATE_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OrderCreate
+                                  ;SCPI_Z_S_ORDER_PDF_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OrderPDFDisplay
+                                  ;SCPI_Z_SORDER_HISTORY_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OrderHistory
+                                  ;SCPI_ZGET_FILE_FROM_HYBRIS_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OrderAttachment
+                                  ;SCPI_ZHYB_ECOM_REGISTRATION_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/UserRegistration
+                                  ;SCPI_ZHYB_ECOM_REGISTRATION_VS_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/Vs/UserRegistration
+                                  ;SCPI_ZHYB_ECOM_RMA_CREATE_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMACreate
+                                  ;SCPI_ZHYB_MAT_ACCESSORIES_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/MaterialAccessories
+                                  ;SCPI_ZHYB_OFF_PRC_DATA_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OfferingPriceData
+                                  ;SCPI_ZHYB_PRICE_LIST_MAT_AVLBT_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/PriceAvailability
+                                  ;SCPI_ZHYB_RMA_ATTACHMENTS_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMAAttachment
+                                  ;SCPI_ZHYB_RMA_EQUIP_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMAEquipmentDisplay
+                                  ;SCPI_ZHYB_RMA_MEL_CREATE_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/EquipmentCreateUpdate
+                                  ;SCPI_ZHYB_RMA_NOTIF_DOC_ATTC_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMANotificationDocumentPDF
+                                  ;SCPI_ZHYB_RMA_SERV_HIST_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMAServiceHistory
+                                  ;SCPI_ZHYB_RMA_STATUS_ENDPOINT;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/RMAStatus
+                                  ;SCPI_ZHYB_LONG_CONFIG_ENDPOINT_URL; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/HybrisVC_ECCDS/SkippingConfig
+                                  ;Z_S_ORDER_PDF;https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/OrderPDFDisplay
+                                  #Maketo Ingegration urls                                 
+                                  ;MARKETO_CREATE_LEADS_ENDPOINT;https://561-KCT-808.mktorest.com/rest/v1/leads.json
+								  ;MARKETO_ACCESS_TOKEN_ENDPOINT;https://561-KCT-808.mktorest.com/identity/oauth/token
+								   #Maketo Ingegration urls for Panametrics Guest User Form                               
+                                  ;MARKETO_CREATE_LEADS_PANAMETRICS_ENDPOINT;https://561-KCT-808.mktorest.com/rest/v1/leads.json
+								  ;MARKETO_ACCESS_TOKEN_PANAMETRICS_ENDPOINT;https://561-KCT-808.mktorest.com/identity/oauth/token
+								  ;MARKETO_CALL_PANAMETRICS_ENABLE;Y
+								  

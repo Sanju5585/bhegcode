@@ -1,0 +1,89 @@
+@if (
+  isChannelPartner &&
+  cartType === _CartType.Typ1 &&
+  fromCheckOutComp &&
+  isBuyCommerceType &&
+  !((isQuote || isQuoteOrderConvertFlow) && cartType == _CartType.Typ1)
+) {
+  <div class="waygate-end-cust-address">
+    <div class="address-header">
+      {{ 'address-model.endCustomerDetails' | cxTranslate }}
+    </div>
+    @if (cart$ | async; as cart) {
+      @for (entry of cart?.entries; track entry?.entryNumber) {
+        <div class="end-cust-detail">
+          <div class="company-name">
+            {{ entry?.enduserAddress?.line1 }}
+            <div>
+              <div class="end-cust-header-content">
+                {{ entry?.enduserAddress?.formattedAddress }}
+              </div>
+              <div class="end-cust-po">
+                <label for="endCustpo" class="end-cust-po-label"
+                  >End customer PO</label
+                >
+                <input
+                  type="text"
+                  id="endCustpo"
+                  class="end-cust-po-input"
+                  (input)="
+                    onPoChange(entry?.ecaCode, $event, entry?.entryNumber)
+                  "
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+} @else {
+  <div class="waygate-end-cust-address">
+    <div>
+      <div class="address-header">
+        {{ 'address-model.endCustomerAddress' | cxTranslate }}
+      </div>
+      <div class="same-as-shipping" *ngIf="showSameAsShipping">
+        <bh-checkbox
+          label="{{ 'address-model.sameAsShipping' | cxTranslate }}"
+          [value]="sameAsShipping"
+          (change)="onSameAsShippingChange($event)"
+        ></bh-checkbox>
+      </div>
+      <div class="address-box">
+        <div class="address-header-text">
+          <div>{{ endUserAddress?.companyName }}</div>
+          <!-- <div *ngIf="endUserAddress" class="address-header-content">
+          Customer Account Number: {{ customerAccount }}
+        </div> -->
+          <div *ngIf="endUserAddress" class="address-header-content">
+            {{ 'address-model.addrress' | cxTranslate }}
+            {{ endUserAddress?.line1 }}, {{ endUserAddress?.town }} ,
+            {{ endUserAddress?.region?.name }},
+            {{ endUserAddress?.country?.name }} {{ endUserAddress?.postalCode }}
+          </div>
+          <div class="no-address-text" *ngIf="!endUserAddress">
+            {{ 'address-model.noAddressSelected' | cxTranslate }}
+          </div>
+          <div *ngIf="errorMsg" class="enduser-address err-msg-css">
+            <i
+              class="typography--icon-small bh-form-message__icon err-msg-icon-css"
+              >error_outline</i
+            >{{ errorMsg }}
+          </div>
+        </div>
+
+        <div class="address-header-btn" *ngIf="!sameAsShipping">
+          <button
+            type="button"
+            class="change-address-btn"
+            aria-label="change"
+            (click)="openAddressModel()"
+          >
+            {{ addressButtonLabel }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

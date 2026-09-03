@@ -1,0 +1,123 @@
+<!--  <div class="container">
+    <div class="heading">
+        <div>
+            <h5>Select Characteristics</h5>
+            <h6 *ngIf="product$ | async as product">{{product.name}}</h6>
+        </div>
+        <div (click)="onClose()"><mat-icon>clear</mat-icon></div>
+    </div>
+    <div class="sub-heading">
+        <h6>{{data.attribute.label}}
+            <mat-icon>info</mat-icon>
+        </h6>
+        <h6>Selected 1/{{data.attribute.values.length}}</h6>
+    </div>
+    <div class="search-box"></div>
+    <div class="main-content">
+          <form [formGroup]="form">
+            <div *ngFor="let option of data.attribute.values">
+              <label>
+                <input
+                type="radio"
+                [formControlName]="'selectedOption'"
+                [value]="option.valueCode"
+                />
+                {{option.valueDisplay}}
+              </label>
+            </div>
+          </form>
+   </div>
+    <div class="footer">
+        <button class="done-btn" (click)="onClose()">Done</button>
+    </div>
+</div>
+
+
+ -->
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container class="product-dialog-container">
+      <div
+        class="cx-dialog-header modal-header"
+        *ngIf="product$ | async as product"
+      >
+        <div class="cx-dialog-title modal-title">
+          <span class="product-overview-title">
+            {{ 'waygate.selectCharacteristics' | cxTranslate }}
+          </span>
+          <h6 class="product-overview-name">{{ product.name }}</h6>
+        </div>
+        <button
+          type="button"
+          aria-label="Close"
+          class="close"
+          (click)="onClose()"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body product-dialog-body">
+        <div class="configure-product">
+          <div>
+            <div>
+              <div>
+                <strong
+                  >{{ data.attribute.label }} <mat-icon>info</mat-icon></strong
+                >
+                <p style="float: right">
+                  {{ 'waygate.selected' | cxTranslate }} 1/{{
+                    data.attribute.values.length
+                  }}
+                </p>
+              </div>
+              <form [formGroup]="form">
+                <div *ngFor="let option of data.attribute.values">
+                  <label style="margin-left: 7%; line-height: 30px">
+                    <input
+                      type="radio"
+                      [formControlName]="'selectedOption'"
+                      [value]="option.valueCode"
+                    />
+                    {{ option.valueDisplay }}
+                  </label>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total container -->
+      <div class="cx-dialog-actions">
+        <!-- Actions -->
+        <div class="cx-dialog-buttons">
+          <!-- <a class="bh-button motion--normal bh-button--type-secondary" (click)="close('update configuration')">Edit Configuration</a> -->
+          <button
+            class="bh-button motion--normal bh-button--type-primary done-button"
+            (click)="finishSelection()"
+          >
+            {{ 'waygate.done' | cxTranslate }}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- <ng-template #loading>
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          {{'buyCart.productConfiguration' | cxTranslate}}
+        </div>
+        <button _ngcontent-fit-c364="" type="button" aria-label="Close" class="close" (click)="close('configurator-modal-confirm')">
+          <i _ngcontent-fit-c364="" class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="cx-dialog-body modal-body">
+        <div class="cx-dialog-row">
+          <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+        </div>
+      </div>
+    </ng-template> -->
+  </div>
+</div>

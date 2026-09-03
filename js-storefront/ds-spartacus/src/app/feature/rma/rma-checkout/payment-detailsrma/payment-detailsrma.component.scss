@@ -1,0 +1,113 @@
+.shipping-checkout {
+  padding: 0px 15px;
+}
+.vs-text-field {
+  padding: 8px 0px;
+}
+
+.row p.shipping-checkout,
+.shipping-pay {
+  font-family: var(--font-family-decorative-medium);
+  font-weight: var(--font-weight-headline-large);
+  font-size: var(--font-base-font-size-14);
+  line-height: var(--font-base-line-height-20);
+  color: var(--color-text-common-primary);
+}
+
+.locationnamepayment {
+  background: var(--color-fill-common-primary);
+  padding: 16px 16px 16px 0px;
+  margin: 0px;
+  span.shipping-checkout {
+    margin-bottom: 8px;
+  }
+}
+
+:host::ng-deep {
+  .typography--label-small {
+    font-family: var(--font-base-font-family-body);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-12);
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.25px;
+    color: #1a2321;
+    margin-bottom: 7px;
+  }
+  .bh-text-input__required:after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .bh-text-input__input,
+  .bh-dropdown__input {
+    margin-top: 0px;
+  }
+  .bh-text-input__required:before {
+    color: var(--color-fill-cta-critical-default);
+    content: ' *';
+  }
+  .upload-files .upload-files--btn {
+    width: 170px !important;
+    height: 44px;
+    justify-content: space-evenly !important;
+  }
+}
+
+.row {
+  margin-bottom: 16px;
+}
+
+.row span.shipping-chekcout {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-base-font-size-14);
+  color: var(--color-text-common-primary);
+  line-height: var(--font-base-line-height-20);
+}
+
+.locationpay {
+  background: var(--color-base-teal-050);
+  padding: 16px 16px 16px 0px;
+  margin: 0px;
+}
+
+.locationpayfor {
+  padding-left: 15px;
+}
+
+.floatright {
+  margin-left: auto;
+  margin-top: -20px;
+}
+
+:host::ng-deep .progress-content[_ngcontent-nhs-c497] {
+  min-width: 22em;
+}
+
+.custom {
+  position: absolute;
+  color: var(--color-fill-cta-critical-default);
+}
+
+.custom-po {
+  position: absolute;
+  color: var(--color-fill-cta-critical-default);
+  margin-left: -8px;
+  margin-top: -3px;
+}
+
+.fileformat {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-title-small);
+  line-height: var(--font-line-height-avatar-xsmall);
+  letter-spacing: 0.25px;
+  color: var(--color-text-link-tertiary-default);
+}
+
+.textarea-label {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-size-body-small);
+  color: var(--color-text-common-primary);
+}

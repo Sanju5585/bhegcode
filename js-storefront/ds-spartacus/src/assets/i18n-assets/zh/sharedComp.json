@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "上传",
+    "dropfile": "将文件拖放到此处",
+    "uploadimage": "上传图片"
+  },
+  "datanotfound": {
+    "norecords": "没有找到记录"
+  },
+  "dateRange": {
+    "today": "今天",
+    "done": "完成",
+    "cancel": "取消",
+    "from": "从",
+    "to": "至",
+    "timeperiod": "选择的时间段：",
+    "selectDate": "选择日期"
+  },
+  "file-upload": {
+    "fileLengthError": "您可以上传最大{{maxLength}}文件。",
+    "maxSizeError": "总上传大小不能超过{{ maxSizeInMB}}{{ sizeUnit}}。",
+    "maxFileSizeError": "单个文件大小不能超过{{ maxFileSizeInMB}}{{ sizeUnit}}。",
+    "fileTypeError": "请选择有效的文件类型。 有效的文件类型是 - ",
+    "logicalError": "单个文件大小不能超过总文件大小",
+    "close": "关闭",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "申请访问此网址的权限",
+    "accountInfoNotExist": "您的账户信息不存在",
+    "pleaseClickOn": "请点击",
+    "ForrequestAccessToSite": "用于请求访问该站点。",
+    "accountDisabled": "帐户已禁用",
+    "accountHasBeenDisabled": "您的账户已禁用",
+    "speakToCustomerCare": "请联系客户服务代表或者 ",
+    "Again": "再次",
+    "activationPending": "激活待处理",
+    "needYourConfirmation": "我们收到了您的访问请求，但我们仍然需要您的确认回复。",
+    "confirmLinkInEmail": "请找到来自 Baker Hughes DS Store 的电子邮件，然后单击“确认”链接以完成您的请求。",
+    "requestPending": "请求待处理",
+    "pendingWithCustomerCare": "您的访问请求正在等待我们的客户服务团队处理。",
+    "processAndNotify": "我们将尽快处理并通知您。",
+    "accessRejected": "访问被拒绝",
+    "accessRequestDenied": "您的访问请求目前已被拒绝。",
+    "cannotReachYou": "通常，这是因为我们无法识别您现有的帐户或无法联系您来验证数据。  如果您需要讨论，请联系我们的客户服务部门，或在我们的网站反馈中回复。",
+    "accessDenied": "拒绝访问",
+    "notAssignedToReequiredGroup": "您的用户帐户未分配到登录服务器中所需的组。",
+    "accessPending": "访问待定",
+    "accessPendingWithUS": "您的访问请求正在处理中。",
+    "workingOnSameWillNotify": "我们正在努力解决这个问题，并将尽快通知您。",
+    "loginFail": "登录失败",
+    "donotHaveAccessToDSstore": "您无权访问 DS Store。",
+    "toRegister": " 来注册",
+    "loginDisabled": "登录已禁用",
+    "inactiveFor90Days": "由于超过 90 天没有活动，您的访问权限已被自动禁用。",
+    "Please": "请  ",
+    "reactivateYourAccount": " 重新激活您的帐户。",
+    "accountDisabledBYManager": "您的帐户已被您的经理禁用。 请查看您的电子邮件以获取更多详细信息"
+  }
+}

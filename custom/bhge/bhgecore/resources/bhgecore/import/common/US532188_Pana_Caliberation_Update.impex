@@ -1,0 +1,28 @@
+$contentCatalog = bhgeContentCatalog
+$contentCatalogName = bhgeContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+$siteResource = jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+INSERT_UPDATE Media; code[unique = true]; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime      ; $contentCV[unique = true]
+                   ; M                  ; $siteResource/calportal/probimages/M.png                                    ; image/png ;
+                   ; TF                 ; $siteResource/calportal/probimages/TF.jpg                                   ; image/jpg ;
+                   ; MIS                ; $siteResource/calportal/probimages/MIS.png                                  ; image/png ;
+                   ; HYGROPRO           ; $siteResource/calportal/probimages/HYGROPRO.png                             ; image/png ;
+                   ; VERIDRI            ; $siteResource/calportal/probimages/VeriDri.jpg                              ; image/jpg ;
+                   ; HYGRORTE           ; $siteResource/calportal/probimages/HYGRORTE.jpg                             ; image/jpg ;
+                   ; IQ.PROBE           ; $siteResource/calportal/probimages/IQ.probe.jpg                             ; image/jpg ;
+                   ; MISP2              ; $siteResource/calportal/probimages/MISP2.jpg                                ; image/jpg ;
+                   ; HYGRORTEII         ; $siteResource/calportal/probimages/HygroRTEII+.jpg                          ; image/jpg ;
+                   ; HygroPro XP        ; $siteResource/calportal/probimages/HYGROPRO+XP.jpg                          ; image/jpg ;
+
+INSERT_UPDATE SensorModelType; code[unique = true];sequenceNumber
+                             ; M ; 3
+                             ; TF ; 5
+#                             ; MIS ; 3
+#                             ; HYGROPRO ; 4
+                             ; VERIDRI ; 6
+                             ; HYGRORTE ; 1
+                             ; IQ.PROBE ; 2
+                             ; MISP2 ; 4
+                             ; HYGRORTEII ; 7
+                             ; HygroPro XP ; 8

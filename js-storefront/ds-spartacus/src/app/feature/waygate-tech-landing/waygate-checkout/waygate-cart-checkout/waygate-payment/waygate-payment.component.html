@@ -1,0 +1,255 @@
+<div class="waygate-payment-main mt-4" *ngIf="isQuote">
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="waygate-payment-label">
+      {{ 'titles.payment' | cxTranslate }}
+    </div>
+    <div class="payment mt-2">
+      <label class="terms-label">{{
+        'titles.payment-terms' | cxTranslate
+      }}</label>
+      <label *ngIf="!isCreditCardPayment" class="terms-val">
+        {{ paymentTerm }}</label
+      >
+      <label *ngIf="isCreditCardPayment" class="terms-val">
+        {{ 'titles.payTermCC01' | cxTranslate }}</label
+      >
+    </div>
+    <div *ngIf="showCreditCard" class="payment-mode-main mt-2 payment-type-section">
+      <div
+        *ngIf="!hidePurchaseOption"
+        [ngClass]="{ 'active-border': isCreditCardPayment === false }"
+        (click)="onPoSelect()"
+        class="select-payment-mode"
+      >
+        <i
+          class="material-icons"
+          [ngClass]="isCreditCardPayment === false ? 'active-icon' : ''"
+        >
+          account_balance
+        </i>
+        <label>{{ 'titles.purchaseOrder' | cxTranslate }}</label>
+      </div>
+      <div
+        [ngClass]="
+          !ccPaymentAvailable || !completeOrder
+            ? 'disable'
+            : isCreditCardPayment === true
+              ? 'active-border'
+              : ''
+        "
+        (click)="onCcPaymentSelect()"
+        class="select-payment-mode"
+      >
+        <i
+          class="material-icons"
+          [ngClass]="isCreditCardPayment === true ? 'active-icon' : ''"
+        >
+          credit_card
+        </i>
+        <div>{{ 'titles.creditCard' | cxTranslate }}</div>
+      </div>
+      <div class="vs-tooltip">
+        <p *ngIf="!ccPaymentAvailable">
+          {{ 'titles.ccPaymentNotAvailable' | cxTranslate }}
+        </p>
+        <p *ngIf="ccPaymentAvailable">
+          <ng-container *ngIf="maxCredLimit; else creditAvailable">
+            {{ 'titles.exceededCreditLimit' | cxTranslate }}
+          </ng-container>
+          <ng-template #creditAvailable>
+            {{ 'titles.creditCardShipments' | cxTranslate }}
+          </ng-template>
+        </p>
+      </div>
+    </div>
+    <div class="new-card-main mt-4" *ngIf="isCreditCardPayment">
+      <div class="main-card">
+        <div class="sub-card">
+          <div class="">
+            <bh-radio-button
+              (change)="selectNewCard()"
+              label=""
+              [attr.checked]="true"
+              value="''"
+              name="group"
+            ></bh-radio-button>
+          </div>
+          <div class="">{{ 'titles.paywithNewCard' | cxTranslate }}</div>
+        </div>
+        <div class="card-icon">
+          <bh-icon
+            icon="credit_card"
+            size="medium"
+            color="#1F6362"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="left"
+            matTooltip=""
+          ></bh-icon>
+        </div>
+      </div>
+      <div class="main-card" *ngFor="let card of savedPayCards">
+        <div class="sub-card">
+          <div class="">
+            <bh-radio-button
+              (change)="selectSavedCard(card)"
+              label=""
+              [attr.checked]="false"
+              value="''"
+              name="group"
+            ></bh-radio-button>
+          </div>
+          <div class="">**** **** **** {{ card.ccNumber }}</div>
+        </div>
+        <div class="card-validity">
+          <div class="valid-thru">
+            {{ 'titles.validThru' | cxTranslate }}
+            <b
+              >{{ card.ccValidTru?.substr(4, 2) }}/{{
+                card.ccValidTru?.substr(2, 2)
+              }}</b
+            >
+          </div>
+          <div class="" style="text-align: right">
+            <img
+              class="card-type-img"
+              src="../../../../../assets/img/visa.png"
+              alt="test"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style="color: var(--color-text-label-error)"
+      class="bh-text-input__required bh-form-message--error card-payment-xl"
+      *ngIf="isCreditCardPayment && this.showPayDetailsErr"
+    >
+      {{ 'errors.requiredFileds' | cxTranslate }}
+    </div>
+    <div class="card-payment-xl">
+      <div class="mt-2 " *ngIf="isCreditCardPayment === true">
+        {{ 'errors.agreeACK' | cxTranslate }}
+        <strong>
+          <a
+            rel="help"
+            href="https://www.fiserv.com/en/about-fiserv/privacy-notice.html"
+            target="_blank"
+          >
+            {{ 'errors.clickHere' | cxTranslate }}</a
+          >
+        </strong>
+      </div>
+      <div class="payment-warning mt-2" *ngIf="isCreditCardPayment === true">
+        <span class="charges-para">{{
+          'errors.additionalChargesApply' | cxTranslate
+        }}</span>
+      </div>
+      <div *ngIf="isCreditCardPayment" class="agree-check mt-2">
+        <bh-checkbox
+          class="float-left checkboxterms"
+          label=""
+          name="ccInfo"
+          [value]="ccInfo"
+          [attr.error]="error.ccInfo ? error.ccInfo : null"
+          (change)="onCheckCCInfo(ccInfo, 'ccInfo')"
+        ></bh-checkbox>
+        <span class="bh-text-input__required shipping-checkout">
+          {{ 'errors.yesiAgree' | cxTranslate }}
+        </span>
+      </div>
+      <div
+        class="bh-form-message--error"
+        *ngIf="isCreditCardPayment && this.error.ccInfo != ''"
+      >
+        {{ 'errors.ccErrInfo' | cxTranslate }}
+      </div>
+    </div>
+    <div class="mt-2 card-payment-xl" *ngIf="!isCreditCardPayment">
+      <span class="">{{ 'titles.accountPayment' | cxTranslate }}</span>
+    </div>
+    <div class="payment-mode-main mt-2">
+      <div class="test">
+        <label>
+          {{ 'labels.poNumber' | cxTranslate }}
+          <span *ngIf="!isCreditCardPayment && isPoRequired" class="required-asterisk">*</span>
+        </label>
+        <bh-text-input
+          type="text"
+          small
+          placeholder="{{ 'labels.enterValue' | cxTranslate }}"
+          [value]="PoNumber"
+          [message]="error.PoNumber"
+          [attr.error]="error.PoNumber ? error.PoNumber : null"
+          maxlength="35"
+          (keyup)="onChange($event, 'PoNumber')"
+        >
+        </bh-text-input>
+      </div>
+      
+      <ng-container *ngIf="isEndUserType">
+        <ng-container *ngIf="(this.isRmacart != 'RETURNS' && !isFilmCart) || (cartData?.isQuote && isFilmCart)">
+          <bh-text-input type="text" small label="{{ 'labels.endCustomerPO' | cxTranslate }}"
+            placeholder="{{ 'labels.endCustomerPO' | cxTranslate }}" maxlength="35" [value]="endPoNumber"
+            [message]="error.endPoNumber" [attr.error]="error.endPoNumber ? error.endPoNumber : null"
+            (keyup)="onChange($event, 'endPoNumber')">
+          </bh-text-input>
+        </ng-container>
+        <ng-container *ngIf="this.isRmacart == 'RETURNS'">
+          <bh-text-input type="text" small label="{{ 'labels.endCustomerPO' | cxTranslate }}"
+            placeholder="{{ 'labels.endCustomerPO' | cxTranslate }}" maxlength="16" [value]="endPoNumber"
+            [message]="error.endPoNumber" [attr.error]="error.endPoNumber ? error.endPoNumber : null"
+            (keyup)="onChange($event, 'endPoNumber')">
+          </bh-text-input>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="uploadattachment mt-3" *ngIf="!isCreditCardPayment && isRmacart == 'RETURNS'">
+      <label class="terms-label">
+        {{ 'labels.poUpload' | cxTranslate }}
+        <span *ngIf="!isCreditCardPayment && isPoRequired" class="required-asterisk">*</span>
+      </label>
+      <ds-file-upload
+        label="{{ 'labels.upload' | cxTranslate }}"
+        [maxLength]="5"
+        [maxSizeInMB]="10"
+        [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+        (selectedFiles)="onFileSelected($event)"
+        [showIcon]="true"
+        [icon]="'backup'"
+        [uploadId]="uploadId"
+      >
+        upload
+      </ds-file-upload>
+
+      <div class="file-list mt-2">
+        <ds-file-upload-progress
+          *ngFor="let file of files"
+          [layout]="layouts.LIST"
+          [deleteUrl]="deletUrl"
+          [file]="file"
+          (deletedFiles)="onFileDeleted($event)"
+          [uploadParams]="uploadParams"
+          [uploadUrl]="uploadUrl"
+          [showProgress]="true"
+        ></ds-file-upload-progress>
+      </div>
+
+      <div *ngIf="error.attachment" class="bh-form-message--error">
+        <i
+        class="typography--icon-small bh-form-message__icon err-msg-icon-css"
+        >error_outline</i
+      >
+        <span>{{ error.attachment }}</span>
+      </div>      
+
+      <span class="fileformat mt-1">{{ 'labels.fileFormat' | cxTranslate }}</span>
+    </div>
+  </form>
+</div>
+<div class="cx-dialog-body modal-body" *ngIf="loadingFlag">
+  <div class="cx-dialog-row">
+    <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+  </div>
+</div>

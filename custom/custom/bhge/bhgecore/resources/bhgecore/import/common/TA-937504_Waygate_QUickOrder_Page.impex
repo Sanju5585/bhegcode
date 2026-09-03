@@ -1,0 +1,32 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;WaygateQuickOrderPageTemplate;Waygate Quick Order Page Template;layout/landingLayout2Page;ContentPage
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)
+;;WaygateQuickOrderPage;Waygate Quick Order Page;WaygateQuickOrderPageTemplate;waygateQuickOrder
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WaygateQuickOrderPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;BodyContent;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WaygateQuickOrderPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WaygateQuickOrderPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-WaygateQuickOrderPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-WaygateQuickOrderPage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-WaygateQuickOrderPage;MiniCart;;MiniCartSlot;true
+;;Footer-WaygateQuickOrderPage;Footer;;FooterSlot;true
+;;HeaderLinks-WaygateQuickOrderPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-WaygateQuickOrderPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-WaygateQuickOrderPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-WaygateQuickOrderPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-WaygateQuickOrderPage;PlaceholderContentSlot;;PlaceholderContentSlot;true

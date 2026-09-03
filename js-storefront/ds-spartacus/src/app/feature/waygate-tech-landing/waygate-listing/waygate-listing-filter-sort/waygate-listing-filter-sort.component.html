@@ -1,0 +1,28 @@
+<div class="filter-select-main" [class.top-margin]="!toggleMarging">
+
+    <div class="sort-by-section">
+        <h4 class="sort-header">{{ 'waygate.listing.sortBy' | cxTranslate }} </h4>
+        <div class="sort-items">
+            <ng-container *ngFor="let filter of sortList">
+                <a [routerLink]="" (click)="getqueryParams(filter.code)" class="selected-filter" *ngIf="filter?.code != 'relevance' && filter?.code != 'name-asc' && filter?.code != 'name-desc'">
+                    {{ filter.name }}
+                </a>
+                <a [routerLink]="" (click)="getqueryParams(filter.code)" class="selected-filter" *ngIf="filter?.code != 'relevance' && filter?.code == 'name-asc' || filter?.code == 'name-desc'">
+                    {{ filter.name }} <mat-icon *ngIf="filter.code === 'name-desc'">arrow_downward</mat-icon>
+                    <mat-icon *ngIf="filter.code === 'name-asc'">arrow_upward</mat-icon>
+               
+                </a>
+            </ng-container>
+        </div>
+    </div>
+
+
+    <div class="waygate-facets">
+        <app-wayagte-product-type-facet></app-wayagte-product-type-facet>
+        <app-waygate-facets [facets]="
+            facetsList?.facets
+              | facetFilter: currentPriority : selectedFilters?.length
+          "></app-waygate-facets>
+    </div>
+
+</div>

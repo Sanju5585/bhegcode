@@ -1,0 +1,38 @@
+<div class="customer-account" *ngIf="soldAddress">
+  <div class="row">
+    <div class="row col-lg-6 col-md-6 col-sm-6">
+      <div class="shipping-checkout col-lg-12 col-md-12 col-sm-12 mb-1">
+        {{ 'titles.soldToAddress' | cxTranslate }}
+      </div>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12"
+        >{{ soldAddress?.firstName }}
+      </span>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.companyName }}
+      </span>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.line1 }}
+      </span>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.town }}
+      </span>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.region?.name }}
+      </span>
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.country?.name }}</span
+      >
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+        {{ soldAddress?.postalCode }}</span
+      >
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <span class="shipping-checkout csutomer_account">{{
+        'labels.customerAccountNumber' | cxTranslate
+      }}</span>
+      <div class="shipping-checkouaddress csutomer_account">
+        {{ customerAccount }}
+      </div>
+    </div>
+  </div>
+</div>

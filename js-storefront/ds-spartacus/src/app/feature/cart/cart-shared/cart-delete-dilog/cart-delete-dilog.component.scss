@@ -1,0 +1,21 @@
+@import '../../../../../styles/responsive_mixins.scss';
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .bh-button__container {
+    margin-right: 5px;
+  }
+}
+:host ::ng-deep bh-button {
+  .bh-button__label {
+    text-transform: uppercase;
+  }
+}
+:host ::ng-deep .cx-modal-content{
+  @include media-sm-lg{
+    width: 70%;
+    margin-left: 5%;
+  }
+}

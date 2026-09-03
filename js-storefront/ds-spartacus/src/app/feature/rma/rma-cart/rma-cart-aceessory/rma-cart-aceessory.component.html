@@ -1,0 +1,126 @@
+<div class="product-description pb-4">
+  <div class="main-product">
+    <div class="product-description--header">
+      <div class="product-description--header-title">
+        <div class="acc-title">
+          {{ 'rma-cart.accessoryTo' | cxTranslate }}
+        </div>
+        <div class="">
+          <span class="acc-title"
+            >{{ 'rma-cart.partNumber' | cxTranslate }}:</span
+          ><span class="part-details">{{ product.partNumber }}</span>
+        </div>
+      </div>
+      <div class="product-description--header-title">
+        <!-- <div
+          class="warning font-normal"
+          *ngIf="accessory.offeringList?.length <= 0"
+        >
+          <span class="material-icons"> info </span>
+          <span>{{ 'rma-cart.incomplete' | cxTranslate }}</span>
+        </div> -->
+
+        <div
+          class="green pointer"
+          (click)="editRma()"
+          [ngClass]="accessory.offeringList?.length <= 0 ? 'error-text' : ''"
+        >
+          <span class="material-icons-outlined complete-rma">edit</span>
+          <span *ngIf="accessory.offeringList?.length <= 0"
+            >{{ 'rma-cart.completeRmaForm' | cxTranslate }}
+          </span>
+          <span *ngIf="accessory.offeringList?.length > 0"
+            >{{ 'rma-cart.editRmaForm' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-info">
+      <div class="product-info-image">
+        <cx-media [container]="accessory?.product?.images"></cx-media>
+      </div>
+      <div class="product-info-col width-20em">
+        <!-- <div class="product-info-col-heading">
+          {{ 'rma-cart.product' | cxTranslate }}
+        </div> -->
+        <div class="product-info-col-heading">
+          {{ 'rma-cart.partNumber' | cxTranslate }}
+        </div>
+        <div class="part-number mb-0 bold">
+          <span>{{ accessory.partNumber }}</span>
+        </div>
+        <div class="product-info-col-heading mb-0 top-gap">
+          {{ 'rma-cart.partName' | cxTranslate }}
+        </div>
+        <div class="part-name bold">{{ accessory.partName }}</div>
+        <div class="product-info-col-heading top-gap">
+          {{ 'rma-cart.serialNumber' | cxTranslate }}
+        </div>
+        <div class="product-info-value">
+          {{ accessory?.serialNoList?.join(', ') }}
+        </div>
+      </div>
+      <div class="product-info-col flex-12">
+        <!-- <div class="product-info-col-heading">
+          {{ 'rma-cart.quantity' | cxTranslate }}
+        </div> -->
+        <div>{{ accessory.quantity }} {{ 'rma-cart.uom' | cxTranslate }}</div>
+      </div>
+      <div class="product-info-col flex-12">
+        <!-- <div class="product-info-col-heading">
+          {{ 'rma-cart.price' | cxTranslate }}
+        </div> -->
+        <div class="price-infos mt-0">
+          <div>{{ 'rma-cart.unitList' | cxTranslate }}</div>
+          <div
+            class="bold"
+            *ngIf="accessory?.total?.value > 0; else toBeQuoted"
+          >
+            {{ accessory?.total?.formattedValue }}
+          </div>
+        </div>
+        <div class="price-infos" *ngIf="accessory?.totalDiscount?.value > 0">
+          <div>{{ 'rma-cart.discounts' | cxTranslate }}</div>
+          <div class="bold">
+            {{ accessory?.totalDiscount?.formattedValue }}
+          </div>
+        </div>
+        <div class="price-infos">
+          <div>{{ 'rma-cart.unitSelling' | cxTranslate }}</div>
+          <div
+            class="bold"
+            *ngIf="accessory?.unitSelling?.value > 0; else toBeQuoted"
+          >
+            {{ accessory?.unitSelling?.formattedValue }}
+          </div>
+        </div>
+        <div class="price-infos">
+          <div>{{ 'rma-cart.netSelling' | cxTranslate }}</div>
+          <div
+            class="bold"
+            *ngIf="accessory?.totalPrice?.value > 0; else toBeQuoted"
+          >
+            {{ accessory?.totalPrice?.formattedValue }}
+          </div>
+        </div>
+      </div>
+      <div class="product-info-col">
+        <div class="product-info-col-heading">
+          {{ 'rma-cart.returnToLocation' | cxTranslate }}
+        </div>
+        <div class="bold">{{ accessory?.returnLocation }}</div>
+        <div class="product-info-col-heading top-gap">
+          {{ 'rma-cart.serviceRequired' | cxTranslate }}
+        </div>
+        <div class="bold">{{ accessory?.offeringList?.join(', ') }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #toBeQuoted>
+  <span class="to-be-quoted-text price-values bold">{{
+    'rma-cart.toBeQuoted' | cxTranslate
+  }}</span>
+</ng-template>

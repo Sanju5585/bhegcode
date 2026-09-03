@@ -1,0 +1,109 @@
+<ng-container *ngIf="iscontentAvailableFromSlot">
+  <ng-container *ngIf="!showLoading; else loading">
+    <div class="seperator-wrapper">
+      <div class="seperator"></div>
+    </div>
+    <div class="best-sellers">
+      <span class="best-sellers-label">{{
+        'waygate.bestSellersHeading' | cxTranslate
+      }}</span>
+    </div>
+    <div
+      class="category-2-product-tabs-container"
+      *ngIf="productList?.length > 0; else noDataFound"
+    >
+      <div
+        class="tab"
+        *ngIf="isProductsDisplayAsPerCategory && categories.length > 0"
+      >
+        <button
+          class="tablinks"
+          *ngFor="let cat of categories; let i = index"
+          (click)="tabClickForCategory(cat, i)"
+          [class.active]="cat === selectedCategory"
+        >
+          {{ dispalyCategoryFromUI(cat) }}
+        </button>
+      </div>
+      <div class="slider-wrapper">
+        <div
+          class="best-sellers-main"
+          (mouseover)="stopMovement()"
+          (mouseleave)="startMovement()"
+        >
+          <div class="cards" [ngClass]="{ 'w-100': totalPages === 1 }">
+            <div
+              class="overflow"
+              [ngStyle]="{ width: overflowWidth, left: pagePosition }"
+            >
+              <div
+                class="seller-card"
+                [ngStyle]="{ width: cardWidth }"
+                *ngFor="
+                  let item of getProductsBYCategory(selectedCategory);
+                  let i = index
+                "
+              >
+                <cx-media
+                  class="cx-product-image img-resize"
+                  [container]="item?.images?.PRIMARY"
+                  format="product"
+                  [alt]="item?.summary"
+                  [routerLink]="[
+                    '/',
+                    productLine,
+                    'product',
+                    item?.code,
+                    item?.name,
+                  ]"
+                  (click)="gtmSelectItemEvent(item)"
+                ></cx-media>
+                <div class="seller-card-body">
+                  <div class="seller-card-title" [innerHTML]="item?.name"></div>
+                  <div class="seller-card-code" [innerHTML]="item?.code"></div>
+                  <div
+                    class="seller-desc"
+                    [innerHTML]="item?.description"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="carousel-left material-icons"
+        *ngIf="totalCards > 2"
+        (click)="currentPage === 1 ? '' : currentPage != 1 && changePage(-1)"
+        [ngClass]="{ disabled: currentPage === 1 }"
+      >
+        navigate_before
+      </div>
+      <div
+        class="carousel-right material-icons"
+        *ngIf="totalCards > 2"
+        (click)="
+          currentPage === totalPages
+            ? ''
+            : currentPage != totalPages && changePage(+1)
+        "
+        [ngClass]="{ disabled: currentPage === totalPages }"
+      >
+        navigate_next
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #noDataFound>
+  <div *ngIf="!this.componentLoad" class="no-product-found">
+    <span class="best-sellers-label"
+      [innerHTML]="'waygate.notAbleToFind' | cxTranslate : { contactus: ('/' + (productLine$ | async) + '/contactus') }">
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

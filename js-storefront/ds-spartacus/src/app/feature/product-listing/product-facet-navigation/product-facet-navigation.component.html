@@ -1,0 +1,33 @@
+<ng-container>
+  <!-- *ngIf="activeFacetList.length > 0" -->
+  <div class="row left_nav_headings">
+    <div class="col-md-6 filterby">
+      {{ 'plp.filterBy' | cxTranslate }}
+      <div>
+        <button
+          #trigger
+          class="btn btn-action btn-block dialog-trigger"
+          (click)="launch()"
+        >
+          {{ 'plp.filterBy' | cxTranslate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-6 clear-all">
+      <div class="clear-all-link" (click)="clearAll()">
+        {{ 'plp.clearAll' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<cx-active-facets></cx-active-facets>
+
+<cx-facet-list
+  *ngIf="isOpen$ | async"
+  [isDialog]="hasTrigger"
+  (closeList)="close()"
+  [class.active]="isActive$ | async"
+  [class.dialog]="hasTrigger"
+></cx-facet-list>

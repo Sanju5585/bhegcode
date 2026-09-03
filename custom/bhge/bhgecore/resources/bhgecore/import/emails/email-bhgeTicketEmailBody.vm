@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style>
+	#templateHeader {
+  background-color: #3b73b9;
+}
+.headerContent {
+background-color:#3b73b9;
+  color: #ffffff;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 100%;
+  padding-top: 18px;
+  padding-right: 40px;
+  padding-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+}
+
+#templateHeader {
+  background-color: #3b73b9;
+}
+.headerContent.logo {
+  width: 96px;
+  padding-left: 22px;
+}
+.headerContent.title {
+  padding-top: 32px;
+  padding-left: 40px;
+}
+#headerLogo {
+  display: block;
+}
+
+ #headerLogo {
+    max-width: 48px !important;
+  }
+  .footerContent {
+   color: #868686;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 150%;
+  padding: 20px 15px;
+  text-align: left;
+  background:#D4D4D4;
+}
+.footerContent a,
+.footerContent a:link,
+.footerContent a:visited,
+.footerContent a .yshortcuts,
+.footerContent a span {
+  color: #868686;
+  font-weight: normal;
+  text-decoration: none;
+}
+.copyright {
+  padding-top: 0;
+}
+.cartTable th{
+       background:#414141;
+       padding:10px 5px;
+       text-align:left;
+       color:#fff;
+}
+.cartTable td{
+       padding:10px 5px;
+       vertical-align:top;
+}
+
+.footer_main
+{
+	display: block;
+    left: 0;
+    background: #ffffff;
+    color: #13294b;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    /* margin-top: 310px; */
+}
+.footer_bottom
+{
+	padding-top: 70px;
+}
+.footer_logo
+{
+    background-size: contain;
+	height: 50px;
+	float: left;
+}
+footer p {
+  font-size: 12px;
+}
+.copyright
+{
+	width: 358px;
+    height: 16px;
+    font-family: GEInspiraSans;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #13294b;
+    float: right;
+    padding-top: 15px;
+}
+ 
+.logo_email
+{
+  z-index: 990;
+  background-blend-mode: darker;
+  background-position:right center;
+   background-size:cover;
+  margin-left: 0px;
+  background-origin: content-box;
+  width: 100%;
+}
+
+.heightHeader{
+height:100px;
+}
+  </style>
+  <head/>
+  <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background-color: #e9e9e9;font-family:arial, sans-serif;color:#313337">
+    
+      <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" id="bodyTable"><tbody><tr><td align="center" id="bodyCell" style="font-size: 14px;font-family: arial, sans-serif;color: #313337">
+              <table border="0" cellpadding="0" cellspacing="0" style="width:600px;background-color: #ffffff;"><tr><td style="font-size: 14px;font-family: arial, sans-serif;color: #313337">
+      <!-- GE logo -->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                 <!-- <tr>
+                    <td style="font-family: arial, sans-serif;color: #313337;font-size: 14px">
+                      <img src="cid:cidForHomeImage" width="600" height="80"/>
+
+<img valign="bottom" width="96" src="${ctx.mediaBaseUrl}/_ui/addons/gestorefrontaddon/desktop/common/assets/images/logo_ge_header_bottom.png" id="headerLogo" />
+                    </td>
+                  </tr>-->
+				  
+				  <tr>
+				<!-- <td colspan="6" valign="bottom" class="logo_email">
+								<!--<img valign="bottom" width="96" src="${ctx.mediaBaseUrl}/_ui/addons/gestorefrontaddon/desktop/common/assets/images/logo_ge_header_bottom.png" id="headerLogo" />-->
+								<!--<img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/bg_emailer_old-re.jpg" border="0" class="img-responsive" width="75%"id="headerLogo"/>-->
+							</td>
+							<div class="logo_email">
+                        	<img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="100%"/>
+                        </div>
+				  </tr>
+				   
+                  </table><!-- Main content -->
+                    <table style="width:100%; color: #868686; padding-right:20px;padding-left:20px;">
+                      <tr><!-- <td width="20" style="font-family: arial, sans-serif;color: #313337"/> -->
+                        <td style="font-family: arial, sans-serif;color: #868686;width: 100%;font-size: 14px">
+                        <table style="width:97%">
+                          <tr>
+                            <td height="20" style="color: #05322b;font-family: 'Poppins','Lucida Sans';font-size: 14px">Dear Support Team,</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                    <td style="width: 100%;font-size: 14px">
+                      <table class="xls-table" style="border: 1px solid black;width: 100%;border-collapse: collapse;">
+
+                        <tr>
+                          <th style="text-align: center;background-color: #028474;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#FFFFFF;width:20%">Ticket Id</th>
+                         	<td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+						  		<div>
+						  			${ctx.data.ticketId}
+						  		</div>
+						  	</td>
+                        </tr>  
+                          
+                        <tr>
+                          <th style="text-align: center;background-color: #028474;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#FFFFFF;width:20%">Name</th>
+                         	<td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+						  		<div>
+						  			${ctx.data.name}
+						  		</div>
+						  	</td>
+                        </tr>  
+                        
+                        <tr>
+                          <th style="text-align: center;background-color: #028474;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#FFFFFF;width:20%">Email Id</th>
+                         	<td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+						  		<div>
+						  			${ctx.data.emailId}
+						  		</div>
+						  	</td>
+                        </tr>  
+                        
+                        <tr>
+                          <th style="text-align: center;background-color: #028474;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#FFFFFF;width:20%">Phone No</th>
+                         	<td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+						  		<div>
+						  			${ctx.data.phoneNo}
+						  		</div>
+						  	</td>
+                        </tr>  
+                        
+                        <tr>
+                          <th style="text-align: center;background-color: #028474;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#FFFFFF;width:20%">Message</th>
+                         	<td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+						  		<div>
+						  			${ctx.data.message}
+						  		</div>
+						  	</td>
+                        </tr>  
+                          
+                        
+
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="20" style="font-family: arial, sans-serif;color: #313337;font-size: 14px"/>
+                  </tr>
+				  
+				 
+                </table>
+               
+                </td>
+            </tr>
+          </table>
+        </td>
+      </tr></tbody></table>
+	  
+
+</body>
+</html>

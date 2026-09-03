@@ -1,0 +1,75 @@
+<!-- <div class="change-parent sidenav" id="mySidenav" (click)="close()"></div> -->
+<div class="change-cust-main" [class.top-margin]="!toggleMarging">
+  <div class="notification-content">
+    <div class="notification-header">
+      <h5 class="notification-title">
+        {{ 'waygate.notification.notificationTitle' | cxTranslate }}
+      </h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="notification-body">
+      <ng-container *ngIf="orderData && orderData.length > 0; else noData">
+        <ng-container *ngFor="let order of orderData">
+          <div class="notification-item d-flex">
+            <div
+              class="notification-icon"
+              [class.green-dot]="!order.isOrderRead"
+            >
+              <span class="material-icons-outlined bell-icon">
+                notification_important
+              </span>
+            </div>
+            <div class="notification-detail">
+              <div>
+                {{ 'waygate.notification.orderText' | cxTranslate }}
+                <span
+                  class="color-green order-number"
+                  (click)="readAction(order)"
+                  >{{ order?.orderId }}</span
+                >
+              </div>
+              <div *ngIf="order.status == 'Blocked' ">
+                {{ 'waygate.notification.orderStatus' | cxTranslate }}
+                <span class="order-status">{{
+                  'waygate.notification.orderStatusBlocked' | cxTranslate
+                }}</span>
+              </div>
+              <div *ngIf="order.status == 'Shipping Date changed' ">
+                {{ 'waygate.notification.orderStatus' | cxTranslate }}
+                <span class="order-status">{{
+                  'waygate.notification.shipDateChanged' | cxTranslate
+                }}</span>
+                </div>
+                <div  *ngIf="order.status == 'Released' ">
+                  {{ 'waygate.notification.orderStatus' | cxTranslate }}
+                  <span class="order-status">{{
+                    'waygate.notification.orderStatusBlockReleased'
+                      | cxTranslate
+                  }}</span>
+                </div>
+              <div class="mt-1">
+                {{ order?.updatedDate }}
+              </div>
+              <!-- 05/09/2022 | 15:29:35 -->
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <!--  end of notification-item -->
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="no-notification-found">
+    <h4>{{ 'waygate.notification.noNotificationFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>

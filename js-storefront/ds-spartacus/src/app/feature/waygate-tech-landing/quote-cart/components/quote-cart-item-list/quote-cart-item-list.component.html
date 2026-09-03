@@ -1,0 +1,101 @@
+<div class="waygate-cart-list-container">
+  <div class="waygate-cart-item-list">
+    <div class="waygate-cart-selectall-checkbox">
+      <div *ngIf="cart$ | async as cart" class="waygate-endcustomer-address">
+        <ng-container
+          *ngIf="
+            (cart?.cartType == cartType.Typ1 ||
+              cart?.cartType == cartType.Typ3) &&
+            isEndUserType
+          "
+        >
+          <app-waygate-end-customer-address
+            id="endUserDetails"
+            [endUserAddress]="endUserAddress"
+            [cartType]="cartType"
+            [cart$]="cart$"
+            (checkEnduserAddress)="checkEnduserAddress($event)"
+            [userType]="userType"
+          >
+          </app-waygate-end-customer-address>
+        </ng-container>
+      </div>
+      <hr class="horizontal-line" />
+      <div class="waygate-cart-actions">
+        <div class="input">
+          <input
+            class="float-left ml-2"
+            id="check-all"
+            type="checkbox"
+            value="true"
+            name="check-all"
+            [(ngModel)]="checkAll"
+            (click)="checkAllEntries($event)"
+          />
+        </div>
+        <div class="total-line-items">
+          <ng-container *ngIf="selectedItems?.length; else allItem">
+            {{
+              'buyCart.itemsSelectedSummary' | cxTranslate : {
+                selected: selectedItems?.length,
+                total: items.length
+              }
+            }}
+          </ng-container>          
+          <ng-template #allItem
+            >{{ items.length }} {{ 'quoteCart.items' | cxTranslate }}
+          </ng-template>
+        </div>
+        <div class="product-remove">
+          <i class="material-icons-outlined"> delete </i>
+          <a class="action-links" (click)="removeDialog()">
+            {{ 'quoteCart.remove' | cxTranslate }}
+          </a>
+        </div>
+      </div>
+      <hr class="horizontal-line" />
+    </div>
+
+    <div class="waygate-cart-body">
+      <div class="cx-item-list-row">
+        <div
+          class="cx-item-list-row mt-4"
+          *ngFor="let item of items; let i = index"
+        >
+          <div
+            class="cx-item-list-items"
+            *ngIf="getControl(item) | async as control"
+            [class.is-changed]="control.get('quantity').dirty"
+          >
+            <ds-quote-cart-item
+              [item]="item"
+              [entryNum]="i"
+              [totalEntries]="items.length"
+              [checkAll]="checkAll"
+              #cartEntry
+              (selectedEntry)="onEntryCheck($event)"
+              [cart]="cart"
+              [readonly]="readonly"
+              [options]="options"
+              [quantityControl]="control.get('quantity')"
+              [productOpen]="showToggle"
+              [userType]="userType"
+            ></ds-quote-cart-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="waygate-cart-summary">
+    <ds-quote-cart-summary
+      [cart$]="cart$"
+      [userType]="userType"
+      [cart]="cart"
+      [items]="items"
+      (scrollToEntry)="scrollCartEntryIntoView($event)"
+      [userType]="userType"
+      [quoteType]="quoteType"
+      [profileType]="profileType"
+    ></ds-quote-cart-summary>
+  </div>
+</div>

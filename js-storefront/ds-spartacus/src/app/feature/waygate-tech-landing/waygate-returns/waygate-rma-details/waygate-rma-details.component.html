@@ -1,0 +1,591 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-returns-details-container">
+    <div class="waygate-returns-details-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'waygate-returns.myReturns' | cxTranslate }}</h1>
+    </div>
+    <div class="error-displays">
+      <div class="warning" *ngIf="errorResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'rma-tracking.inquiryisFailed' | cxTranslate }}
+        <a routerLink="/contactus">{{ 'rma-tracking.here' | cxTranslate }}</a
+        >.
+      </div>
+      <div class="success" *ngIf="successResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'rma-tracking.inquirySubmit' | cxTranslate }}
+      </div>
+    </div>
+    <div class="waygate-details-actions">
+      <div class="left-actions"></div>
+      <div class="right-actions">
+        <div class="back-click" (click)="backLink()">
+          <span class="material-icons"> chevron_left </span> Back
+        </div>
+        <div class="waygate-pdp-action-button">
+          <div
+            class="waygate-add-to-cart"
+            *ngIf="rmaTrackingResponse.rmaStatus == 'COMPLETE' && isSalesAreaMatching(rmaTrackingResponse)"
+            (click)="selectRepeatRma(rmaTrackingResponse)"
+          >
+            <img src="../../../../../assets/img/shoppingCartWaygate.svg" />
+            {{ 'rma-tracking.reOrderRMA' | cxTranslate }}
+          </div>
+          <div (click)="shareDetail()" class="Share-btn">
+            <span class="material-icons"> share </span>Share
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="displayContentsOnLoad; else loading">
+      <ng-container *ngIf="rmaTrackingResponse">
+        <div class="waygate-returns-details-body">
+          <div class="returns-details-body-tabs">
+            <div
+              class="returns-details-tab"
+              [class.active]="state == 'summary'"
+              (click)="changeState('summary')"
+            >
+              <span class="material-icons"> assignment </span>
+              {{ 'waygate-returns.orderSummryBtn' | cxTranslate }}
+            </div>
+            <ng-container>
+              <div
+                class="returns-details-tab"
+                [class.active]="state == 'documents'"
+                (click)="changeState('documents')"
+              >
+                <span class="material-icons"> description </span>
+                {{ 'waygate-returns.associateDocument' | cxTranslate }}
+              </div>
+              <div
+                class="returns-details-tab"
+                [class.active]="state == 'inquiry'"
+                (click)="changeState('inquiry')"
+              >
+                <span class="material-icons"> rate_review </span>
+                {{ 'waygate-returns.orderEnquiryBtn' | cxTranslate }}
+              </div>
+            </ng-container>
+
+            <div
+              class="returns-details-tab"
+              [class.active]="state == 'items'"
+              (click)="changeState('items')"
+            >
+              <span class="material-icons"> category </span>
+              {{ 'waygate-returns.lineItemBtn' | cxTranslate }}
+            </div>
+          </div>
+
+          <div class="returns-details-body-details">
+            <div
+              class="returns-status-blocked-container"
+              *ngIf="rmaTrackingResponse?.rmaStatus == 'Blocked'"
+            >
+              <p class="mb-2">
+                <span class="material-icons"> security </span>
+                <span [innerHTML]="'rma-tracking.orderBlockedReasonTxt' | cxTranslate"></span>
+              </p>
+              <ul class="mb-2 pl-3">
+                <li>{{ rmaTrackingResponse?.blkText }}</li>
+              </ul>
+              <p 
+                class="mb-2"
+                [innerHTML]="'waygate-order.orderContactCustomerCare' | cxTranslate"
+              >
+              </p>
+            </div>
+
+            <div class="status-container-header">
+              <div class="header-left-part">
+                <h5>
+                  {{ 'waygate-returns.rmaNO' | cxTranslate }}
+                  {{ rmaTrackingResponse?.rmaNumber }}
+                </h5>
+                <div class="header-details">
+                  <!-- <div *ngIf="orderDetails?.lineData?.length > 0">
+                      {{ orderDetails?.lineData?.length }} Items
+                    </div>
+                    <div class="verts" *ngIf="orderDetails?.lineData?.length > 0">
+                      |
+                    </div> -->
+                  <div>
+                    {{ rmaTrackingResponse?.itemCount }}
+                    <span *ngIf="rmaTrackingResponse?.itemCount > 1">
+                      {{ 'waygate-returns.itemCounts' | cxTranslate }}
+                    </span>
+                    <span *ngIf="rmaTrackingResponse?.itemCount <= 1">
+                      {{ 'waygate-returns.itemCount' | cxTranslate }}
+                    </span>
+                  </div>
+                  <div class="verts">|</div>
+                  <div>
+                    {{ 'waygate-returns.CreatedDateHeader' | cxTranslate }}
+                    {{ rmaTrackingResponse?.rmaCreatedDate }}
+                  </div>
+                  <div class="verts">|</div>
+                  <div>
+                    {{ 'waygate-returns.CreatedByHeader' | cxTranslate }}
+                    {{ rmaTrackingResponse?.createdBy }}
+                  </div>
+                </div>
+              </div>
+              <div class="header-right-part">
+                <div
+                  class="status"
+                  [class]="getClass(rmaTrackingResponse?.rmaStatus)"
+                >
+                  {{ toCamelCase(rmaTrackingResponse?.rmaStatus) }}
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="state == 'summary'">
+              <div class="returns-status-container">
+                <div class="status-container-body">
+                  <ul class="progressbar">
+                    <li
+                      [class.active]="
+                        activateState(getClass(rmaTrackingResponse?.rmaStatus), 1)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/notebook.svg"
+                          alt=""
+                        />
+                        <div>
+                          {{ 'waygate-returns.rmaSubmitted' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(rmaTrackingResponse?.rmaStatus), 2)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/AwaitingGoods.svg"
+                          alt=""
+                        />
+                        <div>
+                          {{ 'waygate-returns.awaitingGoods' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [ngClass]="{
+                          active: activateState(
+                            getClass(rmaTrackingResponse?.rmaStatus),
+                            3
+                          ),
+                          blocked: rmaTrackingResponse?.rmaStatus == 'Blocked',
+                        }"
+                    >
+                      <div class="icons-tile">
+                        <ng-container
+                          *ngIf="
+                            rmaTrackingResponse?.rmaStatus != 'Blocked';
+                            else blockedImage
+                          "
+                        >
+                          <img src="../../../../../assets/img/package.svg" alt=""
+                        /></ng-container>
+                        <ng-template #blockedImage>
+                          <img
+                            src="../../../../../assets/img/package-blocked.svg"
+                            alt=""
+                          />
+                        </ng-template>
+                        <div>
+                          {{
+                            rmaTrackingResponse?.rmaStatus == 'Blocked'
+                              ? ('waygate-order.orderStatusBlocked' | cxTranslate)
+                              : ('waygate-returns.evaluating' | cxTranslate)
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(rmaTrackingResponse?.rmaStatus), 4)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/Processing.svg"
+                          alt=""
+                        />
+                        <div>
+                          {{ 'waygate-returns.processing' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(rmaTrackingResponse?.rmaStatus), 5)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/shipping.svg"
+                          alt=""
+                        />
+                        <div>{{ 'waygate-returns.shipped' | cxTranslate }}</div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(rmaTrackingResponse?.rmaStatus), 6)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/check_circle-outline-24px.svg"
+                          alt=""
+                        />
+                        <div>
+                          {{ 'waygate-returns.Completed' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ng-container *ngIf="user$ | async">
+                <div class="customer-details">
+                  <!-- <h4>{{ 'waygate-order.ctmrDetailsHeader' | cxTranslate }}</h4> -->
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.ctmrAccNoHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.customerAcct }}<br />
+                          <!-- {{ rmaTrackingResponse?.name }} -->
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-returns.orderNum' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.salesOrderNumber }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.totalNetPriceHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.currency }}
+                          {{ rmaTrackingResponse?.netPrice }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.incoTermsHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.incoterms }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{'rma-tracking.orderShiptypeHdr' | cxTranslate}}:
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.shippingMethod }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-returns.paymentterm' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.paymentTerm }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-returns.salesAreaHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ rmaTrackingResponse?.salesArea }}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- since we are not receiving correct shipment method details from ERP commenting this field -->
+                    <!-- <div
+                        class="details-line"
+                        *ngIf="orderDetails?.lineData[0]?.courier"
+                      >
+                        <div>
+                          <div class="details-label">{{ 'waygate-order.shipmentMethodHeader' | cxTranslate }}</div>
+                          <div class="details-value">
+                            {{ orderDetails?.lineData[0]?.courier || '-' }}
+                          </div>
+                        </div>
+                      </div> -->
+                  </div>
+                </div>
+                <div class="customer-details-address">
+                  <h4>{{ 'waygate-order.addressDetails' | cxTranslate }}</h4>
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div *ngIf="rmaTrackingResponse?.shippingAddress">
+                        <div class="details-label">
+                          {{ 'waygate-returns.shipTo' | cxTranslate }}
+                        </div>
+                        <div
+                          class="details-value"
+                          [innerHTML]="rmaTrackingResponse?.shippingAddress"
+                        ></div>
+                      </div>
+                      <div *ngIf="!rmaTrackingResponse?.shippingAddress">
+                        <div class="details-label">
+                          {{ 'waygate-order.soldTo' | cxTranslate }}
+                        </div>
+                        <div class="na">
+                          {{ 'waygate-order.na' | cxTranslate }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-returns.EndCustomer' | cxTranslate }}
+                        </div>
+                        <div
+                          class="details-value"
+                          [innerHTML]="rmaTrackingResponse?.endUser"
+                        ></div>
+                      </div>
+                      <!-- <div>
+                          <div class="details-label">End Customer Address:</div>
+                          <div
+                            class="details-value"
+                            [innerHTML]="orderDetails?.headerShippingAddress"
+                          ></div>
+                        </div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="customer-details">
+                    <h4>{{ 'waygate-order.paymentDetails' | cxTranslate }}</h4>
+                    <div class="customer-details-box">
+                      <div class="details-line">
+                        <div>
+                          <div class="details-label">
+                            {{ 'waygate-order.paymentType' | cxTranslate }}
+                          </div>
+                          <div class="details-value">
+                            <ng-container
+                              *ngIf="
+                                orderDetails?.isCreditCardOrder;
+                                else poOrder
+                              "
+                            >
+                              <div>
+                                {{
+                                  'waygate-order.paymentTypeCreditCardOrder'
+                                    | cxTranslate
+                                }}
+                              </div>
+                            </ng-container>
+                            <ng-template #poOrder>
+                              <div>
+                                {{
+                                  'waygate-order.paymentTypePurchaseOrder'
+                                    | cxTranslate
+                                }}
+                              </div>
+                            </ng-template>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="details-label">
+                            {{ 'waygate-order.poNumberHeader' | cxTranslate }}
+                          </div>
+                          <div class="details-value">
+                            {{ rmaTrackingResponse?.purchaseOrderNumber || 'N/A' }}
+                          </div>
+                        </div>
+                        <div>
+                          <div class="details-label">
+                            {{ 'waygate-order.poDateHeader' | cxTranslate }}
+                          </div>
+                          <div class="details-value">
+                            {{ rmaTrackingResponse?.purchaseOrderDate }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="details-line">
+                        <div>
+                          <div class="details-label">
+                            {{ 'waygate-order.paymentTerms' | cxTranslate }}
+                          </div>
+                          <div class="details-value">
+                            {{ rmaTrackingResponse?.paymentTerm }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="state == 'summary' || state == 'items'">
+              <div class="items-container">
+                <h4 *ngIf="state == 'summary'">
+                  {{
+                    'waygate-order.orderedCount'
+                      | cxTranslate
+                        : {
+                            count:
+                              rmaTrackingResponse?.rmaItemStatusDetails?.length
+                          }
+                  }}
+                </h4>
+                <div class="line-header">
+                  {{ 'waygate-order.itemDetails' | cxTranslate }}
+                </div>
+                <ng-container
+                  *ngFor="
+                    let product of rmaTrackingResponse?.rmaItemStatusDetails; let i = index
+                  "
+                >
+                  <app-waygate-rma-product
+                    [product]="product"
+                    [userType]="userType"
+                    [indexNo]="i"
+                  ></app-waygate-rma-product>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="state == 'inquiry'">
+              <div class="inquiry-container">
+                <div class="documents-header">
+                  <h4>{{ 'waygate-order.orderInquiryBtn' | cxTranslate }}</h4>
+                </div>
+                <form [formGroup]="inquiryForm" class="inquiry-details">
+                  <div class="title-lable">
+                    {{ 'waygate-order.inquiryType' | cxTranslate }}
+                  </div>
+                  <div class="inquiry-dropdown">
+                    <ng-select
+                      formControlName="enquiryType"
+                      id="enquiryType"
+                      placeholder="{{ 'waygate-order.select' | cxTranslate }}"
+                      [searchable]="false"
+                      [clearable]="false"
+                    >
+                      <ng-option
+                        *ngFor="let orderInq of orderInquiries; let i = index"
+                        [value]="orderInq.code"
+                      >
+                        {{ orderInq.name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="title-lable">
+                    {{ 'waygate-order.description' | cxTranslate }}
+                  </div>
+                  <textarea
+                    name=""
+                    id=""
+                    cols="60"
+                    rows="10"
+                    formControlName="inquiryDetails"
+                    placeholder="{{
+                      'waygate-order.orderRelatedInquiry' | cxTranslate
+                    }}"
+                  >
+                  </textarea>
+                </form>
+                <div class="inquiry-form-actions">
+                  <button
+                    class="action"
+                    (click)="
+                      submitInquiry(
+                        rmaTrackingResponse.purchaseOrderNumber,
+                        rmaTrackingResponse.purchaseOrderDate
+                      )
+                    "
+                    [disabled]="!inquiryForm.valid || disableButton"
+                  >
+                    {{ 'waygate-order.saveChanges' | cxTranslate }}
+                  </button>
+                  <button class="discard" (click)="clearForm()">
+                    {{ 'waygate-order.discard' | cxTranslate }}
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="state == 'documents'">
+              <ng-container>
+                <ng-container *ngIf="fullDocumentsResponse; else noDocuments">
+                  <div class="associated-doc-container">
+                    <div class="documents-header">
+                      <h4>
+                        {{
+                          'waygate-order.documentCount'
+                            | cxTranslate
+                              : { count: fullDocumentsResponse?.length }
+                        }}
+                      </h4>
+                    </div>
+                    <ng-container *ngFor="let document of fullDocumentsResponse">
+                      <div class="document-row">
+                        <span>{{ document.fileName }}</span>
+                        <a
+                          class="material-icons"
+                          (click)="
+                            downloadDocument(
+                              rmaTrackingResponse?.rmaNumber,
+                              document?.fileName,
+                              document?.fileType,
+                              rmaTrackingResponse?.customerAcct
+                            )
+                          "
+                        >
+                          save_alt
+                        </a>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'waygate-order.orderNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #noDocuments>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'waygate-order.documentNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+
+<div class="cx-spinner repeat-order" *ngIf="showRepeatOrderLoader">
+  <cx-spinner></cx-spinner>
+</div>

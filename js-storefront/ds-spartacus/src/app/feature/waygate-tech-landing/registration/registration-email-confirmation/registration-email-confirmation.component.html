@@ -1,0 +1,67 @@
+<div class="container-main">
+  <!-- class="container-fluid" -->
+  <header class="header">
+    <div class="logo" (click)="logoClick()">
+      <img
+        src="../../../../../assets/img/blacktext_logo.svg"
+        alt="Baker Hughes Logo"
+      />
+    </div>
+    <nav class="right-section">
+      <div class="language-selector">
+        <!-- <span>
+          <img src="../../../../../assets/img/glob.svg" alt="select language" />
+        </span> -->
+        <!-- <bh-dropdown
+            class="langDD nav-content link-anchor"
+            isFluid="true"
+            isSmall="true"
+            menuWidth="fluid"
+            [style.width]="ddWidth"
+            unselectable="false"
+            [menuItems]="props"
+            [value]="currentLanguage"
+            (selected)="onLanguageChange($event)"
+          ></bh-dropdown> -->
+      </div>
+      <a href="/login" class="login">
+        <span class="login-icon">
+          <img src="../../../../../assets/img/login.svg" alt="login" />
+        </span>
+        <span class="typography12">{{ 'registration.login' | cxTranslate }}</span>
+      </a>
+    </nav>
+  </header>
+  <ng-container *ngIf="!showloader; else loading">
+    <div class="row reg-success">
+      <section class="msg-section">
+        <h3>
+          <img
+            class="img-icon"
+            src="../../../../../assets/img/BakerHughes_Icons_Email.png"
+          />{{ title }}
+        </h3>
+
+        <p>{{ subtitle }}</p>
+      </section>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+  <footer>
+    <div class="footer-left">©2024 {{ 'registration.bakerHughesCompany' | cxTranslate }} </div>
+    <div class="footer-right">
+      <a href="https://www.bakerhughes.com/company/about-us" target="_blank"
+        >{{ 'registration.aboutUs' | cxTranslate }}</a
+      >
+      <a (click)="onClickCookie($event)" target="_blank" class="cursor"
+        >{{ 'registration.cookies' | cxTranslate }}</a
+      >
+      <a (click)="openTerms()" target="_blank" class="cursor">{{ 'registration.termsOfUse' | cxTranslate }}</a>
+      <a href="https://www.bakerhughes.com/privacy" target="_blank">{{ 'registration.privacy' | cxTranslate }}</a>
+    </div>
+  </footer>
+</div>

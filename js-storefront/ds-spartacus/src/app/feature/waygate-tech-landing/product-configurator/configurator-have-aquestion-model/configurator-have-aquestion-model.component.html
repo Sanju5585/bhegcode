@@ -1,0 +1,138 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container class="product-dialog-container">
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          <h4 class="have-a-question-title">
+            {{ 'waygate.haveAQuestion' | cxTranslate }}
+          </h4>
+        </div>
+        <button
+          type="button"
+          aria-label="Close"
+          class="close"
+          (click)="close('haveAquestion-modal-confirm')"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <form [formGroup]="createForm">
+        <!-- Modal Body -->
+        <div class="modal-body product-dialog-body">
+          <div class="configure-product-help">
+            <div>
+              <label>
+                <span class="product-contact-label">
+                  {{ 'waygate.connectWithUs' | cxTranslate }}
+                </span>
+              </label>
+              <a
+                class="contact-link action-links"
+                href="{{ customerContact }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ customerContact }}</a
+              >
+            </div>
+            <br />
+            <div class="row align-items-center">
+              <div class="col dropdown-divider"></div>
+              <div class="col-auto">{{ 'waygate.or' | cxTranslate }}</div>
+              <div class="col dropdown-divider"></div>
+            </div>
+            <br />
+            <div class="form-group">
+              <span class="product-contact-label">{{
+                'waygate.contactedByExpert' | cxTranslate
+              }}</span>
+              <br />
+              <div class="form-control-wrapper">
+                <label>
+                  <span class="config-product-name required">{{
+                    'waygate.product' | cxTranslate
+                  }}</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productName"
+                  value="{{ productname }}"
+                  readonly
+                />
+              </div>
+              <div class="form-control-wrapper">
+                <label>
+                  <span class="config-product-name" required
+                    >{{ 'waygate.describeYourQuestion' | cxTranslate }}
+                  </span>
+                  <span class="config-product-desc">*</span>
+                  <textarea
+                    class="form-control question-element"
+                    [(ngModel)]="custQuerry"
+                    name="customerQuery"
+                    formControlName="customerQuery"
+                    maxlengh="500"
+                    placeholder="{{ 'waygate.enterYourQuestion' | cxTranslate }}..."
+                    required
+                  ></textarea>
+                  <span
+                    class="errorMessage customer-query-field-error"
+                    *ngIf="showQueryError"
+                    >{{ nameErrorMessage }}</span
+                  >
+                </label>
+              </div>
+            </div>
+            <div class="mt-3">
+              <span class="attachment-label">{{
+                'labels.additionalDocuments' | cxTranslate
+              }}</span>
+              <div class="mt-2">
+                <ds-file-upload
+                  label="{{ 'waygate.dragAndDropTxt' | cxTranslate }}"
+                  [maxLength]="1"
+                  [maxSizeInMB]="2"
+                  [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                  (selectedFiles)="selectedFiles($event)"
+                  [showIcon]="showIcon"
+                  [icon]="'cloud_upload'"
+                  isDragDrop="true"
+                  >upload</ds-file-upload
+                >
+              </div>
+
+              <div class="file-list">
+                <ds-file-upload-progress
+                  *ngFor="let file of files"
+                  [layout]="layouts.LIST"
+                  [file]="file"
+                  (deletedFiles)="deletedFiles($event)"
+                ></ds-file-upload-progress>
+              </div>
+              <span class="fileformat mt-1"
+                >{{ 'waygate.fileFormat' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total container -->
+        <div class="cx-dialog-actions">
+          <!-- Actions -->
+          <div class="cx-dialog-buttons">
+            <bh-button
+              [type]="'secondary'"
+              label="{{ 'waygate.cancel' | cxTranslate }}"
+              (click)="close('haveAquestion-modal-confirm')"
+            ></bh-button>
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'waygate.submit' | cxTranslate }}"
+              (click)="onSubmit()"
+            ></bh-button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+</div>

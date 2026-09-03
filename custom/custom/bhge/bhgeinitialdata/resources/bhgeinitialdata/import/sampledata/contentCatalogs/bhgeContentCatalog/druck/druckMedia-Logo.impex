@@ -1,0 +1,36 @@
+# Macros / Replacement Parameter definitions
+$contentCatalog=bhgeContentCatalog
+$erp_catalogVersion = catalogversion(catalog(id[default=ERP_CLASSIFICATION_HYB]),version[default='ERP_IMPORT'])
+$thumbnail=thumbnail($erp_catalogVersion,code)
+$picture=picture($erp_catalogVersion,code)
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$lang=en
+
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$variable1=$config-ds.bentlyNeveda.png.path
+$variable2=$config-ds.druckLogo.png.path
+$variable3=$config-ds.panametricsLogo.png.path
+$variable4=$config-ds.reuterStokes.png.path
+
+#images for categories
+INSERT_UPDATE Media    ; code[unique=true]  ; realfilename  ;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/png'];$erp_catalogVersion;folder(qualifier)[default='images']
+;bentlyNevedalogo;bentlyNeveda.png;$siteResource/druck/bentlyNeveda.png;image/png;;
+;drucklogo;druckLogo.png;$siteResource/druck/druckLogo.png;image/png;;
+;panametricslogo;panametricsLogo.png;$siteResource/druck/panametricsLogo.png;image/png;;
+;reuterStokeslogo;reuterStokes.png;$siteResource/druck/reuterStokes.png;image/png;;
+
+UPDATE Category;code[unique=true];$thumbnail;$picture
+ClassificationClass;ECOM_LVL1_00000006;bentlyNevedalogo;bentlyNevedalogo
+ClassificationClass;ECOM_LVL1_00000008;drucklogo;drucklogo
+ClassificationClass;ECOM_LVL1_00000002;panametricslogo;panametricslogo
+ClassificationClass;ECOM_LVL1_00000009;reuterStokeslogo;reuterStokeslogo
+ClassificationClass;ECOM_LVL2_00000009;panametricslogo;panametricslogo
+ClassificationClass;ECOM_LVL2_00000011;panametricslogo;panametricslogo
+ClassificationClass;ECOM_LVL2_00000010;panametricslogo;panametricslogo
+ClassificationClass;ECOM_LVL2_00000005;drucklogo;drucklogo
+ClassificationClass;ECOM_LVL2_00000023;bentlyNevedalogo;bentlyNevedalogo
+ClassificationClass;ECOM_LVL2_00000020;bentlyNevedalogo;bentlyNevedalogo
+ClassificationClass;ECOM_LVL2_00000021;bentlyNevedalogo;bentlyNevedalogo
+ClassificationClass;ECOM_LVL2_00000022;bentlyNevedalogo;bentlyNevedalogo

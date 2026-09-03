@@ -1,0 +1,40 @@
+{
+  "jobRoles": [
+    {
+      "jobRoleId": "1",
+      "name": "Information Technology"
+    },
+    {
+      "jobRoleId": "2",
+      "name": "Engineering/Technical"
+    },
+    {
+      "jobRoleId": "3",
+      "name": "General Management"
+    },
+    {
+      "jobRoleId": "4",
+      "name": "Maintenance/Reliability"
+    },
+    {
+      "jobRoleId": "5",
+      "name": "Operations"
+    },
+    {
+      "jobRoleId": "6",
+      "name": "Purchasing"
+    },
+    {
+      "jobRoleId": "7",
+      "name": "Student/Applicant"
+    },
+    {
+      "jobRoleId": "8",
+      "name": "Supplier"
+    },
+    {
+      "jobRoleId": "9",
+      "name": "Other"
+    }
+  ]
+}

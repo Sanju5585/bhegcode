@@ -1,0 +1,71 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span *ngIf="deleteCart && !guestQuote">{{
+          'buyCart.clearall' | cxTranslate
+        }}</span>
+        <span *ngIf="!deleteCart && !guestQuote">{{
+          'buyCart.delete' | cxTranslate
+        }}</span>
+        <span *ngIf="guestQuote">{{
+          'buyCart.quoteAlertHeading' | cxTranslate
+        }}</span>
+      </div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal('close')"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p *ngIf="deleteCart && !guestQuote">
+            {{
+              'buyCart.confirmclearcart' | cxTranslate: { cartName: cartName }
+            }}
+          </p>
+
+          <p *ngIf="!deleteCart && !guestQuote">
+            {{ 'buyCart.confirmDeleteProduct' | cxTranslate }}
+          </p>
+          <p *ngIf="guestQuote">
+            {{ 'buyCart.quoteAlertContent' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            [type]="'secondary'"
+            label="{{ 'buyCart.cancel' | cxTranslate }}"
+            (click)="closeModal('close')"
+          ></bh-button>
+
+          <bh-button
+            *ngIf="deleteCart && !guestQuote"
+            [type]="'tertiary'"
+            label="{{ 'buyCart.clearall' | cxTranslate }}"
+            (click)="closeModal('delete')"
+          ></bh-button>
+          <bh-button
+            *ngIf="!deleteCart && !guestQuote"
+            [type]="'tertiary'"
+            label="{{ 'buyCart.delete' | cxTranslate }}"
+            (click)="closeModal('delete')"
+          ></bh-button>
+          <bh-button
+            *ngIf="guestQuote"
+            [type]="'tertiary'"
+            label="{{ 'buyCart.delete' | cxTranslate }}"
+            (click)="closeModal('delete')"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

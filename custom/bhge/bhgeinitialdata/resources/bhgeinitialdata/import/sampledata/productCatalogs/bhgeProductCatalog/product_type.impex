@@ -1,0 +1,22 @@
+"#% impex.info(""###############   essentialdata_product_type.impex  -start  ################"")"
+
+INSERT_UPDATE GEEdgeProductLineMapping;productType(code)[unique=true];categories(code)[mode=append]
+;ITFILM;ECOM_LVL2_00000004
+;IT;ECOM_LVL2_00000001
+;IT;ECOM_LVL2_00000002
+;WT-UT;ECOM_LVL2_00000003
+;WT-VI;ECOM_LVL3_00000001
+;PA;ECOM_LVL1_00000002
+;FPT;ECOM_LVL1_00000003
+;FPT;ECOM_LVL1_00000005
+;WT-VI;ECOM_LVL3_00000001
+;IT;ECOM_LVL1_00000004
+;BN;ECOM_LVL1_00000006
+#;FPT;ECOM_LVL1_00000005
+;FPT;ECOM_LVL1_00000017
+;FPT;ECOM_LVL1_00000018
+;WT-XR;ECOM_LVL2_00000013
+;DR;ECOM_LVL1_00000008
+;NC;ECOM_LVL1_00000007
+;RS;ECOM_LVL1_00000009
+"#% impex.info(""###############   essentialdata_product_type.impex  -end  ################"")"

@@ -1,0 +1,215 @@
+<div class="identify-equipment" [formGroup]="selectedProductForm">
+  <div class="page-title mb-4">
+    <h3>
+      <span class="required mr-1">*</span
+      >{{ 'rma-form.identifyMyEquipment' | cxTranslate }}
+    </h3>
+  </div>
+  <label class="equipment-label">
+    {{
+      selectedRadio == productSearchType.SERIAL
+        ? ('rma-form.serialNumberInfoText' | cxTranslate)
+        : ('rma-form.partNumberInfoText' | cxTranslate)
+    }}
+  </label>
+  <div class="equipment-radio pt-2">
+    <bh-radio-button
+      [label]="'rma-form.byPartNumber' | cxTranslate"
+      name="legal-entity"
+      [value]="productSearchType.PART"
+      [attr.checked]="selectedRadio == productSearchType.PART ? true : false"
+      (change)="identifyEquipmentChanged($event, productSearchType.PART)"
+    ></bh-radio-button>
+    <bh-radio-button
+      [label]="'rma-form.bySerialNumber' | cxTranslate"
+      name="legal-entity"
+      [value]="productSearchType.SERIAL"
+      [attr.checked]="selectedRadio == productSearchType.SERIAL ? true : false"
+      (change)="identifyEquipmentChanged($event, productSearchType.SERIAL)"
+    ></bh-radio-button>
+  </div>
+  <section class="selected-product" *ngIf="selectedProduct">
+    <div>
+      <div>{{ 'rma-form.partNumber' | cxTranslate }}</div>
+      <div class="selcted-product-part-number">
+        <cx-media
+          class="selected-product-image mr-1"
+          [container]="selectedProduct?.images"
+          [alt]="selectedProduct.summary"
+        ></cx-media>
+        <input
+          class="selected-product-name"
+          formControlName="partNumber"
+          (keyup)="checkPartNumber()"
+        />
+        <span
+          class="material-icons"
+          *ngIf="this.selectedProductForm.value.partNumber"
+          (click)="disselectProduct()"
+        >
+          close
+        </span>
+        <span
+          class="material-icons-outlined"
+          *ngIf="serviceOfferingData || isOtherPart; else loading"
+        >
+          check_circle
+        </span>
+      </div>
+      <bh-form-message
+        *ngIf="serviceOfferingsErrors.incorrectPart.errorFound"
+        error
+        [message]="serviceOfferingsErrors.incorrectPart.errorMessage"
+      ></bh-form-message>
+      <bh-form-message
+        *ngIf="serviceOfferingsErrors.unavailablePart.errorFound"
+        error
+        [message]="serviceOfferingsErrors.unavailablePart.errorMessage"
+      ></bh-form-message>
+      <label
+        class="error-message"
+        *ngIf="selectedProductForm.controls.partNumber.invalid && submitted"
+        >{{ 'rma-form.enterPartNumber' | cxTranslate }}</label
+      >
+    </div>
+    <ng-container
+      *ngIf="
+        (serviceOfferingData || isOtherPart) &&
+        !serviceOfferingsErrors.unavailablePart.errorFound &&
+        !serviceOfferingsErrors.incorrectPart.errorFound
+      "
+    >
+      <div *ngIf="!rmaEntry?.isAccessory">
+        <div class="serial-label">{{ 'rma-form.quantity' | cxTranslate }}</div>
+        <cx-item-counter
+          [max]="9999"
+          [control]="selectedProductForm.get('quantity')"
+        ></cx-item-counter>
+      </div>
+      <div>
+        <div class="serial-number-label">
+          {{ 'rma-form.serialNumber' | cxTranslate }}
+        </div>
+        <div class="selected-serial-number">
+          <div
+            class="multi-serial-no"
+            *ngIf="selectedProductForm.controls.quantity.value > 1"
+          >
+            <bh-text-area
+              class="multi-serial-no--textarea col-5 pl-0"
+              [value]="
+                selectedProductForm.controls.serialNumber.value == undefined
+                  ? ''
+                  : selectedProductForm.controls.serialNumber.value
+              "
+              (change)="addMultipleSerialNos($event)"
+              messageType="custom"
+              fluidhorz
+              fluidvert
+            ></bh-text-area>
+            <bh-form-message
+              class="col-7 pl-0"
+              error
+              message="{{ 'rma-form.noticeSeveralReturn' | cxTranslate }}"
+            ></bh-form-message>
+          </div>
+          <div *ngIf="selectedProductForm.controls.quantity.value <= 1">
+            <bh-text-input
+              #serialNumberInput
+              type="text"
+              class="selected-product-name serial-num-input"
+              [value]="selectedProductForm.controls.serialNumber.value"
+              (change)="onValueChange($event)"
+              small
+              (click)="serialNumberInputClick()"
+              maxlength= "18" 
+            >
+            </bh-text-input>
+            <div
+              *ngIf="
+                showSerialNumDropdown &&
+                serviceOfferingData?.offeringList[0]?.partEquipmentMapping
+                  ?.length > 0
+              "
+              [clickSourceId]="serialNumberInput"
+              (clickOutside)="showSerialNumDropdown = !showSerialNumDropdown"
+              class="serial-number-dropdown"
+            >
+              <ul>
+                <li
+                  (click)="selectSerialNumber(part)"
+                  *ngFor="
+                    let part of serviceOfferingData?.offeringList[0]
+                      ?.partEquipmentMapping
+                  "
+                >
+                  {{ part?.partSerialNumber }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <span
+            class="material-icons-outlined ml-2"
+            *ngIf="
+              serialNumSelectedFromList &&
+              selectedProductForm.controls.quantity.value <= 1
+            "
+          >
+            check_circle
+          </span>
+        </div>
+        <label
+          class="error-message"
+          *ngIf="selectedProductForm.controls.serialNumber.invalid && submitted"
+          >{{ 'rma-form.addSerialNumber' | cxTranslate }}</label
+        >
+      </div>
+      <div *ngIf="isOtherPart">
+        <div class="serial-number-label">
+          {{ 'rma-form.productInfo' | cxTranslate }}
+        </div>
+        <bh-text-input
+          type="text"
+          class=""
+          [value]="selectedProductForm.controls.productDetails.value"
+          (change)="onProdDetailsChange($event)"
+          small
+        >
+        </bh-text-input>
+      </div>
+    </ng-container>
+  </section>
+  <ds-rma-product-search
+    *ngIf="!selectedProduct"
+    [searchType]="selectedRadio"
+    (partSelected)="selectProductAfterSearch($event)"
+    (helpSearchOpen)="helpSearchOpen($event)"
+    (searchProducts)="searchProducts($event)"
+    [rmaEntry]="rmaEntry"
+    (rmaPartNumber)="rmaPartNumber($event)"
+  ></ds-rma-product-search>
+  <ds-rma-help-find-part
+    *ngIf="openHelp"
+    (closeHelpSection)="closeHelpSection($event)"
+    (productSelected)="selectProductAfterSearch($event)"
+    (otherSelected)="otherProductSelected($event)"
+  ></ds-rma-help-find-part>
+  <ds-equipment-search-results
+    *ngIf="!selectedProduct && showSearchResults"
+    [products]="products"
+    (productSelected)="selectProductAfterSearch($event)"
+  ></ds-equipment-search-results>
+</div>
+
+<ng-template #loading>
+  <ng-container
+    *ngIf="
+      !serviceOfferingsErrors.unavailablePart.errorFound &&
+      !serviceOfferingsErrors.incorrectPart.errorFound
+    "
+  >
+    <div class="rma-form-side-loader side-loader cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-container>
+</ng-template>

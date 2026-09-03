@@ -1,0 +1,142 @@
+<div class="waygate-grid-product">
+  <div class="waygate-product-top">
+    <div class="waygate-product-image-container">
+      <a
+        (click)="gtmSelectItemEvent(product)"
+        [routerLink]="['/', productLine, 'product', product.code, product.name]"
+      >
+        <cx-media
+          class="cx-product-image waygate-product-image"
+          [container]="product.images?.PRIMARY"
+          format="product"
+          [alt]="product?.name"
+        ></cx-media>
+        <ng-container *ngIf="user$ | async as user">
+          <a
+            class="overlay"
+            (click)="
+              onFavoriteClick();
+              $event.preventDefault();
+              $event.stopPropagation()
+            "
+          >
+            <i class="material-icons">
+              {{ favorite ? 'star' : 'star_border' }}</i
+            >
+          </a>
+        </ng-container>
+      </a>
+    </div>
+    <div class="waygate-product-body">
+      <div class="product-info-section">
+        <h4 class="product-name" [innerHTML]="product?.name"></h4>
+        <div class="product-code">
+          <div>{{ 'plp.partCode' | cxTranslate }}</div>
+          <div class="code">{{ product?.code }}</div>
+        </div>
+        <div class="tag-wrapper" *ngIf="user$ | async as user; else guest">
+          <ng-container
+            *ngIf="
+              product?.productAccessData?.isBuy ||
+              product?.productAccessData?.isBuyPresentInOtherSalesArea
+            "
+          >
+            <div class="buyable">
+              {{ 'waygate.BuyableProducts' | cxTranslate }}
+            </div>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              product.productAccessData?.isService ||
+              product.productAccessData?.isServicePresentInOtherSalesArea
+            "
+          >
+            <div class="returnable">
+              {{ 'waygate.ReturnableProducts' | cxTranslate }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="product.productAccessData?.isobsolete">
+            <div class="returnable">
+              {{ 'waygate.obsoleteProduct' | cxTranslate }}
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="product?.productAccessData?.isCatalogOnly">
+            <div class="returnable">
+              {{ 'waygate.catalogOnlyProduct' | cxTranslate }}
+            </div>
+          </ng-container>
+        </div>
+        <ng-template #guest>
+          <div class="tag-wrapper">
+            <ng-container *ngIf="product.isAnonymousBuy">
+              <div class="buyable">
+                {{ 'waygate.BuyableProducts' | cxTranslate }}
+              </div>
+            </ng-container>
+            <ng-container *ngIf="product.isAnonymousObsolete">
+              <div class="buyable">
+                {{ 'waygate.obsoleteProduct' | cxTranslate }}
+              </div>
+            </ng-container>
+            <!-- <ng-container *ngIf="product.isAnonymousQuote">
+              <div class="buyable">
+                {{ 'waygate.requestQuote' | cxTranslate }}
+              </div>
+            </ng-container> -->
+            <ng-container *ngIf="product.isAnonymousCatalog">
+              <div class="buyable">
+                {{ 'waygate.catalogOnlyProduct' | cxTranslate }}
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+        <div
+          class="product-description"
+          [innerHTML]="product?.description"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div class="waygate-product-bottom">
+    <ng-container *ngIf="user$ | async as user">
+      <div
+        class="waygate-grid-price-row"
+        *ngIf="
+          !product?.configurable &&
+          (product?.productAccessData?.isBuy ||
+            product?.productAccessData?.isBuyPresentInOtherSalesArea)
+        "
+      >
+        <ng-container
+          *ngIf="
+            product.price.value > 0 &&
+              product.productAccessData.isCustomerBuy != false;
+            else noPrice
+          "
+        >
+          <div class="waygate-grid-price-label">
+            {{ 'waygate.listPrice' | cxTranslate }} &nbsp;
+          </div>
+          <div class="waygate-grid-price-value">
+            {{ product.price?.formattedValue }}
+          </div>
+        </ng-container>
+        <ng-template #noPrice>
+          <!-- <div class="waygate-grid-price-label">Price not found!</div> -->
+        </ng-template>
+      </div>
+      <div *ngIf="product?.configurable && product?.productAccessData?.isBuy">
+        <div
+          class="configure-product-text"
+          [innerHTML]="'Configure for Price'"
+        ></div>
+      </div>
+    </ng-container>
+    <a
+      (click)="gtmSelectItemEvent(product)"
+      [routerLink]="['/', productLine, 'product', product.code, product.name]"
+      >{{ 'plp.details' | cxTranslate }} ></a
+    >
+  </div>
+</div>

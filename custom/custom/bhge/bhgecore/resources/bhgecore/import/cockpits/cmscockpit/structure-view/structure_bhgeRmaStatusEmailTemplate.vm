@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Share RMA Email</title>
+      
+</head>
+<body>
+
+
+
+
+	
+	<div class="row">
+                                    <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                        <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+												 <a href="#" class="a" style="color: #05322b; text-decoration: none;"><span class="a__text" style="color: #05322b; text-decoration: none;"> <img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="100%"/></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+	<div class="heading row">
+      <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+          <tr class="row__row">
+               <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+               <h1 class="header h1" style="margin: 20px 0; line-height: 40px; font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px; margin-left: 0; margin-top: -40px;">
+                RMA Share
+               </h1>
+               </td>
+               </tr>
+     </table>
+   </div>
+    	
+    <p style="width: 90%; margin: auto; margin-bottom: 20px;">Dear Customer,<br>Please review your RMA details below.</p>
+    <table style="width: 90%; margin: auto; margin-bottom: 20px;">
+        <tr>
+            <td>RMA #<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.rmaHeaderData.rmaNumber</strong></td>
+        </tr>
+        <tr>
+            <td>Customer PO#<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.rmaHeaderData.purchaseOrderNumber</strong></td>
+        </tr>
+        <tr>
+            <td>Date RMA Created<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.rmaCreatedDate</strong></td>
+        </tr>
+        <tr>
+            <td>Sold To Customer<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.rmaHeaderData.name</strong></td>
+        </tr>
+        <tr>
+            <td>Return-to Site<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.rmaHeaderData.returnSite</strong></td>
+        </tr>
+         #if(${ctx.rmaHeaderData.shippingAddress})
+        <tr>
+            <td style="vertical-align:top">Ship-To <span style="float:right;">:</span></td>
+            <td><strong style="color: #13294b;"> $ctx.rmaHeaderData.shippingAddress</strong></td>
+        </tr>
+        #else
+        <tr>
+            
+        </tr>
+        #end
+    </table>
+	
+   
+    
+
+
+
+
+#foreach( $itemdata in $ctx.rmaHeaderData.rmaItemStatusDetails )  
+  
+
+ 
+        #if( $itemdata.rmaDeliveryLineDetails.size() == 1 )
+
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                        <td style="padding-top: 0px; vertical-align: top; width: 50%">
+                                            <p style="font-weight: bold; margin-top: auto;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                            <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                             <ul style="list-style: none!important;">
+                                                <p>Part Number : ${itemdata.partNumber}</p>
+                                                <p>Description : ${itemdata.partName}</p>
+                                                <p>Service Offering : ${itemdata.serviceOffering}</p>
+                                                <p>Quantity : ${itemdata.quantity} Piece</p>
+
+                                                <table class="t-b-none">
+                                                    <tr>
+                                                        <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                            #if( ${itemdata.rmaStatus} == "IN SHIPPING" )
+                                                                <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                            
+                                                            #elseif( ${itemdata.rmaStatus} == "COMPLETE-SCRAPPED" || ${itemdata.rmaStatus} == "COMPLETE-SHIPPED" || ${itemdata.rmaStatus} == "COMPLETE-CREDITED" )
+                                                                <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                                
+                                                            #else
+                                                           		 <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                            #end                    
+                                                    </tr>
+                                                </table>
+                                            </ul>
+                                        </td>
+
+                                        <td style="vertical-align: top;padding-left: 10px; width: 50%">
+                                             <ul style="list-style: none!important;">
+	                                             #if(${itemdata.shipToAddress} && ${itemdata.shipToAddress} != '')
+	                                    			<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipToAddress}</strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #else
+												 	<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #end
+                                            </ul>
+                                            
+
+                                             <ul style="list-style: none!important;">
+                                    
+                                                <table class="t-b-none">
+
+                                                        <p><strong style="color: #13294b;">Shipping Details</strong></p>
+
+                                        #foreach( $deliveryLineData in ${itemdata.rmaDeliveryLineDetails} ) 
+                                                                                        
+                                                            <p>Quantity : ${deliveryLineData.quantity} Piece</p>
+                                                            <p>Carrier : ${deliveryLineData.carrier}</p>
+                                                            <p>Tracking Number : ${deliveryLineData.trackingNo}</p>
+                                                        
+                                                            <table class="t-b-none">
+                                                                <tr>
+                                                                	<td style ="width: 60px;vertical-align: text-bottom;">Status :</td>
+                                                               		<td>${deliveryLineData.status} : ${deliveryLineData.quantity}</td>
+                                                                </tr>
+                                                            </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                        #end
+
+
+                                                            <table class="t-b-none">
+                                                                    <tr>
+                                                                        <td style="vertical-align: text-bottom;">Serial Number(s) : ${itemdata.partSerialNumber}</td>
+                                                                    </tr>				
+                                                            </table>
+
+                                                </table>
+                                            </ul>
+                                        </td>
+                                </tr>
+                                    
+                </table>
+       
+
+        #elseif( $itemdata.rmaDeliveryLineDetails.size() > 1 )
+                                                               
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                            <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                         <ul style="list-style: none!important;">
+                                            <p>Part Number : ${itemdata.partNumber}</p>
+                                            <p>Description : ${itemdata.partName}</p>
+                                            <p>Service Offering : ${itemdata.serviceOffering}</p>
+                                            <p>Quantity: ${itemdata.quantity} Piece</p>
+                                            
+                                            <table class="t-b-none">
+                                                <tr>
+                                                	<td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                   	#if( ${itemdata.rmaStatus} == "IN SHIPPING" )
+                                                         <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                            
+                                                   	#elseif( ${itemdata.rmaStatus} == "COMPLETE-SCRAPPED" || ${itemdata.rmaStatus} == "COMPLETE-SHIPPED" || ${itemdata.rmaStatus} == "COMPLETE-CREDITED" )
+                                                         <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                                
+                                                   	#else
+                                                         <td> ${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                   	#end
+                                                </tr>
+                                            </table>
+                                        </ul>
+                                    </td>
+
+                                    <td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                         <ul style="list-style: none!important;">
+	                                             #if(${itemdata.shipToAddress} && ${itemdata.shipToAddress} != '')
+	                                    			<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipToAddress}</strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #else
+												 	<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #end
+                                         </ul>
+
+                                              
+                                         <ul style="list-style: none!important;">
+                                
+                                            <table class="t-b-none">
+
+                                                    <p><strong style="color: #13294b;">Shipping Details</strong></p>
+
+                                    #foreach( $deliveryLineData in ${itemdata.rmaDeliveryLineDetails} )    
+                                                                                    
+                                                        <p>Quantity : ${deliveryLineData.quantity} Piece</p>
+                                                        <p>Carrier : ${deliveryLineData.carrier}</p>
+                                                        <p>Tracking Number : ${deliveryLineData.trackingNo}</p>
+                                                    
+                                                        <table class="t-b-none">
+                                                            <tr>
+                                                                <td style ="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                                <td>${deliveryLineData.status} : ${deliveryLineData.quantity}</td>
+                                                            </tr>
+                                                        </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                    #end
+
+                                                    <table class="t-b-none">
+                                                            <tr>
+                                                                <td style="vertical-align: text-bottom;">Serial Number(s) : ${itemdata.partSerialNumber}</td>
+                                                            </tr>				
+                                                    </table>
+
+                                            </table>
+
+                                        </ul>	        
+                                    </td>
+                                </tr>
+
+
+                </table>
+
+
+        #elseif( $itemdata.rmaDeliveryLineDetails.size() == 0 )
+        
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%;">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                        
+                                         <ul style="list-style: none!important;">
+                                            <p>Part Number : ${itemdata.partNumber}</p>
+                                            <p>Description : ${itemdata.partName}</p>
+                                            <p>Service Offering : ${itemdata.serviceOffering}</p>
+                                            <p>Quantity : ${itemdata.quantity}</p>
+                        
+                                            <table class="t-b-none">
+                                                <tr>
+                        
+                                                    <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                     <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                     
+                                                    <!--#if ( ${ctx.rmaHeaderData.rmaStatus} == "RMA SUBMITTED")
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "AWAITING GOODS" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                    
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "EVALUATING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "PROCESSING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "IN SHIPPING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                    
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "COMPLETE" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end-->
+
+                                                </tr>
+                                            </table>
+
+                                        </ul>
+                                    </td>
+
+                                    <td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                         <ul style="list-style: none!important;">
+	                                             #if(${itemdata.shipToAddress} && ${itemdata.shipToAddress} != '')
+	                                    			<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipToAddress}</strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #else
+												 	<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #end
+                                         </ul>
+                                        
+                                            <table class="t-b-none">
+                                                    <tr>
+                                                        <td style="vertical-align: text-bottom;">Serial Number(s) : ${itemdata.partSerialNumber}</td>
+                                                    </tr>				
+                                            </table>
+
+                                    </td>
+                        
+                                </tr>
+
+                </table>
+                
+                
+        #else
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%;">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                        
+                                         <ul style="list-style: none!important;">
+                                            <p>Part Number : ${itemdata.partNumber}</p>
+                                            <p>Description : ${itemdata.partName}</p>
+                                            <p>Service Offering : ${itemdata.serviceOffering}</p>
+                                            <p>Quantity : ${itemdata.quantity}</p>
+                        
+                                            <table class="t-b-none">
+                                                <tr>
+                        
+                                                    <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    <!--#if ( ${ctx.rmaHeaderData.rmaStatus} == "RMA SUBMITTED")
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "AWAITING GOODS" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                    
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "EVALUATING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "PROCESSING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "IN SHIPPING" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end
+                                                    
+                                                    #if ( ${ctx.rmaHeaderData.rmaStatus} == "COMPLETE" )
+                                                    <td>${itemdata.rmaStatus} : ${itemdata.quantity}</td>
+                                                    #end-->
+                                                    
+                                                </tr>
+                                            </table>
+
+                                        </ul>
+                                    </td>
+
+                                    <td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                         <ul style="list-style: none!important;">
+	                                             #if(${itemdata.shipToAddress} && ${itemdata.shipToAddress} != '')
+	                                    			<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipToAddress}</strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #else
+												 	<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+	                                                <hr style="color: #979797;margin-top: auto;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+												 #end
+                                         </ul>
+                                        
+                                            <table class="t-b-none">
+                                                    <tr>
+                                                        <td style="vertical-align: text-bottom;">Serial Number(s) : ${itemdata.partSerialNumber}</td>
+                                                    </tr>				
+                                            </table>
+
+                                    </td>
+                        
+                                </tr>
+
+                </table>
+
+        #end
+
+
+
+#end
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        li.class, li.collapsed, li.expanded {
+            list-style-image: none;
+            list-style: none;
+            list-style-type: none;
+        }
+        ul {
+            list-style: none;
+            list-style-type: none;
+            margin-top: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: auto
+        }
+        li {
+            list-style: none;
+            list-style-type: none;
+        }
+        .w-100 {
+            align:center
+        }
+        ul li {
+            list-style:none;
+            margin-bottom: 10px;
+            list-style: none;
+            list-style-type: none;
+        }
+        ul {
+            padding-left: 0;
+            list-style: none;
+            list-style-type: none;
+        }
+        .text-bold {
+            font-weight: bold;
+        }
+        .t-border {
+            border-collapse: collapse;
+        }
+        .t-border tr td {
+            border: 1px solid black;
+            padding:20px;
+        }
+        .t-b-none tr td {
+            border: none;
+            padding: 0px;
+            padding-bottom: 10px;
+        }
+
+    </style>
+</body>
+</html>

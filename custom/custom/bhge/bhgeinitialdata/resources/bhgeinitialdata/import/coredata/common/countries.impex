@@ -1,0 +1,862 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Countries
+# Full country list conforming to ISO 3166-1 alpha-2
+#
+INSERT_UPDATE Country;isocode[unique=true];name[lang=en];active[default=true]
+;AD;"Andorra"
+;AE;"United Arab Emirates"
+;AF;"Afghanistan"
+;AG;"Antigua and Barbuda"
+;AI;"Anguilla"
+;AL;"Albania"
+;AM;"Armenia"
+;AO;"Angola"
+;AQ;"Antarctica"
+;AR;"Argentina"
+;AS;"American Samoa"
+;AT;"Austria"
+;AU;"Australia"
+;AW;"Aruba"
+;AX;"Aland Islands"
+;AZ;"Azerbaijan"
+;BA;"Bosnia and Herzegovina"
+;BB;"Barbados"
+;BD;"Bangladesh"
+;BE;"Belgium"
+;BF;"Burkina Faso"
+;BG;"Bulgaria"
+;BH;"Bahrain"
+;BI;"Burundi"
+;BJ;"Benin"
+;BL;"Saint Barthélemy"
+;BM;"Bermuda"
+;BN;"Brunei Darussalam"
+;BO;"Bolivia"
+;BQ;"Bonaire, Saint Eustatius and Saba"
+;BR;"Brazil"
+;BS;"Bahamas"
+;BT;"Bhutan"
+;BV;"Bouvet Island"
+;BW;"Botswana"
+;BY;"Belarus"
+;BZ;"Belize"
+;CA;"Canada"
+;CC;"Cocos (Keeling) Islands"
+;CD;"Congo, the Democratic Republic of the"
+;CF;"Central African Republic"
+;CG;"Congo"
+;CH;"Switzerland"
+;CI;"Cote d'Ivoire"
+;CK;"Cook Islands"
+;CL;"Chile"
+;CM;"Cameroon"
+;CN;"China"
+;CO;"Colombia"
+;CR;"Costa Rica"
+;CU;"Cuba"
+;CV;"Cape Verde"
+;CW;"Curaçao"
+;CX;"Christmas Island"
+;CY;"Cyprus"
+;CZ;"Czech Republic"
+;DE;"Germany"
+;DJ;"Djibouti"
+;DK;"Denmark"
+;DM;"Dominica"
+;DO;"Dominican Republic"
+;DZ;"Algeria"
+;EC;"Ecuador"
+;EE;"Estonia"
+;EG;"Egypt"
+;EH;"Western Sahara"
+;ER;"Eritrea"
+;ES;"Spain"
+;ET;"Ethiopia"
+;FI;"Finland"
+;FJ;"Fiji"
+;FK;"Falkland Islands"
+;FM;"Micronesia, Federated States of"
+;FO;"Faroe Islands"
+;FR;"France"
+;GA;"Gabon"
+;GB;"United Kingdom"
+;GC;"Gulf"
+;GD;"Grenada"
+;GE;"Georgia"
+;GF;"French Guiana"
+;GG;"Guernsey"
+;GH;"Ghana"
+;GI;"Gibraltar"
+;GL;"Greenland"
+;GM;"Gambia"
+;GN;"Guinea"
+;GP;"Guadeloupe"
+;GQ;"Equatorial Guinea"
+;GR;"Greece"
+;GS;"South Georgia and the South Sandwich Islands"
+;GT;"Guatemala"
+;GU;"Guam"
+;GW;"Guinea-Bissau"
+;GY;"Guyana"
+;HK;"Hong Kong"
+;HM;"Heard Island and McDonald Islands"
+;HN;"Honduras"
+;HR;"Croatia"
+;HT;"Haiti"
+;HU;"Hungary"
+;ID;"Indonesia"
+;IE;"Ireland"
+;IL;"Israel"
+;IM;"Isle of Man"
+;IN;"India"
+;IO;"British Indian Ocean Territory"
+;IQ;"Iraq"
+;IR;"Iran"
+;IS;"Iceland"
+;IT;"Italy"
+;JE;"Jersey"
+;JM;"Jamaica"
+;JO;"Jordan"
+;JP;"Japan"
+;KE;"Kenya"
+;KG;"Kyrgyzstan"
+;KH;"Cambodia"
+;KI;"Kiribati"
+;KM;"Comoros"
+;KN;"Saint Kitts and Nevis"
+;KP;"North Korea"
+;KR;"South Korea"
+;KW;"Kuwait"
+;KY;"Cayman Islands"
+;KZ;"Kazakhstan"
+;LA;"Lao People's Democratic Republic"
+;LB;"Lebanon"
+;LC;"Saint Lucia"
+;LI;"Liechtenstein"
+;LK;"Sri Lanka"
+;LR;"Liberia"
+;LS;"Lesotho"
+;LT;"Lithuania"
+;LU;"Luxembourg"
+;LV;"Latvia"
+;LY;"Libyan Arab Jamahiriya"
+;MA;"Morocco"
+;MC;"Monaco"
+;MD;"Moldova"
+;ME;"Montenegro"
+;MF;"Saint Martin (French part)"
+;MG;"Madagascar"
+;MH;"Marshall Islands"
+;MK;"North Macedonia"
+;ML;"Mali"
+;MM;"Myanmar"
+;MN;"Mongolia"
+;MO;"Macao"
+;MP;"Northern Mariana Islands"
+;MQ;"Martinique"
+;MR;"Mauritania"
+;MS;"Montserrat"
+;MT;"Malta"
+;MU;"Mauritius"
+;MV;"Maldives"
+;MW;"Malawi"
+;MX;"Mexico"
+;MY;"Malaysia"
+;MZ;"Mozambique"
+;NA;"Namibia"
+;NC;"New Caledonia"
+;NE;"Niger"
+;NF;"Norfolk Island"
+;NG;"Nigeria"
+;NI;"Nicaragua"
+;NL;"Netherlands"
+;NO;"Norway"
+;NP;"Nepal"
+;NR;"Nauru"
+;NU;"Niue"
+;NZ;"New Zealand"
+;OM;"Oman"
+;PA;"Panama"
+;PE;"Peru"
+;PF;"French Polynesia"
+;PG;"Papua New Guinea"
+;PH;"Philippines"
+;PK;"Pakistan"
+;PL;"Poland"
+;PM;"Saint Pierre and Miquelon"
+;PN;"Pitcairn"
+;PR;"Puerto Rico"
+;PS;"Palestinian Territory"
+;PT;"Portugal"
+;PW;"Palau"
+;PY;"Paraguay"
+;QA;"Qatar"
+;RE;"Reunion"
+;RO;"Romania"
+;RS;"Serbia"
+;RU;"Russian Federation"
+;RW;"Rwanda"
+;SA;"Saudi Arabia"
+;SB;"Solomon Islands"
+;SC;"Seychelles"
+;SD;"Sudan"
+;SE;"Sweden"
+;SG;"Singapore"
+;SH;"Saint Helena, Ascension and Tristan da Cunha"
+;SI;"Slovenia"
+;SJ;"Svalbard and Jan Mayen"
+;SK;"Slovakia"
+;SL;"Sierra Leone"
+;SM;"San Marino"
+;SN;"Senegal"
+;SO;"Somalia"
+;SR;"Suriname"
+;ST;"Sao Tome and Principe"
+;SV;"El Salvador"
+;SX;"Sint Maarten (Dutch part)"
+;SY;"Syrian Arab Republic"
+;SZ;"Swaziland"
+;TC;"Turks and Caicos Islands"
+;TD;"Chad"
+;TF;"French Southern Territories"
+;TG;"Togo"
+;TH;"Thailand"
+;TJ;"Tajikistan"
+;TK;"Tokelau"
+;TL;"Timor-Leste"
+;TM;"Turkmenistan"
+;TN;"Tunisia"
+;TO;"Tonga"
+;TR;"Turkey"
+;TT;"Trinidad and Tobago"
+;TV;"Tuvalu"
+;TW;"Taiwan"
+;TZ;"Tanzania"
+;UA;"Ukraine"
+;UG;"Uganda"
+;UM;"United States Minor Outlying Islands"
+;US;"United States"
+;UY;"Uruguay"
+;UZ;"Uzbekistan"
+;VA;"Holy See (Vatican City State)"
+;VC;"Saint Vincent and the Grenadines"
+;VE;"Venezuela"
+;VG;"Virgin Islands, British"
+;VI;"Virgin Islands, U.S."
+;VN;"Vietnam"
+;VU;"Vanuatu"
+;WF;"Wallis and Futuna"
+;WS;"Samoa"
+;YE;"Yemen"
+;YT;"Mayotte"
+;ZA;"South Africa"
+;ZM;"Zambia"
+;ZW;"Zimbabwe"
+
+#
+# ISO 3166-2:US
+#
+INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lang=en];active[default=true]
+;US;US-AL;AL;"Alabama"
+;US;US-AK;AK;"Alaska"
+;US;US-AZ;AZ;"Arizona"
+;US;US-AR;AR;"Arkansas"
+;US;US-CA;CA;"California"
+;US;US-CO;CO;"Colorado"
+;US;US-CT;CT;"Connecticut"
+;US;US-DE;DE;"Delaware"
+;US;US-FL;FL;"Florida"
+;US;US-GA;GA;"Georgia"
+;US;US-HI;HI;"Hawaii"
+;US;US-ID;ID;"Idaho"
+;US;US-IL;IL;"Illinois"
+;US;US-IN;IN;"Indiana"
+;US;US-IA;IA;"Iowa"
+;US;US-KS;KS;"Kansas"
+;US;US-KY;KY;"Kentucky"
+;US;US-LA;LA;"Louisiana"
+;US;US-ME;ME;"Maine"
+;US;US-MD;MD;"Maryland"
+;US;US-MA;MA;"Massachusetts"
+;US;US-MI;MI;"Michigan"
+;US;US-MN;MN;"Minnesota"
+;US;US-MS;MS;"Mississippi"
+;US;US-MO;MO;"Missouri"
+;US;US-MT;MT;"Montana"
+;US;US-NE;NE;"Nebraska"
+;US;US-NV;NV;"Nevada"
+;US;US-NH;NH;"New Hampshire"
+;US;US-NJ;NJ;"New Jersey"
+;US;US-NM;NM;"New Mexico"
+;US;US-NY;NY;"New York"
+;US;US-NC;NC;"North Carolina"
+;US;US-ND;ND;"North Dakota"
+;US;US-OH;OH;"Ohio"
+;US;US-OK;OK;"Oklahoma"
+;US;US-OR;OR;"Oregon"
+;US;US-PA;PA;"Pennsylvania"
+;US;US-RI;RI;"Rhode Island"
+;US;US-SC;SC;"South Carolina"
+;US;US-SD;SD;"South Dakota"
+;US;US-TN;TN;"Tennessee"
+;US;US-TX;TX;"Texas"
+;US;US-UT;UT;"Utah"
+;US;US-VT;VT;"Vermont"
+;US;US-VA;VA;"Virginia"
+;US;US-WA;WA;"Washington"
+;US;US-WV;WV;"West Virginia"
+;US;US-WI;WI;"Wisconsin"
+;US;US-WY;WY;"Wyoming"
+;US;US-DC;DC;"District of Columbia"
+;US;US-AS;AS;"American Samoa"
+;US;US-GU;GU;"Guam"
+;US;US-MP;MP;"Northern Mariana Islands"
+;US;US-PR;PR;"Puerto Rico"
+;US;US-UM;UM;"United States Minor Outlying Islands"
+;US;US-VI;VI;"United States Virgin Islands"
+
+#
+# ISO 3166-2:CA
+#
+;CA;CA-AB;AB;"Alberta"
+;CA;CA-BC;BC;"British Columbia"
+;CA;CA-MB;MB;"Manitoba"
+;CA;CA-NB;NB;"New Brunswick"
+;CA;CA-NL;NL;"Newfoundland and Labrador"
+;CA;CA-NS;NS;"Nova Scotia"
+;CA;CA-ON;ON;"Ontario"
+;CA;CA-PE;PE;"Prince Edward Island"
+;CA;CA-QC;QC;"Quebec"
+;CA;CA-SK;SK;"Saskatchewan"
+;CA;CA-NT;NT;"Northern Territories"
+;CA;CA-NU;NU;"Nunavut"
+;CA;CA-YT;YT;"Yukon Territory"
+
+#
+# ISO 3166-2:CN
+#
+;CN;CN-11;11;"Beijing"
+;CN;CN-50;50;"Chongqing"
+;CN;CN-31;31;"Shanghai"
+;CN;CN-12;12;"Tianjin"
+;CN;CN-34;34;"Anhui"
+;CN;CN-35;35;"Fujan"
+;CN;CN-62;62;"Gansu"
+;CN;CN-44;44;"Guangdong"
+;CN;CN-52;52;"Guizhou"
+;CN;CN-46;46;"Hainan"
+;CN;CN-13;13;"Hebei"
+;CN;CN-23;23;"Heilongjiang"
+;CN;CN-41;41;"Henan"
+;CN;CN-42;42;"Hubei"
+;CN;CN-43;43;"Hunan"
+;CN;CN-32;32;"Jiangsu"
+;CN;CN-36;36;"Jiangzi"
+;CN;CN-22;22;"Jilin"
+;CN;CN-21;21;"Liaoning"
+;CN;CN-63;63;"Qinghai"
+;CN;CN-61;61;"Shaanxi"
+;CN;CN-37;37;"Shandong"
+;CN;CN-14;14;"Shanxi"
+;CN;CN-51;51;"Sichuan"
+;CN;CN-71;71;"Taiwan"
+;CN;CN-53;53;"Yunnan"
+;CN;CN-33;33;"Zhejiang"
+;CN;CN-45;45;"Guangxi"
+;CN;CN-15;15;"Nei Mongol"
+;CN;CN-64;64;"Ningxia"
+;CN;CN-65;65;"Xinjiang"
+;CN;CN-54;54;"Xizang"
+;CN;CN-91;91;"Xianggang"
+;CN;CN-92;92;"Aomen"
+
+#
+# ISO 3166-2:JP
+#
+;JP;JP-23;23;"Aiti"
+;JP;JP-05;05;"Akita"
+;JP;JP-02;02;"Aomori"
+;JP;JP-38;38;"Ehime"
+;JP;JP-21;21;"Gihu"
+;JP;JP-10;10;"Gunma"
+;JP;JP-34;34;"Hiroshima"
+;JP;JP-01;01;"Hokkaido"
+;JP;JP-18;18;"Hukui"
+;JP;JP-40;40;"Hukuoka"
+;JP;JP-07;07;"Hukushima"
+;JP;JP-28;28;"Hyogo"
+;JP;JP-08;08;"Ibaraki"
+;JP;JP-17;17;"Isikawa"
+;JP;JP-03;03;"Iwate"
+;JP;JP-37;37;"Kagawa"
+;JP;JP-46;46;"Kagoshima"
+;JP;JP-14;14;"Kanagawa"
+;JP;JP-39;39;"Kochi"
+;JP;JP-43;43;"Kumamoto"
+;JP;JP-26;26;"Kyoto"
+;JP;JP-24;24;"Mie"
+;JP;JP-04;04;"Miyagi"
+;JP;JP-45;45;"Miyazaki"
+;JP;JP-20;20;"Nagano"
+;JP;JP-42;42;"Nagasaki"
+;JP;JP-29;29;"Nara"
+;JP;JP-15;15;"Niigata"
+;JP;JP-44;44;"Oita"
+;JP;JP-33;33;"Okayama"
+;JP;JP-47;47;"Okinawa"
+;JP;JP-27;27;"Osaka"
+;JP;JP-41;41;"Saga"
+;JP;JP-11;11;"Saitama"
+;JP;JP-25;25;"Shiga"
+;JP;JP-32;32;"Shimane"
+;JP;JP-22;22;"Shizuoka"
+;JP;JP-12;12;"Chiba"
+;JP;JP-09;09;"Tochigi"
+;JP;JP-36;36;"Tokushima"
+;JP;JP-13;13;"Tokyo"
+;JP;JP-31;31;"Tottori"
+;JP;JP-16;16;"Toyama"
+;JP;JP-30;30;"Wakayama"
+;JP;JP-06;06;"Yamagata"
+;JP;JP-35;35;"Yamaguchi"
+;JP;JP-19;19;"Yamanashi"
+
+# India Region
+#
+
+;IN;IN-AN;AN;Andaman and Nico.In.
+;IN;IN-AP;AP;Andhra Pradesh
+;IN;IN-AR;AR;Arunachal Pradesh
+;IN;IN-AS;AS;Assam
+;IN;IN-BH;BH;Bihar
+;IN;IN-CH;CH;Chandigarh
+;IN;IN-CT;CT;Chhattisgarh
+;IN;IN-DN;DN;Dadra and Nagar Hav.
+;IN;IN-DD;DD;Daman and Diu
+;IN;IN-DL;DL;Delhi
+;IN;IN-GA;GA;Goa
+;IN;IN-GJ;GJ;Gujarat
+;IN;IN-HR;HR;Haryana
+;IN;IN-HP;HP;Himachal Pradesh
+;IN;IN-JK;JK;Jammu and Kashmir
+;IN;IN-JH;JH;Jharkhand
+;IN;IN-KA;KA;Karnataka
+;IN;IN-KL;KL;Kerala
+;IN;IN-LD;LD;Lakshadweep
+;IN;IN-MP;MP;Madhya Pradesh
+;IN;IN-MH;MH;Maharashtra
+;IN;IN-MN;MN;Manipur
+;IN;IN-ME;ME;Meghalaya
+;IN;IN-MZ;MZ;Mizoram
+;IN;IN-NL;NL;Nagaland
+;IN;IN-OR;OR;Odisha
+;IN;IN-PY;PY;Puducherry
+;IN;IN-PB;PB;Punjab
+;IN;IN-RJ;RJ;Rajasthan
+;IN;IN-SK;SK;Sikkim
+;IN;IN-TN;TN;Tamil Nadu
+;IN;IN-TS;TS;Telangana
+;IN;IN-TR;TR;Tripura
+;IN;IN-UP;UP;Uttar Pradesh
+;IN;IN-UT;UT;Uttarakhand
+;IN;IN-WB;WB;West Bengal
+
+
+# Saudi Arabia Region
+#
+
+;SA;SA-RI;RI;Riyadh
+;SA;SA-MA;MA;Makkah
+;SA;SA-DA;DA;Dammam
+;SA;SA-AB;AB;Abha
+;SA;SA-JA;JA;Jazan
+;SA;SA-MA;MA;Madinah
+;SA;SA-BU;BU;Buraidah
+;SA;SA-TA;TA;Tabuk
+;SA;SA-HA;HA;Hail
+;SA;SA-NA;NA;Najran
+;SA;SA-SA;SA;Sakaka
+;SA;SA-AL;AL;Al-Baha
+;SA;SA-AR;AR;Arar
+
+#PERU Country/Region#
+INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lang=en];active[default=true]
+;PE;PE-AMA;AMA;"Amazonas"
+;PE;PE-ANC;ANC;"Ancash"
+;PE;PE-APU;APU;"Apurímac"
+;PE;PE-ARE;ARE;"Arequipa"
+;PE;PE-AYA;AYA;"Ayacucho"
+;PE;PE-CAJ;CAJ;"Cajamarca"
+;PE;PE-CAL;CAL;"Callao"
+;PE;PE-CUS;CUS;"Cusco"
+;PE;PE-HUV;HUV;"Huancavelica"
+;PE;PE-HUC;HUC;"Huánuco"
+;PE;PE-ICA;ICA;"Ica"
+;PE;PE-JUN;JUN;"Junín"
+;PE;PE-LAL;LAL;"La Libertad"
+;PE;PE-LAM;LAM;"Lambayeque"
+;PE;PE-LIM;LIM;"Lima"
+;PE;PE-LOR;LOR;"Loreto"
+;PE;PE-MDD;MDD;"Madre de Dios"
+;PE;PE-MOQ;MOQ;"Moquegua"
+;PE;PE-PAS;PAS;"Pasco"
+;PE;PE-PIU;PIU;"Piura"
+;PE;PE-PUN;PUN;"Puno"
+;PE;PE-SAM;SAM;"San Martín"
+;PE;PE-TAC;TAC;"Tacna"
+;PE;PE-TUM;TUM;"Tumbes"
+;PE;PE-UCA;UCA;"Ucayali"
+
+#Macedonia Country/Region
+INSERT_UPDATE Region;isocode[unique=true];isocodeShort;name[lang=en];active[default=true];country(isocode)[default='MK']
+;MK-801;801;"Aerodrom";
+;MK-802;802;"Aračinovo";
+;MK-201;201;"Berovo";
+;MK-501;501;"Bitola";
+;MK-401;401;"Bogdanci";
+;MK-601;601;"Bogovinje";
+;MK-402;402;"Bosilovo";
+;MK-602;602;"Brvenica";
+;MK-803;803;"Butel";
+;MK-814;814;"Centar";
+;MK-313;313;"Centar Župa";
+;MK-815;815;"Čair";
+;MK-109;109;"Čaška";
+;MK-210;210;"Češinovo-Obleševo";
+;MK-816;816;"Čučer-Sandevo";
+;MK-303;303;"Debar";
+;MK-304;304;"Debarca";
+;MK-203;203;"Delčevo";
+;MK-502;502;"Demir Hisar";
+;MK-103;103;"Demir Kapija";
+;MK-406;406;"Dojran";
+;MK-503;503;"Dolneni";
+;MK-804;804;"Gazi Baba";
+;MK-405;405;"Gevgelija";
+;MK-805;805;"Gjorče Petrov";
+;MK-604;604;"Gostivar";
+;MK-102;102;"Gradsko";
+;MK-807;807;"Ilinden";
+;MK-606;606;"Jegunovce";
+;MK-205;205;"Karbinci";
+;MK-808;808;"Karpoš";
+;MK-104;104;"Kavadarci";
+;MK-307;307;"Kičevo";
+;MK-809;809;"Kisela Voda";
+;MK-206;206;"Kočani";
+;MK-407;407;"Konče";
+;MK-701;701;"Kratovo";
+;MK-702;702;"Kriva Palanka";
+;MK-504;504;"Krivogaštani";
+;MK-505;505;"Kruševo";
+;MK-703;703;"Kumanovo";
+;MK-704;704;"Lipkovo";
+;MK-105;105;"Lozovo";
+;MK-207;207;"Makedonska Kamenica";
+;MK-308;308;"Makedonski Brod";
+;MK-607;607;"Mavrovo i Rostuše";
+;MK-506;506;"Mogila";
+;MK-106;106;"Negotino";
+;MK-507;507;"Novaci";
+;MK-408;408;"Novo Selo";
+;MK-310;310;"Ohrid";
+;MK-208;208;"Pehčevo";
+;MK-810;810;"Petrovec";
+;MK-311;311;"Plasnica";
+;MK-508;508;"Prilep";
+;MK-209;209;"Probištip";
+;MK-409;409;"Radoviš";
+;MK-705;705;"Rankovce";
+;MK-509;509;"Resen";
+;MK-107;107;"Rosoman";
+;MK-811;811;"Saraj";
+;MK-812;812;"Sopište";
+;MK-706;706;"Staro Nagoričane";
+;MK-312;312;"Struga";
+;MK-410;410;"Strumica";
+;MK-813;813;"Studeničani";
+;MK-108;108;"Sveti Nikole";
+;MK-211;211;"Štip";
+;MK-817;817;"Šuto Orizari";
+;MK-608;608;"Tearce";
+;MK-609;609;"Tetovo";
+;MK-403;403;"Valandovo";
+;MK-404;404;"Vasilevo";
+;MK-101;101;"Veles";
+;MK-301;301;"Vevčani";
+;MK-202;202;"Vinica";
+;MK-603;603;"Vrapčište";
+;MK-806;806;"Zelenikovo";
+;MK-204;204;"Zrnovci";
+;MK-605;605;"Želino";
+
+#DE99916 - create state for all country
+;AD;AD-00;AD;Andorra
+;AE;AE-00;AE;United Arab Emirates
+;AF;AF-00;AF;Afghanistan
+;AG;AG-00;AG;Antigua and Barbuda
+;AI;AI-00;AI;Anguilla
+;AL;AL-00;AL;Albania
+;AM;AM-00;AM;Armenia
+;AN;AN-00;AN;Dutch Antilles
+;AO;AO-00;AO;Angola
+;AQ;AQ-00;AQ;Antarctica
+;AR;AR-00;AR;Argentina
+;AS;AS-00;AS;American Samoa
+;AT;AT-00;AT;Austria
+;AU;AU-00;AU;Australia
+;AW;AW-00;AW;Aruba
+;AX;AX-00;AX;Aland Islands
+;AZ;AZ-00;AZ;Azerbaijan
+;BA;BA-00;BA;Bosnia and Herzegovina
+;BB;BB-00;BB;Barbados
+;BD;BD-00;BD;Bangladesh
+;BE;BE-00;BE;Belgium
+;BF;BF-00;BF;Burkina Faso
+;BG;BG-00;BG;Bulgaria
+;BH;BH-00;BH;Bahrain
+;BI;BI-00;BI;Burundi
+;BJ;BJ-00;BJ;Benin
+;BL;BL-00;BL;Saint Barthélemy
+;BM;BM-00;BM;Bermuda
+;BN;BN-00;BN;Brunei Darussalam
+;BO;BO-00;BO;Bolivia
+;BQ;BQ-00;BQ;Bonaire, Saint Eustatius and Saba
+;BR;BR-00;BR;Brazil
+;BS;BS-00;BS;Bahamas
+;BT;BT-00;BT;Bhutan
+;BV;BV-00;BV;Bouvet Island
+;BW;BW-00;BW;Botswana
+;BY;BY-00;BY;Belarus
+;BZ;BZ-00;BZ;Belize
+;CA;CA-00;CA;Canada
+;CC;CC-00;CC;Cocos (Keeling) Islands
+;CD;CD-00;CD;Congo, the Democratic Republic of the
+;CF;CF-00;CF;Central African Republic
+;CG;CG-00;CG;Congo
+;CH;CH-00;CH;Switzerland
+;CI;CI-00;CI;Cote d'Ivoire
+;CK;CK-00;CK;Cook Islands
+;CL;CL-00;CL;Chile
+;CM;CM-00;CM;Cameroon
+;CN;CN-00;CN;China
+;CO;CO-00;CO;Colombia
+;CR;CR-00;CR;Costa Rica
+;CU;CU-00;CU;Cuba
+;CV;CV-00;CV;Cape Verde
+;CW;CW-00;CW;CuraÃ§ao
+;CX;CX-00;CX;Christmas Island
+;CY;CY-00;CY;Cyprus
+;CZ;CZ-00;CZ;Czech Republic
+;DE;DE-00;DE;Germany
+;DJ;DJ-00;DJ;Djibouti
+;DK;DK-00;DK;Denmark
+;DM;DM-00;DM;Dominica
+;DO;DO-00;DO;Dominican Republic
+;DZ;DZ-00;DZ;Algeria
+;EC;EC-00;EC;Ecuador
+;EE;EE-00;EE;Estonia
+;EG;EG-00;EG;Egypt
+;EH;EH-00;EH;Western Sahara
+;ER;ER-00;ER;Eritrea
+;ES;ES-00;ES;Spain
+;ET;ET-00;ET;Ethiopia
+;FI;FI-00;FI;Finland
+;FJ;FJ-00;FJ;Fiji
+;FK;FK-00;FK;Falkland Islands
+;FM;FM-00;FM;Micronesia, Federated States of
+;FO;FO-00;FO;Faroe Islands
+;FR;FR-00;FR;France
+;GA;GA-00;GA;Gabon
+;GB;GB-00;GB;United Kingdom
+;GC;GC-00;GC;Gulf
+;GD;GD-00;GD;Grenada
+;GE;GE-00;GE;Georgia
+;GF;GF-00;GF;French Guiana
+;GG;GG-00;GG;Guernsey
+;GH;GH-00;GH;Ghana
+;GI;GI-00;GI;Gibraltar
+;GL;GL-00;GL;Greenland
+;GM;GM-00;GM;Gambia
+;GN;GN-00;GN;Guinea
+;GP;GP-00;GP;Guadeloupe
+;GQ;GQ-00;GQ;Equatorial Guinea
+;GR;GR-00;GR;Greece
+;GS;GS-00;GS;South Georgia and the South Sandwich Islands
+;GT;GT-00;GT;Guatemala
+;GU;GU-00;GU;Guam
+;GW;GW-00;GW;Guinea-Bissau
+;GY;GY-00;GY;Guyana
+;HK;HK-00;HK;Hong Kong
+;HM;HM-00;HM;Heard Island and McDonald Islands
+;HN;HN-00;HN;Honduras
+;HR;HR-00;HR;Croatia
+;HT;HT-00;HT;Haiti
+;HU;HU-00;HU;Hungary
+;ID;ID-00;ID;Indonesia
+;IE;IE-00;IE;Ireland
+;IL;IL-00;IL;Israel
+;IM;IM-00;IM;Isle of Man
+;IN;IN-00;IN;India
+;IO;IO-00;IO;British Indian Ocean Territory
+;IQ;IQ-00;IQ;Iraq
+;IR;IR-00;IR;Iran
+;IS;IS-00;IS;Iceland
+;IT;IT-00;IT;Italy
+;JE;JE-00;JE;Jersey
+;JM;JM-00;JM;Jamaica
+;JO;JO-00;JO;Jordan
+;JP;JP-00;JP;Japan
+;KE;KE-00;KE;Kenya
+;KG;KG-00;KG;Kyrgyzstan
+;KH;KH-00;KH;Cambodia
+;KI;KI-00;KI;Kiribati
+;KM;KM-00;KM;Comoros
+;KN;KN-00;KN;Saint Kitts and Nevis
+;KP;KP-00;KP;North Korea
+;KR;KR-00;KR;South Korea
+;KW;KW-00;KW;Kuwait
+;KY;KY-00;KY;Cayman Islands
+;KZ;KZ-00;KZ;Kazakhstan
+;LA;LA-00;LA;Lao People's Democratic Republic
+;LB;LB-00;LB;Lebanon
+;LC;LC-00;LC;Saint Lucia
+;LI;LI-00;LI;Liechtenstein
+;LK;LK-00;LK;Sri Lanka
+;LR;LR-00;LR;Liberia
+;LS;LS-00;LS;Lesotho
+;LT;LT-00;LT;Lithuania
+;LU;LU-00;LU;Luxembourg
+;LV;LV-00;LV;Latvia
+;LY;LY-00;LY;Libyan Arab Jamahiriya
+;MA;MA-00;MA;Morocco
+;MC;MC-00;MC;Monaco
+;MD;MD-00;MD;Moldova
+;ME;ME-00;ME;Montenegro
+;MF;MF-00;MF;Saint Martin (French part)
+;MG;MG-00;MG;Madagascar
+;MH;MH-00;MH;Marshall Islands
+;MK;MK-00;MK;Macedonia
+;ML;ML-00;ML;Mali
+;MM;MM-00;MM;Myanmar
+;MN;MN-00;MN;Mongolia
+;MO;MO-00;MO;Macao
+;MP;MP-00;MP;Northern Mariana Islands
+;MQ;MQ-00;MQ;Martinique
+;MR;MR-00;MR;Mauritania
+;MS;MS-00;MS;Montserrat
+;MT;MT-00;MT;Malta
+;MU;MU-00;MU;Mauritius
+;MV;MV-00;MV;Maldives
+;MW;MW-00;MW;Malawi
+;MX;MX-00;MX;Mexico
+;MY;MY-00;MY;Malaysia
+;MZ;MZ-00;MZ;Mozambique
+;NA;NA-00;NA;Namibia
+;NC;NC-00;NC;New Caledonia
+;NE;NE-00;NE;Niger
+;NF;NF-00;NF;Norfolk Island
+;NG;NG-00;NG;Nigeria
+;NI;NI-00;NI;Nicaragua
+;NL;NL-00;NL;Netherlands
+;NO;NO-00;NO;Norway
+;NORDIC;NORDIC-00;NORDIC;Nordic
+;NP;NP-00;NP;Nepal
+;NR;NR-00;NR;Nauru
+;NU;NU-00;NU;Niue
+;NZ;NZ-00;NZ;New Zealand
+;OLA;OLA-00;OLA;Other Latin America
+;OM;OM-00;OM;Oman
+;PA;PA-00;PA;Panama
+;PE;PE-00;PE;Peru
+;PF;PF-00;PF;French Polynesia
+;PG;PG-00;PG;Papua New Guinea
+;PH;PH-00;PH;Philippines
+;PK;PK-00;PK;Pakistan
+;PL;PL-00;PL;Poland
+;PM;PM-00;PM;Saint Pierre and Miquelon
+;PN;PN-00;PN;Pitcairn
+;PR;PR-00;PR;Puerto Rico
+;PS;PS-00;PS;Palestinian Territory
+;PT;PT-00;PT;Portugal
+;PW;PW-00;PW;Palau
+;PY;PY-00;PY;Paraguay
+;QA;QA-00;QA;Qatar
+;RCIS;RCIS-00;RCIS;Russian Fed.
+;RE;RE-00;RE;Reunion
+;RO;RO-00;RO;Romania
+;RS;RS-00;RS;Serbia
+;RU;RU-00;RU;Russian Federation
+;RW;RW-00;RW;Rwanda
+;SA;SA-00;SA;Saudi Arabia
+;SB;SB-00;SB;Solomon Islands
+;SC;SC-00;SC;Seychelles
+;SD;SD-00;SD;Sudan
+;SE;SE-00;SE;Sweden
+;SEA;SEA-00;SEA;South East Asia
+;SG;SG-00;SG;Singapore
+;SH;SH-00;SH;Saint Helena, Ascension and Tristan da Cunha
+;SI;SI-00;SI;Slovenia
+;SJ;SJ-00;SJ;Svalbard and Jan Mayen
+;SK;SK-00;SK;Slovakia
+;SL;SL-00;SL;Sierra Leone
+;SM;SM-00;SM;San Marino
+;SN;SN-00;SN;Senegal
+;SO;SO-00;SO;Somalia
+;SR;SR-00;SR;Suriname
+;SS;SS-00;SS;South Sudan
+;ST;ST-00;ST;Sao Tome and Principe
+;SV;SV-00;SV;El Salvador
+;SX;SX-00;SX;Sint Maarten (Dutch part)
+;SY;SY-00;SY;Syrian Arab Republic
+;SZ;SZ-00;SZ;Swaziland
+;TC;TC-00;TC;Turks and Caicos Islands
+;TD;TD-00;TD;Chad
+;TF;TF-00;TF;French Southern Territories
+;TG;TG-00;TG;Togo
+;TH;TH-00;TH;Thailand
+;TJ;TJ-00;TJ;Tajikistan
+;TK;TK-00;TK;Tokelau
+;TL;TL-00;TL;Timor-Leste
+;TM;TM-00;TM;Turkmenistan
+;TN;TN-00;TN;Tunisia
+;TO;TO-00;TO;Tonga
+;TP;TP-00;TP;East Timor
+;TR;TR-00;TR;Turkey
+;TT;TT-00;TT;Trinidad and Tobago
+;TV;TV-00;TV;Tuvalu
+;TW;TW-00;TW;Taiwan
+;TZ;TZ-00;TZ;Tanzania
+;UA;UA-00;UA;Ukraine
+;UG;UG-00;UG;Uganda
+;UM;UM-00;UM;United States Minor Outlying Islands
+;US;US-00;US;United States
+;UY;UY-00;UY;Uruguay
+;UZ;UZ-00;UZ;Uzbekistan
+;VA;VA-00;VA;Holy See (Vatican City State)
+;VC;VC-00;VC;Saint Vincent and the Grenadines
+;VE;VE-00;VE;Venezuela
+;VG;VG-00;VG;Virgin Islands, British
+;VI;VI-00;VI;Virgin Islands, U.S.
+;VN;VN-00;VN;Vietnam
+;VU;VU-00;VU;Vanuatu
+;WF;WF-00;WF;Wallis and Futuna
+;WS;WS-00;WS;Samoa
+;YE;YE-00;YE;Yemen
+;YT;YT-00;YT;Mayotte
+;YU;YU-00;YU;DO NOT USE
+;ZA;ZA-00;ZA;South Africa
+;ZM;ZM-00;ZM;Zambia
+;ZR;ZR-00;ZR;Democ.Rep.Congo
+;ZW;ZW-00;ZW;Zimbabwe
+;ZZ;ZZ-00;ZZ;Undeclared / Multiple Origin

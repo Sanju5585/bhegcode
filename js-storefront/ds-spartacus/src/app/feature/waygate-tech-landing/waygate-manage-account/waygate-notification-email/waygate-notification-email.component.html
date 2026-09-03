@@ -1,0 +1,421 @@
+<ng-container *ngIf="!loadingFlag; else loading">
+  <form
+    [formGroup]="notificationEmailForm"
+    class="waygate-notification-email-container"
+    (ngSubmit)="onSubmit()"
+  >
+    <h4 class="common-header">
+      {{ 'notifications.emailNotification' | cxTranslate }}
+    </h4>
+    <!-- <div class="notification-content-row notification-border">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.calibrationReminder' | cxTranslate }}
+        </div>
+        <div class="reminder-para">
+          {{ 'notifications.receiveCalibrationEmail' | cxTranslate }}
+        </div>
+      </div>
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="serviceReminderSwitch" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div> -->
+    <div class="notification-content-row notification-border">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.orderBlocked' | cxTranslate }}
+        </div>
+        <div class="reminder-para">
+          {{ 'notifications.descOrderBlocked' | cxTranslate }}
+        </div>
+      </div>
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="orderBlockedReminderSwitch" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="notification-content-row notification-border">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.orderBlockReleased' | cxTranslate }}
+        </div>
+        <div class="reminder-para">
+          {{ 'notifications.descOrderReleased' | cxTranslate }}
+        </div>
+      </div>
+      <div class="switch-container">
+        <label class="switch">
+          <input
+            type="checkbox"
+            formControlName="orderReleasedReminderSwitch"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="notification-content-row notification-border">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.promisedShipDate' | cxTranslate }}
+        </div>
+        <div class="reminder-para">
+          {{ 'notifications.descPromisedShipDate' | cxTranslate }}
+        </div>
+      </div>
+      <div class="switch-container">
+        <label class="switch">
+          <input
+            type="checkbox"
+            formControlName="PromisedShipDateReminderSwitch"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="notification-content-row">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.orderAcknowledgement' | cxTranslate }}
+        </div>
+        <!-- <div class="reminder-para">
+          {{ 'notifications.receiveCalibrationEmail' | cxTranslate }}
+        </div> -->
+      </div>
+    </div>
+    <div class="notification-content-row notification-border padd-top-0">
+      <div class="notification-input-item">
+        <label for="ackName" class="element-label">{{
+          'notifications.name' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="ackName"
+          class="notification-input"
+          formControlName="orderAcknName"
+        />
+        <div
+          *ngIf="
+            formControls.orderAcknName.touched &&
+            formControls.orderAcknName.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <div *ngIf="formControls.orderAcknName.errors.required">
+            {{ 'notifications.orderAckNameIsRequired' | cxTranslate }}
+          </div>
+          <div *ngIf="formControls.orderAcknName.errors.pattern">
+            {{ 'notifications.pleaseEnterValidAckName' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="notification-input-item">
+        <label for="ackPhone" class="element-label">{{
+          'notifications.phone' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="ackPhone"
+          class="notification-input"
+          formControlName="orderAcknContact"
+        />
+        <div
+          *ngIf="
+            formControls.orderAcknContact.touched &&
+            formControls.orderAcknContact.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <div *ngIf="formControls.orderAcknContact.errors.required">
+            {{ 'notifications.orderAckPhoneNoisRequired' | cxTranslate }}
+          </div>
+          <div *ngIf="formControls.orderAcknContact.errors.pattern">
+            {{ 'notifications.pleaseEnterValidAckPhoneNo' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="notification-input-item">
+        <label class="element-label">{{
+          'notifications.email' | cxTranslate
+        }}</label>
+        <div class="multiple-email-container">
+          <ng-container
+            *ngFor="let creds of orderAckEmailArray?.controls; let i = index"
+          >
+            <ng-container [formGroup]="orderAckEmailArray.controls[i]">
+              <div class="email-input-row">
+                <input
+                  type="text"
+                  class="notification-input"
+                  formControlName="orderAckEmail"
+                  [id]="'orderAckEmail' + i"
+                />
+                <i
+                  class="material-icons"
+                  *ngIf="orderAckEmailArray?.controls?.length > 1"
+                  (click)="removeOrderAckEmails(i)"
+                  >delete_outline</i
+                >
+              </div>
+
+              <!-- {{ orderAckEmailArray[i]?.value }} -->
+
+              <div
+                *ngIf="
+                  orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                    ?.touched &&
+                  orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                    ?.invalid
+                "
+                class="typography--body-small bh-form-message--error inline-error-wrapper"
+              >
+                <i class="typography--icon-small bh-form-message__icon"
+                  >error_outline</i
+                >
+                <div
+                  *ngIf="
+                    orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                      ?.errors?.required
+                  "
+                >
+                  {{ 'notifications.orderAckEmailisRequired' | cxTranslate }}
+                </div>
+                <div
+                  *ngIf="
+                    orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                      ?.errors?.duplicate
+                  "
+                >
+                  {{ 'notifications.duplicateEmail' | cxTranslate }}
+                </div>
+                <div
+                  *ngIf="
+                    orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                      ?.errors?.pattern
+                  "
+                >
+                  {{ 'notifications.pleaseEnterValidEmail' | cxTranslate }}
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- <ng-container *ngIf=" else addEmailACK"> -->
+
+        <!-- </ng-container> -->
+        <!-- <ng-template #addEmailACK>
+
+        </ng-template> -->
+        <div
+          class="add-email"
+          *ngIf="orderAckEmailArray?.controls?.length < 10"
+          (click)="addOrderAckEmails()"
+        >
+          Add email
+          <span class="material-icons">add</span>
+        </div>
+        <div
+          class="limit-warning"
+          [class.warning]="orderAckEmailArray?.controls?.length >= 10"
+        >
+          You can add upto 10 emails.
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="notification-content-row">
+      <div class="service-reminder-text">
+        <div class="reminder-head">
+          {{ 'notifications.invoice' | cxTranslate }}
+        </div>
+        <!-- <div class="reminder-para">
+          {{ 'notifications.receiveCalibrationEmail' | cxTranslate }}
+        </div> -->
+      </div>
+    </div>
+    <div class="notification-content-row padd-top-0">
+      <div class="notification-input-item">
+        <label for="invoiceName" class="element-label">{{
+          'notifications.name' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="invoiceName"
+          class="notification-input"
+          formControlName="invoiceName"
+        />
+        <div
+          *ngIf="
+            formControls.invoiceName.touched && formControls.invoiceName.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <div *ngIf="formControls.invoiceName.errors.required">
+            {{ 'notifications.invoiceNotificationNameisReq' | cxTranslate }}
+          </div>
+          <div *ngIf="formControls.invoiceName.errors.pattern">
+            {{ 'notifications.pleaseEnterValidName' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="notification-input-item">
+        <label for="invoicePhone" class="element-label">{{
+          'notifications.phone' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="invoicePhone"
+          class="notification-input"
+          formControlName="invoiceContact"
+        />
+        <div
+          *ngIf="
+            formControls.invoiceContact.touched &&
+            formControls.invoiceContact.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <div *ngIf="formControls.invoiceContact.errors.required">
+            {{ 'notifications.invoiceNotificationPhoneNoisReq' | cxTranslate }}
+          </div>
+          <div *ngIf="formControls.invoiceContact.errors.pattern">
+            {{ 'notifications.pleaseEnterValidPhoneNo' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="notification-input-item">
+        <label for="invoiceEmail" class="element-label">{{
+          'notifications.email' | cxTranslate
+        }}</label>
+        <div class="multiple-email-container">
+          <ng-container
+            *ngFor="
+              let creds of orderInvoiceEmailArray?.controls;
+              let i = index
+            "
+          >
+            <ng-container [formGroup]="orderInvoiceEmailArray.controls[i]">
+              <div class="email-input-row">
+                <input
+                  type="text"
+                  class="notification-input"
+                  formControlName="orderInvoiceEmail"
+                  [id]="'orderInvoiceEmail' + i"
+                />
+                <i
+                  class="material-icons"
+                  *ngIf="orderInvoiceEmailArray?.controls?.length > 1"
+                  (click)="removeOrderInvoiceEmails(i)"
+                  >delete_outline</i
+                >
+              </div>
+
+              <!-- {{ orderAckEmailArray[i]?.value }} -->
+
+              <div
+                *ngIf="
+                  orderInvoiceEmailArray.controls[i]?.controls
+                    ?.orderInvoiceEmail?.touched &&
+                  orderInvoiceEmailArray.controls[i]?.controls
+                    ?.orderInvoiceEmail?.invalid
+                "
+                class="typography--body-small bh-form-message--error inline-error-wrapper"
+              >
+                <i class="typography--icon-small bh-form-message__icon"
+                  >error_outline</i
+                >
+                <div
+                  *ngIf="
+                    orderInvoiceEmailArray.controls[i]?.controls
+                      ?.orderInvoiceEmail?.errors?.required
+                  "
+                >
+                  {{
+                    'notifications.invoiceNotificationEmailisReq' | cxTranslate
+                  }}
+                </div>
+                <div
+                  *ngIf="
+                    orderInvoiceEmailArray.controls[i]?.controls
+                      ?.orderInvoiceEmail?.errors?.duplicate
+                  "
+                >
+                  {{ 'notifications.duplicateEmail' | cxTranslate }}
+                </div>
+                <div
+                  *ngIf="
+                    orderInvoiceEmailArray.controls[i]?.controls
+                      ?.orderInvoiceEmail?.errors?.pattern
+                  "
+                >
+                  {{ 'notifications.pleaseEnterValidEmail' | cxTranslate }}
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- <ng-container *ngIf=" else addEmailACK"> -->
+
+        <!-- </ng-container> -->
+        <!-- <ng-template #addEmailACK>
+
+        </ng-template> -->
+        <div
+          class="add-email"
+          *ngIf="orderInvoiceEmailArray?.controls?.length < 10"
+          (click)="addOrderInvoiceEmails()"
+        >
+          Add email
+          <span class="material-icons">add</span>
+        </div>
+        <div
+          class="limit-warning"
+          [class.warning]="orderInvoiceEmailArray?.controls?.length >= 10"
+        >
+          You can add upto 10 emails.
+        </div>
+      </div>
+    </div>
+    <div class="notification-content-row mr-top-40">
+      <button
+        class="save-btn action-btn"
+        type="submit"
+        [disabled]="
+          notificationEmailForm.invalid || !notificationEmailForm.dirty
+        "
+      >
+        {{ 'notifications.saveChanges' | cxTranslate }}
+      </button>
+
+      <button
+        class="discard-btn action-btn"
+        type="button"
+        (click)="discardChanges()"
+      >
+        {{ 'notifications.discard' | cxTranslate }}
+      </button>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

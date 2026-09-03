@@ -1,0 +1,29 @@
+<div class="cx-modal-container">
+  <div class="duplicate-eca-content">
+    <div class="cx-dialog-body duplicate-eca-body">
+      <header>
+        <div class="duplicate-eca-header">
+          <span class="dialog-title">
+            {{ 'ecaMissingDialog.message' | cxTranslate }}
+          </span>
+          <span (click)="onClose('Cross click')" class="close-icon">
+            <bh-icon icon="close" size="medium" color="primary" href="" target=""></bh-icon>
+          </span>
+        </div>
+      </header>
+      <div class="cx-dialog-content">
+        <p class="sub-header">
+           {{ 'ecaMissingDialog.description' | cxTranslate }}
+        </p>
+
+        @for(p of emptyEcaProducts; track p){
+          <div class="product-name">{{p}}</div>
+        }
+      </div>
+      <div class="cx-dialog-actions d-flex justify-content-between duplicate-eca-footer">
+         <div class="w-100 mt-3">
+          <bh-button type=primary label=" {{ 'ecaMissingDialog.ok' | cxTranslate }}" fluid (click)="okClick()"></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>

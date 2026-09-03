@@ -1,0 +1,28 @@
+{
+  "mini-cart": {
+    "showing": "Showing {{ shown }} of {{ total }} products",
+    "of": " / ",
+    "products": "产品",
+    "total": "总计",
+    "quantity": "数量",
+    "viewCart": "查看购物车",
+    "cartEmpty": "您的购物车为空",
+    "browseOurProducts": "您可以选择上面的产品分类，来探索我们的产品。",
+    "cartTrouble": "请问您购物车有问题吗？",
+    "deleteAllCarts": "重置所有购物车",
+    "buyCart": "采购车",
+    "returnCart": "退货车",
+    "activeGuestCart": "运行中的购物车",
+    "activeRFQCart": "客人询价车",
+    "quoteCart": "报价车",
+    "deleteAllCartsPopupTitle": "此操作将永久重置所有购物车。",
+    "deleteAllCartsPopupPoint1": "进行中的购物车将会丢失",
+    "deleteAllCartsPopupPoint2": "此操作无法撤回",
+    "deleteAllCartsPopupConfirmMessage": "是否确定要继续？",
+    "deleteAllCartsPopupCancel": "取消",
+    "deleteAllCartsPopupConfirm": "是的, 请继续",
+    "deleteAllCartsPopupCartNotFoundTitle": "您在加载购物车时似乎遇到了问题。",
+    "deleteAllCartsPopupResetMessage": "请重置购物车以继续操作。",
+    "deleteAllCartsPopupActiveLost": "进行中的购物车将会丢失"
+  }
+}

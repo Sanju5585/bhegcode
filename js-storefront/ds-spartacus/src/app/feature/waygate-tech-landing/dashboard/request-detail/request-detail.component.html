@@ -1,0 +1,332 @@
+<form class="form" [formGroup]="myForm">
+  <div class="request-details">
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.firstNameLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.firstname }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.lastNameLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.lastname }}</span>
+    </div>
+
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.emailAddressLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.email }}</span>
+    </div>
+    <!--  -->
+    <div class="app-details">
+      {{ 'dashboard.applicationDetailsLabel' | cxTranslate }}
+    </div>
+    <ng-container
+      *ngFor="let customer of customerAccounts.controls; let i = index"
+    >
+      <ng-container [formGroup]="customer">
+        <hr />
+        <div class="form-group">
+          <label class="typography--label-medium required d-inline-block">{{
+            'dashboard.customerAccountNumberLabel' | cxTranslate
+          }}</label>
+          <a
+            href="javascript:void(0)"
+            (click)="removeCustomerFormControl(i)"
+            class="delete-customer"
+            *ngIf="customerAccounts.controls.length > 1 && !isReadOnlyForm"
+          >
+            <i class="fa fa-trash"></i
+          ></a>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="customerNumber"
+            [ngClass]="{
+              error:
+                (customer.get('customerNumber')?.touched || submitForm) &&
+                customer.get('customerNumber')?.errors,
+            }"
+          />
+          <div
+            class="inline-error-wrapper typography--label-medium"
+            *ngIf="
+              customer.get('customerNumber')?.errors &&
+              (customer.get('customerNumber')?.dirty ||
+                customer.get('customerNumber')?.touched ||
+                submitForm)
+            "
+          >
+            <span *ngIf="customer.get('customerNumber')?.getError('required')">
+              {{ 'dashboard.customerNumberIsRequired' | cxTranslate }}</span
+            >
+            <span
+              *ngIf="customer.get('customerNumber')?.getError('serverError')"
+              >{{
+                customer.get('customerNumber')?.getError('serverError')
+              }}</span
+            >
+          </div>
+        </div>
+        <ng-container
+          *ngFor="let area of getSalasArea(i).controls; let areaIndex = index"
+        >
+          <div class="form-group" [formGroup]="area">
+            <label class="typography--label-medium required">{{
+              'dashboard.salesAreaLabel' | cxTranslate
+            }}</label>
+            <div
+              class="cust-input-group"
+              [ngClass]="{
+                error:
+                  (area.get('salesArea')?.touched || submitForm) &&
+                  area.get('salesArea')?.invalid,
+              }"
+            >
+              <input
+                type="text"
+                class="cust-form-control"
+                formControlName="salesArea"
+                [ngClass]="{
+                  'round-border': getSalasArea(i).controls.length == 1,
+                  error:
+                    (area.get('salesArea')?.touched || submitForm) &&
+                    area.get('salesArea')?.invalid,
+                }"
+              />
+              <div
+                class="cust-input-group-append"
+                *ngIf="getSalasArea(i).controls.length > 1 && !isReadOnlyForm"
+              >
+                <button
+                  type="button"
+                  class="cust-input-group-text"
+                  (click)="removeSalesAreaFormControl(i, areaIndex)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="inline-error-wrapper typography--label-medium w-100"
+            *ngIf="
+              area.get('salesArea')?.errors &&
+              (area.get('salesArea')?.dirty ||
+                area.get('salesArea')?.touched ||
+                submitForm)
+            "
+          >
+            <span *ngIf="area.get('salesArea')?.getError('required')">{{
+              'dashboard.salesAreaIsRequired' | cxTranslate
+            }}</span>
+            <span *ngIf="area.get('salesArea')?.getError('pattern')">{{
+              'dashboard.invalidSalesArea' | cxTranslate
+            }}</span>
+            <span *ngIf="area.get('salesArea')?.getError('serverError')">{{
+              area.get('salesArea')?.getError('serverError')
+            }}</span>
+          </div>
+        </ng-container>
+        <a
+          *ngIf="!isReadOnlyForm"
+          href="javascript:void(0)"
+          (click)="addSalasArea(i)"
+          class="action-sales-area"
+          >{{ 'dashboard.addSalesAreaBtnText' | cxTranslate }}</a
+        >
+      </ng-container>
+    </ng-container>
+    <button
+      type="button"
+      class="btn btn-outline-light action-add-customer-account mt-3 w-100"
+      (click)="addCustomerFormControl()"
+      *ngIf="!isReadOnlyForm"
+    >
+      <i class="fa fa-add"></i
+      >{{ 'dashboard.addCustomerAccountBtnText' | cxTranslate }}
+    </button>
+    <!--  -->
+    <div class="form-group mt-4">
+      <label class="typography--label-medium">{{
+        'dashboard.endCustomer' | cxTranslate
+      }}</label>
+      <span class="value">
+        <ng-container *ngIf="selectedAccount.endCustomer; else endCustomer">
+          {{ 'dashboard.yes' | cxTranslate }}
+        </ng-container>
+        <ng-template #endCustomer>
+          {{ 'dashboard.no' | cxTranslate }}
+        </ng-template>
+      </span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.governmentEntity' | cxTranslate
+      }}</label>
+      <span class="value">
+        <ng-container
+          *ngIf="selectedAccount.governmentEntity; else governmentEntity"
+        >
+          {{ 'dashboard.yes' | cxTranslate }}
+        </ng-container>
+        <ng-template #governmentEntity>
+          {{ 'dashboard.no' | cxTranslate }}
+        </ng-template>
+      </span>
+    </div>
+    <div class="form-group" *ngIf="selectedAccount?.detailNumber">
+      <label class="typography--label-medium">{{
+        getDetailName(selectedAccount?.detailNumber)
+      }}</label>
+      <span class="value"> {{ selectedAccount?.detailNumberValue }} </span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.productLineLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.productLine }}</span>
+    </div>
+    <div class="form-group" *ngIf="selectedAccount?.subProductLine">
+      <label class="typography--label-medium">{{
+        'dashboard.subProductLineLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{
+        selectedAccount?.subProductLine?.join(' | ')
+      }}</span>
+    </div>
+    <div class="form-group" *ngIf="selectedAccount?.addressType">
+      <label class="typography--label-medium">{{
+        'dashboard.addressType' | cxTranslate
+      }}</label>
+      <span class="value">{{
+        selectedAccount?.addressType.replace('_', ' ')
+      }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.companyNameLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.companyName }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.companyAddressLabel1' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.companyAddressLine1 }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.companyAddressLabel2' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.companyAddressLine2 }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.stateProvinceLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.district }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.cityTownLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.town }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.postalCodeLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.postalCode }}</span>
+    </div>
+    <div class="form-group">
+      <label class="typography--label-medium">{{
+        'dashboard.countryLabel' | cxTranslate
+      }}</label>
+      <span class="value">{{ selectedAccount.companyCountry }}</span>
+    </div>
+    <div class="form-group" *ngIf="selectedAccount?.addressProof">
+      <label class="typography--label-medium">{{
+        'dashboard.kycDocument' | cxTranslate
+      }}</label>
+      <span class="value">{{
+        getDownloadNameMediaCode(selectedAccount?.addressProof).downloadName
+      }}</span>
+      <p
+        (click)="
+          downloadAttachment(
+            getDownloadNameMediaCode(selectedAccount?.addressProof).mediaCode
+          )
+        "
+        class="pointer"
+      >
+        <img src="./../../../../../assets/img/cloud-download.svg" />
+        <span class="ml-1">{{
+          'dashboard.downloadDocument' | cxTranslate
+        }}</span>
+      </p>
+    </div>
+    <div class="form-group" *ngIf="selectedAccount?.ownershipStructure">
+      <label class="typography--label-medium">{{
+        'dashboard.ownershipStructure' | cxTranslate
+      }}</label>
+      <span class="value">{{
+        getDownloadNameMediaCode(selectedAccount?.ownershipStructure)
+          .downloadName
+      }}</span>
+      <p
+        (click)="
+          downloadAttachment(
+            getDownloadNameMediaCode(selectedAccount?.ownershipStructure)
+              .mediaCode
+          )
+        "
+        class="pointer"
+      >
+        <img src="./../../../../../assets/img/cloud-download.svg" />
+        <span class="ml-1">{{
+          'dashboard.downloadDocument' | cxTranslate
+        }}</span>
+      </p>
+    </div>
+    <ng-container
+      *ngIf="selectedAccount?.approvalStatus == _accountStatus.completed"
+    >
+      <div class="form-group">
+        <label class="typography--label-medium">{{
+          'dashboard.approvalStatus' | cxTranslate
+        }}</label>
+        <span class="value">{{ selectedAccount?.approvalStatus }}</span>
+      </div>
+      <div class="form-group">
+        <label class="typography--label-medium">{{
+          'dashboard.processedBy' | cxTranslate
+        }}</label>
+        <span class="value">{{ selectedAccount?.processedBy }}</span>
+      </div>
+      <div class="form-group">
+        <label class="typography--label-medium">{{
+          'dashboard.processDate' | cxTranslate
+        }}</label>
+        <span class="value">{{ selectedAccount?.processDate }}</span>
+      </div>
+    </ng-container>
+    <div
+      class="form-group"
+      *ngIf="selectedAccount?.approvalStatus !== _accountStatus.pending"
+    >
+      <label class="typography--label-medium">{{
+        'dashboard.comments' | cxTranslate
+      }}</label>
+      <span class="value">
+        {{ selectedAccount.comments || '-' }}
+      </span>
+    </div>
+  </div>
+</form>
+
+<div class="cx-spinner reject-loader" *ngIf="showChildLoader">
+  <cx-spinner></cx-spinner>
+</div>

@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "게스트 견적 장바구니",
+    "checkoutBtn": "결제 진행",
+    "delete": "삭제",
+    "comments": "의견",
+    "quantity": "수량",
+    "each": "각",
+    "saving": "저장 중...",
+    "commentscart": "의견이 저장되지 않았습니다. 저장을 위해서 저장 아이콘을 클릭하여 주시기 바랍니다.",
+    "commenterror": "저장 전에 의견을 추가해 주시기 바랍니다.",
+    "characterlefft": "남은 문자:",
+    "item": "제품",
+    "cartEmpty": "귀하의 장바구니가 비었습니다.",
+    "noItemIncart": "장바구니에 제품이 없습니다.",
+    "explore": "살펴보기 ",
+    "ourCatalogue": "당사의 카탈로그 ",
+    "toAdditems": "제품 추가를 위해",
+    "error": {
+      "removeMsg": "선택한 항목이 성공적으로 삭제되었습니다.",
+      "errorMessage": "문제가 발생했습니다. 나중에 다시 시도해 주시기 바랍니다."
+    }
+  }
+}

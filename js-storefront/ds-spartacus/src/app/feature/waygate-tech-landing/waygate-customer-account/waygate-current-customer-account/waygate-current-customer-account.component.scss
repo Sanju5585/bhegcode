@@ -1,0 +1,220 @@
+@import '../../../../../styles/responsive_mixins.scss';
+.current-account {
+  .account-details {
+    margin-top: 34px;
+  }
+
+  .title-label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--font-size-body-large);
+    line-height: 22px;
+    color: var(--color-text-common-primary);
+  }
+
+  .acc-name {
+    font-family: var(--font-family-body-medium);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-subtitle-medium);
+    line-height: var(--font-line-height-subtitle-large);
+    letter-spacing: 0.1px;
+    color: var(--color-text-common-primary);
+  }
+
+  .acc-id {
+    font-family: var(--font-family-body-medium);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-body-small);
+    line-height: var(--font-line-height-avatar-xsmall);
+    letter-spacing: 0.25px;
+    color: var(--color-text-label-default);
+  }
+
+  .acc-address {
+    font-family: var(--font-family-body-medium);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-body-medium);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+    color: var(--color-text-common-primary);
+  }
+
+  .legal-entity-details {
+    .entity-label {
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-size-body-medium);
+      line-height: 20px;
+      color: var(--color-text-common-primary);
+    }
+
+    .legal-entity-values {
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-size-body-medium);
+      line-height: 21px;
+      letter-spacing: 0.1px;
+      color: var(--color-text-common-primary);
+    }
+  }
+
+  .cust-account-action {
+    display: flex;
+    flex-direction: row;
+
+    .action-links {
+      display: flex;
+      flex-direction: row;
+
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-size-body-medium);
+      line-height: 21px;
+      letter-spacing: 0.1px;
+      color: var(--color-text-link-primary-default);
+      text-decoration: none;
+      cursor: pointer;
+
+      .material-icons {
+        font-size: var(--font-base-font-size-20);
+      }
+    }
+  }
+
+  @include media-lg-max{
+      width: 115%;
+  }
+}
+
+.change-legal-entity {
+  margin-top: 24px !important;
+
+  .change-legal-entity-action {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+:host::ng-deep {
+  .bh-button__container {
+    width: 134px;
+  }
+
+  .bh-tabs--item.active {
+    .bh-tabs--item-label {
+      color: #1a2321 !important;
+
+      span {
+        color: #1a2321 !important;
+      }
+    }
+  }
+
+  .bh-tabs--active-highlight {
+    min-width: 120px !important;
+  }
+
+  .bh-tabs--item {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 1px;
+  }
+
+  .bh-radio-button__label {
+    color: #1a2321;
+  }
+
+  .change-legal-entity-action {
+    .bh-button__container {
+      width: 121px;
+
+      .bh-button {
+        width: 121px;
+
+        .bh-button__label {
+          text-transform: uppercase;
+        }
+      }
+
+      .bh-button--type-primary {
+        pointer-events: none;
+        background-color: #ebefee;
+        color: #ced7d4;
+        width: 121px;
+      }
+
+      .bh-button--type-secondary {
+        width: 121px;
+      }
+    }
+  }
+
+  .selected-btn {
+    .bh-button__container {
+      .bh-button--type-primary {
+        opacity: 100%;
+        pointer-events: visible;
+        background-color: var(--color-base-teal-500);
+        color: #ffffff;
+        width: 121px;
+      }
+    }
+  }
+}
+
+.change-legal-entity {
+  .title-label {
+    &::after {
+      font-family: var(--font-base-font-family-icon);
+      content: 'info';
+      height: 18px;
+      margin-left: 4px;
+      width: 18px;
+      color: #9e9e9e;
+      position: absolute;
+    }
+  }
+}
+
+.switch-region-sub-header {
+  padding: 0.75rem 0rem;
+  background: #f8faf9;
+}
+
+.accounts-wrapper {
+  height: 200px;
+  overflow-y: scroll;
+  flex: 1;
+  @include media-xl-max
+  {
+      height: max-content; 
+  }
+}
+
+.row-wrapper {
+  display: flex;
+  padding: 15px 10px;
+}
+
+.margin-top {
+  margin-top: 30px;
+}
+
+.activeAcc {
+  background-color: #effcf6 !important;
+}
+.header-back-link {
+  display: flex;
+  gap: 10px;
+  .material-icons {
+    cursor: pointer;
+  }
+}
+.ml-custom-33 {
+  margin-left: 33px;
+}

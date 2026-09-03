@@ -1,0 +1,132 @@
+## messageSource=classpath:/bhgecore/messages/email-bhgeOrderTracking_$lang.properties  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8">
+   
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Order Enquiry Form</title>
+	
+<style>
+
+@font-face {
+    font-family: GEInspiraSans;
+    src: url('${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+}
+	p
+	{  color: #05322b;
+	   font-family: 'Poppins','Lucida Sans';
+	   font-size: 14px;
+	   text-align: left;
+	}
+	table,
+     td {
+         mso-table-lspace: 0pt;
+         mso-table-rspace: 0pt;
+     }
+
+     img {
+         border: 0;
+         height: auto;
+         line-height: 100%;
+         outline: none;
+         text-decoration: none;
+         -ms-interpolation-mode: bicubic;
+     }
+
+	a, button {
+    outline: none!important;
+    text-decoration: none!important;
+    color: #fff;
+    transition: all 0.2s ease 0s;
+	}
+</style>
+
+    </head>
+
+     <body style="font-family:GEInspiraSans;
+	font-size: 14px;
+    font-weight: bold;">
+        <div style="background:url('${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png') no-repeat;
+  z-index: 990;
+  background-blend-mode: darker;
+  background-position:right center;
+   background-size:cover;
+  margin-left: 0px;
+  background-origin: content-box;
+  width: 1024;">
+         <div>
+                <div class="row">
+                    <div>
+
+						<div>
+						<h3 style="margin-left: 0; margin-top: -40px;font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px;font-weight: bold;text-transform: uppercase;margin-left: 5%; margin-top: 0;padding-bottom: 2%;">SALES ORDER STATUS</h3>
+
+						</div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<div style="padding: 0 3%;color: #13294b;">
+<div style="font-size:11px;color: #13294b;font-weight: normal;    margin-bottom: 2%;">
+   <p>${ctx.messages.hello},</p>
+    <p>${ctx.messages.reviewYourOrder}</p>
+    <br />
+    <p>${ctx.messages.thanksForOrder}!</p>
+</div>
+<div style="font-size:11px;color: #13294b;font-weight: normal;">
+<div style=" border-bottom: solid 0.3px #979797;    padding-bottom: 0.7%;    padding-left: 0.5%; color: #05322b; font-family: 'Poppins','Lucida Sans'; font-size: 14px; text-align: left;">
+${ctx.messages.salesOrderDetails}
+</div>
+<div style="text-align: center;font-size:12px;font-weight: normal;padding-bottom: 2%;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#e1e2e5; border-collapse: collapse;
+width: 100%;">
+
+       <tr >
+
+        <th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:7%">${ctx.messages.BHGESalesOrder} # </th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:9% ">${ctx.messages.CustomerPO} #</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:8% ">${ctx.messages.DateOrderPlaced}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:10% ">${ctx.messages.SoldTo}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:7% ">${ctx.messages.LineNumber}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:5% ">${ctx.messages.Part} #</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:10% ">${ctx.messages.Description}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:5% ">${ctx.messages.Qty}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:8% ">${ctx.messages.Status}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:10% ">${ctx.messages.ShipDate}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:10%">${ctx.messages.ShipTo}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:6% ">${ctx.messages.Courier}</th>
+		<th style="text-align: center;background-color: #B6D4D5;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial;color:#313337;height:60px;width:11%">${ctx.messages.TrackingNumber}</th>
+ 		
+ 		</tr>
+
+        <tr>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all; padding: 0 4px;">1${entry.orderNum}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">2${entry.customerPO}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">3${entry.orderDate}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">4${entry.soldToName}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">5${entry.lineNumber}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">6${entry.partNumber}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">7${entry.description}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">8${entry.qty}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">9${entry.status}<div/></td>
+          #if($entry.status.contains("Processing"))
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337"><div style="word-break: break-all;padding: 0 4px;">11${entry.geFromDate}<div/></td>
+          #elseif($entry.status.contains("Shipped"))
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337"><div style="word-break: break-all;padding: 0 4px;">22${entry.actShpDate}<div/></td>
+		  #else
+		  <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">33${entry.shipDate}<div/></td>
+		  #end
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">44${entry.shippingAddress}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337;" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">55${entry.courier}<div/></td>
+          <td colspan="1" style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 14px;font-family: arial; color:#313337" class="structureViewSection"><div style="word-break: break-all;padding: 0 4px;">66${entry.trackingNumber}<div/></td>
+        </tr>
+	   </table>
+</div>
+</div>
+</div>
+  </body>
+</html>

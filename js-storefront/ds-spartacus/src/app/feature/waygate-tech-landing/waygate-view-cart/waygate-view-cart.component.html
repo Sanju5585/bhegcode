@@ -1,0 +1,124 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<section>
+  <div class="container">
+    <div class="section-container">
+      <div class="waygate-my-orders-header">
+        <div class="header-green-border"></div>
+        <h1>{{ 'waygate.cart.mySavedCartTitle' | cxTranslate }}</h1>
+      </div>
+      <div class="tab">
+        <button
+          class="tablinks"
+          [class.active]="type === 'All'"
+          (click)="setType('All')"
+        >
+          {{ 'waygate.cart.all' | cxTranslate }}
+        </button>
+        <button
+          class="tablinks"
+          [class.active]="type === 'Buy'"
+          (click)="setType('Buy')"
+        >
+          {{ 'waygate.cart.buy' | cxTranslate }}
+        </button>
+        <button
+          class="tablinks"
+          [class.active]="type === 'Returns'"
+          (click)="setType('Returns')"
+        >
+          {{ 'waygate.cart.return' | cxTranslate }}
+        </button>
+        <button
+          class="tablinks"
+          [class.active]="type === 'Quote'"
+          (click)="setType('Quote')"
+        >
+          {{ 'waygate.cart.quote' | cxTranslate }}
+        </button>
+      </div>
+      <div class="table-responsive">
+        <ng-container *ngIf="loadingFlag; else loading">
+          <ng-container *ngIf="viewcartData?.length > 0; else noData">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>{{ 'waygate.cart.cartID' | cxTranslate }}</th>
+                  <th>{{ 'waygate.cart.cartDetails' | cxTranslate }}</th>
+                  <th>{{ 'waygate.cart.type' | cxTranslate }}</th>
+                  <th class="custom-total-line-items">
+                    {{ 'waygate.cart.totalLineItems' | cxTranslate }}
+                  </th>
+                  <th>{{ 'waygate.cart.estimatedTotal' | cxTranslate }}</th>
+                  <th>{{ 'waygate.cart.expiryDate' | cxTranslate }}</th>
+                  <th>{{ 'waygate.cart.lastRestored' | cxTranslate }}</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let cart of viewcartData">
+                  <td>{{ cart?.code }}</td>
+                  <td
+                    class="cartType cart-text"
+                    (click)="viewDetails(cart.code)"
+                  >
+                    {{ cart?.name }}<br />
+                    <a class="cart-details-text">{{ cart?.description }}</a>
+                  </td>
+                  <td>
+                    <a>{{ cart?.commerceType }}</a>
+                  </td>
+                  <td class="custom-total-count">{{ cart?.totalUnitCount }}</td>
+                  <td>
+                    {{ cart?.totalPrice?.formattedValue }}
+                  </td>
+                  <td>{{ cart?.expirationTime | date: 'd MMM y' }}</td>
+                  <td>
+                    {{ cart?.saveTime | date: 'd MMM y' }}<br />
+                    <a class="cart-details-text"
+                      >{{ 'waygate.cart.by' | cxTranslate }}
+                      {{ cart?.savedBy?.name }}</a
+                    >
+                  </td>
+
+                  <td>
+                    <a class="vector-text" (click)="viewDetails(cart.code)">
+                      <span class="material-icons custom-restore">
+                        restore
+                      </span></a
+                    >
+                  </td>
+                  <td>
+                    <i
+                      class="material-icons-outlined sales-area-info"
+                      (click)="openDeletePopup(cart?.code, cart?.name)"
+                      >delete</i
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #noData>
+  <div class="wl-100">
+    <div class="no-orders-found">
+      <img
+        src="../../../../assets/img/Illustration.png"
+        alt="No Orders Found!"
+      />
+      <h4>{{ 'waygate.cart.cartNotFound' | cxTranslate }}</h4>
+    </div>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="wl-100">
+    <div class="cx-spinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </div>
+</ng-template>

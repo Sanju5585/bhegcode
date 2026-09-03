@@ -1,0 +1,57 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into Powertools Store
+
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$erp_catalogVersion = catalogversion(catalog(id[default=ERP_CLASSIFICATION_HYB]),version[default='ERP_IMPORT'])
+$thumbnail=thumbnail($erp_catalogVersion,code)
+$picture=picture($erp_catalogVersion,code)
+$erp_default = ERP_CLASSIFICATION_HYB:ERP_IMPORT
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/productCatalogs/$productCatalog
+$lang=en
+
+UPDATE Category;code[unique=true];$catalogVersion;description[lang=$lang]
+ClassificationClass;ECOM_LVL0_00000000;$erp_default;Browse a selection of our top selling, in-stock ultrasonic probes and accessories and add to your cart for a quick and easy online shopping experience. For product inquiries outside of the offerings shown here or custom probe requests, please contact our Customer Care team via the Contact Us form at the top of the page.
+ClassificationClass;ECOM_LVL1_00000001;$erp_default;Worldâ€™s largest provider of non-destructive testing solutions including radiography, computed tomography (CT), remote visual inspection, ultrasound, and electromagnetic testing products. From state-of-the-art inspection equipment, to the most advanced data collection technology, to innovative software enabling remote collaboration, the NDT experts at BHGE can design and build an inspection solution for the most demanding applications.
+ClassificationClass;ECOM_LVL1_00000002;$erp_default;Advanced manufacturing and digital industrial applications require precise operational data and seamless connectivity. BHGE's advanced control, sensing and measurement technologies deliver critical data when and where it counts. And with decades of industrial experience in the world's harshest environments, you can count on your equipment to operate reliably even under extreme conditions. When each percentage point is worth millions, it pays to make the right choice.
+ClassificationClass;ECOM_LVL2_00000003;$erp_default;The site makes it simple and easy to select ultrasonic probes and ultrasonic transducers used in non-destructive testing (NDT). There are four ways to find the ultrasonic probes and transducers that best suits your needs. Whether youâ€™re new to the field or an NDT expert, this easy-to-navigate site streamlines the process of choosing from more than 600 standard ultrasonic probes and transducers that BHGE offers.
+ClassificationClass;ECOM_LVL3_00000021;$erp_default;With the practical and powerful ultrasonic wall thickness probes you are able to solve a variety of inspection tasks.We provide for example corrosion probes with dual-element transducers for the primary inspection of remaining walls of components such as oil & gas pipelines, power pressure vessels, storage tanks, and numerous other applications. Precision probes with single-element transducers provide the thinnest range and highest degree of accuracy. Common applications include metals and a variety of non-metals (i.e. glass, ceramic, plastic, etc.).Because of the variety of our probes and instruments we are able to offer the best solution for your specific application.
+ClassificationClass;ECOM_LVL3_00000019;$erp_default;New materials, manufacturing processes and joining technologies require ultrasonic special probes. GE offers numerous ultrasonic probes for the testings of laserwelds, spotwelds, rails, axles, tubes, gas bottles, billets and others using immersion, water jet, dry or standard coupling methods.
+ClassificationClass;ECOM_LVL3_00000020;$erp_default;GE manufactures a wide variety of phased array ultrasonic transducers for use with Phasor XS and other ultrasonic flaw detectors. 33 standard phased array ultrasonic transducers cover a broad application spectrum and are stocked and available with short delivery times. All these probes offer three connector options and are manufactured to GEâ€™s high quality standards.
+ClassificationClass;ECOM_LVL1_00000007;$erp_default;Nexus Controls;"Nexus Controls delivers comprehensive, scalable solutions with superior controls systems, safety systems (SIL), hardware, software and services.<br>
+Nexus Controls partners with customers from many different industries to securely optimize their operations, increase visibility, minimize downtime, and improve safety. Nexus Controls is also a leader in industrial cybersecurity, including hardware, software and managed security services."
+ClassificationClass;ECOM_LVL2_00000015;$erp_default;Unit Controls;"Nexus Controls supports control system replacement parts for multiple manufactures including Nexus Controls, General Electric, and Woodward Governor."
+ClassificationClass;ECOM_LVL3_00000061;$erp_default;Mark V Controls;"The GE Mark V and Mark V-LM Turbine Control Systems have been produced for several decades and have enjoyed widespread acceptance in both new unit and retrofit applications. The Mark V represented the latest in a line of microprocessor-based turbine control systems designed specifically for controlling turbines in the 1990s. The Mark V was used on medium or large steam turbines, heavy duty gas turbines (single or two shaft), and aircraft derivative gas turbines. The system is comprised of functional cores that are interconnected via ribbon cables."
+ClassificationClass;ECOM_LVL3_00000062;$erp_default;Mark VI Controls;"The Mark VI control system, is primarily used for the control and protection of steam and gas turbines in electrical generation and process plant applications.<br>
+The main functions of the Mark VI control system are as follows:<br>
+• Speed control during turbine startup<br>
+• Automatic generator synchronization<br>
+• Turbine load control during normal operation on the grid<br>
+• Protection against turbine overspeed on loss of load The Mark VI control system was available as a simplex control or a triple modular redundant (TMR) control with single or multiple racks, and local and/or remote I/O. The I/O interface is designed for direct interface to the sensors and actuators on the turbine, to eliminate the need for interposing instrumentation, and to avoid the reliability and maintenance issues associated with that instrumentation."
+ClassificationClass;ECOM_LVL3_00000063;$erp_default;Mark VIe Controls;"The GE Mark VIe control system is a flexible platform used in multiple applications. Its architecture enables unique engineered solutions for a variety of large industrial applications. It features high-speed,  networked input/output (I/O) for Simplex, Dual, and Triple Modular Redundant (TMR) systems. Industry-standard Ethernet communications are used for I/O, controllers, and supervisory interface to operator and maintenance stations, as well as third-party systems.
+The Mark VIeS Safety controller and I/O can operate independently or integrated with the rest of the Mark VIe controllers for safety-critical applications that conform to IEC® 61508.
+The Mark VIe systems were GE's first fully modular Control System for Turbine and Compressor controls. As modules become obsolete due component availability or design enhancements, a new replacing module is released to perform the same or enhanced functions. This eliminates the need for full system replacements due to obsolete items or the need for expansion."
+ClassificationClass;ECOM_LVL3_00000064;$erp_default;Nexus OnCore;"The Nexus OnCore Control System was introduced (re-branded) in 2019. It was based off of the Nexus OC600e Control System. This control system is normally configured in a Dual controller configuration but can also be configured as Simplex. The system has three basic layers.<br>
+• Controller layer. A pair of redundant high performance iDPUs work together to fulfill the control calculation. <br>
+• I/O network layer. Two I/O link boards (MCD50\51) are the connector between controllers and I/O modules.<br>
+• I/O module layer. Many types of I/O modules supports a variety of control needs.<br>
+The Nexus OnCore Safety System is a programmable electronic safety-related system that complies with IEC 61508 (2010), having a system capability of SC 3 (Systematic Capability) and Safety Integrity Level (SIL) 3 by 2oo3 (2 out of 3) architectural design standards. It can be applied to those applications where customers are wanting to achieve a system rating up to SIL 3. SIL is an indication of the reliability of safety instrumented functions (SIF) or its Probability of Failure on Demand (PFD)."
+ClassificationClass;ECOM_LVL3_00000066;$erp_default;Legacy Controls;"Legacy Controls refers to Control Systems that use typically older than the 1990s. Nexus Controls can still provide limited parts support for many older GE control systems. Only the most often requested items will be listed in this area because volume is low due to a dwindling installed base and support must be verified before quoting.<br>
+Some of the supported systems include: GE Mark I, Mark II, Mark III, Mark IV, and Mark IV+."
+ClassificationClass;ECOM_LVL2_00000016;$erp_default;Excitation Systems;"Nexus Controls supports Excitation Control Systems used for generator control in a wide array of power generation applications. As the primary retrofit organization for the GE Excitation equipment we have a deep domain knowledge of many control systems both Digital and Analog dating back to the 1950s."
+ClassificationClass;ECOM_LVL2_00000017;$erp_default;Static Starter Systems;"Nexus Controls supports replacement parts and repairs for several Static Starter systems. As the primary retrofit organization for the GE starter systems used in the Power Generation industry, we have a deep domain knowledge of the equipment.<br>
+The Static Starters are also known as Load Commutated Inverters (LCI) and most systems are composed of a control cabinet, a power conversion cabinet(s), and a pump panel (for coolant processing)."

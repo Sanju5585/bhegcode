@@ -1,0 +1,137 @@
+<div class="create-order">
+  <div class="order-text">{{ 'loggedinHome.createOrder' | cxTranslate }}</div>
+  <div class="order-search">
+    <div class="accessories">
+      <div class="accessories-tabs-group">
+        <div
+          class="accessories-tab"
+          [ngClass]="index == 0 ? 'tab-active' : ''"
+          (click)="index = 0"
+        >
+          {{ 'loggedinHome.partNumber' | cxTranslate }}
+        </div>
+        <div
+          class="accessories-tab"
+          [ngClass]="index == 1 ? 'tab-active' : ''"
+          (click)="index = 1"
+        >
+          {{ 'loggedinHome.enterLine' | cxTranslate }}
+        </div>
+      </div>
+      <div class="accessories-tab-details">
+        <div class="accessories-tab-details--section" *ngIf="index == 0">
+          <div class="copy-paste-box">
+            <bh-text-area
+              required
+              name="pastePartNumber"
+              messageType="count"
+              placeholder="{{ 'loggedinHome.placeholdermsg' | cxTranslate }}"
+              [value]="pastePartNumber"
+              messageType="custom"
+              messageText=" "
+              (keyup)="onChange($event, 'partPaste', 'i')"
+              (keypress)="stop($event)"
+              (paste)="myFunction($event)"
+              #textval
+              (focusout)="trimText()"
+            ></bh-text-area>
+          </div>
+          <div class="button">
+            <div class="clear-button">
+              <bh-button
+                type="secondary"
+                label="{{ 'loggedinHome.clear' | cxTranslate }}"
+                class="clear"
+                (click)="clear('pastePart')"
+              >
+              </bh-button>
+            </div>
+            <div class="add-button track-button">
+              <bh-button
+                type="primary"
+                label="{{ 'loggedinHome.addToCart' | cxTranslate }}"
+                class="add-cart"
+                [ngClass]="pastePartNumber.trim() !== '' ? 'track-green' : ''"
+                (click)="addToCart('pastePartNumber')"
+                [attr.disabled]="showSpinner ? true : null"
+                [attr.loading]="showSpinner ? true : null"
+              >
+              </bh-button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="index == 1">
+          <div class="line">
+            <div class="txt-lable">
+              <span>{{ 'loggedinHome.partNo' | cxTranslate }}</span>
+              <span class="qty">{{ 'loggedinHome.qty' | cxTranslate }}</span>
+            </div>
+
+            <div *ngFor="let field of fieldArray; let i = index">
+              <div class="content-form">
+                <bh-text-input
+                  id="{{ i }}"
+                  type="text"
+                  name="{{ field.partLineNumber }}"
+                  [value]="field.partLineNumber"
+                  (keyup)="onChange($event, 'linePartNumber', i)"
+                ></bh-text-input>
+
+                <vs-item-counter
+                  id="{{ i }}"
+                  class="counter-size"
+                  [control]="bulkQty.get('text' + i)"
+                  [max]="9999"
+                  (quantityIncrement)="increaseQuantity($event, i)"
+                  (quantityDecrement)="decreaseQuantity($event, i)"
+                ></vs-item-counter>
+                <span class="no-qty">{{
+                  'loggedinHome.each' | cxTranslate
+                }}</span>
+                <bh-button
+                  *ngIf="fieldArray.length > 1"
+                  small
+                  class="delete-btn"
+                  type="secondary"
+                  icon="delete"
+                  (click)="deleteFieldValue(i)"
+                  [ngClass]="fieldArray.length < 2 ? 'disabled' : ''"
+                ></bh-button>
+              </div>
+            </div>
+            <a
+              class="link"
+              (click)="addField()"
+              *ngIf="fieldArray.length < lineByLinePartNumber"
+              >{{ 'loggedinHome.addAnotherLine' | cxTranslate }}</a
+            >
+            <div class="button">
+              <div class="clear-button">
+                <bh-button
+                  type="secondary"
+                  label="{{ 'loggedinHome.clear' | cxTranslate }}"
+                  class="clear"
+                  (click)="clear('addLinePartNumber')"
+                >
+                </bh-button>
+              </div>
+              <div class="add-button track-button">
+                <bh-button
+                  type="primary"
+                  label="{{ 'loggedinHome.addToCart' | cxTranslate }}"
+                  class="add-cart"
+                  [ngClass]="lineNumber.trim() !== '' ? 'track-green' : ''"
+                  (click)="addToCart('linePartNumber')"
+                  [attr.disabled]="showSpinner ? true : null"
+                  [attr.loading]="showSpinner ? true : null"
+                >
+                </bh-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="status-tiles-container" #statusTiles>
+  <ul *ngIf="currentStatusType == statusTypes.QUOTE">
+    <li
+      class="col"
+      *ngFor="let tile of tiles; let first = first; let last = last"
+      [class.selected]="tile.quoteStatus.statusName === quoteSelectedTile"
+    >
+      <div class="tile-container">
+        <div
+          class="tile"
+          [ngClass]="tile.colorTheme"
+          (click)="emitTileClick(tile)"
+        >
+          <span
+            class="tile-heading"
+            *ngIf="currentStatusType == statusTypes.QUOTE"
+            >{{ tile.quoteStatus.statusName }}</span
+          >
+          <span
+            class="tile-sub-heading"
+            [vsStatusCounter]="tile.statusCount || 0"
+          >
+            <span class="counter-number">0</span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <ul *ngIf="currentStatusType == statusTypes.ORDER">
+    <li
+      class="col"
+      *ngFor="let tile of tiles; let first = first; let last = last"
+      [class.selected]="tile.orderStatus.statusName === selectedOrderTile"
+    >
+      <div class="tile-container">
+        <div
+          class="tile"
+          [ngClass]="tile.colorTheme"
+          (click)="emitTileClick(tile)"
+          matTooltipClass="vs-tooltip"
+          matTooltip="{{ tile.tooltip }}"
+          matTooltipPosition="below"
+        >
+          <span class="tile-heading">{{ tile.orderStatus.statusName }}</span>
+          <span
+            class="tile-sub-heading"
+            [vsStatusCounter]="tile.statusCount || 0"
+          >
+            <span class="counter-number">0</span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <ul *ngIf="currentStatusType == statusTypes.RMA">
+    <li
+      class="col"
+      *ngFor="let tile of tiles; let first = first; let last = last"
+      [class.selected]="tile.rmaStatus.statusName === selectedTile"
+    >
+      <div class="tile-container">
+        <div
+          class="tile"
+          [ngClass]="tile.colorTheme"
+          (click)="emitTileClick(tile)"
+          matTooltipClass="vs-tooltip"
+          matTooltip="{{ tile.tooltip }}"
+          matTooltipPosition="below"
+        >
+          <span class="tile-heading">{{ tile.rmaStatus.statusName }}</span>
+          <span
+            class="tile-sub-heading"
+            [vsStatusCounter]="tile.statusCount || 0"
+          >
+            <span class="counter-number">0</span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <ul *ngIf="currentStatusType == statusTypes.EQUIPMENT">
+    <li
+      class="col"
+      *ngFor="let tile of tiles; let first = first; let last = last"
+      [class.selected]="tile.equipmentStatus.statusName === selectedTile"
+    >
+      <div class="tile-container">
+        <div
+          class="tile"
+          [ngClass]="tile.colorTheme"
+          (click)="emitTileClick(tile)"
+        >
+          <span
+            class="tile-heading"
+            matTooltipClass="vs-tooltip"
+            matTooltip="{{ tile.tooltip }}"
+            matTooltipPosition="below"
+            >{{ tile.equipmentStatus.statusLabelName }}</span
+          >
+          <span
+            class="tile-sub-heading"
+            [vsStatusCounter]="tile.statusCount || 0"
+          >
+            <span class="counter-number">0</span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,169 @@
+## messageSource=classpath:/bhgecore/messages/email-contactusRequest_$lang.properties
+<!DOCTYPE html>
+<!-- xmlns="http://www.w3.org/1999/xhtml" -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body style="margin: 0; padding: 0;">
+<div style="width: 600px; height: 676px; display: flex; align-items: center; margin: auto;">
+    <table width="600" height="676" border="0" align="center" cellpadding="0" cellspacing="0"
+           style="border-collapse: collapse; margin: auto; font-family: Poppins; background-color: #FFFFFF; display: flex; justify-content: center; align-items: center; color: #121212">
+        <tr style="background-color: #FFFFFF; width: 600px; text-align: center; border:0;">
+            <td style="border:1px solid #E2E2E2 !important; padding: 20px; width: 600px; padding: 15px;">
+                <img width="333" style="width: 333px;" src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/logo_blue.png" alt="logo">
+                <h1 style="font-family: Poppins; font-size: 24px; font-weight: 600; line-height: 28px; letter-spacing: -0.5px; text-align: center;">
+                    Request Type - ${ctx.requestType}</h1>
+                <table style="width:100%; text-align: left;">
+                    <tr style="text-align: left;" colspan="2">
+                        <th style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                        color: #121212;">FROM</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">
+                            <p style="font-family: Poppins;
+                             font-size: 12px;
+                             font-weight: 500;
+                             line-height: 18px;
+                             letter-spacing: -0.25px;
+                             text-align: left;
+                             color:#ADBDB9;">Name</p>
+                            <p style="font-family: Poppins;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #1A2321;">${ctx.requestedUser}</p>
+
+                            <p style="font-family: Poppins;
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 18px;
+                            letter-spacing: -0.25px;
+                            text-align: left;
+                            color:#ADBDB9;">Email Id</p>
+                            <p style="font-family: Poppins;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #1A2321;">${ctx.companyEmailId}</p>
+                        </td>
+                        <td style="width: 50%;">
+                            <p style="font-family: Poppins;
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 18px;
+                            letter-spacing: -0.25px;
+                            text-align: left;
+                            color:#ADBDB9;">Company</p>
+                            <p style="font-family: Poppins;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #1A2321;">${ctx.company}</p>
+                            <p style="font-family: Poppins;
+                            font-size: 12px;
+                            font-weight: 500;
+                            line-height: 18px;
+                            letter-spacing: -0.25px;
+                            text-align: left;
+                            color:#ADBDB9;">Country</p>
+                            <p style="font-family: Poppins;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #1A2321;">${ctx.country}</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width:100%; text-align: left;">
+                    <tr style="text-align: left;" colspan="2">
+                        <th style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                        color: #121212;">Request Details</th>
+                    </tr>
+                    #if($ctx.requestType == 'Order' || $ctx.requestType == 'Rma')
+                        <tr>
+                            <td style="width: 50%;">
+                                <p style="font-family: Poppins;
+                             font-size: 12px;
+                             font-weight: 500;
+                             line-height: 18px;
+                             letter-spacing: -0.25px;
+                             text-align: left;
+                             color:#ADBDB9;">
+                                    #if($ctx.requestType == 'Order')
+                                        Order Number
+                                    #elseif($ctx.requestType == 'Rma')
+                                        RMA Number
+                                    #end
+                                </p>
+                                <p style="font-family: Poppins;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #1A2321;">${ctx.requestNum}</p>
+                            </td>
+                            #if($ctx.subProductLine)
+                                <td style="width: 50%; vertical-align: top;">
+                                    <p style="font-family: Poppins;
+                                        font-size: 12px;
+                                        font-weight: 500;
+                                        line-height: 18px;
+                                        letter-spacing: -0.25px;
+                                        text-align: left;
+                                        color:#ADBDB9;">Sub-Product Line
+                                    </p>
+                                    <p style="font-family: Poppins;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        text-align: left;
+                                        color: #1A2321;">
+                                        ${ctx.subProductLine}
+                                    </p>
+                                </td>
+                            #end
+                        </tr>
+                    #end
+                    <tr>
+                        <td colspan="2">
+                            <p style="font-family: Poppins;
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 18px;
+                        letter-spacing: -0.25px;
+                        text-align: left;
+                        color:#ADBDB9;">Query</p>
+                            <p style="font-family: Poppins;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 20px;
+                        text-align: left;
+                        color: #1A2321;">${ctx.query}</p>
+                        </td>
+                    </tr>
+                </table>
+                <br><br>
+                <p style="text-align: left;
+                font-family: Poppins;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 18px;
+                letter-spacing: -0.25px;
+                text-align: left;
+                color: #595959;
+                ">Request Submitted on: <span style="font-weight: 500;">${ctx.requestedDate}</span></p>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

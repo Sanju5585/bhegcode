@@ -1,0 +1,280 @@
+<div class="payment-details">
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="row">
+      <span
+        class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{ 'titles.paymentTerms' | cxTranslate }}</span
+      >
+
+      <span
+        *ngIf="!isCreditCardPayment"
+        class="shipping-checkout col-lg-12 col-md-12 col-sm-12 paymentTerm"
+      >
+        {{ this.paymentTerm }}</span
+      >
+      <span
+        *ngIf="isCreditCardPayment"
+        class="shipping-checkout col-lg-12 col-md-12 col-sm-12 paymentTerm"
+      >
+        {{ 'titles.payTermCC01' | cxTranslate }}</span
+      >
+    </div>
+    <div *ngIf="showCreditCard" class="row shipping-checkout pay-option-select">
+      <div
+        *ngIf="!hidePurchaseOption"
+        class="col-md-2 payment-type-option"
+        [ngClass]="{ 'select-bg-color': isCreditCardPayment === false }"
+        (click)="onPoSelect()"
+      >
+        <div class="row justify-center">
+          <bh-icon
+            icon="account_balance"
+            size="medium"
+            color="#1F6362"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="left"
+            matTooltip="Where is this equipment installed?"
+          ></bh-icon>
+        </div>
+        <div class="row justify-center">{{ 'titles.purchaseOrder' | cxTranslate }}</div>
+      </div>
+      <div
+        class="col-md-2 payment-type-option"
+        [ngClass]="{ 'select-bg-color': isCreditCardPayment === true }"
+        (click)="onCcPaymentSelect()"
+      >
+        <div class="row justify-center">
+          <bh-icon
+            icon="credit_card"
+            size="medium"
+            color="#1F6362"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="left"
+            matTooltip="Where is this equipment installed?"
+          ></bh-icon>
+        </div>
+        <div class="row justify-center">{{ 'titles.creditCard' | cxTranslate }}</div>
+      </div>
+    </div>
+    <div
+      class="row shipping-checkout new-cc-pay-option"
+      *ngIf="isCreditCardPayment"
+    >
+      <div class="col-lg-3 col-md-3 col-sm-3 main-card">
+        <div class="row card-row-one">
+          <div class="col-lg-2 col-md-2 col-sm-2 pad-2">
+            <bh-radio-button
+              (change)="selectNewCard()"
+              label=""
+              [attr.checked]="true"
+              value="''"
+              name="group"
+            ></bh-radio-button>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10 pad-2 cc-number">
+            {{ 'titles.paywithNewCard' | cxTranslate }}
+          </div>
+        </div>
+        <div class="row card-row-two">
+          <div class="col-lg-8 col-md-8 col-sm-8 pad-2 valid-thru"></div>
+          <div class="col-lg-4 col-md-4 col-sm-4 pad-2">
+            <bh-icon
+              icon="credit_card"
+              size="medium"
+              color="#1F6362"
+              href=""
+              target=""
+              matTooltipClass="vs-tooltip"
+              matTooltipPosition="left"
+              matTooltip="Where is this equipment installed?"
+            ></bh-icon>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-3 col-md-3 col-sm-3 main-card"
+        *ngFor="let card of savedPayCards"
+      >
+        <div class="row card-row-one">
+          <div class="col-lg-2 col-md-2 col-sm-2 pad-2">
+            <bh-radio-button
+              (change)="selectSavedCard(card)"
+              label=""
+              [attr.checked]="false"
+              value="''"
+              name="group"
+            ></bh-radio-button>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10 pad-2 cc-number">
+            **** **** **** {{ card.ccNumber }}
+          </div>
+        </div>
+        <div class="row card-row-two">
+          <div class="col-lg-9 col-md-9 col-sm-9 pad-2 valid-thru">
+            {{ 'titles.validThru' | cxTranslate }}
+            <b
+              >{{ card.ccValidTru?.substr(4, 2) }}/{{
+                card.ccValidTru?.substr(2, 2)
+              }}</b
+            >
+          </div>
+          <div
+            class="col-lg-3 col-md-3 col-sm-3 pad-2"
+            style="text-align: right"
+          >
+            <img
+              class="card-type-img"
+              src="../../../../../assets/img/visa.png"
+              alt="test"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style="color: var(--color-text-label-error)"
+      class="bh-text-input__required bh-form-message--error"
+      *ngIf="isCreditCardPayment && this.showPayDetailsErr"
+    >
+    {{ 'errors.requiredFileds' | cxTranslate }}
+    </div>
+    <div *ngIf="isCreditCardPayment" class="row">
+      <span
+        class="shipping-checkout col-lg-12 col-md-12 col-sm-12 paymentTerm-two"
+      >
+        {{ 'errors.ccDetailInfo' | cxTranslate }}
+        <strong>
+          <a
+            rel="help"
+            href="https://www.fiserv.com/en/about-fiserv/privacy-notice.html"
+            target="_blank"
+          >
+          {{ 'errors.clickHere' | cxTranslate }}</a
+          >
+        </strong>
+      </span>
+    </div>
+    <div *ngIf="isCreditCardPayment" class="row shipping-checkout">
+      <div class="col-lg-12 col-md-12 col-sm-12 payinfo">
+        <span class="payinfo-text">
+          {{ 'errors.ccPayInfo' | cxTranslate }}
+        </span>
+      </div>
+    </div>
+    <div *ngIf="isCreditCardPayment" class="row shipping-checkout">
+      <bh-checkbox
+        class="float-left checkboxterms"
+        label=""
+        name="ccInfo"
+        [value]="ccInfo"
+        [attr.error]="error.ccInfo ? error.ccInfo : null"
+        (change)="onCheckCCInfo(ccInfo, 'ccInfo')"
+      ></bh-checkbox>
+      <span class="bh-text-input__required shipping-checkout">
+        {{ 'errors.yesiAgree' | cxTranslate }}
+      </span>
+    </div>
+    <div
+      class="bh-form-message--error"
+      *ngIf="isCreditCardPayment && this.error.ccInfo != ''"
+    >
+      {{ 'errors.ccErrInfo' | cxTranslate }}
+    </div>
+    <div class="row" *ngIf="!isCreditCardPayment">
+      <span
+        class="shipping-checkout shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{ 'titles.accountPayment' | cxTranslate }}</span
+      >
+    </div>
+    <div class="row mb-0" *ngIf="!isCreditCardPayment">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field mb-2">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.poNumber' | cxTranslate }}"
+            placeholder="{{ 'labels.poNumber' | cxTranslate }}"
+            [value]="PoNumber"
+            [message]="error.PoNumber"
+            [attr.error]="error.PoNumber ? error.PoNumber : null"
+            maxlength="35"
+            (keyup)="onChange($event, 'PoNumber')"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field mb-2">
+          <bh-text-input
+            type="text"
+            small
+            label="{{ 'labels.endCustomerPO' | cxTranslate }}"
+            placeholder="{{ 'labels.endCustomerPO' | cxTranslate }}"
+            maxlength="35"
+            [value]="endPoNumber"
+            [message]="error.endPoNumber"
+            [attr.error]="error.endPoNumber ? error.endPoNumber : null"
+            (keyup)="onChange($event, 'endPoNumber')"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <!-- currently not required -->
+      <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <span
+            class="shipping-checkout textarea-label custom col-lg-12 col-md-12 col-sm-12"
+            >{{"labels.poUpload" | cxTranslate}}</span
+          >
+          <div class="file-upload">
+            <div class="upload-all-files">
+              <div>
+                <div class="col-md-7">
+                  <div class="row">
+                    <ds-file-upload
+                      [label]="'Upload file'"
+                      [maxLength]="5"
+                      [maxSizeInMB]="30"
+                      [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                      (selectedFiles)="selectedPoFiles($event)"
+                      [showIcon]="true"
+                      [uploadId]="id"
+                      [icon]="'backup'"
+                      >upload</ds-file-upload
+                    >
+                    <span class="fileformat mt-1"
+                      >{{"labels.fileFormat" | cxTranslate}}
+                    </span>
+                    <div class="file-list">
+                      <ds-file-upload-progress
+                        *ngFor="let file of files"
+                        [layout]="layouts.LIST"
+                        [deleteUrl]="deletUrl"
+                        [file]="file"
+                        (deletedFiles)="deletedFiles($event)"
+                        [uploadParams]="uploadParams"
+                        [deleteParams]="deleteParams"
+                        [uploadUrl]="uploadUrl"
+                        [showProgress]="true"
+                      ></ds-file-upload-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </form>
+</div>
+<div class="cx-dialog-body modal-body" *ngIf="loadingFlag">
+  <div class="cx-dialog-row">
+    <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+  </div>
+</div>

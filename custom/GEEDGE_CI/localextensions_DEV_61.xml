@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="resources/schemas/extensions.xsd">
+	<extensions>			
+		<path dir="${HYBRIS_BIN_DIR}" autoload='false'/>
+		<path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-integration/sap/core/" depth="1" /> <!-- core extensions -->
+		<path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-integration/sap/testsupport/" depth="1" /> <!-- test support -->
+        <path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-integration/sap/masterdata/" /> <!-- master data replication-->
+		<path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-integration/sap/synchronousPricing/" depth="1" /> <!-- synchronous pricing -->
+		<path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-integration/sap/asynchronousOM/" depth="1" /> <!-- SAP Asynchronous Order Management -->
+		
+		<!-- ext-template  -->
+		<extension name="yacceleratorordermanagement" />									
+		<!-- ext-platform -->
+		<extension name="admincockpit" />
+		<extension name="backoffice" />
+		<extension name="cockpit" />
+		<extension name="hmc" />
+		<extension name="mcc" />
+		<extension name="platformhmc" />
+
+		<!-- ext-commerce -->
+		<extension name="basecommerce" />
+		<extension name="payment" />
+		<extension name="ticketsystem" />
+		<extension name="solrfacetsearch" />
+		<extension name="solrfacetsearchhmc" />
+		<extension name="b2bcommerce" />
+		<extension name="b2bapprovalprocess" />
+		<extension name="b2badmincockpit" />
+		<extension name="commercefacades" />
+
+		<!-- ext-content -->
+		<extension name="productcockpit" />
+		<extension name="cms2" />
+		<extension name="cms2lib" />
+		<extension name="cmscockpit" />
+		<extension name="classificationsystems" />
+		<extension name="classificationsystemshmc" />
+
+										
+		<!-- ext-channel -->
+		<extension name="cscockpit" />
+										
+		<!-- ext-accelerator -->
+		<extension name="acceleratorservices" />
+		<extension name="acceleratorfacades" />
+		<extension name="acceleratorcms" />
+		<extension name="acceleratorstorefrontcommons" />
+		<extension name="b2bacceleratorfacades" />
+		<extension name="b2bacceleratorservices" />
+
+		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/gecore"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/gesapconfigurator"/> 
+		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/geinitialdata"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/gefacades"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/gestorefront"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/gecockpits"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/geintegration"/>
+		
+		<extension name='b2bacceleratoraddon' />
+    		<extension name='b2bbtgaddon' />
+		<extension name='commerceorgaddon' />
+    		<extension dir="${HYBRIS_BIN_DIR}/custom/ge/gestorefrontaddon"/>
+		
+	    <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigfacades"/> 
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigservices"/> 
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigruntimeinterface"/> 
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigruntimessc"/> 
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigmodel"/>
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfighmc"/> 
+        <extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigb2b"/>
+	<extension dir="${HYBRIS_BIN_DIR}/ext-integration/sap/productconfig/sapproductconfigbackoffice"/>
+ 
+		<!-- this loads the adapter extension, responsible for communication -->
+  	    <extension name="datahubadapter" />
+
+  	    <!-- side-by-side deployment of datahub into hybris Tomcat server 
+  	              	<webapp context="${HYBRIS_BIN_DIR}/ext-integration/datahub/context.xml" />	-->
+		<extension name="datahubbackoffice" />
+		<extension name="voucherbackoffice" />	
+		<extension name="basecommercebackoffice" />
+		<extension name="b2bcommercebackoffice" />
+		<extension name="solrfacetsearchbackoffice" />	
+	</extensions>
+</hybrisconfig>

@@ -1,0 +1,87 @@
+<ng-container>
+    <div class="waygate-cart-list-container">
+        <div class="waygate-cart-item-list">
+            <div class="waygate-cart-selectall-checkbox">
+                <hr class="horizontal-line" />
+                <div class="waygate-cart-actions">
+                    <div class="selectall-checkbox my-2">
+                        <input class="float-left ml-2" id="check-all" type="checkbox" value="true" name="check-all"
+                            [(ngModel)]="checkAll" (click)="checkAllEntries($event)" />
+                        <div *ngIf="selectedProducts?.length" class="total-line-items">
+                            {{ selectedProducts?.length }}    
+                            {{'waygate.OF' | cxTranslate}} {{ (cart.returnsCartData )?.length }}
+                            {{'buyCart.itemsSelected' | cxTranslate}}
+                        </div>
+                        <div *ngIf="!selectedProducts?.length" class="total-line-items">
+                            {{ (cart.returnsCartData)?.length }}     {{'waygate.listing.items' |
+                            cxTranslate}}
+                        </div>
+                    </div>
+                    <div class="product-remove" > 
+                        <i class="material-icons-outlined"> delete </i>
+                        <a class="action-links" (click)="openDeleteDialog()"> {{'rma-cart.remove' | cxTranslate}} </a>
+                    </div>
+                    <div class="new-item">
+                        <i class="material-icons-outlined"> add </i>
+                        <a class="action-links" (click)="addnewItem()"> {{'rma-cart.addItem' | cxTranslate}} </a>
+                    </div>
+                </div>
+
+                <hr class="horizontal-line" />
+            </div>
+
+            <div class="rma-cart-entries">
+                <ng-container *ngIf="distinctPlantList?.length <= 1">
+                    <ng-container *ngFor="
+                      let product of cart.returnsCartData | rmaProduct;
+                      let i = index
+                    ">
+
+                    <app-returns-cart-item [product]="product" [accessories]="
+                    cart.returnsCartData | rmaAccessory: product?.cartEntryNumber"
+                 [showHeader]="i == 0 ? true : false" [entryNum]="i" [checkAll]="checkAll"
+                        [productSelected]="selectAll" [cartId]="cartId" [itemsCountExAccessories]="itemsCountExAccessories" (checkedProduct)="checkedProduct($event)"></app-returns-cart-item>
+      
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="distinctPlantList?.length > 1">
+                    <ng-container *ngFor="let site of distinctPlantList; let i = index">
+                        <div class="product-header" aria-controls="productdetails">
+                            <div class="product-title">
+                                <span>{{ 'rma-cart.rma' | cxTranslate }} {{ i + 1 }}</span>
+                                <span class="items-in-cart ml-1 mr-1" *ngIf="
+                            (cart.returnsCartData | rmaProduct: site)?.length <= 1
+                          ">
+                                    ({{ (cart.returnsCartData | rmaProduct: site)?.length }}
+                                    {{ 'rma-cart.Item' | cxTranslate }})
+                                </span>
+                                <span class="items-in-cart ml-1 mr-1" *ngIf="
+                            (cart.returnsCartData | rmaProduct: site)?.length > 1
+                          ">
+                                    ({{ (cart.returnsCartData | rmaProduct: site)?.length }}
+                                    {{ 'rma-cart.Items' | cxTranslate }})
+                                </span>
+                            </div>
+                        </div>
+                        <div [ngClass]="
+                        !expandNonFilm
+                          ? 'product-header-open'
+                          : 'product-header-close'
+                      ">
+                            <ng-container *ngFor="
+                          let product of cart.returnsCartData | rmaProduct: site;
+                          let i = index
+                        ">
+
+                                    <app-returns-cart-item [product]="product" [accessories]="
+                                    cart.returnsCartData | rmaAccessory: product?.cartEntryNumber "
+                                 [showHeader]="i == 0 ? true : false" [entryNum]="i" [checkAll]="checkAll"
+                                        [productSelected]="selectAll" [cartId]="cartId" [itemsCountExAccessories]="itemsCountExAccessories" (checkedProduct)="checkedProduct($event)"></app-returns-cart-item>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

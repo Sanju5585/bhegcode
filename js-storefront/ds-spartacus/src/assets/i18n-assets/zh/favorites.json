@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "我的收藏夹",
+    "items": " 项",
+    "delSelected": "删除已选项",
+    "addedOn": "添加于",
+    "buy": "购买",
+    "return": "退货",
+    "addtoEquip": "添加到我的设备",
+    "switchSalesArea": "更改销售区域",
+    "salesAreaText": "您可以在其他销售区域退回此产品。 ",
+    "contactCustomerCare": "联系客户服务",
+    "norecords": "抱歉，我们没有找到记录",
+    "listPrice": "列表价",
+    "unavailable": "不可用",
+    "priceNotrFound": "抱歉，没有找到价格",
+    "viewBreakup": "查看价格明细",
+    "breakdownPrice": "价格明细",
+    "discount": "折扣",
+    "netPrice": "未税价格",
+    "searchBYProductName": "按产品名称查询",
+    "removeSelected": "删除已选项",
+    "addToCart": "加至购物车",
+    "searchList": "搜索此列表",
+    "error": {
+      "removeMsg": "选中项已成功移除",
+      "loadingMsg": "加载您的订单列表时出现问题"
+    }
+  }
+}

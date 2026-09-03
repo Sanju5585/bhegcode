@@ -1,0 +1,28 @@
+{
+  "mini-cart": {
+    "showing": "{{ total }}製品の{{ shown }}を表示",
+    "of": " の ",
+    "products": "製品",
+    "total": "合計",
+    "quantity": "台数",
+    "viewCart": "かごの中身を見る",
+    "cartEmpty": "ショッピングカートは空です",
+    "browseOurProducts": "上部のカテゴリを選択し、商品を確認してください",
+    "cartTrouble": "カートで何かお困りですか？",
+    "deleteAllCarts": "全てのカートをリセット",
+    "buyCart": "購入カート",
+    "returnCart": "返品カート",
+    "activeGuestCart": "操作中ゲスト用カート",
+    "activeRFQCart": "ゲスト用RFQカート",
+    "quoteCart": "見積カート",
+    "deleteAllCartsPopupTitle": "この処理を行うと全てのカートが完全にリセットされます",
+    "deleteAllCartsPopupPoint1": "操作中のカートがリセットされます",
+    "deleteAllCartsPopupPoint2": "やり直しはできません",
+    "deleteAllCartsPopupConfirmMessage": "本当に続けますか？",
+    "deleteAllCartsPopupCancel": "キャンセル",
+    "deleteAllCartsPopupConfirm": "はい、続けます",
+    "deleteAllCartsPopupCartNotFoundTitle": "カートを操作中に問題が発生しました",
+    "deleteAllCartsPopupResetMessage": "続行するにはカートをリセットしてください",
+    "deleteAllCartsPopupActiveLost": "操作中のカートがリセットされます"
+  }
+}

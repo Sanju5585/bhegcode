@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "取消",
+    "delete": "删除",
+    "remove": "移除",
+    "edit": "编辑",
+    "back": "返回",
+    "submit": "提交",
+    "continue": "继续",
+    "save": "保存",
+    "done": "完成",
+    "home": "返回主页面",
+    "noData": "无数据",
+    "confirm": "确认"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}}的结果为{{query}}",
+      "title_plural": "{{count}}的结果为{{query}}"
+    },
+    "checkout": {
+      "title": "结账{{count}}项目",
+      "title_plural": "结账{{count}}项目"
+    },
+    "search": {
+      "title": "{{count}}的结果为”{{query}}“",
+      "title_plural": "{{count}}的结果为”{{query}}“",
+      "findProductTitle": "{{count}}是优惠券“{{coupon}}”的结果",
+      "findProductTitle_plural": "{{count}}是优惠券“{{coupon}}”的结果"
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "正在加载..."
+  },
+  "navigation": {
+    "shopAll": "采购所有{{ navNode}} >"
+  },
+  "searchBox": {
+    "placeholder": "在这里搜索...",
+    "help": {
+      "insufficientChars": "请输入 3 个或更多字符进行搜索",
+      "noMatch": "找不到任何结果",
+      "exactMatch": "{{ term }}",
+      "empty": "向我们询问任何事情"
+    }
+  },
+  "sorting": {
+    "date": "日期",
+    "orderNumber": "订单号",
+    "rma": "退货号码",
+    "replenishmentNumber": "补货号",
+    "nextOrderDate": "下一个订单日期"
+  },
+  "httpHandlers": {
+    "badGateway": "发生服务器错误。 请稍后再试.",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}，请重新登录。",
+    "badRequestOldPasswordIncorrect": "旧密码不正确。",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }}电子邮件已经存在。 为了使用访客帐户进行注册，请使用不同的电子邮件结帐。",
+    "conflict": "已经存在。",
+    "forbidden": "您无权执行此操作。 如果您认为这是一个错误，请联系您的管理员。",
+    "gatewayTimeout": "服务器没有响应，请稍后再试。",
+    "internalServerError": "发生内部服务器错误。 请稍后再试.",
+    "sessionExpired": "您的会话已过期。 请重新登录。",
+    "unknownError": "出现未知错误",
+    "unauthorized": {
+      "common": "发生未知的授权错误",
+      "invalid_client": "错误的客户端凭据"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "不支持所选信用卡。 请选择另一个。",
+        "card_accountNumber": "输入的信用卡号无效。",
+        "card_cvNumber": "输入的安全代码无效。",
+        "card_expirationMonth": "输入的信用卡到期日期无效。",
+        "card_expirationYear": "输入的信用卡到期日期无效。",
+        "billTo_firstName": "输入的名字无效。",
+        "billTo_lastName": "输入的姓氏无效。",
+        "billTo_street1": "输入的地址无效。",
+        "billTo_street2": "输入的地址无效。",
+        "billTo_city": "输入的城市对该信用卡无效。",
+        "billTo_state": "输入的省/自治区对此信用卡无效。",
+        "billTo_country": "输入的国家对此信用卡无效。",
+        "billTo_postalCode": "邮政编码对该信用卡无效。 ",
+        "country": {
+          "isocode": "缺少国家"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "输入的信用卡到期日期无效。",
+        "firstName": "输入的名字无效。",
+        "lastName": "输入的姓氏无效。",
+        "password": "输入的密码无效。",
+        "uid": "UID 无效。",
+        "code": "代码无效。",
+        "email": "电子邮件无效。"
+      }
+    },
+    "cartNotFound": "未找到购物车。",
+    "invalidCodeProvided": "提供的代码无效。"
+  },
+  "miniCart": {
+    "item": "当前在您购物车中的{{count}}商品",
+    "item_plural": "当前在您购物车中的{{count}}商品",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "你好，{{name}}",
+    "signInRegister": "登录/注册"
+  },
+  "skipLink": {
+    "skipTo": "跳至",
+    "labels": {
+      "header": "标题",
+      "main": "主要内容",
+      "footer": "页脚",
+      "productFacets": "产品方面",
+      "productList": "产品列表"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "您尝试提交的表单有错误。",
+    "required": "此字段是必需的",
+    "cxInvalidEmail": "这不是有效的电子邮件格式",
+    "cxInvalidPassword": "这不是有效的密码格式 ",
+    "cxPasswordsMustMatch": "密码字段必须匹配 ",
+    "cxEmailsMustMatch": "电子邮件字段必须匹配",
+    "cxStarRatingEmpty": "评分字段为必填项",
+    "cxNoSelectedItemToCancel": "至少选择一项",
+    "cxNegativeAmount": "金额必须等于或大于零",
+    "cxContainsSpecialCharacters": "字段不能包含特殊字符",
+    "date": {
+      "required": "此字段是必需的",
+      "min": "日期不能早于{{min}}",
+      "max": "日期不能晚于{{max}}",
+      "pattern": "日期格式必须为 yyyy-mm-dd",
+      "invalid": "使用有效日期"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "无法加载脚本。",
+    "refreshThePage": "请刷新页面。"
+  }
+}

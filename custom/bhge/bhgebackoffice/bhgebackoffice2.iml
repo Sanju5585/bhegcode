@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/gensrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="ext" level="project" />
+    <orderEntry type="library" name="lib70" level="project" />
+    <orderEntry type="library" name="bin2" level="project" />
+    <orderEntry type="library" name="ext2" level="project" />
+    <orderEntry type="library" name="processingserver" level="project" />
+    <orderEntry type="library" name="lib23" level="project" />
+    <orderEntry type="library" name="ext3" level="project" />
+    <orderEntry type="library" name="coreserver" level="project" />
+    <orderEntry type="module" module-name="deprecated4" />
+    <orderEntry type="module" module-name="processing" />
+    <orderEntry type="module" module-name="core" />
+    <orderEntry type="module" module-name="outboundsync" />
+    <orderEntry type="module" module-name="backoffice-addons" />
+  </component>
+</module>

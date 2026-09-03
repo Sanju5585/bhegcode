@@ -1,0 +1,78 @@
+################################################################################################################
+## This impex is for creating Page Template, Content Slots and Components related to variant configuration page
+##
+##################################################################################################################
+
+$contentCatalog=bhgeContentCatalog 
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
+
+######################################################################
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;VariantConfigurationTemplate;Variant Configuration Template;configuration/configurationPage;ContentPage
+
+
+# Default Product Config Page
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default=true];approvalStatus(code)[default='approved']
+;;variantConfig;Variant Configuration;VariantConfigurationTemplate;/configure/vc
+
+#########################################################################################
+
+INSERT_UPDATE CmsSiteContext; code[unique=true] ; 
+;LANGUAGE
+;CURRENCY
+
+INSERT_UPDATE CMSSiteContextComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;context(code)
+;;LanguageComponent;Language Component;LanguageComponent;LANGUAGE
+;;CurrencyComponent;Currency Component;CurrencyComponent;CURRENCY
+
+
+INSERT_UPDATE CMSFlexComponent;$contentCV[unique=true];uid[unique=true];name;flexType
+;;ConfiguratorExitButton;Configuration Exit Button;ConfiguratorExitButton
+;;ConfiguratorUpdateMessage;Configuration Update Message;ConfiguratorUpdateMessage
+;;ConfiguratorProductTitle;Configuration Title;ConfiguratorProductTitle
+;;ConfiguratorTabBar;Configuration Tab Bar, to switch between overview and configuration;ConfiguratorTabBar
+;;ConfiguratorPriceSummary;Configuration Price Summary;ConfiguratorPriceSummary
+;;ConfiguratorAddToCartButton;Configuration Add To Cart Button;ConfiguratorAddToCartButton
+;;ConfiguratorMenu;Configuration Menu;ConfiguratorMenu
+
+;;ConfiguratorGroupTitle;Configuration Menu;ConfiguratorGroupTitle
+;;ConfiguratorForm;Configuration Menu;ConfiguratorForm
+;;ConfiguratorPrevNext;Configuration Menu;ConfiguratorPrevNext
+
+;;ConfiguratorVariantCarousel;Configurator Variant Carousel;ConfiguratorVariantCarousel
+
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='VariantConfigurationTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteContext-VariantConfig;SiteContext;;SiteContextSlot;true
+;;VariantConfigExitButton-VariantConfig;VariantConfigExitButton;;VariantConfigExitButtonSlot;true
+;;VariantConfigHeader-VariantConfig;VariantConfigHeader;;VariantConfigHeaderSlot;true
+;;VariantConfigBottombar-VariantConfig;VariantConfigBottombar;;VariantConfigBottombarSlot;true
+;;VariantConfigMenu-VariantConfig;VariantConfigMenu;;VariantConfigMenuSlot;true
+;;VariantConfigContent-VariantConfig;VariantConfigContent;;VariantConfigContentSlot;true
+;;VariantConfigVariantCarousel-VariantConfig;VariantConfigVariantCarousel;;VariantConfigVariantCarouselSlot;true
+
+;;NavigationBar-VariantConfig;NavigationBar;;NavigationBarSlot;true
+;;HeaderLinks-VariantConfig;HeaderLinks;;HeaderLinksSlot;true
+;;MiniCart-VariantConfig;MiniCart;;MiniCartSlot;true
+;;TopHeader-VariantConfig;TopHeaderSlot;;TopHeaderSlot;true
+#;;BottomHeader-VariantConfig;BottomHeaderSlot;;BottomHeaderSlot;true
+;;SiteLogo-VariantConfig;SiteLogo;;SiteLogoSlot;true
+;;Footer-VariantConfig;Footer;;FooterSlot;true
+;;PlaceholderContent-VariantConfig;PlaceholderContentSlot;;PlaceholderContentSlot;true
+;;SearchBox-VariantConfig;SearchBox;;SearchBoxSlot;true
+;;HomepageNavLink-VariantConfig;HomepageNavLink;;HomepageNavLinkSlot;true
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;SiteContextSlot;Site Context Slot;true;LanguageComponent,CurrencyComponent
+;;VariantConfigExitButtonSlot;Variant Configuration Exit Slot;true;ConfiguratorExitButton
+;;VariantConfigHeaderSlot;Variant Configuration Header Slot;true;ConfiguratorUpdateMessage, ConfiguratorProductTitle, ConfiguratorTabBar
+;;VariantConfigBottombarSlot;Variant Configuration Bottom Bar Slot;true;ConfiguratorPriceSummary, ConfiguratorAddToCartButton
+;;VariantConfigMenuSlot;Variant Configuration Side Bar Slot;true;ConfiguratorMenu
+;;VariantConfigContentSlot;Variant Configuration Content Slot;true;ConfiguratorGroupTitle, ConfiguratorForm, ConfiguratorPrevNext
+;;VariantConfigVariantCarouselSlot;Variant Configuration Carousel Slot;true;ConfiguratorVariantCarousel
+
+
+
+

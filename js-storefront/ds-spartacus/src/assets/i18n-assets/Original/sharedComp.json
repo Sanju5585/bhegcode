@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "Upload",
+    "dropfile": "Drop your file here!",
+    "uploadimage": "Upload Image"
+  },
+  "datanotfound": {
+    "norecords": "No records found for"
+  },
+  "dateRange": {
+    "today": "today",
+    "done": "Done",
+    "cancel": "Cancel",
+    "from": "From",
+    "to": "To",
+    "timeperiod": "Selected time period:",
+    "selectDate": "Select Date"
+  },
+  "file-upload": {
+    "fileLengthError": "You can upload at max {{maxLength}} files.",
+    "maxSizeError": "Total upload size cannot exceed {{ maxSizeInMB}} {{ sizeUnit}}",
+    "maxFileSizeError": "Individual file size cannot exceed {{ maxFileSizeInMB}} {{ sizeUnit}}",
+    "fileTypeError": "Please select a valid file type. Valid file types are - ",
+    "logicalError": "Individual file size cannot exceed total file size",
+    "close": "close",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "Request access to this site",
+    "accountInfoNotExist": "Your account information does not exist.",
+    "pleaseClickOn": "Please click on",
+    "ForrequestAccessToSite": "for requesting access to the site.",
+    "accountDisabled": "Account Disabled",
+    "accountHasBeenDisabled": "Your account has been disabled.",
+    "speakToCustomerCare": "Please speak to a customer service representative or ",
+    "Again": "again.",
+    "activationPending": "Activation Pending",
+    "needYourConfirmation": "We have your Access Request but we still need your confirmation response.",
+    "confirmLinkInEmail": "Please find an email from Baker Hughes DS Store, and click the Confirm link to finish your request.",
+    "requestPending": "Request Pending",
+    "pendingWithCustomerCare": "Your Access Request is pending with our Customer Care team.",
+    "processAndNotify": "We will process it and notify you as soon as we can.",
+    "accessRejected": "Access Rejected",
+    "accessRequestDenied": "Your Access Request has been denied at this time.",
+    "cannotReachYou": "Usually, this is because we cannot identify your existing account or we cannot reach you to verify data.  Please contact our Customer Care, or send a note back on our Site Feedback, if we need to discuss.",
+    "accessDenied": "Access Denied",
+    "notAssignedToReequiredGroup": "Your User Account is not assigned to the required group in Login Server.",
+    "accessPending": "Access Pending",
+    "accessPendingWithUS": "`Your Access Request is pending with us.",
+    "workingOnSameWillNotify": "We are working on the same & we will notify you as soon as we can.",
+    "loginFail": "Login Failure",
+    "donotHaveAccessToDSstore": "You do not have access the to DS Store.",
+    "toRegister": " to Register.",
+    "loginDisabled": "Login Disabled",
+    "inactiveFor90Days": "Your access has been disabled automatically due to inactivity for more than 90 days.",
+    "Please": "Please  ",
+    "reactivateYourAccount": " to reactivate your account.",
+    "accountDisabledBYManager": "Your account is disabled by your Manager. Please check your Email to get more details"
+  }
+}

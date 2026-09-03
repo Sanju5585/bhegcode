@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "添付する",
+    "dropfile": "ファイルをここにドロップしてください！",
+    "uploadimage": "画像をアップロード"
+  },
+  "datanotfound": {
+    "norecords": "の記録が見つかりません"
+  },
+  "dateRange": {
+    "today": "今日",
+    "done": "完了",
+    "cancel": "キャンセル",
+    "from": "から",
+    "to": "まで",
+    "timeperiod": "選択した期間",
+    "selectDate": "日付を選択"
+  },
+  "file-upload": {
+    "fileLengthError": "最大{{maxLength}}のファイルをアップロードできます",
+    "maxSizeError": "Total upload size cannot exceed {{ maxSizeInMB}} {{ sizeUnit}}",
+    "maxFileSizeError": "Individual file size cannot exceed {{ maxFileSizeInMB}} {{ sizeUnit}}",
+    "fileTypeError": "有効なファイルタイプを選択してください 有効なファイルタイプは- ",
+    "logicalError": "個別のファイルサイズは合計ファイルサイズを超過できません",
+    "close": "閉じる",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "このサイトへのアクセスをリクエストする",
+    "accountInfoNotExist": "アカウント情報が存在しません",
+    "pleaseClickOn": "クリックしてください",
+    "ForrequestAccessToSite": "サイトへのアクセスをリクエストするために",
+    "accountDisabled": "アカウントが無効です",
+    "accountHasBeenDisabled": "アカウントが無効です",
+    "speakToCustomerCare": "カスタマーサービス担当者にご相談いただくか ",
+    "Again": "再度",
+    "activationPending": "有効化保留中",
+    "needYourConfirmation": "アクセス権のご依頼は受領しましたが、お客様からの確認返信が必要です",
+    "confirmLinkInEmail": "ベーカーヒューズ DS ストアからのメールを確認し、「確認」リンクをクリックしてリクエストを完了してください",
+    "requestPending": "リクエスト保留中",
+    "pendingWithCustomerCare": "お客様のアクセスリクエストは弊社カスタマーケアで保留しています",
+    "processAndNotify": "早急に処理してご連絡させていただきます",
+    "accessRejected": "アクセスが拒否されました",
+    "accessRequestDenied": "お客様のアクセスリクエストは今回却下されました",
+    "cannotReachYou": "通常、これは既存のアカウントを識別できないか、データを確認できるように連絡できないことが原因です  ご相談が必要な場合は、カスタマー ケアにご連絡いただくか、サイト フィードバックにメッセージをお送りください",
+    "accessDenied": "アクセスが拒否されました",
+    "notAssignedToReequiredGroup": "ユーザー アカウントがログイン サーバーの必要なグループに割り当てられていません",
+    "accessPending": "アクセス保留中",
+    "accessPendingWithUS": "お客様のアクセスリクエストは保留中です",
+    "workingOnSameWillNotify": "私たちもこれに取り組んでおり、できるだけ早くお知らせします",
+    "loginFail": "ログイン失敗",
+    "donotHaveAccessToDSstore": "DSストアへのアクセス権がありません",
+    "toRegister": " 登録",
+    "loginDisabled": "ログインが無効です",
+    "inactiveFor90Days": "90 日以上操作が行われなかったため、アクセスは自動的に無効になりました",
+    "Please": "お願い  ",
+    "reactivateYourAccount": " アカウントを再度有効にします",
+    "accountDisabledBYManager": "あなたのアカウントはマネージャーによって無効にされています 詳細はメールをご確認ください"
+  }
+}

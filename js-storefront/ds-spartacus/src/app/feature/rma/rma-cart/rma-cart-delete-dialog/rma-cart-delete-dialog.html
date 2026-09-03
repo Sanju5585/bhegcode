@@ -1,0 +1,71 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container *ngIf="(cartLoaded$ | async); else loading">
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          <span *ngIf="deleteCart"
+            >{{ 'rma-cart.clearall' | cxTranslate }}</span
+          >
+          <span *ngIf="!deleteCart">{{ 'rma-cart.delete' | cxTranslate }}</span>
+        </div>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="closeModal('close')"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <div class="cx-dialog-body modal-body">
+        <div class="row">
+          <div class="cx-dialog-info col-md-12">
+            <p *ngIf="deleteCart">
+              {{ 'rma-cart.confirmclearcart' | cxTranslate }}
+            </p>
+
+            <p *ngIf="!deleteCart">
+              {{ 'rma-cart.confirmDeleteProduct' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 action-container">
+            <bh-button
+              [type]="'secondary'"
+              label="{{ 'rma-cart.cancel' | cxTranslate }}"
+              (click)="closeModal('close')"
+            ></bh-button>
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'rma-cart.delete' | cxTranslate }}"
+              (click)="closeModal('delete')"
+            ></bh-button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          <span>{{ 'rma-cart.loadingCart' | cxTranslate }}</span>
+        </div>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="closeModal()"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="cx-dialog-body modal-body">
+        <div class="cx-dialog-row">
+          <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

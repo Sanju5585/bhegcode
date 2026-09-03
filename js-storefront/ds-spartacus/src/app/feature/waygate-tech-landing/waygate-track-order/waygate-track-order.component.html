@@ -1,0 +1,240 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<ds-recaptcha *ngIf="!isLoggedIn"></ds-recaptcha>
+<div class="container track-order-container">
+  <div class="track-order-header mb-4">
+    <div class="header-green-border"></div>
+    {{ 'track-order.trackOrderHeader' | cxTranslate }}
+  </div>
+  <div class="track-order-body p-3" [class.w-60]="isLoggedIn">
+    <div class="input-field">
+      <div class="purchase-input col-md-4" *ngIf="!isLoggedIn">
+        <!-- *ngIf="!currentUid" -->
+        <bh-text-input
+          required
+          placeholder="{{ 'track-order.customerNumber' | cxTranslate }}"
+          type="text"
+          maxlength="35"
+          label="{{ 'track-order.customerNumber' | cxTranslate }}"
+          [value]="currentUid"
+          (keyup)="onChange($event, 'currentUid')"
+          [attr.error]="error.currentUid ? error.currentUid : null"
+        >
+        </bh-text-input>
+      </div>
+      <div
+        class="rma-input"
+        [ngClass]="!isLoggedIn ? ' col-md-4' : ' col-md-6'"
+      >
+        <bh-text-input
+          required
+          placeholder="{{
+            'track-order.searchByPoOrOrderorRMANumber' | cxTranslate
+          }}"
+          type="text"
+          [value]="purchaseNumber"
+          label="{{ 'track-order.searchByPoOrOrderorRMANumber' | cxTranslate }}"
+          maxlength="35"
+          (keyup)="onChange($event, 'purchaseNumber')"
+          [attr.error]="error.purchaseNumber ? error.purchaseNumber : null"
+        >
+        </bh-text-input>
+      </div>
+      <div
+        class="track-buttons"
+        [ngClass]="!isLoggedIn ? ' col-md-4' : ' col-md-6'"
+      >
+        <div class="track-button">
+          <bh-button
+            type="primary"
+            label="{{ 'track-order.trackOrderBtn' | cxTranslate }}"
+            class="track track-cview"
+            [ngClass]="
+              currentUid !== '' && purchaseNumber !== '' ? 'track-green' : ''
+            "
+            (click)="trackOrderStatus()"
+            [attr.disabled]="showSpinner ? true : null"
+            [attr.loading]="showSpinner ? true : null"
+          >
+          </bh-button>
+        </div>
+        <div class="reset-button">
+          <bh-button
+            type="secondary"
+            label="{{ 'loggedinHome.reset' | cxTranslate }}"
+            [attr.disabled]="
+              (currentUid != '' && !isLoggedIn) || purchaseNumber != ''
+                ? null
+                : true
+            "
+            class="reset reset-cview"
+            (click)="reset()"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+    <div class="help-icon">
+      <span class="material-icons-outlined icon-size"> help_outline </span>
+      <span class="find-text" (click)="whereDofind()"
+        >{{ 'track-order.whereDofind' | cxTranslate }}
+      </span>
+    </div>
+  </div>
+  <table class="table table-top" *ngIf="showStatus && !isLoggedIn">
+    <h2 class="rma-result" *ngIf="rmaStatus">
+      {{ 'loggedinHome.rmaResult' | cxTranslate }}
+    </h2>
+    <h2 class="rma-result" *ngIf="orderStatus">
+      {{ 'loggedinHome.orderResult' | cxTranslate }}
+    </h2>
+    <tr class="table-header">
+      <th *ngIf="rmaStatus">{{ 'loggedinHome.rmaNum' | cxTranslate }}</th>
+      <th *ngIf="orderStatus">{{ 'loggedinHome.orderNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.poNum' | cxTranslate }}</th>
+      <th *ngIf="isLoggedIn">{{ 'loggedinHome.price' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+    </tr>
+    <ng-container *ngIf="orderStatus">
+      <tr class="table-data" *ngFor="let data of statusDetails">
+        <td>{{ data?.code }}</td>
+        <td>{{ data?.orderStatus }}</td>
+        <td>{{ data?.purchaseOrderNumber }}</td>
+        <td *ngIf="isLoggedIn">
+          {{ data?.totalNetPrice | customNumber: getCurrency(data?.currency) }}
+        </td>
+        <td class="linkButton">
+          <span>{{ 'track-order.na' | cxTranslate }}</span>
+          <span
+            class="material-icons-outlined custom-icon"
+            (click)="orderRedirect(data?.code, data)"
+            >arrow_right</span
+          >
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="rmaStatus">
+      <tr class="table-data" *ngFor="let rmaData of statusDetails">
+        <td>{{ rmaData?.rmaNumber }}</td>
+        <td>{{ rmaData?.rmaStatus }}</td>
+        <td>{{ rmaData?.purchaseOrderNumber }}</td>
+        <td *ngIf="isLoggedIn">
+          <!-- {{ rmaData?.netPrice == '0.0' ? '' : rmaData?.currency }} -->
+          {{
+            rmaData?.netPrice == '0.0'
+              ? ''
+              : (rmaData?.netPrice
+                | customNumber: getCurrency(rmaData?.currency))
+          }}
+        </td>
+        <td class="linkButton">
+          <span>{{ 'track-order.na' | cxTranslate }}</span>
+          <span
+            class="material-icons-outlined custom-icon"
+            (click)="rmaRedirect(rmaData?.rmaNumber, rmaData)"
+            >arrow_right</span
+          >
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <table class="table table-top" *ngIf="isLoggedIn && orderList?.length > 0">
+    <h2 class="rma-result">
+      {{ 'loggedinHome.orderResult' | cxTranslate }}
+    </h2>
+    <tr class="table-header">
+      <th>{{ 'loggedinHome.orderNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.poNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.price' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+    </tr>
+    <!-- <ng-container > -->
+    <tr class="table-data" *ngFor="let data of orderList">
+      <td>{{ data?.code }}</td>
+      <td>{{ data?.orderStatus }}</td>
+      <td>{{ data?.purchaseOrderNumber }}</td>
+      <td *ngIf="isLoggedIn">
+        <!-- {{ data?.currency }}  -->
+        {{ data?.totalNetPrice | customNumber: getCurrency(data?.currency) }}
+      </td>
+      <td class="linkButton">
+        <span>{{ 'track-order.na' | cxTranslate }}</span>
+        <span
+          class="material-icons-outlined custom-icon"
+          (click)="orderRedirect(data?.code, data)"
+          >arrow_right</span
+        >
+      </td>
+    </tr>
+    <!-- </ng-container> -->
+  </table>
+  <table class="table table-top" *ngIf="isLoggedIn && rmaList?.length > 0">
+    <h2 class="rma-result">
+      {{ 'loggedinHome.rmaResult' | cxTranslate }}
+    </h2>
+    <tr class="table-header">
+      <th>{{ 'loggedinHome.rmaNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.poNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.price' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+    </tr>
+    <tr class="table-data" *ngFor="let rmaData of rmaList">
+      <td>{{ rmaData?.rmaNumber }}</td>
+      <td>{{ rmaData?.rmaStatus }}</td>
+      <td>{{ rmaData?.purchaseOrderNumber }}</td>
+      <td *ngIf="isLoggedIn">
+        <!-- {{ rmaData?.netPrice == '0.0' ? '' : rmaData?.currency }} -->
+        {{
+          rmaData?.netPrice == '0.0'
+            ? ''
+            : (rmaData?.netPrice | customNumber: getCurrency(rmaData?.currency))
+        }}
+      </td>
+      <td class="linkButton">
+        <span>{{ 'track-order.na' | cxTranslate }}</span>
+        <span
+          class="material-icons-outlined custom-icon"
+          (click)="rmaRedirect(rmaData?.rmaNumber, rmaData)"
+          >arrow_right</span
+        >
+      </td>
+    </tr>
+  </table>
+  <ng-container *ngIf="isLoggedIn">
+    <div class="no-data" *ngIf="wrongCustomer">
+      {{ 'track-order.wrongCustomer' | cxTranslate }}
+
+      <div class="change-customer">
+        <bh-button
+          (click)="openSlider()"
+          type="primary"
+          label="{{ 'track-order.changeCustomer' | cxTranslate }}"
+          class="float-left"
+        >
+        </bh-button>
+        <bh-button
+          (click)="cancel()"
+          type="secondary"
+          label="{{ 'track-order.cancel' | cxTranslate }}"
+          class="float-left"
+        >
+        </bh-button>
+        <!-- <bh-button class="change-acc" type="primary" text="Change Customer" (click)="openSlider()"></bh-button>
+      <bh-button class="change-acc" type="inverse" text="Cancel" (click)="cancel()"></bh-button> -->
+      </div>
+    </div>
+    <div class="no-data" *ngIf="!wrongCustomer && wrongStore">
+      {{
+        'track-order.wrongStore'
+          | cxTranslate: { store: productLine | titlecase }
+      }}
+    </div>
+  </ng-container>
+
+  <div class="no-data" *ngIf="!wrongCustomer && !wrongStore && noDataFound">
+    {{ 'track-order.noDataFound' | cxTranslate }}
+  </div>
+</div>

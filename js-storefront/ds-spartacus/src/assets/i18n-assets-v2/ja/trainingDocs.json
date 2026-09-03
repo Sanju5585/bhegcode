@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "トレーニング資料",
+    "sortBy": "並び替え",
+    "searchInDocs": "トレーニング資料を検索",
+    "name": "返却先名",
+    "dateModified": "変更日",
+    "noRecordFound": "履歴が見つかりません",
+    "view": "閲覧"
+  }
+}

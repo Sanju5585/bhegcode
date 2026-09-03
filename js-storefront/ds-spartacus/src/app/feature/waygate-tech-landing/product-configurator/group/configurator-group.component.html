@@ -1,0 +1,119 @@
+<div id="{{ createGroupId(group.id) }}" role="tabpanel">
+  <ng-container *ngIf="displayConflictDescription(group)">
+    <cx-configurator-conflict-description
+      [currentGroup]="group"
+    ></cx-configurator-conflict-description>
+  </ng-container>
+  <div
+    class="cx-group-attribute"
+    [class.cx-hidden]="!attribute.visible"
+    *ngFor="let attribute of group.attributes; let indexOfAttribute = index"
+  >
+    <ng-container *ngIf="isConflictGroupType(group.groupType)">
+      <cx-configurator-conflict-suggestion
+        [currentGroup]="group"
+        [attribute]="attribute"
+        [suggestionNumber]="indexOfAttribute"
+      ></cx-configurator-conflict-suggestion>
+    </ng-container>
+
+    <ng-container *ngIf="activeLanguage$ | async as activeLanguage">
+      <div
+        [cxConfiguratorAttributeComponent]="{
+          componentKey: 'Header',
+          attribute: attribute,
+          owner: owner,
+          group: group,
+          language: activeLanguage,
+          expMode: (expMode | async) ?? false,
+          isNavigationToGroupEnabled: isNavigationToGroupEnabled,
+        }"
+      ></div>
+
+      <div
+        [cxConfiguratorAttributeComponent]="{
+          componentKey: getComponentKey(attribute),
+          attribute: attribute,
+          owner: owner,
+          group: group,
+          language: activeLanguage,
+          expMode: (expMode | async) ?? false,
+        }"
+      ></div>
+
+      <div
+        [cxConfiguratorAttributeComponent]="{
+          componentKey: 'Footer',
+          attribute: attribute,
+          owner: owner,
+          group: group,
+          language: activeLanguage,
+          expMode: (expMode | async) ?? false,
+        }"
+      ></div>
+    </ng-container>
+    <div
+      *ngIf="attribute.name === 'ENG_APR_CATALOG'"
+      class="eng-approval-error-msg"
+    >
+      <br />
+      <p>
+        <b>{{ 'waygate.engineeringApproval' | cxTranslate }}</b>
+        <i>{{ 'waygate.engineeringApprovalSubText' | cxTranslate }}</i>
+      </p>
+    </div>
+    <div
+      *ngIf="attribute.name === 'SALES_ACKNOWLEDGEMENT'"
+      class="eng-approval-error-msg"
+    >
+      <br />
+      <p>
+        <b>{{ 'waygate.salesOrderApproval' | cxTranslate }}.</b>
+        <i>{{ 'waygate.salesOrderApprovalSubText' | cxTranslate }}</i>
+      </p>
+    </div>
+    <br />
+
+    <div
+      class="view-all-container view-all"
+      *ngIf="
+        attribute.uiTypeVariation == 'RADIO_BUTTON' &&
+        attribute.values.length > 10
+      "
+      (click)="
+        openModalRadio(
+          attribute,
+          group,
+          owner,
+          indexOfAttribute,
+          isNavigationToGroupEnabled,
+          attribute.uiTypeVariation
+        )
+      "
+    >
+      <h6 class="">View all</h6>
+      <mat-icon class="view-icon"> call_made</mat-icon>
+    </div>
+
+    <div
+      class="view-all-container view-all"
+      *ngIf="
+        attribute.uiTypeVariation == 'CHECK_BOX_LIST' &&
+        attribute.values.length > 10
+      "
+      (click)="
+        openModalCheckBox(
+          attribute,
+          group,
+          owner,
+          indexOfAttribute,
+          isNavigationToGroupEnabled,
+          attribute.uiTypeVariation
+        )
+      "
+    >
+      <h6 class="">View all</h6>
+      <mat-icon class="view-icon"> call_made</mat-icon>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+:host::ng-deep {
+  bh-dropdown {
+    width: 363px;
+  }
+  .bh-dropdown__input {
+    width: 100%;
+    height: 32px;
+  }
+  .bh-dropdown__value {
+    width: 340px;
+    margin: auto;
+    padding: 10px;
+  }
+
+  .bh-dropdown__icon.typography--icon-small.motion--normal {
+    visibility: hidden;
+  }
+  .bh-dropdown__icon.typography--icon-small.motion--normal:after {
+    visibility: visible;
+
+    content: 'arrow_drop_down';
+  }
+  .typography--button-link-small {
+    font-size: var(--font-size-button-link-medium);
+    text-transform: uppercase;
+  }
+  .bh-button--small {
+    min-width: var(--button-medium-width);
+  }
+  .bh-dropdown__menu-container.flipped {
+    top: 70px;
+  }
+  .bh-menu__ul {
+    overflow-y: auto;
+  }
+}
+
+.tabcontent {
+  &-display-line {
+    &-section-heading {
+      font-family: var(--font-base-font-family-decorative);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-semibold);
+      font-size: var(--font-base-font-size-16);
+      line-height: var(--font-base-line-height-22);
+      color: var(--color-base-teal-950);
+      margin-bottom: 20px;
+    }
+    &-label {
+      font-family: var(--font-base-font-family-body);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-base-font-size-12);
+      letter-spacing: 0.25px;
+      color: var(--color-base-earth-950);
+      margin-top: 40px;
+      margin-bottom: 11px;
+    }
+    &-data {
+      font-family: var(--font-base-font-family-body);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-semibold);
+      font-size: var(--font-base-font-size-12);
+      letter-spacing: 0.25px;
+      color: var(--color-base-earth-950);
+      border: none;
+    }
+  }
+}
+
+.custom-bottom-border {
+  border-bottom: 1px solid var(--color-base-earth-100);
+}
+.custom-border-top {
+  margin-top: 40px;
+  border-top: 1px solid var(--color-base-earth-100);
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px 0px;
+  bh-button {
+    margin: 0px 5px;
+  }
+}
+
+.defaultOtherPrefLabel-title {
+  font-family: var(--font-base-font-family-body);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-base-line-height-18);
+  letter-spacing: 0.1px;
+  color: var(--color-base-gray-600);
+  margin-top: 18px;
+}
+.margin-top {
+  margin-top: 18px;
+}

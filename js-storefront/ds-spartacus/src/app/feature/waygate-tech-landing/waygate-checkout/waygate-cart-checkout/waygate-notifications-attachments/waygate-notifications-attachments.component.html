@@ -1,0 +1,496 @@
+<div class="waygate-notification-main mt-4">
+  <form [formGroup]="multipleEmailForm" (ngSubmit)="onSubmit()">
+    <div class="notification-sub">
+      <div class="notification-label">
+        {{ 'rma-confirmation.notifications' | cxTranslate }}
+      </div>
+      <div class="order-ack-label">
+        <span *ngIf="!isQuote">{{
+          'rma-confirmation.orderACKContactDetails' | cxTranslate
+        }}</span>
+        <span *ngIf="isQuote">{{
+          'rma-confirmation.quoteACKContactDetails' | cxTranslate
+        }}</span>
+      </div>
+      <ng-container *ngIf="!isQuote">
+        <div class="shipping-check mt-2">
+          <bh-checkbox
+            class="float-left"
+            label=""
+            [value]="shippingCheck"
+            (change)="onChange($event, 'shippingCheck')"
+          >
+          </bh-checkbox>
+          <div>
+            <label class="shipping-checkbox-label">{{
+              'rma-confirmation.sameAsShippingContactDetails' | cxTranslate
+            }}</label>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="notification-contact-main">
+        <div>
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.contactName' | cxTranslate }}"
+            placeholder="{{ 'labels.enterName' | cxTranslate }}"
+            [value]="orderAckContactName"
+            [message]="error.orderAckContactName"
+            [attr.error]="
+              error.orderAckContactName ? error.orderAckContactName : null
+            "
+            (keyup)="onChange($event, 'orderAckContactName')"
+            maxlength="35"
+          >
+          </bh-text-input>
+        </div>
+        <div>
+          <ng-container *ngIf="this.isRmacart == 'RETURNS'">
+            <bh-text-input
+              type="text"
+              required
+              small
+              label="{{ 'labels.phoneNumber' | cxTranslate }}"
+              placeholder="{{ 'labels.enterPhoneNo' | cxTranslate }}"
+              [value]="orderAckContactNo"
+              [message]="error.orderAckContactNo"
+              [attr.error]="
+                error.orderAckContactNo ? error.orderAckContactNo : null
+              "
+              (keyup)="onChange($event, 'orderAckContactNo')"
+              maxlength="16"
+            >
+            </bh-text-input>
+          </ng-container>
+          <ng-container *ngIf="this.isRmacart != 'RETURNS'">
+            <bh-text-input
+              type="text"
+              required
+              small
+              label="{{ 'labels.phoneNumber' | cxTranslate }}"
+              placeholder="{{ 'labels.enterPhoneNo' | cxTranslate }}"
+              [value]="orderAckContactNo"
+              [message]="error.orderAckContactNo"
+              [attr.error]="
+                error.orderAckContactNo ? error.orderAckContactNo : null
+              "
+              (keyup)="onChange($event, 'orderAckContactNo')"
+              maxlength="20"
+            >
+            </bh-text-input>
+          </ng-container>
+        </div>
+      </div>
+      <div class="notification-contact-main">
+        <div class="notification-input-item">
+          <label
+            class="bh-text-input__label typography--label-small bh-text-input__required"
+            >{{ 'notifications.email' | cxTranslate }}</label
+          >
+          <div class="multiple-email-container">
+            <ng-container
+              *ngFor="let creds of orderAckEmailArray?.controls; let i = index"
+            >
+              <ng-container [formGroup]="orderAckEmailArray.controls[i]">
+                <div class="email-input-row">
+                  <input
+                    type="text"
+                    class="notification-input"
+                    formControlName="orderAckEmail"
+                    (input)="checkNotificationValid()"
+                    [id]="'orderAckEmail' + i"
+                  />
+                  <i
+                    class="material-icons"
+                    *ngIf="orderAckEmailArray?.controls?.length > 1"
+                    (click)="removeOrderAckEmails(i)"
+                    >delete_outline</i
+                  >
+                </div>
+
+                <!-- {{ orderAckEmailArray[i]?.value }} -->
+
+                <div
+                  *ngIf="
+                    orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                      ?.touched &&
+                    orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                      ?.invalid
+                  "
+                  class="d-flex typography--body-small bh-form-message--error inline-error-wrapper"
+                >
+                  <i class="typography--icon-small bh-form-message__icon"
+                    >error_outline</i
+                  >
+                  <div
+                    *ngIf="
+                      orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                        ?.errors?.required
+                    "
+                  >
+                    {{ 'notifications.orderAckEmailisRequired' | cxTranslate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                        ?.errors?.duplicate
+                    "
+                  >
+                    {{ 'notifications.duplicateEmail' | cxTranslate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      orderAckEmailArray.controls[i]?.controls?.orderAckEmail
+                        ?.errors?.pattern
+                    "
+                  >
+                    {{ 'notifications.pleaseEnterValidEmail' | cxTranslate }}
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+          <!-- <ng-container *ngIf=" else addEmailACK"> -->
+
+          <!-- </ng-container> -->
+          <!-- <ng-template #addEmailACK>
+
+        </ng-template> -->
+          <div
+            class="add-email"
+            *ngIf="
+              orderAckEmailArray?.controls?.length < 10 &&
+              isRmacart != 'RETURNS' &&
+              isRmacart != 'QUOTE'
+            "
+            (click)="addOrderAckEmails()"
+          >
+            Add email
+            <span class="material-icons">add</span>
+          </div>
+          <div
+            class="limit-warning"
+            *ngIf="isRmacart != 'RETURNS' && isRmacart != 'QUOTE'"
+            [class.warning]="orderAckEmailArray?.controls?.length >= 10"
+          >
+            You can add upto 10 emails.
+          </div>
+          <div></div>
+        </div>
+        <!-- <div>
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.email' | cxTranslate }}"
+            placeholder="{{ 'labels.enterEmailAddress' | cxTranslate }}"
+            [value]="orderAck"
+            [message]="error.orderAck"
+            [attr.error]="error.orderAck ? error.orderAck : null"
+            (keyup)="onChange($event, 'orderAck')"
+            maxlength="70"
+          >
+          </bh-text-input>
+        </div> -->
+      </div>
+      <ng-container *ngIf="!isQuote">
+        <div class="invoice-main mt-3">
+          <div class="invoice-contact-label">
+            {{ 'rma-confirmation.invoiceContactDetails' | cxTranslate }}
+          </div>
+          <div class="invoice-check mt-2">
+            <bh-checkbox
+              class="float-left"
+              label=""
+              [value]="invoiceCheck"
+              (change)="onChange($event, 'invoiceCheck')"
+            >
+            </bh-checkbox>
+
+            <div>
+              <label class="invoice-checkbox-label">{{
+                'rma-confirmation.sameAsACKContactDetails' | cxTranslate
+              }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="notification-contact-main">
+          <div>
+            <bh-text-input
+              type="text"
+              required
+              small
+              label="{{ 'labels.contactName' | cxTranslate }}"
+              placeholder="{{ 'labels.enterName' | cxTranslate }}"
+              [value]="invoiceContactName"
+              [message]="error.invoiceContactName"
+              [attr.error]="
+                error.invoiceContactName ? error.invoiceContactName : null
+              "
+              (keyup)="onChange($event, 'invoiceContactName')"
+              maxlength="35"
+            >
+            </bh-text-input>
+          </div>
+          <div>
+            <ng-container *ngIf="this.isRmacart == 'RETURNS'">
+              <bh-text-input
+                type="text"
+                required
+                small
+                label="{{ 'labels.phoneNumber' | cxTranslate }}"
+                placeholder="{{ 'labels.enterPhoneNo' | cxTranslate }}"
+                [value]="invoiceContactNo"
+                [message]="error.invoiceContactNo"
+                [attr.error]="
+                  error.invoiceContactNo ? error.invoiceContactNo : null
+                "
+                (keyup)="onChange($event, 'invoiceContactNo')"
+                maxlength="16"
+              >
+              </bh-text-input>
+            </ng-container>
+            <ng-container *ngIf="this.isRmacart != 'RETURNS'">
+              <bh-text-input
+                type="text"
+                required
+                small
+                label="{{ 'labels.phoneNumber' | cxTranslate }}"
+                placeholder="{{ 'labels.enterPhoneNo' | cxTranslate }}"
+                [value]="invoiceContactNo"
+                [message]="error.invoiceContactNo"
+                [attr.error]="
+                  error.invoiceContactNo ? error.invoiceContactNo : null
+                "
+                (keyup)="onChange($event, 'invoiceContactNo')"
+                maxlength="20"
+              >
+              </bh-text-input>
+            </ng-container>
+          </div>
+        </div>
+        <div class="notification-contact-main">
+          <div class="notification-input-item">
+            <label
+              class="bh-text-input__label typography--label-small bh-text-input__required"
+              >{{ 'notifications.email' | cxTranslate }}</label
+            >
+            <div class="multiple-email-container">
+              <ng-container
+                *ngFor="
+                  let creds of orderInvoiceEmailArray?.controls;
+                  let i = index
+                "
+              >
+                <ng-container [formGroup]="orderInvoiceEmailArray.controls[i]">
+                  <div class="email-input-row">
+                    <input
+                      type="text"
+                      class="notification-input"
+                      formControlName="orderInvoiceEmail"
+                      (input)="checkNotificationValid()"
+                      [id]="'orderInvoiceEmail' + i"
+                    />
+                    <i
+                      class="material-icons"
+                      *ngIf="orderInvoiceEmailArray?.controls?.length > 1"
+                      (click)="removeOrderInvoiceEmails(i)"
+                      >delete_outline</i
+                    >
+                  </div>
+
+                  <!-- {{ orderAckEmailArray[i]?.value }} -->
+
+                  <div
+                    *ngIf="
+                      orderInvoiceEmailArray.controls[i]?.controls
+                        ?.orderInvoiceEmail?.touched &&
+                      orderInvoiceEmailArray.controls[i]?.controls
+                        ?.orderInvoiceEmail?.invalid
+                    "
+                    class="d-flex typography--body-small bh-form-message--error inline-error-wrapper"
+                  >
+                    <i class="typography--icon-small bh-form-message__icon"
+                      >error_outline</i
+                    >
+                    <div
+                      *ngIf="
+                        orderInvoiceEmailArray.controls[i]?.controls
+                          ?.orderInvoiceEmail?.errors?.required
+                      "
+                    >
+                      {{
+                        'notifications.orderAckEmailisRequired' | cxTranslate
+                      }}
+                    </div>
+                    <div
+                      *ngIf="
+                        orderInvoiceEmailArray.controls[i]?.controls
+                          ?.orderInvoiceEmail?.errors?.duplicate
+                      "
+                    >
+                      {{ 'notifications.duplicateEmail' | cxTranslate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        orderInvoiceEmailArray.controls[i]?.controls
+                          ?.orderInvoiceEmail?.errors?.pattern
+                      "
+                    >
+                      {{ 'notifications.pleaseEnterValidEmail' | cxTranslate }}
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <!-- <ng-container *ngIf=" else addEmailACK"> -->
+
+            <!-- </ng-container> -->
+            <!-- <ng-template #addEmailACK>
+
+        </ng-template> -->
+            <div
+              class="add-email"
+              *ngIf="
+                orderInvoiceEmailArray?.controls?.length < 10 &&
+                isRmacart != 'RETURNS' &&
+                isRmacart != 'QUOTE'
+              "
+              (click)="addOrderInvoiceEmails()"
+            >
+              Add email
+              <span class="material-icons">add</span>
+            </div>
+            <div
+              class="limit-warning"
+              *ngIf="isRmacart != 'RETURNS' && isRmacart != 'QUOTE'"
+              [class.warning]="orderInvoiceEmailArray?.controls?.length >= 10"
+            >
+              You can add upto 10 emails.
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="notification-remarks mt-3">
+      <div class="uploadattachment">
+        <span class="reviewed-text" *ngIf="!isQuote">{{
+          'labels.csrReviewConfirmation' | cxTranslate
+        }}</span>
+        <span class="reviewed-text" *ngIf="isQuote">{{
+          'labels.quoteReviewConfirmation' | cxTranslate
+        }}</span>
+        <div class="radio-btn mt-2">
+          <ng-container *ngIf="forChinaApac; else allOrder">
+            <bh-radio-button
+              label="{{ 'labels.yes' | cxTranslate }}"
+              value="true"
+              name="group1"
+              checked
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+            <bh-radio-button
+              label="{{ 'labels.no' | cxTranslate }}"
+              value="false"
+              disabled
+              name="group1"
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+          </ng-container>
+          <ng-template #allOrder>
+            <bh-radio-button
+              label="{{ 'labels.yes' | cxTranslate }}"
+              value="true"
+              name="group1"
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+            <bh-radio-button
+              label="{{ 'labels.no' | cxTranslate }}"
+              value="false"
+              checked
+              name="group1"
+              (change)="handleChange($event)"
+            ></bh-radio-button>
+          </ng-template>
+        </div>
+        <div class="warning-box" *ngIf="this.bhgeReview == 'true'">
+          <div>
+            <span class="material-icons-outlined alert-warning"> warning </span>
+          </div>
+          <div>
+            <span class="alert-text" *ngIf="!isQuote">
+              {{ 'labels.BHReview' | cxTranslate }}</span
+            >
+            <span class="alert-text" *ngIf="isQuote">
+              {{ 'labels.QuoteReview' | cxTranslate }}</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="row col-lg-12 col-md-12 col-sm-12 uploadattachment reasonforchange"
+          *ngIf="bhgeReview == 'true'"
+        >
+          <label class="textarea-label">
+            <span class="star">*</span>
+            <span> {{ 'labels.csrReviewLbl' | cxTranslate }}</span>
+          </label>
+
+          <textarea
+            required
+            class="textarea-buycheckout"
+            name="reasonForCsrReview"
+            [(ngModel)]="reason"
+            (keyup)="onChange($event, 'reason')"
+            [placeholder]="getPlaceholder()"
+          ></textarea>
+          <div
+            *ngIf="this.error.reasonMsg"
+            class="bh-form-message typography--body-small bh-form-message--error"
+          >
+            <i class="typography--icon-small bh-form-message__icon"
+              >error_outline</i
+            >{{ this.error.reasonMsg }}
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="additional-attachment-label">
+            {{ 'labels.additionalDocuments' | cxTranslate }}
+          </div>
+          <div class="mt-2">
+            <ds-file-upload
+              label="{{ 'labels.upload' | cxTranslate }}"
+              [maxLength]="5"
+              [maxSizeInMB]="10"
+              [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+              (selectedFiles)="selectedFiles($event)"
+              [showIcon]="showIcon"
+              [icon]="'backup'"
+              >upload</ds-file-upload
+            >
+          </div>
+
+          <div class="file-list">
+            <ds-file-upload-progress
+              *ngFor="let file of files"
+              [layout]="layouts.LIST"
+              [deleteUrl]="deletUrl"
+              [file]="file"
+              (deletedFiles)="deletedFiles($event)"
+              [uploadParams]="uploadParams"
+              [uploadUrl]="uploadUrl"
+              [showProgress]="true"
+            ></ds-file-upload-progress>
+          </div>
+          <span class="fileformat mt-1"
+            >{{ 'labels.fileFormat' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,109 @@
+<div class="container-fluid my-profile" *ngIf="!loadingFlag; else loading">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="my-profile-header-message">
+        {{ 'myProfile.myProfileHeaderMesage' | cxTranslate }}
+      </p>
+    </div>
+  </div>
+  <div class="tab">
+    <button
+      class="tablinks"
+      [ngClass]="categoryName == 'categoryOne' ? 'active' : ''"
+      id="defaultOpen"
+      #defaultOpen
+      (click)="openProduct('categoryOne')"
+    >
+      <i class="material-icons margin-right-icon">account_circle</i>
+      {{ 'myProfile.personalDetail' | cxTranslate }}
+    </button>
+    <button
+      class="tablinks"
+      [ngClass]="categoryName == 'categoryTwo' ? 'active' : ''"
+      (click)="openProduct('categoryTwo')"
+    >
+      <i class="material-icons margin-right-icon">group</i>
+      {{ 'myProfile.custmrAccntHeader' | cxTranslate }}
+    </button>
+    <button
+      class="tablinks"
+      [ngClass]="categoryName == 'categoryThree' ? 'active' : ''"
+      (click)="openProduct('categoryThree')"
+    >
+      <i class="material-icons margin-right-icon">receipt</i>
+      {{ 'myProfile.shipToLabel' | cxTranslate }}
+    </button>
+    <button
+      class="tablinks"
+      [ngClass]="categoryName == 'categoryFour' ? 'active' : ''"
+      (click)="openProduct('categoryFour')"
+    >
+      <i class="material-icons margin-right-icon">access_alarms</i>
+      {{ 'myProfile.orderDetailSummary' | cxTranslate }}
+    </button>
+    <button
+      class="tablinks"
+      [ngClass]="categoryName == 'categoryFive' ? 'active' : ''"
+      (click)="openProduct('categoryFive')"
+    >
+      <i class="material-icons margin-right-icon">notifications</i>
+      {{ 'myProfile.NotificationEmail' | cxTranslate }}
+    </button>
+  </div>
+  <div
+    id="categoryOne"
+    *ngIf="categoryName == 'categoryOne'"
+    class="tabcontent"
+  >
+    <ds-personal-details
+      [profiledata]="profiledata"
+      (personaldetails)="personaldetails($event)"
+    ></ds-personal-details>
+  </div>
+  <div
+    id="categoryTwo"
+    *ngIf="categoryName == 'categoryTwo'"
+    class="tabcontent"
+  >
+    <ds-customer-account
+      [profiledata]="profiledata"
+      (customerAccdetails)="customerAccdetails($event)"
+    ></ds-customer-account>
+  </div>
+  <div
+    id="categoryThree"
+    *ngIf="categoryName == 'categoryThree'"
+    class="tabcontent"
+  >
+    <ds-ship-to-address
+      [profiledata]="profiledata"
+      (shiptodetails)="shiptodetails($event)"
+    ></ds-ship-to-address>
+  </div>
+  <div
+    id="categoryFour"
+    *ngIf="categoryName == 'categoryFour'"
+    class="tabcontent"
+  >
+    <ds-order-details-summary
+      [profiledata]="profiledata"
+      (orderdetails)="orderdetails($event)"
+    ></ds-order-details-summary>
+  </div>
+  <div
+    id="categoryFive"
+    *ngIf="categoryName == 'categoryFive'"
+    class="tabcontent"
+  >
+    <ds-notifications-email
+      [profiledata]="profiledata"
+      (notificationdetails)="notificationdetails($event)"
+    ></ds-notifications-email>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

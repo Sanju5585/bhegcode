@@ -1,0 +1,46 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content p-3">
+    <div class="row">
+      <div class="col-11">
+        <h1 style="width: 100%">{{ 'checkoutConfirmation.saveCreditCard' | cxTranslate }}</h1>
+      </div>
+      <div class="col-1 text-right" (click)="closeForm()">
+        <i style="cursor: pointer" class="material-icons">close</i>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p>
+          {{ 'checkoutConfirmation.savedCardTxt' | cxTranslate }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <bh-checkbox
+          class="float-left checkboxterms"
+          label="{{ 'checkoutConfirmation.understandSaveCardtxt' | cxTranslate }}"
+          name="agreeTerms"
+          [value]="''"
+          [attr.checked]="false"
+          (change)="change($event)"
+        >
+        </bh-checkbox>
+      </div>
+    </div>
+    <div class="row" style="float: right">
+      <div class="pr-3" style="display: flex; column-gap: 1rem">
+        <bh-button
+          type="secondary"
+          label="{{ 'waygate.no' | cxTranslate }}"
+          (click)="closeForm()"
+        ></bh-button>
+        <bh-button
+          label="{{ 'waygate.yes' | cxTranslate }}"
+          (click)="saveCard()"
+          [attr.disabled]="hideYes"
+        ></bh-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "ID",
+    "proceedToCheckout": "继续结算",
+    "cartName": "购物车#{{code}}"
+  },
+  "cartItems": {
+    "id": "ID",
+    "description": "描述",
+    "item": "项",
+    "itemPrice": "商品价格",
+    "quantity": "数量",
+    "quantityTitle": "数量代表在您购物车中这项产品的数量总和。",
+    "total": "总计",
+    "cartTotal": "购物车总和（{{count}}项）",
+    "cartTotal_plural": "购物车总和（{{count}}项）"
+  },
+  "orderCost": {
+    "orderSummary": "订单信息",
+    "subtotal": "折扣后小计：",
+    "shipping": "发货:",
+    "estimatedShipping": "预计发货：",
+    "discount": "您保存的：",
+    "salesTax": "销售税费：",
+    "grossTax": "您的订单总额不包含税费",
+    "total": "总计:",
+    "toBeDetermined": "待定"
+  },
+  "voucher": {
+    "coupon": "有优惠券吗？",
+    "coupon_plural": "优惠券代码",
+    "apply": "应用",
+    "placeholder": "促销代码",
+    "applyVoucherSuccess": "{{voucherCode}}已经被应用。",
+    "removeVoucherSuccess": "{{voucherCode}}已经被移除。",
+    "anchorLabel": "输入或移除您的优惠券代码",
+    "vouchersApplied": "已应用优惠券:",
+    "availableCoupons": "可用优惠券",
+    "availableCouponsLabel": "您可以将这些优惠券用于此单。"
+  },
+  "saveForLaterItems": {
+    "itemTotal": "保存以备后用（{{count}}项）",
+    "itemTotal_plural": "保存以备后用（{{count}}项）",
+    "cartTitle": "购物车",
+    "saveForLater": "保存以备后用",
+    "moveToCart": "移到购物车",
+    "stock": "现货",
+    "forceInStock": "现货"
+  }
+}

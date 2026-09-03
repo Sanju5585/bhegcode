@@ -1,0 +1,35 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span>{{ 'siteLogin.sessionTimeOut' | cxTranslate }}</span>
+      </div>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>
+            {{ 'siteLogin.wiilBeLoggedOut' | cxTranslate }} 
+            {{ secondsToDday }} 
+            {{ 'siteLogin.clickOnStay' | cxTranslate }}.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            class="mr-2"
+            [type]="'secondary'"
+            [label]=" 'waygate.logout' | cxTranslate "
+            (click)="closeModal('logout')"
+          ></bh-button>
+          <bh-button
+            [type]="'primary'"
+            [label]=" 'siteLogin.stay' | cxTranslate "
+            (click)="closeModal('stay')"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

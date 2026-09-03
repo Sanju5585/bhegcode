@@ -1,0 +1,5 @@
+#if (${ctx.erpFailureReason})
+    ${ctx.messages.getMessage('failureSubject')}
+#else
+    ${ctx.messages.getMessage('confirmSubject')}
+#end

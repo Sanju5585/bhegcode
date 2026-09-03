@@ -1,0 +1,211 @@
+<ng-container *ngIf="cart$ | async as cart; else loading">
+  <ng-container *ngIf="(cart | json) != '{}'; else loading">
+    <ng-container *ngIf="cart.returnsCartData?.length > 0; else noCartEntries">
+      <div class="rma-container">
+        <div class="rma-cart--info">
+          <div class="hazard-info-container">
+            <div
+              class="hazard-info-section"
+              *ngIf="hazardStatus == hazardDetails.PARTIAL"
+            >
+              <div class="rma-cart-warning">
+                <span class="bold warning-status mr-1">
+                  <span class="material-icons mr-2 ml-2"> info </span>
+                  {{ 'rma-cart.incomplete' | cxTranslate }}:</span
+                >
+                {{ 'rma-cart.haxardWarningText' | cxTranslate }}
+              </div>
+            </div>
+            <div class="hazard-info-section edit-hazard-info mb-5">
+              <span class="hazard-info"
+                ><span class="required">* </span
+                >{{ 'rma-cart.hazardousInfo' | cxTranslate
+                }}<span
+                  *ngIf="hazardStatus == hazardDetails.COMPLETE"
+                  class="material-icons"
+                >
+                  check_circle
+                </span>
+              </span>
+
+              <span class="edit-btn" (click)="goToHazardInfo()">
+                <span class="material-icons-outlined edit-icon">edit</span>
+                <span
+                  class="error-text"
+                  *ngIf="hazardStatus == hazardDetails.PARTIAL"
+                  >{{ 'rma-cart.completeForm' | cxTranslate }}</span
+                >
+                <span
+                  class="success-text"
+                  *ngIf="hazardStatus == hazardDetails.COMPLETE"
+                  >{{ 'rma-cart.edit' | cxTranslate }}</span
+                >
+              </span>
+            </div>
+            <!-- <div
+              class="hazard-info-section"
+              *ngIf="hazardStatus == hazardDetails.COMPLETE"
+            >
+              <div class="rma-cart-success">
+                <span class="bold success-status">
+                  <span class="material-icons"> check_circle </span>
+                  {{ 'rma-cart.complete' | cxTranslate }}:</span
+                >
+                {{ 'rma-cart.hazardSuccessText' | cxTranslate }}
+              </div>
+            </div> -->
+
+            <div
+              *ngIf="distinctPlantList?.length > 1"
+              class="hybrid-cart-warning"
+            >
+              <span class="material-icons ml-2">info</span>
+              <span class="ml-2">{{
+                'rma-cart.rmaSplitInfo' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <ds-rma-cart-summary
+            [cart]="cart"
+            [hazardStatus]="hazardStatus"
+          ></ds-rma-cart-summary>
+        </div>
+        <section class="rma-cart-actions mt-4 ml-0">
+          <div class="rma-cart-action--holder">
+            <div class="rma-cart-action--action" (click)="openDeleteDialog()">
+              <span class="material-icons mr-1"> delete </span>
+              <span class="rma-delet-icon">
+                {{ 'rma-cart.deleteSetected' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+          <div class="rma-cart-action--holder">
+            <div class="rma-cart-action--action" (click)="printScreen()">
+              <span class="material-icons mr-1"> print </span>
+              <span>{{ 'rma-cart.printScreen' | cxTranslate }} </span>
+            </div>
+            <div class="rma-cart-action--action" (click)="saveCart(cart)">
+              <span class="material-icons mr-1"> save </span>
+              <span> {{ 'rma-cart.saveCart' | cxTranslate }} </span>
+            </div>
+            <div class="rma-cart-action--action" (click)="addNewItem()">
+              <span class="material-icons add-new-icon mr-1">
+                add_circle_outline
+              </span>
+              <span>
+                {{ 'rma-cart.addNewItem' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </section>
+        <div class="rma-cart-entries">
+          <ng-container *ngIf="distinctPlantList?.length <= 1">
+            <ng-container
+              *ngFor="
+                let product of cart.returnsCartData | rmaProduct;
+                let i = index
+              "
+            >
+              <ds-rma-cart-product
+                [product]="product"
+                [accessories]="
+                  cart.returnsCartData | rmaAccessory: product?.cartEntryNumber
+                "
+                [hazardStatus]="hazardStatus"
+                [showHeader]="i == 0 ? true : false"
+                [productSelected]="selectAll"
+                (checkedProduct)="checkedProduct($event)"
+              >
+              </ds-rma-cart-product>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="distinctPlantList?.length > 1">
+            <ng-container *ngFor="let site of distinctPlantList; let i = index">
+              <div class="product-header" aria-controls="productdetails">
+                <div class="product-title">
+                  <!-- *ngIf="isNullLocation(site); else orderOne" -->
+                  <span>{{ 'rma-cart.rma' | cxTranslate }} {{ i + 1 }}</span>
+                  <!-- <span
+                    *ngIf="!isNullLocation(site);"
+                    class="items-in-cart ml-1 mr-2"
+                    >{{ site }}
+                  </span> -->
+                  <span
+                    class="items-in-cart ml-1 mr-1"
+                    *ngIf="
+                      (cart.returnsCartData | rmaProduct: site)?.length <= 1
+                    "
+                  >
+                    ({{ (cart.returnsCartData | rmaProduct: site)?.length }}
+                    {{ 'rma-cart.Item' | cxTranslate }})
+                    <!-- <span class="material-icons ml-2"> error_outline </span> -->
+                  </span>
+                  <span
+                    class="items-in-cart ml-1 mr-1"
+                    *ngIf="
+                      (cart.returnsCartData | rmaProduct: site)?.length > 1
+                    "
+                  >
+                    ({{ (cart.returnsCartData | rmaProduct: site)?.length }}
+                    {{ 'rma-cart.Items' | cxTranslate }})
+                    <!-- <span class="material-icons ml-2"> error_outline </span> -->
+                  </span>
+                </div>
+              </div>
+              <div
+                [ngClass]="
+                  !expandNonFilm
+                    ? 'product-header-open'
+                    : 'product-header-close'
+                "
+              >
+                <ng-container
+                  *ngFor="
+                    let product of cart.returnsCartData | rmaProduct: site;
+                    let i = index
+                  "
+                >
+                  <ds-rma-cart-product
+                    [product]="product"
+                    [accessories]="
+                      cart.returnsCartData
+                        | rmaAccessory: product?.cartEntryNumber
+                    "
+                    [hazardStatus]="hazardStatus"
+                    [productSelected]="selectAll"
+                    (checkedProduct)="checkedProduct($event)"
+                    [showHeader]="i == 0 ? true : false"
+                  ></ds-rma-cart-product>
+                </ng-container>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div class="cart-summary-bottom">
+          <ds-rma-cart-summary
+            [cart]="cart"
+            [hazardStatus]="hazardStatus"
+          ></ds-rma-cart-summary>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noCartEntries>
+      <div class="empty-cart-page">
+        <div class="container">
+          <div class="empty-img"></div>
+          <h1>{{ 'rma-cart.returnCartEmpty' | cxTranslate }}</h1>
+          <p>
+            {{ 'rma-cart.searchOrBrowse' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner> {{ 'rma-cart.loading' | cxTranslate }}</cx-spinner>
+  </div>
+</ng-template>

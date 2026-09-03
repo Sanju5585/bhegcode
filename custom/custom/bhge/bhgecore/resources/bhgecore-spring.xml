@@ -1,0 +1,1829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+     <context:annotation-config/>
+
+	<!-- Spring Integration -->
+	<import resource="classpath:/bhgecore/integration/hot-folder-common-spring.xml"/>
+
+	<!-- SystemSetup for the BhgeCore -->
+	<bean id="acceleratorCoreSystemSetup" class="com.bhge.core.setup.CoreSystemSetup"
+	       parent="abstractCoreSystemSetup"/>
+
+	<!-- Solr field value providers -->
+
+	<bean id="volumeAwareProductPriceValueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="priceService" ref="priceService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="userService" ref="userService"/>
+        <property name="priceComparator" ref="volumePriceComparator"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+    </bean>
+
+    <bean id="volumePriceComparator" class="com.bhge.core.comparators.VolumeAwarePriceInformationComparator" scope="singleton"/>
+
+    <bean id="productVolumePricesProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.ProductVolumePricesProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="priceService" ref="priceService"/>
+    </bean>
+
+	<bean id="abstractCategoryCodeValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	<bean id="abstractCategoryNameValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryNameValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="bhgeVisibleToGroupsValueProvider"
+		class="com.bhge.core.search.provider.impl.BHGEVisibleToGroupsValueProvider"
+		parent="abstractPropertyFieldValueProvider" />
+		
+	<bean id="bhgeAnonymousSellableProductProvider"
+          class="com.bhge.core.search.provider.impl.BHGEAnonymousSellableProductValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+    </bean>
+    
+    <bean id="bhgeAnonymousBuyorQuoteProductProvider"
+          class="com.bhge.core.search.provider.impl.BHGEAnonymousBuyorQuoteProductValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+    </bean>
+    
+    <bean id="bhgeProductFeaturesValueProvider" 
+          class="com.bhge.core.search.provider.impl.BHGEProductFeaturesValueProvider" 
+          parent="abstractPropertyFieldValueProvider"/>
+       
+	<bean id="bhgeAnonymousStatuswithSalesOrgValueProvider"
+          class="com.bhge.core.search.provider.impl.BHGEAnonymousStatuswithSalesOrgValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+    </bean>
+	<!--<alias name="bhgeSearchResultProductPopulator" alias="commerceSearchResultProductPopulator" />
+	<bean id="bhgeSearchResultProductPopulator"
+		  class="com.bhge.facades.search.populator.BHGESearchResultProductPopulator"
+		  parent="defaultCommerceSearchResultProductPopulator">
+		<property name="strategiesList">
+			<list>
+				<ref bean="productHybrisStatusStrategy"/>
+				<ref bean="productAllowedProdPrincipalStrategy"/>
+				<ref bean="productMaterialStatusStrategy"/>
+				<ref bean="productSalesAreaStrategy"/>
+			</list>
+		</property>
+	</bean>-->
+			
+	<bean id="bhgeSolrQueryPostProcessor" class="com.bhge.core.search.provider.impl.BHGESolrQueryPostProcessor"/>
+	
+	<bean id="bhgeEdgeSolrQueryPostProcessorDefinition" parent="solrListenerDefinition">
+		<property name="listener" ref="bhgeSolrQueryPostProcessor" />
+	</bean>
+	
+	<alias name="defaultCommerceSearchTextPopulator" alias="commerceSearchTextPopulator" />
+	<bean id="defaultCommerceSearchTextPopulator" class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
+		<property name="freeTextQueryBuilders">
+			<list>
+				<!--<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="ean" />
+					<property name="boost" value="70" />
+				</bean>-->
+				<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="code" />
+					<property name="boost" value="100" />
+				</bean>
+				<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="name" />
+					<property name="boost" value="30" />
+				</bean>
+				<!--<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="manufacturerName" />
+					<property name="boost" value="25" />
+				</bean>-->
+				<bean
+					class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
+					<property name="boost" value="20" />
+				</bean>
+				<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="keywords" />
+					<property name="boost" value="15" />
+				</bean>
+				<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="categoryName" />
+					<property name="boost" value="10" />
+				</bean>
+				<bean class="com.bhge.core.search.solrfacetsearch.querybuilder.impl.BHGEDefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="brandName" />
+					<property name="boost" value="10" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+
+	<bean id="image515ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="image300ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="image96ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="image65ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="image30ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+
+	<bean id="productUrlValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="promotionCodeValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="promotionImageValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+
+	<bean id="apparelPointOfServiceFacetDisplayNameProvider"
+	      class="com.bhge.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      >
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+
+	<bean id="electronicsPointOfServiceFacetDisplayNameProvider"
+	      class="com.bhge.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      >
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+
+
+	<bean id="genderFacetDisplayNameProvider"
+	      class="com.bhge.core.search.solrfacetsearch.provider.impl.GenderFacetDisplayNameProvider"
+	      >
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	
+	
+	<!-- Custom BHGE SOlr Value provider -Begin-->
+	<bean id="bhgeMaterialUOMValueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEMaterialUOMValueProvider"  parent="abstractPropertyFieldValueProvider" />
+	<bean id="bhgeHybrisStatusValueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEHybrisStatusValueProvider"  parent="abstractPropertyFieldValueProvider" />
+	<bean id="bhgeMaterialStatusValueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEMaterialStatusValueProvider"  parent="abstractPropertyFieldValueProvider" />
+	<bean id="bhgeLegacyIDValueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGELegacyIDValueProvider"  parent="abstractPropertyFieldValueProvider" />
+	
+	<bean id="bhgeClassAttributeValueProvider"
+		  class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEClassAttributeValueProvider"
+		  parent="classificationPropertyValueProvider"/>
+
+	<bean id="bhgeClassificationAttributeValueProvider"
+		  class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEClassificationAttributeValueProvider"
+		  parent="classificationPropertyValueProvider"/>
+		  
+	<bean id="bhgeObsoleteProductRefProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEObsoleteProductRefProvider"  parent="abstractPropertyFieldValueProvider" >
+		 <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="bhgeObsoleteProductvalueProvider" class="com.bhge.core.search.solrfacetsearch.provider.impl.BHGEObsoleteProductValueProvider"  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+
+	<!-- Custom BHGE SOlr Value provider -End-->
+	
+	<!--
+		Event listeners are singletons, therefore the dependency for a bean in tenant-scope
+		must be configured with a lookup method.
+	-->
+	<bean id="orderCancelledEventListener"
+	      class="com.bhge.core.event.OrderCancelledEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderRefundEventListener"
+	      class="com.bhge.core.event.OrderRefundEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="customerRegistrationEventListener"
+	      class="com.bhge.core.event.RegistrationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="forgottenPasswordEventListener"
+	      class="com.bhge.core.event.ForgottenPasswordEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="submitOrderEventListener" class="com.bhge.core.event.SubmitOrderEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<bean id="orderConfirmationEventListener"
+	      class="com.bhge.core.event.OrderConfirmationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendDeliveryMessageEventListener"
+	      class="com.bhge.core.event.SendDeliveryMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendReadyForPickupMessageEventListener"
+	      class="com.bhge.core.event.SendReadyForPickupMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledMessageEventListener"
+	      class="com.bhge.core.event.SendOrderPartiallyCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedMessageEventListener"
+	      class="com.bhge.core.event.SendOrderPartiallyRefundedMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledMessageEventListener"
+	      class="com.bhge.core.event.SendNotPickedUpConsignmentCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderCompletedEventListener" class="com.bhge.core.event.OrderCompletedEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<!-- Process resources definition -->
+
+	<bean id="customerRegistrationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/customerRegistrationEmailProcess.xml"/>
+	</bean>
+	<bean id="forgottenPasswordEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/forgottenPasswordEmailProcess.xml"/>
+	</bean>
+	<bean id="orderConfirmationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/orderConfirmationEmailProcess.xml"/>
+	</bean>
+	<bean id="sendDeliveryEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendDeliveryEmailProcess.xml"/>
+	</bean>
+	<bean id="sendReadyForPickupEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendReadyForPickupEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderCancelledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendOrderCancelledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderRefundEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendOrderRefundEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendOrderPartiallyCanceledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendOrderPartiallyRefundedEmailProcess.xml"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml"/>
+	</bean>
+
+	<bean id="oldCartNotificationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/oldCartNotificationEmailProcess.xml"/>
+	</bean>
+
+	<!-- Actions -->
+	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
+	      abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="processParameterHelper" ref="processParameterHelper"/>
+	</bean>
+
+	<bean id="sendEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.SendEmailAction"
+	       parent="abstractAction">
+		<property name="emailService" ref="emailService"/>
+	</bean>
+
+	<bean id="abstractGenerateEmailAction" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+	      parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+	</bean>
+
+	<bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate"/>
+	</bean>
+
+	<bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCancelledEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRefundEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderPartiallyCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyCanceledEmailTemplate"/>
+	</bean>
+	<bean id="generateOrderPartiallyRefundedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyRefundedEmailTemplate"/>
+	</bean>
+	<bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate"/>
+	</bean>
+
+	<bean id="removeSentEmail"
+	      class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction"
+	      parent="abstractAction">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+    <bean id="markQuoteNotificationAsSent"
+          class="com.bhge.core.actions.quote.MarkQuoteNotificationAsSentAction"
+          parent="abstractAction" abstract="true">
+        <property name="quoteService" ref="quoteService"/>
+    </bean>
+
+	<bean id="generateOldCartNotifyEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OldCartNotificationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateQuoteCreateConfirmation" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="QuoteCreationEmailTemplate"/>
+	</bean>
+
+	<!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService"/>
+	<bean id="defaultSimpleSuggestionService"
+	      class="com.bhge.core.suggestion.impl.DefaultSimpleSuggestionService" >
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao"/>
+	</bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao"/>
+	<bean id="defaultSimpleSuggestionDao"
+	      class="com.bhge.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+	      parent="abstractItemDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="mccSiteUrlHelper" class="com.bhge.core.util.MccSiteUrlHelper" >
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+	</bean>
+
+	<!-- Product Reference Lookup Strategies-->
+
+	<!-- Sales quote process actions -->
+
+	<!-- quote-->
+	<bean id="quoteBuyerSubmitEventListener" class="com.bhge.core.event.QuoteBuyerSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSalesRepSubmitEventListener" class="com.bhge.core.event.QuoteSalesRepSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSellerApprovalSubmitEventListener" class="com.bhge.core.event.QuoteSellerApprovalSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteBuyerOrderPlacedEventListener" class="com.bhge.core.event.QuoteBuyerOrderPlacedEventListener"
+		  parent="abstractEventListener">
+		<property name="commerceQuoteService" ref="commerceQuoteService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonEventListener" class="com.bhge.core.event.QuoteToExpireSoonEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<bean id="quoteExpiredEventListener" class="com.bhge.core.event.QuoteExpiredEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteCancelEventListener" class="com.bhge.core.event.QuoteCancelEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+
+	<bean id="quoteCreationProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-creation-process.xml"/>
+	</bean>
+
+	<bean id="quoteConversionProcessDefinitionResource"
+			class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-conversion-process.xml"/>
+	</bean>
+
+	<bean id="quoteBuyerProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-buyer-process.xml"/>
+	</bean>
+
+	<bean id="quoteSalesRepProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-salesrep-process.xml"/>
+	</bean>
+
+
+	<bean id="quoteSellerApprovalProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-seller-approval-process.xml"/>
+	</bean>
+	
+	<bean id="quotePostCancellationProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-post-cancellation-process.xml"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-to-expire-soon-email-process.xml"/>
+	</bean>
+	
+	<bean id="quoteExpiredProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/quote/quote-expired-email-process.xml"/>
+	</bean>
+
+	<!-- Quotes email notification jobs -->
+	<bean id="quoteToExpireSoonJobPerformable"
+		  class="com.bhge.core.job.QuoteToExpireSoonJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+	
+	<bean id="quoteExpiredJobPerformable"
+		  class="com.bhge.core.job.QuoteExpiredJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<import resource="/bhgecore/processes/quote/quote-buyer-process-spring.xml"/>
+	<import resource="/bhgecore/processes/quote/quote-salesrep-process-spring.xml"/>
+	<import resource="/bhgecore/processes/quote/quote-seller-approval-process-spring.xml"/>
+	
+	<import resource="/bhgecore/processes/quote/quote-to-expire-soon-email-process-spring.xml"/>
+	<import resource="/bhgecore/processes/quote/quote-expired-email-process-spring.xml"/>
+
+	<import resource="/bhgecore/processes/quote/quote-post-cancellation-process-spring.xml"/>
+	
+	<!-- Customer cleanup -->
+	<alias name="defaultCustomerCleanupRelatedObjectsAction" alias="customerCleanupRelatedObjectsAction"/>
+	<bean id="defaultCustomerCleanupRelatedObjectsAction" class="com.bhge.core.retention.impl.DefaultCustomerCleanupRelatedObjectsAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+	
+	<!-- Cleanup the customers not owning any order currently and the current date has past deactivation date+retention date. Also removes customers audit records. -->
+	<alias name="defaultCustomerNotOwningOrdersRemoveCleanupAction" alias="customerNotOwningOrdersRemoveCleanupAction"/>
+	<bean id="defaultCustomerNotOwningOrdersRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+	
+	<!-- Order cleanup -->
+	<!-- Cleanup the order related objects and then remove order and its audit records. -->
+	<alias name="defaultOrderRemoveCleanupAction" alias="orderRemoveCleanupAction"/>
+	<bean id="defaultOrderRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="orderCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Remove action -->
+	<alias name="defaultCSTicketRemoveCleanupAction" alias="csTicketRemoveCleanupAction"/>
+	<bean id="defaultCSTicketRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Stagnation action -->
+	<alias name="defaultCSTicketStagnationAction" alias="csTicketStagnationAction"/>
+	<bean id="defaultCSTicketStagnationAction" class="com.bhge.core.retention.impl.DefaultCSTicketStagnationAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
+		<property name="ticketBusinessService" ref="ticketBusinessService"/>
+	</bean>
+	
+	<!-- This is to Enable includeClassificationClasses value to 'true'; default is 'false' -->
+	<alias name="defaultCategorySource" alias="abstractCategorySource" />
+	<bean id="defaultCategorySource" abstract="true"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.DefaultCategorySource">
+		<property name="modelService" ref="modelService" />
+		<property name="categoriesQualifier" value="supercategories" />
+		<property name="includeClassificationClasses" value="true" />
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+	
+	<!-- Overridden below bean to allow Classification Category for Category model -->	
+	<alias name="bhgeCommerceCategoryServiceImpl" alias="bhgeCommerceCategoryService"/>
+	<bean id="bhgeCommerceCategoryServiceImpl"
+			class="com.bhge.core.commerceservices.category.impl.BHGECommerceCategoryServiceImpl" parent="defaultCommerceCategoryService">
+		<property name="categoryModelUrlResolver" ref="categoryModelUrlResolver"/>
+	</bean>
+	
+	<alias name="defaultCategoryDataUrlResolver" alias="categoryDataUrlResolver"/>
+	<bean id="defaultCategoryDataUrlResolver"
+			class="de.hybris.platform.commercefacades.url.impl.DefaultCategoryDataUrlResolver">
+		<property name="threadContextService" ref="threadContextService"/>
+		<property name="commerceCategoryService" ref="bhgeCommerceCategoryService"/>
+		<property name="categoryModelUrlResolver" ref="categoryModelUrlResolver"/>
+	</bean>
+	
+	<alias name="defaultBHGECategoryDao" alias="bhgeCategoryDao"/>
+	<bean id="defaultBHGECategoryDao" class="com.bhge.core.category.dao.DefaultBHGECategoryDao" parent="categoryDao">
+
+	</bean>
+
+	<alias alias="baseStoreService" name="bhgeBaseStoreService"/>
+	<bean id="bhgeBaseStoreService" class="com.bhge.store.services.impl.BHGEBaseStoreServiceImpl" scope="tenant">
+		<property name="baseStoreDao" ref="baseStoreDao"/>
+		<property name="baseStoreSelectorStrategies">
+			<list>
+				<ref bean="baseStoreSelectorStrategy"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultUserProfileService" alias="userProfileService"/>
+    <bean id="defaultUserProfileService" class="com.bhge.core.user.service.impl.DefaultBHGEUserProfileService">
+        <property name="userProfileDao" ref="userProfileDao"/>
+    </bean>
+    
+    <alias name="bhgeUserProfileDao" alias="userProfileDao"/>
+    <bean id = "bhgeUserProfileDao" class="com.bhge.core.user.daos.impl.DefaultBHGEUserProfileDao"/>
+    
+    <alias alias="baseStoreDao" name="bhgeBaseStoreDao" />
+	<bean id="bhgeBaseStoreDao" class="com.bhge.store.daos.impl.BHGEEdgeBaseStoreDaoImpl"
+		scope="tenant" parent="defaultBaseStoreDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id = "bhgeSoldToUtil" class="com.bhge.core.util.BHGESoldToUtil"/>
+	
+	<alias alias="baseStoreSelectorStrategy" name="bhgeEdgeBaseStoreSelectorStrategy"/>
+	<bean id="bhgeEdgeBaseStoreSelectorStrategy"
+	      class="com.bhge.basecommerce.strategies.impl.BHGEEdgeBaseStoreSelectorStrategy" scope="tenant">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="userService" ref="userService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	
+	<alias alias="baseSiteService" name="bhgeBaseSiteService"/>
+	<bean id="bhgeBaseSiteService" class="com.bhge.site.impl.BHGEBaseSiteServiceImpl" parent="defaultBaseSiteService" scope="tenant">
+		<property name="baseSiteDao" ref="baseSiteDao"/>
+		<property name="activateBaseSiteInSessionStrategy" ref="activateBaseSiteInSessionStrategy"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	
+	<alias alias="productDao" name="bhgeedgeProductDao"/>
+	<bean id="bhgeedgeProductDao" class="com.bhge.core.product.daos.impl.BHGEProductDaoImpl" parent="defaultProductDao">
+	</bean>
+    
+    <!--cronjonjob-->
+    <bean id="bhgeNonCriticalEmailJob" class="com.bhge.core.cronjob.BHGENonCriticalEmailJob" parent="abstractJobPerformable">         
+     </bean>
+    
+     <bean id="bhgeOrdrAttachmentBatchJob" class="com.bhge.core.cronjob.BHGEOrderAttachmentJob" parent="abstractJobPerformable">         
+     </bean>
+
+    
+     <bean id="bhgeRMAAttachmentBatchJob" class="com.bhge.core.cronjob.BHGERMAAttachmentJob" parent="abstractJobPerformable">         
+     </bean>
+
+	<bean id="bhgeRMAOrderRFCJob" class="com.bhge.core.cronjob.BHGERMAOrderRFCJob" parent="abstractJobPerformable">
+	</bean>
+    
+    <bean id="bhgeOrdrSubmsnBatchJob" class="com.bhge.core.cronjob.BHGEOrderSubmissionJob" parent="abstractJobPerformable">         
+     </bean>
+    
+     <bean id="bhgeProductCatalogSyncJob" class="com.bhge.core.setup.MultipleCatalogsSyncJobPerformable" parent="abstractJobPerformable"  >
+        <property name="setupSyncJobService" ref="setupSyncJobService"/>
+      </bean>
+    
+     <bean id="bhgeSampleImpexImportJob" class="com.bhge.core.cronjob.BHGESampleImpexImportJob" parent="abstractJobPerformable">         
+     	<property name="importService" ref="importService" />
+     </bean> 
+    
+    <bean id="bhgeInvalidDataReportJob" class="com.bhge.core.cronjob.BHGEInvalidDataReportJob" parent="abstractJobPerformable">                
+     </bean> 
+     
+     <bean id="bhgeWeeklyOrdersReportJob" class="com.bhge.core.cronjob.BHGEWeeklyOrdersReportJob" parent="abstractJobPerformable">                 
+     </bean> 
+     
+     
+    <bean id="bhgeProductApprovalStatusCronJob" class="com.bhge.core.cronjob.BHGEProductApprovalStatusCronJob" parent="abstractJobPerformable">         
+     </bean>
+     
+     <bean id="bhgeGlobalCatalogProductApprovalStatusCronJob" class="com.bhge.core.cronjob.BHGEGlobalCatalogProductApprovalStatusCronJob" parent="abstractJobPerformable">         
+     </bean>
+     
+    <bean id="bhgeProductLineMappingCronJob" class="com.bhge.core.cronjob.BHGEProductLineMappingCronJob" parent="abstractJobPerformable">         
+     </bean>
+     
+     <bean id="bhgeGlobalCatalogProductLineMappingCronJob" class="com.bhge.core.cronjob.BHGEGlobalCatalogProductLineMappingCronJob" parent="abstractJobPerformable">         
+     </bean>
+     
+    <bean id="bhgeProductCatalogSyncJobfrom1800" class="com.bhge.core.cronjob.BHGEProductCatalogSyncCronJob" parent="abstractJobPerformable">         
+     </bean>
+        
+    <bean id="bhgeOrderCompositeCronJob" class="com.bhge.core.cronjob.BHGEOrderCompositeCronJob" parent="compositeJobPerformable">         
+    </bean>
+    
+    <bean id="bhgeRMACompositeCronJob" class="com.bhge.core.cronjob.BHGERMACompositeCronJob" parent="compositeJobPerformable">         
+    </bean>
+     
+    <bean id="bhgeCompositeCronJob" class="com.bhge.core.cronjob.BHGECompositeCronJob" parent="compositeJobPerformable">         
+    </bean>
+    
+    <bean id="bhgeGlobalCatalogCompositeCronJob" class="com.bhge.core.cronjob.BHGEGlobalCatalogCompositeCronJob" parent="compositeJobPerformable">         
+    </bean>
+     
+ 	<bean id="bhgeRFCLogCleanupJob" class="com.bhge.core.cronjob.BHGERFCLogCleanupJob" parent="abstractJobPerformable">         
+    </bean>
+     
+ 	<bean id="bhgeInactiveUserJob" class="com.bhge.core.cronjob.BHGEInactiveUserJob" parent="abstractJobPerformable">         
+    </bean>
+    
+    <bean id="bhgeActiveUserReportJob" class="com.bhge.core.cronjob.BHGEActiveUserReportJob" parent="abstractJobPerformable">         
+     </bean>
+     
+     <bean id="bhDataRetentionJob" class="com.bhge.core.cronjob.BHDataRetentionJob" parent="abstractJobPerformable">         
+     </bean>
+
+	<bean id="bhgeOldCartNotificationJob" class="com.bhge.core.cronjob.BHGEOldCartNotificationJob" parent="abstractJobPerformable">
+	</bean>
+
+	<bean id="bhgePendingQuoteCreationJob" class="com.bhge.core.cronjob.BHGEPendingQuoteCreationJob" parent="abstractJobPerformable">
+	</bean>
+     
+  <!--  <bean id="bhgeSavedCartExpiryMailJob" class="com.bhge.core.cronjob.BHGESavedCartExpiryMailJob" parent="abstractJobPerformable">         
+	    <property name="saveCartDao" ref="saveCartDao" />
+	    <property name="emailTemplate" value="SavedCartExpiryMailTemplate" />
+    </bean> -->
+    
+    <bean id="bhgeEmailServiceDao" class="com.bhge.core.email.dao.impl.DefaultEmailServiceDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+    	
+	<bean id="bhgeCacheCleanerJob"
+	      class="com.bhge.core.cronjob.BHGECacheCleanerJob"
+	      parent="abstractJobPerformable">
+		<property name="CacheRegionName" value="/AP/CFG/PricingQueryCache /AP/CFG/PricingConditionCache OMLocalRegion /AP/CFG/Knowledgebases /AP/CFG/KnowledgebaseDescriptors /AP/CFG/VariantTables Build FullyLoaded /AP/PRC/Conversion /AP/SPC/Product/ConfigType /AP/SPC/Product/ProductBaseData /AP/SPC/Product/ProductCategoryAssignment /AP/SPC/Product/ProductCategoryHierarchy /AP/SPC/Product/ProductConfigurationData /AP/SPC/Product/ProductDescription /AP/SPC/Product/ProductMaterialData /AP/SPC/Product/ProductNumberingScheme /AP/SPC/Product/ProductSetType /AP/SPC/Product/ProductSetTypeReference /AP/SPC/Product/ProductUnits /AP/SPC/Product/LogicalSystem /AP/PRC/Conditions/Customizing /AP/PRC/Conditions/ConditionRecords /AP/PRC/Pricing/Customizing /AP/PRC/Pricing/Transactiondata /AP/PRC/Text /AP/CFG/Customizing" />	      
+		<property name="cronJobService" ref="cronJobService" />	     
+	</bean>
+
+	<bean id="bhgeOrderHistoryDao" class="com.bhge.integration.order.history.dao.impl.DefaultBHGEOrderHistoryDao" scope="tenant">
+			<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="bhgeOrderHistoryServiceImpl" alias="bhgeOrderHistoryService" />
+	<bean id="bhgeOrderHistoryServiceImpl"
+		class="com.bhge.integration.order.history.service.impl.DefaultBHGEOrderHistoryService"
+		scope="tenant">
+			<property name="bhgeOrderHistoryErrorService" ref="bhgeOrderHistoryErrorService" />
+			<property name="bhgeOrderHistoryDao" ref="bhgeOrderHistoryDao" />
+	</bean>
+	
+  
+	<alias name="bhgeOrderHistoryErrorServiceImpl" alias="bhgeOrderHistoryErrorService" />
+	<bean id="bhgeOrderHistoryErrorServiceImpl"
+		class="com.bhge.integration.order.history.error.service.impl.BHGEOrderHistoryErrorServiceImpl">
+			<property name="modelService" ref="modelService"/>
+			<property name="rendererService" ref="rendererService"/>
+			<property name="userService" ref="userService" />
+			<property name="bhgeEmailService" ref="bhgeEmailService" /> 
+	</bean>
+	
+	
+	<bean id="bhgeB2BUnitDao" class="com.bhge.core.b2bunit.dao.impl.BHGEB2BUnitDAOImpl" parent="defaultB2BUnitDao">
+		 <!-- <property name="flexibleSearchService" ref="flexibleSearchService"/> -->
+	</bean>
+	
+	<alias name="bhgeB2BUnitServiceImpl" alias="bhgeB2BUnitService"/>
+     <bean id="bhgeB2BUnitServiceImpl" class="com.bhge.core.b2bunit.service.impl.BHGEB2BUnitServiceImpl" parent="defaultB2BUnitService">
+    	
+ 	</bean>
+	
+	<!-- <alias name="geEdgeB2BOrderDao" alias="geEdgeB2BOrderDao" /> -->
+	<bean id="bhgeB2BOrderDao" class="com.bhge.core.order.daos.impl.DefaultBHGEB2BOrderDao">
+		 <property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<alias name="defaultBHGEB2BOrderService" alias="b2bOrderService"/>
+        <bean id="defaultBHGEB2BOrderService" class="com.bhge.core.order.service.impl.DefaultBHGEB2BOrderService" parent="defaultB2BOrderService">
+    	<property name="bhgeB2BOrderDao" ref="bhgeB2BOrderDao"/>
+    	<property name="cacheController" ref="cacheController"/>
+    	<property name="submitOrderStrategies">
+			<list>
+				<!-- implementation that sends SubmitOrderEvent -->
+				<ref bean="eventPublishingSubmitOrderStrategy"/>
+			</list>
+		</property>
+ 	</bean>
+ 	
+ 	<bean id="bhgeVelocityTemplateRenderer" class="com.bhge.commons.renderer.BHGEVelocityTemplateRenderer" parent="velocityTemplateRenderer">
+		<property name="mediaService" ref="mediaService"/>
+		<property name="contextName" value="ctx"/>
+	</bean>
+	   
+	<alias name="defaultBHGEEmailService" alias="bhgeEmailService"/>
+    <bean id="defaultBHGEEmailService" class="com.bhge.core.mailmessages.services.impl.DefaultBHGEEmailService">
+        <property name="bhgeVelocityTemplateRenderer" ref="bhgeVelocityTemplateRenderer"/>
+        <property name="baseSiteService" ref="baseSiteService" />
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="emailAddressFetchStrategy" ref="emailAddressFetchStrategy"/>
+		<property name="emailAttachmentsMediaFolderName"  value="email-attachments"/>
+		<property name="emailBodyMediaFolderName" value="email-body"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="bhgeEmailServiceDao" ref="bhgeEmailServiceDao"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>	
+		<property name="emailTemplateTranslationStrategy" ref="emailTemplateTranslationStrategy"/>
+    </bean>
+     
+    	<alias name="bhgeProductService" alias="productService" />
+	<bean id="bhgeProductService" class="com.bhge.product.service.impl.BHGEProductServiceImpl" parent="defaultProductService">
+	</bean>
+	
+	<!-- Added Pricing Strategy -->
+	<alias name="bhgeFindPricingwithCurrentPriceFactoryStrategy"
+		alias="currentFactoryFindPricingStrategy" />
+	<bean id="bhgeFindPricingwithCurrentPriceFactoryStrategy"
+		class="com.bhge.core.order.strategies.impl.BHGEFindPricingwithCurrentPriceFactoryStrategy"
+		parent="abstractBusinessService">
+		<property name="userService" ref="userService"/>
+		<property name="findPriceHooks" ref="findPriceHooks"/>
+		<property name="findDiscountValuesHooks" ref="findDiscountValuesHooks"/>
+	</bean>
+	
+	
+	<alias name="bhgeCartService" alias="cartService" />
+	<bean id="bhgeCartService" class="com.bhge.core.order.service.impl.BHGECartServiceImpl"  parent="defaultCartService">
+	</bean>
+    
+    	<alias name="bhgeCouponService" alias="bhgeCouponService" />
+    	<bean id="bhgeCouponService" class="com.bhge.core.coupon.impl.BHGECouponServiceImpl"  parent="couponService">
+    	</bean>
+	
+	<!-- required for SAP integration of Inventory check -->
+	<alias alias="sapPlantLogSysOrgService" name="bhgeSapPlantLogSysOrgService" />
+	<bean id="bhgeSapPlantLogSysOrgService" class="com.bhge.integration.models.services.impl.BHGESapPlantLogSysOrgServiceImpl"
+				parent="defaultSapPlantLogSysOrgService">
+		<property name="modelService" ref="modelService" />
+		<property name="bhgeB2BOrderDao" ref="bhgeB2BOrderDao"/>
+	</bean>
+	
+	<alias name="BHGECalculationService" alias="calculationService"/>
+	<bean id="BHGECalculationService" class="com.bhge.core.order.service.impl.BHGECalculationServiceImpl"
+			parent="defaultCalculationService">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="findPriceStrategy" ref="currentFactoryFindPricingStrategy"/>
+		<property name="findDiscountsStrategies">
+			<list>
+				<ref bean="currentFactoryFindPricingStrategy"/>
+				<ref bean="findOrderDiscountValuesStrategy"/>
+			</list>
+		</property>
+		<property name="findTaxesStrategies">
+			<list>
+				<ref bean="currentFactoryFindPricingStrategy"/>
+			</list>
+		</property>
+		<property name="findDeliveryCostStrategy" ref="findDeliveryCostStrategy"/>
+		<property name="findPaymentCostStrategy" ref="findPaymentCostStrategy"/>
+		<property name="orderRequiresCalculationStrategy" ref="orderRequiresCalculationStrategy"/>
+		<property name="taxFreeEntrySupport" value="${abstractorder.taxFreeEntrySupport}"/>
+	</bean>
+
+    <bean id="bhgeInvoiceSoaService" class="com.bhge.core.sap.service.impl.DefaultBHGEInvoiceSoaService" >
+    </bean>	
+    
+    <bean id = "bhgeServiceProviderService" class="com.bhge.core.serviceprovider.service.impl.DefaultBHGEServiceProviderService" >
+				<property name="bhgeServiceProvideDAO" ref="bhgeServiceProviderDAO"/>
+		</bean>
+		<bean id = "bhgeServiceProviderDAO" class="com.bhge.core.serviceprovider.dao.impl.DefaultBHGEServiceProviderDAO" >
+				<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		</bean>
+	
+	<bean id="bhgeCartFactory" class="com.bhge.core.product.impl.BHGECartFactoryImpl" parent="defaultCartFactory">
+    </bean>
+
+	 <!-- Split Order beans -->
+       <alias name="defaultBHGEOrderSplittingService" alias="bhgeOrderSplittingService"/>
+	<bean id="defaultBHGEOrderSplittingService"
+		class="com.bhge.core.ordersplit.services.impl.DefaultBHGEOrderSplittingService" parent="defaultOrderSplittingService">
+		<property name="strategiesList">
+			<list>
+				<ref bean="splitByOrderType"/>
+			</list>
+		</property>
+	</bean>
+	
+	<util:list id="commerceSplitOrderHooks"
+				  value-type="com.bhge.core.ordersplit.hooks.CommerceSplitOrderHook"/>
+			
+	<alias name="defaultBHGECommerceSplitOrderHook" alias="bhgeCommerceSplitOrderHook"/>			  
+   	<bean id="defaultBHGECommerceSplitOrderHook" class="com.bhge.core.ordersplit.hooks.impl.DefaultBHGECommerceSplitOrderHook" >
+		<property name="modelService" ref="modelService" />
+  	</bean>
+   		 
+    <bean id="configurableBHGECommerceSplitOrderHooksListMergeDirective" depends-on="commerceSplitOrderHooks" parent="listMergeDirective" >
+        <property name="add" ref="bhgeCommerceSplitOrderHook" />
+    </bean>
+	
+	<bean id="splitByOrderType"
+		class="com.bhge.core.ordersplit.strategy.impl.BHGEOrderSplitByOrderTypeStrategy" parent="abstractBHGEOrderSplittingStrategy">
+		<property name="modelService" ref="modelService"/>
+		<property name="commerceCartService" ref="commerceCartService"/>
+		<property name="bhgeCartService" ref="bhgeCartService" />
+	</bean>
+	
+	<bean id="abstractBHGEOrderSplittingStrategy" abstract="true"
+		class="com.bhge.core.ordersplit.strategy.AbstractBHGEOrderSplittingStrategy">
+		<property name="commerceSplitOrderHooks" ref="commerceSplitOrderHooks"/>
+	</bean>
+	
+	<bean id="configurableBHGECommerceAddToCartHooksListMergeDirective" depends-on="commerceAddToCartMethodHooks" parent="listMergeDirective" >
+        <property name="add" ref="bhgeCommerceAddToCartMethodHook" />
+    </bean>
+	
+	<alias name="defaultBHGECommerceAddToCartMethodHook" alias="bhgeCommerceAddToCartMethodHook"/>			  
+   	<bean id="defaultBHGECommerceAddToCartMethodHook" class="com.bhge.core.addtocart.hooks.impl.DefaultBHGECommerceAddToCartMethodHook" >
+		<property name="modelService" ref="modelService" />
+		<property name="bhgeCartService" ref="bhgeCartService" />
+  	</bean>
+  	
+  	<bean id="configurableBHGECommerceUpdateCartEntryHooksListMergeDirective" depends-on="commerceUpdateCartEntryMethodHooks" parent="listMergeDirective" >
+        <property name="add" ref="bhgeCommerceUpdateCartEntryMethodHook" />
+    </bean>
+	
+	<alias name="defaultBHGECommerceUpdateCartEntryMethodHook" alias="bhgeCommerceUpdateCartEntryMethodHook"/>			  
+   	<bean id="defaultBHGECommerceUpdateCartEntryMethodHook" class="com.bhge.core.updatecartentry.hooks.impl.DefaultBHGECommerceUpdateCartEntryMethodHook" >
+		<property name="modelService" ref="modelService" />
+		<property name="bhgeCartService" ref="bhgeCartService" />
+  	</bean>
+  	
+  	<!--Order submission service -->
+	 <alias name="bhgeSAPOrderSubmissionService" alias="bhgeSAPOrdrSubmsnSrvce" />
+	<bean id="bhgeSAPOrderSubmissionService" class="com.bhge.core.sap.service.impl.BHGESAPOrderSubmissionServiceImpl" >
+    </bean>	
+	
+	<bean id="bhgeSAPOrderAttachmentService" class="com.bhge.core.sap.service.impl.BHGESAPOrderAttachmentServiceImpl" >
+    </bean>
+    
+    <alias alias="bhgeRegionService" name="bhgeRegionServiceImpl" />
+    <bean id="bhgeRegionServiceImpl" class="com.bhge.core.region.service.impl.BHGERegionServiceImpl">
+        <property name="regionDao" ref="regionDao"/>
+        <property name="countryDao" ref="countryDao"/>
+    </bean>
+    
+    <bean id="abstractBHGEGenerateQuoteEmailAction"
+	      class="com.bhge.core.actions.quote.BHGEGenerateQuoteEmailAction"
+	      parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="frontendTemplateName" value="QuoteBuyerSubmissionEmailTemplate"/>
+	</bean>
+	
+	<alias name="bhgeCouponSingleCodeCouponRedemptionStrategy" alias="bhgeCouponCodeCouponRedemptionStrategy" />
+	<bean id="bhgeCouponSingleCodeCouponRedemptionStrategy" class="com.bhge.couponservices.redemption.strategies.impl.BHGECouponSingleCodeCouponRedemptionStrategy">
+	  <property name="couponRedemptionDao" ref="couponRedemptionDao" />
+	  <property name="promotionsService" ref="promotionsService" />
+	  <property name="baseSiteService" ref="baseSiteService" />
+	  <property name="timeService" ref="timeService"/>
+	</bean>
+	
+	<alias name="bhgeRedemptionStrategyMap"  alias="redemptionStrategyMap"/>
+    <util:map id="bhgeRedemptionStrategyMap" map-class="java.util.LinkedHashMap" value-type="de.hybris.platform.couponservices.redemption.strategies.CouponRedemptionStrategy">
+        <entry key="SingleCodeCoupon" value-ref="singleCodeCouponRedemptionStrategy"/>
+        <entry key="MultiCodeCoupon" value-ref="multiCodeCouponRedemptionStrategy"/>
+        <entry key="BHGECoupon" value-ref="bhgeCouponCodeCouponRedemptionStrategy"/>
+    </util:map>
+    
+   	<alias name="bhgeProductPriceValueProvider" alias="productPriceValueProvider" />
+    <bean id="bhgeProductPriceValueProvider" class="com.bhge.core.search.provider.impl.BHGEProductPriceValueProvider">
+    </bean>
+    
+    <bean id="bhgePriceRowSorterUtil" class="com.bhge.core.util.BHGEPriceRowSorterUtil">
+	</bean>
+
+	<alias alias="ownQuoteCodeGenerator" name="ownQuoteCodeGenerator"/>
+	<bean id="ownQuoteCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator" init-method="init" scope="tenant">
+		<property name="key" value="${dskeygen.quote.code.name}"/>
+		<property name="digits" value="${dskeygen.quote.code.digits}"/>
+		<property name="start" value="${dskeygen.quote.code.start}"/>
+		<property name="numeric" value="${dskeygen.quote.code.numeric}"/>
+	</bean>
+
+    <alias alias="ownOrderCodeGenerator" name="ownOrderCodeGenerator"/>
+	<bean id="ownOrderCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator" init-method="init" scope="tenant">
+		<property name="key" value="${dskeygen.order.code.name}"/>
+		<property name="digits" value="${dskeygen.order.code.digits}"/>
+		<property name="start" value="${dskeygen.order.code.start}"/>
+		<property name="numeric" value="${dskeygen.order.code.numeric}"/>
+	</bean>
+	
+	<alias alias="createOrderFromCartStrategy" name="defaultBHGECreateOrderFromCartStrategy" />
+		<bean id="defaultBHGECreateOrderFromCartStrategy" class="src.com.bhge.core.order.service.impl.DefaultBHGECreateOrderFromCartStrategy"
+					parent="defaultCreateOrderFromCartStrategy">
+		</bean>
+
+
+	<alias alias="createQuoteFromCartStrategy" name="defaultBHGECreateQuoteFromCartStrategy"/>
+	<bean id="defaultBHGECreateQuoteFromCartStrategy" class="com.bhge.core.quote.service.impl.DefaultBHGECreateQuoteFromCartStrategy">
+		<property name="keyGenerator" ref="ownQuoteCodeGenerator"/>
+		<property name="cloneAbstractOrderStrategy" ref="cloneAbstractOrderStrategy"/>
+	</bean>
+
+
+
+	<alias name="bhgeCartValidationStrategy" alias="cartValidationStrategy" />
+	<bean id="bhgeCartValidationStrategy"
+		class="com.bhge.core.order.strategies.impl.BHGECartValidationStrategy" parent="defaultCartValidationStrategy">
+	</bean>
+	
+	<bean id="quoteSendEmail" class="com.bhge.core.mailmessages.services.QuoteSendEmailAction"
+	       parent="abstractAction">
+		<property name="bhgeEmailService" ref="bhgeEmailService"/>
+	</bean>
+	
+	<bean id="bhgeShippingAddressEmailEventListener" class="com.bhge.core.event.BHGEShippingAddressEmailEventListener" >
+    	<property name="modelService" ref="modelService" />   
+    	<property name="frontendTemplateName" value="GEShippingAddressEmailTemplate" />   
+    	 <property name="businessProcessService" ref="businessProcessService" /> 
+    	 <property name="baseStoreService" ref="baseStoreService" /> 
+    	  <property name="baseSiteService" ref="baseSiteService" />
+    	  <property name="tenantService" ref="tenantService"/>
+		<property name="clusterService" ref="clusterService"/>  	
+	</bean>
+	
+	<bean id="bhgeShippingAddressFormEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/bhgeShippingAddressFormEmailProcess.xml"/>
+	</bean>
+	
+	 <bean id="generateB2BShippingAddressFormEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"  parent="abstractAction">
+        <property name="modelService" ref="modelService"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="frontendTemplateName" value="bhgeShippingAddressEmailTemplate"/>
+        <property name="contextResolutionStrategy" ref="storeFrontProcessContextStrategy"/>
+        <property name="emailGenerationService" ref="emailGenerationService"/>
+    </bean>
+
+	<alias name="defaultTicketAttachmentsService" alias="ticketAttachmentsService"/>
+    <bean id="defaultTicketAttachmentsService" class="de.hybris.platform.ticket.service.impl.DefaultTicketAttachmentsService">
+    	<property name="userService" ref="userService"/>
+    	<property name="mediaService" ref="mediaService"/>
+        <property name="mediaPermissionService" ref="mediaPermissionService"/>
+        <property name="catalogId" value="bhgeContentCatalog"/>
+        <property name="catalogVersionName" value="Online"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="commonCsAgentUserGroup" value="customersupportagentrole"/>
+        <property name="folderName" value="customerdata"/>
+        <property name="modelService" ref="modelService"/>
+		<property name="allowedUploadedFormats" ref="allowedUploadedFormats"/>
+	</bean>
+
+    <alias name="bhgeWishlistService" alias="bhgeWishlistService" />
+	<bean id="bhgeWishlistService" class="com.bhge.core.wishlist.service.impl.DefaultBHGEWishlistService">
+	    	<property name="userService" ref="userService"/>
+	    	<property name="productService" ref="productService"/>
+		    <property name="wishlistService" ref="wishlistService"/>    	
+	</bean>
+	
+	<alias name="bhgeWishlistDao" alias="bhgeWishlistDao" />
+	<bean id="bhgeWishlistDao" class="com.bhge.core.wishlist.daos.impl.DefaultBHGEWishlistDao">
+	</bean>
+	
+	<alias name="bhgeCMSPageServiceImpl" alias="cmsPageService" />
+	<bean id="bhgeCMSPageServiceImpl" class="com.bhge.core.cms.servicelayer.services.impl.BHGECMSPageServiceImpl" parent="defaultCMSPageService">
+	</bean>
+	
+	<alias name="bhgeSavedCartDao" alias="bhgeSavedCartDao" />
+	<bean id="bhgeSavedCartDao" class="com.bhge.core.savecart.dao.impl.BHGESaveCartDaoImpl" parent="saveCartDao">
+	</bean>
+	
+	<alias name="bhgeSaveCartDaoImpl" alias="saveCartDao"/>
+	<bean id="bhgeSaveCartDaoImpl"
+		class="com.bhge.core.savecart.dao.impl.BHGESaveCartDaoImpl" parent="defaultSaveCartDao">
+	</bean>
+	
+	<alias name="bhgeCommerceSaveCartServiceImpl" alias="bhgeCommerceSaveCartServiceImpl" />
+	<bean id="bhgeCommerceSaveCartServiceImpl" class="com.bhge.core.savecart.service.impl.BHGECommerceSaveCartServiceImpl" parent="commerceSaveCartService">
+		<property name="bhgeSavedCartDao" ref="bhgeSavedCartDao"/>
+		<property name="bhgeProductConfigurationCartRestorationStrategyImpl" ref="bhgeProductConfigDefaultSaveCartRestorationStrategy"/>
+		<property name="commerceCartRestorationStrategy" ref="defaultCommerceSaveCartRestorationStrategy" />
+	</bean>
+	
+	<alias name="registerUserService" alias="registerUserService" />
+	<bean id="registerUserService" class="com.bhge.core.registeruser.service.impl.DefaultBHGERegisterUserService">
+	</bean>
+	
+		
+		
+	<alias name="registerUserFacade" alias="registerUserFacade" />
+	<bean id="registerUserFacade" class="com.bhge.facades.register.impl.DefaultBHGERegisterUserFacade">
+	<property name="registerUserService" ref="registerUserService" />
+	</bean>
+	
+<bean id="bhgeFeedbackUpload" class="com.bhge.feedback.impl.BHGEFeedbackUpload">
+		<property name="mediaService" ref="mediaService"/>
+	</bean>
+	
+	<bean id="europe1.manager" class="com.bhge.core.europe1.price.impl.BHGEEurope1PriceFactory"
+          init-method="init" destroy-method="destroy">
+           <property name="retrieveChannelStrategy" ref="retrieveChannelStrategy"/>
+    </bean>
+    
+    	<!-- Connection type stateless -->
+	<alias alias="sapCoreJCoConnectionStateless" name="sapCoreDefaultJCoConnectionStateless" />
+	<bean class="com.bhge.integration.models.services.impl.BHGEJCoConnectionStateless"
+		id="sapCoreDefaultJCoConnectionStateless" scope="prototype"
+		init-method="init">
+		<constructor-arg>
+			<props>
+				<prop key="destination">#{sapCoreConfigurationService.getRFCDestination().getRfcDestinationName()}
+				</prop>
+				<prop key="jco.client.lang">en</prop>
+			</props>
+		</constructor-arg>
+		<property name="connectionParameters" ref="sapCoreConnectionParametersJCo" />
+		<property name="jcoManagedConnectionContainer" ref="sapCoreManagedConnectionContainer" />
+		<property name="rfcDestinationService" ref="sapCoreRFCDestinationService" />
+	</bean> 
+ 
+ <alias name="bhgeSAPCustomerAddressConsistencyInterceptor" alias="sapCustomerAddressConsistencyInterceptor"/>
+ <bean class="com.bhge.core.sap.hybris.sapcustomerb2b.inbound.BHGESAPCustomerAddressConsistencyInterceptor" name="bhgeSAPCustomerAddressConsistencyInterceptor" parent="defaultSAPCustomerAddressConsistencyInterceptor"> 
+ 
+ </bean>
+ <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+<!--  New beans added for single catalog - start -->
+ <bean id="bhgeHybrisStatusExceptSELLValueProvider"
+		class="com.bhge.core.search.provider.impl.BHGEHybrisStatusExceptSELLValueProvider"
+		parent="abstractPropertyFieldValueProvider" />
+
+	<bean id="bhgeCategorytoProductJob" class="com.bhge.core.cronjob.BHGECategorytoProductJob" parent="abstractJobPerformable">         
+     </bean>
+     
+     <bean id="bhgeAnonymousProductSellableFlagJob" class="com.bhge.core.cronjob.BHGEAnonymousProductSellableFlagJob" parent="abstractJobPerformable">         
+     </bean>
+     
+ <bean id="bhgeCategorytoproductutil" class="com.bhge.core.util.BHGECategorytoproductutil">
+	</bean>
+	
+	<bean id="bhgePendingActivationUserReportJob" class="com.bhge.core.cronjob.BHGEPendingActivationUserReportJob" parent="abstractJobPerformable">                 
+     </bean>
+     
+ <bean id="bhgeSalesAreasValueProvider"
+		class="com.bhge.core.search.provider.impl.BHGESalesAreasValueProvider"
+		parent="abstractPropertyFieldValueProvider" /> 
+		
+ <bean id="bhgeHybrisStatusWithSalesAreasValueProvider"
+		class="com.bhge.core.search.provider.impl.BHGEHybrisStatusWithSalesAreasValueProvider"
+		parent="abstractPropertyFieldValueProvider" /> 
+		
+	<bean id="bhgeMaterialStatusWithSalesAreasValueProvider"
+		class="com.bhge.core.search.provider.impl.BHGEMaterialStatusWithSalesAreasValueProvider"
+		parent="abstractPropertyFieldValueProvider" />
+
+	<bean id="bhNoSellProductValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHNoSellProductValueProvider"
+		  parent="abstractPropertyFieldValueProvider" />
+
+	<alias name="defaultSolrSearchQueryDecoder" alias="solrSearchQueryDecoder"/>
+	<bean id="defaultSolrSearchQueryDecoder" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+					 value="com.bhge.core.search.solrfacetsearch.data.BHGESolrSearchQueryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="solrSearchQueryDecoderPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeProductSearchServiceImpl" alias="bhgeProductSearchService"/>
+	<bean id="bhgeProductSearchServiceImpl"
+			class="com.bhge.core.search.impl.BHGEProductSearchServiceImpl" parent="defaultCommerceProductSearchService">
+	</bean>
+	
+
+	<alias name="bhgeRmaFormService" alias="bhgeRmaFormService" />
+	<bean id="bhgeRmaFormService"
+		class="com.bhge.core.rma.service.impl.BHGERmaFormServiceImpl">
+		 <property name="modelService" ref="modelService"/>
+	</bean>
+	 <alias name="bhgeRmaFormDao" alias="bhgeRmaFormDao"/>
+    <bean id = "bhgeRmaFormDao" class="com.bhge.core.rma.dao.impl.BHGERmaFormDaoImpl">
+    <property name="modelService" ref="modelService"/>
+    </bean>
+
+	<alias name="bhgeRmaOrderService" alias="bhgeRmaOrderService" />
+	<bean id="bhgeRmaOrderService"
+		  class="com.bhge.core.rma.service.impl.DefaultBHGERmaOrderService">
+		<property name="modelService" ref="modelService"/>
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+    
+    <alias name="bhgeRmaServiceOfferingService" alias="bhgeRmaServiceOfferingService" />
+	<bean id="bhgeRmaServiceOfferingService"
+		class="com.bhge.core.rma.service.impl.BHGERmaServiceOfferingServiceImpl">
+	</bean>
+	
+	<alias name="bhgeRmaFormSearchService" alias="bhgeRmaFormSearchService" />
+	<bean id="bhgeRmaFormSearchService"
+		  class="com.bhge.core.rma.service.impl.BHGERmaFormSearchServiceImpl">
+	</bean>
+	
+	<bean id="productHybrisStatusStrategy"
+		class="com.bhge.core.product.strategy.impl.BHGEProductHybrisStatusStrategyImpl">
+	</bean>
+	
+	<bean id="productAllowedProdPrincipalStrategy"
+		class="com.bhge.core.product.strategy.impl.BHGEProductAllowedProdPrincipleStrategyImpl">
+	</bean>
+	
+	<bean id="productMaterialStatusStrategy"
+		class="com.bhge.core.product.strategy.impl.BHGEProductMaterialStatusStrategyImpl">
+	</bean>
+	
+	<bean id="productSalesAreaStrategy"
+		class="com.bhge.core.product.strategy.impl.BHGEProductSalesAreaAvailabiltyStrategyImpl">
+	</bean>
+	
+<!--  New beans added for single catalog - end -->
+	
+	
+	
+		<!-- RMA Status beans -->
+ 	
+	<alias name="bhgeRMAStatusService" alias="bhgeRMAStatusService" />
+		<bean id="bhgeRMAStatusService" class="com.bhge.core.rma.service.impl.DefaultBHGERMAStatusService" >
+	</bean> 
+ 	
+ 	<alias name="bhgeRMAStatusDao" alias="bhgeRMAStatusDao" />
+		<bean id="bhgeRMAStatusDao" class="com.bhge.core.rma.dao.impl.DefaultBHGERMAStatusDao" >
+	</bean>
+
+	<alias name="defaultBHGERmaFormService" alias="bhgeRmaFormService" />
+	<bean id="defaultBHGERmaFormService"
+		  class="com.bhge.core.rma.service.impl.DefaultBHGERmaFormService">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<bean id="bhgeRegisterEmailContext" class="com.bhge.core.mailmessages.context.BHGERegisterEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<!-- <property name="orderConverter" ref="orderConverter"/> -->
+		<property name="modelService" ref="modelService"></property>
+	</bean>
+		<!-- RMA Status beans -->
+		
+		
+		
+				<!-- My Site Equipment beans - start -->
+		
+	<alias name="mySiteEquipmentService" alias="mySiteEquipmentService" />
+		<bean id="mySiteEquipmentService" class="com.bhge.core.mysite.service.impl.DefaultMySiteEquipmentService" >
+	</bean> 
+		
+		<!-- My Site Equipment beans - end -->
+		
+	<!-- CalPortal Service & DAO bean - Start -->	
+	<alias name="calPortalService" alias="calPortalService" />
+		<bean id="calPortalService" class="com.bhge.core.calportal.service.impl.DefaultCalPortalService" >
+	</bean>
+	
+	<bean id="calPortalDao" class="com.bhge.core.calportal.dao.impl.DefaultCalPortalDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="searchRestrictionService" ref="searchRestrictionService" />
+	</bean>
+	
+	<!-- CalPortal Service & DAO bean - end -->	
+		
+	<!-- custom code to resolve Base site should not be null issue Start -->
+	<alias alias="siteConfigService" name="bhgedefaultSiteConfigService"/>
+	<bean id="bhgedefaultSiteConfigService"
+	      class="com.bhge.core.service.config.BHGEDefaultSiteConfigService" parent="defaultSiteConfigService"/>
+		
+	
+	<!-- custom code to resolve Base site should not be null issue End -->
+
+	<bean id="bhgeCategoryPrepareInterceptor" class="com.bhge.core.interceptors.BHGECategoryPrepareInterceptor">
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+
+	<bean id="categoryPrepareinterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="bhgeCategoryPrepareInterceptor" />
+		<property name="typeCode" value="Category" />
+	</bean>
+
+	<bean id="bhUserAccessRequestPrepareInterceptor" class="com.bhge.core.interceptors.BHUserAccessRequestPrepareInterceptor">
+		<property name="bhgeEmailService" ref="bhgeEmailService" />
+	</bean>
+
+	<bean id="bhUserAccessRequestPrepareinterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="bhUserAccessRequestPrepareInterceptor" />
+		<property name="typeCode" value="BHGEUserAccessRequest" />
+	</bean>
+
+	<bean id="bhgeCategoryLoadInterceptor" class="com.bhge.core.interceptors.BHGECategoryLoadInterceptor">
+	</bean>
+
+	<bean id="bhgeCategoryLoadinterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="bhgeCategoryLoadInterceptor" />
+		<property name="typeCode" value="Category" />
+	</bean>
+	
+	<bean id="bhgeActivationCommentsValidateInterceptor" class="com.bhge.core.interceptors.BHGEActivationCommentsValidateInterceptor"/>
+      
+    <bean id="bhgeActivationCommentsValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="bhgeActivationCommentsValidateInterceptor" />
+        <property name="typeCode" value="GEEdgeCustomer" />
+    </bean>
+    
+    <alias alias="bhgeOAuthLoginService" name="bhgeOAuthLoginService"/>
+    <bean id="bhgeOAuthLoginService" class="com.bhge.integration.oauth.login.impl.BHGEOAuthLoginServiceImpl" >
+    </bean>
+    
+    <bean id="bhgeOAuthLoginDao" class="com.bhge.integration.oauth.login.dao.impl.BHGEOAuthLoginDaoImpl"/>
+	<!-- migration changes start -->
+
+	<alias alias="bhgeBlobDataImportService" name="bhgeBlobDataImportService"/>
+	<bean id="bhgeBlobDataImportService" class="com.bhge.core.dataimport.service.impl.BHGEBlobDataImportServiceImpl" >
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+    <alias alias="sapCpiProductFeaturePersistenceHook" name="bhgesapCpiProductFeaturePersistenceHook"/>
+    <bean id="bhgesapCpiProductFeaturePersistenceHook" class="com.bhge.inbound.BHGESapCpiProductFeaturePersistenceHook">
+		  <property name="classResolverStrategy" ref="classificationClassesResolverStrategy"/>
+          <property name="modelService" ref="modelService"/>
+          <property name="classificationSystemService" ref="classificationSystemService" />
+	</bean>
+	
+	<bean id="defaultBHGEproductPrePersistHook" class="com.bhge.inbound.BHGESapCpiProductPrePersistenceHook" >
+	</bean>
+	
+	<bean id="bhgeProductcleanUpHook" class="com.bhge.inbound.BHGESapCpiProductCleanupHook" >
+	</bean>  
+	
+
+	<bean id="bhgeProductDocumentPrePersistenceHook" class="com.bhge.inbound.BHGESapCpiProductDocumentPrePersistenceHook">
+	</bean>
+	<!--migration changes end -->
+    
+	<!-- contactUs Marketo changes start -->		
+	<alias name="bhgeContactUsService" alias="bhgeContactUsService" />
+	<bean id="bhgeContactUsService" class="com.bhge.integration.marketo.service.impl.DefaultBHGEContactUsServiceImpl"/>
+			
+	<alias name="bhgeContactUsDAO" alias="bhgeContactUsDAO" />
+	<bean id="bhgeContactUsDAO" class="com.bhge.core.contactus.dao.impl.DefaultBHGEContactUsDAOImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	<!-- contactUs Marketo changes end -->
+
+	<!-- productLineContactUs changes starts -->
+	<alias name="productLineContactUsService" alias="productLineContactUsService" />
+	<bean id="productLineContactUsService" class="com.bhge.core.productlineContactUs.service.impl.DefaultProductLineContactUsService"/>
+
+	<alias name="productLineContactUsDAO" alias="productLineContactUsDAO" />
+	<bean id="productLineContactUsDAO" class="com.bhge.core.productlineContactUs.dao.impl.DefaultProductLineContactUsDAO"/>
+
+	<!-- productLineContactUs changes ends -->
+	
+	<alias name="bhDataRetentionService" alias="bhDataRetentionService" />
+	<bean id="bhDataRetentionService" class="com.bhge.core.dataretention.service.impl.DefaultBHDataRetentionService"/>
+			
+	<alias name="bhDataRetentionDAO" alias="bhDataRetentionDAO" />
+	<bean id="bhDataRetentionDAO" class="com.bhge.core.dataretention.dao.impl.DefaultBHDataRetentionDAO">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias name="bhgeOldCartService" alias="bhgeOldCartService" />
+	<bean id="bhgeOldCartService" class="com.bhge.core.oldcart.service.impl.DefaultBHGEOldCartServiceImpl"/>
+
+	<alias name="bhgeOldCartDaoImpl" alias="bhgeOldCartDaoImpl" />
+	<bean id="bhgeOldCartDaoImpl" class="com.bhge.core.oldcart.dao.impl.DefaultBHGEOldCartDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+<bean id="guestUserCalibrationDataSheetPDFEventListener" class="com.bhge.core.event.GuestUserCalibrationDataSheetPDFEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="emailService" ref="emailService"/>
+	</bean>
+               
+	<bean id="guestUserCalportalDataSheetPDFEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/guestUserCalportalDataSheetPDFEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="generateGuestUserCalportalDataSheetPDFEmail" parent="abstractGenerateEmailAction">
+	<property name="frontendTemplateName" value="GuestUserCalibrationPDFEmailTemplate"/>
+	</bean>
+	
+   
+	<alias name="dsProcessContextResolutionStrategy" alias="processContextResolutionStrategy"/>
+
+                <bean id="dsProcessContextResolutionStrategy" class="com.bhge.basecommerce.strategies.impl.DsProcessContextResolutionStrategy"
+
+                                parent="defaultProcessContextResolutionStrategy">
+
+    </bean>
+    
+    <alias alias="emailGenerationService" name="guestUserEmailGenerationService"/>
+<bean id="guestUserEmailGenerationService"
+	class="com.bhge.basecommerce.strategies.impl.GuestUserEmailGenerationService"
+	parent="defaultEmailGenerationService">
+	<property name="modelService" ref="modelService"/>
+</bean>
+		<!-- calportal Notifications changes start -->		
+	<alias name="dsNotificationsService" alias="dsNotificationsService" />
+	<bean id="dsNotificationsService" class="com.bhge.core.notifications.service.impl.DefaultDsNotificationsService"/>
+			
+	<alias name="dsNotificationsDao" alias="dsNotificationsDao" />
+	<bean id="dsNotificationsDao" class="com.bhge.core.notifications.dao.impl.DefaultDsNotificationsDao">
+	</bean>
+	<!-- calportal Notifications changes end -->
+	
+	<bean id="wygateCalPortalService" class="com.bhge.core.wygate.impl.DefaultWygateCalPortalService">
+    	<property name="wygateCalPortalDao" ref="wygateCalPortalDao" />	
+	</bean>	
+	
+	<bean id="wygateCalPortalDao" class="com.bhge.core.wygate.dao.impl.DefaultWygateCalPortalDao">
+    	<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>	
+		
+		
+   <!-- waygate cronjob changes starts -->
+	 <bean id="bhgeWaygateDataLoadJob" class="com.bhge.core.cronjob.BHGEWaygateDataLoadJob" parent="abstractJobPerformable"> 
+     <property name="configurationService" ref="configurationService" />
+     </bean>
+     <alias name="waygateDataLoaderService" alias="waygateDataLoaderService" />
+	<bean id="waygateDataLoaderService" class="com.bhge.core.waygatedataload.service.impl.DefaultWaygateDataLoaderService">   	
+	</bean>
+   <!-- waygate cronjob changes ends -->
+   
+   <!-- Druck Bynder starts -->
+   
+   <bean id="dsBynderSearchAndDownloadService" class="com.bhge.core.bynder.druck.service.impl.DsBynderSearchAndDownloadServiceImpl">
+   		<property name="configurationService" ref="configurationService" />
+   </bean>
+   		
+   <!-- Druck Bynder ends -->
+   
+   
+   <!-- Training Document start -->
+ 	
+ <alias name="dsTrainingDocumentService" alias="dsTrainingDocumentService" />
+	<bean id="dsTrainingDocumentService" class="com.bhge.core.trainingdocument.service.impl.DefaultDSTrainingDocumentService"/>
+			
+	<alias name="dsTrainingDocumentDao" alias="dsTrainingDocumentDao" />
+	<bean id="dsTrainingDocumentDao" class="com.bhge.core.trainingdocument.dao.impl.DefaultDSTrainingDocumentDao">
+	</bean>
+	<!-- Training Document start changes end -->
+	
+	<!-- List Of Portals starts -->
+	
+	<bean id="listOfPortalDAO" class="com.bhge.core.listofportals.dao.impl.DefaultListOfPortalDAO"></bean>
+	
+	<alias name="defaultListOfPortalService" alias="defaultListOfPortalService" />
+	<bean id="defaultListOfPortalService"
+		class="com.bhge.core.listofportals.service.impl.DefaultListOfPortalService">
+	</bean>
+		
+	<!-- List Of Portals ends -->
+	<!--Value Provider for getting RETURN/SELLRETURN product from any of the sales area-->
+	<bean id="bhgeHybrisStatusReturnSalesAreaValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEHybrisStatusReturnSalesAreaValueProvider"
+		  parent="abstractPropertyFieldValueProvider" />
+
+	<alias name="bhgePaymentService" alias="bhgePaymentService" />
+	<bean id="bhgePaymentService" class="com.bhge.core.order.service.impl.BHGEPaymentServiceImpl">
+	</bean>
+
+	<bean id="bhgeProductLvl2CategoryValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEProductLv2CategoryValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="categorySource" ref="allCategoriesSource"/>
+	</bean>
+
+	<bean id="bhgeProductLvl3CategoryValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEProductLv3CategoryValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="categorySource" ref="allCategoriesSource"/>
+	</bean>
+
+	<bean id="bhgeProductLvl4CategoryValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEProductLv4CategoryValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="categorySource" ref="allCategoriesSource"/>
+	</bean>
+
+	<bean id="bhgeProductLvl5CategoryValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEProductLv5CategoryValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="categorySource" ref="allCategoriesSource"/>
+	</bean>
+
+	<bean id="bhgeProductLvl6CategoryValueProvider"
+		  class="com.bhge.core.search.provider.impl.BHGEProductLv6CategoryValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="categorySource" ref="allCategoriesSource"/>
+	</bean>
+
+	<alias name="bhgePriceAvailabilityCheckService" alias="bhgePriceAvailabilityCheckService" />
+	<bean id="bhgePriceAvailabilityCheckService" class="com.bhge.core.order.service.impl.BHGEPriceAvailabilityCheckServiceImpl">
+	</bean>
+
+	<bean id="sapProductConfigTrackingRecorder"
+		class="com.bhge.core.productconfig.services.tracking.impl.BHGEVCTrackingRecorderImpl" parent="sapProductConfigDefaultTrackingRecorder">
+	</bean>
+	
+	<alias name="bhgeVCTrackingRecorderImpl" alias="sapProductConfigTrackingRecorder" />
+	<bean id="bhgeVCTrackingRecorderImpl" class="com.bhge.core.productconfig.services.tracking.impl.BHGEVCTrackingRecorderImpl" 
+		parent="sapProductConfigDefaultTrackingRecorder">
+	</bean>
+	
+	<alias name="bhgeVCAbstractPricingItemInputPopulator" alias="bhgeVCAbstractPricingItemInputPopulator" />
+	<bean id="bhgeVCAbstractPricingItemInputPopulator" class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEVCAbstractPricingItemInputPopulator">
+	</bean>
+	
+	<alias name="bhgeVCPricingItemInputPopulator" alias="bhgeVCPricingItemInputPopulator" />
+	<bean id="bhgeVCPricingItemInputPopulator" class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEVCPricingItemInputPopulator"
+		parent="bhgeVCAbstractPricingItemInputPopulator">
+	</bean>
+		
+	<alias name="sapProductConfigDefaultPricingItemInputConverter" alias="sapProductConfigPricingItemInputConverter" />
+	<bean id="sapProductConfigDefaultPricingItemInputConverter" parent="sapProductConfiAbstractContextualPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.sap.productconfig.runtime.cps.model.pricing.PricingItemInput" />
+		<property name="contextualPopulators">
+			 <list merge="true">
+			 	<ref bean="sapProductConfigPricingItemInputPopulator" />
+				<ref bean="bhgeVCPricingItemInputPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="bhgeVCPricingItemInputKBProductPopulator" alias="bhgeVCPricingItemInputKBProductPopulator" />
+	<bean id="bhgeVCPricingItemInputKBProductPopulator" class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEVCPricingItemInputKBProductPopulator"
+		parent="bhgeVCAbstractPricingItemInputPopulator">
+	</bean>
+	
+	<alias name="sapProductConfigDefaultPricingItemInputKBProductConverter" alias="sapProductConfigPricingItemInputKBProductConverter" />
+	<bean id="sapProductConfigDefaultPricingItemInputKBProductConverter" parent="sapProductConfiAbstractContextualPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.sap.productconfig.runtime.cps.model.pricing.PricingItemInput" />
+		<property name="contextualPopulators">
+			<list merge="true">
+				<ref bean="sapProductConfigPricingItemInputKBProductPopulator" />
+				<ref bean="bhgeVCPricingItemInputKBProductPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+
+	<alias name="bhgeOrderNotificationService" alias="bhgeOrderNotificationService" />
+	<bean id="bhgeOrderNotificationService" class="com.bhge.core.order.service.impl.BHGEOrderNotificationServiceImpl">
+	</bean>
+
+	<alias name="bhgeOrderNotificationDao" alias="bhgeOrderNotificationDao"/>
+	<bean id="bhgeOrderNotificationDao" class="com.bhge.core.order.daos.impl.BHGEOrderNotificationDaoImpl">
+	</bean>
+
+	<bean id="orderNotificationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/orderNotificationEmailProcess.xml"/>
+	</bean>
+
+	<bean id="generateOrderNotificationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BlockedOrderNotificationEmailTemplate"/>
+	</bean>
+
+	<bean id="bhgeBlockedOrderNotificationJob" class="com.bhge.core.cronjob.BHGEBlockedOrderNotificationJob" parent="abstractJobPerformable">
+	</bean>
+
+	<bean id="bhgeOldOrderNotificationJob" class="com.bhge.core.cronjob.BHGEOldOrderNotificationJob" parent="abstractJobPerformable">
+	</bean>
+	
+	<alias name="bhgeHaveQuestionService" alias="bhgeHaveQuestionService" />
+	<bean id="bhgeHaveQuestionService" class="com.bhge.core.mailmessages.services.impl.BHGEHaveQuestionServiceImpl" parent="defaultBHGEEmailService">
+	</bean>
+
+	<bean id="generateContactUsEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ContactUsRequestEmailTemplate"/>
+	</bean>
+
+	<bean id="contactUsRequestEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/contactUsEmailProcess.xml"/>
+	</bean>
+
+	<bean id="contactUsRequestEventListner" class="com.bhge.core.event.ContactUsRequestEventListner">
+		<property name="tenantService" ref="tenantService"/>
+		<property name="clusterService" ref="clusterService"/>
+	</bean>
+	
+   <bean id="haveAquestionEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgecore/processes/haveAQuestionEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="generateHaveAQueEmail" class="com.bhge.core.mailmessages.services.impl.BHGEHaveAQuestionEmailAction" parent="abstractAction">
+		<property name="frontendTemplateName" value="bhgeHaveAQuestionEmailTemplate"/>
+        <property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+        <property name="emailGenerationService" ref="emailGenerationService"/>
+		<property name="processContextResolutionStrategy" ref="storeFrontProcessContextStrategy"/> 
+	</bean>
+	
+	<bean id="bhgeHaveAQuestionMailContext" class="com.bhge.core.mailmessages.context.BHGEHaveAQuestionMailContext" parent="abstractEmailContext" scope="prototype" />
+
+	
+	<!-- start bean  for discount price calculation from hybris -->
+	
+	<alias name="bhgeVCPricingHandler" alias="sapProductConfigCPSPricingHandler" />
+	<bean id="bhgeVCPricingHandler" class="com.bhge.core.pricing.handler.impl.BHGEVCPricingHandlerImpl" 
+		parent="sapProductConfigCPSDefaultPricingHandler">
+	</bean>
+
+
+	<!-- end bean  for discount price calculation from hybris -->
+	
+	<alias name="bhgePricingItemInputPopulator" alias="sapProductConfigPricingItemInputPopulator" />
+	<bean id="bhgePricingItemInputPopulator" parent="sapProductConfigDefaultPricingItemInputPopulator"
+		class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEPricingItemInputPopulator">
+	</bean>
+	
+	<alias name="bhgePricingItemInputKBProductPopulator" alias="sapProductConfigPricingItemInputKBProductPopulator" />
+	<bean id="bhgePricingItemInputKBProductPopulator" parent="sapProductConfigDefaultPricingItemInputKBProductPopulator"
+		class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEPricingItemInputKBProductPopulator">
+	</bean>
+	
+	<alias name="bhgeProductConfigDefaultConfigurationPricingStrategy" alias="sapProductConfigConfigurationPricingStrategy" />
+	<bean id="bhgeProductConfigDefaultConfigurationPricingStrategy" parent="sapProductConfigDefaultConfigurationPricingStrategy"
+		class="com.bhge.core.productconfig.services.impl.BHGEVCProductConfigurationPricingStrategyImpl">
+		
+	</bean>
+	
+	<alias name="bhgeVCSapSalesConditionsContributor" alias="sapSalesConditionsContributor" />
+	<bean id="bhgeVCSapSalesConditionsContributor" parent="defaultSapSalesConditionsContributor" class="com.bhge.sap.orderfulfilment.sapcpiorderexchange.service.impl.BHGEVCSalesConditionsContributor">
+	</bean>
+	
+	<alias alias="sapProductConfigProductConfigurationPersistenceService" name="bhgeVCProductConfigurationPersistenceService"></alias>
+	<bean id="bhgeVCProductConfigurationPersistenceService"
+		class="com.bhge.core.productconfig.services.impl.BHGEVCProductConfigurationPersistenceServiceImpl" parent="sapProductConfigDefaultProductConfigurationPersistenceService">
+		
+	</bean>
+
+
+   <alias name="bhgeVCConfigurationPopulator" alias="sapProductConfigCPSConfigurationPopulator" />
+	<bean id="bhgeVCConfigurationPopulator"
+		  class="com.bhge.core.productconfig.runtime.cps.populator.impl.BHGEVCConfigurationPopulator" parent="sapProductConfigDefaultCPSConfigurationPopulator">
+		  
+	</bean>
+	
+	<alias name="bhgeSAPCpiOmmOrderOutboundAction" alias="sapSendOrderAction"/>
+    <bean id="bhgeSAPCpiOmmOrderOutboundAction" parent="sapCpiOmmOrderOutboundAction" class="com.bhge.core.actions.BHGESapCpiOmmOrderOutboundAction"/>
+
+	<bean id="bhgeVCOrderReProcessJob" class="com.bhge.core.cronjob.BHGEVCOrderReProcessJob" parent="abstractJobPerformable">
+	</bean>
+	
+	<!-- Cron job for sending order number to support team for unprocessed order -->
+	
+	<bean id="bhgeOrderStatusNotificationJob" class="com.bhge.core.cronjob.BHGEOrderStatusNotificationJob" parent="abstractJobPerformable">         
+     </bean>
+
+    <bean id="bhgeOrderUpdateEmailNotificationJob" class="com.bhge.core.cronjob.BHGEOrderUpdateEmailNotificationJob" parent="abstractJobPerformable">
+    </bean>
+	<bean id="bhgeCheckInvoicePaymentJob" class="com.bhge.core.cronjob.BHGECheckInvoicePaymentJob" parent="abstractJobPerformable">
+		<property name="bhgeInvoiceHistoryService" ref="bhgeInvoiceHistoryService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+    <bean id="bhgeVCAuthorExternalConfiguration" class="com.bhge.core.order.service.impl.BHGEVCAuthorExternalConfiguration">
+	</bean>
+
+
+	<alias name="bhgeCsticTypeMapperImpl" alias="sapProductConfigCsticTypeMapper" />
+	<bean id="bhgeCsticTypeMapperImpl" class="com.bhge.core.productconfig.mapper.BHGECsticTypeMapperImpl"
+		  parent="sapProductConfigDefaultCsticTypeMapper">
+	</bean>
+	
+	<alias name="bhgeVCCPSContextSupplier" alias="sapProductConfigurationCPSContextSupplier" />
+	<bean id="bhgeVCCPSContextSupplier" class="com.bhge.core.productconfig.runtime.cps.impl.BHGEVCCPSContextSupplierImpl" 
+		parent ="sapProductConfigurationDefaultCPSContextSupplier">
+		
+	</bean>
+	
+	<bean id="bhgeOrderEntryConfigAttachmentJob" class="com.bhge.core.cronjob.BHGEOrderEntryConfigAttachmentJob" parent="abstractJobPerformable">         
+    </bean>
+
+	<bean id="quoteSCPICreationReplicationEventListener" class="com.bhge.core.event.QuoteSCPICreationReplicationEventListener">
+		<property name="tenantService" ref="tenantService"/>
+		<property name="clusterService" ref="clusterService"/>
+	</bean>
+
+	<alias alias="commerceQuoteService" name="bhgeCommerceQuoteService"/>
+	<bean id="bhgeCommerceQuoteService" class="com.bhge.core.quote.service.impl.BHGECommerceQuoteServiceImpl" parent="defaultCommerceQuoteService">
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+	<alias name="bhgeCommerceQuoteDao" alias="bhgeCommerceQuoteDao"/>
+	<bean id="bhgeCommerceQuoteDao" class="com.bhge.core.quote.service.dao.impl.BHGECommerceQuoteDaoImpl">
+	</bean>
+
+	<alias name="bhgeSCPIQuoteReplicationAction" alias="bhgeSCPIQuoteReplicationAction"/>
+	<bean id="bhgeSCPIQuoteReplicationAction" class="com.bhge.core.actions.quote.BHGESCPIQuoteReplicationAction"
+		  parent="abstractAction">
+		<property name="quoteService" ref="quoteService"/>
+		<property name="bhgeCommerceQuoteService" ref="bhgeCommerceQuoteService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<alias name="bhgeQuoteAttachmentAction" alias="bhgeQuoteAttachmentAction"/>
+	<bean id="bhgeQuoteAttachmentAction" class="com.bhge.core.actions.quote.BHGEQuoteAttachmentAction"
+		parent="abstractAction">
+	</bean>
+
+	<alias name="bhgeQuoteAttachmentEmailAction" alias="bhgeQuoteAttachmentEmailAction"/>
+	<bean id="bhgeQuoteAttachmentEmailAction" class="com.bhge.core.actions.quote.BHGEQuoteAttachmentEmailAction"
+		  parent="abstractAction">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+		<property name="frontendTemplateName" value="QuoteCreationEmailTemplate"/>
+	</bean>
+
+	<alias name="bhgeQuoteHistoryService" alias="bhgeQuoteHistoryService"/>
+	<bean id="bhgeQuoteHistoryService" class="com.bhge.integration.quote.history.impl.BHGEQuoteHistoryServiceImpl">
+	</bean>
+	<alias name="bhgeInvoiceHistoryService" alias="bhgeInvoiceHistoryService"/>
+	<bean id="bhgeInvoiceHistoryService" class="com.bhge.integration.invoice.history.impl.BHGEInvoiceHistoryServiceImpl">
+		<property name="userService" ref="userService"/>
+		<property name="scpiConnector" ref="scpiConnector"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias name="bhgeQuoteConversionAction" alias="bhgeQuoteConversionAction"/>
+	<bean id="bhgeQuoteConversionAction" class="com.bhge.core.actions.quote.BHGESapQuoteConversionAction">
+	</bean>
+
+	<bean id="generateQuoteConversionConfirmation" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="QuoteConversionEmailTemplate"/>
+	</bean>
+
+	<bean id="bhgeQuoteConversionEventListener" class="com.bhge.core.event.QuoteConversionEventListener">
+		<property name="tenantService" ref="tenantService"/>
+		<property name="clusterService" ref="clusterService"/>
+	</bean>
+
+	<alias name="bhgeProductConfigDefaultSaveCartRestorationStrategy" alias="bhgeProductConfigDefaultSaveCartRestorationStrategy"/>
+	<bean id="bhgeProductConfigDefaultSaveCartRestorationStrategy"
+          class="com.bhge.core.productconfig.services.strategy.impl.BHGEProductConfigurationCartRestorationStrategyImpl"
+          parent="sapProductConfigDefaultSaveCartRestorationStrategy">
+		<property name="commerceCartRestorationStrategy" ref="defaultCommerceSaveCartRestorationStrategy" />
+    </bean>
+
+	<bean id="bhgeCommerceCartService"	class="com.bhge.core.carts.service.BHGECommerceCartService" parent="defaultCommerceCartService">
+	</bean>
+
+	<bean id="bhgeDefaultCommerceAddToCartStrategy"	class="com.bhge.core.carts.service.BHGEDefaultCommerceAddToCartStrategy" parent="defaultCommerceAddToCartStrategy">
+	</bean>
+
+	<!-- FAQ DAO -->
+
+	<bean id="bhgeFaqDao" class="com.bhge.core.faq.dao.impl.DefaultBHGEFaqDAOImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="bhgeFaqService" class="com.bhge.core.faq.service.impl.DefaultBHGEFaqServiceImpl">
+		<property name="faqDao" ref="bhgeFaqDao"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+
+	<!-- FAQ FACADE -->
+	<bean id="bhgeFaqFacade" class="com.bhge.core.faq.facade.impl.DefaultBHGEFaqFacadeImpl">
+		<property name="faqService" ref="bhgeFaqService"/>
+	</bean>
+
+    <bean id="bhgeBudgetoryQuotePdf" class="com.bhge.core.order.pdf.BHGEBudgetoryQuotePdf"/>
+    <bean id="bhgeBudgetoryQuoteEntryData" class="com.bhge.core.order.pdf.BHGEBudgetoryQuoteEntryData"/>
+
+    <alias name="bhgeBudgetoryQuoteService" alias="bhgeBudgetoryQuoteService" />
+    <bean id="bhgeBudgetoryQuoteService" class="com.bhge.core.order.service.impl.BHGEBudgetoryQuoteServiceImpl">
+    </bean>
+	<!-- Resources -->
+	<!-- DAO -->
+	<bean id="bhgResourceDao" class="com.bhge.core.resource.dao.impl.DefaultBHGResourceDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<!-- SERVICE -->
+	<bean id="bhgResourceService" class="com.bhge.core.resource.service.impl.DefaultBHGResourceService">
+		<property name="resourceDao" ref="bhgResourceDao"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<!-- FACADE -->
+	<bean id="bhgResourceFacade" class="com.bhge.core.resource.facade.impl.DefaultBHGResourceFacade">
+		<property name="resourceService" ref="bhgResourceService"/>
+	</bean>
+
+</beans>

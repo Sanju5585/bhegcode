@@ -1,0 +1,29 @@
+$lang=en
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true];resourceIds;scope;authorizedGrantTypes;authorities;clientSecret;registeredRedirectUri
+;damRegisterClient;hybris;basic;client_credentials;ROLE_CLIENT;damRegisterPass12;;
+
+# B2BUnit
+INSERT_UPDATE B2BUnit;uid[unique=true];locname[lang=$lang]
+;DAMRegister;Documentation Portal Register
+
+#Appliation Entry
+INSERT_UPDATE BHGEApplicationDetails;applicationId[unique=true];applicationName[lang=$lang];applicationDetails[lang=$lang]
+;3;Documentation Portal;This portal provides access for all general product and application documentation, including datasheets, manuals, field wiring diagrams, Orbit articles, application notes, declarations of conformity documents, and many more.
+
+#Appliation Access Levels
+INSERT_UPDATE BHGEAppAccessLevel;applicationInfo(applicationId);appAccessLevelId[unique=true];appAccessLevelName[lang=$lang];appAccessLevelDetails[lang=$lang]
+;3;32001;Customer;Customer
+
+#Appliation Approval Details
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;32001;32001;DAM Approvers;DAM Approvers;;rahul.gangan@ge.com
+#DocPortalApprover@bhge.com
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;32100;DAMPRODLINEMAIN;M&C_Mains;Measurement & Control;;1
+;32101;DAMPRODLINESUB;Bently Nevada;Bently Nevada;32100;1
+
+#INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg
+#;dam-32001;204063001;Beth Francis;Beth;Francis;Beth1.Francis@bhge.com;DAMRegister;true;32100;false
+#;dam-32002;212647938;Rebecca Diagre;Rebecca;Diagre;Rebecca.Daigre@bhge.com;DAMRegister;true;32100;false

@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "顾客报价车",
+    "checkoutBtn": "进行结算",
+    "delete": "清除",
+    "comments": "注释",
+    "quantity": "数量",
+    "each": "件",
+    "saving": "保存中",
+    "commentscart": "备注未保存，请点击保存按钮保存您的备注",
+    "commenterror": "请在保存前添加您的备注",
+    "characterlefft": "剩余字数",
+    "item": "项",
+    "cartEmpty": "您的购物车为空",
+    "noItemIncart": "您的购物车中没有任何产品。",
+    "explore": "了解 ",
+    "ourCatalogue": "我们的目录 ",
+    "toAdditems": "添加产品",
+    "error": {
+      "removeMsg": "选中项已成功移除",
+      "errorMessage": "发生错误，请稍后再试."
+    }
+  }
+}

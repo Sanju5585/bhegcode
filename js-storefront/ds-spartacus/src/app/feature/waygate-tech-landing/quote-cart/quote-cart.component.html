@@ -1,0 +1,86 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<div class="container">
+  <div class="waygate-my-orders-container">
+    <div class="waygate-my-orders-header">
+      <div class="header-green-border"></div>
+      <div class="waygate-my-order-row">
+        <h1 class="waygate-my-order-title">
+          {{ 'quoteCart.pageTitle' | cxTranslate }}
+        </h1>
+      </div>
+    </div>
+    <div class="background-shade">
+      <div class="order-actions-container"></div>
+    </div>
+    <ng-container *ngIf="cart$ | async as cart; else loading">
+      <ng-container *ngIf="(cart | json) != '{}'; else loading">
+        <ng-container *ngIf="cart.totalItems > 0; else noCartEntries">
+          <ng-container>
+            <div
+              *ngIf="cart?.isMinOrderQtyProductExists"
+              class="min-order-error"
+            >
+              <i class="material-icons">report</i
+              ><span class="min-order-text">{{
+                'buyCart.minOrderError' | cxTranslate
+              }}</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="entries$ | async as entries">
+            <div *ngIf="cart.totalItems > 0" class="cart-details-wrapper">
+              <ds-quote-cart-item-list
+                [items]="entries"
+                [cart]="cart"
+                [cart$]="cart$"
+                (cartEntryList)="setCartEntryList($event)"
+                [userType]="userType"
+                (updateCart)="OnUpdateCart($event)"
+                [profileType]="customerType$ | async"
+              ></ds-quote-cart-item-list>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #noCartEntries>
+        <div class="empty-cart-page">
+          <div class="container">
+            <div class="empty-img"></div>
+            <h1>{{ 'buyCart.cartEmpty' | cxTranslate }}</h1>
+            <p class="noitems">
+              {{ 'buyCart.noItemIncart' | cxTranslate }}
+            </p>
+            <p class="noitems">
+              <span>{{ 'buyCart.explore' | cxTranslate }}</span>
+              <span>
+                <a
+                  class="view-data-link"
+                  routerLink="/waygate/categories/ECOM_LVL0_00000001/Digital-Solutions"
+                  >{{ 'buyCart.ourCatalogue' | cxTranslate }}</a
+                ></span
+              >
+              <span>{{ 'buyCart.toAdditems' | cxTranslate }}</span>
+            </p>
+            <p class="noitems">{{ 'buyCart.or' | cxTranslate }}</p>
+            <p class="noitems">
+              <span>{{ 'buyCart.visit' | cxTranslate }}</span>
+              <span>
+                <a
+                  class="view-data-link"
+                  [routerLink]="['/', productLine, 'saved-carts']"
+                  >{{ 'buyCart.myCarts' | cxTranslate }}</a
+                ></span
+              >
+              <span>{{ 'buyCart.toExistingCarts' | cxTranslate }}</span>
+            </p>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+  <ng-template #loading>
+    <div class="cx-spinner">
+      <cx-spinner>{{ 'buyCart.loading' | cxTranslate }}</cx-spinner>
+    </div>
+  </ng-template>
+</div>

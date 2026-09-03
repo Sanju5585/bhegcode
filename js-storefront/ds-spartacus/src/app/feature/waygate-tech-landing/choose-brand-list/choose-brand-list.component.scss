@@ -1,0 +1,57 @@
+@import '../../../../styles/responsive_mixins.scss';
+.conatiner {
+  background-color: #ffff;
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  border: 1px solid #ced7d4;
+  padding: 2% 4%;
+  filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.08));
+  .brand-list {
+    .brand-item {
+      padding: 2% 2% 0% 0%;
+      .brand-content {
+        font-family: Poppins;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        padding: 0 3.5%;
+
+        .brand-log {
+          height: 45px;
+          display: flex;
+        }
+        img {
+          align-self: self-start;
+        }
+        .brand-desc {
+          min-height: 80px;
+        }
+        a {
+          text-align: left;
+          color: #02a783;
+          display: inline-block;
+          span {
+            font-size: 11.25px;
+          }
+        }
+      }
+      &:not(:nth-child(3), :last-child) {
+        .brand-content {
+          border-right: 1px solid #ced7d4;
+        }
+      }
+    }
+    @include media-md-max {
+      display: grid;
+      width: max-content;
+    }
+    @include media-md-min {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}
+.height-inherit {
+  height: inherit;
+}

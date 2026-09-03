@@ -1,0 +1,855 @@
+ ## messageSource=classpath:/bhgecore/messages/email-orderConfirmation_$lang.properties
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>BHGE Partner+ Store</title>
+        <style>
+/* ========== CLIENT-SPECIFIC STYLES =========== */
+#outlook a {
+  padding: 0;
+}
+/* Force Outlook to provide a "view in browser" message */
+.ReadMsgBody {
+  width: 100%;
+}
+.ExternalClass {
+  width: 100%;
+}
+/* Force Hotmail to display emails at full width */
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+  line-height: 100%;
+}
+/* Force Hotmail to display normal line spacing. */
+body,
+table,
+td,
+p,
+a,
+li,
+blockquote {
+       text-align:left;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+/* Prevent WebKit and Windows mobile changing default text sizes */
+table,
+td {
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+/* Remove spacing between tables in Outlook 2007 and up */
+img {
+  -ms-interpolation-mode: bicubic;
+}
+/* Allow smoother rendering of resized image in Internet Explorer */
+/* ========== RESET STYLES ========== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family:"GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+img {
+  border: 0;
+  height: auto;
+  line-height: 100%;
+  outline: none;
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse !important;
+}
+body,
+#bodyTable,
+#bodyCell {
+  height: 100% !important;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin-bottom: 15px;
+}
+li {
+  margin-left: 20px;
+}
+/* ========== TEMPLATE STYLES ========== */
+#bodyCell {
+  padding: 20px;
+}
+#templateContainer {
+  width: 1000px;
+}
+/* ========== Page Styles ========== */
+body,
+#bodyTable {
+  background-color: #e9e9e9;
+}
+h1 {
+  display: block;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: normal;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+h1 .subhead {
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 34px;
+}
+h2 {
+  color: #2b2b2b !important;
+  display: block;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 42px;
+  letter-spacing: normal;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 16px;
+  margin-left: 0;
+}
+h3 {
+  color: #2b2b2b;
+  display: block;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 125%;
+  letter-spacing: normal;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+h3 .first {
+  line-height: 100%;
+}
+h4 {
+  color: #2b2b2b;
+  display: block;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 150%;
+  letter-spacing: normal;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+#templateViewOnline {
+  background-color: #e9e9e9;
+}
+.viewOnlineContent {
+  color: #868686;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 125%;
+  text-align: left;
+  padding-top: 15px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+.viewOnlineContent div {
+  float: left;
+}
+.logoContainer{
+       font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+       padding:15px 10px;
+       border-bottom:1px solid #bcbcbc;
+       background:#D4D4D4;
+}
+.logoContainer span{
+       display: inline-block;
+       vertical-align: top;
+       margin: 12px 5px;
+       color:#575757;
+}
+.viewOnlineContent a,
+.viewOnlineContent a:link,
+.viewOnlineContent a:visited,
+.viewOnlineContent a .yshortcuts {
+  color: #595194;
+  font-weight: normal;
+  text-decoration: none;
+}
+p{
+       font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#templateHeader {
+  background-color: #595194;
+}
+.headerContent {
+  color: #ffffff;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 100%;
+  padding-top: 18px;
+  padding-right: 40px;
+  padding-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+}
+.headerContent.logo {
+  width: 96px;
+  padding-left: 22px;
+}
+.headerContent.title {
+  padding-top: 32px;
+  padding-left: 40px;
+}
+#headerLogo {
+  display: block;
+}
+/* ========== Body Styles ========== */
+#templateBody {
+       width:100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #bcbcbc;
+}
+.bodyContent {
+  color: #414141;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  padding-top: 37px;
+  padding-right: 40px;
+  padding-bottom: 21px;
+  padding-left: 40px;
+}
+.bodyContent p {
+  margin-top: 0;
+}
+.bodyContent a,
+.bodyContent a:link,
+.bodyContent a:visited,
+.bodyContent a .yshortcuts {
+  color: #595194;
+  font-weight: normal;
+  text-decoration: none;
+}
+.bodyContent a.more {
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
+.bodyContent .subtext {
+  color: #868686;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  margin-top: 20px;
+}
+.bodyContent .more img {
+  margin-bottom: -1px;
+  padding-left: 2px;
+}
+.subtable {
+  padding-top: 0;
+}
+.subtableInner table td {
+  padding:0;
+}
+.subtableInner table td.imagetext {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+.bodyContent .orderDt tr td p{margin:0 0 5px 0;}
+.buttons {
+  padding-top: 10px;
+  padding-bottom: 60px;
+}
+.buttons .narrowLayout td,
+.buttons .narrowLayout a,
+.buttons .narrowLayout img {
+  display: none;
+  max-height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.color-grey{
+       color:#868686;
+}
+.color-dark{
+       color:#2b2b2b;
+       display: inline-block;
+}
+.text-right{text-align:right;}
+.color-green {
+  color: #46ad00;
+}
+/* ========== Column Styles ========== */
+.templateColumnContainer,
+.buttonColumnContainer {
+  display: inline-block;
+}
+.leftCol {
+  width: 450px;
+}
+.rightCol {
+  width: 450px;
+}
+/* ========== Footer Styles ========== */
+.footerContent {
+   color: #868686;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 150%;
+  padding: 20px 15px;
+  text-align: left;
+  background:#D4D4D4;
+}
+.footerContent a,
+.footerContent a:link,
+.footerContent a:visited,
+.footerContent a .yshortcuts,
+.footerContent a span {
+  color: #868686;
+  font-weight: normal;
+  text-decoration: none;
+}
+.copyright {
+  padding-top: 0;
+}
+.cartTable th{
+       background:#414141;
+       padding:10px 5px;
+       text-align:left;
+       color:#fff;
+}
+.cartTable td{
+       padding:10px 5px;
+       vertical-align:top;
+}
+/* ========== RESPONSIVE STYLES ========== */
+/* ========== THRESHOLD 1 OF 5 ========== */
+@media only screen and (max-width: 640px) {
+  /* ========== CLIENT-SPECIFIC STYLES ========== */
+  body,
+  table,
+  td,
+  p,
+  a,
+  li,
+  blockquote {
+    -webkit-text-size-adjust: none !important;
+  }
+  /* Prevent Webkit platforms from changing default text sizes */
+  body {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+  /* Prevent iOS Mail from adding padding to the body */
+  /* ========== RESET STYLES ========== */
+  #bodyCell {
+    padding: 10px !important;
+  }
+  /* ========== TEMPLATE STYLES ========== */
+  #templateContainer {
+    max-width: 600px !important;
+    width: 100% !important;
+  }
+  /* ========== Page Styles ========== */
+  h1 {
+    font-size: 24px !important;
+  }
+  h1 .subhead {
+    font-size: 16px !important;
+    line-height: 26px !important;
+  }
+  h2 {
+    font-size: 24px !important;
+    line-height: 100% !important;
+  }
+  h3 {
+    font-size: 16px !important;
+  }
+  h4 {
+    font-size: 15px !important;
+  }
+  /* ========== Header Styles ========== */
+  .headerContent {
+    line-height: 125% !important;
+    padding-top: 9px !important;
+  }
+  .headerContent.logo {
+    width: 48px !important;
+    padding-right: 20px !important;
+    padding-left: 11px !important;
+    padding-bottom: 16px !important;
+  }
+  .headerContent.title {
+    padding-top: 16px !important;
+    padding-right: 0 !important;
+    padding-left: 20px !important;
+  }
+  #headerLogo {
+    max-width: 48px !important;
+  }
+  .viewOnlineContent div {
+    float: none !important;
+  }
+  /* ========== Body Styles ========== */
+  .bodyContent {
+    line-height: 136% !important;
+    padding-top: 18px !important;
+    padding-right: 20px !important;
+    padding-bottom: 10px !important;
+    padding-left: 20px !important;
+  }
+  .bodyContent .subtext {
+    margin-top: 10px;
+  }
+  .subtable table td {
+    height: auto !important;
+    padding-top: 7px !important;
+    padding-bottom: 5px !important;
+  }
+  .subtable table td.imagetext {
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+  }
+  .buttonColumnContainer {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .buttons {
+    padding-top: 6px !important;
+  }
+  .buttons .wideLayout {
+    display: none !important;
+  }
+  .buttons .narrowLayout td,
+  .buttons .narrowLayout a,
+  .buttons .narrowLayout img {
+    display: inline !important;
+    max-height: 35px !important;
+    font-size: 16px !important;
+    line-height: 150% !important;
+  }
+  .buttons .narrowLayout a.first {
+    display: block !important;
+    margin-bottom: 16px !important;
+  }
+  .buttons .left {
+    margin-right: 7px !important;
+  }
+  /* ========== Footer Styles ========== */
+  .footerContent {
+    line-height: 150% !important;
+  }
+  .copyright {
+    padding-top: 20px !important;
+  }
+}
+/* ========== THRESHOLD 2 OF 5 ========== */
+@media only screen and (max-width: 600px) {
+  .rightCol {
+    width: 320px !important;
+  }
+}
+/* ========== THRESHOLD 3 OF 5 ========== */
+@media only screen and (max-width: 560px) {
+  .rightCol {
+    width: 280px !important;
+  }
+}
+/* ========== THRESHOLD 4 OF 5 ========== */
+@media only screen and (max-width: 520px) {
+  .rightCol {
+    width: 240px !important;
+  }
+}
+/* ========== THRESHOLD 5 OF 5 ========== */
+@media only screen and (max-width: 480px) {
+  #bodyImage {
+    height: auto !important;
+    width: 100% !important;
+    max-width: 405px !important;
+  }
+  .bodyContent .subtext {
+    line-height: 125% !important;
+    margin-bottom: 6px;
+  }
+  .subtable td {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+  .subtable table td.imagetext {
+    padding-left: 0 !important;
+  }
+  /* ========== Column Styles ========== */
+  .templateColumnContainer {
+    display: block !important;
+    width: 100% !important;
+  }
+  }
+  .headerTitleIndent{
+	margin-left:20px;
+}
+</style>
+</head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <tr>
+            <td align="" id="bodyCell">
+                <!-- BEGIN TEMPLATE // -->
+                <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+                    <tr>
+                        <td>
+                            <!-- BEGIN HEADER // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                                <tr>
+                                    <td valign="top" class="headerContent title">
+                                        <!-- BEGIN HEADER TEXT // -->
+                                        <span class="headerTitleIndent" ><h1>BHGE Partner+ Store</h1></span>
+                                        <!-- // END HEADER TEXT -->
+                                    </td>
+                                    <td valign="center" class="headerContent logo">
+                                        <img width="200" valign="center" src="${ctx.mediaBaseUrl}/_ui/addons/gestorefrontaddon/desktop/common/assets/images/bhge_lg_wht_4cp_rev.png" id="headerLogo" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- // END HEADER -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="">
+                            <!-- BEGIN BODY // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+                                <tr>
+                                    <td class="bodyContent">
+                                        <p class="color-grey font-size-14">${ctx.messages.getMessage('salutation')},</p>
+                                        <!-- BEGIN BODY CONTENT // -->
+                                        <p class="color-grey font-size-14">${ctx.messages.getMessage('thankYouForOrder')}</p>
+                                        <p ><span class="color-grey font-size-14">${ctx.messages.getMessage('orderNumber')} </span><span><b>${ctx.order.getCode()}</b> </span>(<span class="color-grey font-size-14">${ctx.messages.getMessage('referencePO')} </span><span><b>${ctx.order.getCustomerPO()}</b></span>)</p>
+                                                                     <p><span class="color-grey">${ctx.messages.getMessage('cancelOrdertext')}</span> ${ctx.order.getContactusEmail()} | <span>${ctx.order.getContactusPhone()}</span></p>
+                                        <p class="color-grey">${ctx.messages.getMessage('emailAddressestext')}:</p>
+                                                                     <p><span class="color-grey" style="width:250px;float:left;line-height:10px;">${ctx.messages.getMessage('salesOrderAckEmail')} </span>: ${ctx.order.getOrderConfirmation()} </p>
+                                                                     <p><span class="color-grey" style="width:250px;float:left;line-height:10px;">${ctx.messages.getMessage('shipNotificationEmail')}  </span>: ${ctx.order.getShipNotificationEmail()}</p>
+                                                                     <p><span class="color-grey" style="width:250px;float:left;line-height:10px;">${ctx.messages.getMessage('invoiceEmail')}  </span>: ${ctx.order.getInvoiceEmail()}</p>
+                                        <!-- // END BODY CONTENT -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="bodyContent subtable">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="subtableInner">
+                                            <tr>
+                                                <td>
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" class="templateColumnContainer leftCol">
+                                                        <tr>
+                                                            <td class="image">
+                                                            <h4 class="mar-btm-10">${ctx.messages.getMessage('OrderTotal')}</h4>
+                                                              #set ($itemCount = 0)
+                                                                  #foreach( $entry in ${ctx.order.entries} )
+                                                                  #set ($itemCount = $itemCount + 1)
+                                                               #end
+                                                               #set ($IsSameDayShipChecked = 'false')
+                                                               #foreach( $entry in ${ctx.order.entries} )
+                                                               #if(${entry.getIsSameDayShipChecked()} == 'true')
+                                                               #set ($IsSameDayShipChecked = 'true')
+                                                               #end
+                                                               #end
+                                                                   <p><span class="color-grey">#if(${itemCount} == '1') ${ctx.messages.getMessage('totalListPrice', ${itemCount})} #else ${ctx.messages.getMessage('totalListPriceMulti', ${itemCount})}#end&nbsp;:  </span> <span style="float:right;">&nbsp;#if(${ctx.order.getTotalListPrice().getFormattedValue()})  ${ctx.currencySymbol} ${ctx.order.getTotalListPrice().getFormattedValue()} #else 0.00  #end</span></p>
+                                                                    <hr style="border:1px solid #ccc">
+                                                                   #if(${ctx.order.getYourPriceDiscount()} != '' && ${ctx.order.getYourPriceDiscount().getValue()} != '0.00')
+	                                                                   <p><span class="color-grey">#if(${itemCount} == '1') ${ctx.messages.getMessage('yourPrice', ${itemCount})} #else ${ctx.messages.getMessage('yourPriceMulti', ${itemCount})}#end&nbsp;:                 </span> <span style="float:right;">&nbsp; #if(${ctx.order.getYourPriceDiscount().getValue()} != '0.00') - #end #if(${ctx.order.getYourPriceDiscount().getFormattedValue()}) ${ctx.currencySymbol} ${ctx.order.getYourPriceDiscount().getFormattedValue()} #else ${ctx.currencySymbol} 0.00 #end</span></p>
+	                                                                   <hr style="border:1px solid #ccc">
+                                                                   #end
+                                                                  #if(${ctx.order.getTotalDiscounts().getValue()}) #if(${ctx.order.getTotalDiscounts().getValue()} != '0.00')<p><span class="color-grey">${ctx.messages.getMessage('couponDiscount')} :           </span> <span style="float:right;">&nbsp;-${ctx.currencySymbol}${ctx.order.getTotalDiscounts().getValue()}</span></p>#end#end
+                                                                  #if(${ctx.order.getDeliveryCost().getValue()}) #if(${IsSameDayShipChecked} != 'false')<p><span class="color-grey">${ctx.messages.getMessage('sdsPrice')} :    </span> <span style="float:right;">&nbsp;${ctx.currencySymbol}${ctx.order.getDeliveryCost().getValue()}</span></p>#end#end
+                                                                 <p><span class="color-grey">#if(${itemCount} == '1') ${ctx.messages.getMessage('sellingPrice', ${itemCount})} #else ${ctx.messages.getMessage('sellingPriceMulti', ${itemCount})}#end&nbsp;:  </span> <span style="float:right;">&nbsp;
+																 #if(${ctx.order.getTotalPrice().getFormattedValue()}) ${ctx.currencySymbol} ${ctx.order.getTotalPrice().getFormattedValue()} #end </span></p>
+                                                                  <p class="font-size-12 extText">* ${ctx.messages.getMessage('sellingPricetext')}</p>
+                                                                  </br>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table border="0" cellpadding="0" cellspacing="0" class="templateColumnContainer rightCol">
+                                                        <tr>
+                                                            <td class="imagetext">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                   <tr>
+                                    <td class="bodyContent subtable">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="subtableInner orderDt">
+                                            <tr>
+                                                <td>
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" class="templateColumnContainer leftCol" style="width:600px;">
+                                                        <tr>
+                                                            <td class="image">
+                                                              <h4 class="mar-btm-10">${ctx.messages.getMessage('customerAccount')}</h4>
+                                                                                                              <p class="color-grey">#if(${ctx.sessionSoldToName}) ${ctx.sessionSoldToName}</br> #end
+                                                                                                              #if(${ctx.sessionSoldToAddress.getStreetnumber()}) ${ctx.sessionSoldToAddress.getStreetnumber()} #end
+                                                                                                              #if(${ctx.sessionSoldToAddress.getStreetname()}) ${ctx.sessionSoldToAddress.getStreetname()}</br> #end
+                                                                                                              #if(${ctx.sessionSoldToAddress.getTown()}) ${ctx.sessionSoldToAddress.getTown()}#end
+                                                                                                              #if(${ctx.sessionSoldToAddress.getRegion().getName()}) ${ctx.sessionSoldToAddress.getRegion().getName()} #end
+                                                                                                              #if(${ctx.sessionSoldToAddress.getCountry().getIsocode()})</br> ${ctx.sessionSoldToAddress.getCountry().getIsocode()} #else US #end #if(${ctx.sessionSoldToAddress.getPostalcode()}) ${ctx.sessionSoldToAddress.getPostalcode()} #end
+                                                                                                              </p>
+                                                                                                       </br>
+                                                               <h4>${ctx.messages.getMessage('shippingAddress')}</h4>
+                                                                                                              #if(${ctx.order.getDeliveryPoint()} && ${ctx.order.getDeliveryPoint()} != '')
+                                                                                                              <p class="color-grey">${ctx.messages.getMessage('deliveryPoint')}</p>
+                                                                                                              <p class="deliPoint"> ${ctx.order.getDeliveryPoint()}</p><br/>  #end
+                                                                                                              <p class="color-grey mar-top-10">#if(${ctx.order.getDeliveryAddress().getCompanyName()}) ${ctx.order.getDeliveryAddress().getCompanyName()}</br> #end
+                                                                                                              #if(${ctx.order.getDeliveryAddress().getLine1()}) ${ctx.order.getDeliveryAddress().getLine1()}</br> #end
+                                                                                                              #if(${ctx.order.getDeliveryAddress().getLine2()}) ${ctx.order.getDeliveryAddress().getLine2()}</br> #end
+                                                                                                              #if(${ctx.order.getDeliveryAddress().getTown()}) ${ctx.order.getDeliveryAddress().getTown()} #end
+                                                                                                              #if(${ctx.order.getDeliveryAddress().getRegion().getName()}) ${ctx.order.getDeliveryAddress().getRegion().getName()} #end
+                                                                                                              #if(${ctx.order.getDeliveryAddress().getCountry().getIsocode()}) <br/> ${ctx.order.getDeliveryAddress().getCountry().getIsocode()} #else US #end #if(${ctx.order.getDeliveryAddress().getPostalCode()}) ${ctx.order.getDeliveryAddress().getPostalCode()} #end
+                                                                                                              </p>
+                                                                                                              </br>
+                                                              <h4 class="mar-btm-10">${ctx.messages.getMessage('orderDetailtext')}</h4>
+<table>
+        <tr><td><p><span class="color-grey">${ctx.messages.getMessage('shipmethod')}</span></p></td><td><span>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<b>#if("${ctx.order.getIsShipCompleteOrder()}"==true) ${ctx.messages.getMessage('partial')}  #else  ${ctx.messages.getMessage('complete')} #end</b></span></td></tr>
+#if(${ctx.order.getDeliveryOptions()})<tr><td><p class="color-grey">${ctx.messages.getMessage('shippingMethod')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;#if(${ctx.order.getDeliveryOptions()} == 'Collect') ${ctx.messages.getMessage('collect')} #else ${ctx.messages.getMessage('prepayAndAdd')} #end</span></p></td></tr> #end
+#if(${ctx.order.getDeliveryCarrier()} && ${ctx.order.getCartType()}!='FILM' )<tr><td><p class="color-grey">${ctx.messages.getMessage('carrier')}   </td><td><span class="color-dark ;font-size:14px" style="float:left;">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getDeliveryCarrier()}</span></p></td>#end</tr>
+                                                                                                              #if(${ctx.order.getDeliveryAccount()} && ${ctx.order.getDeliveryAccount()} != '' && ${ctx.order.getDeliveryOptions()} == 'Collect')<tr><td><p class="color-grey">${ctx.messages.getMessage('deliveryAcnt')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getDeliveryAccount()}</span></p></td></tr> #end
+                                                                                                              #if(${ctx.order.getShipToContactName()} && ${ctx.order.getShipToContactName()} != '')<tr><td><p class="color-grey">${ctx.messages.getMessage('cntctName')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getShipToContactName()}</span></p></td></tr>#end
+                                                                                                              #if(${ctx.order.getShipToContactPhone()} && ${ctx.order.getShipToContactPhone()} != '')<tr><td><p class="color-grey">${ctx.messages.getMessage('cntctPhone')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getShipToContactPhone()} </span></p></td><tr>#end
+#if(${ctx.order.getNotes()} && ${ctx.order.getNotes()} != '')<tr><td><p class="color-grey">${ctx.messages.getMessage('shippingRemarks')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; ${ctx.order.getNotes()} </span></p></td></tr>#end
+                                                                                                              #if(${ctx.order.getEndCustonmerPo()} && ${ctx.order.getEndCustonmerPo()} != '')<tr><td><p class="color-grey">${ctx.messages.getMessage('endCustRef')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getEndCustonmerPo()} </span></p></td></tr>#end
+<tr><td> <p class="color-grey">${ctx.messages.getMessage('customerPo')} </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${ctx.order.getCustomerPO()}</span></p></td></tr>
+<tr><td> <p class="color-grey">${ctx.messages.getMessage('govtAgency')} </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;#if("${ctx.order.getIsGovernment()}" == true ) ${ctx.messages.getMessage('yes')}      #else ${ctx.messages.getMessage('no')} #end</span></p></td></tr>
+<tr><td> <p class="color-grey">${ctx.messages.getMessage('nuclearOppurtunity')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;#if("${ctx.order.getIsNuclearOppurtunity()}"==true) ${ctx.messages.getMessage('yes')} #else ${ctx.messages.getMessage('no')} #end </span></p></td></tr>
+<tr><td><p class="color-grey">${ctx.messages.getMessage('exportToCust')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;#if(${ctx.order.getPlanToExport()} && ${ctx.order.getPlanToExport()} != 'No') ${ctx.messages.getMessage('yes')} #else ${ctx.messages.getMessage('no')} #end </span></p></td></tr>
+                                                                                                              #if(${ctx.order.getPlanToExport()} && ${ctx.order.getPlanToExport()} != 'No')<tr><td><p class="color-grey">${ctx.messages.getMessage('exportAddress')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;${ctx.order.getExportAddress()}</span></p></td></tr> #end
+       <tr><td><p class="color-grey">${ctx.messages.getMessage('spclDiscount')}  </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;#if("${ctx.order.getIsSpecialDiscountPresent()}"==true) ${ctx.messages.getMessage('yes')} #else ${ctx.messages.getMessage('no')} #end </span></p></td></tr>
+                                                                                                              #if(${ctx.order.getSpecialDiscountCode()} && ${ctx.order.getSpecialDiscountCode()} != '')<tr><td><p class="color-grey">${ctx.messages.getMessage('discountCode')} </td><td><span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;${ctx.order.getSpecialDiscountCode()} </span></p></td></tr>#end
+<tr><td><p class="color-grey">${ctx.messages.getMessage('requestedShipDate')}  </td><td> <span class="color-dark">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+#if("${ctx.order.getIsShipCompleteOrder()}"==true)
+	#if (!${ctx.order.getRequestedHdrDeliveryDate()})
+		-
+	#else
+		${ctx.order.getRequestedHdrDeliveryDate()} #end
+#else
+#if(${ctx.order.getCartType()}!='FILM' ) #if (!${ctx.order.getRequestedHdrDeliveryDate()}) - #else ${ctx.order.getRequestedHdrDeliveryDate()} #end #else #if(!${ctx.order.getRequestedHdrDeliveryDateFilm()}) - #else ${ctx.order.getRequestedHdrDeliveryDateFilm()} #end #end #end
+</span></p></td></tr></table>
+<p class="color-grey"><span class="color-dark"></span></p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                     <tr>
+                        <td align="left">
+                            <!-- BEGIN BODY // -->
+                            <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="templateBody">
+                                <tr>
+                                    <td class="cartTableTd">
+                                        <table class="cartTable" width="100%" style="font-size:12px;vertical-align:top;">
+                                                                           <tr>
+                                                                                  <th width="20%">${ctx.messages.getMessage('product')}</th>
+                                                                                  <th width="40%">${ctx.messages.getMessage('price')}</th>
+                                                                                  <th width="10%">${ctx.messages.getMessage('quantity')}</th>
+                                                                                  <th width="30%">${ctx.messages.getMessage('estimatedShipDate')}</th>
+                                                                                 <!-- <th width="40%">${ctx.messages.getMessage('requestedShipDate')}</th>  -->
+                                                                           </tr>
+                                                                           #foreach( $entry in ${ctx.order.entries} )
+                                                                           <tr style="border-bottom:1px solid #ddd;">
+                                                                                  <td><span>${entry.getProduct().getCode()}</span></br></br>
+                                                                                         <span>
+                                                                                         #if("${entry.getProduct().getName()}" == "" )
+                                                                                     <p style="display:none"></p>
+                                                                                         #else
+                                                                                         ${entry.getProduct().getName()}
+                                                                                         #end</span></br></br>
+                                                                                         #if(${entry.getProduct().getDescription()} && ${entry.getProduct().getDescription()} != "" )
+                                                                                         <p class="color-grey">${ctx.messages.getMessage('description')}</p>
+                                                                                         <p> ${entry.getProduct().getDescription()}<p>
+                                                                                         #end
+                                                                                  </td>
+                                                                                  <td>
+                                                                                  <table style="font-size:12px;vertical-align:top;width:90%;" class="priceTable">
+                                                                                  	<tr>
+                                                                                  		<td class="color-grey">${ctx.messages.getMessage('uom')}  </td>
+                                                                                  		<td class="text-right">#if(${entry.getProduct().getUom()}) ${entry.getProduct().getUom()} #end</td>
+                                                                                  	</tr>
+                                                                                  	<tr>
+                                                                                  		<td class="color-grey">${ctx.messages.getMessage('listPrice')}  </td>
+                                                                                  		<td class="text-right">#if(${entry.getListPrice().getFormattedValue()}) ${ctx.currencySymbol} ${entry.getListPrice().getFormattedValue()} #end </td>
+                                                                                  	</tr>
+                                                                                  	#if(${entry.getSilverClausePrice()} != '' && "${entry.getProductType()}" == "ITFILM" && ${entry.getSilverClausePrice().getValue()} != '0.00')
+	                                                                                  	<tr>
+	                                                                                  		<td class="color-grey">${ctx.messages.getMessage('silverClausePrice')}  </td>
+	                                                                                  		<td class="text-right">
+	                                                                                  			#set ($silverClausePercentage = ${entry.getSilverClausePricePercentage()})
+	                                                                                  			#if(${entry.getSilverClausePrice().getValue()})
+		                                                                                  			#if($silverClausePercentage.contains("-"))
+		                                                                                  				 -
+		                                                                                  			#else
+		                                                                                  			 +
+		                                                                                  			#end
+	                                                                                  			${ctx.currencySymbol} ${entry.getSilverClausePrice().getFormattedValue()}
+	                                                                                  			#end </td>
+	                                                                                  	</tr>
+	                                                                                #end
+                                                                                  	#if(${entry.getVcOptionsPrice()} != '' && ${entry.getVcOptionsPrice().getValue()} != '0.00')
+	                                                                                  	<tr>
+	                                                                                  		<td class="color-grey">${ctx.messages.getMessage('vcOptionsPrice')}  </td>
+	                                                                                  		<td class="text-right">#if(${entry.getVcOptionsPrice().getFormattedValue()}) ${ctx.currencySymbol} ${entry.getVcOptionsPrice().getFormattedValue()} #end </td>
+	                                                                                  	</tr>
+	                                                                                #end
+	                                                                                #if(${entry.getYourPriceDiscount()} != '' && ${entry.getYourPriceDiscount().getValue()} != '0.00')
+	                                                                                  	<tr style="border-top:1px solid #ddd">
+	                                                                                  		<td class="color-grey">${ctx.messages.getMessage('yourPriceDiscount')}</td>
+	                                                                                  		<td class="text-right">#if(${entry.getYourPriceDiscount().getValue()}) -${ctx.currencySymbol} ${entry.getYourPriceDiscount().getFormattedValue()} #end </td>
+	                                                                                  	</tr>
+	                                                                                 #end
+                                                                                  	 #if(${entry.getCouponDiscountStr()})#if(${entry.getCouponDiscountStr()} != '0.00')
+	                                                                                  	<tr>
+	                                                                                  		<td class="color-grey">${ctx.messages.getMessage('couponDiscount')}  </td>
+	                                                                                  		<td class="text-right">-${ctx.currencySymbol} ${entry.getCouponDiscountStr()}  </td>
+	                                                                                  	</tr>
+                                                                                  	#end#end
+                                                                                  	#if(${entry.getShipmentCostStr()})
+                                                                                  	#if(${entry.getIsSameDayShipChecked()} != 'false')
+                                                                                  	<tr>
+                                                                                  		<td class="color-grey">${ctx.messages.getMessage('sdsPrice')}</td>
+                                                                                  		<td class="text-right">${ctx.currencySymbol} ${entry.getShipmentCostStr()} </td>
+                                                                                  	</tr>
+                                                                                  	#end
+                                                                                  	#end
+                                                                                  	<tr style="border-top:1px solid #ddd">
+																					#set ($div = ${entry.getSubTotalListPrice().getFormattedValue()})
+                                                                                  		<td class="color-grey">${ctx.messages.getMessage('subTotalListPrice')}</td>
+                                                                                  		<td class="text-right">#if(${entry.getSubTotalListPrice().getValue()}) ${ctx.currencySymbol} $div #end </td>
+                                                                                  	</tr>
+                                                                                  	<tr style="border-top:1px solid #ddd">
+																						#set ($div = ${entry.getNetSellingPrice().getFormattedValue()})
+                                                                                  		<td class="color-grey">${ctx.messages.getMessage('netSellingPrice')}</td>
+                                                                                  		<td class="text-right">#if(${entry.getNetSellingPrice().getFormattedValue()}) ${ctx.currencySymbol} $div #end </td>
+                                                                                  	</tr>
+                                                                                  </table>
+                                                                                  </td>
+                                                                                  <td>
+                                                                                         <p>${entry.getQuantity()}</p>
+                                                                                  </td>
+                                                                                  <td>
+                                                                                  <p>
+																					#if (!${entry.getIsEngineeringHold()})
+																						#set ($counter = 0)
+                                               											#foreach( $est in $entry.getEstimatedShipDates())
+																							${ctx.messages.getMessage('EstimatedShipDate')}: ${est}
+																							#set ($num = 0)
+																								#foreach( $estQty in $entry.getEstimatedShipQtys())
+																									#if( $counter == $num )
+																										(${ctx.messages.getMessage('Quantity')} ${estQty})<br>
+																									#end
+																									#set ($num = $num + 1)
+																								#end
+																							#set ($counter = $counter + 1)
+  																						#end
+																				 #else
+																					${ctx.messages.getMessage('engineeringHold')}
+																				 #end
+                                                                                  </p>
+                                                                                  <table style="font-size:12px;vertical-align:top;width:80%;">
+                                                                                  	<tr style="border-bottom:1px solid #ddd">
+                                                                                  		<td style="padding:5px 10px 5px 0;"><span><b>${ctx.messages.getMessage('Warehouse')}</b></td>
+                                                                                  		<td style="padding:5px 10px 5px 0;" class="text-right"><span class="text-right"><b>${ctx.messages.getMessage('Inventory')}</b></td>
+                                                                                  	</tr>
+                                                                                  	#if(${entry.getPlantName()})
+                                                                                  	<tr>
+                                                                                  		<td style="padding:5px 10px 5px 0;"><span> #if(${entry.getPlantName()})${entry.getPlantName()}#end </span></td>
+                                                                                  		<td style="padding:5px 10px 5px 0;" class="text-right"><span>#if(${entry.getAvailableQuantity()})${entry.getAvailableQuantity()}#end </span> </td>
+                                                                                  	</tr>
+                                                                                  	#end
+                                                                                  </table>
+                                                                                   </br>
+                                                                               		<p class="color-grey">${ctx.messages.getMessage('requestedShipDate')} </p>
+                                                                                         <span>  #if (!${entry.getRequestedDelvDate()})
+                                                                                  -
+                                                                                  #else
+                                                                                          ${entry.getRequestedDelvDate()}
+                                                                                         #end</span>
+                                                                                  </td>
+                                                                                <!--   <td>
+                                                                                  #if (!${entry.getRequestedDelvDate()})
+                                                                                  -
+                                                                                  <p style="display:none"></p>
+                                                                                  #else
+                                                                                         <p>${entry.getRequestedDelvDate()}</p>
+                                                                                         #end
+                                                                                          <span class="color-grey">${ctx.messages.getMessage('notes')} : </span><span> #if(${entry.getEntryNotes()})${entry.getEntryNotes()} #else - #end </span><br>
+                                                                                  </td>  -->
+                                                                           </tr>
+                                                                           #end
+                                                                     </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                                              <td>
+                                                                    <br>
+                                                                     <center><a href="https://www.gemeasurement.com/sales-terms-and-conditions" class="termsLink">${ctx.messages.getMessage('orderTermsAndConditions')}</a></center>
+                                                              </td>
+                                                       </tr>
+                            </table>
+                            <!-- // END BODY -->
+                        </td>
+                    </tr>
+                    <!-- [* IF NOT Archive Page *] -->
+                    <tr>
+                        <td>
+                            <!-- BEGIN VIEW ONLINE // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                                <tr>
+                                                              <div class="logoContainer">
+                                                                     <img valign="bottom" width="96" src="${ctx.mediaBaseUrl}/_ui/addons/gestorefrontaddon/desktop/common/assets/components/brandkit/img/bhge_lg_gry_rgb_grd.png"> <span>${ctx.messages.getMessage('imaginationAtWork')}</span>
+                                                              </div>
+                                </tr>
+                            </table>
+                            <!-- // END VIEW ONLINE -->
+                        </td>
+                    </tr>
+                    <!-- [* END IF *] -->
+                    <!-- BEGIN FOOTER // -->
+                    <tr>
+                        <td class="footerContent">
+                            <a href="http://www.ge.com/about-us/building">${ctx.messages.getMessage('aboutUs')}</a> &nbsp;
+                                                <a href="http://www.gemeasurement.com/news-and-press">${ctx.messages.getMessage('newsAndEvents')}</a> &nbsp;
+                                                <a href="http://www.gemeasurement.com/case-studies">${ctx.messages.getMessage('caseStudies')} </a> &nbsp;
+                                                <a href="${ctx.secureBaseUrl}/contactus">${ctx.messages.getMessage('contactUs')}</a> &nbsp;
+                                                <a href="http://www.ge.com/privacy"> ${ctx.messages.getMessage('privacy')}</a>&nbsp;
+                                                <a>&copy; ${ctx.messages.getMessage('copyright')}</a>
+                        </td>
+                    </tr>
+                    <tr><td>&nbsp;</td>	 </tr>
+                    <!-- // END FOOTER -->
+                </table>
+                <!-- // END TEMPLATE -->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

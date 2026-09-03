@@ -1,0 +1,27 @@
+<div class="cx-modal-container dialog-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div [innerHTML]="data?.title"></div>
+      <div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="close()" >
+        <i class="material-icons">close</i>
+      </button></div>
+    </div>
+<div class="cx-dialog-body modal-body">
+  <div #contentRef [innerHTML]="data?.content"></div>
+
+  <div class="dialog-actions">
+    <bh-button
+      (click)="dontShowAgain()"
+      label="{{ 'dashboard.dontshowagain' | cxTranslate }}"
+      variant="secondary"
+      size="medium">
+    </bh-button>
+  </div>
+</div>
+</div>
+</div>

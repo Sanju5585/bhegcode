@@ -1,0 +1,784 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container position">
+  <div class="msg success-backgrnd" *ngIf="showSussess">
+    <img src="../../../../assets/img/success_tick.png" />
+    {{ 'contactusPage.successMsg' | cxTranslate }}
+    <img
+      (click)="close('success')"
+      class="close-icon"
+      src="../../../../assets/img/Close.png"
+    />
+  </div>
+</div>
+<div class="container position">
+  <div class="msg warning-backgrnd" *ngIf="showWarning">
+    <img src="../../../../assets/img/warning.png" />
+    {{ 'contactusPage.warningMsg' | cxTranslate }}
+    <img
+      (click)="close('warning')"
+      class="close-icon"
+      src="../../../../assets/img/Close.png"
+    />
+  </div>
+</div>
+<div class="main-wrapper container">
+  <div>
+    <div class="title">
+      <hr class="separator" />
+      {{ 'contactusPage.contactus' | cxTranslate }}
+    </div>
+    <ng-container
+      *ngIf="
+        productLine == _allProductLine.bently ||
+        productLine == _allProductLine.waygate ||
+        loggedIn
+      "
+    >
+      <div class="container">
+        <div class="w-70">
+          <form [formGroup]="contactusForm" class="registration-form-main">
+            <!-- Tag selection -->
+            <div class="tag-row m-bottom" *ngIf="showCustTypeOptn">
+              <label class="tag-label required typography12"
+                >{{ 'contactusPage.custType' | cxTranslate }}
+              </label>
+              <div *ngFor="let cust of custType; let i = index">
+                <label
+                  [ngClass]="{
+                    'tag-group': true,
+                    'tag-group-checked': selectedCustType == i,
+                  }"
+                >
+                  <input
+                    type="radio"
+                    formControlName="custType"
+                    [value]="cust"
+                    (change)="onCustTypeClick(i)"
+                  />
+                  <span>{{ cust }}</span>
+                </label>
+              </div>
+              <div
+                class="requredMsg"
+                *ngIf="
+                  contactusForm.get('requestType').invalid &&
+                  contactusForm.get('requestType').touched
+                "
+              >
+                <span class="errMsgRed">
+                  {{ 'contactusPage.fieldCanNotBeEmpty' | cxTranslate }}
+                </span>
+              </div>
+            </div>
+            <div
+              class="tag-row m-bottom"
+              *ngIf="this.selectedCustType == 1 || !showCustTypeOptn"
+            >
+              <label class="tag-label required typography12"
+                >{{ 'contactusPage.typeOfRequest' | cxTranslate }}
+              </label>
+              <div *ngFor="let req of requestType; let i = index">
+                <label
+                  [ngClass]="{
+                    'tag-group': true,
+                    'tag-group-checked': selectedRequestType == i,
+                  }"
+                >
+                  <input
+                    type="radio"
+                    (change)="onReqTypeClick(i, req.value)"
+                    formControlName="requestType"
+                    [value]="req.value"
+                  />
+                  <span>{{ req.label }}</span>
+                </label>
+              </div>
+              <div
+                class="requredMsg"
+                *ngIf="
+                  contactusForm.get('requestType').invalid &&
+                  contactusForm.get('requestType').touched
+                "
+              >
+                <span class="errMsgRed">
+                  {{ 'contactusPage.fieldCanNotBeEmpty' | cxTranslate }}
+                </span>
+              </div>
+            </div>
+            <div
+              class="form-row"
+              *ngIf="
+                contactusForm.get('requestType').value === ReqType.ORDER ||
+                contactusForm.get('requestType').value === ReqType.RETURN
+              "
+            >
+              <div class="form-group w-100">
+                <label for="requestVal" class="required">
+                  {{
+                    options[contactusForm.get('requestType').value].label
+                      | cxTranslate
+                  }}
+                </label>
+                <input
+                  id="requestVal"
+                  formControlName="requestVal"
+                  class="form-control"
+                  type="text"
+                  [ngClass]="{
+                    errInputFieldRed:
+                      contactusForm.get('requestVal').invalid &&
+                      contactusForm.get('requestVal').touched,
+                  }"
+                  placeholder="{{
+                    options[contactusForm.get('requestType').value].placeholder
+                      | cxTranslate
+                  }}"
+                />
+                <div
+                  *ngIf="
+                    contactusForm.get('requestVal').invalid &&
+                    contactusForm.get('requestVal').touched
+                  "
+                >
+                  <span class="errMsgRed">{{
+                    'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-row"
+              *ngIf="
+                subProductLines.itemGroups[0].items.length > 0 &&
+                selectedCustType == 1
+              "
+            >
+              <div class="form-group w-100">
+                <label class="required">{{
+                  'contactusPage.selectSubproductLine' | cxTranslate
+                }}</label>
+
+                <bh-dropdown
+                  isFluid="true"
+                  isSmall="false"
+                  width="large"
+                  menuWidth="large"
+                  unselectable="false"
+                  [menuItems]="subProductLines"
+                  placeholder="{{
+                    'contactusPage.selectSubProduct' | cxTranslate
+                  }}"
+                  [attr.error]="
+                    contactusForm.get('subProductLine')?.invalid &&
+                    contactusForm.get('subProductLine')?.touched
+                      ? 'empty'
+                      : null
+                  "
+                  (selected)="onChange($event, 'subProductLine')"
+                  isEllipsis="false"
+                  (focusout)="bhDropdownClick('subProductLine')"
+                ></bh-dropdown>
+                <div
+                  *ngIf="
+                    contactusForm.get('subProductLine').invalid &&
+                    contactusForm.get('subProductLine').touched
+                  "
+                >
+                  <span class="errMsgRed">{{
+                    'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <ng-cotainer *ngIf="!this.loggedIn" class="w-100">
+              <div class="form-row wrap">
+                <div class="form-group">
+                  <label for="firstName" class="required">{{
+                    'contactusPage.fname' | cxTranslate
+                  }}</label>
+                  <input
+                    id="firstname"
+                    formControlName="firstName"
+                    class="form-control"
+                    type="text"
+                    [ngClass]="{
+                      errInputFieldRed:
+                        contactusForm.get('firstName').invalid &&
+                        contactusForm.get('firstName').touched,
+                    }"
+                    placeholder="{{ 'contactusPage.enterFName' | cxTranslate }}"
+                  />
+                  <div
+                    *ngIf="
+                      contactusForm.get('firstName').invalid &&
+                      contactusForm.get('firstName').touched
+                    "
+                  >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.firstName.errors?.required"
+                      >{{
+                        'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                      }}</span
+                    >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.firstName.errors?.pattern"
+                      >{{
+                        'contactusPage.pleaseEnterTextOnly' | cxTranslate
+                      }}</span
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName" class="required">{{
+                    'contactusPage.lname' | cxTranslate
+                  }}</label>
+                  <input
+                    id="lastName"
+                    formControlName="lastName"
+                    class="form-control"
+                    type="text"
+                    [ngClass]="{
+                      errInputFieldRed:
+                        contactusForm.get('lastName').invalid &&
+                        contactusForm.get('lastName').touched,
+                    }"
+                    placeholder="{{ 'contactusPage.enterLName' | cxTranslate }}"
+                  />
+                  <div
+                    *ngIf="
+                      contactusForm.get('lastName').invalid &&
+                      contactusForm.get('lastName').touched
+                    "
+                  >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.lastName.errors?.required"
+                      >{{
+                        'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                      }}</span
+                    >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.lastName.errors?.pattern"
+                      >{{
+                        'contactusPage.pleaseEnterTextOnly' | cxTranslate
+                      }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="companyName" class="required">{{
+                    'contactusPage.companyName' | cxTranslate
+                  }}</label>
+                  <input
+                    id="companyName"
+                    formControlName="companyName"
+                    class="form-control"
+                    type="text"
+                    [ngClass]="{
+                      errInputFieldRed:
+                        contactusForm.get('companyName').invalid &&
+                        contactusForm.get('companyName').touched,
+                    }"
+                    placeholder="{{
+                      'contactusPage.enterCompanyName' | cxTranslate
+                    }}"
+                  />
+                  <div
+                    *ngIf="
+                      contactusForm.get('companyName').invalid &&
+                      contactusForm.get('companyName').touched
+                    "
+                  >
+                    <span class="errMsgRed">{{
+                      'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row wrap">
+                <div class="form-group">
+                  <div class="info-icon-align">
+                    <div class="d-flex justify-content-between w-100">
+                      <div class="d-flex">
+                        <label for="email" class="required">{{
+                          'contactusPage.emailId' | cxTranslate
+                        }}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <input
+                    id="email"
+                    formControlName="email"
+                    class="form-control"
+                    autocomplete="false"
+                    [ngClass]="{
+                      errInputFieldRed:
+                        contactusForm.get('email').invalid &&
+                        contactusForm.get('email').touched,
+                    }"
+                    placeholder="{{
+                      'contactusPage.enterEmailId' | cxTranslate
+                    }}"
+                  />
+                  <div
+                    *ngIf="
+                      contactusForm.get('email').invalid &&
+                      contactusForm.get('email').touched
+                    "
+                  >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="contactusForm.get('email').errors?.invalidEmail"
+                    >
+                      {{ 'contactusPage.enterValidEmail' | cxTranslate }}
+                    </span>
+                    <span
+                      class="errMsgRed"
+                      *ngIf="contactusForm.get('email').errors?.required"
+                    >
+                      {{ 'contactusPage.fieldCanNotBeEmpty' | cxTranslate }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phoneNum" class="required">{{
+                    'contactusPage.phoneNumber' | cxTranslate
+                  }}</label>
+                  <input
+                    id="phoneNum"
+                    formControlName="phoneNum"
+                    class="form-control"
+                    type="text"
+                    placeholder="{{
+                      'contactusPage.enterPhoneNumber' | cxTranslate
+                    }}"
+                  />
+                  <div
+                    *ngIf="
+                      contactusForm.get('phoneNum').invalid &&
+                      contactusForm.get('phoneNum').touched
+                    "
+                  >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.phoneNum.errors?.required"
+                      >{{
+                        'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                      }}</span
+                    >
+                    <span
+                      class="errMsgRed"
+                      *ngIf="fc.phoneNum?.errors?.pattern"
+                      >{{
+                        'contactusPage.enterNumbersOnly' | cxTranslate
+                      }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row wrap">
+                <div class="form-group">
+                  <label for="country" class="required">{{
+                    'contactusPage.country' | cxTranslate
+                  }}</label>
+                  <bh-dropdown
+                    searchable
+                    [menuItems]="countryItems"
+                    placeholder="{{
+                      'contactusPage.selectCountry' | cxTranslate
+                    }}"
+                    required="true"
+                    [attr.error]="
+                      contactusForm.get('country')?.invalid &&
+                      contactusForm.get('country')?.touched
+                        ? 'empty'
+                        : null
+                    "
+                    (focusout)="bhDropdownClick('country')"
+                    (selected)="getStateList($event, 'country')"
+                  >
+                  </bh-dropdown>
+                  <div
+                    *ngIf="
+                      contactusForm.get('country').invalid &&
+                      contactusForm.get('country').touched
+                    "
+                  >
+                    <span class="errMsgRed">{{
+                      'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                    }}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="state" class="required">{{
+                    'contactusPage.stateRegion' | cxTranslate
+                  }}</label>
+                  <bh-dropdown
+                    searchable
+                    [menuItems]="stateItems"
+                    placeholder="{{
+                      'contactusPage.selectStateRegion' | cxTranslate
+                    }}"
+                    required="true"
+                    [attr.error]="
+                      contactusForm.get('state')?.invalid &&
+                      contactusForm.get('state')?.touched
+                        ? 'empty'
+                        : null
+                    "
+                    (selected)="onChange($event, 'state')"
+                    (focusout)="bhDropdownClick('state')"
+                  >
+                  </bh-dropdown>
+                  <div
+                    *ngIf="
+                      contactusForm.get('state').invalid &&
+                      contactusForm.get('state').touched
+                    "
+                  >
+                    <span class="errMsgRed">{{
+                      'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Show job role and area of interest to guest new customer only -->
+              <div class="form-row wrap" *ngIf="selectedCustType == 0">
+                <div class="form-group">
+                  <label for="areaInterest" class="required">{{
+                    'contactusPage.areaInterest' | cxTranslate
+                  }}</label>
+                  <bh-dropdown
+                    searchable
+                    [menuItems]="areasOfInterestItems"
+                    placeholder="{{
+                      'contactusPage.selectAreaInterest' | cxTranslate
+                    }}"
+                    required="true"
+                    [attr.error]="
+                      contactusForm.get('areaOfInterest')?.invalid &&
+                      contactusForm.get('areaOfInterest')?.touched
+                        ? 'empty'
+                        : null
+                    "
+                    (selected)="onChange($event, 'areaOfInterest')"
+                    (focusout)="bhDropdownClick('areaOfInterest')"
+                  >
+                  </bh-dropdown>
+                  <div
+                    *ngIf="
+                      contactusForm.get('areaOfInterest').invalid &&
+                      contactusForm.get('areaOfInterest').touched
+                    "
+                  >
+                    <span class="errMsgRed">{{
+                      'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                    }}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="jobRole" class="required">{{
+                    'contactusPage.jobRole' | cxTranslate
+                  }}</label>
+                  <bh-dropdown
+                    searchable
+                    [menuItems]="jobRolesItems"
+                    placeholder="{{
+                      'contactusPage.selectJobRole' | cxTranslate
+                    }}"
+                    required="true"
+                    [attr.error]="
+                      contactusForm.get('title')?.invalid &&
+                      contactusForm.get('title')?.touched
+                        ? 'empty'
+                        : null
+                    "
+                    (selected)="onChange($event, 'title')"
+                    (focusout)="bhDropdownClick('title')"
+                  ></bh-dropdown>
+                  <div
+                    *ngIf="
+                      contactusForm.get('title').invalid &&
+                      contactusForm.get('title').touched
+                    "
+                  >
+                    <span class="errMsgRed">{{
+                      'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-cotainer>
+            <div class="form-row">
+              <div class="form-group w-100">
+                <label for="mktoPersonNotes" class="required">{{
+                  'contactusPage.tellYourQuery' | cxTranslate
+                }}</label>
+                <textarea
+                  id="mktoPersonNotes"
+                  formControlName="mktoPersonNotes"
+                  class="form-control"
+                  type="textarea"
+                  rows="4"
+                  [ngClass]="{
+                    errInputFieldRed:
+                      contactusForm.get('mktoPersonNotes').invalid &&
+                      contactusForm.get('mktoPersonNotes').touched,
+                  }"
+                  placeholder="{{
+                    'contactusPage.writeSomething' | cxTranslate
+                  }}"
+                  maxlength="500"
+                ></textarea>
+                <div
+                  *ngIf="
+                    contactusForm.get('mktoPersonNotes').invalid &&
+                    contactusForm.get('mktoPersonNotes').touched
+                  "
+                >
+                  <span class="errMsgRed">{{
+                    'contactusPage.fieldCanNotBeEmpty' | cxTranslate
+                  }}</span>
+                </div>
+                <div>
+                  <span class="char-count"
+                    >{{ charCount }}/500
+                    {{ 'contactusPage.characters' | cxTranslate }}</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-row"
+              *ngIf="this.selectedCustType === 0 && !loggedIn"
+            >
+              <!-- druckcontact@bakerhughes.com -->
+              <div
+                class="cust-care-link"
+                *ngIf="
+                  productLine == _allProductLine?.waygate ||
+                  productLine == _allProductLine?.bently
+                "
+              >
+                {{ 'contactusPage.sendMail' | cxTranslate }} 
+                <a href="mailto:{{ mailAddress[0] }}" class="contact-link">{{
+                  mailAddress[0]
+                }}</a>
+              </div>
+              <ng-container
+                *ngIf="
+                  productLine == _allProductLine.panametrics ||
+                  productLine == _allProductLine.reuterStokes
+                "
+              >
+                <div class="cust-care-link">
+                  {{ 'contactusPage.reachUsDirectly' | cxTranslate }}
+                  <a
+                    target="_blank"
+                    href="{{ mailAddress[0] }}"
+                    class="contact-link"
+                    >{{ mailAddress[0] }}</a
+                  >
+                </div>
+              </ng-container>
+
+              <ng-container
+                *ngIf="
+                  productLine == _allProductLine?.druck && multiplemailaddress
+                "
+              >
+                <div class="cust-care-link">
+                  {{ 'contactusPage.sendMail' | cxTranslate }} 
+                  <a
+                    href="mailto:{{ multiplemailaddress?.[0] }}"
+                    class="contact-link"
+                    >{{ multiplemailaddress?.[0] }}</a
+                  >,
+                  <a
+                    href="mailto:{{ multiplemailaddress?.[1] }}"
+                    class="contact-link"
+                    >{{ multiplemailaddress?.[1] }}</a
+                  >
+                </div>
+
+                <div class="cust-care-link">
+                  {{ 'contactusPage.reachUsDirectly' | cxTranslate }}
+                  <a
+                    target="_blank"
+                    href="{{ multiplemailaddress?.[2] }}"
+                    class="contact-link"
+                    >{{ multiplemailaddress?.[2] }}</a
+                  >
+                </div>
+              </ng-container>
+            </div>
+            <ng-container *ngIf="this.selectedCustType === 1">
+              <label>{{
+                'contactusPage.additionalDocument' | cxTranslate
+              }}</label>
+              <div class="form-group w-100">
+                <ds-file-upload
+                  label="{{ 'contactusPage.fileUploadButton' | cxTranslate }}"
+                  [maxLength]="1"
+                  [maxSizeInMB]="2"
+                  [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                  (selectedFiles)="selectedFiles($event)"
+                  [showIcon]="showIcon"
+                  [icon]="'backup'"
+                  isDragDrop="true"
+                  multiple="false"
+                  >upload</ds-file-upload
+                >
+
+                <div class="file-list">
+                  <div class="progress-list" *ngIf="files.length > 0">
+                    <span class="material-icons-outlined"> file_copy </span>
+                    <div
+                      class="progress-content"
+                      [ngClass]="uploadSuccess == 'FAILURE' ? 'failure' : ''"
+                    >
+                      <strong class="file-name">{{ files[0]?.name }}</strong>
+
+                      <div
+                        class="progress"
+                        *ngIf="progressInfo && showProgress"
+                      >
+                        <div
+                          class="progress-bar"
+                          [style.width]="progressInfo + '%'"
+                        ></div>
+                      </div>
+                      <div class="file-detail">
+                        {{ getFileSize(files[0]?.size) }}
+                      </div>
+                    </div>
+
+                    <ng-container
+                      *ngIf="
+                        progressInfo &&
+                          showProgress &&
+                          (uploadSuccess == 'FAILURE' ||
+                            uploadSuccess == 'LOADING');
+                        else successScope
+                      "
+                    >
+                      <div class="progress-percent">{{ progressInfo }}%</div>
+                    </ng-container>
+                    <ng-template #successScope>
+                      <span class="material-icons" (click)="removeFile()"
+                        >close</span
+                      >
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group w-100">
+                <span class="fileformat mt-1">
+                  {{ 'waygate.fileFormat' | cxTranslate }}
+                </span>
+              </div>
+            </ng-container>
+            <div class="form-check">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="yes"
+                formControlName="optIn"
+                value="true"
+              />
+              <label for="yes" class="form-check-label">{{
+                'contactusPage.optInYes' | cxTranslate
+              }}</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="no"
+                formControlName="optIn"
+                value="false"
+              />
+              <label for="no" class="form-check-label">{{
+                'contactusPage.optInNo' | cxTranslate
+              }}</label>
+            </div>
+            <div class="form-row terms-conditions">
+              <div
+                for="terms"
+                class="ml-0"
+                [innerHTML]="
+                  'contactusPage.comunucationPreferences' | cxTranslate
+                "
+              ></div>
+            </div>
+            <div class="form-row">
+              <bh-button
+                isSmall="False"
+                Type="Primary"
+                label="{{ 'contactusPage.submit' | cxTranslate }}"
+                isSmall="False"
+                isFluid="True"
+                (click)="onSubmit()"
+                class="mystyle"
+              ></bh-button>
+            </div>
+          </form>
+        </div>
+        <div class="w-30">
+          <div
+            class="cust-care-link"
+            *ngIf="
+              loggedIn &&
+              this.productLine != _allProductLine.waygate &&
+              customerCareUrl
+            "
+          >
+            {{ 'contactusPage.contactCCDirectly' | cxTranslate }}
+            <a [href]="customerCareUrl" target="_blank" class="contact-link"
+              >{{ 'contactusPage.clickHere' | cxTranslate }} &nbsp;
+              <img
+                class="inline-img"
+                alt="img"
+                src="../../../../assets/img/vector-nort-east.svg"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="productLine == _allProductLine.panametrics">
+      <div class="container mt-3 mb-3">
+        <a href="https://www.panametrics.com/contact-us" target="_blank"
+          >Click here!</a
+        >
+      </div>
+    </ng-container>
+    <ng-container *ngIf="productLine == _allProductLine.druck">
+      <div class="container mt-3 mb-3">
+        <a href="https://www.druck.com/contact-us" target="_blank"
+          >Click here!</a
+        >
+      </div>
+    </ng-container>
+    <ng-container *ngIf="productLine == _allProductLine.reuterStokes">
+      <div class="container mt-3 mb-3">
+        <a href="https://www.reuter-stokes.com/contact-us" target="_blank"
+          >Click here!</a
+        >
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="spinner-overlay" *ngIf="isLoading">
+  <cx-spinner></cx-spinner>
+</div>

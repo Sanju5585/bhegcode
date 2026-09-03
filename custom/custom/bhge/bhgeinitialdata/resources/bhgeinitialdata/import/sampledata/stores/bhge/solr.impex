@@ -1,0 +1,67 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$classSystemVersion=systemVersion(catalog(id[default='ERP_CLASSIFICATION_HYB']),version[default='ERP_IMPORT'])
+$classCatalogVersion=catalogVersion(catalog(id[default='ERP_CLASSIFICATION_HYB']),version[default='ERP_IMPORT'])
+$classAttribute=classificationAttribute(code,$classSystemVersion)
+$classClass=classificationClass(code,$classCatalogVersion)
+$classAttributeAssignment=classAttributeAssignment($classClass,$classAttribute,$classSystemVersion)
+$productCatalog=bhgeProductCatalog
+$productCatalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$solrIndexedType=bhgeProductType
+
+#
+# Add additional indexed properties for the classification features that we want to index
+#
+
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];facet[default=false];facetType(code);facetSort(code);priority;visible;fieldValueProvider;customFacetSortProvider;rangeSets(name)
+;$solrIndexedType;Colour of product, 1766;string;; ;true; ;true;MultiSelectOr;Alpha;1000;true;classificationPropertyValueProvider;
+
+# Import classification features
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];multiValue[default=false];fieldValueProvider;$classAttributeAssignment
+#;$solrIndexedType;feature-powersupply   ;text;true;false;commerceClassificationPropertyValueProvider;4671:::Power supply type, 514::::
+
+# Show the classification features in the product lister
+INSERT_UPDATE ClassAttributeAssignment;$classClass[unique=true];$classAttribute[unique=true];$classSystemVersion[unique=true];listable
+#;4671;Power supply type, 514;;true
+
+INSERT_UPDATE SolrCategoryRedirect;redirectItem(code,$productCatalogVersion)[unique=true]
+#;1360
+#;1595
+
+# Non-facet search query properties
+INSERT_UPDATE SolrSearchQueryProperty;indexedProperty(name, solrIndexedType(identifier))[unique=true];searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType];facet;ftsPhraseQuery[default=false];ftsPhraseQueryBoost;ftsQuery[default=false];ftsQueryBoost;ftsFuzzyQuery[default=false];ftsFuzzyQueryBoost;ftsWildcardQuery[default=false];ftsWildcardQueryType(code)[default=POSTFIX];ftsWildcardQueryBoost;ftsWildcardQueryMinTermLength;includeInResponse[default=true]
+#;feature-powersupply:$solrIndexedType	;	 ;	  ;    ;   ;    ;  ;    ;   ;  ;       ;  ;
+
+# Facet search query properties
+INSERT_UPDATE SolrSearchQueryProperty;indexedProperty(name, solrIndexedType(identifier))[unique=true];facet[default=true];facetType(code);priority;facetDisplayNameProvider;facetSortProvider;facetTopValuesProvider;includeInResponse[default=true];searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType]
+;Colour of product, 1766:$solrIndexedType;;MultiSelectOr;1000;;;;;
+
+#moved this from Core data to Sample data this impex is failing to execute during init/update as ECOM_LVL4_00000099 category is not available at that time.
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];multiValue[default=true];fieldValueProvider;$classAttributeAssignment
+;$solrIndexedType;feature-frequency   ;string;true;true;bhgeProductFeaturesValueProvider;ECOM_LVL4_00000099:::UTProbes Frequency::::
+;$solrIndexedType;feature-elementSize   ;string;true;true;bhgeProductFeaturesValueProvider;ECOM_LVL4_00000099:::UTProbes Element Size::::
+
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName;type(code);facet[default=true];facetType(code);localized[default=false];multiValue[default=true];topValuesProvider;fieldValueProvider;$classAttributeAssignment
+;$solrIndexedType;UTProbes Element Size;Element Size;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::UTProbes Element Size::::
+;$solrIndexedType;UTProbes Family Name;Family Name;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::UTProbes Family Name::::
+;$solrIndexedType;UTProbes Bandwidth;Bandwidth;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::UTProbes Bandwidth::::
+;$solrIndexedType;UTProbes Frequency;Frequency;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::UTProbes Frequency::::	
+;$solrIndexedType;UTProbes tipdiameter;Tip Diameter;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes tipdiameter::::
+;$solrIndexedType;UTProbes configuration;Configuration;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes configuration::::	
+;$solrIndexedType;UTProbes tipshape;Tip Shape;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes tipshape::::	
+;$solrIndexedType;UTProbes tiplength;Tip Length;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes probelength::::	
+;$solrIndexedType;UTProbes probelength;Probe Diameter IN;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes probediameterin::::	
+;$solrIndexedType;UTProbes cablelength;Probe Length;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes probelength::::	
+;$solrIndexedType;UTProbes probediameterin;Cable Length;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL5_00000283:::UTProbes cablelength::::	
+;$solrIndexedType;UTProbes generaldimensions;General Dimensions;string;;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::UTProbes generaldimensions::::	
+;$solrIndexedType;guest_user;;string;false;MultiSelectOr;;true;defaultTopValuesProvider;bhgeClassAttributeValueProvider;ECOM_LVL4_00000099:::guest_user::::
+	
+#General Dimensions

@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+
+#######################
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into Powertools Store 
+
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$erp_catalogVersion = catalogversion(catalog(id[default=ERP_CLASSIFICATION_HYB]),version[default='ERP_IMPORT'])
+$thumbnail=thumbnail($erp_catalogVersion,code)
+$picture=picture($erp_catalogVersion,code)
+$erp_default = ERP_CLASSIFICATION_HYB:ERP_IMPORT
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/productCatalogs/$productCatalog
+$lang=de
+
+UPDATE Category;code[unique=true];$catalogVersion;description[lang=$lang]
+ClassificationClass;ECOM_LVL0_00000000;$erp_default;Diese Website macht es einfach und leicht, Produkte für die zerstörungsfrei Prüfung sowie Mess- und Sensorprodukte auszuwählen. Es gibt verschiedene Möglichkeiten, die Produkte zu finden, die Ihren Bedürfnissen am besten entsprechen.
+ClassificationClass;ECOM_LVL1_00000001;$erp_default;Der weltweit größte Anbieter von Lösungen für die zerstörungsfreie Prüfung, einschließlich Radiographie, Computertomographie (CT), visuelle Inspektion, Ultraschall- und elektromagnetische Prüfgeräte. Von hochmodernen Prüfgeräten über die fortschrittlichste Datenerfassungstechnologie bis hin zu innovativer Software, die eine Zusammenarbeit aus der Ferne ermöglicht, können die ZfP-Experten von BHGE eine Prüflösung für die anspruchsvollsten Anwendungen entwickeln und herstellen.
+ClassificationClass;ECOM_LVL1_00000002;$erp_default;Fortschrittliche Fertigungs- und digitale Industrieanwendungen erfordern präzise Betriebsdaten und nahtlose Konnektivität. Die fortschrittlichen Steuerungs-, Mess- und Messtechnologien von BHGE liefern wichtige Daten, wann und wo es darauf ankommt. Dank jahrzehntelanger industrieller Erfahrung in den rauesten Umgebungen der Welt können Sie sich darauf verlassen, dass Ihre Geräte auch unter extremen Bedingungen zuverlässig funktionieren. Wenn jeder Prozentpunkt Millionen wert ist, zahlt es sich aus, die richtige Wahl zu treffen.
+ClassificationClass;ECOM_LVL2_00000003;$erp_default;Die Site ermöglicht die einfache und einfache Auswahl von Ultraschallsonden und Ultraschallwandlern, die für zerstörungsfreie Prüfungen (NDT) verwendet werden. Es gibt vier Möglichkeiten, die Ultraschallsonden und -wandler zu finden, die Ihren Bedürfnissen am besten entsprechen. Egal, ob Sie ein Neuling auf dem Gebiet oder ein NDT-Experte sind, diese einfach zu navigierende Website vereinfacht die Auswahl von mehr als 600 Standard-Ultraschallsonden und -wandlern, die BHGE anbietet.
+ClassificationClass;ECOM_LVL3_00000021;$erp_default;Mit den praktischen und leistungsstarken Ultraschall-Wanddickensonden lösen Sie eine Vielzahl von Inspektionsaufgaben. Wir bieten beispielsweise Korrosionssonden mit Zwei-Element-Aufnehmern für die Primärinspektion der verbleibenden Wände von Komponenten wie Öl- und Gasleitungen, Kraftdruckbehälter an , Lagertanks und zahlreiche andere Anwendungen. Präzisionssonden mit Einelement-Messumformern bieten die geringste Reichweite und höchste Genauigkeit. Zu den häufigsten Anwendungen gehören Metalle und eine Vielzahl von Nichtmetallen (d. H. Glas, Keramik, Kunststoff usw.). Aufgrund der Vielfalt unserer Sonden und Instrumente können wir die beste Lösung für Ihre spezifische Anwendung anbieten.
+ClassificationClass;ECOM_LVL3_00000019;$erp_default;New materials, manufacturing processes and joining technologies require ultrasonic special probes. GE offers numerous ultrasonic probes for the testings of laserwelds, spotwelds, rails, axles, tubes, gas bottles, billets and others using immersion, water jet, dry or standard coupling methods.
+ClassificationClass;ECOM_LVL3_00000020;$erp_default;GE fertigt eine Vielzahl von phased array Ultraschallwandlern für den Einsatz mit Phasor XS und anderen Ultraschallprüfgeräten. 33 Standard-Ultraschallwandler mit phasengesteuerter Anordnung decken ein breites Anwendungsspektrum ab und sind mit kurzen Lieferzeiten vorrätig. Alle diese Sonden bieten drei Anschlussoptionen und werden gemäß den hohen Qualitätsstandards von GE hergestellt.

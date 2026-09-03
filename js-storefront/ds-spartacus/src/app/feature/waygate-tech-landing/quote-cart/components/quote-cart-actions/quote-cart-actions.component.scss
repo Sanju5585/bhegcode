@@ -1,0 +1,161 @@
+.waygate-cart-container {
+  .waygate-cart-action {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    .action-green-border {
+      border-top: 2px solid #02a783;
+      width: 60px;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: #121212;
+    }
+  }
+  .waygate-cart-action-content {
+    height: 42px;
+    // display: flex;
+    // justify-content: space-between;
+    font-family: Poppins;
+
+    .waygate-cart-shipment-preference {
+      display: flex;
+      align-items: center;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 400;
+      .waygate-cart-shipment-preference-text {
+        width: 304px;
+        height: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: left;
+        color: hsl(0, 0%, 0%);
+        .vs-tooltip-icon {
+          width: 0px;
+          height: 10px;
+          &::before {
+            font-family: var(--font-base-font-family-icon);
+            content: 'info' !important;
+            font-size: 18px;
+            color: #1a2321;
+            position: relative;
+            left: 280px;
+            top: -25px;
+          }
+          .vs-tooltip {
+            visibility: hidden;
+            position: relative;
+            top: -25px;
+            left: 17rem;
+            max-width: 250px;
+            width: 250px;
+            min-height: 34px;
+            align-items: center;
+            padding: 8px 12px;
+            background: #212121;
+            opacity: 0.9;
+            border-radius: 4px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.25px;
+            color: #ffffff;
+            z-index: 1;
+          }
+        }
+
+        .vs-tooltip-icon:hover .vs-tooltip {
+          visibility: visible;
+        }
+      }
+
+      .waygate-cart-radio-btn {
+        display: flex;
+        gap: 1rem;
+
+        input[type='radio']:checked:after {
+          color: #02a783;
+        }
+      }
+    }
+    .waygate-cart-action-options {
+      width: 412px;
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 15px;
+      .waygate-cart-action-option {
+        .waygate-cart-action-option-text {
+          font-size: 12px;
+          font-weight: 600;
+          text-align: right;
+          color: #595959;
+        }
+        .action-links {
+          text-decoration: none;
+        }
+
+        .action-option-icon {
+          position: relative;
+          top: -32px;
+          left: 10px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+:host::ng-deep .bh-button--type-secondary span {
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  color: #595959;
+}
+.ds-datepicker {
+  margin-top: -22px;
+  label {
+    margin-left: 15px;
+    //styleName: 🖌 Label / Small;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.25px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #121212;
+  }
+  label:after {
+    content: ' *';
+    color: red;
+  }
+
+  [type='date'] {
+    background: #fff
+      url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)
+      95% 50% no-repeat;
+  }
+  [type='date']::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+
+  input {
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 3px 5px;
+    width: 150px;
+    height: 36px;
+    text-transform: uppercase;
+  }
+}

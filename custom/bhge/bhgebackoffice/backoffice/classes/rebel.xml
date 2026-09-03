@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://www.zeroturnaround.com">
+  <classpath>
+    <dir name="C:\installers\local\hyb\hybris\bin\custom\bhge\bhgebackoffice/backoffice/classes" />
+  </classpath>
+</application>

@@ -1,0 +1,37 @@
+package com.bhge.core.scpi.rfc.zmataccessories;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+import lombok.ToString;
+
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JacksonXmlRootElement(localName ="item")
+@JsonPropertyOrder({"MATNR", "ZZSRV_OFF"})
+public class ITMATOfferingItem {
+
+	@JacksonXmlProperty(localName="MATNR")
+    private String materialNumber;
+    @JacksonXmlProperty(localName="ZZSRV_OFF")
+    private String serviceOffering;
+
+    public String getMaterialNumber() {
+		return materialNumber;
+	}
+	public void setMaterialNumber(String materialNumber) {
+		this.materialNumber = materialNumber;
+	}
+	public String getServiceOffering() {
+		return serviceOffering;
+	}
+	public void setServiceOffering(String serviceOffering) {
+		this.serviceOffering = serviceOffering;
+	}
+
+}

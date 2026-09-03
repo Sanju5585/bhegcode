@@ -1,0 +1,299 @@
+.equipment-details-wrap {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.equipment-text {
+  font-family: var(--font-base-font-family-decorative);
+  font-weight: 600;
+  font-style: normal;
+  font-size: 36px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 50px;
+}
+.box-title {
+  font-family: var(--font-family-headline-large);
+  font-weight: 800;
+  font-size: var(--font-size-title-small);
+  line-height: var(--font-line-height-title-medium);
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+}
+
+.price-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 150px;
+}
+
+.price-row-two {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 150px;
+  margin-top: 20px;
+}
+
+.list-price {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.list-data {
+  font-family: var(--font-family-body-medium);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  word-break: break-word;
+}
+.button {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 150px;
+}
+
+.reset-button .reset .bh-button {
+  float: left;
+  min-width: 164px;
+  margin-left: 15%;
+  height: 36px;
+  border-color: var(--color-base-teal-500);
+  border-style: solid;
+  border-width: unset;
+}
+
+.reset-button .reset span {
+  font-family: var(--font-family-button-link-medium);
+  font-style: normal;
+  font-weight: var(--font-base-font-weight-semibold);
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-line-height-button-link-small);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.1px;
+  text-transform: var(--font-base-text-transform-uppercase);
+  color: #1a2321;
+}
+
+.track-button .track .bh-button {
+  width: 149px;
+  height: 36px;
+  background: #ebefee;
+}
+
+.track-button .track-green .bh-button {
+  background: var(--color-base-teal-500);
+}
+
+.track-button .track-green span {
+  color: #ffffff !important;
+}
+
+.track-button .track span {
+  font-family: var(--font-family-headline-large);
+  font-style: normal;
+  font-weight: var(--font-weight-button-link-medium);
+  font-size: var(--font-size-button-link-small);
+  line-height: var(--font-line-height-button-link-small);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.1px;
+  text-transform: var(--font-base-text-transform-uppercase);
+  color: #ced7d4;
+}
+
+.dd-label {
+  font-weight: bold;
+  font-size: var(--font-size-body-medium);
+}
+
+.equipment-img {
+  max-width: 100%;
+}
+
+.copy-paste-box {
+  box-sizing: border-box;
+  margin-top: 15px;
+  resize: none;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+:host::ng-deep {
+  .bh-text-input {
+    label {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1a2321;
+      border-radius: 3px;
+      font-weight: var(--font-base-font-weight-semibold);
+    }
+    input {
+      border-radius: 5px;
+      height: 35px;
+    }
+  }
+}
+
+:host::ng-deep {
+  .bh-dropdown {
+    label {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1a2321;
+      border-radius: 3px;
+      font-weight: var(--font-base-font-weight-semibold);
+    }
+    .bh-dropdown__input {
+      border-radius: 5px;
+      height: 35px;
+      margin-top: -1px;
+    }
+  }
+}
+
+.back-link-wrap {
+  max-width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.back-link {
+  font-family: var(--font-family-body-medium);
+  font-size: var(--font-base-font-size-14);
+  font-style: normal;
+  font-weight: var(--font-weight-body-medium);
+}
+
+:host::ng-deep .salesarea-dd .bh-dropdown__input {
+  width: 100%;
+  height: 35px;
+}
+:host::ng-deep .bh-dropdown {
+  width: 100% !important;
+}
+:host::ng-deep .salesarea-dd .bh-dropdown__menu-container.flipped {
+  top: 55px;
+  bottom: 0px;
+}
+:host::ng-deep .salesarea-dd .bh-menu__li-label {
+  white-space: break-spaces;
+}
+:host::ng-deep {
+  .bh-text-input__input,
+  .bh-text-area__input {
+    height: 45px;
+    width: 100%;
+  }
+  .bh-menu__container.width--large {
+    width: 100%;
+  }
+  .bh-dropdown__value {
+    width: 100%;
+    padding-top: 7px;
+  }
+  .bh-text-area__input {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+  }
+  .bh-text-input__required::before {
+    color: var(--color-fill-cta-critical-default);
+    content: '* ';
+  }
+  .bh-text-input__required::after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .bh-dropdown__required::before {
+    color: var(--color-fill-cta-critical-default);
+    content: '* ';
+  }
+  .bh-dropdown__required::after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .date-picker .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .date-picker .date-picker-input {
+    width: 100% !important;
+    margin-top: 5px;
+  }
+}
+
+.vs-tooltip {
+  background-color: var(--color-base-teal-500);
+}
+.mat-tooltip-trigger {
+  position: absolute;
+  top: 2px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.tooltip-info {
+  left: 85px;
+}
+
+.tooltip-info-two {
+  left: 160px;
+}
+
+:host::ng-deep .reset-button bh-button {
+  display: inline-block;
+  margin-right: 17px;
+  margin-bottom: 10px;
+}
+
+.currently-loading-spinner {
+  margin: 0 auto;
+}
+
+:host::ng-deep .save-changes-button .bh-button {
+  display: inline-block;
+}
+
+:host::ng-deep .typography--icon-medium {
+  color: #02a783;
+}
+
+:host::ng-deep .track .typography--icon-medium {
+  color: #ffffff;
+}
+
+:host::ng-deep .bh-dropdown__label .typography--label-small {
+  margin-top: 15px;
+}
+
+.textRed {
+  color: #cb6e17;
+}
+
+:host::ng-deep .save-changes .bh-button {
+  min-width: 203px;
+  display: inline !important;
+}
+
+:host::ng-deep .cancel .bh-button {
+  min-width: 149px;
+  display: inline !important;
+}
+
+:host::ng-deep .reset-button .archive-button .bh-button {
+  min-width: 164px;
+  display: inline !important;
+}
+.button-align {
+  margin-right: 43px;
+}

@@ -1,0 +1,39 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+$emailPackageName=$config-emailContextPackageName
+
+# Language
+$lang=en
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true]					;name									;active		;frontendTemplateName		;subject(code)									;htmlTemplate(code)							;restrictedPageTypes(code)
+                               ;					   ;QuoteCreationEmailTemplate	;Quote Replication Email Template	;true		;quoteCreationEmail	;bhge_Email_quote_creation_Subject		;bhge_Email_quote_creation_Body		;EmailPage
+                               ;					   ;QuoteConversionEmailTemplate	;Quote Conversion Email Template	;true		;quoteConversionEmail	;bhge_Email_quote_conversion_Subject		;bhge_Email_quote_conversion_Body		;EmailPage
+
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true]						;contextClass										;rendererType(code)[default='velocity']
+                              ;bhge_Email_quote_creation_Body	;$emailPackageName.BHGEQuoteCreationEmailContext
+                              ;bhge_Email_quote_creation_Subject	;$emailPackageName.BHGEQuoteCreationEmailContext
+                              ;bhge_Email_quote_conversion_Body	;$emailPackageName.BHGEQuoteConversionEmailContext
+                              ;bhge_Email_quote_conversion_Subject	;$emailPackageName.BHGEQuoteConversionEmailContext
+
+
+# CMS components and Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true]							;description[lang=$lang]							;templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];rendererType(code)[default='velocity']
+                              ;bhge_Email_quote_creation_Body		;"Quote Replication Email Body Template"		;$emailResource/email-quoteCreateBody.vm
+                              ;bhge_Email_quote_creation_Subject		;"Quote Replication Email Subject Template"		;$emailResource/email-quoteCreateSubject.vm
+                              ;bhge_Email_quote_conversion_Body		;"Quote Conversion Email Body Template"		;$emailResource/email-quoteConversionBody.vm
+                              ;bhge_Email_quote_conversion_Subject		;"Quote Conversion Email Subject Template"		;$emailResource/email-quoteConversionSubject.vm
+
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true]			;name							;masterTemplate(uid,$contentCV)			;defaultPage;approvalStatus(code)[default='approved'];fromEmail;FromName
+                       ;					   ;quoteCreationEmail	;Quote Replication Email	;QuoteCreationEmailTemplate		;true		;										 ;SVC-NonProd-DSStore@bakerhughes.com;Baker Hughes
+                       ;					   ;quoteConversionEmail	;Quote Conversion Email	;QuoteConversionEmailTemplate		;true		;										 ;SVC-NonProd-DSStore@bakerhughes.com;Baker Hughes

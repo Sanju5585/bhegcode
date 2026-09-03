@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "Учебные документы",
+    "sortBy": "Сортировать по",
+    "searchInDocs": "Search in Training Documents",
+    "name": "Имя",
+    "dateModified": "Дата изменена",
+    "noRecordFound": "No Record Found",
+    "view": "Вид"
+  }
+}

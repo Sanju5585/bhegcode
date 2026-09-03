@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "Training Documents",
+    "sortBy": "Sort By",
+    "searchInDocs": "Search in Training Documents",
+    "name": "Name",
+    "dateModified": "Date modified",
+    "noRecordFound": "No Record Found",
+    "view": "View"
+  }
+}

@@ -1,0 +1,172 @@
+.identify-equipment {
+  font-family: var(--font-family-body-medium);
+  border: 1px solid var(--color-base-earth-100);
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 18px 2.4rem 2rem;
+  .page-title {
+    margin-bottom: 18px !important;
+    h3 {
+      font-weight: 600;
+      font-size: var(--font-size-body-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+  .equipment-label {
+    font-size: var(--font-size-body-small-semi-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1px;
+  }
+  .equipment-radio {
+    padding: 1rem 0;
+    display: flex;
+    max-width: 20rem;
+  }
+  .equipment-radio > * {
+    flex: 1 1 100%;
+  }
+  .selected-serial-number {
+    display: flex;
+    align-items: center;
+    .serial-number-dropdown {
+      position: relative;
+      z-index: 1000;
+      height: auto;
+      top: 0px;
+      border: 0;
+      width: 360px;
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        font-size: var(--font-size-body-medium);
+        position: absolute;
+        top: 1px;
+        background-color: #fff;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: -5px 0 5px -5px #ccc;
+        border: 1px solid #ddd;
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 0px;
+        li {
+          list-style: none;
+          height: 35px;
+          z-index: 1000;
+          border: 0;
+          padding: 8px 10px;
+          &:hover {
+            cursor: pointer;
+            background-color: var(--color-base-teal-050);
+          }
+        }
+      }
+    }
+    .material-icons-outlined {
+      color: var(--color-fill-avatar-primary);
+    }
+  }
+}
+
+.required {
+  color: var(--color-fill-cta-critical-default);
+}
+
+.selected-product {
+  display: flex;
+  gap: 4em;
+  .selcted-product-part-number {
+    display: flex;
+    align-items: center;
+    .selected-product-image {
+      width: 4rem;
+      height: 4rem;
+    }
+    .selected-product-name {
+      width: 16em;
+      align-self: center;
+      height: 3em;
+      display: flex;
+      border: none;
+      border-bottom: 2px solid var(--color-border-form-focused);
+    }
+    .material-icons {
+      left: -1.25rem;
+      align-self: center;
+      position: relative;
+      cursor: pointer;
+    }
+    .material-icons-outlined {
+      color: var(--color-fill-avatar-primary);
+      align-self: center;
+    }
+  }
+  .serial-label {
+    margin-bottom: 1.25em;
+  }
+  .serial-number-label {
+    margin-bottom: 1em;
+  }
+  .error-message {
+    color: var(--color-fill-cta-critical-default);
+  }
+}
+
+.rma-form-side-loader {
+  width: 24px;
+  height: 24px;
+}
+
+:host::ng-deep {
+  .selected-serial-number .serial-num-input .bh-text-input {
+    &__input {
+      width: 100%;
+    }
+  }
+  .bh-radio-button {
+    color: var(--color-base-teal-800) !important;
+  }
+  .multi-serial-no {
+    display: flex;
+    align-items: baseline;
+    &--textarea.bh-text-area {
+      max-height: 130px;
+      .bh-text-area__input {
+        width: 100%;
+      }
+      .bh-form-message {
+        display: none;
+      }
+    }
+    .bh-form-message {
+      color: #cb6e17;
+    }
+  }
+  .bh-radio-button__label {
+    font-family: var(--font-family-body-medium-semi-bold);
+    color: var(--color-text-common-primary);
+    font-weight: var(--font-weight-body-medium-semi-bold);
+  }
+  .bh-radio-button__input-icon {
+    border: 1px solid #595959;
+  }
+  .bh-radio-button__input:checked > .bh-radio-button__input-icon::before {
+    background-color: var(--color-base-teal-800) !important;
+    .bh-radio-button__label {
+      color: var(--color-base-teal-800) !important;
+    }
+    .bh-radio-button__input-icon {
+      border-color: var(--color-base-teal-800) !important;
+    }
+  }
+  .bh-radio-button__input:checked ~ .bh-radio-button__label {
+    color: var(--color-base-teal-800) !important;
+    font-weight: var(--font-base-font-weight-semibold);
+  }
+}
+
+.mb-4 {
+  margin-bottom: 18px !important;
+}

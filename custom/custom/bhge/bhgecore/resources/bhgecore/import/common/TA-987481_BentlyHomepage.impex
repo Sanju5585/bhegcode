@@ -1,0 +1,34 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+                          ;;BentlyHomepageTemplate;Bently Home Page Template;layout/landingLayout2Page;ContentPage
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)
+                         ;;BentlyHomepage;Cordant Home Page;BentlyHomepageTemplate;cordant
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='BentlyHomepageTemplate'];validComponentTypes(code);compTypeGroup(code)
+                             ;SiteLogo;;;logo
+                             ;HeaderLinks;;;headerlinks
+                             ;SearchBox;;;searchbox
+                             ;MiniCart;;;minicart
+                             ;NavigationBar;;;navigation
+                             ;BodyContent;;;wide
+                             ;Footer;;;footer
+                             ;TopHeaderSlot;;;wide
+                             ;BottomHeaderSlot;;;wide
+                             ;PlaceholderContentSlot;;;
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='BentlyHomepageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+                                    ;;SiteLogo-BentlyHomepage;SiteLogo;;SiteLogoSlot;true
+                                    ;;HomepageLink-BentlyHomepage;HomepageNavLink;;HomepageNavLinkSlot;true
+                                    ;;NavigationBar-BentlyHomepage;NavigationBar;;NavigationBarSlot;true
+                                    ;;MiniCart-BentlyHomepage;MiniCart;;MiniCartSlot;true
+                                    ;;Footer-BentlyHomepage;Footer;;FooterSlot;true
+                                    ;;HeaderLinks-BentlyHomepage;HeaderLinks;;HeaderLinksSlot;true
+                                    ;;SearchBox-BentlyHomepage;SearchBox;;SearchBoxSlot;true
+                                    ;;TopHeaderSlot-BentlyHomepage;TopHeaderSlot;;TopHeaderSlot;true
+                                    ;;BottomHeaderSlot-BentlyHomepage;BottomHeaderSlot;;BottomHeaderSlot;true
+                                    ;;PlaceholderContentSlot-BentlyHomepage;PlaceholderContentSlot;;PlaceholderContentSlot;true

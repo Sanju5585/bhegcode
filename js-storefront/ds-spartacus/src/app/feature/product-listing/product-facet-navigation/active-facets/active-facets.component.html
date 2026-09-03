@@ -1,0 +1,16 @@
+<ng-container *ngIf="activeProductType">
+  <a class="pl-3 pr-3">
+    <span class="m-0">{{ activeProductType.name }}</span>
+  </a>
+</ng-container>
+<ng-container *ngIf="facetList$ | async as facetList">
+  <a
+    *ngFor="let facet of facetList?.activeFacets"
+    routerLink="./"
+    [queryParams]="getLinkParams(facet)"
+    [cxFocus]="getFocusKey(facetList, facet)"
+  >
+    <span>{{ facet.facetValueName }}</span>
+    <i class="material-icons">clear</i>
+  </a>
+</ng-container>

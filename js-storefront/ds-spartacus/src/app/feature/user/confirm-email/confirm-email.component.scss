@@ -1,0 +1,29 @@
+.reg-conf-template {
+  text-align: center;
+  .email-title-header {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    h2 {
+      margin-bottom: 0;
+    }
+    .success {
+      color: var(--color-text-label-success);
+    }
+    .failure {
+      color: var(--color-fill-cta-critical-default);
+    }
+    .info {
+      color: var(--color-fill-semantic-info-default);
+    }
+    .warning {
+      color: var(--color-text-label-warning);
+    }
+  }
+  .email-body-content {
+    padding: 30px 0;
+    font-size: 16px;
+  }
+}

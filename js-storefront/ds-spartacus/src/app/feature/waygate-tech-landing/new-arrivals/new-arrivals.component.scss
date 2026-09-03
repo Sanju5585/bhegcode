@@ -1,0 +1,145 @@
+@import '../../../../styles/responsive_mixins.scss';
+.new-arrival {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.new-arrival-label {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: #1f1f1f;
+}
+
+.new-arrival-main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 19px;
+}
+
+.arrival-img-1 {
+  height: 172px;
+  border: 1px solid #cccccc;
+  flex: 1;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.arrival-img-2 {
+  height: 172px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.img-header-text {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: poppins;
+  padding: 14px 0px 8px 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+}
+
+.part-number {
+  // padding-bottom: 10px;
+  color: #595959;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.part-desc {
+  margin-bottom: 10px;
+  color: #595959;
+  font-size: 12px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 20px;
+}
+
+.part-price {
+  color: #595959;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.custom-arrival-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.new-arrivals-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: center;
+  .header-green-border {
+    border-top: 2px solid #02a783;
+    width: 60px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #121212;
+  }
+}
+
+.arrival-wrapper {
+  flex: 1;
+}
+
+@include media-sm-min {
+  .arrival-img-1 {
+    height: 312px;
+  }
+
+  .arrival-img-2 {
+    height: 312px;
+  }
+}
+
+@include media-lg-min {
+  .new-arrival-main {
+    flex-direction: row;
+  }
+  .new-arrivals-header {
+    h1 {
+      font-size: 30px;
+    }
+  }
+
+  .img-header-text {
+    font-size: 18px;
+  }
+
+  .part-number {
+    font-size: 14px;
+  }
+
+  .part-desc {
+    font-size: 14px;
+  }
+  .part-price {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,212 @@
+<!-- [formGroup]="productForm" -->
+<section class="product-container-section">
+  <div
+    class="product-description pb-3"
+    [ngClass]="
+      showHeader
+        ? !isexpandProductDesc
+          ? 'product-open no-border'
+          : 'product-close no-border'
+        : ''
+    "
+  >
+    <div class="main-product">
+      <div *ngIf="showHeader" class="product-info cart-header">
+        <div class="product-image-col col-6 pl-5">
+          <span>{{ 'rma-cart.product' | cxTranslate }}</span>
+        </div>
+        <div class="product-info-col col-1 qty-header">
+          <span>{{ 'rma-cart.quantity' | cxTranslate }}</span>
+        </div>
+        <div class="product-info-col col-2">
+          <span>{{ 'rma-cart.price' | cxTranslate }}</span>
+        </div>
+        <div class="product-image-col col-2">
+          <span>{{ 'rma-cart.returnToLocation' | cxTranslate }}</span>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <div class="product-description--header">
+        <div class="product-description--header-title">
+          <div>
+            <bh-checkbox
+              class="product-checkbox"
+              label=""
+              name="delete-product-check-box"
+              value="{{ true }}"
+              [attr.checked]="productSelected"
+              (click)="$event.stopPropagation()"
+              (change)="checkProduct($event)"
+              autofocus
+            ></bh-checkbox>
+          </div>
+          <div class="details-holder">
+            <span class="part-details partname overflow-ellipsis mr-2">{{
+              product?.partName
+            }}</span>
+            <span class="divider">|</span>
+            <span class="part-details partnumber overflow-ellipsis ml-2">{{
+              product?.partNumber
+            }}</span>
+          </div>
+          <div class="pointer clone-rma" (click)="cloneRma()">
+            <span class="material-icons">file_copy</span>
+            <span>{{ 'rma-cart.cloneRma' | cxTranslate }}</span>
+          </div>
+        </div>
+        <div class="product-description--header-title">
+          <div *ngIf="showSpinner">
+            <div class="rma-form-side-loader side-loader cx-spinner">
+              <cx-spinner>{{ 'rma-cart.loading' | cxTranslate }}</cx-spinner>
+            </div>
+          </div>
+          <div
+            class="green pointer"
+            (click)="editRma()"
+            [ngClass]="
+              product.offeringList?.length <= 0 ? 'error-repeatRma' : ''
+            "
+          >
+            <span class="material-icons-outlined complete-rma">edit</span>
+            <span *ngIf="product.offeringList?.length <= 0"
+              >{{ 'rma-cart.completeRmaForm' | cxTranslate }}
+            </span>
+            <span *ngIf="product.offeringList?.length > 0"
+              >{{ 'rma-cart.editRmaForm' | cxTranslate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info">
+        <div class="product-image-col col-2">
+          <!-- <cx-media
+          *ngIf="config.displayProductImages"
+          [container]="product.images?.PRIMARY"
+          format="thumbnail"
+          [alt]="product.summary"
+        ></cx-media> -->
+          <cx-media [container]="product?.product?.images"></cx-media>
+        </div>
+        <div class="product-info-col col-4 p-0">
+          <div class="product-info-col-heading">
+            {{ 'rma-cart.serialNumber' | cxTranslate }}
+          </div>
+          <div class="product-info-value">
+            {{ product?.serialNoList?.join(', ') }}
+          </div>
+          <div class="product-info-col-heading mt-3">
+            {{ 'rma-cart.serviceRequired' | cxTranslate }}
+          </div>
+          <!--  <div>{{ product?.offeringList?.join(', ') }}</div> -->
+          <div *ngFor="let el of product?.offeringList; let i = index">
+            <div class="mb-1">
+              <span class="bold">
+                {{ 'rma-cart.selectedOffering' | cxTranslate }} {{ i + 1 }}
+                <span class="ml-1 mr-1">&#8212;</span>
+              </span>
+              <span>{{ el }}</span>
+            </div>
+          </div>
+
+          <!-- <div class="bold">{{ product?.availableSites[0] }}</div> -->
+        </div>
+
+        <div class="product-info-col col-1">
+          <!-- <div class="product-info-col-heading">
+            {{ 'rma-cart.quantity' | cxTranslate }}
+          </div> -->
+          <div>{{ product?.quantity }} {{ 'rma-cart.uom' | cxTranslate }}</div>
+        </div>
+        <div class="product-info-col col-2">
+          <!-- <div class="product-info-col-heading">
+            {{ 'rma-cart.price' | cxTranslate }}
+          </div> -->
+          <div class="price-infos mt-0">
+            <div>{{ 'rma-cart.unitList' | cxTranslate }}</div>
+            <div
+              *ngIf="product?.total?.value > 0; else toBeQuoted"
+              class="price-values"
+            >
+              {{ product?.total?.formattedValue }}
+            </div>
+          </div>
+          <div *ngIf="product?.totalDiscount?.value > 0" class="price-infos">
+            <div>{{ 'rma-cart.discounts' | cxTranslate }}</div>
+            <div class="price-values">
+              {{ product?.totalDiscount?.formattedValue }}
+            </div>
+          </div>
+          <div class="price-infos">
+            <div>{{ 'rma-cart.unitSelling' | cxTranslate }}</div>
+            <div
+              *ngIf="product?.unitSelling?.value > 0; else toBeQuoted"
+              class="price-values"
+            >
+              {{ product?.unitSelling?.formattedValue }}
+            </div>
+          </div>
+          <div class="price-infos">
+            <div>{{ 'rma-cart.netSelling' | cxTranslate }}</div>
+            <div
+              *ngIf="product?.totalPrice?.value > 0; else toBeQuoted"
+              class="price-values"
+            >
+              {{ product?.totalPrice?.formattedValue }}
+            </div>
+          </div>
+        </div>
+        <div class="product-info-col col-2">
+          <div class="return-location product-info-col-heading">
+            <label>{{ 'rma-cart.returnToLocation' | cxTranslate }}</label>
+          </div>
+          <div class="return-loc-value">
+            <span *ngIf="!product?.returnLocation">
+              <i>N/A</i>
+            </span>
+            <span *ngIf="product?.returnLocation">{{
+              product?.returnLocation
+            }}</span>
+            <!-- 
+              [class.disabled]="showAvailabilityLoader"
+              [disabled]="showAvailabilityLoader"
+              [class.error]="showDeliGrpError && deliGrpErrorType == '104'"
+              [ngClass]="item.quoteCartEntryType ? 'disabled' : ''"
+             -->
+            <ng-select
+              *ngIf="product?.availableSitesList?.length > 1"
+              (change)="onAvailabilitySiteChange($event, product)"
+              class="mb-1"
+              [(ngModel)]="selectedSite"
+              [searchable]="false"
+              [clearable]="false"
+            >
+              <ng-option
+                *ngFor="let site of product.availableSitesList; let i = index"
+                [value]="site"
+              >
+                {{ site.siteName }} - {{ site.siteId }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-1"></div>
+      </div>
+    </div>
+    <div [ngClass]="accessories?.length > 0 ? 'product-open' : 'product-close'">
+      <ds-rma-cart-aceessory
+        *ngFor="let accessory of accessories"
+        [accessory]="accessory"
+        [product]="product"
+        [entryNumber]="product?.cartEntryNumber"
+        [hazardStatus]="hazardStatus"
+      ></ds-rma-cart-aceessory>
+    </div>
+  </div>
+</section>
+
+<ng-template #toBeQuoted>
+  <span class="to-be-quoted-text price-values">{{
+    'rma-cart.toBeQuoted' | cxTranslate
+  }}</span>
+</ng-template>

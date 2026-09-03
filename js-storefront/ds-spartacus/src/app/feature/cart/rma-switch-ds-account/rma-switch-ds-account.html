@@ -1,0 +1,54 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span>{{ 'buyCart.changeDSBusiness' | cxTranslate }}</span>
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>{{ 'buyCart.rmaProductNotAvailable' | cxTranslate }}</p>
+          <span class="dd-label">
+            {{ 'buyCart.availableDSBusiness' | cxTranslate }}
+          </span>
+          <bh-dropdown
+            class="salesarea-dd"
+            isFluid="false"
+            isSmall="false"
+            width="large"
+            menuWidth="large"
+            unselectable="false"
+            [menuItems]="props"
+            value="Choose DS Business"
+            isEllipsis="false"
+            (selected)="onDSAccChange($event)"
+          ></bh-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            type="secondary"
+            label="{{ 'buyCart.cancel' | cxTranslate }}"
+            class="mr-2"
+            (click)="closeModal()"
+          >
+          </bh-button>
+          <bh-button
+            cxAutoFocus
+            [type]="'primary'"
+            label="{{ 'buyCart.changeDSBusiness' | cxTranslate }}"
+            [attr.disabled]="true"
+            [attr.disabled]=" rmaDisableBtn? true : null"
+            (click)="closeModal(selectedSalesAreaId)"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

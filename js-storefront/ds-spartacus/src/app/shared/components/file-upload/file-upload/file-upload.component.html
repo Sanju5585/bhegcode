@@ -1,0 +1,95 @@
+<section class="upload-files">
+  <label
+    *ngIf="!isDragDrop"
+    class="upload-files--btn"
+    for="{{ uploadId }}"
+    [ngClass]="
+      this.maxSizeInMB < this.maxFileSizeInMB || disableButton ? 'disabled' : ''
+    "
+  >
+    <input
+      class="hidden"
+      #fileInput
+      [multiple]="multiple"
+      id="{{ uploadId }}"
+      type="file"
+      [accept]="getAllowedExtensions()"
+      [ngClass]="
+        this.maxSizeInMB < this.maxFileSizeInMB || disableButton
+          ? 'disabled'
+          : ''
+      "
+      (change)="upload($event)"
+      (click)="fileInput.value = null"
+      value=""
+    />
+    <i class="material-icons icon-color" *ngIf="showIcon">{{ icon }}</i
+    ><span class="upload-files--lable label-color">{{ label }}</span>
+  </label>
+  <!-- START -> Drag and Drop -->
+  <label
+    *ngIf="isDragDrop"
+    class="w-100 dragDropBox"
+    for="{{ uploadId }}"
+    [ngClass]="
+      this.maxSizeInMB < this.maxFileSizeInMB || disableButton ? 'disabled' : ''
+    "
+    [class.dragOver]="isDragOver"
+    (drop)="onDrop($event)"
+    (dragover)="(onDragOver)"
+    (dragleave)="onDragLeave($event)"
+  >
+    <input
+      class="hidden"
+      #fileInput
+      [multiple]="multiple"
+      id="{{ uploadId }}"
+      type="file"
+      [accept]="getAllowedExtensions()"
+      [ngClass]="
+        this.maxSizeInMB < this.maxFileSizeInMB || disableButton
+          ? 'disabled'
+          : ''
+      "
+      (change)="upload($event)"
+      (click)="fileInput.value = null"
+      value=""
+    />
+    <i class="material-icons icon-color" *ngIf="showIcon">{{ icon }}</i
+    ><span
+      class="upload-files--lable label-color marginLeft"
+      [innerHTML]="sanitizeLable"
+    ></span>
+  </label>
+  <!-- END -> Drag and Drop -->
+
+  <div class="file-upload-error" *ngIf="specialChar">
+    {{ 'file-upload.filePatternError' | cxTranslate }}
+  </div>
+  <div class="file-upload-error" *ngIf="fileLengthError">
+    {{ 'file-upload.fileLengthError' | cxTranslate: { maxLength: maxLength } }}
+  </div>
+  <div class="file-upload-error" *ngIf="maxSizeError">
+    {{
+      'file-upload.maxSizeError'
+        | cxTranslate: { maxSizeInMB: maxSizeInMB, sizeUnit: fileSizes.MB }
+    }}
+  </div>
+  <div class="file-upload-error" *ngIf="maxFileSizeError">
+    {{
+      'file-upload.maxFileSizeError'
+        | cxTranslate
+          : { maxFileSizeInMB: maxFileSizeInMB, sizeUnit: fileSizes.MB }
+    }}
+  </div>
+  <div class="file-upload-error" *ngIf="fileTypeError">
+    {{ 'file-upload.fileTypeError' | cxTranslate }}
+    {{ displayExtention() }}.
+  </div>
+  <div
+    class="file-upload-error"
+    *ngIf="this.maxSizeInMB < this.maxFileSizeInMB"
+  >
+    {{ 'file-upload.logicalError' | cxTranslate }}
+  </div>
+</section>

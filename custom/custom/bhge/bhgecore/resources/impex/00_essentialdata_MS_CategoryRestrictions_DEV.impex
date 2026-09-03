@@ -1,0 +1,11 @@
+# ImpEx for Importing Category Classifications 
+$classCatalogVersion=catalogversion(catalog(id[default='ERP_CLASSIFICATION_HYB']),version[default='ERP_IMPORT'])[unique=true,default='ERP_CLASSIFICATION_HYB:ERP_IMPORT']
+$classSystemVersion=systemVersion(catalog(id[default='ERP_CLASSIFICATION_HYB']),version[default='ERP_IMPORT'])[unique=true]
+
+#Level 2
+INSERT_UPDATE ClassificationClass;$classCatalogVersion;allowedPrincipals(uid)[mode=append];code[unique=true]
+#MS
+;;0000196789_6210_GE_GE;ECOM_LVL2_00000005
+#;;0000196703_6030_GE_GE;ECOM_LVL2_00000005
+#;;0000196703_6210_GE_GE;ECOM_LVL2_00000005
+#;;0000196703_6060_GE_GE;ECOM_LVL2_00000005

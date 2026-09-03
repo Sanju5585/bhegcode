@@ -1,0 +1,10 @@
+INSERT_UPDATE IntegrationObjectItemAttribute ; integrationObjectItem(integrationObject(code), code)[unique = true] ; attributeName[unique = true] ; attributeDescriptor(enclosingType(code), qualifier) ; returnIntegrationObjectItem(integrationObject(code), code) ; unique[default = false]
+                                             ; InboundGEEdgeProduct:GEEdgeProduct                                  ; geProductHierarchy           ; GEEdgeProduct:geProductHierarchy                    ;                                                            ;                        
+                                             
+						                                       
+INSERT_UPDATE IntegrationObjectItemAttribute ; integrationObjectItem(integrationObject(code), code)[unique = true] ; attributeName[unique = true] ; attributeDescriptor(enclosingType(code), qualifier) ; returnIntegrationObjectItem(integrationObject(code), code) ; unique[default = false] ; autoCreate[default = false]
+                                             
+                                             ; InboundGEEdgeProduct:BHGESalesAreaData                              ; materialStaticGroup          ; BHGESalesAreaData:materialStaticGroup               ;                                                            ;                         ;                            
+ 											 ; InboundGEEdgeProduct:BHGESalesAreaData                              ; deliveryPlant          	  ; BHGESalesAreaData:deliveryPlant                     ;                                                            ;                         ;                            
+                                             
+                                             

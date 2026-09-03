@@ -1,0 +1,161 @@
+<ds-recaptcha></ds-recaptcha>
+<div class="guest-checkout-container" *ngIf="!loadingFlag; else loading">
+  <div class="row" *ngIf="countriesList$ | async as countriesList">
+    <div class="col-md-8">
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isAccountCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isAccountCollapsed = !isAccountCollapsed"
+          [attr.aria-expanded]="!isAccountCollapsed"
+          aria-controls="accountDetails"
+        >
+          {{ 'titles.customerAccount' | cxTranslate }}
+        </div>
+        <hr />
+        <ds-customer-account-details
+          id="accountDetails"
+          [ngbCollapse]="isAccountCollapsed"
+          [countriesList]="countriesList"
+          [activeCartId]="activeCartId"
+          (customerDetailsEvent)="customerDetails($event)"
+        >
+        </ds-customer-account-details>
+      </div>
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isPaymentCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isPaymentCollapsed = !isPaymentCollapsed"
+          [attr.aria-expanded]="!isPaymentCollapsed"
+          aria-controls="paymentDetails"
+        >
+          {{ 'titles.payment' | cxTranslate }}
+        </div>
+        <hr />
+        <ds-payment-details
+          id="paymentDetails"
+          [checkoutCartId]="activeCartId"
+          [ngbCollapse]="isPaymentCollapsed"
+          [paymentTerms]="paymentTerms"
+          (paymentDetailsEvent)="paymentDetails($event)"
+        ></ds-payment-details>
+      </div>
+
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isShippingCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isShippingCollapsed = !isShippingCollapsed"
+          [attr.aria-expanded]="!isShippingCollapsed"
+          aria-controls="shippingDetails"
+        >
+          {{ 'titles.shipping' | cxTranslate }}
+        </div>
+        <hr />
+        <ds-shiping-details
+          id="shippingDetails"
+          [ngbCollapse]="isShippingCollapsed"
+          [incoTerms]="incoTerms"
+          [activeCartId]="activeCartId"
+          [countriesList]="countriesList"
+          (shippingDetailsEvent)="shippingDetails($event)"
+          (shippingValEvent)="shippingVal($event)"
+        ></ds-shiping-details>
+      </div>
+
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isNotificationCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isNotificationCollapsed = !isNotificationCollapsed"
+          [attr.aria-expanded]="!isNotificationCollapsed"
+          aria-controls="notificationDetails"
+        >
+          {{ 'titles.notification' | cxTranslate }}
+        </div>
+        <hr />
+        <ds-notification-attachement
+          id="notificationDetails"
+          [ngbCollapse]="isNotificationCollapsed"
+          [checkoutCartId]="activeCartId"
+          (notiValEvent)="notificationVal($event)"
+          (NotificationDetailsEvent)="notificationDetails($event)"
+        >
+        </ds-notification-attachement>
+      </div>
+
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isComplianceCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isComplianceCollapsed = !isComplianceCollapsed"
+          [attr.aria-expanded]="!isComplianceCollapsed"
+          aria-controls="complianceDetails"
+        >
+          {{ 'titles.compliance' | cxTranslate }}
+        </div>
+        <hr />
+        <ds-compliance-question
+          id="complianceDetails"
+          [ngbCollapse]="isComplianceCollapsed"
+          (complianceDetailsEvent)="complianceDetails($event)"
+        >
+        </ds-compliance-question>
+      </div>
+
+      <div class="section-container mt-5">
+        <div
+          [ngClass]="
+            isEndUserDetailsCollapsed
+              ? 'accordion-toggle'
+              : 'accordion-toggle-collapsed'
+          "
+          (click)="isEndUserDetailsCollapsed = !isEndUserDetailsCollapsed"
+          [attr.aria-expanded]="!isEndUserDetailsCollapsed"
+          aria-controls="endUserDetails"
+        >
+          {{ 'titles.endUserDetails' | cxTranslate }}
+        </div>
+        <hr />
+
+        <ds-end-user-details
+          id="endUserDetails"
+          [ngbCollapse]="isEndUserDetailsCollapsed"
+          [activeCartId]="activeCartId"
+          [enduserArray]="enduserArray"
+          [countriesList]="countriesList"
+          (endUserDetailsEvent)="endUserDetails($event)"
+        ></ds-end-user-details>
+      </div>
+    </div>
+    <div class="col-md-4 sticky-container">
+      <div [ngClass]="{ sticky: isSticky }">
+        <ds-checkout-order-summary
+          (placeOrderDetailsEvent)="placeOrderDetails()"
+        ></ds-checkout-order-summary>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

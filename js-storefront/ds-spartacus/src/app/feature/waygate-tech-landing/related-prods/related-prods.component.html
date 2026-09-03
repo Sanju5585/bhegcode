@@ -1,0 +1,105 @@
+<ng-container *ngIf="products?.length > 0">
+  <div class="related-products-header">
+    <h1>{{ 'waygate.relatedProdHeading' | cxTranslate }}</h1>
+  </div>
+  <div
+    class="related-prod"
+    (mouseover)="stopMovement()"
+    (mouseleave)="startMovement()"
+  >
+    <div class="related-prod-cards" [ngClass]="{ 'w-100': totalPages === 1 }">
+      <div
+        class="related-prod-cards-overflow"
+        [ngStyle]="{ width: overflowWidth, left: pagePosition }"
+      >
+        <div
+          class="cards"
+          *ngFor="let item of products; let i = index"
+          [ngStyle]="{ width: cardWidth }"
+        >
+          <div class="cards-img">
+            <cx-media
+              class="card-img-media"
+              [container]="item?.images?.PRIMARY"
+              format="product"
+              [alt]="item?.summary"
+              (click)="gtmSelectItemEvent(item)"
+              [routerLink]="[
+                '/',
+                productLine,
+                'product',
+                item?.code,
+                item?.name,
+              ]"
+            ></cx-media>
+          </div>
+          <div class="cards-body">
+            <div class="cards-body-name" [innerHTML]="item?.name"></div>
+            <div class="cards-body-number"># {{ item?.code }}</div>
+            <span
+              class="cards-body-desc"
+              [innerHTML]="item?.description"
+            ></span>
+            <div class="part-price">
+              <ng-container *ngIf="item?.price?.value > 0; else noPrice">
+                <span class="card-price">{{
+                  'waygate.relatedUnitPrice' | cxTranslate
+                }}</span>
+                <span class="card-price-value">{{
+                  item?.price?.formattedValue
+                }}</span>
+              </ng-container>
+              <ng-template #noPrice>
+                <span
+                  class="card-price"
+                  *ngIf="user$ | async as loggedInuser; else guestUser"
+                  >{{ 'waygate.priceNotAvailable' | cxTranslate }}</span
+                >
+                <ng-template #guestUser>
+                  <span class="card-price">
+                    {{ 'waygate.loginForPrice' | cxTranslate }}
+                  </span>
+                </ng-template>
+              </ng-template>
+            </div>
+            <div
+              class="cards-body-detail"
+              [routerLink]="[
+                '/',
+                productLine,
+                'product',
+                item?.code,
+                item?.name,
+              ]"
+            >
+              {{ 'waygate.viewDetails' | cxTranslate }}
+
+              <span class="material-icons"> chevron_right </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="windowRef?.nativeWindow?.innerWidth >= 992"
+    class="carousel-left material-icons"
+    (click)="currentPage === 1 ? '' : currentPage != 1 && changePage(-1)"
+    [ngClass]="{ disabled: currentPage === 1 }"
+  >
+    navigate_before
+  </div>
+
+  <div
+    *ngIf="windowRef?.nativeWindow?.innerWidth >= 992"
+    class="carousel-right material-icons"
+    (click)="
+      currentPage === totalPages
+        ? ''
+        : currentPage != totalPages && changePage(+1)
+    "
+    [ngClass]="{ disabled: currentPage === totalPages }"
+  >
+    navigate_next
+  </div>
+</ng-container>

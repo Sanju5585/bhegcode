@@ -1,0 +1,66 @@
+.cx-modal-container {
+  .bg-green {
+    background-color: #147d64;
+    color: #ffff;
+  }
+  textarea.form-control {
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #ced7d4;
+    border-radius: 4px;
+  }
+
+  .required:after {
+    content: ' *';
+    color: #cf2333;
+  }
+  .actions {
+    .btn {
+      padding: 9px 20px;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      min-width: 100px;
+      min-height: 38px;
+    }
+    .btn-cancel {
+      color: #121212;
+    }
+    .btn-submit {
+      background-color: #02a783;
+      color: #ffffff;
+    }
+  }
+}
+button.close {
+  color: #ffffff;
+  opacity: unset !important;
+}
+
+.inline-error-wrapper {
+  display: flex;
+  padding: 5px 0;
+  color: var(--color-text-label-error);
+}
+
+textarea.form-control::placeholder {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 20px !important;
+  color: #595959 !important;
+}
+
+::ng-deep {
+  textarea.ng-invalid.ng-touched {
+    border-color: var(--color-border-form-error) !important;
+    // background-color: var(--color-fill-form-error);
+  }
+
+  textarea.ng-invalid.ng-touched {
+    border-color: var(--color-border-form-error) !important;
+    // background-color: var(--color-fill-form-error);
+  }
+}

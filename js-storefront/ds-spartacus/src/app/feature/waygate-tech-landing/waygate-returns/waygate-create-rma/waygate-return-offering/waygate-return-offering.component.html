@@ -1,0 +1,243 @@
+<div class="returns-offering">
+  <label class="returns-label">
+    {{ 'rma-form.AvailableOfferings' | cxTranslate }}
+  </label>
+  <div *ngIf="!isOtherPart" class="tab returns-radio">
+    <button
+      *ngIf="
+        (
+          serviceOfferingData?.offeringList[0]?.partOfferingDescription
+          | offerings : serviceOfferingCategories.REPAIR
+        )?.length > 0
+      "
+      class="tablinks"
+      [class.active]="selectedRadio === offerTypes.REPAIR"
+      (click)="changeOfferingTabCustom(offerTypes.REPAIR)"
+    >
+      {{ 'rma-form.repair' | cxTranslate }}
+    </button>
+    <button
+      *ngIf="
+        (
+          serviceOfferingData?.offeringList[0]?.partOfferingDescription
+          | offerings : serviceOfferingCategories.CALIBRATION
+        )?.length > 0
+      "
+      class="tablinks"
+      [class.active]="selectedRadio === offerTypes.CALIBRATION"
+      (click)="changeOfferingTabCustom(offerTypes.CALIBRATION)"
+    >
+      {{ 'rma-form.caliberate' | cxTranslate }}
+    </button>
+    <button
+      *ngIf="true"
+      class="tablinks"
+      [class.active]="selectedRadio === offerTypes.RETURN"
+      (click)="changeOfferingTabCustom(offerTypes.RETURN)"
+    >
+      <span class="required" *ngIf="selectedRadio === offerTypes.RETURN"
+        >*</span
+      >
+      {{ 'rma-form.returnCreditScrap' | cxTranslate }}
+    </button>
+  </div>
+
+  <section>
+    <div
+      class="mt-3 service-offering-terms"
+      *ngFor="let terms of serviceOffTerms"
+    >
+      <span *ngIf="terms.showServiceOffTerms" class="required mr-2">*</span>
+      <bh-checkbox
+        *ngIf="terms.showServiceOffTerms"
+        [attr.label]="terms.serviceOffTermsText"
+        name=""
+        value=""
+        (change)="checkOfferingTerms(terms, $event)"
+      ></bh-checkbox>
+      <span
+        *ngIf="!terms.showServiceOffTerms && terms.serviceOffTermsText"
+        class="typography--body-medium terms-text"
+        ><span class="required mr-2">*</span
+        ><span>{{ terms.serviceOffTermsText }}</span></span
+      >
+    </div>
+  </section>
+
+  <section>
+    <div class="search-filter">
+      <ng-container
+        *ngIf="
+          (
+            serviceOfferingData?.offeringList[0]?.partOfferingDescription
+            | offerings : serviceOfferingCategories.REPAIR
+          )?.length > 0
+        "
+      >
+        <div class="radio-group" *ngIf="selectedRadio === offerTypes.REPAIR">
+          <div
+            class="offered-service-card"
+            *ngFor="
+              let serviceOffering of serviceOfferingData?.offeringList[0]
+                ?.partOfferingDescription
+                | offerings : serviceOfferingCategories.REPAIR
+            "
+          >
+            <bh-radio-button
+              name="repairOffering"
+              [label]="serviceOffering?.serviceOfferingDescription"
+              [value]="serviceOffering"
+              [attr.checked]="selectedRepairOffering?.serviceOffering === serviceOffering?.serviceOffering"
+              (change)="selectOffering(serviceOffering)"
+              [disabled]="disableServiceOffSelection"
+            ></bh-radio-button>
+            <div class="offered-service-description">
+              {{ 'rma-form.shortDescriptionOff' | cxTranslate }}:
+              {{ serviceOffering?.serviceOfferingLongDesc }}
+            </div>
+            <div class="offered-service-cost">
+              {{ 'rma-form.estimatedCost' | cxTranslate }}
+              <span *ngIf="serviceOffering?.plants[0]?.price; else toBeQuoted">
+                {{ getFormattedPrice(serviceOffering?.plants[0].price) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container
+        *ngIf="
+          (
+            serviceOfferingData?.offeringList[0]?.partOfferingDescription
+            | offerings : serviceOfferingCategories.CALIBRATION
+          )?.length > 0
+        "
+      >
+        <div
+          class="radio-group"
+          *ngIf="selectedRadio === offerTypes.CALIBRATION"
+        >
+          <div
+            class="offered-service-card"
+            *ngFor="
+              let serviceOffering of serviceOfferingData?.offeringList[0]
+                ?.partOfferingDescription
+                | offerings : serviceOfferingCategories.CALIBRATION
+            "
+          >
+            <bh-radio-button
+              name="calibrationOffering"
+              [label]="serviceOffering?.serviceOfferingDescription"
+              [value]="serviceOffering"
+              [attr.checked]="selectedCalibrationOffering?.serviceOffering === serviceOffering?.serviceOffering"
+              (change)="selectOffering(serviceOffering)"
+              [disabled]="disableServiceOffSelection"
+            ></bh-radio-button>
+            <div class="offered-service-description">
+              {{ 'rma-form.shortDescriptionOff' | cxTranslate }}:
+              {{ serviceOffering?.serviceOfferingLongDesc }}.
+            </div>
+            <div class="offered-service-cost">
+              {{ 'rma-form.estimatedCost' | cxTranslate }}
+              <span *ngIf="serviceOffering?.plants[0]?.price; else toBeQuoted">
+                {{ getFormattedPrice(serviceOffering?.plants[0].price) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="radio-group" *ngIf="selectedRadio === offerTypes.RETURN">
+        <label>
+        </label>
+        <div class="offered-service-card" *ngFor="let reType of returnTypes">
+          <bh-radio-button
+            name="returnType"
+            [label]="reType.labelName"
+            [value]="reType.type"
+            [attr.checked]="selectedReturnType === reType.type"
+            (change)="selectReturn(reType.type)"
+            [disabled]="disableServiceOffSelection"
+          ></bh-radio-button>
+          <div class="offered-service-cost">
+            {{ 'rma-form.estimatedCost' | cxTranslate }}
+            <span>{{ 'rma-form.toBeQuoted' | cxTranslate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="text-arearmaform">
+    <div class="problem-desc-holder mt-4">
+      <label>
+        <span>{{ 'rma-form.problemDescription' | cxTranslate }}</span>
+        <span *ngIf="isProbDescMandatory()" class="required">*</span>
+      </label>
+      <bh-text-area
+        class="problem-desc-input"
+        [placeholder]="getProblemDescriptionPlaceholder()"
+        [value]="problemDescriptionText || ''"
+        (input)="onProblemDescChange($event)"
+        messageType="count"
+        maxcharacters="2000"
+        fluidhorz
+        fluidvert
+        (keypress)="stop($event)"
+        (paste)="myFunction($event)"
+        #textval
+        (focusout)="trimText()"
+      ></bh-text-area>
+    </div>
+  </section>
+  <section
+    *ngIf="allAccessories?.length > 0"
+    class="accessory-selection-section mt-4"
+  >
+    <h4 class="accessory-associated-section--title bold">
+      <span>{{ 'rma-form.accessoryAssociated' | cxTranslate }}</span>
+      <span class="required">*</span>
+    </h4>
+
+    <label class="accessory-associated-section--label">
+      {{ 'rma-form.noteFillRMADetails' | cxTranslate }}
+    </label>
+
+    <div class="accessory-tab-holder mt-3">
+      <div *ngFor="let accProduct of allAccessories" class="accessory-tab">
+        <bh-checkbox
+          class="col-1 p-0"
+          [name]="accProduct.code"
+          [value]="accProduct.code"
+          [attr.checked]="isAccessorySelected(accProduct)"
+          (change)="onAccessoryToggle($event, accProduct)"
+        ></bh-checkbox>
+
+        <label class="accessory-tab__label col-11 p-0 m-0">
+          <cx-media
+            class="col-2 p-0 part-image"
+            [container]="accProduct?.images?.PRIMARY"
+            [alt]="accProduct.description"
+          ></cx-media>
+          <div class="accessory-tab--details col-10 p-0 pl-2">
+            <div class="accessory-tab--details__code">
+              <span>{{ accProduct.code }}</span>
+            </div>
+            <div class="accessory-tab--details__name">
+              <span>{{ accProduct.description }}</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #toBeQuoted>
+  <span class="to-be-quoted-text">{{
+    'rma-form.toBeQuoted' | cxTranslate
+  }}</span>
+</ng-template>
+
+<ng-template #loading>
+  <div class="rma-form-side-loader side-loader cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

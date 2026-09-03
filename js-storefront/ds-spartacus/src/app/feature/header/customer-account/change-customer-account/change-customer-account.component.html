@@ -1,0 +1,130 @@
+<div class="change-account-table mt-4">
+  <span class="title-label">{{
+    'customer-account.changeCustomerAccount' | cxTranslate
+  }}</span>
+  <div class="customer-account-tabs mt-2">
+    <bh-tabs
+      [items]="tabs"
+      [border]="true"
+      [small]="false"
+      menu-width="large"
+      activeKey="true"
+      (activeTabUpdate)="onActiveTabChange($event)"
+    ></bh-tabs>
+  </div>
+  <div class="customer-account-list">
+    <div
+      class="recent-accounts"
+      *ngIf="activeTab == custAccountTabType.RECENTS"
+    >
+      <ng-container *ngIf="recentCustomerAccounts$ | async as recentAccounts">
+        <div
+          *ngFor="let item of recentAccounts | keyvalue"
+          class="account-list-item"
+        >
+          <div>
+            <span>{{ item.value.name }},</span>
+            <span class="ml-1">{{ item.value.uid }}</span>
+          </div>
+          <bh-button
+            [type]="item.value.active == true ? 'primary' : 'secondary'"
+            label="{{
+              (item.value.active == true
+                ? 'customer-account.selected'
+                : 'customer-account.select'
+              ) | cxTranslate
+            }}"
+            small="true"
+            (click)="selectAccount(item.value)"
+          ></bh-button>
+        </div>
+      </ng-container>
+    </div>
+    <div
+      class="fav-accounts"
+      *ngIf="activeTab == custAccountTabType.FAVOURITES"
+    >
+      <ng-container *ngIf="favCustomerAccounts$ | async as favAccounts">
+        <div
+          *ngFor="let item of favAccounts | keyvalue"
+          class="account-list-item"
+        >
+          <div>
+            <span>{{ item.value.name }},</span>
+            <span class="ml-1">{{ item.value.uid }}</span>
+          </div>
+          <bh-button
+            [type]="item.value.active == true ? 'primary' : 'secondary'"
+            label="{{
+              (item.value.active == true
+                ? 'customer-account.selected'
+                : 'customer-account.select'
+              ) | cxTranslate
+            }}"
+            small="true"
+            (click)="selectAccount(item.value)"
+          ></bh-button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="search-accounts" *ngIf="activeTab == custAccountTabType.SEARCH">
+      <bh-text-input
+        class="m-t-4"
+        type="text"
+        placeholder="{{ 'customer-account.enter3chrs' | cxTranslate }}"
+        value=""
+        maxlength="40"
+        fuild="true"
+        end-icon="search"
+        small="true"
+        (keyup)="onKeyUpSearch($event)"
+      ></bh-text-input>
+      <div *ngIf="custAccountSearching" class="cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+      <ng-container *ngIf="custAccountResults$ | async as results">
+        <ng-container *ngIf="!custAccountSearching">
+          <ng-container *ngIf="!custSearchFlag; else noSearchFound">
+            <div class="custom-height">
+              <ng-container
+                *ngIf="results?.b2bUnits?.length > 0; else noRecordsFound"
+              >
+                <div
+                  *ngFor="let item of results?.b2bUnits | keyvalue"
+                  class="account-list-item"
+                >
+                  <div>
+                    <span>{{ item.value.name }},</span>
+                    <span class="ml-1">{{ item.value.uid }}</span>
+                  </div>
+                  <bh-button
+                    [type]="item.value.active == true ? 'primary' : 'secondary'"
+                    label="{{
+                      (item.value.active == true
+                        ? 'customer-account.selected'
+                        : 'customer-account.select'
+                      ) | cxTranslate
+                    }}"
+                    small="true"
+                    (click)="selectAccount(item.value)"
+                  ></bh-button>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #noRecordsFound>
+  <div class="no-records typography--body-large">
+    <span>{{ 'customer-account.noCustAccountFound' | cxTranslate }}</span>
+  </div>
+</ng-template>
+<ng-template #noSearchFound>
+  <div class="no-records typography--body-large">
+    <span></span>
+  </div>
+</ng-template>

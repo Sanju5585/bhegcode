@@ -1,0 +1,95 @@
+<ng-container>
+  <!-- <div class="login-content">
+      <div class="content-body" *ngIf="loginComponentData$ | async as data" [innerHTML]="data.content"></div>
+  </div> -->
+
+  <div class="fixed action-banner">
+    <form
+      class="terms-form"
+      (ngSubmit)="submitTermsForm()"
+      [formGroup]="loginForm"
+    >
+      <div>
+        <p 
+          class="tc-upper-text"
+          [innerHTML]="'userData.conditionPostLinkText' | cxTranslate"
+        >
+        </p>
+        <p class="tc-lower-text">{{ 'userData.agreeText' | cxTranslate }}</p>
+      </div>
+
+      <div *ngIf="!useOktaLogin" class="form-group">
+        <label>
+          <span class="label-content">{{
+            'loginForm.emailAddress.label' | cxTranslate
+          }}</span>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="userId"
+            placeholder="{{
+              'loginForm.emailAddress.placeholder' | cxTranslate
+            }}"
+          />
+        </label>
+      </div>
+      <div *ngIf="!useOktaLogin" class="form-group">
+        <label>
+          <span class="label-content">{{
+            'loginForm.password.label' | cxTranslate
+          }}</span>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="{{ 'loginForm.password.placeholder' | cxTranslate }}"
+            formControlName="password"
+          />
+        </label>
+      </div>
+      <div class="login-radio-button form-group">
+        <bh-radio-button
+          class="mr-3"
+          [attr.label]="'userData.agreeLabel' | cxTranslate"
+          name="termsAgreementRadioGroup"
+          value="true"
+          (change)="disableSubmit = false"
+        ></bh-radio-button>
+        <bh-radio-button
+          [attr.label]="'userData.disagreeLabel' | cxTranslate"
+          name="termsAgreementRadioGroup"
+          value="false"
+          (change)="disableSubmit = true"
+        ></bh-radio-button>
+        <!-- <input
+        id="agree-radio"
+        type="radio"
+        value="true"
+        name="termsAgreementRadioGroup"
+        formControlName="termsAgreementRadioGroup"
+      />
+      <label for="agree-radio"
+        >{{ "userData.agreeLabel" | cxTranslate }}</label
+      >
+      <input
+        id="disagree-radio"
+        type="radio"
+        value="false"
+        name="termsAgreementRadioGroup"
+        formControlName="termsAgreementRadioGroup"
+      />
+      <label for="disagree-radio"
+        >{{ "userData.disagreeLabel" | cxTranslate }}</label
+      > -->
+      </div>
+      <button class="login-submit-btn" [disabled]="disableSubmit">
+        {{ 'userData.submitBtn' | cxTranslate }}
+      </button>
+      <!-- <button
+      class="vs-primary-btn login-submit-btn"
+      [disabled]="!loginForm.valid || disableSubmit"
+    >
+      {{ "userData.submitBtn" | cxTranslate }}
+    </button>  -->
+    </form>
+  </div>
+</ng-container>

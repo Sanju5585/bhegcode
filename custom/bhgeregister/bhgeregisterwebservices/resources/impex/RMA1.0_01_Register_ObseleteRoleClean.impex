@@ -1,0 +1,5 @@
+remove BHGEAppAccessLevel;pk[unique=true]
+;8796093172282
+
+remove BHGEApprovalDetails;pk[unique=true]
+;8796191541819

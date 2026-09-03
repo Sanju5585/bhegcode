@@ -1,0 +1,43 @@
+.share-order {
+  .emailText input {
+    width: 100%;
+    border: 1px solid;
+    border-color: var(--color-border-form-default);
+    height: 35px;
+    margin-bottom: 15px;
+  }
+  .customeBtn {
+    display: flex;
+    float: right;
+  }
+  .bh-button__container {
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+  .bh-button.motion--normal.bh-button--type-secondary
+    .typography--button-link-medium {
+    font-weight: var(--font-weight-button-link-medium);
+  }
+  .bh-button.motion--normal.bh-button--type-secondary {
+    height: 44px;
+  }
+  .form-control:focus,
+  input:focus {
+    outline: none;
+  }
+  .bh-button.motion--normal.bh-button--type-secondary {
+    height: 44px;
+  }
+}
+:host::ng-deep {
+  .bh-text-input__input {
+    width: 100%;
+  }
+  .bh-button--type-secondary {
+    height: 44px !important;
+  }
+}
+
+.share-order-space {
+  padding: 15px;
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+           
+    <context:annotation-config/>
+	<alias name="defaultUserProfileService" alias="userProfileService"/>
+	<bean id="defaultUserProfileService" class="com.bhge.core.user.service.impl.DefaultBHGEUserProfileService">
+		<property name="userProfileDao" ref="userProfileDao"/>
+	</bean>
+	<bean id="bhgeticketingaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="bhgeticketingaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="bhgeticketingaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="bhgeticketingaddon" />
+	</bean>
+
+	<bean id="bhgeTicketEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/bhgeticketingaddon/process/bhgeTicketEmailProcess.xml"/>
+	</bean>
+	
+	<alias name="bhgeTicketFacadeImpl" alias="bhgeTicketFacade" />
+	<bean id="bhgeTicketFacadeImpl" class="de.hybris.platform.bhgeticketingaddon.facades.impl.BHGETicketFacadeImpl">
+		<property name="bhgeTicketBusinessService" ref="bhgeTicketBusinessService"/>
+		<property name="ticketService" ref="ticketService"/>
+		<property name="userService" ref="userService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="ticketBusinessService" ref="ticketBusinessService"/>
+		<property name="ticketConverter" ref="ticketConverter"/>
+		<property name="ticketListConverter" ref="ticketListConverter"/>
+		<property name="statusMapping" ref="statusMapping" />
+		<property name="ticketPriority" ref="ticketPriority" />
+		<property name="ticketReason" ref="ticketReason" />
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="configurationService"  ref="configurationService"/>
+		<property name="associationStrategies">
+			<list>
+				<ref bean="ticketOrdersAssociationStrategy"/>
+				<ref bean="ticketCartsAssociationStrategy"/>
+			</list>
+		</property>
+        <property name="ticketAttachmentsService" ref="ticketAttachmentsService"/>
+	</bean>
+	
+	<alias name="bhgeTicketBusinessServiceImpl" alias="bhgeTicketBusinessService" />
+	<bean id="bhgeTicketBusinessServiceImpl" class="de.hybris.platform.bhgeticketingaddon.services.impl.BHGETicketBusinessServiceImpl">
+		<property name="modelService" ref="modelService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="bhgeFeedbackService" ref="bhgeFeedbackService"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="mediaCodeGenerator" ref="mediaCodeGenerator"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="bhgeFeedbackUpload" ref="bhgeFeedbackUpload"/>
+	</bean>
+	
+	<bean id="bhgeTicketEmailAction" 
+		  class="de.hybris.platform.bhgeticketingaddon.actions.BHGETicketEmailAction" 
+		  parent="abstractAction">
+		  <property name="frontendTemplateName" value="BhgeTicketEmailTemplate"/>
+		  <property name="processContextResolutionStrategy" ref="storeFrontProcessContextStrategy"/> 
+	</bean>
+	
+	<bean id="bhgeTicketFormEventListener"
+	      class="de.hybris.platform.bhgeticketingaddon.events.BHGETicketFormEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="bhgeTicketBusinessService" ref="bhgeTicketBusinessService"/>
+	</bean>
+	
+	<bean id="bhgeTicketContext" class="de.hybris.platform.bhgeticketingaddon.context.BHGETicketContext" parent="abstractEmailContext" scope="prototype" />
+	
+</beans>

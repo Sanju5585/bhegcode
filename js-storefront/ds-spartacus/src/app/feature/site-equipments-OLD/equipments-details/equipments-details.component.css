@@ -1,0 +1,88 @@
+.product-image {
+  width: 400px;
+  height: 340px;
+  /* border: solid 0.5px #b1b3b3; */
+}
+.highlight-div {
+  border: 1px solid #73c1b1;
+  background-color: #e5f8f4;
+  color: #018374;
+  padding: 2px 10px;
+  position: relative;
+  bottom: 5px;
+}
+.sub-heading {
+  color: #018374;
+}
+.w-330 {
+  width: 330px;
+}
+.action-buttons button {
+  width: 49%;
+  font-size: 14px;
+}
+.action-button-2 button {
+  padding: 5px 17px;
+  font-size: 14px;
+}
+.mat-elevation-z4 {
+  box-shadow: none;
+}
+.product-image-holder {
+  width: 420px;
+  height: 364px;
+  text-align: center;
+  border: solid 0.5px #b1b3b3;
+}
+.min-width-97 {
+  min-width: 97px;
+}
+
+.update-eq-link,
+.archive-eq-link,
+.update-eq-link:hover,
+.archive-eq-link:hover,
+.update-eq-active,
+.archive-eq-active,
+.update-eq-link:focus,
+.archive-eq-link:focus {
+  font-size: 14px;
+  color: #018374;
+}
+
+.eq-value-field {
+  min-height: 2px;
+}
+
+.header-text {
+  font-size: 3em;
+  text-transform: uppercase;
+}
+
+.eq-key-field {
+  min-height: 20px;
+}
+
+.eq-key-field .icon-info {
+  position: relative;
+  top: 3px;
+  font-size: 10px;
+}
+
+.h-30 {
+  height: 30px !important;
+}
+
+.archive-btn .icon-archive {
+  font-size: 15px;
+  position: relative;
+  top: 2px;
+  left: -5px;
+}
+.ico_calendar_sm.calender-position {
+  float: left !important;
+  font-size: 15px;
+  text-align: right;
+  right: 16px;
+  top: 35px;
+}

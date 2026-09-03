@@ -1,0 +1,145 @@
+<ng-container *ngIf="showWaygate; else oldSearch">
+  <div class="waygate-search-input-container">
+    <!-- <cx-searchbox></cx-searchbox> -->
+    <input
+      type="text"
+      class="waygate-search-input"
+      (click)="openSearch()"
+      #searchFocusInput
+      placeholder="{{ 'waygate.searchByProductNamePartNo' | cxTranslate }}"
+    /><span class="material-icons waygate-search-icon"> search </span>
+  </div>
+</ng-container>
+<ng-template #oldSearch>
+  <label class="searchbox no-display" [class.dirty]="!!searchInput.value">
+    <input
+      #searchInput
+      class="searchInput"
+      aria-label="search"
+      (focus)="open()"
+      (click)="open()"
+      (input)="search(searchInput.value)"
+      (keydown.escape)="close($event)"
+      (keydown.enter)="
+        close($event, true);
+        launchSearchResult($event, searchInput.value, true, searchInput);
+        updateChosenWord(searchInput.value)
+      "
+      (keydown.arrowup)="focusPreviousChild($event)"
+      (keydown.arrowdown)="focusNextChild($event)"
+      value="{{ chosenWord }}"
+      placeholder="{{ 'waygate.searchWithProductNamePartNo' | cxTranslate }}"
+    />
+    <button
+      [attr.aria-label]="'common.reset' | cxTranslate"
+      (mousedown)="clear(searchInput)"
+      (keydown.enter)="clear(searchInput)"
+      class="reset"
+    >
+      <cx-icon [type]="iconTypes.RESET"></cx-icon>
+    </button>
+    <div role="presentation" class="search-icon">
+      <cx-icon [type]="iconTypes.SEARCH"></cx-icon>
+    </div>
+    <button
+      [attr.aria-label]="'common.search' | cxTranslate"
+      class="search"
+      (click)="open()"
+      (mousedown)="avoidReopen($event)"
+      (keydown.enter)="avoidReopen($event)"
+    >
+      <cx-icon [type]="iconTypes.SEARCH"></cx-icon>
+    </button>
+  </label>
+
+  <div
+    *ngIf="results$ | async as result"
+    class="results"
+    (click)="close($event, true)"
+  >
+    <div
+      *ngIf="result.message"
+      class="message"
+      [innerHTML]="result.message"
+    ></div>
+
+    <div
+      class="products"
+      *ngIf="result.products"
+      [clickSourceId]="searchInput"
+      (clickOutside)="close($event)"
+    >
+      <div class="col-auto suggested-container">
+        <p class="suggested mb-1">
+          {{ 'navigation-menu.suggested' | cxTranslate }}
+        </p>
+        <h4 class="suggested-msg mb-1">
+          {{ 'navigation-menu.productContaining' | cxTranslate }} "{{
+            searchInput.value
+          }}"
+        </h4>
+      </div>
+      <a
+        class="product-link"
+        *ngFor="let product of result.products"
+        (click)="gtmSelectItemEvent(product)"
+        [routerLink]="
+          {
+            cxRoute: 'product',
+            params: product,
+          } | cxUrl
+        "
+        [class.has-media]="config.displayProductImages"
+        (keydown.arrowup)="focusPreviousChild($event)"
+        (keydown.arrowdown)="focusNextChild($event)"
+        (keydown.enter)="close($event, true)"
+        (keydown.escape)="close($event, true)"
+        (blur)="close($event)"
+        (mousedown)="preventDefault($event)"
+        (click)="
+          close($event);
+          dispatchProductEvent({
+            freeText: searchInput.value,
+            productCode: product.code,
+          })
+        "
+      >
+        <div class="col-4 p-0">
+          <div class="row">
+            <div class="col-4">
+              <cx-media
+                *ngIf="config.displayProductImages"
+                [container]="product.images?.PRIMARY"
+                format="thumbnail"
+                [alt]="product.summary"
+              ></cx-media>
+            </div>
+            <div class="col-8 p-0">
+              <h4 class="name" [innerHTML]="product.code"></h4>
+              <h4 class="name text-bold" [innerHTML]="product.nameHtml"></h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-8">
+          <cx-add-to-cart
+            *ngIf="product.stock?.stockLevelStatus !== 'outOfStock'"
+            [showQuantity]="true"
+            [product]="product"
+            [mode]="'search'"
+          ></cx-add-to-cart>
+        </div>
+      </a>
+      <div class="view-all-container">
+        <bh-button
+          [type]="'secondary'"
+          [label]="'navigation-menu.viewAllResults' | cxTranslate"
+          loading="false"
+          (click)="
+            launchSearchResult($event, searchInput.value, true, searchInput)
+          "
+        ></bh-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

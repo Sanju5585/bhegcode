@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "Загрузить",
+    "dropfile": "Drop your file here!",
+    "uploadimage": "Upload Image"
+  },
+  "datanotfound": {
+    "norecords": "No records found for"
+  },
+  "dateRange": {
+    "today": "today",
+    "done": "Сделано",
+    "cancel": "Отмена",
+    "from": "От",
+    "to": "До",
+    "timeperiod": "Selected time period:",
+    "selectDate": "Select Date"
+  },
+  "file-upload": {
+    "fileLengthError": "You can upload at max {{maxLength}} files.",
+    "maxSizeError": "Total upload size cannot exceed {{ maxSizeInMB}} {{ sizeUnit}}",
+    "maxFileSizeError": "Individual file size cannot exceed {{ maxFileSizeInMB}} {{ sizeUnit}}",
+    "fileTypeError": "Пожалуйста, выберите допустимый тип файла. Valid file types are - ",
+    "logicalError": "Individual file size cannot exceed total file size",
+    "close": "закрыть",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "Request access to this site",
+    "accountInfoNotExist": "Your account information does not exist.",
+    "pleaseClickOn": "Please click on",
+    "ForrequestAccessToSite": "for requesting access to the site.",
+    "accountDisabled": "Account Disabled",
+    "accountHasBeenDisabled": "Your account has been disabled.",
+    "speakToCustomerCare": "Please speak to a customer service representative or ",
+    "Again": "again.",
+    "activationPending": "Activation Pending",
+    "needYourConfirmation": "Ваш запрос на получения доступа теперь с нами, но нам также необходимо получить ваше подтверждение.",
+    "confirmLinkInEmail": "Пожалуйста найдите письмо от Baker Hughes DS Store  и нажмите на Подтверждение Ссылки чтобы завершить запрос.",
+    "requestPending": "Request Pending",
+    "pendingWithCustomerCare": "Ваш запрос на получения доступа находится на рассмотрении у нашей Службы поддержки. ",
+    "processAndNotify": "Мы обработаем ваш запрос и оповестим вас в ближайщее время. ",
+    "accessRejected": "Access Rejected",
+    "accessRequestDenied": "В этот раз вам было отказано в доступе. ",
+    "cannotReachYou": "Как правило это происходит в связи с невозможностью проверить вашу существующую учетную запись или мы не можем связаться с вами для проверки ваших данных.  Пожалуйста свяжитесь с нашей Службой поддержки или оставьте отзыв на нашем сайте.",
+    "accessDenied": "Доступ отклонен",
+    "notAssignedToReequiredGroup": "Your User Account is not assigned to the required group in Login Server.",
+    "accessPending": "В ожидании доступа",
+    "accessPendingWithUS": "`Your Access Request is pending with us.",
+    "workingOnSameWillNotify": "Мы все еще обрабатываем данный запрос и уведомим вас как можно скорее.",
+    "loginFail": "Login Failure",
+    "donotHaveAccessToDSstore": "You do not have access the to DS Store.",
+    "toRegister": " to Register.",
+    "loginDisabled": "Login Disabled",
+    "inactiveFor90Days": "Your access has been disabled automatically due to inactivity for more than 90 days.",
+    "Please": "Please  ",
+    "reactivateYourAccount": " to reactivate your account.",
+    "accountDisabledBYManager": "Your account is disabled by your Manager. Please check your Email to get more details"
+  }
+}

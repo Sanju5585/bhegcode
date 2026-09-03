@@ -1,0 +1,21 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                 ; description[lang=en]                           ; content(code,$contentCV)[lang=en]       ; contextClass                                                     ; outputMimeType ; rendererType(code)
+                               ; OrderStatusErrorEmailMailTemplate ; Velocity template for Order Status Error Email ; OrderStatusErrorEmailMailTemplate_media ; com.bhge.core.mailmessages.context.BHGECriticalErrorEmailContext ; text/html      ; velocity          
+
+
+
+INSERT_UPDATE Media ; code[unique=true]                       ; $contentCV[unique=true] ; mime      ; realfilename                      ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ;  
+                    ; OrderStatusErrorEmailMailTemplate_media ;                         ; text/html ; structure_orderStatusEmailBody.vm ; $jarEmailResource/structure-view/structure_orderStatusEmailBody.vm         
+
+

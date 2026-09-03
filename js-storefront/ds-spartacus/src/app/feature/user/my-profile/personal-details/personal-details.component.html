@@ -1,0 +1,78 @@
+<div class="row my-profile">
+  <div class="col-md-12 tabcontent-display-line">
+    <div class="row custom-bottom-border">
+      <div class="col-md-12">
+        <h5 class="tabcontent-display-line-section-heading">
+          {{ 'myProfile.personalDetail' | cxTranslate }}
+        </h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.fstNameLabel' | cxTranslate }}
+        </div>
+
+        <div class="tabcontent-display-line-data">
+          {{ data?.firstName }}
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.lastNameLabel' | cxTranslate }}
+        </div>
+        <div class="tabcontent-display-line-data">
+          {{ data?.lastName }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.signOnLabel' | cxTranslate }}
+        </div>
+
+        <div class="tabcontent-display-line-data">
+          {{ data?.displayUid }}
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.emailLabel' | cxTranslate }}
+        </div>
+        <div class="tabcontent-display-line-data margin-top-label">
+          {{ data?.email }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.lastLoginLabel' | cxTranslate }}
+        </div>
+        <div class="tabcontent-display-line-data margin-top-label">
+          {{ data?.lastLogin }}
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="tabcontent-display-line-label">
+          {{ 'myProfile.lvlAccessLabel' | cxTranslate }}
+        </div>
+        <div>
+          <div class="tabcontent-display-line-data margin-top-label">
+            {{ data?.dsRoles }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row custom-border-top">
+      <div class="col-12 button-group"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<ng-container *ngIf="showOutageBanner">
+  <div
+    class="outage-banner-component"
+    *ngIf="outageBannerComponent$ | async as outageBanner"
+  >
+    <span class="material-icons"> warning </span>
+    <p class="m-0" [innerHtml]="outageBanner.content"></p>
+    <a class="close-outage-banner" (click)="closeOutageBanner()"
+      ><span class="material-icons"> close </span></a
+    >
+  </div>
+</ng-container>
+<ds-recaptcha *ngIf="userType === 'anonymous'"></ds-recaptcha>
+<app-loggedin-home *ngIf="userType === 'current'"></app-loggedin-home>
+<app-new-guest-homepage *ngIf="userType === 'anonymous'"></app-new-guest-homepage>
+<!-- <app-guest-home *ngIf="userType === 'anonymous'"></app-guest-home> -->

@@ -1,0 +1,272 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<div class="container">
+  <div class="waygate-order-details-container">
+    <div class="waygate-order-details-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'order-tracking.orderDetails' | cxTranslate }}</h1>
+    </div>
+    <!--end of waygate-order-details-header -->
+
+    <div class="waygate-details-actions">
+      <div class="left-actions"></div>
+      <div class="right-actions">
+        <div (click)="backLink()">
+          <span class="material-icons"> chevron_left </span> {{ 'waygate-order.back' | cxTranslate }}
+        </div>
+        <div (click)="shareDetail()">
+          <span class="material-icons"> share </span> {{ 'waygate-order.share' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="orderDetails; else noData">
+      <div class="waygate-order-details-body">
+        <div class="order-details-body-tabs">
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'summary'"
+            (click)="changeState('summary')"
+          >
+            <span class="material-icons"> assignment </span>
+            {{ 'track-order.orderSummryBtn' | cxTranslate }}
+          </div>
+
+          <div
+            class="order-details-tab"
+            [class.active]="state == 'items'"
+            (click)="changeState('items')"
+          >
+            <span class="material-icons"> category </span>
+            {{ 'track-order.itemsOrdered' | cxTranslate }}
+          </div>
+        </div>
+        <!-- end of order-details-body-tabs -->
+
+        <div class="order-details-body-details">
+          <div
+            class="order-status-blocked-container"
+            *ngIf="orderDetails?.orderStatus == 'Blocked'"
+          >
+            <p class="mb-2">
+              <!-- <span class="material-icons"> notifications </span> -->
+              <span class="material-icons"> security </span>
+              <!-- <img class="mr-2" src="../../../../../assets/img/security.svg" alt="security" /> -->
+              {{ 'waygate-order.orderBlockedReasonTxt1' | cxTranslate }}
+              <span class="blocked-text">
+                {{ 'waygate-order.orderBlockedReasonTxt2' | cxTranslate }}</span
+              >
+              {{ 'waygate-order.orderBlockedReasonTxt3' | cxTranslate }}
+            </p>
+            <ul class="mb-2 pl-3">
+              <li>{{ orderDetails?.blkText }}</li>
+            </ul>
+            <p 
+              class="mb-2" 
+              [innerHTML]="'waygate-order.orderContactCustomerCare' | cxTranslate">
+            </p>
+          </div>
+          <div class="status-container-header">
+            <div class="header-left-part">
+              <h5>
+                {{ 'track-order.orderNumber' | cxTranslate }}
+                {{ orderDetails?.code }}
+              </h5>
+              <!--  {{ orderDetails?.code }} -->
+              <div class="header-details">
+                <div *ngIf="orderDetails?.lineData?.length > 0">
+                  {{ orderDetails?.lineData?.length }}
+                  {{ 'track-order.itemsHeader' | cxTranslate }}
+                </div>
+                <!-- <div class="verts" *ngIf="orderDetails?.lineData?.length > 0">
+                  |
+                </div>
+                <div>
+                  {{ 'track-order.po' | cxTranslate }}
+                  {{ orderDetails?.purchaseOrderNumber }}
+                </div> -->
+
+                <div class="verts">|</div>
+                <div>
+                  {{ 'track-order.poDateHeader' | cxTranslate }}
+                  {{ orderDetails?.poDate }}
+                </div>
+              </div>
+            </div>
+            <!-- end of header-left-part -->
+            <div class="header-right-part">
+              <div class="status" [class]="getClass(orderDetails?.orderStatus)">
+                {{ orderDetails?.orderStatus }}
+              </div>
+            </div>
+          </div>
+          <!-- end of header-right-part -->
+
+          <ng-container *ngIf="state == 'summary'">
+            <div class="order-status-container">
+              <div class="status-container-body">
+                <ul class="progressbar">
+                  <li
+                    [class.active]="
+                      activateState(getClass(orderDetails?.orderStatus), 1)
+                    "
+                  >
+                    <div class="icons-tile">
+                      <img
+                        src="../../../../../assets/img/notebook.svg"
+                        alt=""
+                      />
+                      <div>
+                        {{ 'track-order.orderReceivedHeader' | cxTranslate }}
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    [ngClass]="{
+                      active: activateState(
+                        getClass(orderDetails?.orderStatus),
+                        2
+                      ),
+                      blocked: orderDetails?.orderStatus == 'Blocked',
+                    }"
+                  >
+                    <div class="icons-tile">
+                      <ng-container
+                        *ngIf="
+                          orderDetails?.orderStatus != 'Blocked';
+                          else blockedImage
+                        "
+                      >
+                        <img src="../../../../../assets/img/package.svg" alt=""
+                      /></ng-container>
+                      <ng-template #blockedImage>
+                        <img
+                          src="../../../../../assets/img/package-blocked.svg"
+                          alt=""
+                        />
+                      </ng-template>
+                      <div>
+                        {{
+                          orderDetails?.orderStatus == 'Blocked'
+                            ? ('track-order.orderStatusBlocked' | cxTranslate)
+                            : ('track-order.orderStatusShipped' | cxTranslate)
+                        }}
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    [class.active]="
+                      activateState(getClass(orderDetails?.orderStatus), 3)
+                    "
+                  >
+                    <div class="icons-tile">
+                      <img
+                        src="../../../../../assets/img/shipping.svg"
+                        alt=""
+                      />
+                      <div>{{ 'track-order.shipped' | cxTranslate }}</div>
+                    </div>
+                  </li>
+                  <li
+                    [class.active]="
+                      activateState(getClass(orderDetails?.orderStatus), 4)
+                    "
+                  >
+                    <div class="icons-tile">
+                      <img
+                        src="../../../../../assets/img/handshake.svg"
+                        alt=""
+                      />
+                      <div>
+                        <div>
+                          {{ 'track-order.shipped&Invoiced' | cxTranslate }}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <ng-container *ngIf="userType == 'anonymous'">
+              <div class="customer-details">
+                <h4>{{ 'waygate-order.ctmrDetailsHeader' | cxTranslate }}</h4>
+                <div class="customer-details-box">
+                  <div class="details-line">
+                    <div>
+                      <div class="details-label">
+                        {{ 'waygate-order.incoTermsHeader' | cxTranslate }}
+                      </div>
+                      <div class="details-value">
+                        {{ orderDetails?.incoterm }}
+                      </div>
+                    </div>
+                    <div>
+                      <div class="details-label">
+                        {{
+                          'waygate-order.shipmentPreferenceHeader' | cxTranslate
+                        }}
+                      </div>
+                      <div class="details-value">
+                        {{
+                          (orderDetails?.headerShippingMethod).toLowerCase() ==
+                          'x'
+                            ? ('waygate-order.shipmentPreferenceComplete'
+                              | cxTranslate)
+                            : ('waygate-order.shipmentPreferencePartial'
+                              | cxTranslate)
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="details-line"
+                    *ngIf="orderDetails?.lineData[0]?.courier"
+                  >
+                    <div>
+                      <div class="details-label">
+                        {{ 'waygate-order.shipmentMethodHeader' | cxTranslate }}
+                      </div>
+                      <div class="details-value">
+                        {{ orderDetails?.lineData[0]?.courier || '-' }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="state == 'summary' || state == 'items'">
+            <div class="items-container">
+              <h4 *ngIf="state == 'summary'">
+                {{
+                  'track-order.orderedCount'
+                    | cxTranslate: { count: orderDetails?.lineData?.length }
+                }}
+              </h4>
+              <div class="line-header">
+                {{ 'track-order.itemDetails' | cxTranslate }}
+              </div>
+              <ng-container *ngFor="let product of orderDetails?.lineData">
+                <app-waygate-order-product
+                  [product]="product"
+                  [userType]="userType"
+                ></app-waygate-order-product>
+              </ng-container>
+            </div>
+          </ng-container>
+          <!-- end of order-details-body-details -->
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!-- end of waygate-order-details-container -->
+</div>
+<!-- end of container -->
+
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img src="../../../../../" alt="No Orders Found!" />
+    <h4>{{ 'track-order.orderNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>

@@ -1,0 +1,267 @@
+<div class="contact-us-container">
+  <mat-table
+    class="clearfix contactfirst"
+    #table
+    [dataSource]="contactUsList"
+    matSort
+    (matSortChange)="sortDataLogic($event)"
+  >
+    <!-- Position Column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef class="tb-heading">
+        {{ 'contactUs.tblHeaderType' | cxTranslate }}
+        <div class="arrow" (click)="sortDataLogic(['type', true])">
+          <div><em class="arrow-down">keyboard_arrow_up</em></div>
+          <div><em class="arrow-up">keyboard_arrow_down</em></div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+        {{ element.commerceTypeValue }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="region">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'contactUs.tblHeaderRegion' | cxTranslate }}
+        <div class="arrow" (click)="sortDataLogic(['region', true])">
+          <div><em class="arrow-down">keyboard_arrow_up</em></div>
+          <div><em class="arrow-up">keyboard_arrow_down</em></div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.region }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- SubRegion  Column -->
+    <ng-container matColumnDef="subRegion">
+      <mat-header-cell
+        mat-sort-header="subRegion"
+        *matHeaderCellDef
+        class="tb-heading"
+        >{{ 'contactUs.tblHeadersubRegion' | cxTranslate }}
+        <div class="arrow" (click)="sortDataLogic(['subRegion', true])">
+          <div><em class="arrow-down">keyboard_arrow_up</em></div>
+          <div><em class="arrow-up">keyboard_arrow_down</em></div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.subRegion }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Product Line Column -->
+    <ng-container matColumnDef="productLine">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'contactUs.tblHeaderProductLine' | cxTranslate }}
+        <div class="arrow" (click)="sortDataLogic(['productLine', true])">
+          <div><em class="arrow-down">keyboard_arrow_up</em></div>
+          <div><em class="arrow-up">keyboard_arrow_down</em></div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.productLine }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'contactUs.tblHeaderEmail' | cxTranslate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        <a
+          *ngIf="check(element.email); else other_content"
+          href="mailto:{{ element.email }}"
+          >{{ element.email }}</a
+        >
+        <ng-template #other_content
+          ><a href="{{ element.email }}" target="_blank">{{
+            element.email.replace('https://', '')
+          }}</a></ng-template
+        >
+      </mat-cell>
+    </ng-container>
+
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="phoneNum">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'contactUs.tblHeaderPhoneNo' | cxTranslate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.phoneNum }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="workingHours">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'contactUs.tblHeaderWorkingHours' | cxTranslate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.workingHours }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="displayedColumnsfirstcontact"
+    ></mat-header-row>
+    <mat-row
+      *matRowDef="let element; columns: displayedColumnsfirstcontact"
+    ></mat-row>
+  </mat-table>
+
+  <div class="contact-us-spinner cx-spinner" *ngIf="loadSpinner">
+    <cx-spinner></cx-spinner>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-md-12 view-other-product-line"
+      (click)="isShowProductLine = !isShowProductLine"
+    >
+      <span *ngIf="isShowProductLine">
+        {{ 'contactUs.hideOtherProduct' | cxTranslate }}
+      </span>
+      <span *ngIf="!isShowProductLine">
+        {{ 'contactUs.viewOtherProduct' | cxTranslate }}
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="isShowProductLine" class="show-product-line">
+    <mat-table
+      class="clearfix"
+      #table
+      [dataSource]="contactUsListsecond"
+      matSort
+      (matSortChange)="sortDataSecondLogic($event)"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef class="tb-heading">
+          {{ 'contactUs.tblHeaderType' | cxTranslate }}
+          <div class="arrow" (click)="sortDataSecondLogic(['type', true])">
+            <div><em class="arrow-down">keyboard_arrow_up</em></div>
+            <div><em class="arrow-up">keyboard_arrow_down</em></div>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+          {{ element.commerceTypeValue }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="region">
+        <mat-header-cell *matHeaderCellDef class="tb-heading"
+          >{{ 'contactUs.tblHeaderRegion' | cxTranslate }}
+          <div class="arrow" (click)="sortDataSecondLogic(['region', true])">
+            <div><em class="arrow-down">keyboard_arrow_up</em></div>
+            <div><em class="arrow-up">keyboard_arrow_down</em></div>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.region }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Sub Region Column -->
+      <ng-container matColumnDef="subRegion">
+        <mat-header-cell
+          mat-sort-header="subRegion"
+          *matHeaderCellDef
+          class="tb-heading"
+          >{{ 'contactUs.tblHeadersubRegion' | cxTranslate }}
+          <div class="arrow" (click)="sortDataSecondLogic(['subRegion', true])">
+            <div><em class="arrow-down">keyboard_arrow_up</em></div>
+            <div><em class="arrow-up">keyboard_arrow_down</em></div>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.subRegion }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell
+          mat-sort-header="country"
+          *matHeaderCellDef
+          class="tb-heading"
+          >{{ 'contactUs.tblHeadercountry' | cxTranslate }}
+          <div class="arrow" (click)="sortDataSecondLogic(['country', true])">
+            <div><em class="arrow-down">keyboard_arrow_up</em></div>
+            <div><em class="arrow-up">keyboard_arrow_down</em></div>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.country }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Product Line Column -->
+      <ng-container matColumnDef="productLine">
+        <mat-header-cell *matHeaderCellDef class="tb-heading"
+          >{{ 'contactUs.tblHeaderProductLine' | cxTranslate }}
+          <div
+            class="arrow"
+            (click)="sortDataSecondLogic(['productLine', true])"
+          >
+            <div><em class="arrow-down">keyboard_arrow_up</em></div>
+            <div><em class="arrow-up">keyboard_arrow_down</em></div>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.productLine }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef class="tb-heading"
+          >{{ 'contactUs.tblHeaderEmail' | cxTranslate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          <a
+            *ngIf="check(element.email); else other_content"
+            href="mailto:{{ element.email }}"
+            >{{ element.email }}</a
+          >
+          <ng-template #other_content
+            ><a href="{{ element.email }}" target="_blank">{{
+              element.email.replace('https://', '')
+            }}</a></ng-template
+          >
+        </mat-cell>
+      </ng-container>
+
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="phoneNum">
+        <mat-header-cell *matHeaderCellDef class="tb-heading"
+          >{{ 'contactUs.tblHeaderPhoneNo' | cxTranslate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.phoneNum }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Working Hours Column -->
+      <ng-container matColumnDef="workingHours">
+        <mat-header-cell *matHeaderCellDef class="tb-heading"
+          >{{ 'contactUs.tblHeaderWorkingHours' | cxTranslate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tb-content">
+          {{ element.workingHours }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <div class="contact-us-spinner cx-spinner" *ngIf="loadSpinner">
+      <cx-spinner></cx-spinner>
+    </div>
+  </div>
+</div>

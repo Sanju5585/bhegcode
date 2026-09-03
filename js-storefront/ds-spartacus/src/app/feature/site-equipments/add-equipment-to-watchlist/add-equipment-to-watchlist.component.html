@@ -1,0 +1,324 @@
+<div class="back-link-wrap"></div>
+<div class="box-wrapper">
+  <div class="form-wrap">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <h2 class="page-title">
+          {{ 'mySiteEquipment.pageTitle' | cxTranslate }}
+        </h2>
+        <p class="page-description">
+          {{ 'mySiteEquipment.watchListDescription' | cxTranslate }}
+        </p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <span class="dd-label required-field">{{
+          'mySiteEquipment.serialId' | cxTranslate
+        }}</span>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}"
+          value="{{ probeSerialNumber }}"
+          maxlength="18"
+          fuild="true"
+          small="true"
+          required
+          name="probeSerialNumber"
+          (keyup)="onChange($event, 'probeSerialNumber')"
+          [message]="error.probeSerialNumber"
+          [attr.error]="
+            error.probeSerialNumber ? error.probeSerialNumber : null
+          "
+        ></bh-text-input>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <span class="dd-label required-field">{{
+          'mySiteEquipment.partNumber' | cxTranslate
+        }}</span>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{ 'mySiteEquipment.enterPartNumber' | cxTranslate }}"
+          value="{{ partNumber }}"
+          maxlength="18"
+          fuild="true"
+          small="true"
+          name="partNumber"
+          (keyup)="autoSearch($event, 'partNumber')"
+          [message]="error.partNumber"
+          [attr.error]="error.partNumber ? error.partNumber : null"
+          required
+        >
+        </bh-text-input>
+        <span
+          *ngIf="partNumber"
+          class="material-icons close clear-auto-suggest"
+          (click)="clearPartNumber()"
+          >close</span
+        >
+        <bh-spinner
+          *ngIf="showPartLoader"
+          class="clear-auto-suggest"
+          position="inline"
+          size="medium"
+        ></bh-spinner>
+        <div *ngIf="showPartList" class="search-list">
+          <ul class="p-0" #partNumberList>
+            <li
+              class="part-item"
+              *ngFor="let eachProduct of arrPartAutoSearchResult; let i = index"
+              (mousedown)="setPartNumberToField(eachProduct)"
+            >
+              <div class="pull-left img-container">
+                <img [src]="eachProduct.mediaurl" class="part-image" />
+              </div>
+              <div class="details-container">
+                <span class="part-name-text overflow-ellipsis">{{
+                  eachProduct.name
+                }}</span>
+                <span class="part-code-text overflow-ellipsis">
+                  {{ eachProduct.code }}
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <span class="dd-label">{{
+          'mySiteEquipment.partName' | cxTranslate
+        }}</span>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{ 'mySiteEquipment.enterPartName' | cxTranslate }}"
+          value="{{ partName }}"
+          maxlength="40"
+          fuild="true"
+          small="true"
+          name="partName"
+          (keyup)="onChange($event, 'partName')"
+          [message]="error.partName"
+          [attr.error]="error.partName ? error.partName : null"
+          required
+        ></bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="icon-text-position">
+          <span class="dd-label">{{
+            'mySiteEquipment.siteLocation' | cxTranslate
+          }}</span>
+          <bh-icon
+            icon="info"
+            size="small"
+            href=""
+            target=""
+            class="ml-1 icon-color"
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="{{ 'mySiteEquipment.siteLocationTip' | cxTranslate }}"
+          ></bh-icon>
+        </div>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{ 'mySiteEquipment.enterSiteLocation' | cxTranslate }}"
+          value=""
+          maxlength="20"
+          fuild="true"
+          small="true"
+          name="location"
+          message="{{ 'mySiteEquipment.maximumLength' | cxTranslate }}"
+          (keyup)="onChange($event, 'location')"
+          [message]="error.location"
+          [attr.error]="error.location ? error.location : null"
+          required
+        ></bh-text-input>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 date-wrap">
+        <span class="dd-label">{{
+          'mySiteEquipment.lastServiceDate' | cxTranslate
+        }}</span>
+        <vs-date-picker
+          class="date-picker"
+          [min]="minDate"
+          [max]="maxDate"
+          (selectedDate)="onDateChange($event)"
+        >
+        </vs-date-picker>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="icon-text-position">
+          <span class="dd-label">{{
+            'mySiteEquipment.serviceInterval' | cxTranslate
+          }}</span>
+          <bh-icon
+            icon="info"
+            size="small"
+            href=""
+            target=""
+            class="icon-color ml-1"
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="{{
+              'mySiteEquipment.serviceIntervalTip' | cxTranslate
+            }}"
+          ></bh-icon>
+        </div>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{
+            'mySiteEquipment.enterServiceInterval' | cxTranslate
+          }}"
+          value=""
+          fuild="true"
+          small="true"
+          name="serviceInterval"
+          (keyup)="onChange($event, 'serviceInterval')"
+          [message]="error.serviceInterval"
+          (keypress)="numberOnly($event)"
+          maxlength="2"
+          [attr.error]="error.serviceInterval ? error.serviceInterval : null"
+          required
+        ></bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <span class="dd-label">{{
+          'mySiteEquipment.endCustomerNumber' | cxTranslate
+        }}</span>
+        <bh-dropdown
+          *ngIf="endCustomerNameDropDown == true"
+          class="salesarea-dd"
+          isFluid="false"
+          isSmall="false"
+          width="large"
+          menuWidth="large"
+          unselectable="false"
+          [menuItems]="endCustomerName"
+          value="{{ 'mySiteEquipment.selecteEndCustomer' | cxTranslate }}"
+          isEllipsis="false"
+          (select)="getEndCustomer($event)"
+          [message]="error.endCustomerName"
+          [attr.error]="error.endCustomerName ? error.endCustomerName : null"
+        ></bh-dropdown>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="icon-text-position">
+          <span class="dd-label">{{
+            'mySiteEquipment.tagAseetNumber' | cxTranslate
+          }}</span>
+          <bh-icon
+            icon="info"
+            size="small"
+            href=""
+            target=""
+            class="ml-1 icon-color"
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="{{ 'mySiteEquipment.tagAssetTip' | cxTranslate }}"
+          ></bh-icon>
+        </div>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{
+            'mySiteEquipment.enterTagAseetNumber' | cxTranslate
+          }}"
+          value=""
+          maxlength="30"
+          fuild="true"
+          small="true"
+          name="tagAssetNumber"
+          (keyup)="onChange($event, 'tagAssetNumber')"
+          [message]="error.tagAssetNumber"
+          [attr.error]="error.tagAssetNumber ? error.tagAssetNumber : null"
+          required
+        ></bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="icon-text-position">
+          <span class="dd-label">{{
+            'mySiteEquipment.customTariffCode' | cxTranslate
+          }}</span>
+          <bh-icon
+            icon="info"
+            size="small"
+            href=""
+            target=""
+            class="ml-1 icon-color"
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="{{ 'mySiteEquipment.customTarifTip' | cxTranslate }}"
+          ></bh-icon>
+        </div>
+        <bh-text-input
+          class="m-t-4"
+          type="text"
+          placeholder="{{ 'mySiteEquipment.enterTariffCode' | cxTranslate }}"
+          value=""
+          maxlength="17"
+          fuild="true"
+          small="true"
+          name="customTariff"
+          (keyup)="onChange($event, 'customTariff')"
+        ></bh-text-input>
+      </div>
+
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <span class="dd-label">{{
+          'mySiteEquipment.notes' | cxTranslate
+        }}</span>
+        <bh-text-area
+          class="shipping-remarks"
+          label=""
+          value=""
+          placeholder=""
+          name="notes"
+          maxlength="1333"
+          maxcharacters="1333"
+          messageType="count"
+          (keyup)="onChange($event, 'notes')"
+          (keypress)="stop($event)"
+          (paste)="myFunction($event)"
+          (focusout)="trimText()"
+          #textval
+        ></bh-text-area>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <bh-button
+          type="secondary"
+          label="{{ 'mySiteEquipment.cancel' | cxTranslate }}"
+          class="reset float-left mr-3"
+          (click)="cancelButton()"
+        >
+        </bh-button>
+        <bh-button
+          type="primary"
+          label="{{ 'mySiteEquipment.addItem' | cxTranslate }}"
+          class="track"
+          [attr.disabled]="false"
+          (click)="addEquipmentDetails()"
+          [attr.disabled]="showSpinner ? true : null"
+          [attr.loading]="showSpinner ? true : null"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+</div>

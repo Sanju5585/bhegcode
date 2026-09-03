@@ -1,0 +1,73 @@
+<!-- Add ng-template for logged in Avatar  -->
+<ng-container *ngIf="user$ | async as user; else loginLinks" >
+  <div class="user-info desktop-view">
+    <bh-avatar #userAvatar type="primary" size="medium" ring [firstname]="user.firstName?.split(' ')[0]"
+      [lastname]="user.lastName?.split(' ')[0]" (click)="onAvatarClick()"></bh-avatar>
+  </div>
+  <div clickOutside [clickSourceId]="userAvatar" (clickOutside)="menuOpened = !menuOpened" *ngIf="menuOpened"
+    class="userMenu">
+    <div class="userName">
+      <bh-avatar type="primary" size="large" ring [firstname]="user.firstName?.split(' ')[0]"
+        [lastname]="user.lastName?.split(' ')[0]"></bh-avatar>
+      <div class="user-id-containr">
+        <div class="user-id-and-name">
+          <h3 class="user-name-text">{{ user.name }}</h3>
+          <div class="user-email-text">{{ user.email | lowercase }}</div>
+        </div>
+
+        <ds-waygate-customer-account (closeMenu)="onAvatarClick()"></ds-waygate-customer-account>
+      </div>
+    </div>
+
+    <div class="menu-list" *ngIf="nodeList.length > 0">
+      <ng-container *ngFor="let item of nodeList; let i = index">
+        <a (click)="getItem(item, $event)" *ngIf="item?.styleAttributes" class="menu-list-item">
+          <span class="menu-list-item--text">
+            <span class="material-icons" *ngIf="item?.styleAttributes">
+              {{ item?.styleAttributes }}
+            </span>
+            {{ item.title }}
+          </span>
+        </a>
+      </ng-container>
+    </div>
+    <div class="logout-menu-holder">
+      <a>
+        <span class="material-icons logout-icon"> power_settings_new </span>
+        <div class="text-logout">
+          <a (click)="logout()">{{ 'siteLogin.signOut' | cxTranslate }}</a>
+        </div>
+      </a>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loginLinks>
+  <div class="site-logins desktop-view">
+    <div>
+      <bh-button (click)="navToLogin()" type="primary" label="{{ 'guest-home.signIn' | cxTranslate }}"
+        class="float-left">
+      </bh-button>
+      <bh-button (click)="onRegisterClick()" type="secondary" label="{{ 'guest-home.register' | cxTranslate }}">
+      </bh-button>
+    </div>
+  </div>
+
+  <div class="mobile-login-links">
+
+    <ng-container>
+      <a class="hamburger-icon" (click)="toggleMenu()" [class.selected]="logInMenuOpened">
+        <img class="hamburger-img" src="../../../../../assets/img/hamburger.svg" alt="click" />
+      </a>
+    </ng-container>
+  </div>
+</ng-template>
+<div class="login-menu" *ngIf="logInMenuOpened">
+  <ng-container >
+    <hr />
+    <a class="login-menu-items" (click)="navToLogin()">{{ 'guest-home.signIn' | cxTranslate }}    </a>
+    <hr />
+    <a class="login-menu-items" (click)="onRegisterClick()">{{ 'guest-home.register' | cxTranslate }}   </a>
+    <hr />
+</ng-container>
+</div>

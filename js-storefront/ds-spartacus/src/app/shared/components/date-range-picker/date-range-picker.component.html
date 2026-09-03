@@ -1,0 +1,94 @@
+<div class="container">
+  <label
+    class="date-ranger-picker-input"
+    (click)="showCalendars()"
+    #dateRangeInput
+  >
+    <span *ngIf="!showCalendar && labelTxt" class="date-range-text"
+      >{{ fromMinDate | date: 'd MMM, y' }} -
+      {{ fromMaxDate | date: 'd MMM, y' }}</span
+    >
+    <span
+      *ngIf="(showCalendar || !labelTxt) && !changeDate"
+      class="date-range-text"
+      >{{ labelText }}</span
+    >
+    <span
+      *ngIf="(showCalendar || !labelTxt) && changeDate"
+      class="date-range-text"
+      >{{ fromMinDate | date: 'd MMM, y' }} -
+      {{ fromMaxDate | date: 'd MMM, y' }}</span
+    >
+    <i class="material-icons today">today</i>
+  </label>
+  <div *ngIf="showCalendar" class="date-range-picker" #dateRangePickerMenu>
+    <div class="calendar-container row">
+      <div class="col-md-6 from-calendar">
+        <p class="from-date">
+          <span class="content">{{ 'dateRange.from' | cxTranslate }}</span>
+          <span class="content-bold">
+            {{ getFormattedDate(fromSelectedDate) }}</span
+          >
+        </p>
+        <mat-calendar
+          [selected]="fromSelectedDate"
+          [startAt]="fromSelectedDate"
+          (selectedChange)="onFromDateSelect($event)"
+          [minDate]="fromMinDate"
+          [maxDate]="fromMaxDate"
+          #fromCalendar
+        >
+        </mat-calendar>
+      </div>
+      <div class="col-md-6 to-calendar">
+        <p class="to-date">
+          <span class="content">{{ 'dateRange.to' | cxTranslate }}</span>
+          <span class="content-bold">
+            {{ getFormattedDate(toSelectedDate) }}</span
+          >
+        </p>
+        <mat-calendar
+          [selected]="toSelectedDate"
+          (selectedChange)="onToDateSelect($event)"
+          [minDate]="fromMinDate"
+          [maxDate]="toMaxDate"
+          #toCalendar
+        >
+        </mat-calendar>
+      </div>
+    </div>
+    <div class="action-container">
+      <div class="float-left">
+        <p class="selected-dates">
+          <span class="content">
+            {{ 'dateRange.timeperiod' | cxTranslate }}
+          </span>
+          <span class="content-bold">
+            {{ getFormattedDate(fromSelectedDate) }}
+          </span>
+          <span class="content to-text">
+            {{ 'dateRange.to' | cxTranslate }}
+          </span>
+          <span class="content-bold m-0">
+            {{ getFormattedDate(toSelectedDate) }}
+          </span>
+        </p>
+      </div>
+      <div class="float-right">
+        <button
+          class="vs-text-btn float-left"
+          (click)="showCalendar = !showCalendar"
+        >
+          {{ 'dateRange.cancel' | cxTranslate }}
+        </button>
+        <button
+          class="vs-primary-btn float-left"
+          (click)="onDateRangeSelect()"
+          [disabled]="disableBtn"
+        >
+          {{ 'dateRange.done' | cxTranslate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

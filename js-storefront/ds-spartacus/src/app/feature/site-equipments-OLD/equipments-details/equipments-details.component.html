@@ -1,0 +1,526 @@
+<div *ngIf="contentLoaded">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="header-container w-100 pull-left">
+        <div class="pull-left">
+          <span
+            class="header-text"
+            translate="bhge.ng.site.equipment.details.header"
+            >Equipment Details</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <button
+        translate="bhge.ng.site.equipment.manel.back_equipment"
+        class="secondary-btn-bhge text-uppercase pull-right w-300 m-t-5 m-l-10"
+        [routerLink]="['/site-equipment']"
+        [queryParams]="{ isReload: true }"
+      >
+        Back to My Equipment
+      </button>
+    </div>
+  </div>
+  <div class="row m-t-20">
+    <div class="col-md-5 p-0 p-l-20">
+      <div class="product-image-holder p-t-10">
+        <img
+          [src]="(productDetails && productDetails.mediaurl) || staticImage"
+          class="product-image"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="col-md-7 p-0">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <span class="fs-24 font-poppins-bold">{{
+              equipmentDetails?.serialNumber
+            }}</span>
+            <span
+              class="highlight-div m-l-10 font-poppins-bold"
+              *ngIf="totalEquipment > 0"
+              >{{ totalEquipment }} more present in my equipment</span
+            >
+          </div>
+          <!-- <div class="m-t-5">
+            <span class="sub-heading fs-16">{{ equipmentDetails.partNumber }} - {{ equipmentDetails.partName }}</span>
+            <a [routerLink]="" class="gray-text m-l-20 fs-14" (click)="onFavouritesClick(equipmentDetails.partNumber, equipmentDetails.favourites)">
+              <span *ngIf="equipmentDetails.favourites || equipmentDetails.favourites == true else nonFavIcon" class="bhge-icons ico_star_sm"></span>
+              {{'Favourite'|translate:'bhge.ng.site.equipment.mel.favorite'}}
+            </a>
+            <ng-template #nonFavIcon>
+              <span class="bhge-icons ico_starempty_sm"></span>
+            </ng-template>
+          </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.product.number"
+          >
+            Part Number
+          </p>
+          <p class="gray-text eq-value-field">
+            <a
+              *ngIf="equipmentDetails?.productData; else noLinkProductNum"
+              href="{{ equipmentDetails?.productData.url }}"
+              class="p-bold"
+              >{{ equipmentDetails?.partNumber }}</a
+            >
+            <ng-template #noLinkProductNum>
+              <span>{{ equipmentDetails?.partNumber }}</span>
+            </ng-template>
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.product.name"
+          >
+            Part Name
+          </p>
+          <p class="gray-text eq-value-field">
+            <a
+              *ngIf="equipmentDetails?.productData; else noLinkProductName"
+              href="{{ equipmentDetails?.productData.url }}"
+              class="p-bold"
+              >{{ equipmentDetails?.partName }}</a
+            >
+            <ng-template #noLinkProductName>
+              <span>{{ equipmentDetails?.partName }}</span>
+            </ng-template>
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.details.status"
+          >
+            Status
+          </p>
+          <p class="gray-text eq-value-field">{{ equipmentDetails?.status }}</p>
+
+          <p class="color-evergreen p-bold m-t-20 eq-key-field">
+            <span
+              translate="bhge.ng.site.equipment.details.site_location"
+              class="pull-left"
+              >Site Location</span
+            >
+            <i
+              class="bhge-mcstore-icons icon-info m-l-10 pull-left"
+              matTooltip="{{
+                eqService.getTooltipText(
+                  'bhge.ng.site.equipment.details.tooltip.location'
+                )
+              }}"
+              matTooltipPosition="right"
+            ></i>
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.location }}
+          </p>
+
+          <p class="color-evergreen p-bold m-t-20 eq-key-field">
+            <span
+              translate="bhge.ng.site.equipment.details.asset_num"
+              class="pull-left"
+              >Tag / Asset Number</span
+            >
+            <i
+              class="bhge-mcstore-icons icon-info m-l-10 pull-left"
+              matTooltip="{{
+                eqService.getTooltipText(
+                  'bhge.ng.site.equipment.details.tooltip.asset.number'
+                )
+              }}"
+              matTooltipPosition="right"
+            ></i>
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.assetNumber }}
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.details.add_info"
+          >
+            Additional information
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.additionalInfo }}
+          </p>
+
+          <div class="action-button-2 m-t-30">
+            <button
+              (click)="updateMELItem()"
+              class="secondary-btn-bhge h-30 fs-12 pull-left"
+              translate="bhge.ng.site.equipment.update_details"
+            >
+              Update item details
+            </button>
+            <button
+              *ngIf="
+                equipmentDetails &&
+                  equipmentDetails?.status.toLowerCase() == 'active';
+                else archived
+              "
+              class="archive-btn tertiary-btn-bhge m-l-10 h-30 fs-12 pull-left"
+              [class.disabled]="isArchiving || equipmentDetails?.inactiveFlag"
+              (click)="archiveEquipment()"
+              matTooltip="{{
+                eqService.getTooltipText(
+                  'bhge.ng.site.equipment.details.tooltip.archive'
+                )
+              }}"
+              matTooltipPosition="below"
+            >
+              <i
+                *ngIf="!isArchiving"
+                class="bhge-mcstore-icons icon-archive"
+              ></i>
+              <span
+                class="archive-btn-text"
+                translate="bhge.ng.site.equipment.mel_archive"
+                >Archive</span
+              >
+              <i
+                *ngIf="isArchiving"
+                class="bhge-icons ico_spinner_sm m-l-5"
+              ></i>
+            </button>
+            <ng-template #archived>
+              <button
+                class="archive-btn tertiary-btn-bhge m-l-10 h-30 fs-12 pull-left"
+                [class.disabled]="isArchiving || equipmentDetails?.inactiveFlag"
+                (click)="archiveEquipment()"
+                matTooltip="{{
+                  eqService.getTooltipText(
+                    'bhge.ng.site.equipment.mel.retrieve.tooltip'
+                  )
+                }}"
+                matTooltipPosition="below"
+              >
+                <i
+                  *ngIf="!isArchiving"
+                  class="bhge-mcstore-icons icon-archive"
+                ></i>
+                <span translate="bhge.ng.site.equipment.mel.retrieve"
+                  >Restore</span
+                >
+                <i
+                  *ngIf="isArchiving"
+                  class="bhge-icons ico_spinner_sm m-l-5"
+                ></i>
+              </button>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <p class="color-evergreen p-bold m-t-20 eq-key-field">
+            <span
+              translate="bhge.ng.site.equipment.details.cust_code"
+              class="pull-left"
+              >Customs Tariff Code ( HTS Code)</span
+            >
+            <i
+              class="bhge-mcstore-icons icon-info m-l-10 pull-left"
+              matTooltip="{{
+                eqService.getTooltipText(
+                  'bhge.ng.site.equipment.details.tooltip.tariff.code'
+                )
+              }}"
+              matTooltipPosition="right"
+            ></i>
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.htsCode }}
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.details.service_due"
+          >
+            Next Service Due
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.nextServiceDueInMonths }}
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.details.last_service"
+          >
+            Last Service
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.lastServiceDate }}
+          </p>
+
+          <p class="color-evergreen p-bold m-t-20 eq-key-field">
+            <span
+              translate="bhge.ng.site.equipment.details.service_interval"
+              class="pull-left"
+              >Service Interval</span
+            >
+            <i
+              class="bhge-mcstore-icons icon-info m-l-10 pull-left"
+              matTooltip="{{
+                eqService.getTooltipText(
+                  'bhge.ng.site.equipment.details.tooltip.service.interval'
+                )
+              }}"
+              matTooltipPosition="right"
+            ></i>
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ equipmentDetails?.serviceInterval }}
+            {{ equipmentDetails?.serviceInterval?.length > 0 ? 'Months' : '' }}
+          </p>
+
+          <p
+            class="color-evergreen p-bold m-t-20"
+            translate="bhge.ng.site.equipment.details.end_customer"
+          >
+            End Customer
+          </p>
+          <p class="gray-text eq-value-field">
+            {{ getEndCustomer(equipmentDetails) }}
+          </p>
+
+          <div *ngIf="!equipmentDetails?.isOwnerDetailsMismatch" class="m-t-30">
+            <!-- <button class="secondary-btn-bhge" style="width: 100%;" translate="bhge.ng.site.equipment.details.clone_rma">Clone last RMA</button> -->
+
+            <!-- <div *ngIf="productDetails" class="buy-actions pull-left col-md-6 p-l-0">                        
+                <button *ngIf="productDetails.productAccessData.isBuy && productDetails.configurable; else buyCase" type="button" class="primary-btn-bhge buy-btns full-width">
+                    <span class="bhge-icons ico_settings1_lg m-r-5"></span>
+                    <span translate="basket.configure.product">Configure</span>
+                </button>
+                <ng-template #buyCase>
+                    <div *ngIf="productDetails.productAccessData.isBuy && !productDetails.configurable && productDetails.price && productDetails.price.value && productDetails.price.value > 0; else checkPriceCase" class="add-to-cart">
+                        <form id="addToCartForm-{{productDetails.code}}" action='/cart/add' method="post" class="add_to_cart_form m-0" >	
+                            <input type="hidden" name="callingsourceinfo" value="PLP page"/>
+                            <input type="hidden" name="productCodePost" value="{{productDetails.code}}"/>
+                            <input type="hidden" name="productNamePost" value="{{productDetails.name}}"/>
+                            <input type="hidden" name="productPostPrice" value="{{productDetails.price.value}}"/>
+                            <input id="addToCartForm-qty-{{productDetails.code}}" type="hidden" maxlength="4" size="1" name="qty" class="qty js-qty-selector-input" value="{{productDetails.quantity}}">
+                            
+                            <button type="submit" class="pull-left buy-btns btn-green add-to-cart-button full-width" (click)="eqService.onBuyBtnClick($event, productDetails.code, productDetails.name)">
+                                <span class="bhge-mcstore-icons icon-buy m-r-8"></span>
+                                <span translate="basket.buy.product" class="add-to-cart-text">Buy</span>		
+                            </button>
+                        </form>
+                    </div>
+                </ng-template>
+                <ng-template #checkPriceCase>
+                    <button *ngIf="productDetails.productAccessData.isBuy; else catalogOnlyCase" (click)="eqService.checkPriceBtnClick(productDetails.url)" class="primary-btn-bhge buy-btns full-width">
+                        <span translate="bhge.products.check.price" class="check-price-text">Check Price</span>
+                    </button>
+                </ng-template>       
+                <ng-template #catalogOnlyCase>
+                    <div *ngIf="productDetails.productAccessData.isCatalogOnly; else replacementCase" class="replacement-product">
+                        <a href="/contactus" translate="bhge.products.request.access" class="text-bold">
+                            Contact Customer Care		
+                        </a>
+                        <p class="action-text buy-text m-t-5" translate="bhge.products.cannot.buy">
+                            To purchase this item please contact or open a dialogue with Customer Care
+                        </p>
+                    </div>
+                </ng-template>        
+                <ng-template #replacementCase>
+                    <div *ngIf="productDetails.productAccessData.isobsolete && productDetails.replacementProductStatus; else switchSalesAreaCase" class="replacement-product">
+                        <a *ngIf="productDetails.parentCategoryCode" href="/p/{{productDetails.replacementProduct}}?categoryCode={{productDetails.parentCategoryCode}}">View Replacement</a>
+                        <a *ngIf="!productDetails.parentCategoryCode" href="/p/{{productDetails.replacementProduct}}">View Replacement</a>
+                        <p class="action-text buy-text m-t-5" translate="bhge.products.obsolete.replacement">
+                            This is an obsolete product to buy. Replacement product available
+                        </p>
+                    </div>
+                </ng-template>
+                <ng-template #switchSalesAreaCase>
+                    <div *ngIf="productDetails.productAccessData.isBuyPresentInOtherSalesArea; else contactCustomerCareCase">
+                        <button type="button" class="secondary-btn-bhge switch-sales-area-btn full-width" (click)="eqService.switchSalesArea(productDetails.code, productDetails.url ,'buy')">
+                            <span class="bhge-mcstore-icons icon-buy m-r-5"></span>
+                            <span class="switch-sales-text">Switch Sales Area</span>		
+                        </button>
+                        <p class="action-text buy-text m-t-5">
+                            This product is available for buy in another sales area
+                        </p>
+                    </div>                            
+                </ng-template>
+                <ng-template #contactCustomerCareCase>
+                    <div *ngIf="productDetails.productAccessData.isobsolete && !productDetails.productAccessData.isBuy; else contactCustomerCareCase1" class="replacement-product">
+                        <a href="/contactus" translate="bhge.products.customer.care" class="text-bold">Contact Customer Care</a>
+                        <p class="action-text buy-text m-t-5" translate="bhge.products.cannot.buy">
+                            To purchase this item please contact or open a dialogue with Customer Care
+                        </p>
+                    </div>
+                </ng-template>
+                <ng-template #contactCustomerCareCase1>
+                    <div *ngIf="!productDetails.productAccessData.isBuy && !productDetails.productAccessData.isobsolete" class="replacement-product">
+                        <a href="/contactus" translate="bhge.products.customer.care" class="text-bold">Contact Customer Care</a>
+                        <p class="action-text buy-text m-t-5" translate="bhge.products.cannot.buy">
+                            To purchase this item please contact or open a dialogue with Customer Care
+                        </p>
+                    </div>
+                </ng-template>
+            </div> -->
+
+            <div
+              *ngIf="productDetails"
+              class="return-actions pull-left col-md-7 p-0"
+            >
+              <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.createRMA(productDetails.code, productDetails.name)" -->
+              <button
+                *ngIf="
+                  productDetails.productAccessData?.isService;
+                  else switchSalesAreaReturn
+                "
+                class="return-btns btn-blue full-width"
+                (click)="
+                  eqService.createRMA(
+                    productDetails.code,
+                    productDetails.name,
+                    equipmentDetails.serialNumber
+                  )
+                "
+              >
+                <span class="bhge-mcstore-icons icon-return-button"></span>
+                <span class="return-btn-text" translate="bhge.products.return"
+                  >Return</span
+                >
+              </button>
+              <ng-template #switchSalesAreaReturn>
+                <div
+                  *ngIf="
+                    !productDetails.productAccessData?.isobsolete &&
+                      productDetails.productAccessData
+                        ?.isServicePresentInOtherSalesArea;
+                    else contactCustomerCareReturn
+                  "
+                >
+                  <button
+                    type="button"
+                    class="secondary-btn-bhge switch-sales-area-btn full-width"
+                    (click)="
+                      eqService.switchSalesArea(
+                        productDetails.code,
+                        productDetails.url,
+                        'return'
+                      )
+                    "
+                  >
+                    <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.switchSalesArea(productDetails.code, productDetails.url ,'return'); " -->
+                    <span
+                      class="bhge-mcstore-icons icon-return-button m-l-5"
+                    ></span>
+                    <span
+                      class="switch-sales-text"
+                      translate="bhge.products.switch.sales.area"
+                      >Switch Sales Area</span
+                    >
+                  </button>
+                  <p class="action-text return-text m-t-5">
+                    This product is available for return in another sales area
+                  </p>
+                </div>
+              </ng-template>
+
+              <ng-template #contactCustomerCareReturn>
+                <div
+                  *ngIf="
+                    productDetails.productAccessData.isobsolete &&
+                      !productDetails.productAccessData
+                        .isServicePresentInOtherSalesArea;
+                    else contactCustomerCareReturn1
+                  "
+                  class="replacement-product m-r-15"
+                >
+                  <p
+                    class="action-text return-text m-0 m-b-5"
+                    translate="bhge.products.cannot.return"
+                  >
+                    To return this item please contact or open a dialogue with
+                    Customer Care
+                  </p>
+                  <a
+                    href="/contactus"
+                    translate="bhge.products.customer.care"
+                    class="text-bold"
+                  >
+                    Contact Customer Care
+                  </a>
+                </div>
+              </ng-template>
+
+              <ng-template #contactCustomerCareReturn1>
+                <div
+                  *ngIf="
+                    !productDetails.productAccessData.isService &&
+                    !productDetails.productAccessData.isobsolete &&
+                    !productDetails.productAccessData
+                      .isServicePresentInOtherSalesArea
+                  "
+                  class="replacement-product m-r-15"
+                >
+                  <p
+                    class="action-text return-text m-0 m-b-5"
+                    translate="bhge.products.cannot.return"
+                  >
+                    To return this item please contact or open a dialogue with
+                    Customer Care
+                  </p>
+                  <a
+                    href="/contactus"
+                    translate="bhge.products.customer.care"
+                    class="text-bold"
+                  >
+                    Contact Customer Care
+                  </a>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-t-50">
+    <div class="col-md-12">
+      <mat-tab-group
+        disableRipple
+        class="example-stretched-tabs mat-elevation-z4"
+      >
+        <mat-tab label="Service History">
+          <ng-template mat-tab-label>
+            <i class="bhge-mcstore-icons icon-rma-summary m-r-10 fs-18"></i>
+            <span
+              class="fs-14 p-bold text-uppercase"
+              translate="bhge.ng.site.equipment.details.service_history"
+              >Service History</span
+            >
+          </ng-template>
+          <app-equipment-details-history
+            (updateDetails)="onUpdateDetails($event)"
+            [dataHistory]="equipmentDetails?.serviceHistoryDetails"
+            [dataPart]="equipmentDetails?.partNumber"
+            [dataSerial]="equipmentDetails?.serialNumber"
+            [dataOwnerMismatch]="
+              equipmentDetails?.isOwnerDetailsMismatch
+                ? equipmentDetails?.isOwnerDetailsMismatch
+                : ''
+            "
+          ></app-equipment-details-history>
+        </mat-tab>
+        <!-- <mat-tab label="Documents">
+            <ng-template mat-tab-label>
+              <i class="bhge-mcstore-icons icon-documents m-r-10 fs-18"></i> <span class="fs-14 p-bold text-uppercase" translate="bhge.ng.site.equipment.details.documents">Documents</span>
+            </ng-template>
+            Content 2
+          </mat-tab> -->
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

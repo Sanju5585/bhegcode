@@ -1,0 +1,1697 @@
+<div class="container-main">
+  <!-- class="container-fluid" -->
+  <header class="header">
+    <div class="logo" (click)="logoClick()">
+      <img
+        src="../../../../../assets/img/blacktext_logo.svg"
+        alt="Baker Hughes Logo"
+      />
+    </div>
+    <!-- (click)="languagedropdown()" -->
+    <nav class="right-section">
+      <div class="language-selector">
+        <span>
+          <img src="../../../../../assets/img/glob.svg" alt="select language" />
+        </span>
+        <bh-dropdown
+          class="langDD nav-content link-anchor"
+          isFluid="true"
+          isSmall="true"
+          menuWidth="fluid"
+          [style.width]="ddWidth"
+          unselectable="false"
+          [menuItems]="props"
+          [value]="currentLanguage"
+          (selected)="onLanguageChange($event)"
+        ></bh-dropdown>
+        <!--  <select arial-label="Select Language">
+                    <option value="en">English</option>
+                    <option value="fr">français</option>
+                </select> -->
+      </div>
+      <a href="/login" class="login">
+        <span class="login-icon">
+          <img src="../../../../../assets/img/login.svg" alt="login" />
+        </span>
+        <span class="typography12">{{
+          'registration.login' | cxTranslate
+        }}</span>
+      </a>
+    </nav>
+  </header>
+  <div class="registration-main row">
+    <div class="image-container">
+      <img
+        class="left-img"
+        src="../../../../assets/img/registration-background-image.svg"
+        alt=""
+      />
+    </div>
+    <div class="registration-form-container">
+      <form
+        [formGroup]="registrationForm"
+        (ngSubmit)="onSubmit()"
+        class="registration-form-main"
+        autocomplete="off"
+      >
+        <div class="form-header">
+          <p class="form-heading">
+            {{ 'registration.registerForBHStore' | cxTranslate }}
+          </p>
+          <div class="trouble-registering">
+            <span
+              >{{ 'registration.havingTroubleWithRegistering' | cxTranslate }}
+              <a
+                [routerLink]="['/', productLine, 'contactus']"
+                class="contact-link"
+                >{{ 'registration.contactUs' | cxTranslate }}</a
+              >
+            </span>
+          </div>
+        </div>
+        <hr class="separator" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName" class="required">{{
+              'registration.firstName' | cxTranslate
+            }}</label>
+            <input
+              id="firstname"
+              formControlName="firstName"
+              class="form-control"
+              type="text"
+              [ngClass]="{
+                errInputFieldRed:
+                  registrationForm.get('firstName').invalid &&
+                  registrationForm.get('firstName').touched,
+              }"
+              placeholder="{{ 'registration.enterFirstName' | cxTranslate }}"
+              autocomplete="off"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('firstName').invalid &&
+                registrationForm.get('firstName').touched
+              "
+            >
+              <span class="errMsgRed">{{
+                'registration.firstNameRequired' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="required">{{
+              'registration.lastName' | cxTranslate
+            }}</label>
+            <input
+              id="lastname"
+              formControlName="lastName"
+              class="form-control"
+              type="text"
+              [ngClass]="{
+                errInputFieldRed:
+                  registrationForm.get('lastName').invalid &&
+                  registrationForm.get('lastName').touched,
+              }"
+              placeholder="{{ 'registration.enterLastName' | cxTranslate }}"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('lastName').invalid &&
+                registrationForm.get('lastName').touched
+              "
+            >
+              <span class="errMsgRed">{{
+                'registration.lastNameRequired' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="info-icon-align">
+              <div class="d-flex justify-content-between w-100">
+                <div class="d-flex">
+                  <label for="email" class="required">{{
+                    'registration.emailAddress' | cxTranslate
+                  }}</label>
+                  <span
+                    class="gg-info material-icons-outlined"
+                    (mouseenter)="showEmailInfo = true"
+                    (mouseleave)="showEmailInfo = false"
+                    >info</span
+                  >
+                </div>
+                <div>
+                  <div *ngIf="showEmailInfo" class="col-1 view-validation-info">
+                    <div class="dropdown set-position-email-info p-0">
+                      <div class="breakdown-price">
+                        {{
+                          'registration.onlyBusinessEmailAddress' | cxTranslate
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    *ngIf="
+                      showEmailGreenTick &&
+                      registrationForm.get('emailId').valid
+                    "
+                    src="../../../../assets/img/check_circle_18px.svg"
+                  />
+                </div>
+              </div>
+            </div>
+            <input
+              id="email"
+              formControlName="emailId"
+              class="form-control"
+              autocomplete="false"
+              (change)="onEmailChange()"
+              [ngClass]="{
+                errInputFieldRed:
+                  registrationForm.get('emailId').invalid &&
+                  registrationForm.get('emailId').touched,
+              }"
+              placeholder="{{
+                'registration.enterBusinessEmailAddress' | cxTranslate
+              }}"
+              autocapitalize="off"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('emailId').invalid &&
+                registrationForm.get('emailId').touched
+              "
+            >
+              <span
+                class="errMsgRed"
+                *ngIf="registrationForm.get('emailId').errors?.invalidEmail"
+              >
+                {{ 'registration.enterValidEmail' | cxTranslate }}
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="registrationForm.get('emailId').errors?.bhEmployee"
+              >
+                <div>
+                  {{
+                    'registration.bHEmployeesContractorsRegisterAt'
+                      | cxTranslate
+                  }}
+                  <a
+                    target="_blank"
+                    href="https://myaccess-bh.saviyntcloud.com/"
+                    >{{ 'registration.MyAccess' | cxTranslate }}</a
+                  >
+                </div>
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="
+                  registrationForm.get('emailId').errors?.notBussunessEmail
+                "
+              >
+                {{ 'registration.businessEmail' | cxTranslate }}
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="registrationForm.get('emailId').errors?.alreadyExist"
+              >
+                {{ 'registration.emailAllreadyExist' | cxTranslate }}
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="registrationForm.get('emailId').errors?.tryAgain"
+              >
+                {{ 'registration.tryAgain' | cxTranslate }}
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="registrationForm.get('emailId').errors?.required"
+              >
+                {{ 'registration.enterValidEmail' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group password-field">
+            <div class="info-icon-align">
+              <div class="d-flex justify-content-between w-100">
+                <div class="d-flex">
+                  <label for="setPassword" class="required">{{
+                    'registration.setPassword' | cxTranslate
+                  }}</label>
+                  <span
+                    class="gg-info material-icons-outlined setpassword-hover"
+                    (mouseenter)="showPasswordInfo = true"
+                    (mouseleave)="showPasswordInfo = false"
+                    >info</span
+                  >
+                </div>
+                <!-- overlay start -->
+                <div
+                  *ngIf="
+                    showPasswordInfo ||
+                    (registrationForm.get('userPswd').invalid &&
+                      registrationForm.get('userPswd').touched)
+                  "
+                  class="col-1 view-validation-info"
+                >
+                  <div class="dropdown set-position-password-info p-0">
+                    <div class="breakdown-price">
+                      <div class="errorMsg-heading">
+                        {{ 'registration.passwordShouldContain' | cxTranslate }}
+                      </div>
+                      <ul [ngClass]="{ 'remove-dot': pTouched }">
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.missingSpecialChar && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.missingSpecialChar && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{
+                              'registration.includeSpecialCharacters'
+                                | cxTranslate
+                            }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.missingLength && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.missingLength && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{
+                              'registration.length14Characters' | cxTranslate
+                            }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.missingLowerCaseLetter && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.missingLowerCaseLetter && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{ 'registration.lowerCaseLetter' | cxTranslate }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.missingUpperCaseLetter && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.missingUpperCaseLetter && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{ 'registration.upperCaseLetter' | cxTranslate }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.misingNumber && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.misingNumber && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{ 'registration.oneNumber' | cxTranslate }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.includeFirstName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.includeFirstName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{
+                              'registration.doesNotIncludeFirstName'
+                                | cxTranslate
+                            }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.includeLastName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.includeLastName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{
+                              'registration.doesNotIncludeLastName'
+                                | cxTranslate
+                            }}
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            *ngIf="
+                              !registrationForm.get('userPswd').errors
+                                ?.includeUserName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/check_circle.svg"
+                          /></span>
+                          <span
+                            *ngIf="
+                              registrationForm.get('userPswd').errors
+                                ?.includeUserName && pTouched
+                            "
+                            ><img
+                              src="../../../../../assets/img/cross_circle.svg"
+                          /></span>
+                          <span class="error-text">
+                            {{
+                              'registration.doesNotIncludePartUsername'
+                                | cxTranslate
+                            }}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- overly end -->
+                <div>
+                  <img
+                    *ngIf="
+                      registrationForm.get('userPswd').valid &&
+                      registrationForm.get('userPswd').touched
+                    "
+                    src="../../../../assets/img/check_circle_18px.svg"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="password-input">
+              <input
+                id="setPassword"
+                [type]="setPassFieldType"
+                autocomplete="false"
+                formControlName="userPswd"
+                class="form-control"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('userPswd').invalid &&
+                    registrationForm.get('userPswd').touched,
+                }"
+                placeholder="{{ 'registration.enterpassword' | cxTranslate }}"
+                autocomplete="new-password"
+              />
+
+              <img
+                src="../../../../assets/img/mdi_visibility-visible.png"
+                class="pass-toggle-icon"
+                (click)="toggleSetPasswordVisibility()"
+                *ngIf="setPassFieldType == 'text'"
+              />
+              <img
+                src="../../../../assets/img/mdi_visibility-hidden.png"
+                class="pass-toggle-icon"
+                (click)="toggleSetPasswordVisibility()"
+                *ngIf="setPassFieldType == 'password'"
+              />
+            </div>
+            <div
+              *ngIf="
+                registrationForm.get('userPswd').invalid &&
+                registrationForm.get('userPswd').touched
+              "
+            >
+              <span class="errMsgRed">{{
+                'registration.passwordNotMeetCriteria' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="form-group full-width password-field">
+            <div class="d-flex justify-content-between">
+              <label for="confirmPassword" class="required">{{
+                'registration.reEnterPassword' | cxTranslate
+              }}</label>
+              <img
+                *ngIf="
+                  registrationForm.get('confirmPassword').valid &&
+                  registrationForm.get('confirmPassword').touched
+                "
+                src="../../../../assets/img/check_circle_18px.svg"
+              />
+            </div>
+            <div class="password-input">
+              <input
+                id="confirmPassword"
+                autocomplete="false"
+                [type]="confirmPassFieldType"
+                formControlName="confirmPassword"
+                class="form-control"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('confirmPassword').invalid &&
+                    registrationForm.get('confirmPassword').touched,
+                }"
+                placeholder="{{ 'registration.reEnterPassword' | cxTranslate }}"
+              />
+
+              <img
+                src="../../../../assets/img/mdi_visibility-visible.png"
+                class="pass-toggle-icon"
+                (click)="toggleConfirmPasswordVisibility()"
+                *ngIf="confirmPassFieldType == 'text'"
+              />
+              <img
+                src="../../../../assets/img/mdi_visibility-hidden.png"
+                class="pass-toggle-icon"
+                (click)="toggleConfirmPasswordVisibility()"
+                *ngIf="confirmPassFieldType == 'password'"
+              />
+            </div>
+            <div
+              *ngIf="
+                registrationForm.get('confirmPassword').invalid &&
+                registrationForm.get('confirmPassword').touched
+              "
+            >
+              <span
+                class="errMsgRed"
+                *ngIf="
+                  !registrationForm.get('confirmPassword').errors
+                    ?.passwordNotMatched
+                "
+              >
+                {{ 'registration.thisFieldRequired' | cxTranslate }}
+              </span>
+              <span
+                class="errMsgRed"
+                *ngIf="
+                  registrationForm.get('confirmPassword').errors
+                    ?.passwordNotMatched
+                "
+              >
+                {{ 'registration.passwordsDoNotMatch' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="w-100">
+          <p class="form-heading">
+            {{ 'registration.AppDetailsTailorYourExperience' | cxTranslate }}
+          </p>
+          <br />
+          <p class="form-sub-heading">
+            {{ 'registration.BHStore' | cxTranslate }}
+          </p>
+          <hr class="separator" />
+        </div>
+        <div class="form-row">
+          <div class="radio-group">
+            <div class="">
+              <div class="info-icon-align">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex">
+                    <label class="typography12">{{
+                      'registration.doYouHaveBHCustomerAccNumber' | cxTranslate
+                    }}</label>
+                    <span
+                      class="gg-info material-icons-outlined"
+                      (mouseenter)="showQuestionInfo = true"
+                      (mouseleave)="showQuestionInfo = false"
+                      >info</span
+                    >
+                  </div>
+                  <div>
+                    <div
+                      *ngIf="showQuestionInfo"
+                      class="col-1 view-validation-info"
+                    >
+                      <div class="dropdown set-position-email-info p-0">
+                        <div class="breakdown-price">
+                          {{
+                            'registration.itWillTakeMuchLonger' | cxTranslate
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="radio-group-inner">
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="yes"
+                    formControlName="bhCustAccNo"
+                    [value]="true"
+                  />
+                  <label for="yes" class="form-check-label">{{
+                    'registration.Yes' | cxTranslate
+                  }}</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="no"
+                    formControlName="bhCustAccNo"
+                    [value]="false"
+                  />
+                  <label for="no" class="form-check-label">{{
+                    'registration.No' | cxTranslate
+                  }}</label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="requredMsg errMsgRed"
+              *ngIf="
+                registrationForm.get('bhCustAccNo').invalid &&
+                registrationForm.get('bhCustAccNo').touched
+              "
+            >
+              {{ 'registration.selectOption' | cxTranslate }}
+            </div>
+          </div>
+        </div>
+        <!-- Radio button YES -->
+        <div
+          class="form-row"
+          *ngIf="registrationForm.get('bhCustAccNo').value == true"
+        >
+          <div class="form-group" id="bhAccWidth">
+            <div class="info-icon-align">
+              <label for="customerNumber" class="required"
+                >{{ 'registration.bHStoreCustomerAccNumber' | cxTranslate }}
+              </label>
+              <span
+                class="gg-info material-icons-outlined"
+                (mouseenter)="showCustAccNoInfo = true"
+                (mouseleave)="showCustAccNoInfo = false"
+                >info</span
+              >
+              <!-- overlay start -->
+              <div *ngIf="showCustAccNoInfo" class="col-6 cust-acc-info">
+                <div class="cust-acc-info set-position-cust-acc-info p-0">
+                  <div>
+                    <img src="../../../../assets/img/bhCustAccNumber.svg" />
+                  </div>
+                </div>
+              </div>
+              <!-- overlay end -->
+            </div>
+            <input
+              id="customerNumber"
+              formControlName="customerNumber"
+              class="form-control"
+              type="text"
+              maxlength="10"
+              autocomplete="off"
+              list="autocompleteOff"
+              (change)="onChangeCustomerAccNo()"
+              placeholder="{{
+                'registration.enterCustomerAccNumber' | cxTranslate
+              }}"
+            />
+            <div
+              class="requredMsg"
+              *ngIf="
+                registrationForm.get('customerNumber').invalid &&
+                registrationForm.get('customerNumber').touched
+              "
+            >
+              <span
+                class="errMsgRed"
+                *ngIf="fc.customerNumber.errors.pattern"
+                >{{ 'registration.enterNumbersOnly' | cxTranslate }}</span
+              >
+              <span
+                class="errMsgRed"
+                *ngIf="fc.customerNumber.errors.required"
+                >{{ 'registration.thisFieldRequired' | cxTranslate }}</span
+              >
+              <span
+                class="errMsgRed"
+                *ngIf="fc.customerNumber.errors.invalidNumber"
+                >{{
+                  'registration.invalidNumberPleaseTryAgain' | cxTranslate
+                }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Radio button NO -->
+        <ng-container
+          *ngIf="registrationForm.get('bhCustAccNo').value == false"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country" class="required">{{
+                'registration.countryRegion' | cxTranslate
+              }}</label>
+              <select
+                id="country"
+                formControlName="country"
+                class="form-control"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('country').invalid &&
+                    registrationForm.get('country').touched,
+                }"
+                placeholder="{{ 'registration.countryRegion' | cxTranslate }}"
+              >
+                <option value="" disabled selected>Select</option>
+                <option
+                  *ngFor="let item of regFormFields?.countryList.entry"
+                  [ngValue]="item"
+                >
+                  {{ item.key }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  registrationForm.get('country').invalid &&
+                  registrationForm.get('country').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.countryRegionRequired' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="productLine == allProductLine.waygate">
+            <div class="form-row">
+              <div class="radio-group">
+                <div class="">
+                  <div class="info-icon-align">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex">
+                        <label class="typography12 required">{{
+                          'registration.areYouEndCustomer' | cxTranslate
+                        }}</label>
+                        <span
+                          class="gg-info material-icons-outlined"
+                          (mouseenter)="showEndCustomerInfo = true"
+                          (mouseleave)="showEndCustomerInfo = false"
+                          >info</span
+                        >
+                      </div>
+                      <div>
+                        <div
+                          *ngIf="showEndCustomerInfo"
+                          class="col-1 view-validation-info"
+                        >
+                          <div class="dropdown set-position-email-info p-0">
+                            <div class="breakdown-price">
+                              {{
+                                'registration.ifChannelPartner' | cxTranslate
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="radio-group-inner">
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="endCustomerYes"
+                        formControlName="endCustomer"
+                        [value]="true"
+                      />
+                      <label for="endCustomerYes" class="form-check-label">{{
+                        'registration.Yes' | cxTranslate
+                      }}</label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="endCustomerNo"
+                        formControlName="endCustomer"
+                        [value]="false"
+                      />
+                      <label for="endCustomerNo" class="form-check-label">{{
+                        'registration.No' | cxTranslate
+                      }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="requredMsg errMsgRed"
+                  *ngIf="
+                    registrationForm.get('endCustomer').invalid &&
+                    registrationForm.get('endCustomer').touched
+                  "
+                >
+                  {{ 'registration.selectOption' | cxTranslate }}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="radio-group">
+                <div class="">
+                  <div class="info-icon-align">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex">
+                        <label class="typography12 required">{{
+                          'registration.governmentEntity' | cxTranslate
+                        }}</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="radio-group-inner">
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="governmentEntityYes"
+                        formControlName="governmentEntity"
+                        [value]="true"
+                      />
+                      <label
+                        for="governmentEntityYes"
+                        class="form-check-label"
+                        >{{ 'registration.Yes' | cxTranslate }}</label
+                      >
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="governmentEntityNo"
+                        formControlName="governmentEntity"
+                        [value]="false"
+                      />
+                      <label
+                        for="governmentEntityNo"
+                        class="form-check-label"
+                        >{{ 'registration.No' | cxTranslate }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="requredMsg errMsgRed"
+                  *ngIf="
+                    registrationForm.get('governmentEntity').invalid &&
+                    registrationForm.get('governmentEntity').touched
+                  "
+                >
+                  {{ 'registration.selectOption' | cxTranslate }}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="radio-group">
+                <div class="">
+                  <div class="info-icon-align">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex">
+                        <label class="typography12 required">{{
+                          'registration.documentDetails' | cxTranslate
+                        }}</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="radio-group-inner">
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="serialNumber"
+                        formControlName="detailNumber"
+                        value="SERIAL_NUMBER"
+                      />
+                      <label for="serialNumber" class="form-check-label">{{
+                        'registration.serialNUmber' | cxTranslate
+                      }}</label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="invoiceNumber"
+                        formControlName="detailNumber"
+                        value="INVOICE_NUMBER"
+                      />
+                      <label for="invoiceNumber" class="form-check-label">{{
+                        'registration.invoiceNumber' | cxTranslate
+                      }}</label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="poNumber"
+                        formControlName="detailNumber"
+                        value="PO_NUMBER"
+                      />
+                      <label for="poNumber" class="form-check-label">{{
+                        'registration.poNumber' | cxTranslate
+                      }}</label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id="dnbNumber"
+                        formControlName="detailNumber"
+                        value="DUNS_BREAD_SHEET_NUMBER"
+                      />
+                      <label for="dnbNumber" class="form-check-label">{{
+                        'registration.dunNumber' | cxTranslate
+                      }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="requredMsg errMsgRed"
+                  *ngIf="
+                    registrationForm.get('detailNumber').invalid &&
+                    registrationForm.get('detailNumber').touched
+                  "
+                >
+                  {{ 'registration.selectOption' | cxTranslate }}
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-row"
+              *ngIf="registrationForm.get('detailNumber').valid"
+            >
+              <div class="form-group">
+                <input
+                  id="detailNumberValue"
+                  formControlName="detailNumberValue"
+                  class="form-control"
+                  type="text"
+                  [ngClass]="{
+                    errInputFieldRed:
+                      registrationForm.get('detailNumberValue').invalid &&
+                      registrationForm.get('detailNumberValue').touched,
+                  }"
+                  [placeholder]="
+                    registrationForm.get('detailNumber').value ==
+                    'SERIAL_NUMBER'
+                      ? 'Serial Number'
+                      : registrationForm.get('detailNumber').value ==
+                        'INVOICE_NUMBER'
+                      ? 'Invoice Number'
+                      : registrationForm.get('detailNumber').value ==
+                        'PO_NUMBER'
+                      ? 'PO Number'
+                      : 'Dun & Bradstreet number'
+                  "
+                />
+                <div
+                  *ngIf="
+                    registrationForm.get('detailNumberValue').invalid &&
+                    registrationForm.get('detailNumberValue').touched
+                  "
+                >
+                  <span
+                    class="errMsgRed"
+                    *ngIf="
+                      registrationForm.get('detailNumber').value ==
+                      'SERIAL_NUMBER'
+                    "
+                    >{{ 'registration.serialNUmberReq' | cxTranslate }}</span
+                  >
+
+                  <span
+                    class="errMsgRed"
+                    *ngIf="
+                      registrationForm.get('detailNumber').value ==
+                      'INVOICE_NUMBER'
+                    "
+                    >{{ 'registration.invoiceNumberReq' | cxTranslate }}</span
+                  >
+
+                  <span
+                    class="errMsgRed"
+                    *ngIf="
+                      registrationForm.get('detailNumber').value == 'PO_NUMBER'
+                    "
+                    >{{ 'registration.poNumberReq' | cxTranslate }}</span
+                  >
+
+                  <span
+                    class="errMsgRed"
+                    *ngIf="
+                      registrationForm.get('detailNumber').value ==
+                      'DUNS_BREAD_SHEET_NUMBER'
+                    "
+                    >{{ 'registration.dunNumberReq' | cxTranslate }}</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="country" class="required">{{
+                  'registration.addressType' | cxTranslate
+                }}</label>
+                <select
+                  id="addressType"
+                  formControlName="addressType"
+                  class="form-control"
+                  [ngClass]="{
+                    errInputFieldRed:
+                      registrationForm.get('addressType')?.invalid &&
+                      registrationForm.get('addressType')?.touched,
+                  }"
+                  placeholder="Select address type"
+                >
+                  <option value="" disabled selected>
+                    {{ 'registration.selectAddress' | cxTranslate }}
+                  </option>
+                  <option ngValue="BRANCH_OFFICE">
+                    {{ 'registration.branchOffice' | cxTranslate }}
+                  </option>
+                  <option ngValue="MANUFACTURING_FACILITY">
+                    {{ 'registration.manufactureFac' | cxTranslate }}
+                  </option>
+                  <option ngValue="SERVICE_SHOPS">
+                    {{ 'registration.serviceShops' | cxTranslate }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    registrationForm.get('addressType')?.invalid &&
+                    registrationForm.get('addressType')?.touched
+                  "
+                >
+                  <span class="errMsgRed">
+                    {{ 'registration.addressReq' | cxTranslate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="companyName" class="required">{{
+                'registration.companyName' | cxTranslate
+              }}</label>
+              <input
+                id="companyName"
+                formControlName="companyName"
+                class="form-control"
+                type="text"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('companyName').invalid &&
+                    registrationForm.get('companyName').touched,
+                }"
+                placeholder="{{ 'registration.companyName' | cxTranslate }}"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get('companyName').invalid &&
+                  registrationForm.get('companyName').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.comNameReq' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="companyAddressLine1" class="required">{{
+                'registration.companyAddressLine01' | cxTranslate
+              }}</label>
+              <input
+                id="companyAddressLine1"
+                formControlName="companyAddressLine1"
+                class="form-control"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('companyAddressLine1').invalid &&
+                    registrationForm.get('companyAddressLine1').touched,
+                }"
+                type="text"
+                placeholder="{{
+                  'registration.companyAddressLine01' | cxTranslate
+                }}"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get('companyAddressLine1').invalid &&
+                  registrationForm.get('companyAddressLine1').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.comAddressLine01Req' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="companyAddressLine2">{{
+                'registration.companyAddressLine02' | cxTranslate
+              }}</label>
+              <input
+                id="companyAddressLine2"
+                formControlName="companyAddressLine2"
+                class="form-control"
+                type="text"
+                placeholder="{{
+                  'registration.companyAddressLine02' | cxTranslate
+                }}"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="stateProvince" class="required">{{
+                'registration.stateProvince' | cxTranslate
+              }}</label>
+              <input
+                id="stateProvince"
+                formControlName="stateProvince"
+                class="form-control"
+                type="text"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('stateProvince').invalid &&
+                    registrationForm.get('stateProvince').touched,
+                }"
+                placeholder="{{ 'registration.stateProvince' | cxTranslate }}"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get('stateProvince').invalid &&
+                  registrationForm.get('stateProvince').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.stateProvinceRequired' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="town" class="required">{{
+                'registration.cityTown' | cxTranslate
+              }}</label>
+              <input
+                id="town"
+                formControlName="town"
+                class="form-control"
+                type="text"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('town').invalid &&
+                    registrationForm.get('town').touched,
+                }"
+                placeholder="{{ 'registration.cityTown' | cxTranslate }}"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get('town').invalid &&
+                  registrationForm.get('town').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.cityTownRequired' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="postalCode" class="required">{{
+                'registration.zipPostalCode' | cxTranslate
+              }}</label>
+              <input
+                id="postalCode"
+                formControlName="postalCode"
+                class="form-control"
+                type="text"
+                [ngClass]="{
+                  errInputFieldRed:
+                    registrationForm.get('postalCode').invalid &&
+                    registrationForm.get('postalCode').touched,
+                }"
+                placeholder="{{ 'registration.zipPostalCode' | cxTranslate }}"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get('postalCode').invalid &&
+                  registrationForm.get('postalCode').touched
+                "
+              >
+                <span class="errMsgRed">{{
+                  'registration.zipPostalCodeRequired' | cxTranslate
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="productLine == allProductLine.waygate">
+            <div class="kyc-documents-container">
+              <h3 class="form-sub-heading">
+                {{ 'registration.kycDocument' | cxTranslate }}
+              </h3>
+              <div class="upload-file-container">
+                <div class="form-row">
+                  <div class="radio-group">
+                    <div class="">
+                      <div class="info-icon-align">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex">
+                            <label class="typography12 required">{{
+                              'registration.addressProof' | cxTranslate
+                            }}</label>
+                            <span
+                              class="gg-info material-icons-outlined"
+                              (mouseenter)="showAddressProof = true"
+                              (mouseleave)="showAddressProof = false"
+                              >info</span
+                            >
+                          </div>
+                          <div>
+                            <div
+                              *ngIf="showAddressProof"
+                              class="col-1 view-validation-info"
+                            >
+                              <div
+                                class="dropdown set-position-address-ownership-info p-0"
+                              >
+                                <div class="breakdown-price">
+                                  <div>
+                                    <p>
+                                      {{
+                                        'registration.documentsRequired'
+                                          | cxTranslate
+                                      }}
+                                    </p>
+                                  </div>
+                                  <ul>
+                                    <li>
+                                      {{
+                                        'registration.governmentDocuments'
+                                          | cxTranslate
+                                      }}
+                                    </li>
+                                    <li>
+                                      {{
+                                        'registration.thirdPartSources'
+                                          | cxTranslate
+                                      }}
+                                    </li>
+                                    <li>
+                                      {{
+                                        'registration.similarDocuments'
+                                          | cxTranslate
+                                      }}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ng-container
+                  *ngIf="!addressProofFile; else uploadedAddressProof"
+                >
+                  <ds-file-upload
+                    label="{{ 'registration.clickHereToUPload' | cxTranslate }}"
+                    [maxLength]="1"
+                    [maxSizeInMB]="2"
+                    uploadId="addressProof"
+                    [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                    (selectedFiles)="selectedFiles($event, 'addressProof')"
+                    [showIcon]="showIcon"
+                    [icon]="'cloud_upload'"
+                    isDragDrop="true"
+                    >upload</ds-file-upload
+                  >
+                  <div class="suggested-text-upload">
+                    {{ 'registration.fileFormat' | cxTranslate }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                      registrationForm.get('addressProof').invalid &&
+                      registrationForm.get('addressProof').touched
+                    "
+                  >
+                    <span class="errMsgRed"
+                      >{{ 'registration.pleaseUploadDoc' | cxTranslate }}
+                    </span>
+                  </div>
+                </ng-container>
+                <ng-template #uploadedAddressProof>
+                  <div class="uploaded-file">
+                    <span class="material-icons-outlined green">
+                      check_circle
+                    </span>
+                    {{ addressProofFile.name }}
+                    <span
+                      class="material-icons-outlined pointer"
+                      (click)="removeAttchment('addressProof')"
+                    >
+                      close
+                    </span>
+                  </div>
+                </ng-template>
+              </div>
+              <div
+                class="upload-file-container"
+                *ngIf="
+                  registrationForm.get('country')?.value?.value == 'High Risk'
+                "
+              >
+                <div class="form-row">
+                  <div class="radio-group">
+                    <div class="">
+                      <div class="info-icon-align">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex">
+                            <label class="typography12 required"
+                              >{{'registration.ownershipStructure' | cxTranslate }}</label
+                            >
+                            <span
+                              class="gg-info material-icons-outlined"
+                              (mouseenter)="showOwnerShipStructure = true"
+                              (mouseleave)="showOwnerShipStructure = false"
+                              >info</span
+                            >
+                          </div>
+                          <div>
+                            <div
+                              *ngIf="showOwnerShipStructure"
+                              class="col-1 view-validation-info"
+                            >
+                              <div
+                                class="dropdown set-position-address-ownership-info p-0"
+                              >
+                                <div class="breakdown-price">
+                                  <div>
+                                    <p>{{'registration.documentsRequired' | cxTranslate }}</p>
+                                  </div>
+                                  <ul>
+                                    <li>
+                                      {{'registration.detailsDirectOwner' | cxTranslate }}
+                                    </li>
+                                    <li>
+                                      {{'registration.top3Shareholders' | cxTranslate }}
+                                    </li>
+                                    <li>
+                                      {{'registration.documnetsReqInEnglish' | cxTranslate }}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ng-container
+                  *ngIf="
+                    !ownershipStructureFile;
+                    else uploadedOwnershipStructure
+                  "
+                >
+                  <ds-file-upload
+                    label="{{'registration.clickHereToUPload' | cxTranslate }}"
+                    [maxLength]="1"
+                    [maxSizeInMB]="2"
+                    uploadId="ownershipStructure"
+                    [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+                    (selectedFiles)="
+                      selectedFiles($event, 'ownershipStructure')
+                    "
+                    [showIcon]="showIcon"
+                    [icon]="'cloud_upload'"
+                    isDragDrop="true"
+                    >upload</ds-file-upload
+                  >
+                  <div class="suggested-text-upload">
+                    {{'registration.fileFormat' | cxTranslate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      registrationForm.get('ownershipStructure').invalid &&
+                      registrationForm.get('ownershipStructure').touched
+                    "
+                  >
+                    <span class="errMsgRed"
+                      >{{'registration.pleaseUploadDocWOS' | cxTranslate }}</span
+                    >
+                  </div>
+                </ng-container>
+                <ng-template #uploadedOwnershipStructure>
+                  <div class="uploaded-file">
+                    <span class="material-icons-outlined green">
+                      check_circle
+                    </span>
+                    {{ ownershipStructureFile.name }}
+                    <span
+                      class="material-icons-outlined pointer"
+                      (click)="removeAttchment('ownershipStructure')"
+                    >
+                      close
+                    </span>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!-- Tag selection -->
+        <!-- <div class="tag-row">
+                    <label class="tag-label required typography12">{{
+                        'registration.productLineIsYourOrgInterested' |
+                        cxTranslate
+                        }} ({{'registration.chooseAnyOne' | cxTranslate}})</label>
+                    <div [ngClass]="{'tag-group': true, 'tag-group-checked': isCheckedProductLines[i]}"
+                        *ngFor="let line of regFormFields.productList let i = index">
+                        <label>
+                            <input type="radio" formControlName="productLine"
+                                (change)="onRadioChange('isCheckedProductLines', i)" [value]="line" />
+                            <span>{{line}}</span>
+                        </label>
+
+                    </div>
+                    <div class="requredMsg"
+                        *ngIf="registrationForm.get('productLine').invalid && registrationForm.get('productLine').touched">
+                        <span class="errMsgRed"> {{'registration.thisFieldRequired' | cxTranslate}} </span>
+                    </div>
+                </div> -->
+        <div class="tag-row" *ngIf="regFormFields.subProductList?.length > 0">
+          <label class="tag-label required typography12"
+            >{{
+              'registration.subproductLinesAreYouInterested' | cxTranslate
+            }}
+            ({{ 'registration.chooseThoseAreApplicable' | cxTranslate }})</label
+          >
+          <div
+            [ngClass]="{
+              'tag-group': true,
+              'tag-group-checked': isCheckedSubProductLines[i].value,
+              blur:
+                registrationForm.get('subProductLine')?.at(0)?.value ===
+                  'Not Listed Above' && subLine.trim() !== 'Not Listed Above',
+            }"
+            *ngFor="let subLine of regFormFields.subProductList; let i = index"
+          >
+            <label>
+              <input
+                type="checkbox"
+                (change)="
+                  onCheckBoxChange(
+                    $event,
+                    'subProductLine',
+                    isCheckedSubProductLines,
+                    i,
+                    subLine
+                  )
+                "
+                [value]="subLine"
+              />
+              {{ subLine }}
+            </label>
+          </div>
+          <div
+            class="requredMsg"
+            *ngIf="
+              registrationForm.get('subProductLine').invalid &&
+              registrationForm.get('subProductLine').touched
+            "
+          >
+            <span class="errMsgRed">
+              {{ 'registration.subProductLinesRequired' | cxTranslate }}</span
+            >
+          </div>
+        </div>
+        <div class="tag-row" *ngIf="regFormFields.dsMarket?.length > 0">
+          <label class="tag-label required typography12"
+            >{{ 'registration.whatMarketDoYouOperate' | cxTranslate }} ({{
+              'registration.chooseThoseAreApplicable' | cxTranslate
+            }})</label
+          >
+          <div
+            [ngClass]="{
+              'tag-group': true,
+              'tag-group-checked': isCheckedMarkets[i].value,
+            }"
+            *ngFor="let market of regFormFields.dsMarket; let i = index"
+          >
+            <label>
+              <input
+                type="checkbox"
+                (change)="
+                  onCheckBoxChange(
+                    $event,
+                    'dsMarket',
+                    isCheckedMarkets,
+                    i,
+                    market
+                  )
+                "
+                [value]="market"
+              />
+              {{ market }}
+            </label>
+          </div>
+          <div
+            class="requredMsg"
+            *ngIf="
+              registrationForm.get('dsMarket').invalid &&
+              registrationForm.get('dsMarket').touched
+            "
+          >
+            <span class="errMsgRed">{{ 'registration.thisFieldRequired' | cxTranslate }}</span>
+          </div>
+        </div>
+        <div class="tag-row">
+          <label class="tag-label required typography12"
+            >{{
+              'registration.bestDescribesYourOrganization' | cxTranslate
+            }}
+            ({{ 'registration.chooseThoseAreApplicable' | cxTranslate }})</label
+          >
+          <div
+            [ngClass]="{
+              'tag-group': true,
+              'tag-group-checked': isCheckedOrganisationTypes[i].value,
+            }"
+            *ngFor="
+              let organisationType of regFormFields.accountTypeList;
+              let i = index
+            "
+          >
+            <label>
+              <input
+                type="checkbox"
+                (change)="
+                  onCheckBoxChange(
+                    $event,
+                    'orgTypes',
+                    isCheckedOrganisationTypes,
+                    i,
+                    organisationType
+                  )
+                "
+                [value]="organisationType"
+              />
+              {{ organisationType }}
+            </label>
+          </div>
+          <div
+            class="requredMsg"
+            *ngIf="
+              registrationForm.get('orgTypes').invalid &&
+              registrationForm.get('orgTypes').touched
+            "
+          >
+            <span class="errMsgRed">{{ 'registration.thisFieldRequired' | cxTranslate }}</span>
+          </div>
+        </div>
+        <div class="tag-row">
+          <label class="tag-label required typography12"
+            >{{ 'registration.bestDescribesYourRole' | cxTranslate }}({{
+              'registration.chooseAnyOne' | cxTranslate
+            }})</label
+          >
+          <div
+            [ngClass]="{
+              'tag-group': true,
+              'tag-group-checked': isCheckedRoles[i],
+            }"
+            *ngFor="let userRole of regFormFields.dsRoles; let i = index"
+          >
+            <label>
+              <input
+                type="radio"
+                formControlName="dsRoles"
+                (change)="onRadioChange('isCheckedRoles', i)"
+                [value]="userRole"
+              />
+              {{ userRole }}
+            </label>
+          </div>
+          <div
+            class="requredMsg"
+            *ngIf="
+              registrationForm.get('dsRoles').invalid &&
+              registrationForm.get('dsRoles').touched
+            "
+          >
+            <span class="errMsgRed">{{ 'registration.thisFieldRequired' | cxTranslate }}</span>
+          </div>
+        </div>
+        <div class="form-row terms-conditions">
+          <div for="terms" class="row ml-0">
+            <input
+              class="col-1"
+              type="checkbox"
+              id="terms"
+              formControlName="terms"
+            />
+            <div 
+              class="col-11"
+              [innerHTML]="'registration.iHaveReadAndAgreeWith' | cxTranslate"
+            >
+            </div>
+          </div>
+          <div
+            *ngIf="
+              registrationForm.get('terms').invalid &&
+              registrationForm.get('terms').touched
+            "
+          >
+            <span class="txtRed">{{
+              'registration.youMustAgreeToRegister' | cxTranslate
+            }}</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!this.registrationForm.valid"
+          >
+          {{ 'registration.register' | cxTranslate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-left">
+      ©2024 {{ 'registration.bakerHughesCompany' | cxTranslate }}
+    </div>
+    <div class="footer-right">
+      <a href="https://www.bakerhughes.com/company/about-us" target="_blank">{{
+        'registration.aboutUs' | cxTranslate
+      }}</a>
+      <a
+        (click)="onClickCookie($event)"
+        target="_blank"
+        class="cursor"
+        rel="noopener noreferrer"
+        class="optanon-toggle-display"
+        disabled
+        >{{ 'registration.cookies' | cxTranslate }}</a
+      >
+      <a (click)="openTerms()" target="_blank" class="cursor">{{
+        'registration.termsOfUse' | cxTranslate
+      }}</a>
+      <a href="https://www.bakerhughes.com/privacy" target="_blank">{{
+        'registration.privacy' | cxTranslate
+      }}</a>
+    </div>
+  </footer>
+</div>
+<div class="spinner-overlay" *ngIf="isLoading">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>

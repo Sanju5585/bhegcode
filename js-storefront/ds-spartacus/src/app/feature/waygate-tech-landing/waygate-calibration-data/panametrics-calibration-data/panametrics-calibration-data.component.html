@@ -1,0 +1,147 @@
+<div class="custom-space-boxing" *ngIf="!showSpinner; else loading">
+  <div class="row mt-4">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 pana-form-wrapper">
+        <form [formGroup]="panaCalibrationForm" (ngSubmit)="formSubmitted()">
+          <div class="pana-form-row mt-4">
+            <div class="pana-item">
+              <label for="serialNo">{{ 'mySiteEquipment.serialNumber' | cxTranslate }}</label>
+              <input
+                class="serial-no-input"
+                placeholder="{{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}"
+                type="text"
+                id="serialNo"
+                formControlName="probeSerialNumber"
+              />
+            </div>
+            <div class="pana-item">
+              <label for="sensorType">{{ 'mySiteEquipment.sensorType' | cxTranslate }}</label>
+              <ng-select
+                placeholder="{{ 'mySiteEquipment.selectSensor' | cxTranslate }}"
+                formControlName="probeType"
+                id="sensorType"
+                [searchable]="false"
+                [clearable]="false"
+              >
+                <ng-option
+                  *ngFor="let item of probeListResponse"
+                  [value]="item.sensorCode"
+                >
+                  {{ item.sensorName }}
+                </ng-option>
+              </ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="d-flex mb-2">
+                <span class="material-icons info-icon"> info_outline </span>
+                <span class="info-text">
+                  {{ 'mySiteEquipment.findModelInfoText' | cxTranslate }}</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4 mb-4">
+            <div class="col-md-12">
+              <button
+                type="submit"
+                class="save-btn action-btn"
+                [disabled]="!panaCalibrationForm.valid"
+              >
+                {{ 'mySiteEquipment.search' | cxTranslate }}
+              </button>
+              <button
+                type="button"
+                class="discard-btn action-btn"
+                (click)="onFormResetset()"
+              >
+              {{ 'mySiteEquipment.reset' | cxTranslate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 box-wrapper">
+        <div class="row" *ngIf="initPana; else calDownload">
+          <div class="col-md-12">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <h2 class="page-head mt-4">
+                  {{ 'mySiteEquipment.whereTofind' | cxTranslate }}
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3 ml-4">
+            <div class="col-md-5">
+              <span class="dd-label">{{
+                'mySiteEquipment.probeModelType' | cxTranslate
+              }}</span>
+              <bh-dropdown
+                *ngIf="propsModelsDropDown == true"
+                class="salesarea-dd"
+                isFluid="false"
+                isSmall="false"
+                width="large"
+                menuWidth="large"
+                unselectable="false"
+                [menuItems]="propsModels"
+                placeholder="{{
+                  'mySiteEquipment.defaultModelType' | cxTranslate
+                }}"
+                value="{{ probeModelType }}"
+                isEllipsis="false"
+                (selected)="onModelSelect($event)"
+              ></bh-dropdown>
+            </div>
+
+            <div class="col-md-7">
+              <img class="equipment-img" src="{{ sensorModelImageURL }}" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <ng-template #calDownload>
+            <ng-container *ngIf="noResponse; else calData">
+              <h3 class="page-head mt-4">{{ 'mySiteEquipment.couldntFindEquipment1' | cxTranslate }}</h3>
+            </ng-container>
+            <ng-template #calData>
+              <h3 class="sub-description mt-4">
+                {{ 'mySiteEquipment.serialId' | cxTranslate }} {{ panaCalResponse?.probeSerialNumber }}
+              </h3>
+              <h2 class="right-box-title">
+                {{ 'mySiteEquipment.weFoundEquipment' | cxTranslate }}
+                <span class="icon-style"
+                  ><i class="material-icons md-18">check_circle</i></span
+                >
+              </h2>
+              <p class="calibration-date">
+                {{ 'mySiteEquipment.lastCalibrationDate' | cxTranslate }}
+                {{ panaCalResponse?.lastCalibrationDate }}
+              </p>
+              <div class="pana-row mt-4">
+                <button
+                  (click)="calDownloadClick()"
+                  class="save-btn action-btn pdf-btn"
+                >
+                  <span class="material-icons-outlined"> receipt_long </span>
+                  {{ 'mySiteEquipment.calibrationData' | cxTranslate }}
+                </button>
+              </div>
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

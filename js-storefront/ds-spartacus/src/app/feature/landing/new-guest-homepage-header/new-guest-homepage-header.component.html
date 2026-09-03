@@ -1,0 +1,40 @@
+<div class="header-main">
+  <div class="top-header-waygate container">
+    <div class="bh-sitelinks">
+      <nav class="navigation-menu bh-right-menu">
+        <ul class="menu right-menu link-anchor">
+          <li class="contact-us-li">
+            <span [routerLink]="contactUsUrl" class="link-anchor">{{
+              'waygate.contactUs' | cxTranslate
+            }}</span>
+          </li>
+          <li class="lang-dd-menu">
+            <bh-dropdown
+              (click)="languagedropdown()"
+              class="langDD nav-content link-anchor"
+              isFluid="true"
+              isSmall="true"
+              menuWidth="fluid"
+              unselectable="false"
+              [menuItems]="props"
+              [value]="currentLanguage"
+              (selected)="onLanguageChange($event)"
+            ></bh-dropdown>
+            <span class="material-icons lang-icon nav-content link-anchor"
+              >language</span
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="top-header-logo">
+    <div class="bh-logo-container">
+        <div class="bh-logo">
+            <img class="bh-img"
+                src="../../../../../assets/img/BH_Logo_homepage.svg" alt="click" />
+        </div>
+    </div>
+</div>
+

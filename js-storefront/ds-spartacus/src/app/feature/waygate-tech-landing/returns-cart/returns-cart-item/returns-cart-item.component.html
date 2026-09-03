@@ -1,0 +1,123 @@
+<ng-container>
+    <div class="waygate-product-list-card">
+        <div class="waygate-cart-checkbox">
+            <input class="float-left ml-2" [id]="'cart-entry-' + entryNum" type="checkbox" value="true"
+                [checked]="checkAll" [name]="'cart-entry-' + entryNum"  (click)="$event.stopPropagation()"
+                (change)="checkProduct($event)"/>
+        </div>
+        <div class="waygate-product-image">
+            <div class="cx-image-container">
+                <cx-media class="waygate-product-image" [container]="product?.product?.images"></cx-media>
+            </div>
+        </div>
+        <div class="waygate-product-content">
+            <div class="product-text mb-3" *ngIf=" product.partName">
+                <div class="product-lead-time">{{
+                    product?.partName
+                    }}</div>
+                <label>
+                    {{ product?.partNumber }}
+                </label>
+            </div>
+
+            <div class="product-price mb-3">
+                <div class="price-container">
+                    {{product.quantity}}
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.unitList' | cxTranslate }}</div>
+                    <div *ngIf="product?.total?.value > 0; else toBeQuoted" class="price-values">
+                        {{ product?.total?.formattedValue }}
+                    </div>
+                </div>
+                <div *ngIf="product?.totalDiscount?.value > 0" class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.discounts' | cxTranslate }}</div>
+                    <div class="price-values">
+                        {{ product?.totalDiscount?.formattedValue }}
+                    </div>
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.unitSelling' | cxTranslate }}</div>
+                    <div *ngIf="product?.unitSelling?.value > 0; else toBeQuoted" class="price-values">
+                        {{ product?.unitSelling?.formattedValue }}
+                    </div>
+                </div>
+                <div class="price-infos">
+                    <div class="price-label">{{ 'rma-cart.netSelling' | cxTranslate }}</div>
+                    <div *ngIf="product?.totalPrice?.value > 0; else toBeQuoted" class="price-values">
+                        {{ product?.totalPrice?.formattedValue }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-offering mb-3" *ngFor="let el of product?.offeringList; let i = index">
+                <div class="offering-header">{{ 'rma-cart.selectedOffering' | cxTranslate }}</div>
+                <div class="offering-value">
+                    {{ el }}
+                </div>
+            </div>
+            <div class="product-offering mb-3">
+                <div class="offering-header">{{ 'rma-cart.returnToLocation' | cxTranslate }}</div>
+                <div class="offering-value">
+                    <span *ngIf="!product?.returnLocation">
+                        <i>N/A</i>
+                    </span>
+                    <span *ngIf="product?.returnLocation">{{
+                        product?.returnLocation
+                        }}</span>
+                </div>
+            </div>
+
+            <div class="product-fnct">
+                <div class="product-copy">
+                    <i class="material-icons-outlined"> content_copy </i>
+                    <a class="action-links" (click)="copyItem()">
+                        {{ 'rma-cart.cloneRma' | cxTranslate }}
+                    </a>
+                </div>
+                <div class="product-edit" (click)="editRma()" [ngClass]="
+                  product.offeringList?.length <= 0 ? 'error-repeatRma' : ''
+                ">
+                    <i class="material-icons-outlined"> edit </i>
+                    <span class="action-links"  *ngIf="product.offeringList?.length <= 0"
+                    >{{ 'rma-cart.completeRmaForm' | cxTranslate }}
+                  </span>
+                  <span class="action-links"  *ngIf="product.offeringList?.length > 0"
+                    >{{ 'rma-cart.editRmaForm' | cxTranslate }}
+                  </span>
+                </div>
+
+                <div class="product-remove">
+                    <i class="material-icons-outlined"> delete </i>
+                    <a class="action-links" (click)="openDeleteDialog()">
+                        {{ 'rma-cart.remove' | cxTranslate }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="horizontal-line" />
+
+    <div [ngClass]="accessories?.length > 0 ? 'product-open' : 'product-close'">
+        <div class="product-description--header" *ngIf="accessories?.length > 0">
+            <div class="product-description--header-title">
+              <div class="acc-title">
+                {{ 'rma-cart.accessoryToPartNumber' | cxTranslate }}:
+                <span class="part-details">{{ product.partNumber }}</span>
+              </div>
+            </div>
+        </div>
+        <app-return-cart-accessory
+          *ngFor="let accessory of accessories"
+          [accessory]="accessory"
+          [product]="product"
+          [entryNumber]="product?.cartEntryNumber"
+        ></app-return-cart-accessory>
+      </div>
+</ng-container>
+
+<ng-template #toBeQuoted>
+    <span class="to-be-quoted-text price-values">{{
+        'rma-cart.toBeQuoted' | cxTranslate
+        }}</span>
+</ng-template>

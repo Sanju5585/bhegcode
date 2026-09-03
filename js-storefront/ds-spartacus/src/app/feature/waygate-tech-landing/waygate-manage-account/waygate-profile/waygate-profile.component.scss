@@ -1,0 +1,54 @@
+@mixin column-flex-styles {
+  display: flex;
+  flex-direction: column;
+}
+@mixin row-flex-10-styles {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+@mixin label-styles {
+  color: #717171;
+  width: 220px;
+}
+.waygate-profile-container {
+  .profile-content {
+    @include column-flex-styles;
+    gap: 20px;
+    padding: 15px 0;
+    .profile-content-row {
+      @include row-flex-10-styles;
+      .label {
+        @include label-styles;
+      }
+      .value {
+        color: #121212;
+        font-weight: 600;
+      }
+    }
+  }
+  .profile-actions-content {
+    @include column-flex-styles;
+    gap: 10px;
+    .profile-actions-row {
+      @include row-flex-10-styles;
+      .label {
+        @include label-styles;
+      }
+      .role-link {
+        color: #02a783;
+        font-size: 12px;
+        text-decoration: none;
+      }
+      .role-btn {
+        border: 1px solid #adbdb9;
+        padding: 10px 20px 10px 20px;
+        border-radius: 5px;
+        font-size: 12px;
+        color: #595959;
+        background: #ffffff00;
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<ng-container *ngIf="isLoggedIn">
+  <ng-container
+    *ngIf="
+      [allProductLine.panametrics, allProductLine.bently].includes(productLine)
+    "
+  >
+    <div class="quickLinks-products-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'waygate.quickLinksHeading' | cxTranslate }}</h1>
+      <div class="quick-link-container">
+        <a
+          *ngFor="let item of menuItems"
+          [routerLink]="item.link"
+          class="container-item"
+          (click)="scrollToTop()"
+        >
+          <div class="quickLinkBox">
+            <img [src]="item.iconImg" />
+            {{ item.name | cxTranslate }}
+          </div>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,641 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+
+######### Item Cleanup CronJobs START #########
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;actionReference;retentionTimeSeconds
+# Find all deactivated not processed customers owning orders and past retention date (2 days) without retention state. Remove related objects of the found customers and set the their retention state to 'PROCESSED'.
+;customersWithOrdersFSRetentionRule;SELECT DISTINCT {c.pk}, {c.itemtype} FROM {Customer AS c JOIN Order AS o on {c.pk} = {o.user}} WHERE {c.deactivationDate} < ?CALC_RETIREMENT_TIME and {c.retentionState} IS NULL;customerCleanupRelatedObjectsAction;172800
+# Find and remove all deactivated customers not owning any order currently and the current date has past deactivation date+retention date (2 days).
+;customersWithoutOrdersFSRetentionRule;SELECT DISTINCT {c:PK}, {c.itemtype} FROM {Customer AS c} WHERE {c:PK} NOT IN ({{SELECT {c1.pk} FROM {Customer AS c1 JOIN Order AS o on {c1.pk} = {o.user}} WHERE {c1.deactivationDate} < ?CALC_RETIREMENT_TIME }}) AND {c.deactivationDate} < ?CALC_RETIREMENT_TIME;customerNotOwningOrdersRemoveCleanupAction;172800
+# Find and remove all expired orders (10 years)
+;ordersFSRetentionRule;SELECT DISTINCT {pk}, {itemtype} FROM {Order} WHERE {expirationTime} < ?CALC_RETIREMENT_TIME;orderRemoveCleanupAction;315576000
+# Find and remove all expired tickets (1 year from retentionDate) which customers have been processed.
+;ticketsFSRetentionRule;SELECT DISTINCT {t.pk}, {t.itemtype} FROM {CsTicket as t} WHERE {t.retentionDate} < ?CALC_RETIREMENT_TIME;csTicketRemoveCleanupAction;31557600
+# Find and close all non-closed tickets which weren't updated for some period (90 days)
+;ticketsFSStagnationRule;SELECT DISTINCT {t.pk}, {t.itemtype},{t.state} FROM {CsTicket as t} where {t.modifiedtime} < ?CALC_RETIREMENT_TIME AND {t.state} IN ({{SELECT {s.pk} FROM {CsTicketState as s} WHERE {s.code} IN ('New', 'Open')}});csTicketStagnationAction;7776000
+
+# FS JOB
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize[default=100]
+;customersWithOrdersRetentionJob;customersWithOrdersFSRetentionRule;
+;customersWithoutOrdersRetentionJob;customersWithoutOrdersFSRetentionRule;
+;ordersRetentionJob;ordersFSRetentionRule;
+;ticketsRetentionJob;ticketsFSRetentionRule;
+;ticketsFSStagnationJob;ticketsFSStagnationRule;
+
+# FS CRON JOB
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+;customersWithOrdersRetentionCronJob;customersWithOrdersRetentionJob;
+;customersWithoutOrdersRetentionCronJob;customersWithoutOrdersRetentionJob;
+;ordersRetentionCronJob;ordersRetentionJob;
+;ticketsRetentionCronJob;ticketsRetentionJob;
+;ticketsStagnationJob;ticketsFSStagnationJob;
+
+$stagedContentCatalog=bhgeContentCatalog
+$stagedCatalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$stagedContentCatalog]),CatalogVersion.version[default=Staged])[default=$stagedContentCatalog:Staged]
+INSERT_UPDATE MediaConversionCronJob;code[unique=true];job(code);sessionLanguage(isocode);$stagedCatalogVersion
+;BHGE-MediaConversionCronjob-Staged;mediaConversionJob;en;
+
+$onlineContentCatalog=bhgeContentCatalog
+$onlineCatalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$onlineContentCatalog]),CatalogVersion.version[default=Online])[default=$onlineContentCatalog:Online]
+INSERT_UPDATE MediaConversionCronJob;code[unique=true];job(code);sessionLanguage(isocode);$onlineCatalogVersion
+;BHGE-MediaConversionCronjob-Online;mediaConversionJob;en;
+
+# Run CronJobs at 3:05 AM every day
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second[default=0];minute[default=5];hour[default=3];day[default=-1];month[default=-1];year[default=-1];relative[default=false];active[default=false];maxAcceptableDelay[default=-1]
+;customersWithOrdersRetentionCronJob;
+;customersWithoutOrdersRetentionCronJob;
+;ordersRetentionCronJob;
+;ticketsRetentionCronJob;
+# Run the CloseStagnantServiceTicketsJob at 12:05 AM every day
+;ticketsStagnationJob;;;12;0;;;;true;
+
+
+##BHGE Cronjobs - START###
+"#% impex.info(""###############    bhgeOrderSubmitCompositeJob.impex  -start  ################"")"
+
+### ORDER SUBMIT SERVICELAYER JOB ###
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeOrdrSubmsnBatchJob;bhgeOrdrSubmsnBatchJob;true
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeOrdrAttachmentBatchJob;bhgeOrdrAttachmentBatchJob;true
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeOrderCompositeCronJob;bhgeOrderCompositeCronJob;true
+
+
+### ORDER SUBMIT CRONJOB ###
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeOrderSubmissionJobExecute;bhgeOrdrSubmsnBatchJob;en;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeOrderAttachmentJobExecute;bhgeOrdrAttachmentBatchJob;en;true
+
+
+
+
+#### ORDER SUBMIT COMPOSITE CRONJOB ###
+INSERT_UPDATE compositecronjob;code[unique=true];job(code);sessionLanguage(isocode);
+;bhgeOrderSubmitCompositeJob;bhgeOrderCompositeCronJob;en
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+;bhge_ordersubmit_entry1;bhgeOrderSubmissionJobExecute;bhgeOrderSubmitCompositeJob;1
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+;bhge_ordersubmit_entry2;bhgeOrderAttachmentJobExecute;bhgeOrderSubmitCompositeJob;2
+
+
+## TRIGGER FOR EVERY 5 MINUTES ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeOrderSubmitCompositeJob;0;5;0;0;0;0;true;true;-1
+
+"#% impex.info(""###############    bhgeOrderSubmitCompositeJob.impex -end  ################"")"
+
+
+"#% impex.info(""###############    bhgeCPQCacheCleanerJob.impex  -start  ################"")"
+
+
+#Cache Cleaner for ALL Objects at once 
+INSERT_UPDATE GEEdgeCacheCleanerJob;code[unique=true];job(code);active;sessionLanguage(isoCode)[default=en];nodeID;
+;bhgeCPQCacheCleanerJobS1;bhgeCacheCleanerJob;true;en;0
+;bhgeCPQCacheCleanerJobS2;bhgeCacheCleanerJob;true;en;1
+;bhgeCPQCacheCleanerJobS3;bhgeCacheCleanerJob;true;en;2
+
+
+#Schedule the Job every day at 2:30
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeCPQCacheCleanerJobS1;0;30;2;-1;-1;-1;false;true;-1
+;bhgeCPQCacheCleanerJobS2;0;30;2;-1;-1;-1;false;true;-1
+;bhgeCPQCacheCleanerJobS3;0;30;2;-1;-1;-1;false;true;-1
+
+"#% impex.info(""###############   bhgeCatalogSyncCompositeJob.impex -start  ################"")"
+
+$facetSearchConfigName=bhgeIndex
+
+### SYNCHRONIZATION SERVICELAYER JOB ####
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeSyncCompositeCronJob;bhgeCompositeCronJob;true
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeProductApprovalStatusCronJob;bhgeProductApprovalStatusCronJob;true
+;bhgeProductLineMappingCronJob;bhgeProductLineMappingCronJob;true
+;1800_to_bhgeProductCatalogSyncJob;bhgeProductCatalogSyncJobfrom1800;true
+
+### PRODUCT APPROVAL CRONJOB ####
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeProductApproval;bhgeProductApprovalStatusCronJob;en;true
+;bhgeProductLineMappingJob;bhgeProductLineMappingCronJob;en;true
+;1800_to_bhgeProductCatalogSyncJob;1800_to_bhgeProductCatalogSyncJob;en;true
+
+
+
+### SYNCHRONIZATION SERVICELAYER JOB ####
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1800_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6040_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1720_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1820_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1830_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3000_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6020_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6030_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6060_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6170_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6180_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6210_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6240_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6270_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7030_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7140_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7160_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1810_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5020_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+#;1800_GE_TO_BhgeProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1200_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1500_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1600_RS_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1700_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1820_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;1830_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3000_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3000_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3010_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3030_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3050_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3140_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3140_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;3140_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5000_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5010_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5020_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5020_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5030_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5040_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5050_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5060_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5070_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;5500_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6000_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6000_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6010_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6020_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6030_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6040_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6050_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6060_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6070_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6080_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6090_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6100_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6110_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6120_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6130_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6140_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6150_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6160_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6180_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6200_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6230_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6250_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6250_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;6260_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7000_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7000_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7000_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7010_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7020_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7030_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7040_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7050_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7060_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7080_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7090_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7110_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7120_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7140_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7140_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7160_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7160_GE_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7170_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7200_BN_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;7200_GC_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+;Global_ProdCatalogSyncJob;bhgeProductCatalogSyncJob;true
+
+
+#### SOLR INDEXER JOB ###
+INSERT_UPDATE solrindexercronjob;code[unique=true];job(code);facetSearchConfig(name);indexerOperation(code);sessionLanguage(isoCode)[default=en]
+;bhgeSolrUpdateIndexer;solrIndexerJob;$facetSearchConfigName;update
+;bhgeSolrDeleteIndexer;solrIndexerJob;$facetSearchConfigName;delete
+;bhgeSolrFullIndexer;solrIndexerJob;$facetSearchConfigName;full
+
+#### MULTI CATALOG SYNCHRONIZATION JOB ###
+
+### context setup
+$lang=sessionLanguage(isocode[default=en])
+$contentCatalogs=bhgeContentCatalog
+
+INSERT_UPDATE MultipleCatalogsSyncCronJob;code;$lang;job(code)[unique=true];contentCatalogs(id);productCatalog(id);logToDatabase[default=false];logToFile[default=false];
+;BHGE_PRODUCT_CATALOG_SYNC;;bhgeProdCatalogSyncJob;$contentCatalogs;bhgeProductCatalog;;;
+;1720_GE_PRODUCT_CATALOG_SYNC;;1720_GE_ProdCatalogSyncJob;$contentCatalogs;1720_GE;;;
+;1800_GE_PRODUCT_CATALOG_SYNC;;1800_GE_ProdCatalogSyncJob;$contentCatalogs;1800_GE;;;
+;1820_GE_PRODUCT_CATALOG_SYNC;;1820_GE_ProdCatalogSyncJob;$contentCatalogs;1820_GE;;;
+;1830_GE_PRODUCT_CATALOG_SYNC;;1830_GE_ProdCatalogSyncJob;$contentCatalogs;1800_GE;;;
+;3000_GE_PRODUCT_CATALOG_SYNC;;3000_GE_ProdCatalogSyncJob;$contentCatalogs;3000_GE;;;
+;6020_GE_PRODUCT_CATALOG_SYNC;;6020_GE_ProdCatalogSyncJob;$contentCatalogs;6020_GE;;;
+;6030_GE_PRODUCT_CATALOG_SYNC;;6030_GE_ProdCatalogSyncJob;$contentCatalogs;6030_GE;;;
+;6040_GE_PRODUCT_CATALOG_SYNC;;6040_GE_ProdCatalogSyncJob;$contentCatalogs;6040_GE;;;
+;6060_GE_PRODUCT_CATALOG_SYNC;;6060_GE_ProdCatalogSyncJob;$contentCatalogs;6060_GE;;;
+;6170_GE_PRODUCT_CATALOG_SYNC;;6170_GE_ProdCatalogSyncJob;$contentCatalogs;6170_GE;;;
+;6180_GE_PRODUCT_CATALOG_SYNC;;6180_GE_ProdCatalogSyncJob;$contentCatalogs;6180_GE;;;
+;6210_GE_PRODUCT_CATALOG_SYNC;;6210_GE_ProdCatalogSyncJob;$contentCatalogs;6210_GE;;;
+;6240_GE_PRODUCT_CATALOG_SYNC;;6240_GE_ProdCatalogSyncJob;$contentCatalogs;6240_GE;;;
+;6270_GE_PRODUCT_CATALOG_SYNC;;6270_GE_ProdCatalogSyncJob;$contentCatalogs;6270_GE;;;
+;7030_GE_PRODUCT_CATALOG_SYNC;;7030_GE_ProdCatalogSyncJob;$contentCatalogs;7030_GE;;;
+;7140_GE_PRODUCT_CATALOG_SYNC;;7140_GE_ProdCatalogSyncJob;$contentCatalogs;7140_GE;;;
+;7160_GE_PRODUCT_CATALOG_SYNC;;7160_GE_ProdCatalogSyncJob;$contentCatalogs;7160_GE;;;
+;1810_GE_PRODUCT_CATALOG_SYNC;;1810_GE_ProdCatalogSyncJob;$contentCatalogs;1810_GE;;;
+;5020_GE_PRODUCT_CATALOG_SYNC;;5020_GE_ProdCatalogSyncJob;$contentCatalogs;5020_GE;;;
+#;1800_GE_TO_BHGEPRODUCT_CATALOG_SYNC;;1800_GE_TO_BhgeProdCatalogSyncJob;$contentCatalogs;bhgeProductCatalog;;;
+;1200_BN_PRODUCT_CATALOG_SYNC;;1200_BN_ProdCatalogSyncJob;$contentCatalogs;1200_BN;;;
+;1500_GC_PRODUCT_CATALOG_SYNC;;1500_GC_ProdCatalogSyncJob;$contentCatalogs;1500_GC;;;
+;1600_RS_PRODUCT_CATALOG_SYNC;;1600_RS_ProdCatalogSyncJob;$contentCatalogs;1600_RS;;;
+;1700_BN_PRODUCT_CATALOG_SYNC;;1700_BN_ProdCatalogSyncJob;$contentCatalogs;1700_BN;;;
+;1820_GE_PRODUCT_CATALOG_SYNC;;1820_GE_ProdCatalogSyncJob;$contentCatalogs;1820_GE;;;
+;1830_GE_PRODUCT_CATALOG_SYNC;;1830_GE_ProdCatalogSyncJob;$contentCatalogs;1830_GE;;;
+;3000_BN_PRODUCT_CATALOG_SYNC;;3000_BN_ProdCatalogSyncJob;$contentCatalogs;3000_BN;;;
+;3000_GC_PRODUCT_CATALOG_SYNC;;3000_GC_ProdCatalogSyncJob;$contentCatalogs;3000_GC;;;
+;3010_BN_PRODUCT_CATALOG_SYNC;;3010_BN_ProdCatalogSyncJob;$contentCatalogs;3010_BN;;;
+;3030_BN_PRODUCT_CATALOG_SYNC;;3030_BN_ProdCatalogSyncJob;$contentCatalogs;3030_BN;;;
+;3050_BN_PRODUCT_CATALOG_SYNC;;3050_BN_ProdCatalogSyncJob;$contentCatalogs;3050_BN;;;
+;3140_BN_PRODUCT_CATALOG_SYNC;;3140_BN_ProdCatalogSyncJob;$contentCatalogs;3140_BN;;;
+;3140_GC_PRODUCT_CATALOG_SYNC;;3140_GC_ProdCatalogSyncJob;$contentCatalogs;3140_GC;;;
+;3140_GE_PRODUCT_CATALOG_SYNC;;3140_GE_ProdCatalogSyncJob;$contentCatalogs;3140_GE;;;
+;5000_BN_PRODUCT_CATALOG_SYNC;;5000_BN_ProdCatalogSyncJob;$contentCatalogs;5000_BN;;;
+;5010_BN_PRODUCT_CATALOG_SYNC;;5010_BN_ProdCatalogSyncJob;$contentCatalogs;5010_BN;;;
+;5020_BN_PRODUCT_CATALOG_SYNC;;5020_BN_ProdCatalogSyncJob;$contentCatalogs;5020_BN;;;
+;5020_GE_PRODUCT_CATALOG_SYNC;;5020_GE_ProdCatalogSyncJob;$contentCatalogs;5020_GE;;;
+;5030_BN_PRODUCT_CATALOG_SYNC;;5030_BN_ProdCatalogSyncJob;$contentCatalogs;5030_BN;;;
+;5040_BN_PRODUCT_CATALOG_SYNC;;5040_BN_ProdCatalogSyncJob;$contentCatalogs;5040_BN;;;
+;5050_BN_PRODUCT_CATALOG_SYNC;;5050_BN_ProdCatalogSyncJob;$contentCatalogs;5050_BN;;;
+;5060_BN_PRODUCT_CATALOG_SYNC;;5060_BN_ProdCatalogSyncJob;$contentCatalogs;5060_BN;;;
+;5070_BN_PRODUCT_CATALOG_SYNC;;5070_BN_ProdCatalogSyncJob;$contentCatalogs;5070_BN;;;
+;5500_GE_PRODUCT_CATALOG_SYNC;;5500_GE_ProdCatalogSyncJob;$contentCatalogs;5500_GE;;;
+;6000_BN_PRODUCT_CATALOG_SYNC;;6000_BN_ProdCatalogSyncJob;$contentCatalogs;6000_BN;;;
+;6000_GC_PRODUCT_CATALOG_SYNC;;6000_GC_ProdCatalogSyncJob;$contentCatalogs;6000_GC;;;
+;6010_BN_PRODUCT_CATALOG_SYNC;;6010_BN_ProdCatalogSyncJob;$contentCatalogs;6010_BN;;;
+;6020_GE_PRODUCT_CATALOG_SYNC;;6020_GE_ProdCatalogSyncJob;$contentCatalogs;6020_GE;;;
+;6030_BN_PRODUCT_CATALOG_SYNC;;6030_BN_ProdCatalogSyncJob;$contentCatalogs;6030_BN;;;
+;6040_BN_PRODUCT_CATALOG_SYNC;;6040_BN_ProdCatalogSyncJob;$contentCatalogs;6040_BN;;;
+;6050_BN_PRODUCT_CATALOG_SYNC;;6050_BN_ProdCatalogSyncJob;$contentCatalogs;6050_BN;;;
+;6060_BN_PRODUCT_CATALOG_SYNC;;6060_BN_ProdCatalogSyncJob;$contentCatalogs;6060_BN;;;
+;6070_BN_PRODUCT_CATALOG_SYNC;;6070_BN_ProdCatalogSyncJob;$contentCatalogs;6070_BN;;;
+;6080_BN_PRODUCT_CATALOG_SYNC;;6080_BN_ProdCatalogSyncJob;$contentCatalogs;6080_BN;;;
+;6090_BN_PRODUCT_CATALOG_SYNC;;6090_BN_ProdCatalogSyncJob;$contentCatalogs;6090_BN;;;
+;6100_BN_PRODUCT_CATALOG_SYNC;;6100_BN_ProdCatalogSyncJob;$contentCatalogs;6100_BN;;;
+;6110_BN_PRODUCT_CATALOG_SYNC;;6110_BN_ProdCatalogSyncJob;$contentCatalogs;6110_BN;;;
+;6120_BN_PRODUCT_CATALOG_SYNC;;6120_BN_ProdCatalogSyncJob;$contentCatalogs;6120_BN;;;
+;6130_BN_PRODUCT_CATALOG_SYNC;;6130_BN_ProdCatalogSyncJob;$contentCatalogs;6130_BN;;;
+;6140_BN_PRODUCT_CATALOG_SYNC;;6140_BN_ProdCatalogSyncJob;$contentCatalogs;6140_BN;;;
+;6150_BN_PRODUCT_CATALOG_SYNC;;6150_BN_ProdCatalogSyncJob;$contentCatalogs;6150_BN;;;
+;6160_BN_PRODUCT_CATALOG_SYNC;;6160_BN_ProdCatalogSyncJob;$contentCatalogs;6160_BN;;;
+;6180_GE_PRODUCT_CATALOG_SYNC;;6180_GE_ProdCatalogSyncJob;$contentCatalogs;6180_GE;;;
+;6200_GC_PRODUCT_CATALOG_SYNC;;6200_GC_ProdCatalogSyncJob;$contentCatalogs;6200_GC;;;
+;6230_GE_PRODUCT_CATALOG_SYNC;;6230_GE_ProdCatalogSyncJob;$contentCatalogs;6230_GE;;;
+;6250_GC_PRODUCT_CATALOG_SYNC;;6250_GC_ProdCatalogSyncJob;$contentCatalogs;6250_GC;;;
+;6250_GE_PRODUCT_CATALOG_SYNC;;6250_GE_ProdCatalogSyncJob;$contentCatalogs;6250_GE;;;
+;6260_GE_PRODUCT_CATALOG_SYNC;;6260_GE_ProdCatalogSyncJob;$contentCatalogs;6260_GE;;;
+;7000_BN_PRODUCT_CATALOG_SYNC;;7000_BN_ProdCatalogSyncJob;$contentCatalogs;7000_BN;;;
+;7000_GC_PRODUCT_CATALOG_SYNC;;7000_GC_ProdCatalogSyncJob;$contentCatalogs;7000_GC;;;
+;7000_GE_PRODUCT_CATALOG_SYNC;;7000_GE_ProdCatalogSyncJob;$contentCatalogs;7000_GE;;;
+;7010_BN_PRODUCT_CATALOG_SYNC;;7010_BN_ProdCatalogSyncJob;$contentCatalogs;7010_BN;;;
+;7020_BN_PRODUCT_CATALOG_SYNC;;7020_BN_ProdCatalogSyncJob;$contentCatalogs;7020_BN;;;
+;7030_BN_PRODUCT_CATALOG_SYNC;;7030_BN_ProdCatalogSyncJob;$contentCatalogs;7030_BN;;;
+;7040_BN_PRODUCT_CATALOG_SYNC;;7040_BN_ProdCatalogSyncJob;$contentCatalogs;7040_BN;;;
+;7050_BN_PRODUCT_CATALOG_SYNC;;7050_BN_ProdCatalogSyncJob;$contentCatalogs;7050_BN;;;
+;7060_BN_PRODUCT_CATALOG_SYNC;;7060_BN_ProdCatalogSyncJob;$contentCatalogs;7060_BN;;;
+;7080_BN_PRODUCT_CATALOG_SYNC;;7080_BN_ProdCatalogSyncJob;$contentCatalogs;7080_BN;;;
+;7090_BN_PRODUCT_CATALOG_SYNC;;7090_BN_ProdCatalogSyncJob;$contentCatalogs;7090_BN;;;
+;7110_GE_PRODUCT_CATALOG_SYNC;;7110_GE_ProdCatalogSyncJob;$contentCatalogs;7110_GE;;;
+;7120_GE_PRODUCT_CATALOG_SYNC;;7120_GE_ProdCatalogSyncJob;$contentCatalogs;7120_GE;;;
+;7140_BN_PRODUCT_CATALOG_SYNC;;7140_BN_ProdCatalogSyncJob;$contentCatalogs;7140_BN;;;
+;7140_GC_PRODUCT_CATALOG_SYNC;;7140_GC_ProdCatalogSyncJob;$contentCatalogs;7140_GC;;;
+;7160_BN_PRODUCT_CATALOG_SYNC;;7160_BN_ProdCatalogSyncJob;$contentCatalogs;7160_BN;;;
+;7160_GE_PRODUCT_CATALOG_SYNC;;7160_GE_ProdCatalogSyncJob;$contentCatalogs;7160_GE;;;
+;7170_GC_PRODUCT_CATALOG_SYNC;;7170_GC_ProdCatalogSyncJob;$contentCatalogs;7170_GC;;;
+;7200_BN_PRODUCT_CATALOG_SYNC;;7200_BN_ProdCatalogSyncJob;$contentCatalogs;7200_BN;;;
+;7200_GC_PRODUCT_CATALOG_SYNC;;7200_GC_ProdCatalogSyncJob;$contentCatalogs;7200_GC;;;
+;GLOBAL_PRODUCT_CATALOG_SYNC;;Global_ProdCatalogSyncJob;$contentCatalogs;bhgeGlobalProductCatalog;;;
+
+#### PRODUCT CATALOG SYNCHRONIZATION COMPOSITE CRON JOB ###
+
+INSERT_UPDATE compositecronjob;code[unique=true];job(code);sessionLanguage(isocode);
+;bhgeSyncCompositeJob;bhgeSyncCompositeCronJob;en
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+;bhge_composite_entry1;bhgeProductLineMappingJob;bhgeSyncCompositeJob;1
+;bhge_composite_entry2;bhgeProductApproval;bhgeSyncCompositeJob;2
+;bhge_composite_entry3;1720_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;3
+;bhge_composite_entry4;1800_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;4
+;bhge_composite_entry5;1820_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;5
+;bhge_composite_entry6;1830_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;6
+;bhge_composite_entry7;3000_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;7
+;bhge_composite_entry8;6020_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;8
+;bhge_composite_entry9;6030_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;9
+;bhge_composite_entry10;6040_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;10
+;bhge_composite_entry11;6060_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;11
+;bhge_composite_entry12;6170_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;12
+;bhge_composite_entry13;6180_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;13
+;bhge_composite_entry14;6210_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;14
+;bhge_composite_entry15;6240_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;15
+;bhge_composite_entry16;6270_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;16
+;bhge_composite_entry17;7030_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;17
+;bhge_composite_entry18;7140_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;18
+;bhge_composite_entry19;7160_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;19
+;bhge_composite_entry20;1810_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;20
+;bhge_composite_entry21;5020_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;21
+;bhge_composite_entry22;1800_to_bhgeProductCatalogSyncJob;bhgeSyncCompositeJob;22
+;bhge_composite_entry23;BHGE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;23
+;bhge_composite_entry24;1200_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;24
+;bhge_composite_entry25;1500_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;25
+;bhge_composite_entry26;1600_RS_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;26
+;bhge_composite_entry27;1700_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;27
+;bhge_composite_entry28;1820_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;28
+;bhge_composite_entry29;1830_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;29
+;bhge_composite_entry30;3000_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;30
+;bhge_composite_entry31;3000_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;31
+;bhge_composite_entry32;3010_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;32
+;bhge_composite_entry33;3030_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;33
+;bhge_composite_entry34;3050_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;34
+;bhge_composite_entry35;3140_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;35
+;bhge_composite_entry36;3140_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;36
+;bhge_composite_entry37;3140_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;37
+;bhge_composite_entry38;5000_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;38
+;bhge_composite_entry39;5010_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;39
+;bhge_composite_entry40;5020_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;40
+;bhge_composite_entry41;5020_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;41
+;bhge_composite_entry42;5030_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;42
+;bhge_composite_entry43;5040_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;43
+;bhge_composite_entry44;5050_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;44
+;bhge_composite_entry45;5060_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;45
+;bhge_composite_entry46;5070_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;46
+;bhge_composite_entry47;5500_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;47
+;bhge_composite_entry48;6000_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;48
+;bhge_composite_entry49;6000_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;49
+;bhge_composite_entry50;6010_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;50
+;bhge_composite_entry51;6020_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;51
+;bhge_composite_entry52;6030_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;52
+;bhge_composite_entry53;6040_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;53
+;bhge_composite_entry54;6050_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;54
+;bhge_composite_entry55;6060_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;55
+;bhge_composite_entry56;6070_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;56
+;bhge_composite_entry57;6080_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;57
+;bhge_composite_entry58;6090_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;58
+;bhge_composite_entry59;6100_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;59
+;bhge_composite_entry60;6110_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;60
+;bhge_composite_entry61;6120_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;61
+;bhge_composite_entry62;6130_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;62
+;bhge_composite_entry63;6140_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;63
+;bhge_composite_entry64;6150_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;64
+;bhge_composite_entry65;6160_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;65
+;bhge_composite_entry66;6180_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;66
+;bhge_composite_entry67;6200_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;67
+;bhge_composite_entry68;6230_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;68
+;bhge_composite_entry69;6250_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;69
+;bhge_composite_entry70;6250_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;70
+;bhge_composite_entry71;6260_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;71
+;bhge_composite_entry72;7000_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;72
+;bhge_composite_entry73;7000_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;73
+;bhge_composite_entry74;7000_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;74
+;bhge_composite_entry75;7010_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;75
+;bhge_composite_entry76;7020_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;76
+;bhge_composite_entry77;7030_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;77
+;bhge_composite_entry78;7040_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;78
+;bhge_composite_entry79;7050_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;79
+;bhge_composite_entry80;7060_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;80
+;bhge_composite_entry81;7080_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;81
+;bhge_composite_entry82;7090_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;82
+;bhge_composite_entry83;7110_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;83
+;bhge_composite_entry84;7120_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;84
+;bhge_composite_entry85;7140_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;85
+;bhge_composite_entry86;7140_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;86
+;bhge_composite_entry87;7160_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;87
+;bhge_composite_entry88;7160_GE_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;88
+;bhge_composite_entry89;7170_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;99
+;bhge_composite_entry90;7200_BN_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;90
+;bhge_composite_entry91;7200_GC_PRODUCT_CATALOG_SYNC;bhgeSyncCompositeJob;91
+;bhge_composite_entry92;bhgeSolrUpdateIndexer;bhgeSyncCompositeJob;92
+;bhge_composite_entry93;bhgeSolrFullIndexer;bhgeSyncCompositeJob;93
+
+
+
+## TRIGGER FOR EVERY 1 DAY ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeSyncCompositeJob;0;0;0;1;0;0;true;true;-1
+#;bhgeSolrFullIndexer;0;0;0;1;0;0;true;true;-1
+
+"#% impex.info(""###############    bhgeCatalogSyncCompositeJob.impex -end  ################"")"
+
+"#% impex.info(""###############   bhgeRFCLogCleanupJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeRFCLogCleanupCronJob;bhgeRFCLogCleanupJob;true
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeRFCLogCleanupJob;bhgeRFCLogCleanupCronJob;en;true
+
+## TRIGGER FOR EVERY 1 MONTH ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeRFCLogCleanupJob;0;0;0;0;1;0;true;true;-1
+
+"#% impex.info(""###############   bhgeInvalidDataReportJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeInvalidDataReportJob;bhgeInvalidDataReportJob;true
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeInvalidDataReportJob;bhgeInvalidDataReportJob;en;true
+
+## TRIGGER FOR EVERY 1 week ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeInvalidDataReportJob;0;0;0;7;0;0;true;true;-1
+
+##BHGE Cronjobs - END###
+
+
+"#% impex.info(""###############   bhgeWeeklyOrdersReportJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeWeeklyOrdersReportJob;bhgeWeeklyOrdersReportJob;true
+
+INSERT_UPDATE WeeklyOrderCronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeWeeklyOrdersReportJob;bhgeWeeklyOrdersReportJob;en;true
+
+## TRIGGER FOR EVERY 1 week ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeWeeklyOrdersReportJob;0;0;0;7;0;0;true;true;-1
+
+##BHGE Cronjobs - END###
+
+
+
+"#% impex.info(""###############   bhgeInactiveUserJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeInactiveUserJob;bhgeInactiveUserJob;false
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeInactiveUserJob;bhgeInactiveUserJob;en;false
+
+## TRIGGER FOR EVERY 1 week ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeInactiveUserJob;0;0;0;10;0;0;true;false;-1
+
+"#% impex.info(""###############   bhgeSavedCartExpiryMailJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeSavedCartExpiryMailJob;bhgeSavedCartExpiryMailJob;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active;nodeID
+;BHGESavedCartExpiryMailJobExecute;bhgeSavedCartExpiryMailJob;en;false;3
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronexpression
+;BHGESavedCartExpiryMailJobExecute;0 0 0 * * ?
+
+
+"#% impex.info(""###############   bhgeActiveUsersReportJob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeActiveUserReportJob;bhgeActiveUserReportJob;false
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeActiveUserReportJob;bhgeActiveUserReportJob;en;false
+
+## TRIGGER FOR EVERY 1 week ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeActiveUserReportJob;0;0;0;10;0;0;true;false;-1
+
+
+## impex for Category to product cronjob##
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeCategorytoProductJob;bhgeCategorytoProductJob;true
+;bhgeAnonymousProductSellableFlagJob;bhgeAnonymousProductSellableFlagJob;true
+
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeCategorytoProductJobExecute;bhgeCategorytoProductJob;en;true
+;bhgeAnonymousProductSellableFlagCronJob;bhgeAnonymousProductSellableFlagJob;en;true
+
+##BHGE Cronjobs - END###
+
+
+"#% impex.info(""###############   GlobalCatalogCompositecronjob.impex -start  ################"")"
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeSyncGlobalCatalogCompositeCronJob;bhgeGlobalCatalogCompositeCronJob;true
+
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeGlobalCatalogProductApprovalStatusCronJob;bhgeGlobalCatalogProductApprovalStatusCronJob;true
+;bhgeGlobalCatalogProductLineMappingCronJob;bhgeGlobalCatalogProductLineMappingCronJob;true
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeGlobalCatalogProductApproval;bhgeGlobalCatalogProductApprovalStatusCronJob;en;true
+;bhgeGlobalCatalogProductLineMappingJob;bhgeGlobalCatalogProductLineMappingCronJob;en;true
+
+### Daily Monitoring CRONJOB ####
+INSERT_UPDATE BHGEProductApprovalStatusCronJob;code[unique=true];job(code);sessionLanguage(isocode);active;materialPushFlag;customerPushFlag;addressPushFlag;pricePushFlag
+;BakerHughesDailyMonitoring;bhgeGlobalCatalogProductApprovalStatusCronJob;en;true;true;true;true;true;
+
+INSERT_UPDATE compositecronjob;code[unique=true];job(code);sessionLanguage(isocode);
+;bhgeGlobalCatalogSyncCompositeJob;bhgeSyncGlobalCatalogCompositeCronJob;en
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+;bhge_composite_entry1;bhgeAnonymousProductSellableFlagCronJob;bhgeGlobalCatalogSyncCompositeJob;1
+;bhge_composite_entry2;bhgeCategorytoProductJobExecute;bhgeGlobalCatalogSyncCompositeJob;2
+;bhge_composite_entry3;bhgeGlobalCatalogProductLineMappingJob;bhgeGlobalCatalogSyncCompositeJob;3
+;bhge_composite_entry4;BakerHughesDailyMonitoring;bhgeGlobalCatalogSyncCompositeJob;4
+;bhge_composite_entry5;GLOBAL_PRODUCT_CATALOG_SYNC;bhgeGlobalCatalogSyncCompositeJob;5
+;bhge_composite_entry6;bhgeSolrUpdateIndexer;bhgeGlobalCatalogSyncCompositeJob;6
+;bhge_composite_entry7;full-bhgeIndex-cronJob;bhgeGlobalCatalogSyncCompositeJob;7
+
+
+## Trigger for Global Sync Job
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeGlobalCatalogSyncCompositeJob;0;0;0;1;0;0;true;true;-1
+
+
+### Returns Attachment CRONJOB ###
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeRMAAttachmentBatchJob;bhgeRMAAttachmentBatchJob;true
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeRMACompositeCronJob;bhgeRMACompositeCronJob;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeRMAAttachmentJobExecute;bhgeRMAAttachmentBatchJob;en;true
+
+INSERT_UPDATE compositecronjob;code[unique=true];job(code);sessionLanguage(isocode);
+;bhgeRMASubmitCompositeJob;bhgeRMACompositeCronJob;en
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+;bhge_RMAsubmit_entry1;bhgeRMAAttachmentJobExecute;bhgeRMASubmitCompositeJob;1
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeRMASubmitCompositeJob;0;10;0;0;0;0;true;true;-1
+
+
+
+### Returns Order RFC CRONJOB ###
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+                             ;bhgeRMAOrderRFCJob;bhgeRMAOrderRFCJob;true
+
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+                     ;bhgeRMAOrderRFCJobExecute;bhgeRMAOrderRFCJob;en;true
+
+
+INSERT_UPDATE compositeentry;code[unique=true];executableCronJob(code);compositecronjob(code);compositecronjobpos
+                            ;bhge_RMAsubmit_entry2;bhgeRMAOrderRFCJobExecute;bhgeRMASubmitCompositeJob;2
+							
+							
+### Pending Activation Users Job ###
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgePendingActivationUserReportJob;bhgePendingActivationUserReportJob;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgePendingActivationUserReportJob;bhgePendingActivationUserReportJob;en;true							
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgePendingActivationUserReportJob;0;0;0;7;0;0;true;true;-1
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhDataRetentionJob;bhDataRetentionJob;false
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhDataRetentionJob;bhDataRetentionJob;en;false
+
+######WAYGATE DATALOAD JOB#########
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+;bhgeWaygateDataLoadJob;bhgeWaygateDataLoadJob;true
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);active
+;bhgeWaygateDataLoadJobExecute;bhgeWaygateDataLoadJob;en;true
+
+## TRIGGER FOR EVERY DAY 2.30 ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeWaygateDataLoadJobExecute;0;30;2;-1;-1;-1;false;true;-1

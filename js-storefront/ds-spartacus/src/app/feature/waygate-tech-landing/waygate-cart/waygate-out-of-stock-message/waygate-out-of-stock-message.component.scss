@@ -1,0 +1,15 @@
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin-right: 5px;
+  }
+  
+}
+.info-icon{
+    color: var(--color-base-rose-500);
+    margin-right: 0.5rem;
+    margin-top: 3px;
+  }

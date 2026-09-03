@@ -1,0 +1,31 @@
+<div class="cx-modal-container">
+  <div class="duplicate-eca-content">
+    <div class="cx-dialog-body duplicate-eca-body">
+      <header>
+        <div class="duplicate-eca-header">
+          <span class="cx-dialog-title">
+            {{ 'cartConflictDialog.title' | cxTranslate }}
+          </span>
+          <span (click)="onClose('cancel')" class="close-icon">
+            <bh-icon icon="close" size="medium" color="primary" href="" target=""></bh-icon>
+          </span>
+        </div>
+      </header>
+      <div class="cx-dialog-content">
+        <p class="cx-dialog-text">
+          {{ 'cartConflictDialog.description' | cxTranslate }}
+        </p>
+        <p class="cx-dialog-text">
+          {{ 'cartConflictDialog.info' | cxTranslate }}
+        </p>
+      </div>
+      <div class="cx-dialog-actions d-flex justify-content-between duplicate-eca-footer">
+        <div class="col-5 p-0">
+          <bh-button type=secondary label="{{'cartConflictDialog.cancel' | cxTranslate }}" fluid (click)="cancel()"></bh-button>
+        </div>
+        <div class="col-7 pl-0">
+          <bh-button type=primary label="{{ 'cartConflictDialog.saveAndContinue' | cxTranslate }}" fluid (click)="continue()"></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>

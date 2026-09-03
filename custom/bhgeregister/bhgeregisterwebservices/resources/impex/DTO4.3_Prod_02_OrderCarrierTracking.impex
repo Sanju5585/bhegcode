@@ -1,0 +1,208 @@
+INSERT_UPDATE GEEdgeServiceProvider;serviceProvider[unique=true];serviceProviderName;url
+;222;FDX-1st NB AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;206;FDX-1st NB AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;219;FDX-2nd Day-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;203;FDX-2nd Day-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;218;FDX-Exp SVR-3DY-COL ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;202;FDX-Exp SVR-3DY-PPA ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;226;FDXF-2 Day-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;210;FDXF-2 Day-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;225;FDXF-3 DY-COL ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;209;FDXF-3 DY-PPA ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;224;FDXF-EXPSVR3-5 DY-CO;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;208;FDXF-EXPSVR3-5 DY-PP;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;228;FDXF-INTL ECO-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;212;FDXF-INTL ECO-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;229;FDXF-INTL PRTY-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;213;FDXF-INTL PRTY-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;227;FDXF-Ovngt-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;211;FDXF-Ovngt-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;201;FDX-Ground-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;231;FDXINT PRTY 1-3 DY-C;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;215;FDXINT PRTY 1-3 DY-P;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;230;FDXINTL ECO3-5 DY-CO;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;214;FDXINTL ECO3-5 DY-PP;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;232;FDXINTL FE AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;216;FDXINTL FE AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;223;FDX-ND SAT-Del-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;207;FDX-ND SAT-Del-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;220;FDX-PRTY-NB-AM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;204;FDX-PRTY-NB-AM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;221;FDX-Std-NB-PM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;205;FDX-Std-NB-PM-PPA;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;717;FEDEX;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;711;FEDEX COLLECT ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;833;FEDEX FREIGHT;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;834;FEDEX NATIONAL LTL  ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;815;Fedex PRIORTY ;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;832;FEDEX;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;217;FEDEX-Ground-COLL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;718;UPS;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;135;UPS 3rd day– COLLECT;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;712;UPS COLLECT ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;817;UPS EXPEDITED ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;816;UPS EXPRESS SAVER;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;849;UPS FREIGHT;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;134;UPS INTL Std-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;117;UPS INTL Std-PPA ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;848;UPS/ UNITED PARCEL S;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;121;UPS-2nd Day Air-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;104;UPS-2nd Day Air-PPA ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;122;UPS-2nd DayAirAM-COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;105;UPS-2nd DayAirAM-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;103;UPS-3 Day Select-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;130;UPS-AFRT-2nd Day-COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;113;UPS-AFRT-2nd Day-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;129;UPS-AFRT-ECO-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;112;UPS-AFRT-ECO-PPA ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;128;UPS-AFRT-INTL STD-CO;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;111;UPS-AFRT-INTL STD-PP;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;127;UPS-AFRT-INTL-EXP-CO;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;110;UPS-AFRT-INTL-EXP-PP;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;131;UPS-AFrt-Next Day-CO;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;114;UPS-AFrt-Next Day-PP;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;118;UPS-Grnd Com-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;101;UPS-Grnd Com-PPA ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;119;UPS-Grnd Res-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;120;UPS-Grnd Resi-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;102;UPS-Grnd Resi-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;133;UPS-INTL Expedit COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;116;UPS-INTL Expedit PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;132;UPS-INTL Express-COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;115;UPS-INTL Express-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;126;UPS-ND SATDEL-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;109;UPS-ND SATDEL-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;125;UPS-NDA Early AM-COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;108;UPS-NDA EarlyAM-PPA ;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;123;UPS-NDA-Saver-COLL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;106;UPS-NDA-Saver-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;124;UPS-Next Day Air-COL;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;107;UPS-Next Day Air-PPA;http://www.ups.com/WebTracking/track?track=yes&trackNums=
+;301;DHL-Ground-PPA;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;303;DHL-Next Day-PPA;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;302;DHL-2nd Day-PPA;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;304;DHL-INTL-PPA;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;305;DHL-Ground-COLL;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;307;DHL-Next Day-COLL;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;306;DHL-2nd Day-COLL;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;308;DHL-INTL-COLL;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;709;DHL;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;814;DHL EASYSHIP;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;813;DHL INTRASHIP;https://www.dhl.com/Tracking?action=track&tracknumbers=
+;828;DHL EXPRESS (USA), I;https://www.dhl.com/Tracking?action=track&tracknumbers=
+
+INSERT_UPDATE GEEdgeServiceProvider;serviceProvider[unique=true];serviceProviderName
+;801;14 Express
+;819;ABF FREIGHT SYSTEMS
+;707;ABHOLUNG
+;504;Air Frieght-COLL
+;502;Air Frieght-PPA
+;727;AIR PARCEL POST
+;820;AIRBORNE EXPRESS
+;723;AIRFREIGHT
+;703;AIRFREIGHT COLLECT
+;736;AIRMAIL PACKAGE
+;821;ALLIANCE EXPRESS
+;708;ANLIEFERUNG
+;512;BAX Global-COLL
+;511;BAX Global-PPA
+;802;BBL Transport
+;822;BEST WAY
+;853;BestWay-Prepaid&Add
+;803;BIP BIP Courses
+;734;BRIEF
+;725;BY TRUCK
+;714;BY TRUCK COLLECT
+;823;CF MOTORFREIGHT
+;804;CHATEL ZIEGLER
+;805;COLLECTED BY The For
+;739;COMO CAMION
+;835;CONTACT SPECIFIED LO
+;824;CON-WAY FREIGHT, INC
+;825;CORPORATE EXPRESS
+;841;CUSTOMER PICKUP
+;523;DANZA-Domestic-COLL
+;521;DANZA-Domestic-PPA
+;524;DANZA-INTL-COLL
+;522;DANZA-INTL-PPA
+;826;DANZAS AIE
+;746;DATA POST
+;827;DELIVERY
+;709;DHL
+;814;DHL EASYSHIP
+;828;DHL EXPRESS (USA), I
+;813;DHL INTRASHIP
+;306;DHL-2nd Day-COLL
+;302;DHL-2nd Day-PPA
+;305;DHL-Ground-COLL
+;301;DHL-Ground-PPA
+;308;DHL-INTL-COLL
+;304;DHL-INTL-PPA
+;307;DHL-Next Day-COLL
+;303;DHL-Next Day-PPA
+;806;DML - TRS NICOLLE
+;719;DPD
+;713;DPD COLLECT
+;807;DSV
+;829;EAGLE USA AIR FREIGH
+;831;EXPEDITORS INT NY
+;830;EXPEDITORS INTERNATI
+;EX;EXPRESS
+;808;First Transport P/C
+;809;First Transports
+;740;FLETE AEREO
+;745;FLETE AEREO COLLECT
+;730;FLETE POSTAL
+;733;FRET AERIEN
+;715;LKW-SAMMELLADUNG
+;704;LUFTFRACHT
+;731;LUFTPOSTPÄCKCHEN
+;732;LUFTPOSTPÄCKCHEN-EIN
+;728;LUFTPOSTPAKET
+;836;MIDWEST MOTOR EXPR
+;706;MITNAHME
+;837;MOLERWAY FREIGHT LIN
+;838;MOTOR CARGO
+;503;MotorFrieght-COLL
+;501;MotorFrieght-PPA
+;606;Ocean Frt-COLL
+;605;Ocean Frt-PPA
+;839;OLD DOMINION FREIGHT
+;609;Other:Check Ship Cmn
+;840;OVERNITE TRANSPORTAT
+;744;PAQUETITO CORREO AER
+;735;PAR CAMION
+;720;PARCEL POST
+;818;PARIS TAXI COLIS
+;701;PER BAHN-EXPRESS
+;710;PER EILPÄCKCHEN/-PAK
+;749;PER E-Mail
+;748;PER LKW
+;716;PER LUFTPOST
+;702;PER POST
+;743;PER SAMMELLADUNG
+;729;POSTPAKET
+;843;R&L CARRIERS, INC.
+;721;RAILWAY - CARGO
+;747;RAILWAY EXPRESS
+;737;REGISTERED AIRMAIL P
+;842;ROADWAY EXPRESS INC.
+;844;SAIA MOTOR FREIGHT L
+;845;SCHENKER, INC.
+;724;SEAFREIGHT
+;705;SEEFRACHT
+;846;SERVICE BY AIR
+;738;TAKEN ALONG
+;810;Taxis BEAUDET
+;750;TNT
+;811;TNT International
+;812;TNT National (JET)
+;847;TO BE DETERMINED
+;742;TO BE INDICATED
+;850;USF REDDAWAY
+;608;USPS Parcel-Mail
+;726;VIA AIRMAIL
+;741;VIA COURIER
+;722;VIA COURIER COLLECT
+;851;VIKING FREIGHT SYSTE
+;852;YRC LOGISTICS

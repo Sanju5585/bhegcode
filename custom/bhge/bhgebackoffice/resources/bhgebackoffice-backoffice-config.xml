@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:c="http://www.hybris.com/cockpitng/config/common"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms"
+        xmlns:dsb="http://www.hybris.com/cockpitng/config/dashboard"
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xmlns:grid-view="http://www.hybris.com/cockpitng/component/gridView">
+        
+	<context component="editorareaactions" type="Consignment">
+		<bo:actions xmlns:bo="http://www.hybris.com/cockpit/config/hybris">
+			<bo:group qualifier="common">
+				<bo:label>actiongroup.common</bo:label>
+				<bo:action action-id="com.hybris.cockpitng.actions.scriptingaction" property="currentObject">
+					<bo:parameter>
+						<bo:name>scriptUri</bo:name>
+						<bo:value>model://confirmPickup</bo:value>
+					</bo:parameter>
+					<bo:parameter>
+						<bo:name>label</bo:name>
+						<bo:value>Confirm pickup</bo:value>
+					</bo:parameter>
+					<bo:parameter>
+						<bo:name>iconUri</bo:name>
+						<bo:value>/backoffice/widgetClasspathResource/widgets/actions/pickupconfirmation/icons/icon_confirm_pickup_enabled.png</bo:value>
+					</bo:parameter>
+					<bo:parameter>
+						<bo:name>disabledIconUri</bo:name>
+						<bo:value>/backoffice/widgetClasspathResource/widgets/actions/pickupconfirmation/icons/icon_confirm_pickup_disabled.png</bo:value>
+					</bo:parameter>
+				</bo:action>
+			</bo:group>
+		</bo:actions>
+	</context>
+
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="GESystemAlert">
+				<n:type-node id="GEEdgeSystemAlert" code="GEEdgeSystemAlert" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="GEEdgeSystemAlert" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code"/>
+			<list-view:column qualifier="enableWRO"/>
+<!-- 			<list-view:column qualifier="message"/> -->
+			<list-view:column qualifier="active"/>
+			<list-view:column qualifier="outagealert"/>
+			<list-view:column qualifier="dateRange"/>
+		</list-view:list-view>
+	</context>
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="GEEdgeContactUsSettings">
+				<n:type-node id="ContactusSettings" code="ContactusSettings" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="ContactusSettings" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code"/>
+			<list-view:column qualifier="contactUsProductLine"/>
+			<list-view:column qualifier="supportTeam"/>
+			<list-view:column qualifier="contactUsRegion"/>
+			<list-view:column qualifier="email"/>
+			<list-view:column qualifier="phoneNum"/>
+			<list-view:column qualifier="workingHours"/>
+			<list-view:column qualifier="contactUsCountry"/>
+		</list-view:list-view>
+	</context>
+
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHSalesAreasData for Product">
+				<n:type-node id="BHGESalesAreaData" code="BHGESalesAreaData" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGESalesAreaData" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="uid"/>
+			<list-view:column qualifier="hybrisStatus"/>
+			<list-view:column qualifier="materialStatus"/>
+			<list-view:column qualifier="salesOrganization"/>
+			<list-view:column qualifier="minOrderQuantity"/>
+			<list-view:column qualifier="salesOrganization"/>
+			<list-view:column qualifier="distributionChannel"/>
+			<list-view:column qualifier="division"/>
+			<list-view:column qualifier="atp"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGESalesAreaData" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="uid" selected="true" operator="contains"/>
+				<advanced-search:field name="salesOrganization" selected="true" operator="startsWith"/>
+				<advanced-search:field name="distributionChannel" selected="false"/>
+				<advanced-search:field name="division" selected="false"/>
+				<advanced-search:field name="hybrisStatus" selected="false"/>
+				<advanced-search:field name="materialStatus" selected="false"/>
+				<advanced-search:field name="deliveryTime" selected="false"/>
+				<advanced-search:field name="atp" selected="false"/>
+				<advanced-search:field name="minOrderQuantity" selected="false"/>
+				<advanced-search:field name="displayType" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="owner" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+
+
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGERfcCallErrors">
+				<n:type-node id="BHGERfcCallError" code="BHGERfcCallError" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGERfcCallError" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="orderID"/>
+			<list-view:column qualifier="errorCode"/>
+			<list-view:column qualifier="errorType"/>
+			<list-view:column qualifier="errorDescription"/>
+			<list-view:column qualifier="errorTime"/>
+			<list-view:column qualifier="currentUserEmail"/>
+			<list-view:column qualifier="currentSoldToId"/>
+			<list-view:column qualifier="criticality"/>
+			<list-view:column qualifier="status"/>
+			<list-view:column qualifier="requestParameterToSAP"/>
+			<list-view:column qualifier="responseParameterFromSAP"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGERfcCallError" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="orderID" selected="true" operator="startsWith"/>
+				<advanced-search:field name="errorType" selected="true" operator="startsWith"/>
+				<advanced-search:field name="errorDescription" selected="false"/>
+				<advanced-search:field name="currentUserEmail" selected="false"/>
+				<advanced-search:field name="currentSoldToId" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="owner" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	
+	<context type="AbstractOrder" merge-by="type" parent="GenericItem" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <advanced-search:field-list>
+                <advanced-search:field name="cartType" selected="false"/>
+                <advanced-search:field name="commerceType" selected="false"/>
+                <advanced-search:field name="rmaNumber" selected="true"/>
+				<advanced-search:field name="soldToForCart" selected="false"/>
+            </advanced-search:field-list>
+       	</advanced-search:advanced-search>
+    </context>
+    <context type="AbstractOrder" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="cartType"/>
+			<list-view:column qualifier="commerceType"/>
+			<list-view:column qualifier="rmaNumber"/>
+			<list-view:column qualifier="soldToForCart"/>
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="type" parent="GenericItem" type="B2BUnit" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="uid"/>
+        </simple-search:simple-search>
+    </context>
+	
+   	<context type="GEEdgeProduct" component="advanced-search" merge-by="type" parent="Product">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+        	<advanced-search:field-list>
+            	<advanced-search:field name="productType" selected="true"/>
+            </advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	
+	<context type="Customer" component="advanced-search" merge-by="type" parent="User">
+	    <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <advanced-search:field-list>
+	            <advanced-search:field name="sso" selected="true"/>
+	        </advanced-search:field-list>
+        </advanced-search:advanced-search>
+	</context>
+	
+	<context merge-by="type" parent="User" type="Customer" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column  qualifier="sso"/>
+		</list-view:list-view>
+	</context>
+	<context type="B2BCustomer" component="advanced-search" merge-by="type" parent="Customer">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field name="email" selected="false"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" parent="Customer" type="B2BCustomer" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column  qualifier="email"/>
+		</list-view:list-view>
+	</context>
+	
+    <context type="B2BUnit" parent="Principal" merge-by="type" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+            	<advanced-search:field name="ecommerceFlag" selected="false"/>
+				<advanced-search:field name="accountGroup" selected="false" operator="contains"/>
+				<advanced-search:field name="customerClass" selected="false" operator="contains"/>
+            </advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="B2BUnit" merge-by="type" parent="Principal" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="ecommerceFlag"/>
+			<list-view:column qualifier="accountGroup"/>
+			<list-view:column qualifier="customerClass"/>
+		</list-view:list-view>
+	</context>
+	
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGEUserAccessRequest">
+				<n:type-node id="BHGEUserAccessRequest" code="BHGEUserAccessRequest" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGEUserAccessRequest" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="requesterId"/>
+			<list-view:column qualifier="requestStatus"/>
+			<list-view:column qualifier="approverDetails"/>
+			<list-view:column qualifier="processedBy"/>
+			<list-view:column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGEUserAccessRequest" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="accessRequestId" selected="false" operator="contains"/>
+				<advanced-search:field name="requesterId" selected="true" operator="startsWith"/>
+				<advanced-search:field name="approverDetails" selected="false"/>
+				<advanced-search:field name="accessRequestSource" selected="false"/>
+				<advanced-search:field name="requestStatus" selected="true"/>
+				<advanced-search:field name="approverResponse" selected="false"/>
+				<advanced-search:field name="processedBy" selected="false"/>
+				<advanced-search:field name="processDate" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="owner" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<!-- US8076 : BO enhancement for BHGEMnCEcommMatrix table -->
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGEMnCEcommMatrix">
+				<n:type-node id="BHGEMnCEcommMatrix" code="BHGEMnCEcommMatrix" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGEMnCEcommMatrix" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="creationtime"/>
+			<list-view:column qualifier="regionAttrib"/>
+			<list-view:column qualifier="subregionAttrib"/>
+			<list-view:column qualifier="countryAttrib"/>
+			<list-view:column qualifier="productlineAttrib"/>
+			<list-view:column qualifier="csrApproverValue"/>
+			<list-view:column qualifier="emailInquiryType"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGEMnCEcommMatrix" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field name="matrixRuleId" selected="false" operator="contains"/>
+				<advanced-search:field name="regionAttrib" selected="true" operator="startsWith"/>
+				<advanced-search:field name="subregionAttrib" selected="true"/>
+				<advanced-search:field name="countryAttrib" selected="true"/>
+				<advanced-search:field name="productlineAttrib" selected="true"/>
+				<advanced-search:field name="csrApproverValue" selected="false"/>
+				<advanced-search:field name="emailInquiryType" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGEMnCEcommMatrix">
+				<n:type-node id="BHGERegisterKeyValueData" code="BHGERegisterKeyValueData" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGERegisterKeyValueData" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="attributeId"/>
+			<list-view:column qualifier="creationtime"/>
+			<list-view:column qualifier="attributeType"/>
+			<list-view:column qualifier="attributeKey"/>
+			<list-view:column qualifier="attributeValue"/>			
+		</list-view:list-view>
+	</context>
+	<context type="BHGERegisterKeyValueData" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="attributeId" selected="true" operator="contains"/>
+				<advanced-search:field name="attributeType" selected="true" operator="startsWith"/>
+				<advanced-search:field name="attributeKey" selected="true"/>
+				<advanced-search:field name="attributeValue" selected="true"/>
+				<advanced-search:field name="activeStatus" selected="false"/>
+				<advanced-search:field name="parentAttrib" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="BHGERegisterKeyValueData" component="base">
+    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+        <y:labels>
+            <y:label>attributeValue</y:label>
+        </y:labels>
+    </y:base>
+</context>
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGEMnCEcommMatrix">
+				<n:type-node id="BHGEInquiryEmail" code="BHGEInquiryEmail" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGEInquiryEmail" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="id"/>
+			<list-view:column qualifier="creationtime"/>
+			<list-view:column qualifier="governmentUser"/>
+			<list-view:column qualifier="quoteOrderInquiry"/>
+			<list-view:column qualifier="serviceReturnsInquiry"/>
+			<list-view:column qualifier="shippingInquiry"/>
+			<list-view:column qualifier="invoicingInquiry"/>			
+		</list-view:list-view>
+	</context>
+	<context type="BHGEInquiryEmail" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field name="id" selected="true" operator="contains"/>
+				<advanced-search:field name="governmentUser" selected="true" operator="startsWith"/>
+				<advanced-search:field name="quoteOrderInquiry" selected="true"/>
+				<advanced-search:field name="serviceReturnsInquiry" selected="true"/>
+				<advanced-search:field name="shippingInquiry" selected="false"/>
+				<advanced-search:field name="invoicingInquiry" selected="false"/>
+				<advanced-search:field name="creationtime" selected="false" />
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="BHGEInquiryEmail" component="base">
+    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+        <y:labels>
+            <y:label>quoteOrderInquiry</y:label>
+        </y:labels>
+    </y:base>
+</context>
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="BHGEMnCEcommMatrix">
+				<n:type-node id="BHGEApprovalDetails" code="BHGEApprovalDetails" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGEApprovalDetails" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="approverID"/>
+			<list-view:column qualifier="creationtime"/>
+			<list-view:column qualifier="approverGroupName"/>
+			<list-view:column qualifier="approverGroupDetails"/>
+			<list-view:column qualifier="emailDistribList"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGEApprovalDetails" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="approverID" selected="true" operator="contains"/>
+				<advanced-search:field name="approverGroupName" selected="true" operator="startsWith"/>
+				<advanced-search:field name="approverGroupDetails" selected="true"/>
+				<advanced-search:field name="emailDistribList" selected="true"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="BHGEApprovalDetails" component="base">
+    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+        <y:labels>
+            <y:label>approverGroupName</y:label>
+        </y:labels>
+    </y:base>
+</context>
+<context merge-by="type" parent="GenericItem" type="BHGEApprovalDetails" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="approverGroupName"/>
+        </simple-search:simple-search>
+    </context>
+    <context merge-by="type" parent="GenericItem" type="BHGEInquiryEmail" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="quoteOrderInquiry"/>
+        </simple-search:simple-search>
+    </context>
+    <context merge-by="type" parent="GenericItem" type="BHGERegisterKeyValueData" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="attributeValue"/>
+        </simple-search:simple-search>
+    </context>
+	
+	<context type="Address" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="sapCustomerID" selected="false" operator="contains"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="Address" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="sapCustomerID"/>
+		</list-view:list-view>
+	</context>
+	
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="GlobalProperties">
+				<n:type-node id="BHGEGlobalProperties" code="BHGEGlobalProperties" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="BHGEGlobalProperties" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="uid"/>			
+			<list-view:column qualifier="value"/>
+			<list-view:column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context type="BHGEGlobalProperties" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="uid" selected="true" operator="contains"/>
+				<advanced-search:field name="value" selected="true" operator="startsWith"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="GlobalProperties">
+				<n:type-node id="GEEdgeProductLineMapping" code="GEEdgeProductLineMapping" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+	<context type="GEEdgeProductLineMapping" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="productType"/>			
+			<list-view:column qualifier="categories"/>
+			<list-view:column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context type="GEEdgeProductLineMapping" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field  name="productType" selected="true" operator="contains"/>
+				<advanced-search:field name="categories" selected="true" operator="startsWith"/>
+				<advanced-search:field name="creationtime" selected="false"/>
+				<advanced-search:field name="modifiedtime" selected="false"/>
+				<advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context component="explorer-tree" merge-by="module">
+		<explorer-tree:explorer-tree>
+			<explorer-tree:navigation-node id="hmc_treenode_order">
+				<explorer-tree:type-node code="OrderNotification" id="Order Notifications"/>
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	<context type="OrderNotification" component="listview" merge-by="type" parent="GenericItem">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="orderId"/>
+			<list-view:column qualifier="customer"/>
+			<list-view:column qualifier="b2bUnit"/>
+			<list-view:column qualifier="orderStatus"/>
+			<list-view:column qualifier="isOrderRead"/>
+			<list-view:column qualifier="isOrderEmailSent"/>
+		</list-view:list-view>
+	</context>
+	<context type="OrderNotification" component="advanced-search" merge-by="type" parent="GenericItem">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field name="orderId" selected="true" operator="equals"/>
+				<advanced-search:field name="customer" selected="true" operator="equals"/>
+				<advanced-search:field name="b2bUnit" selected="true" operator="equals"/>
+				<advanced-search:field name="isOrderRead" selected="true" operator="equals"/>
+				<advanced-search:field name="isOrderEmailSent" selected="true" operator="equals"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+</config>

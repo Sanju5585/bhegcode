@@ -1,0 +1,45 @@
+.entry-item-row {
+  height: 100%;
+
+  .product-desc-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.cx-dialog-buttons {
+  a.bh-button--type-primary {
+    text-transform: uppercase;
+    &:hover {
+      color: var(--color-text-common-inverse-primary);
+      text-decoration: none;
+    }
+  }
+  a.bh-button--type-secondary {
+    text-transform: uppercase;
+    &:hover {
+      color: var(--color-text-common-primary);
+      text-decoration: none;
+    }
+  }
+}
+.dialog-product-code {
+  font-weight: var(--font-weight-body-medium-semi-bold);
+  color: #334541;
+}
+.dialog-product-name {
+  word-break: break-word;
+}
+:host ::ng-deep {
+  cx-icon {
+    font-size: var(--font-base-font-size-20);
+  }
+}
+.buttonMargin {
+  margin-bottom: 20px;
+}
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+}

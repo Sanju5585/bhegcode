@@ -1,0 +1,59 @@
+<ng-container *ngIf="userLoggedIn$ | async; else guestCustomerAccount">
+  <div
+    *ngIf="currentCustomerAccount$ | async as customerAcc"
+    class="customer-account-details"
+  >
+    <div class="top-tier">
+      <span class="customer-acc-name">{{ customerAcc.name }}</span>
+      <span class="divider mr-2 ml-2">|</span>
+      <span class="customer-acc-uid">{{ customerAcc.uid }}</span>
+    </div>
+    <div class="middle-tier">
+      <span class="customer-acc-name"
+        >{{ customerAcc.selectedSalesArea?.salesAreaName }},
+        {{ customerAcc.selectedSalesArea?.address?.formattedAddress }}</span
+      >
+      <span class="divider mr-1 ml-1">|</span>
+      <span class="customer-acc-id"
+        >({{ customerAcc.selectedSalesArea?.salesAreaId.split('_')[1] }})</span
+      >
+      <span class="divider mr-1 ml-1">|</span>
+      <span *ngIf="customerAcc.currency" class="customer-acc-curr"
+        >{{ customerAcc.currency?.isocode }} ({{
+          customerAcc.currency?.symbol
+        }})</span
+      >
+    </div>
+    <div class="bottom-tier" *ngIf="!disabelChangeAcc">
+      <!-- <bh-a
+        *ngIf="customerAcc.uid"
+        type="inverse"
+        text="{{ 'customer-account.changeAccount' | cxTranslate }}"
+        (click)="openSlider()"
+      ></bh-a> -->
+      <div
+        *ngIf="customerAcc.uid"
+        (click)="openSlider()"
+        class="changeAccountLink"
+      >
+        {{ 'customer-account.changeAccount' | cxTranslate }}
+      </div>
+    </div>
+    <div class="bottom-tier" *ngIf="disabelChangeAcc">
+      <span class="change-account-disable">
+        {{ 'customer-account.changeAccount' | cxTranslate }}
+      </span>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #guestCustomerAccount>
+  <ds-guest-customer-acc (openSlider)="openSlider()"></ds-guest-customer-acc>
+</ng-template>
+
+<ds-customer-account-slider
+  *ngIf="showSlider"
+  [salesAreadata]="salesAreaData"
+  [activeSalesArea]="activeSalesArea"
+  (closeSlider)="showSlider = false"
+></ds-customer-account-slider>

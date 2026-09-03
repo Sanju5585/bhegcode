@@ -1,0 +1,105 @@
+.waygate-product-list-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid #ced7d4;
+  padding: 15px 0;
+  &:hover {
+    transition: all 0.2s ease;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.125));
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+  }
+  .waygate-product-left {
+    display: flex;
+    gap: 15px;
+
+    .list-image-container {
+      width: 200px;
+      height: 200px;
+      .waygate-product-image {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .list-content-container {
+      max-width: 358px;
+      .waygate-product-body {
+        .product-info-section {
+          color: #595959;
+          .product-name {
+            font-weight: 600;
+            font-size: 20px;
+            color: #121212;
+            padding-bottom: 8px;
+          }
+          .product-code {
+            padding-bottom: 10px;
+            .code {
+              font-weight: 600;
+            }
+          }
+          .product-description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+          }
+        }
+      }
+    }
+  }
+
+  .waygate-product-right {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 15px;
+    .waygate-list-price-row {
+      .waygate-list-price-value {
+        font-weight: 600;
+      }
+    }
+    a {
+      font-weight: 600;
+    }
+    position: relative;
+    .overlay {
+      position: absolute;
+      right: 0;
+      top: 0px;
+      left: 4.5em;
+      cursor: pointer;
+      .material-icons {
+        color: #ed9d22;
+      }
+    }
+    .tag-wrapper {
+      display: flex;
+      gap: 8px;
+      padding: 10px 0 10px 0;
+      margin-top: 20px;
+      .returnable {
+        padding: 2px 12px 2px 12px;
+        background: #ece7f5;
+        color: #452996;
+        line-height: 20px;
+        font-size: 14px;
+        border-radius: 30px;
+      }
+      .buyable {
+        padding: 2px 12px 2px 12px;
+        background: #e1f8f9;
+        color: #26868b;
+        line-height: 20px;
+        font-size: 14px;
+        border-radius: 30px;
+      }
+    }
+    .configure-product-text {
+      position: relative;
+      top: 18px;
+    }
+  }
+}

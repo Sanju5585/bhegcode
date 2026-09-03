@@ -1,0 +1,11 @@
+.footer-nav-nodes {
+  display: flex;
+  flex-direction: row;
+  font-family: var(--font-family-body-large);
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 20px;
+  letter-spacing: 0.05px;
+  margin-left: -30px;
+  color: var(--color-base-white-100);
+}

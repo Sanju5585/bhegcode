@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/gensrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/testsrc" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib20" level="project" />
+    <orderEntry type="library" name="basecommerceserver" level="project" />
+    <orderEntry type="library" name="lib41" level="project" />
+    <orderEntry type="library" name="lib70" level="project" />
+    <orderEntry type="library" name="lib15" level="project" />
+    <orderEntry type="library" name="lib60" level="project" />
+    <orderEntry type="library" name="lib31" level="project" />
+    <orderEntry type="library" name="lib23" level="project" />
+    <orderEntry type="library" name="ext3" level="project" />
+    <orderEntry type="library" name="workflowserver" level="project" />
+    <orderEntry type="library" name="coreserver" level="project" />
+    <orderEntry type="library" name="ext" level="project" />
+    <orderEntry type="library" name="lib57" level="project" />
+    <orderEntry type="library" name="lib9" level="project" />
+    <orderEntry type="library" name="bin2" level="project" />
+    <orderEntry type="library" name="ext2" level="project" />
+    <orderEntry type="library" name="processingserver" level="project" />
+    <orderEntry type="module" module-name="deprecated4" />
+    <orderEntry type="module" module-name="core" />
+    <orderEntry type="module" module-name="sapcore" />
+    <orderEntry type="module" module-name="bhgesaporderfulfillment" />
+    <orderEntry type="module" module-name="backoffice-addons" />
+    <orderEntry type="module" module-name="sapproductconfigcpiorderexchange" />
+    <orderEntry type="module" module-name="sapcoreconfiguration" />
+    <orderEntry type="module" module-name="bootstrap" />
+    <orderEntry type="module" module-name="basecommerce" />
+    <orderEntry type="module" module-name="processing" />
+    <orderEntry type="module" module-name="platformservices" />
+    <orderEntry type="module" module-name="saporderexchange" />
+    <orderEntry type="module" module-name="outboundsync" />
+    <orderEntry type="module" module-name="sapcpiorderexchange" />
+    <orderEntry type="module" module-name="workflow" />
+    <orderEntry type="module" module-name="sapproductconfigcpiorderexchangecps" />
+  </component>
+</module>

@@ -1,0 +1,565 @@
+<div class="my-favs container w-100 m-t-10">
+  <span class="header-text" translate="myfavorite.header.favorite"
+    >Favorite Items</span
+  >
+  <div
+    *ngIf="favouritesData?.length > 0 || isVisibleSearch"
+    class="fav-header-panel p-t-20 p-b-20"
+  >
+    <div class="delete-all-holder pull-left">
+      <input
+        type="checkbox"
+        class="pull-left rma-custom-checkbox"
+        [(ngModel)]="singleFavSelect"
+        (click)="deleteAllFavs()"
+        (checked)="(singleFavSelect)"
+        id="fav-part-checkbox-all"
+      />
+      <label
+        for="fav-part-checkbox-all"
+        class="pull-left fav-all-checkbox-label"
+      ></label>
+      <button
+        class="pull-left tertiary-btn-bhge delete-all-btn m-l-20"
+        (click)="removeAllFavs()"
+      >
+        <span class="bhge-mcstore-icons icon-delete"></span>
+      </button>
+    </div>
+    <div class="fav-search-box-holder pull-right">
+      <div class="fav-search-textbox-container">
+        <input
+          type="text"
+          class="fav-search-textbox"
+          (blur)="searchFavourite()"
+          [(ngModel)]="searchText"
+          placeholder="Find"
+        />
+        <span
+          *ngIf="!toggleSearch"
+          class="bhge-mcstore-icons icon-search-thin showSearch"
+        ></span>
+        <span
+          *ngIf="loading"
+          class="bhge-icons ico_spinner_sm search-spinner"
+        ></span>
+        <span
+          *ngIf="toggleSearch"
+          class="bhge-mcstore-icons icon-close-new pointer"
+          (click)="removeSearch()"
+        ></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="favs-results col-sm-12 p-0 float-left">
+    <div
+      class="fav-equipment pull-left w-100 p-t-25 p-b-20"
+      *ngFor="let fav of favouritesData[0]; let i = index"
+    >
+      <div class="col-md-1 checkbox-holder p-0">
+        <input
+          type="checkbox"
+          class="rma-custom-checkbox"
+          (click)="selectWishlist($event, fav.code)"
+          [checked]="singleFavSelect"
+          id="fav-part-checkbox-{{ i }}"
+          [value]="fav.code"
+        />
+        <label
+          for="fav-part-checkbox-{{ i }}"
+          class="fav-checkbox-label"
+        ></label>
+      </div>
+      <div class="col-md-5 fav-data-holder p-0">
+        <div class="part-image-holder pull-left p-l-10 p-r-20">
+          <img *ngIf="fav.mediaurl" [src]="fav.mediaurl" />
+          <img
+            *ngIf="!fav.mediaurl"
+            src="/_ui/responsive/theme-lambda/images/missing_product_EN_300x300.jpg"
+          />
+        </div>
+        <div class="pull-left fav-part-info-holder">
+          <div class="fav-part-details pull-left">
+            <a href="{{ fav.url }}">
+              <div class="pull-left p-b-1 p-0 col-md-12">{{ fav.code }}</div>
+              <div class="p-b-1 p-0 col-md-12">{{ fav.name }}</div></a
+            >
+          </div>
+          <div class="clearFix"></div>
+          <div class="p-b-10">
+            <span
+              >{{ 'Added on' | translate: 'bh.fav.added.on' }}
+              {{ fav.addedasFavouriteTime }}</span
+            >
+          </div>
+          <div>
+            <a
+              [routerLink]=""
+              (click)="showNoteId = i"
+              translate="myfavorite.leave.note"
+              >leave a note</a
+            >
+            <div class="m-t-10" *ngIf="showNoteId == i">
+              <input
+                type="text"
+                [(ngModel)]="fav.productNote"
+                class="send-note-textbox pull-left"
+                value=""
+              />
+              <button
+                class="pull-left secondary-btn-bhge send-note-btn"
+                (click)="leaveanotefun($event, fav.code)"
+              >
+                <i
+                  class="bhge-mcstore-icons icon-paper-plane"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 fav-action-holder p-0">
+        <button
+          class="pull-right tertiary-btn-bhge delete-fav-btn m-l-10"
+          id="fav-button-{{ fav.code }}"
+          [value]="fav.code"
+          (click)="removeSingleFavs($event, fav.code)"
+        >
+          <span class="bhge-mcstore-icons icon-delete"></span>
+        </button>
+        <button
+          class="pull-right secondary-btn-bhge add-to-my-el-btn"
+          (click)="addtoequipment(fav.code, fav.name)"
+          translate="myfavorite.add.equipment"
+        >
+          Add to My Equipment
+        </button>
+        <div class="fav-part-actions pull-left m-l-25">
+          <div class="buy-actions pull-left m-r-10">
+            <button
+              *ngIf="
+                fav.productAccessData.isBuy != undefined && fav.configurable;
+                else buyCase
+              "
+              type="button"
+              class="primary-btn-bhge buy-btns"
+            >
+              <span class="bhge-icons ico_settings1_lg m-r-5"></span>
+              <span translate="basket.configure.product">Configure</span>
+            </button>
+            <ng-template #buyCase>
+              <div
+                *ngIf="
+                  fav.productAccessData.isBuy != undefined &&
+                    fav.productAccessData.isBuy &&
+                    !fav.price &&
+                    !fav.configurable &&
+                    fav.price &&
+                    fav.price > 0;
+                  else checkPriceCase
+                "
+                class="add-to-cart"
+              >
+                <form
+                  id="addToCartForm-{{ fav.code }}"
+                  action="/cart/add"
+                  method="post"
+                  class="add_to_cart_form m-0"
+                >
+                  <input
+                    type="hidden"
+                    name="callingsourceinfo"
+                    value="PLP page"
+                  />
+                  <input
+                    type="hidden"
+                    name="productCodePost"
+                    value="{{ fav.code }}"
+                  />
+                  <input
+                    type="hidden"
+                    name="productNamePost"
+                    value="{{ fav.name }}"
+                  />
+                  <input
+                    type="hidden"
+                    name="productPostPrice"
+                    value="{{ fav.price.value }}"
+                  />
+                  <input
+                    id="addToCartForm-qty-{{ fav.code }}"
+                    type="hidden"
+                    maxlength="4"
+                    size="1"
+                    name="qty"
+                    class="qty js-qty-selector-input"
+                    value="{{ fav.quantity }}"
+                  />
+
+                  <!--  @click="onAddToCartClick(event, fav.code, fav.name)" -->
+                  <button
+                    type="submit"
+                    class="pull-left buy-btns btn-green add-to-cart-button"
+                    (click)="onBuyBtnClick($event, fav.code, fav.name)"
+                  >
+                    <span class="bhge-mcstore-icons icon-buy m-r-8"></span>
+                    <span
+                      translate="basket.buy.product"
+                      class="add-to-cart-text"
+                      >Buy</span
+                    >
+                  </button>
+                </form>
+              </div>
+            </ng-template>
+            <ng-template #checkPriceCase>
+              <button
+                *ngIf="
+                  fav.productAccessData.isBuy != undefined &&
+                    fav.productAccessData.isBuy &&
+                    fav.price <= 0;
+                  else catalogOnlyCase
+                "
+                (click)="checkPriceBtnClick(fav.url)"
+                class="primary-btn-bhge buy-btns"
+              >
+                <span
+                  translate="bhge.products.check.price"
+                  class="check-price-text"
+                  >Check Price</span
+                >
+              </button>
+            </ng-template>
+            <ng-template #catalogOnlyCase>
+              <div
+                *ngIf="
+                  fav.productAccessData.isCatalogOnly;
+                  else replacementCase
+                "
+                class="replacement-product"
+              >
+                <a
+                  href="/contactus"
+                  translate="bhge.products.request.access"
+                  class="text-bold"
+                >
+                  Contact Customer Care
+                </a>
+                <p
+                  class="action-text buy-text m-t-5"
+                  translate="bhge.products.cannot.buy"
+                >
+                  To purchase this item please contact or open a dialogue with
+                  Customer Care
+                </p>
+              </div>
+            </ng-template>
+            <ng-template #replacementCase>
+              <div
+                *ngIf="
+                  fav.productAccessData.isobsolete &&
+                    fav.replacementProductStatus;
+                  else switchSalesAreaCase
+                "
+                class="replacement-product"
+              >
+                <a
+                  *ngIf="fav.parentCategoryCode"
+                  href="/p/{{ fav.replacementProduct }}?categoryCode={{
+                    fav.parentCategoryCode
+                  }}"
+                  >View Replacement</a
+                >
+                <a
+                  *ngIf="!fav.parentCategoryCode"
+                  href="/p/{{ fav.replacementProduct }}"
+                  >View Replacement</a
+                >
+                <p
+                  class="action-text buy-text m-t-5"
+                  translate="bhge.products.obsolete.replacement"
+                >
+                  This is an obsolete product to buy. Replacement product
+                  available
+                </p>
+              </div>
+            </ng-template>
+            <ng-template #switchSalesAreaCase>
+              <div
+                *ngIf="
+                  fav.productAccessData.isBuyPresentInOtherSalesArea;
+                  else contactCustomerCareCase
+                "
+              >
+                <button
+                  type="button"
+                  class="secondary-btn-bhge switch-sales-area-btn"
+                  (click)="switchSalesArea(fav.code, fav.url, 'buy')"
+                >
+                  <!-- @click="event.stopPropagation(); ACC.common.switchSalesArea(fav.code, fav.url ,'buy'); " -->
+                  <span class="bhge-mcstore-icons icon-buy m-r-5"></span>
+                  <span
+                    class="switch-sales-text"
+                    translate="bhge.products.switch.sales.area"
+                    >Switch Sales Area</span
+                  >
+                </button>
+                <p
+                  class="action-text buy-text m-t-5"
+                  translate="bhge.products.product.available.area"
+                >
+                  This product is available for buy in another sales area
+                </p>
+              </div>
+            </ng-template>
+            <ng-template #contactCustomerCareCase>
+              <div
+                *ngIf="
+                  fav.productAccessData.isobsolete &&
+                    !fav.productAccessData.isBuy;
+                  else contactCustomerCareCase1
+                "
+                class="replacement-product"
+              >
+                <a
+                  href="/contactus"
+                  translate="bhge.products.customer.care"
+                  class="text-bold"
+                  >Contact Customer Care</a
+                >
+                <p
+                  class="action-text buy-text m-t-5"
+                  translate="bhge.products.cannot.buy"
+                >
+                  To purchase this item please contact or open a dialogue with
+                  Customer Care
+                </p>
+              </div>
+            </ng-template>
+            <ng-template #contactCustomerCareCase1>
+              <div
+                *ngIf="
+                  !fav.productAccessData.isBuy &&
+                  !fav.productAccessData.isobsolete
+                "
+                class="replacement-product"
+              >
+                <a
+                  href="/contactus"
+                  translate="bhge.products.customer.care"
+                  class="text-bold"
+                  >Contact Customer Care</a
+                >
+                <p
+                  class="action-text buy-text m-t-5"
+                  translate="bhge.products.cannot.buy"
+                >
+                  To purchase this item please contact or open a dialogue with
+                  Customer Care
+                </p>
+              </div>
+            </ng-template>
+          </div>
+          <div class="return-actions pull-left">
+            <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.createRMA(fav.code, fav.name)" -->
+            <button
+              *ngIf="
+                fav.productAccessData.isService;
+                else switchSalesAreaReturn
+              "
+              class="return-btns btn-blue"
+              (click)="createRMA(fav.code, fav.name)"
+            >
+              <span class="bhge-mcstore-icons icon-return-button"></span>
+              <span class="return-btn-text" translate="bhge.products.return"
+                >Return</span
+              >
+            </button>
+            <ng-template #switchSalesAreaReturn>
+              <div
+                *ngIf="
+                  !fav.productAccessData.isobsolete &&
+                    fav.productAccessData.isServicePresentInOtherSalesArea;
+                  else contactCustomerCareReturn
+                "
+              >
+                <button
+                  type="button"
+                  class="secondary-btn-bhge switch-sales-area-btn"
+                  (click)="switchSalesArea(fav.code, fav.url, 'return')"
+                >
+                  <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.switchSalesArea(fav.code, fav.url ,'return'); " -->
+                  <span
+                    class="bhge-mcstore-icons icon-return-button m-l-5"
+                  ></span>
+                  <span
+                    class="switch-sales-text"
+                    translate="bhge.products.switch.sales.area"
+                    >Switch Sales Area</span
+                  >
+                </button>
+                <p class="action-text return-text m-t-5">
+                  This product is available for return in another sales area
+                </p>
+              </div>
+            </ng-template>
+
+            <ng-template #contactCustomerCareReturn>
+              <div
+                *ngIf="
+                  fav.productAccessData.isobsolete &&
+                    !fav.productAccessData.isServicePresentInOtherSalesArea;
+                  else contactCustomerCareReturn1
+                "
+                class="replacement-product m-r-15"
+              >
+                <a
+                  href="/contactus"
+                  translate="bhge.products.customer.care"
+                  class="text-bold"
+                >
+                  Contact Customer Care
+                </a>
+                <p
+                  class="action-text return-text m-t-5"
+                  translate="bhge.products.cannot.return"
+                >
+                  To return this item please contact or open a dialogue with
+                  Customer Care
+                </p>
+              </div>
+            </ng-template>
+
+            <ng-template #contactCustomerCareReturn1>
+              <div
+                *ngIf="
+                  !fav.productAccessData.isService &&
+                  !fav.productAccessData.isobsolete &&
+                  !fav.productAccessData.isServicePresentInOtherSalesArea
+                "
+                class="replacement-product m-r-15"
+              >
+                <a
+                  href="/contactus"
+                  translate="bhge.products.customer.care"
+                  class="text-bold"
+                >
+                  Contact Customer Care
+                </a>
+                <p
+                  class="action-text return-text m-t-5"
+                  translate="bhge.products.cannot.return"
+                >
+                  To return this item please contact or open a dialogue with
+                  Customer Care
+                </p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isVisible" class="col-md-12 float-left">
+      <div class="content__empty">
+        <h2 translate="bhge.favorite.page.empty">
+          Your Favorites page is empty
+        </h2>
+        <p translate="bhge.favorite.page.suggestions">Suggestions</p>
+        <ul>
+          <li translate="bhge.favorite.page.browse">
+            Browse our products by selecting a button below
+          </li>
+        </ul>
+        <a
+          class="btn-primary--bhge btn-block btn--continue-shopping checkout-continue-shopping"
+          href="/home"
+          style="
+            text-decoration: none;
+            width: 230px;
+            margin-top: 23px;
+            text-align: center;
+          "
+          translate="bhge.favorite.continue.shopping"
+        >
+          Continue Shopping</a
+        >
+      </div>
+    </div>
+    <div *ngIf="isVisibleSearch" class="col-md-12 float-left">
+      <div class="content__empty">
+        <h2>This product is not present in your Favorites list</h2>
+        <p>Suggestions</p>
+        <ul>
+          <li>Browse our products by selecting a button below</li>
+        </ul>
+        <a
+          class="btn-primary--bhge btn-block btn--continue-shopping checkout-continue-shopping"
+          href="/home"
+          style="
+            text-decoration: none;
+            width: 230px;
+            margin-top: 23px;
+            text-align: center;
+          "
+        >
+          Continue Shopping</a
+        >
+      </div>
+    </div>
+    <div id="myModal" class="modal-main" *ngIf="confirmationOfRemFav">
+      <!-- Modal content -->
+      <div
+        class="modal-content modal-content-fix"
+        style="padding: 27px 45px; height: auto"
+      >
+        <div class="row part-change-header">
+          <div class="col-md-6 p-0">
+            <span
+              class="text-bold fs-18"
+              translate="bhge.ng.rma.fav.add.confirm"
+              >CONFIRM DELETE</span
+            >
+          </div>
+          <div class="col-md-6 pull-right p-r-20">
+            <button
+              type="button"
+              (click)="confirmationOfRemFav = false"
+              class="close"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="row part-change-content">
+          <span class="part-change-text" translate="bhge.ng.rma.fav.notes1">
+            Are you sure you want to delete the item from your favourites.
+          </span>
+          <div class="row m-t-40 pull-right">
+            <div class="col-lg-6 col-md-6">
+              <button
+                (click)="confirmationOfRemFav = false"
+                class="secondary-btn-bhge text-uppercase pull-right w-200 button-fix part-change-btn"
+                translate="bhge.ng.rma.fav.cancel"
+              >
+                CANCEL
+              </button>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <button
+                (click)="deleteFavImage(favCode)"
+                class="primary-btn-bhge text-uppercase rma-btn-primary m-r-23 w-200 button-fix part-change-btn-primary"
+                translate="bhge.ng.rma.fav.delete"
+              >
+                DELETE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 float-left" #scrollLoader></div>
+  </div>
+</div>

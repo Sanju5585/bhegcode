@@ -1,0 +1,16 @@
+$lang=en
+
+INSERT_UPDATE BHGEAppAccessRules;applicationInfo(applicationId);appAccessRuleId[unique=true];appAccessRuleName[lang=$lang];appAccessRuleDetails[lang=$lang]
+;1;1;CustomerId;Customer number found in SAP? Yes
+;1;2;CustomerEmail;User email domain does not match the SAP Customer email domain. Learn if this is an error, or if someone is seeking access to the wrong company, so you can fix and approve or reject this request.
+;1;3;CustomerId;Customer is not a governmental entity.
+;1;4;CustomerId;Customer does not have a VD05 order block
+;1;5;CustomerId;Customer is not marked for deletion.",
+;1;6;CustomerId;Customer is not marked for deletion in VD05.",
+;1;7;CustomerId;Customer does not look like a Duplicate account
+;1;8;CustomerId;Customer Number is assigned to at least one sales area
+;1;9;CustomerEmail;User's email belongs to a public, government, or competitor domain. Determine if we want this user to still have eCommerce access. PUBLIC
+;1;10;CustomerEmail;User's email ID is not linked to any customer blocked in VD05
+;1;11;CustomerEmail;PlaceHolder
+;1;12;CustomerEmail;PlaceHolder
+;1;13;CustomerEmail;PlaceHolder

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd"
+    default-lazy-init="true">
+    
+    <context:annotation-config/>
+    
+    <bean name="orderHistoryCacheRegion"
+		class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="orderHistoryCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.orderhistoryregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.orderhistoryregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.orderhistoryregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_ORDER_HISTORY_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<bean name="rmaStatusCacheRegion"
+		class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="rmaStatusCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.rmaStatusregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.rmaStatusregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.rmaStatusregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_RMA_STATUS_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	<bean name="serialNumSearchCacheRegion"
+		class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="serialNumSearchCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.serialNumSearchregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.serialNumSearchregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.serialNumSearchregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_SERIAL_NUM_SEARCH_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean name="partNumSearchCacheRegion"
+		  class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="partNumSearchCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.materialNumSearchregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.materialNumSearchregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.materialNumSearchregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_MATERIAL_NUM_SEARCH_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean name="mseCacheRegion"
+		class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="mseCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.mseregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.mseregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.mseregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_MSE_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+	
+	
+	<!-- <bean id="orderHistoryCacheRegionRegistrar" class="de.hybris.platform.regioncache.region.CacheRegionRegistrar" 
+			c:region-ref="orderHistoryCacheRegion" /> -->
+			
+	 <!-- Add the cache region to the available cache regions list -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="cacheRegionsList"/>
+        <property name="targetMethod" value="add"/>
+        <property name="arguments">
+            <ref bean="orderHistoryCacheRegion" />
+        </property>
+    </bean>
+    
+    
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="cacheRegionsList"/>
+        <property name="targetMethod" value="add"/>
+        <property name="arguments">
+            <ref bean="rmaStatusCacheRegion" />
+        </property>
+    </bean>
+
+     <alias alias="entityCacheRegion" name="ehCacheEntityCacheRegion"/>
+    <bean name="ehCacheEntityCacheRegion" class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion" lazy-init="true">
+        <constructor-arg name="name" value="entityCacheRegion"/>
+        <constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+        <!--<constructor-arg name="evictionPolicy" value="${regioncache.entityregion.evictionpolicy}"/>-->
+        <constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+        <constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}"/>
+        <property name="handledTypes">
+            <array>
+                <value>__ALL_TYPES__</value>
+                <value>__NO_QUERY__</value>
+            </array>
+        </property>
+    </bean>
+
+	<bean name="orderNotificationCacheRegion"
+		  class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="orderNotificationCacheRegion" />
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.orderhistoryregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.order.notification.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_ORDER_NOTIFICATION_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="cacheRegionsList"/>
+		<property name="targetMethod" value="add"/>
+		<property name="arguments">
+			<ref bean="orderNotificationCacheRegion" />
+		</property>
+	</bean>
+
+	<bean name="quoteHistoryCacheRegion"
+		  class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion">
+		<constructor-arg name="name" value="quoteHistoryCacheRegion" />
+		<!--Migration changes start -->
+		<!--<constructor-arg name="maxEntries" value="${regioncache.orderhistoryregion.size}" />-->
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--Migration changes end -->
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.quotehistoryregion.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.quotehistoryregion.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_QUOTE_HISTORY_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="cacheRegionsList"/>
+		<property name="targetMethod" value="add"/>
+		<property name="arguments">
+			<ref bean="quoteHistoryCacheRegion" />
+		</property>
+	</bean>
+
+</beans>

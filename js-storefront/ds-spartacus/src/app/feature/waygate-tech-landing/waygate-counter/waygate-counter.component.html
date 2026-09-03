@@ -1,0 +1,35 @@
+<div class="waygate-quantity-counter">
+  <input
+    #quantity
+    class="quantity-input"
+    min="1"
+    max="9999"
+    [step]="step"
+    [readonly]="readonly"
+    [formControl]="control"
+    (input)="inputAdded()"
+    (blur)="onInputBlur()"
+    [attr.disabled]="disabled ? true : null"
+  />
+  <div class="quantity-btns">
+    <button
+      class=""
+      type="button"
+      (click)="decrement()"
+      [disabled]="control?.disabled || control?.value <= min || disabled"
+      tabindex="-1"
+    >
+      <i class="material-icons">remove</i>
+    </button>
+
+    <button
+      type="button"
+      class=""
+      (click)="increment()"
+      [disabled]="control?.disabled || control?.value >= max || disabled"
+      tabindex="-1"
+    >
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+</div>

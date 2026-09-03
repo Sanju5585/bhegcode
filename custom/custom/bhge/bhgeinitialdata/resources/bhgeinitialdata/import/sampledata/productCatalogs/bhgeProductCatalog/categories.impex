@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into Powertools Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$erp_catalogVersion = catalogversion(catalog(id[default=ERP_CLASSIFICATION_HYB]),version[default='ERP_IMPORT'])
+$thumbnail=thumbnail($erp_catalogVersion,code)
+$picture=picture($erp_catalogVersion,code)
+
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/productCatalogs/$productCatalog
+$lang=en
+
+INSERT_UPDATE Category;code[unique=true];name[lang=en];superCategories(code, catalogversion(catalog(id[default=bhgeProductCatalog]),version[default='Staged'])[unique=true,default=bhgeProductCatalog:Staged]);catalogversion(catalog(id[default=bhgeProductCatalog]),version[default='Staged'])[unique=true,default=bhgeProductCatalog:Staged];$thumbnail;$picture
+ClassificationClass;ECOM_LVL0_00000000;Products;;ERP_CLASSIFICATION_HYB:ERP_IMPORT
+ClassificationClass;ECOM_LVL1_00000001;Inspection Technologies;ECOM_LVL0_00000000:ERP_CLASSIFICATION_HYB:ERP_IMPORT;ERP_CLASSIFICATION_HYB:ERP_IMPORT;/thumbs/cat-ge-it.320x240.jpg;/thumbs/cat-ge-it.320x240.jpg
+ClassificationClass;ECOM_LVL1_00000002;Measuring & Sensing;ECOM_LVL0_00000000:ERP_CLASSIFICATION_HYB:ERP_IMPORT;ERP_CLASSIFICATION_HYB:ERP_IMPORT

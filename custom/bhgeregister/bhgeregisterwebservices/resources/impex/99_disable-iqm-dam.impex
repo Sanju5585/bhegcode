@@ -1,0 +1,76 @@
+#DAM
+
+	# Step 1 - Fetch All Registration Requests
+		select {accessRequestId} from {BHGEUserAccessRequest} where {approverdetails} = ({{select {pk} from {BHGEApprovalDetails} where {approverID} = '32001'}})
+
+	# Step 2 - Remove All Registration Requests
+		remove BHGEUserAccessRequest;accessRequestId[unique=true]
+		;4988449487575140446
+		;796457124243196667
+		;32001
+		;5849073026229422172
+		;4221082317423922169
+		;7235304717229900080
+		;32002
+
+	# Step 3 - Remove Application Entry
+		remove BHGEApplicationDetails;applicationId[unique=true]
+	;3
+
+	# Step 4 - Check Application List
+		select * from {BHGEApplicationDetails}
+	
+IQM
+
+	# Step 1 - Fetch All Registration Requests
+		select {accessRequestId} from {BHGEUserAccessRequest} where {approverdetails} in ({{select {pk} from {BHGEApprovalDetails} where {approverID} in ('22001', '22002') }})
+
+	# Step 2 - Remove All Registration Requests
+		remove BHGEUserAccessRequest;accessRequestId[unique=true]
+		;3832334409522628419
+		;7270130716374813833
+		;30895367103727287
+		;22002
+		;4959425991623790541
+		;6929450644289110586
+		;22006
+		;5312000839258885723
+		;3007418233526373185
+		;22001
+		;22003
+		;4314082068235437628
+		;5839629293070208036
+		;6238681691211384358
+		;9041978459996439561
+		;695271007534400880
+		;2061730443425435250
+		;5575772277033288198
+		;6989867816114079298
+		;7699851349434059952
+		;1604205193177875807
+		;4616374686807510810
+		;22005
+		;3785762753070646510
+		;1274883492733666654
+		;2930220097411173711
+		;6672811332338403922
+		;2683759825799040787
+		;3338284005950834437
+		;4315366460940176583
+		;7855423431638206263
+		;8332811276137482591
+		;3294868901470880211
+		;8515365679616510577
+		;3295645562925630527
+		;22004
+		;1950651384460231295
+		;4447067991352755685
+		;3777900533419953349
+		;2280899208334101735
+
+	# Step 3 - Remove Application Entry
+		remove BHGEApplicationDetails;applicationId[unique=true]
+	;2
+
+	# Step 4 - Check Application List
+		select * from {BHGEApplicationDetails}

@@ -1,0 +1,87 @@
+<!-- <div #dialog> -->
+<!-- Modal Header -->
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header bg-green">
+      <div *ngIf="status == 'REJECTED'; else otherStatus" class="cx-dialog-title modal-title">
+        {{
+        'dashboard.rejectionTitle'
+        | cxTranslate
+        }}
+      </div>
+      <ng-template #otherStatus class="cx-dialog-title modal-title">
+        {{
+          'dashboard.submitActionHeaderText'
+            | cxTranslate :{ action: (actionTitle[status] | cxTranslate) } 
+        }}
+      </ng-template>
+      <button
+        type="button"
+        aria-label="Close"
+        class="close"
+        (click)="closeModal()"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <!-- Modal Body -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="row">
+          <label for="comment" [class.required]="status == 'REJECTED'">{{
+            (status == 'REJECTED'
+              ? 'dashboard.rejectCommentText'
+              : 'dashboard.actionCommentText'
+            ) | cxTranslate
+          }}</label>
+          <textarea
+            rows="3"
+            class="form-control"
+            formControlName="comment"
+            [class.ng-invalid]="
+              form.get('comment')?.invalid &&
+              (form.get('comment')?.dirty ||
+                form.get('comment')?.touched ||
+                submit)
+            "
+            placeholder="{{
+              (status == 'REJECTED'
+                ? 'dashboard.enterReasonForRejection'
+                : 'dashboard.enterComment'
+              ) | cxTranslate : { action: actionTitle[status] }
+            }}"
+          ></textarea>
+          <span
+            class="inline-error-wrapper typography--label-medium"
+            *ngIf="
+             form.get('comment')?.invalid && form.get('comment')?.hasError('maxlength') &&
+              (form.get('comment')?.dirty ||
+                form.get('comment')?.touched ||
+                submit)
+            "
+          >
+            {{ 'dashboard.reasonIsRequired' | cxTranslate }}</span
+          >
+          <span
+            class="inline-error-wrapper typography--label-medium"
+            *ngIf="form.get('comment').hasError('whitespace') || hasWhiteSpace"
+          >
+            {{ 'dashboard.validReason' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer actions">
+        <button
+          type="button"
+          class="btn btn-outline-light btn-cancel"
+          (click)="closeModal()"
+        >
+          {{ 'dashboard.cancel' | cxTranslate }}
+        </button>
+        <button type="submit" class="btn btn-submit">
+          {{ 'dashboard.submit' | cxTranslate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

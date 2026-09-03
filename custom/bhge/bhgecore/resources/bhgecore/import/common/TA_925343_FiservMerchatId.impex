@@ -1,0 +1,10 @@
+Insert_Update FiservMerchantId;currency(isocode)[unique=true];merchantId[unique=true];salesAreaId[unique=true]
+                              ;GBP;526754770885;6010
+                              ;EUR;526754800880;6040
+                              ;USD;526754801888;6040
+                              ;EUR;526754790883;6210
+                              ;GBP;526754791881;6210
+                              ;USD;526754810889;6180
+                              ;EUR;526754811887;6180
+                              ;USD;526263750881;1800
+                              ;CAD;82666060017;1720

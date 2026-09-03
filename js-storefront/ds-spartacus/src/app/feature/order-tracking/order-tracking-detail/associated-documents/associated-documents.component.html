@@ -1,0 +1,146 @@
+<div class="row custom-last-child-margin pageBtnMargin">
+  <div class="share-detail">
+    <div class="right">
+      <span class="shareDetail" (click)="shareDetail()">
+        {{ 'order-tracking.share' | cxTranslate }}</span
+      >
+      <span class="backToList" (click)="backLink()">
+        {{ 'order-tracking.back' | cxTranslate }}</span
+      >
+    </div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div
+      class="tabcontent-display-line-section-heading title-text title-padding-bottom"
+    >
+      <em class="material-icons custom-margin-right-icon"> description</em>
+      {{ 'order-tracking.associateDocument' | cxTranslate }}
+      <div class="heading-extras row">
+        <span class="info-item cust-info-header"
+          >{{ 'order-tracking.poHeader' | cxTranslate }}:<strong
+            class="cust-info-content"
+          >
+            {{ fullResponse?.purchaseOrderNumber }}</strong
+          >
+        </span>
+        <span class="info-item cust-info-header"
+          >{{ 'order-tracking.poDateHeader' | cxTranslate }}:<strong
+            class="cust-info-content"
+          >
+            {{ fullResponse?.purchaseOrderDate | date: 'd MMM, y' }}</strong
+          >
+        </span>
+        <span class="info-item cust-info-header">
+          {{ 'order-tracking.orderStatusHeader' | cxTranslate }} :
+          <span
+            [ngStyle]="{
+              'background-color': fetchOrderStatusColor(
+                fullResponse?.orderStatus
+              ),
+            }"
+            class="status-label in-progress"
+          >
+            {{ fullResponse?.orderStatus }}</span
+          >
+        </span>
+      </div>
+
+      <div
+        *ngIf="downloadAllLoader"
+        class="title product-search-spinner cx-spinner"
+      >
+        <cx-spinner></cx-spinner>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%" *ngIf="fetchAttchedDocLoader" class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+
+  <div *ngIf="fullDocumentsResponse?.length > 0" style="width: 100%">
+    <div class="attacment-count">
+      {{ fullDocumentsResponse?.length }}
+      {{ 'order-tracking.attacheddocs' | cxTranslate }}
+    </div>
+    <div class="before-attachment">
+      <div class="custom-control custom-checkbox">
+        <input
+          id="master"
+          type="checkbox"
+          class="custom-control-input"
+          [indeterminate]="client.indeterminated"
+          [checked]="client.checked"
+          (click)="onMasterClick(client, $event)"
+        />
+        <label for="master" class="custom-control-label">
+          {{ 'order-tracking.selectall' | cxTranslate }}</label
+        >
+      </div>
+      <div
+        (click)="downloadSelectedAttachment()"
+        class="downloadSelectedAttachment"
+      >
+        <span class="material-icons"> sim_card_download </span>
+      </div>
+    </div>
+    <div
+      class="col-lg-12 col-md-12 col-sm-12 mt-4 blocked-warning-message"
+      *ngIf="fullDocumentsResponse?.length === 0"
+    >
+      <span class="obsolete-text">
+        <em class="material-icons">info</em>
+        <strong>&nbsp;{{ 'order-Tracking.information' | cxTranslate }}</strong
+        >&nbsp; {{ 'order-Tracking.noDocAvailable' | cxTranslate }}</span
+      >
+    </div>
+
+    <div *ngIf="fullDocumentsResponse?.length > 0">
+      <div
+        class="col-lg-12 col-md-12 col-sm-12 mt-4"
+        *ngFor="let documentItem of fullDocumentsResponse; let i = index"
+      >
+        <div class="upload-block">
+          <bh-checkbox
+            [checked]="checkAll"
+            value="true"
+            [name]="'documentItem.fileName' + i"
+            (change)="checkEntry($event, documentItem)"
+          ></bh-checkbox>
+          <span
+            class="material-icons vertical-middle"
+            [ngClass]="downloadLoader[i] ? 'disabled' : ''"
+          >
+            insert_drive_file</span
+          >
+          <a
+            (click)="
+              downloadDocument(documentItem.fileName, documentItem.fileType, i)
+            "
+            [ngClass]="downloadLoader[i] ? 'disabled' : ''"
+            >{{ documentItem.fileName }}</a
+          >
+          <div class="customeBtn" *ngIf="!downloadLoader[i]">
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'order-tracking.download' | cxTranslate }} "
+              (click)="
+                downloadDocument(
+                  documentItem.fileName,
+                  documentItem.fileType,
+                  i
+                )
+              "
+            ></bh-button>
+          </div>
+          <div *ngIf="downloadLoader[i]" class="customeBtn">
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'order-tracking.downloading' | cxTranslate }} "
+            ></bh-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

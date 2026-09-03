@@ -1,0 +1,365 @@
+<div class="quote-list">
+  <div class="row">
+    <div class="col-md-10 d-flex justify-content-end pr-0">
+      <div class="content">
+        <div class="refresh" *ngIf="!noData" (click)="refreshList(true)">
+          <em class="material-icons icon-size">refresh</em>
+          <span class="btn-txt">{{
+            'rma-tracking.refresh' | cxTranslate
+          }}</span>
+        </div>
+        <a
+          matTooltipClass="vs-tooltip capitalize"
+          matTooltip="Download XLS"
+          (click)="downloadXLS()"
+        >
+          <em class="icons download icon-size"></em>
+          <span class="btn-txt">{{
+            'rma-tracking.downloadXls' | cxTranslate
+          }}</span></a
+        >
+      </div>
+    </div>
+    <div class="col-md-2">
+      <bh-button
+        fluid
+        [type]="'primary'"
+        label="{{ 'rma-tracking.createRMA' | cxTranslate }}"
+        (click)="createRMA()"
+      ></bh-button>
+    </div>
+  </div>
+
+  <div class="tile-content">
+    <div class="statusTile">
+      <vs-status-tiles
+        (filteredTile)="onTileClick($event)"
+        [tiles]="rmaTiles"
+        [currentStatusType]="firstStatusType"
+      >
+      </vs-status-tiles>
+    </div>
+  </div>
+  <div class="before-table">
+    <div class="leftcontent" *ngIf="this.tableData">
+      <div *ngIf="this.resData?.customerAccounts" class="custDetail">
+        <ng-select
+          [items]="customerAccData"
+          [multiple]="true"
+          bindLabel="name1"
+          placeholder="{{ 'rma-tracking.customeraccount' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="id"
+          [(ngModel)]="selectedCustomer"
+          (change)="getselectedcustomer()"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <div (click)="getselectedCustAcc(item$)">
+              <input
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+                class="checckboxacc"
+              />
+              <span class="prodName">{{ item.name }}</span>
+              <small>{{ item.id }}</small>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="dateRange">
+        <vs-date-range-picker
+          (selectedDateRange)="getDateRange($event)"
+          [fromMaxDate]="toMinDate"
+          [fromMinDate]="fromMax"
+          [toMinDate]="toMinDate"
+          [toMaxDate]="toMinDate"
+          [changeDate]="changeDate"
+        ></vs-date-range-picker>
+      </div>
+      <div *ngIf="this.productLineData" class="prodLine">
+        <ng-select
+          [items]="productLines"
+          [multiple]="true"
+          bindLabel="name"
+          placeholder="{{ 'rma-tracking.productLine' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="id"
+          [(ngModel)]="selectedProdLine"
+          (change)="getselectedProdLine()"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <div (click)="selectedProductLine(item$)">
+              <input
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+              />
+              <span class="prodName">{{ item }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="rightContent">
+      <div class="icon">
+        <em class="material-icons keyarrow">keyboard_arrow_up</em>
+        <em class="material-icons keyarrow">keyboard_arrow_down</em>
+      </div>
+      <ng-select
+        [searchable]="true"
+        [clearable]="false"
+        placeholder="{{ 'rma-tracking.sortBy' | cxTranslate }}"
+        appendTo="body"
+        id="selectCustomerAcc"
+        (change)="orderAlignment($event)"
+      >
+        <ng-option
+          *ngFor="let sortConditions of this.sortConditions; let i = index"
+          >{{ sortConditions.name }}</ng-option
+        >
+      </ng-select>
+      <div class="search">
+        <input
+          type="text"
+          class="form-control search-btn"
+          placeholder="{{ 'rma-tracking.search' | cxTranslate }}"
+          #search
+          name="search"
+          [(ngModel)]="searchTerm"
+          (keydown.enter)="modelChange()"
+        />
+        <span
+          ><em class="material-icons search-icon" (click)="modelChange()"
+            >search</em
+          ></span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="example-contaner mat-elevation-z8 tb-parent">
+    <div class="left-content" *ngIf="statusFilterTxt">
+      {{ this.statusFilterTxt }}
+      <em class="material-icons" (click)="clearStatus()">close</em>
+    </div>
+    <div class="left-content" *ngIf="dateRange">
+      {{ this.fromDate.formattedDate }} - {{ this.toDate.formattedDate }}
+      <em class="material-icons" (click)="clearDateRange()">close</em>
+    </div>
+    <div class="left-content" *ngIf="searchFieldUpdated">
+      {{ 'rma-tracking.search' | cxTranslate }} - {{ searchTerm }}
+      <em class="material-icons" (click)="clearSearchTerm()">close</em>
+    </div>
+    <div class="prodDetail" *ngIf="selectedProdLine.length > 0">
+      <div *ngFor="let prodLine of selectedProdLine" class="left-content">
+        {{ 'rma-tracking.productLine' | cxTranslate }} - {{ prodLine }}
+        <em class="material-icons" (click)="clearProductLine(prodLine)"
+          >close</em
+        >
+      </div>
+    </div>
+    <div class="prodDetail" *ngIf="selectedCustomer.length > 0">
+      <div
+        *ngFor="let customerSelected of selectedCustomer"
+        class="left-content"
+      >
+        {{ 'rma-tracking.customerAccount' | cxTranslate }} -
+        {{ customerSelected }}
+        <em class="material-icons" (click)="clearCustAcc(customerSelected)"
+          >close</em
+        >
+      </div>
+    </div>
+    <div
+      class="clear-link"
+      *ngIf="
+        dateRange ||
+        (searchFieldUpdated && searchTerm.trim().length > 0) ||
+        statusFilterTxt ||
+        selectedProdLine.length > 0 ||
+        selectedCustomer.length > 0
+      "
+      (click)="clearAll()"
+    >
+      <span class="clear-all">{{
+        'rma-tracking.clearAllBtn' | cxTranslate
+      }}</span>
+    </div>
+    <ds-scroll-container
+      *ngIf="!noData && !isLoadMoreInProgress"
+      [more]="true"
+      [scrollDelay]="2000"
+      [scrollOffset]="2000"
+      (scrolled)="loadMoreOrders()"
+      [class.full]="full"
+      [class.part]="!full"
+    >
+      <mat-table
+        class="clearfix"
+        #table
+        [dataSource]="this.tableData"
+        [ngClass]="{ mt: !dateRange }"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="Order">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'rma-tracking.rmaNumber' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+            <span
+              *ngIf="element.rmaStatus !== 'RMA SUBMITTED'"
+              class="code-hyperlink"
+              (click)="selectedOrder(element)"
+              >{{ element.rmaNumber }}</span
+            >
+            <span
+              class="code-hyperlink"
+              (click)="selectedOrder(element)"
+              *ngIf="element.rmaStatus == 'RMA SUBMITTED'"
+            >
+              {{ 'rma-tracking.pending' | cxTranslate }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Order Status">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'rma-tracking.rmaStatus' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            class="tb-content tb-content {{ displaycolor(element.rmaStatus) }}"
+          >
+            {{ displayStatus(element.rmaStatus) }}
+            <div
+              *ngIf="element.rmaStatus == 'RMA SUBMITTED'"
+              class="text-danger"
+              matTooltipClass="vs-tooltip capitalize"
+              matTooltip="This RMA has some unusual situation.  We will be in contact with you to help move this ahead."
+              matTooltipPosition="below"
+            >
+              <strong>{{ 'rma-tracking.pending' | cxTranslate }}</strong> :
+              {{ 'rma-tracking.doNotShip' | cxTranslate }}
+            </div>
+            <ng-container
+              *ngIf="
+                element.rmaStatus == 'PROCESSING' &&
+                checkProcessingAwaitngPurOder(element)
+              "
+            >
+              <div
+                class="awaiting-purchase-order rma-processing-track-status typography--body-small bh-form-message--error"
+                matTooltipClass="vs-tooltip capitalize"
+                matTooltipPosition="below"
+              >
+                <i class="typography--icon-small bh-form-message__icon"
+                  >error_outline</i
+                >
+                <strong>{{ 'rma-tracking.pending' | cxTranslate }}</strong> :
+                {{ 'rma-tracking.awaitingPurchaseOrder' | cxTranslate }}
+              </div>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <!-- PO Number Column -->
+        <ng-container matColumnDef="PO Number">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'rma-tracking.poNumberHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.purchaseOrderNumber }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="PO Date">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'rma-tracking.poDateHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <span *ngIf="element.purchaseOrderDate == '0000-00-00'"> </span>
+            <span *ngIf="element.purchaseOrderDate != '0000-00-00'">
+              {{ element.purchaseOrderDate | date: 'dd MMM yyyy' }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Return to loacation">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'rma-tracking.returnToLocation' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.returnSite }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Order Created">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'rma-tracking.orderCreated' | cxTranslate }}</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.rmaCreatedDate | date: 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Last Updated">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'rma-tracking.lastUpdated' | cxTranslate }}</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.lastUpdatedDate | date: 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reOrderBtn">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ ' ' }}</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <div class="">
+              <bh-button
+                class="reOrderBtn"
+                fluid
+                [type]="'primary'"
+                label="{{ 'rma-tracking.reOrderRMA' | cxTranslate }}"
+                (click)="selectRepeatRma(element)"
+                *ngIf="element.rmaStatus == 'COMPLETE'"
+              ></bh-button>
+              <!-- && element.salesOrg == '1800' == element.returnLocation -->
+              <!-- [attr.disabled]="false"
+              [attr.disabled]="element.salesOrg == '1800' ? true : null" -->
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </ds-scroll-container>
+    <div *ngIf="isLoadMoreInProgress">
+      <cx-spinner></cx-spinner>
+    </div>
+    <div
+      class="currently-loading-spinner"
+      *ngIf="currentlyLoading && !isLoadMoreInProgress"
+    >
+      <cx-spinner></cx-spinner>
+    </div>
+  </div>
+  <div *ngIf="noData" class="noData">
+    <div class="img"></div>
+    <h2 class="heading">{{ 'rma-tracking.noOrdersFound' | cxTranslate }}</h2>
+  </div>
+</div>

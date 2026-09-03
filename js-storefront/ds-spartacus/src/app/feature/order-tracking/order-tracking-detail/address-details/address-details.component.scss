@@ -1,0 +1,49 @@
+.main {
+  margin-bottom: 4%;
+
+  .heading-text {
+    font-weight: 600;
+
+    line-height: 20px;
+    color: #1a2321;
+    label {
+      margin-bottom: 20px;
+    }
+  }
+  .endUser-text-m {
+    margin-top: 20px;
+  }
+}
+.padding-none {
+  padding: 0;
+}
+
+.address-container {
+  padding: 0px;
+  width: 100%;
+  font-size: var(--font-base-font-size-14);
+  line-height: 21px;
+
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.address-content {
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 21px;
+  letter-spacing: 0.1px;
+  color: #1a2321;
+}
+
+.address-heading {
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--font-base-font-size-14);
+  line-height: 20px;
+  color: #334541;
+}
+
+.address-box {
+  max-width: 28%;
+}

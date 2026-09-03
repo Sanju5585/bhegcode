@@ -1,0 +1,20 @@
+<ng-container *ngIf="findSiteName == 'load'; else validate">
+  <div *ngIf="accountMsg == 'ENABLED'" class="container">
+    <p>{{ 'userData.Success' | cxTranslate }}</p>
+  </div>
+  <div *ngIf="accountMsg == 'NOCHANGE'" class="container">
+    <p>{{ 'userData.NoChange' | cxTranslate }}</p>
+  </div>
+</ng-container>
+
+<ng-template #validate>
+  <div *ngIf="accountMsg == 'ENABLED'" class="container">
+    <p>{{ 'userData.Enabled' | cxTranslate }}</p>
+  </div>
+  <div *ngIf="accountMsg == 'DISABLED'" class="container">
+    <p>{{ 'userData.Disabled' | cxTranslate }}</p>
+  </div>
+  <div *ngIf="accountMsg == 'NOCHANGE'" class="container">
+    <p>{{ 'userData.NoChange' | cxTranslate }}</p>
+  </div>
+</ng-template>

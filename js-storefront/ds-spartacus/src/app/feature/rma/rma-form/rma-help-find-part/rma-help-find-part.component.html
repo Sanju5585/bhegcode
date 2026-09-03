@@ -1,0 +1,48 @@
+<div class="find-part-comtainer">
+  <div class="find-help-header">
+    <label for="" class="find-help-header--label">{{
+      'rma-form.helpFindPart' | cxTranslate
+    }}</label>
+    <i class="material-icons" (click)="closeHelp()">close</i>
+  </div>
+
+  <section class="search-input" [formGroup]="findPartNumberForm">
+    <bh-text-input
+      type="text"
+      readonly="false"
+      label="{{ 'rma-form.partNumber' | cxTranslate }}"
+      placeholder="{{ 'rma-form.enterpartNumber' | cxTranslate }}"
+      [value]="findPartNumberForm.controls['partNumber'].value"
+      (change)="onPartNumValueChange($event)"
+      small
+      maxlength="40"
+    ></bh-text-input>
+    <bh-text-input
+      type="text"
+      readonly="false"
+      label="{{ 'rma-form.serialNumber' | cxTranslate }}"
+      placeholder="{{ 'rma-form.aleast3Char' | cxTranslate }}"
+      [value]="findPartNumberForm.controls['serialNumber'].value"
+      (change)="onSerialNumValueChange($event)"
+      small
+      maxlength="18"
+    ></bh-text-input>
+    <bh-button
+      type="primary"
+      label="{{ 'rma-form.search' | cxTranslate }}"
+      (click)="searchPart()"
+      small
+    ></bh-button>
+  </section>
+
+  <ds-equipment-search-results
+    *ngIf="searchComplete"
+    [products]="searchResults"
+    (productSelected)="selectProductAfterSearch($event)"
+    [findPartNumberForm]="findPartNumberForm"
+  ></ds-equipment-search-results>
+
+  <a class="cant-find-part-link" (click)="cantFindPart()" target="_self">{{
+    'rma-form.cantFindPart' | cxTranslate
+  }}</a>
+</div>

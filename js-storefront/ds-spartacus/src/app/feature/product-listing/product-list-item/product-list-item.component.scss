@@ -1,0 +1,102 @@
+.overlay {
+  font-family: var(--font-family-body-medium);
+  letter-spacing: 0.1px;
+  .overlay-fav-txt {
+    font-style: normal;
+    font-weight: normal;
+
+    color: var(--color-text-common-primary);
+    font-size: var(--font-size-body-small);
+  }
+  .overlay-fav-icon {
+    font-style: normal;
+    font-weight: normal;
+
+    color: var(--color-text-common-primary);
+    font-size: var(--font-size-body-large);
+  }
+}
+.cx-product-name {
+  font-style: normal;
+  font-weight: bold;
+  height: auto !important;
+  font-size: var(--font-size-body-small);
+  margin: 0 0 3px 0;
+  color: #757575;
+  text-decoration: none;
+}
+.cx-product-code {
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-size-body-small);
+  margin: 0 0 3px 0;
+  color: #757575;
+  text-decoration: none;
+}
+.padding-lr-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.error {
+  color: var(--color-text-label-error);
+}
+
+.overlay {
+  font-family: var(--font-family-body-medium);
+  letter-spacing: 0.1px;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  justify-content: center;
+  cursor: pointer;
+  background: #f8faf9;
+  padding: 2px;
+
+  .overlay-fav-txt {
+    color: var(--color-base-teal-700);
+    font-size: var(--font-size-body-small);
+    font-family: var(--font-family-body-large);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-12);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+  }
+  .overlay-fav-icon {
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-18);
+    color: #1a2321;
+    &:hover {
+      color: var(--color-base-teal-700);
+    }
+  }
+}
+:host::ng-deep {
+  cx-add-to-cart .quantity label.normal {
+    font-weight: normal !important;
+    color: #757575 !important;
+  }
+  cx-add-to-cart .cart-additions-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    min-width: 35rem;
+  }
+  cx-add-to-cart .cart-additions-section > div {
+    padding: 0px;
+  }
+  cx-add-to-cart .cart-additions-section > .add-to-cart-buttons {
+    order: 2 !important;
+    padding: 0px 10px;
+  }
+  cx-add-to-cart
+    .cart-additions-section
+    > .add-to-cart-buttons
+    ~ .add-to-cart-buttons {
+    order: 1 !important;
+  }
+}

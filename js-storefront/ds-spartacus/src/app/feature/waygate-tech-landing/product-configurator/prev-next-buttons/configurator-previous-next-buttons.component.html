@@ -1,0 +1,30 @@
+<ng-container *ngIf="configuration$ | async as configuration" class="container">
+  <ng-container *ngIf="configuration.groups.length > 1">
+    <button
+      [ngClass]="
+        (isFirstGroup(configuration.owner) | async)
+          ? 'prev-nxt-btn-disabled'
+          : 'prev-nxt-btn-enabled'
+      "
+      [disabled]="isFirstGroup(configuration.owner) | async"
+      (click)="onPrevious(configuration)"
+      [attr.aria-label]="'configurator.a11y.previous' | cxTranslate"
+    >
+      <div><mat-icon>keyboard_arrow_left</mat-icon></div>
+      <div>{{ 'configurator.button.previous' | cxTranslate }}</div>
+    </button>
+    <button
+      [ngClass]="
+        (isLastGroup(configuration.owner) | async)
+          ? 'prev-nxt-btn-disabled'
+          : 'prev-nxt-btn-enabled'
+      "
+      [disabled]="isLastGroup(configuration.owner) | async"
+      (click)="onNext(configuration)"
+      [attr.aria-label]="'configurator.a11y.next' | cxTranslate"
+    >
+      <div>{{ 'configurator.button.next' | cxTranslate }}</div>
+      <div><mat-icon>keyboard_arrow_right</mat-icon></div>
+    </button>
+  </ng-container>
+</ng-container>

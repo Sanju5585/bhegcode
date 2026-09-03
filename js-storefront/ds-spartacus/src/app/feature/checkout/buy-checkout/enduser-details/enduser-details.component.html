@@ -1,0 +1,61 @@
+<div *ngIf="loading" class="cx-spinner">
+  <cx-spinner></cx-spinner>
+</div>
+
+<div class="enduser-details">
+  <div class="row enduserdetails">
+    <div class="row col-lg-6 col-md-6 col-sm-6">
+      <span class="shipping-checkout">{{
+        'titles.endUserAddress' | cxTranslate
+      }}</span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12"
+        >{{ endUserAddress?.firstName }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.companyName }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.line1 }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.town }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.region?.name }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.country?.name }}
+      </span>
+      <span class="enduser-address col-lg-12 col-md-12 col-sm-12">
+        {{ endUserAddress?.postalCode }}</span
+      >
+      <div
+        *ngIf="errorMsg"
+        class="bh-form-message typography--body-small bh-form-message--error enduser-address col-lg-12 col-md-12 col-sm-12"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ this.errorMsg }}
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="endUserAddress">
+      <div
+        class="shipping-checkout csutomer_account col-lg-12 col-md-12 col-sm-12"
+      >
+        {{ 'labels.customerAccountNumber' | cxTranslate }}
+      </div>
+      <div
+        class="enduser-address csutomer_account col-lg-12 col-md-12 col-sm-12"
+      >
+        {{ customerAccount }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row col-auto add-to-cart-buttons" *ngIf="!endUserFlag">
+    <bh-button
+      type="secondary"
+      label="{{ 'labels.selectAddress' | cxTranslate }}"
+      (click)="openAddressModel()"
+    ></bh-button>
+  </div>
+</div>

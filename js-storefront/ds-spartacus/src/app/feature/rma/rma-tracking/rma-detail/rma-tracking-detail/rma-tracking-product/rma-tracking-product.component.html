@@ -1,0 +1,301 @@
+<div class="section-one-line-item row enclose-line-item-block">
+  <div class="section-1 w-10">{{ indexNo + 1 }}</div>
+  <div class="section-2 w-25">
+    <label class="line-item-heading">
+      {{ 'order-tracking.partNoDescLbl' | cxTranslate }}
+    </label>
+    <div class="line-item-desc">
+      {{ productItem?.partNumber }}
+    </div>
+    <div class="line-item-desc mt-1">
+      <a
+        matTooltipClass="vs-tooltip"
+        [matTooltip]="productItem?.description"
+        class="vs-product-name"
+        [innerHTML]="productItem?.description"
+      ></a>
+    </div>
+  </div>
+  <div class="section-3 w-25">
+    <label class="line-item-heading">{{
+      'rma-tracking.serialNo' | cxTranslate
+    }}</label>
+    <div class="line-item-desc">
+      {{ productItem?.partSerialNumber }}
+    </div>
+  </div>
+  <div class="section-4 w-25 item-status">
+    <div class="line-item-heading">
+      {{ 'order-tracking.status' | cxTranslate }}
+    </div>
+    <span
+      [ngStyle]="{
+        'background-color': fetchOrderStatusColor(productItem?.rmaStatus),
+      }"
+      class="item-status status-label"
+      >{{ productItem?.rmaStatus }}</span
+    >
+    <!-- <div
+      *ngIf="
+        productItem?.rmaStatus == 'RMA SUBMITTED' ||
+        productItem?.rmaStatus == 'RMA REQUEST RECEIVED'
+      "
+      class="text-danger"
+      matTooltipClass="vs-tooltip capitalize"
+      matTooltip="This RMA has some unusual situation.  We will be in contact with you to help move this ahead."
+      matTooltipPosition="below"
+    >
+      <strong>{{ 'rma-tracking.pending' | cxTranslate }}</strong> :
+      {{ 'rma-tracking.doNotShip' | cxTranslate }}
+    </div> -->
+  </div>
+  <div class="section-5">
+    <span>
+      <bh-button
+        class="reOrderBtn"
+        fluid
+        [type]="'primary'"
+        label="{{ 'rma-tracking.reOrderLineItemRMA' | cxTranslate }}"
+        (click)="selectRepeatRMALineItem(productItem)"
+        *ngIf="
+          this.productItem?.rmaStatus == 'COMPLETE-SHIPPED' &&
+          userType === 'current'
+        "
+      ></bh-button>
+    </span>
+  </div>
+  <div class="section-6 w-10">
+    <em
+      *ngIf="productOpen"
+      (click)="toggleProduct()"
+      class="material-icons move-right"
+      >keyboard_arrow_up</em
+    >
+    <em
+      *ngIf="!productOpen"
+      (click)="toggleProduct()"
+      class="material-icons move-right"
+      >keyboard_arrow_down</em
+    >
+  </div>
+</div>
+
+<!-- <div
+  class="row d-flex justify-content-around margin-top-1"
+  *ngIf="!productOpen"
+>
+  <div class="section-1 w-10"><span class="space-empty">&nbsp;</span></div>
+  <div class="section-2 custom-left-padding-3 w-25">
+    <label class="line-item-heading">{{
+      'order-tracking.requestDateLbl' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{ productItem?.orderDate }}</span>
+  </div>
+  <div class="section-3 custom-left-padding-2 w-25">
+    <label class="line-item-heading">{{
+      'order-tracking.currentPromiseDate' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{ productItem?.actShpDate }}</span>
+  </div>
+  <div class="section-4 custom-left-padding-1 w-25">
+    <span class="space-empty">&nbsp;</span>
+  </div>
+  <div class="section-5 w-10"></div>
+</div> -->
+
+<!-- This section opens when the product accordion is opened START-->
+<div class="row d-flex justify-content-around margin-top-1" *ngIf="productOpen">
+  <div class="section-1 w-10"><span class="space-empty">&nbsp;</span></div>
+  <div class="section-2 custom-left-padding-3 w-25">
+    <label class="line-item-heading" *ngIf="userType === 'current'">{{
+      'order-tracking.shipSetLbl' | cxTranslate
+    }}</label>
+    <span class="line-item-desc" *ngIf="userType === 'current'">{{
+      productItem?.shipToAddress
+    }}</span>
+  </div>
+  <div class="section-3 custom-left-padding-2 w-25">
+    <label
+      class="line-item-heading"
+      *ngIf="productItem?.actualShipDate != '0000-00-00'"
+      >{{ 'order-tracking.actualShipDateLbl' | cxTranslate }}</label
+    >
+    <label
+      class="line-item-heading"
+      *ngIf="productItem?.actualShipDate == '0000-00-00'"
+      >{{ 'order-tracking.originalPromiseDateLbl' | cxTranslate }}</label
+    >
+    <span
+      class="line-item-desc"
+      *ngIf="productItem?.actualShipDate == '0000-00-00'"
+    >
+    </span>
+    <span
+      class="line-item-desc"
+      *ngIf="productItem?.actualShipDate == '0000-00-00'"
+    >
+    </span>
+    <span
+      class="line-item-desc"
+      *ngIf="productItem?.actualShipDate != '0000-00-00'"
+      >{{ productItem?.actualShipDate }}</span
+    >
+    <span
+      class="line-item-desc"
+      *ngIf="
+        productItem?.promisedShipDate != '0000-00-00' &&
+        productItem?.actualShipDate == '0000-00-00'
+      "
+      >{{ productItem?.promisedShipDate }}</span
+    >
+  </div>
+  <div class="section-4 custom-left-padding-1_5 w-25">
+    <label class="line-item-heading">{{
+      'order-tracking.quantityLbl' | cxTranslate
+    }}</label>
+    <div class="line-item-desc">
+      {{ productItem?.quantity }} {{ 'order-tracking.each' | cxTranslate }}
+    </div>
+  </div>
+  <div class="section-5 w-10"><span class="space-empty">&nbsp;</span></div>
+</div>
+
+<div
+  class="row d-flex justify-content-around margin-top-1"
+  *ngIf="productOpen && productItem?.status != 'SHIPPED'"
+>
+  <div class="section-1 w-10"><span class="space-empty">&nbsp;</span></div>
+  <div class="section-2 custom-left-padding-3 w-25">
+    <label class="line-item-heading">{{
+      'rma-tracking.returnReason' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{ productItem?.repairReason }}</span>
+  </div>
+  <div class="section-3 custom-left-padding-2 w-25">
+    <label class="line-item-heading">{{
+      'rma-tracking.serviceOffering' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{ productItem?.serviceOffering }}</span>
+  </div>
+  <div
+    class="section-4 custom-left-padding-1_5 w-25"
+    *ngIf="userType === 'current'"
+  >
+    <label class="line-item-heading">{{
+      'order-tracking.unitPriceLbl' | cxTranslate
+    }}</label>
+    <span class="line-item-desc"
+      >{{ productItem?.currency }}{{ productItem?.netPrice }}</span
+    >
+    <a
+      *ngIf="
+        productItem?.discountValues?.length ||
+        productItem?.priceAdderData?.length
+      "
+      (click)="this.breakUp = !this.breakUp"
+      class="arw detail-view"
+      >{{ 'order-tracking.viewdetails' | cxTranslate }}
+      <i *ngIf="!breakUp" class="material-icons">keyboard_arrow_down</i>
+      <i *ngIf="breakUp" class="material-icons">keyboard_arrow_right</i></a
+    >
+  </div>
+
+  <div class="section-4 custom-left-padding-1 w-25"></div>
+  <div class="section-5 w-10"><span class="space-empty">&nbsp;</span></div>
+</div>
+
+<div class="row d-flex justify-content-around margin-top-1" *ngIf="productOpen">
+  <div class="section-1 w-10"><span class="space-empty">&nbsp;</span></div>
+  <div
+    class="section-2 custom-left-padding-3 w-25"
+    *ngIf="userType === 'current'"
+  >
+    <label class="line-item-heading">{{
+      'order-tracking.carrierLbl' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{
+      productItem?.rmaDeliveryLineDetails[0]?.carrier
+    }}</span>
+  </div>
+  <div
+    class="section-3 custom-left-padding-2 w-25"
+    *ngIf="userType === 'current'"
+  >
+    <label class="line-item-heading">{{
+      'order-tracking.trackingNoLbl' | cxTranslate
+    }}</label>
+    <span class="line-item-desc">{{
+      productItem?.rmaDeliveryLineDetails[0]?.trackingNo
+    }}</span>
+  </div>
+  <div class="section-4 custom-left-padding-1_5 w-25"></div>
+  <div class="section-5 w-10"><span class="space-empty">&nbsp;</span></div>
+</div>
+<div class="breakup-dropdown" *ngIf="breakUp">
+  <div class="row list-price-row m-0">
+    <span class="price-menu-heading bold col-6">{{
+      'order-tracking.listpriceor' | cxTranslate
+    }}</span>
+    <span class="price-menu-content bold col-6"
+      >{{ productItem?.currency }} {{ productItem?.listPrice }}</span
+    >
+  </div>
+  <div
+    class="row discounts"
+    *ngFor="let discounts of productItem?.discountValues"
+  >
+    <span class="price-menu-heading col-6">{{
+      getDiscountName(discounts.code)
+    }}</span>
+    <span class="price-menu-content col-2"
+      >{{ discounts.appliedValue | number: '1.0-0' }}%</span
+    >
+    <span class="price-menu-content col-4"
+      >{{ discounts.currency }} -{{ discounts.formattedValue }}</span
+    >
+  </div>
+  <div
+    class="row discounts"
+    *ngFor="let discounts of productItem?.priceAdderData"
+  >
+    <span class="price-menu-heading col-6">{{
+      getDiscountName(discounts.code)
+    }}</span>
+    <span class="price-menu-content col-2"
+      >{{ discounts.appliedValue | number: '1.0-0' }}%</span
+    >
+    <span class="price-menu-content col-4"
+      >{{ discounts.currency }} {{ discounts.formattedValue }}</span
+    >
+  </div>
+  <div
+    class="row total-discounts"
+    *ngIf="
+      productItem?.discountValues?.length > 0 ||
+      productItem?.priceAdderData?.length > 0
+    "
+  >
+    <span class="price-menu-heading col-6">{{
+      'order-tracking.totalorder' | cxTranslate
+    }}</span>
+    <span class="price-menu-content col-6"
+      >{{ productItem?.currency }}
+      {{
+        getTotalDiscounts(
+          productItem?.discountValues,
+          productItem?.priceAdderData
+        )
+      }}</span
+    >
+  </div>
+
+  <div class="row net-price">
+    <span class="price-menu-heading bold col-6">{{
+      'order-tracking.netprice' | cxTranslate
+    }}</span>
+    <span class="price-menu-content bold col-6"
+      >{{ productItem?.currency }} {{ productItem?.netPrice }}</span
+    >
+  </div>
+</div>
+<div class="row bdr-btm"></div>

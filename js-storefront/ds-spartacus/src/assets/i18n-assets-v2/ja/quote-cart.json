@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "ゲストの見積カート",
+    "checkoutBtn": "チェックアウトに進む",
+    "delete": "削除",
+    "comments": "コメント",
+    "quantity": "台数",
+    "each": "各",
+    "saving": "保存中",
+    "commentscart": "コメントは保存されていません。保存ボタンをクリックしてください。",
+    "commenterror": "保存する前にコメントを追加してください",
+    "characterlefft": "文字数残り : ",
+    "item": "アイテム",
+    "cartEmpty": "カートは空です",
+    "noItemIncart": "カートには何も入っていません",
+    "explore": "調べる ",
+    "ourCatalogue": "当社カタログ ",
+    "toAdditems": "アイテムを追加",
+    "error": {
+      "removeMsg": "選択したアイテムが正常に削除されました。",
+      "errorMessage": "何らかのエラーが発生しました。後でもう一度お試しください"
+    }
+  }
+}

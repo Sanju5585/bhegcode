@@ -1,0 +1,2069 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders" type="java.util.List&lt;com.bhge.facades.product.data.GenderData>"/>
+		<property name="leadTimeMaxQty" type="java.lang.Integer" />
+		<property name="maxOrderQty" type="java.lang.Integer" />
+		<property name="leadTimeType" type="java.lang.String" />
+		<property name="EN" type="java.lang.Boolean" />
+		<property name="UsDn" type="java.lang.String" />
+		<property name="connectorImage" type="java.lang.String" />
+		<property name="productSpecs" type="java.lang.String" />
+		<property name="hybrisStatus" type="java.lang.String" />
+		<property name="materialStatus" type="java.lang.String" />
+		<property name="isEngineeringHold" type="java.lang.Boolean" />
+		<property name="deliveryTime" type="java.lang.String" />
+		<property name="obsoleteProductStatus" type="java.lang.String" />
+		<property name="replacementProductStatus" type="java.lang.String" />
+		<property name="parentCategoryCode" type="java.lang.String" />
+		<property name="parentCategoryName" type="java.lang.String" />
+		<property name="categoryName" type="java.util.List&lt;String>" />
+		<property name="brandName" type="java.util.Collection&lt;com.bhge.facades.product.data.BrandNameData>"/>
+		<property name="categoryLevelTCode" type="java.lang.String" />
+		<property name="categoryLevelTName" type="java.lang.String" />
+		<property name="categoryNameList" type="java.util.List&lt;String>" />
+		<property name="mediaurl" type="java.lang.String" />
+		<property name="uom" type="java.lang.String" />
+		<property name="discountPrice" type="java.lang.String" />
+		<property name="discountPercentage" type="java.lang.String" />
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="minOrderQty" type="java.lang.Integer" />
+		<property name="productAccessData" type="com.bhge.facades.product.data.BHGEProductAccessData" />
+		<property name="isAnonymousBuy" type="java.lang.Boolean" />
+		<property name="categoryWithClassifications"
+		          type="java.util.Map&lt;String, de.hybris.platform.commercefacades.product.data.ClassificationData>"/>
+		<property name="addedasFavouriteTime" type="java.lang.String" />
+		<property name="productNote" type="java.lang.String" />
+		<property name="isAnonymousQuote" type="java.lang.Boolean" />
+		<property name="isAnonymousReturn" type="java.lang.Boolean" />
+		<property name="isAnonymousObsolete" type="java.lang.Boolean" />
+		<property name="isAnonymousCatalog" type="java.lang.Boolean" />		
+		<property name="isFptProduct" type="java.lang.Boolean" />
+		<property name="buyWithOutB2BUnit" type="java.lang.Boolean" />
+		<property name="availabilityList" type="java.lang.Boolean" />
+		<property name="obsoletePart" type="java.lang.String" />
+		<property name="replacementPartsList" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+		<property name="futureStockEnabled" type="java.lang.Boolean" />
+		<property name="wishlistProducts" type="java.util.List&lt;String>" />
+		<property name="plantList" type="java.util.Map&lt;String,String>"  />
+		<property name="guestSalesOrg" type="java.lang.String" />
+		<property name="plantAvailableAt" type="java.util.List&lt;de.hybris.platform.warehousingfacades.storelocator.data.WarehouseData>"/>
+		<property name="errorCode" type="java.lang.String"/>
+		<property name="estShippingDates" type="java.util.List&lt;String>" />
+		<property name="estShipData" type="java.util.List&lt;com.bhge.facades.product.data.EstimateShipData>"/>
+		<property name="yourPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="breadCrumbs" type="java.util.List&lt;com.bhge.facades.breadcrumb.data.BHGEBreadCrumbData>"/>
+		<property name="returnSalesOrg" type="java.util.Collection&lt;java.lang.String>"/>
+		<property name="nonEcommerceFlag" type="java.lang.Boolean"/>
+		<property name="leadTime" type="java.lang.Integer"></property>
+		<property name="listPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netSellingPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="subTotalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="bentlyYourPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="dummyProduct" type="java.lang.Boolean"/>
+		<property name="productType" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.breadcrumb.data.BHGEBreadCrumbData">
+	    <property name="url" type="java.lang.String" />
+	    <property name="name" type="java.lang.String" />
+	    <property name="linkClass" type="java.lang.String" />
+	    <property name="categoryCode" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.bhge.facades.product.data.EstimateShipData">
+	    <property name="stockQty" type="java.lang.String" />
+	    <property name="shipDate" type="java.lang.String" />
+	</bean>
+	
+	<!-- Single Catalog search result changes - start -->
+	<bean class="com.bhge.facades.product.data.BHGEProductAccessData">
+		<property name="isBuy" type="boolean" />
+		<property name="isService" type="boolean" />
+		<property name="isCatalogOnly" type="boolean" />
+		<property name="isobsolete" type="boolean" />
+		<property name="isPresentInAllowedProdPrincipal" type="boolean" />
+		<property name="isBuyPresentInOtherSalesArea" type="boolean" />
+		<property name="isServicePresentInOtherSalesArea" type="boolean" />
+		<property name="salesAreas" type="java.util.List&lt;com.bhge.facades.product.data.BHGEProductAccessData>" />
+		<property name="showListPrice" type="boolean" />
+		<property name="showDiscountPrice" type="boolean" />
+		<property name="showLeadTime" type="boolean" />
+		<property name="showESD" type="boolean" />
+		<property name="customerEcommerceFlag" type="java.lang.String" />
+		<property name="salesOrg" type="java.lang.String" />
+		<property name="salesOrgUid" type="java.lang.String" />
+		<property name="salesOrgName" type="java.lang.String" />
+		<property name="customerSoldToUid" type="java.lang.String" />
+		<property name="customerSalesOrgUid" type="java.lang.String" />
+		<property name="customerSalesOrgName" type="java.lang.String" />
+		<property name="availableServiceOfferingCodes" type="java.util.Set&lt;java.lang.String>" />
+		<property name="isCustomerBuy" type="boolean" />
+		<property name="isZeroBuy" type="boolean"/>
+	</bean>
+	<!-- Single Catalog search result changes - end -->
+
+	<bean class="com.bhge.facades.product.data.GenderData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.product.data.BrandNameData">
+		<property name="name" type="String"/>
+		<property name="description" type="String"/>
+		<property name="code" type="String"/>
+		<property name="imageUrl" type="String"/>
+		<property name="subCategories" type="java.util.Collection&lt;com.bhge.facades.product.data.BrandNameData>"/>
+	</bean>
+
+	<bean class="com.bhge.facades.user.data.BHGECurrencyFormatData">
+ 	 	  <property name="code" type="java.lang.String" />
+	      <property name="displayValue" type="java.lang.String" />
+    	  <property name="isDefalutFormat" type="java.lang.Boolean" />
+     </bean>
+     
+     <bean class="com.bhge.facades.user.data.BHGEAnonymousUserCatalogData">
+ 	 	  <property name="country" type="de.hybris.platform.commercefacades.user.data.CountryData" />
+	      <property name="b2bUnit" type="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData" />
+    	  <property name="categories" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.CategoryData>" />
+    	  <property name="salesOrg" type="java.lang.String"/>
+    	  <property name="distributionChannel" type="java.lang.String"/>
+    	  <property name="division" type="java.lang.String"/>
+     </bean>
+	
+	<bean class="com.bhge.facades.data.SalesAreaData">
+		<property name="b2bUnitName" type="java.lang.String"/>
+		<property name="b2bUnitUid" type="java.lang.String"/>
+		<property name="baseStoreCode" type="java.lang.String"/>
+		<property name="baseStoreName" type="java.lang.String"/>
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="currencyIso" type="java.lang.String"/>
+		<property name="currencySymbol" type="java.lang.String"/>
+		<property name="salesOrg" type="java.lang.String"/>
+		<property name="channel" type="java.lang.String"/>
+		<property name="division" type="java.lang.String"/>
+		<property name="companyLogoURL" type="java.lang.String"/>
+        <property name="sapBlocked" type="java.lang.Boolean"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.user.data.GetAddressFormData">
+		<property name="city" type="String"/>
+		<property name="state" type="String"/>
+		<property name="zipCode" type="String"/>
+		<property name="country" type="String"/>
+		<property name="name" type="String"/>
+		<property name="isInternational" type="String"/>
+		<property name="isShipping" type="String"/>
+		<property name="b2bUnit" type="String"/>
+		<property name="pageNo" type="String"/>
+		<property name="pageSize" type="String"/>
+		<property name="sapCustomerID" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.user.data.BHGESoldToData">
+		<description>DTO for Sold To Data</description>
+		<property name="uid" type="String" />
+		<property name="locName" type="String" />
+		<property name="regionCP" type="String"/>
+		<property name="subRegionCP" type="String" />
+		<property name="currency" type = "de.hybris.platform.commercefacades.storesession.data.CurrencyData"/>
+		<property name="countryCP" type="String"/>
+		<property name="billingAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="paymentTerms" type="String"/>
+		<property name="incoterms1" type="String"/>
+		<property name="incoterms2" type="String"/>
+		<property name="incotrms1" type="com.bhge.facades.IncotermsData"/>
+		<property name="paymentTrms" type="com.bhge.facades.PaymentTermsData"/>
+		<property name="customerClass" type="java.lang.String"/>
+		<!-- added for guest checkout spartacus migration  -->
+		<property name="incoTrmsName" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.bhge.facades.IncotermsData">
+    	<property name="code" type="java.lang.String" />
+    	<property name="name" type="java.lang.String"/>
+     </bean>
+    
+    <bean class="com.bhge.facades.PaymentTermsData">
+    	<property name="code" type="java.lang.String" />
+    	<property name="name" type="java.lang.String"/>
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<!--<property name="district" type="java.lang.String" />-->
+	    <property name="isNuclear" type="java.lang.Boolean" />
+	  	<property name="sapCustomerID" type="java.lang.String"/>
+	  	<property name="deliveryPoint" type="java.lang.String"/>
+	  	<property name="saveForFuture" type="java.lang.Boolean"/>
+		<property name="risk" type="java.lang.Boolean" />
+		<property name="sanctioned" type="java.lang.Boolean" />
+        <property name="isSapBlocked" type="java.lang.Boolean" />
+	</bean>
+	
+	 <bean class="de.hybris.platform.commercefacades.product.data.CategoryData">
+    	<property name="picture" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+    	<property name="thumbnail" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+    	<property name="order" type="java.lang.Integer"/>
+        <property name="breadCrumbs" type="java.util.List&lt;com.bhge.facades.breadcrumb.data.BHGEBreadCrumbData>"/>
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+    	<property name="picture" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+    	<property name="thumbnail" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+    	<property name="feature" type="de.hybris.platform.commercefacades.product.data.FeatureData"/>
+    	<property name="features" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.FeatureData>"/>
+    	<property name="dimesionImage" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+    	<property name="productInclude" type="java.lang.String"/>
+    	<property name="superCategories" type="java.util.List&lt;de.hybris.platform.category.model.CategoryModel>"/>
+    	<property name="hasAccessories" type="java.lang.Boolean"/>
+    	<property name="connectivityerror" type="java.lang.String"/>
+		<property name="serviceOffering" type="java.util.Set&lt;java.lang.String>"/>
+		<property name="data_sheet" type="java.util.Collection&lt;de.hybris.platform.cmsfacades.data.MediaData>"/>
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.product.data.PriceData">
+    <property name="connectivityerror" type="java.lang.String"/>
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.product.data.FeatureData">
+    	<property name="formattedValues" type="java.lang.String" />
+    	<property name="frequency" type="java.lang.String" />
+    	<property name="diameter" type="java.lang.String" />
+    	<property name="b" type="java.lang.String" />
+    	<property name="n" type="java.lang.String" />
+    	<property name="delay" type="java.lang.String" />
+    	<property name="beamSpreadPlus" type="java.lang.String" />
+    	<property name="beamSpreadMinus" type="java.lang.String" />
+    	<property name="focalWidthPlus" type="java.lang.String" />
+    	<property name="focalWidthMinus" type="java.lang.String" />
+    	<property name="P7X" type="java.lang.String" />
+    	<property name="P1Y" type="java.lang.String" />
+    	<property name="P5Y" type="java.lang.String" />
+    	<property name="P5X" type="java.lang.String" />
+    	<property name="P6Y" type="java.lang.String" />
+    	<property name="ZERO_DEGREE" type="java.lang.String" />
+    	<property name="P7Y" type="java.lang.String" />
+    	<property name="P2X" type="java.lang.String" />
+    	<property name="P4X" type="java.lang.String" />
+    	<property name="P3Y" type="java.lang.String" />
+    	<property name="TRID" type="java.lang.String" />
+    	<property name="P6X" type="java.lang.String" />
+    	<property name="P1X" type="java.lang.String" />
+    	<property name="P4Y" type="java.lang.String" />
+    	<property name="P3X" type="java.lang.String" />
+    	<property name="P8X" type="java.lang.String" />
+    	<property name="P2Y" type="java.lang.String" />
+    	<property name="P8Y" type="java.lang.String" />
+    </bean>
+
+
+	<bean class="com.bhge.facades.order.data.BHGEOrderHistoryCollectionData">
+		<property name="bhgeOrderHistoryHeaderData" 
+			type="java.util.Map&lt;String,com.bhge.facades.order.data.BHGEOrderHistoryData&gt;" />
+		<property name="bhgeOrderError" type="com.bhge.facades.order.data.OrderErrorData"/>
+		<property name="bhgeOrderHistoryItemData" 
+			type="java.util.Map&lt;String,java.util.Set&lt;de.hybris.platform.commercefacades.order.data.OrderHistoryViewData&gt;&gt;" />
+			<property name="bhgeOrderHistoryDeliveryData" 
+			type="java.util.Map&lt;String,java.util.Set&lt;de.hybris.platform.commercefacades.order.data.OrderHistoryDeliveryData&gt;&gt;" />
+			<property name="timeoutException" type="boolean" />
+			<property name="interruptedException" type="boolean" />
+			<property name="executionException" type="boolean" />
+	</bean>
+	
+		
+	<bean class="com.bhge.facades.forms.OrderHistoryFormSearchData">
+		<property name="poOrderNum" type="java.lang.String" />
+		<property name="fromDate" type="java.lang.String" />
+		<property name="toDate" type="java.lang.String" />
+		<property name="pageFlag" type="java.lang.String" />
+		<property name="orderType" type="java.lang.String" />
+		<property name="sortByDateType" type="java.lang.String" />
+		<property name="productLinesFilter" type="java.util.List&lt;String&gt;" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryViewData">
+		<property name="orderNum" type="java.lang.String" />
+		<property name = "deliveryLineItems" type = "java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderHistoryDeliveryData>"/>
+		<property name="customerPO" type="java.lang.String" />
+		<property name="orderDate" type="java.lang.String" />
+		<property name="soldToName" type="java.lang.String" />
+		<property name="lineNumber" type="java.lang.String" />
+		<property name="partNumber" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="qty" type="java.lang.String" />
+		<property name="status" type="java.lang.String" />
+		<property name="courier" type="java.lang.String" />
+		<property name="shipDate" type="java.lang.String" />
+		<property name="shipTo" type="java.lang.String" />
+		<property name="trackingNumber" type="java.lang.String" />
+		<property name="url" type="java.lang.String" />
+		
+        <property name="invoices" type="java.lang.String" />
+        <!-- New -->
+        <property name="shippingMethod" type="java.lang.String"/>
+		<property name="requestedShipDate" type="java.lang.String"/>
+		<property name="shippingAddress" type="java.lang.String"/>
+		<property name="totNetPrice" type="java.lang.String"/>
+		<property name="netPrice" type="java.lang.String" />
+		<property name="currency" type="java.lang.String" />
+		<property name="uom" type="java.lang.String" />
+		<property name="createdBy" type="java.lang.String" />
+		<property name = "localizedOrderDate" type="java.lang.String"/>
+		<property name = "localizedShipDate" type="java.lang.String"/>
+		<property name = "localizedReqDate" type="java.lang.String"/>
+		<property name = "actShpDate" type="java.lang.String"/>
+		<property name = "geFromDate" type="java.lang.String"/>
+		<property name = "reqShipDate" type="java.lang.String"/>
+		<property name = "productHeirarchy" type="java.lang.String"/>
+		<property name="authAmt" type="java.lang.String"/>
+		<property name="authDate" type="java.lang.String"/>
+		<property name="settlAmt" type="java.lang.String"/>
+		<property name="settlDate" type="java.lang.String"/>
+		<property name="settlStat" type="java.lang.String"/>
+		<property name="incoTerm" type="java.lang.String"/>
+		<property name="configurable" type="java.lang.Boolean"/>
+		<property name="entryNumber" type="java.lang.Integer"/>
+		<property name="lastFormDate" type="java.lang.String"/>
+		<property name="oldNetPrice" type="java.lang.String"/>
+		<property name="vcFullyConfigurepartNumber" type="java.lang.String"/>
+	</bean>
+	<bean class="com.bhge.facades.order.data.OrderErrorData">
+		<property name="wrongCustomer" type="java.lang.Boolean"/>
+		<property name="wrongStore" type="java.lang.Boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryDeliveryData">
+		<property name="orderNum" type="java.lang.String" />
+		
+		<property name="soldToName" type="java.lang.String" />
+		<property name="lineNumber" type="java.lang.String" />
+		<property name="delivery" type="java.lang.String" />
+		<property name="deliveryLine" type="java.lang.String" />
+		<property name="Quantity" type="java.lang.String" />
+		<property name="status" type="java.lang.String" />
+		<property name="courier" type="java.lang.String" />
+		<property name="shipDate" type="java.lang.String" />
+		<property name="shipTo" type="java.lang.String" />
+		<property name="trackingNumber" type="java.lang.String" />
+		<property name="url" type="java.lang.String" />
+		<property name="localizedShipDate" type="java.lang.String"/>
+		<property name="lastFormDate" type="String"/>
+		<property name="oldNetPrice" type="String"/>
+	</bean>
+
+
+	
+	<bean class="com.bhge.facades.order.data.BHGEOrderHistoryData" extends="de.hybris.platform.commercefacades.order.data.OrderHistoryData">
+		<property name = "soldTo" type="java.lang.String"/>
+		<property name = "lineData" type = "java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderHistoryViewData>"/>
+		<property name = "orderType" type="java.lang.String"/>
+		<property name = "salesRegion" type="java.lang.String"/>
+		<property name = "distributionChannel" type="java.lang.String"/>
+		<property name = "division" type="java.lang.String"/>
+		<!-- New -->
+		<property name = "headerShippingMethod" type="java.lang.String"/>
+		<property name = "headerRequestedShipDate" type="java.util.Date"/>
+		<property name = "headerShippingAddress" type="java.lang.String"/>
+		<property name = "soldToAddress" type="java.lang.String"/>
+		<property name = "isCreditCardOrder" type="boolean"/>
+		<property name = "totalNetPrice" type="java.lang.String"/>
+		<property name = "currency" type="java.lang.String" />
+		<property name = "createdBy" type="java.lang.String" />
+		<property name = "incoterm" type="java.lang.String" />
+		<property name = "salesArea" type="java.lang.String" />
+		<property name = "bkID" type="java.lang.String" />
+		<property name = "blkText" type="java.lang.String" />
+		<property name = "orderStatus" type="java.lang.String" />
+		<property name = "orderCount" type="java.lang.Integer" />
+		<property name = "blockCount" type="java.lang.Integer" />
+		<property name = "awaitingCount" type="java.lang.Integer" />
+		<property name = "processingCount" type="java.lang.Integer" />
+		<property name = "shippedCount" type="java.lang.Integer" />
+		<property name = "awaitingReceiptCount" type="java.lang.Integer" />
+		<property name = "inProcessCount" type="java.lang.Integer" />
+		<property name = "scrappedCount" type="java.lang.Integer" />
+		<property name = "deliveredCount" type="java.lang.Integer" />
+		<property name = "totalProductCount" type="java.lang.Integer" />
+		<property name = "totalRepairCount" type="java.lang.Integer" />
+		<property name = "repairBlockCount" type="java.lang.Integer" />
+		 
+		<property name = "paymentTerm" type="java.lang.String" />
+		<property name = "lastUpdated" type="java.util.Date"/>
+		<property name="purchaseOrderDate" type="java.util.Date" />
+		<property name = "actionText" type="java.lang.String" />
+		<property name = "productLine" type="java.lang.String" />
+		<property name="orderDate" type="java.lang.String" />
+		<property name="lastUpdatedDate" type="java.lang.String" />
+		<property name="poDate" type="java.lang.String" />
+		<!-- US-465623 ADDING NEW ATTRIBUTES -->
+		<property name="authAmt" type="java.lang.String"/>
+		<property name="authDate" type="java.lang.String"/>
+		<property name="settlAmt" type="java.lang.String"/>
+		<property name="settlDate" type="java.lang.String"/>
+		<property name="settlStat" type="java.lang.String"/>
+		<property name="notificationDate" type="String"/>
+		<property name="oldAuthAmt" type="String"/>
+		<property name="oldAuthDate" type="String"/>
+		<property name="notifAuthAmt" type="String"/>
+		<property name="planSettleDate" type="String"/>
+		<property name="notifNetPrice" type="String"/>
+	</bean>
+
+	<bean class="com.bhge.facades.order.data.OrderStatusRequestData">
+		<property name="orderType" type="String" />																	
+		<property name="customerNumber"	type="java.util.List&lt;String&gt;" />						<!--  + Filtering --> 
+			 <!-- Filtering -->	
+		<property name="fromDate" type="String"/>
+		<property name="toDate" type="String"/>
+		<property name="productLinesList" type="java.util.List&lt;String&gt;" />	
+		<property name="orderStatus" type="String" />
+			<!-- Searching -->
+		<property name="searchByValue" type="String" />										
+			<!-- Refresh -->
+		<property name="isRefreshedFlag" type="String" />	
+			<!-- Sort By -->
+		<property name="sortBy" type="String" />
+		<property name="pageSize" type="String" />
+		<property name="pageNumber" type="String" />
+
+		<property name="queryOrderNo" type="String" />
+		<property name="queryText" type="String" />
+		<property name="queryType" type="String" />
+		<property name="queryEmail" type="String" />
+		<property name="queryStatus" type="String" />
+		<!-- Quick Order -->
+		<property name="poNumber" type="String" />
+		<property name="orderNumber" type="String" />
+		<!-- Quick Order -->												
+		
+		<property name="googleCaptcha" type="String"/>
+		<property name="account" type="java.lang.String"/>
+		<property name="excludeDefaultSoldTo" type="boolean"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.data.BHGEOrderTypeData">
+	      <property name="code" type="java.lang.String" />
+	      <property name="name" type="java.lang.String" />
+    </bean>
+
+    <bean class="com.bhge.facades.order.attachments.BHGESalesOrderAttachmentsData">
+		<property name="invoices" type="java.util.List&lt;java.lang.String&gt;" />
+		<property name="customInvoices" type="java.util.List&lt;java.lang.String&gt;" />
+		<property name="deliveryNotes" type="java.util.List&lt;java.lang.String&gt;" />
+		<property name="salesOrderAck" type="java.util.List&lt;java.lang.String&gt;" />
+		<property name="purchaseOrders" type="java.util.List&lt;java.lang.String&gt;" />
+		<property name="soaDocType" type="java.lang.String" />
+		<property name="soaFileName" type="java.lang.String" />
+		<property name="invDocType" type="java.lang.String" />
+		<property name="invFileName" type="java.lang.String" />
+		<property name="customInvDocType" type="java.lang.String" />
+		<property name="customInvFileName" type="java.lang.String" />
+		<property name="delNoteDocType" type="java.lang.String" />
+		<property name="delNoteFileName" type="java.lang.String" />
+		<property name="poDocType" type="java.lang.String" />
+		<property name="poFileName" type="java.lang.String" />
+		<property name="expdfdata" type="java.lang.String" />
+	</bean>
+    
+    <!-- Availability form Data -->
+	
+	<bean class="com.bhge.facades.data.BHGEAvailabilityCheckFormData">
+		<property name="defaultShipTo" type="java.lang.String"/>
+		<property name="endCustomerRefNum" type="java.lang.String"/>
+		<property name="partNum" type="java.lang.String"/>
+		<property name="qty" type="java.lang.Integer"/>
+		<!-- <property name="validatedBulkUploadData" type="java.util.List&lt;com.bhge.facades.data.BHGEAvailabilityCheckEntryData&gt;"/> -->
+	</bean>
+	
+	<!-- CustomerData -->
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="isPrivateFolderExists" type="java.lang.Boolean" />
+	</bean>
+
+	<bean class="com.bhge.facades.user.data.BHGECustomerData"
+		extends="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<description>DTO for GEEdgeCustomerData</description>
+
+
+   <!-- Commenting this fields as thos anre not used in release1 -->
+		<!-- <property name="orderStatusFreq" type="com.hybris.ge.edge.core.enums.EmailFrequency" />
+		<property name="promiseDateFreq" type="com.hybris.ge.edge.core.enums.EmailFrequency" /> -->
+		<property name="orderConfirmEmail" type="Boolean" />
+		<!-- <property name="orderStatusEmail" type="Boolean" />
+		<property name="promiseDateChangeEmail" type="Boolean" /> -->
+		<property name="defaultSoldTo" type="String" />
+		<property name="defaultShipTo" type="String" />
+		<property name="b2bUnitModelList"
+			type="java.util.Set&lt;de.hybris.platform.b2b.model.B2BUnitModel>" />
+		<property name="addressData"
+			type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData>" />
+		<property name="sendSalesOrderEmail" type="String" />
+		<property name="sendShippingNotificationEmail" type="String" />
+		<property name="sendInvoiceEmail" type="String" />
+		<property name="deliveryCarrier" type="String" />
+		<property name="deliveryOptions" type="String" />
+		<property name="deliveryAccount" type="String" />
+		<property name="deliveryPoint" type="String" />
+		<property name="isShipCompleteOrder" type="Boolean" />
+		<property name="defaultSalesArea" type="String" />
+		<property name="salesAreaList" 
+				type="java.util.Set&lt;de.hybris.platform.b2b.model.B2BUnitModel>" />
+		<property name="shippingContactName" type="String" />
+		<property name="shippingContactNumber" type="String" />
+		<property name="lastLogin" type="java.lang.String" />
+		<property name="defaultCurrencyFormat" type="com.bhge.facades.user.data.BHGECurrencyFormatData" /> 
+		<property name="ecommerceFlag" type="java.lang.String" />
+		<property name="recentSalesArea" type="com.bhge.facades.data.SalesAreaData"></property>
+		<property name="dsRoles" type="java.lang.String"/>
+		<property name="invoiceContact" type="java.lang.String" />
+		<property name="invoicePhone" type="java.lang.String" />
+		<property name="soaContact" type="java.lang.String" />
+		 <property name="soaPhone" type="java.lang.String" />
+		<property name="visibleCategories" type="java.util.List&lt;String&gt;"/>
+        <property name="useraccessibleCategories" type="java.util.List&lt;String&gt;"/>
+		<property name="accessCSRProductLines" type="java.util.List&lt;String&gt;"/>
+		<property name="loginDisabled" type="java.lang.Boolean" />
+		<property name="userType" type="String"/>
+		<property name="isInternalUser" type="Boolean" />
+		<property name="editedBy" type="String"/>
+		<property name="editedTime" type="String"/>
+		<property name="productLineMap" type="java.util.Map&lt;String,String>"/>
+        <property name="orderBlockEmailNotification" type="java.lang.Boolean" />
+        <property name="orderBlockReleaseEmailNotification" type="java.lang.Boolean" />
+        <property name="orderShipDateChanged" type="java.lang.Boolean" />
+	</bean>
+	
+	<!-- used in CustomerPopulator -->
+	
+	<bean class="de.hybris.platform.commercefacades.enums.data.ShippingCarrierMethodData">
+	      <property name="code" type="java.lang.String" />
+	      <property name="name" type="java.lang.String" />
+	      <property name="shippingCharge" type="java.lang.String" />
+    </bean>
+    
+       
+    <!-- used in CartDataConverter -->
+    
+    <bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+    	<property name="appliedCouponCodes" type="java.util.List&lt;String>"/>
+    	<property name="endCustomerPo" type="java.lang.String" />
+		<property name="endUserNumber" type="java.lang.String" />
+		<property name="cartType" type="java.lang.String" />
+		<property name="deliveryAccount" type="java.lang.String" />
+		<property name="customerPO" type="java.lang.String" />
+		<property name="notes" type="java.lang.String" />
+		<property name="shipToContactName" type="java.lang.String" />
+		<property name="shipToContactPhone" type="java.lang.String" />
+		<property name="orderConfirmation" type="java.lang.String" />
+		<property name="shipNotificationEmail" type="java.lang.String" />
+		<property name="invoiceEmail" type="java.lang.String" />
+		<property name="isGovernment" type="java.lang.Boolean" />
+		<property name="isExport" type="java.lang.Boolean" />
+		<property name="planToExport" type="java.lang.String" />
+		<property name="exportAddress" type="java.lang.String" />
+		<property name="deliveryOptions" type="java.lang.String" />
+		<property name="deliveryCarrier" type="java.lang.String" />
+		<property name="deliveryCarrierName" type="java.lang.String" />
+		<property name ="shippingRemarks" type="java.lang.String"/>
+		<property name ="isShipCompleteOrder" type="Boolean"/>
+		<property name="showATPMessage" type="java.lang.Boolean"/>
+		<property name="showDiscountMessage" type="java.lang.Boolean"/>
+		<property name="isNuclearOppurtunity" type="java.lang.Boolean"/>
+		<property name="isSpecialDiscountPresent" type="java.lang.Boolean"/>
+		<property name="specialDiscountCode" type="java.lang.String"/>
+		<property name="attachments" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+		<property name="isAttachmentMoved" type="Boolean" />
+		<property name="attachmentName" type="java.lang.String" />
+		<property name="eucAttachmentName" type="java.lang.String" />
+		<property name="poAttachmentName" type="java.lang.String" />
+		<property name="poAttachmentFiles" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+		<property name="requestedHdrDeliveryDateFilm" type="java.lang.String" />
+		<property name="requestedHdrDeliveryDate" type="java.lang.String" />
+		<property name="requestedHdrDeliveryDateFormatted" type="java.lang.String" />
+		<property name="totalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="shipmentCost" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="longestLeadTimeFilm" type="java.lang.String"/>
+		<property name="longestLeadTime" type="java.lang.String" />
+		<property name="deliveryPoint" type="java.lang.String" />
+		<property name="sdsCriteria" type="java.lang.String" />
+		<property name="appliedCoupons" type="java.util.List&lt;String&gt;" />
+		<property name="isMinOrderQtyProductExists" type="Boolean" />
+		<property name="silverClauseTotalPrice" type="java.lang.Double"/>
+		<property name="silverClauseTotal" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="connectivityerror" type="java.lang.String"/>
+		<property name="endUserCategory" type="java.lang.String" />
+		<property name="alternateContactName" type="java.lang.String" />
+		<property name="alternateContactNumber" type="java.lang.String" />
+		<property name="alternateContactEmail" type="java.lang.String" />
+		<property name="isBuyer" type="java.lang.Boolean" />
+		<property name="commerceType" type="java.lang.String" />
+		<property name="returnNumber" type="java.lang.String" />
+		<property name="enduserAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="saleaAreaName" type="java.lang.String" />
+		<property name="saleaAreaID" type="java.lang.String" />
+		<property name="currencyIso" type="java.lang.String" />
+		<property name="currencySymbol" type="java.lang.String" />
+		<property name="returnPo" type="com.bhge.facades.data.ReturnPoData" />
+		<property name="returnPoAttachment" type="java.util.List&lt;String&gt;" />
+		<property name="returnLocation" type="java.lang.String" />
+		<property name="totalReturnPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="totalReturnItems" type="java.lang.Long" />
+		<property name="paymentAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="payerAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+        <property name="minOrderValue" type="java.lang.String" />
+        <property name="isMinValuePresent" type="java.lang.Boolean" />
+		
+		<!--Adding since it is there in checkout controller in model attribute  -->
+		<property name="shipToIncotrmName" type="java.lang.String" />
+		<property name="shipToIncoterm1" type="java.lang.String" />
+		<property name="shipToIncoterm2" type="java.lang.String" />
+		<property name="soldToAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<!-- not sure about deliveryMode -->
+		<property name="returnsCartData" type="java.util.List&lt;com.bhge.facades.rma.data.RmaReturnCartData>"/>
+		<property name="totalReturnCartPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="totalReturnCartPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="locationMap" type="java.util.Map&lt;String,Integer>" />
+		<property name="isQuoteEnable" type="java.lang.Boolean"/>
+		<property name="redirectToEditQuote" type="java.lang.Boolean"/>
+		<property name="quoteId" type="java.lang.String" />
+		<property name="rmaData" type="com.bhge.facades.data.CheckoutRmaData"/>
+		<property name="invoiceContactName" type="java.lang.String" />
+		<property name="invoiceContact1Num" type="java.lang.String" />
+		<property name="orderConfirmationName" type="java.lang.String" />
+		<property name="orderConfirmationNum" type="java.lang.String" />
+		<property name="invoiceContact" type="java.lang.String" />
+		<property name="invoicePhone" type="java.lang.String" />
+		<property name="soaContact" type="java.lang.String" />
+		<property name="soaPhone" type="java.lang.String" />
+		<property name="largestFilmLeadtime" type="java.lang.Integer"/>
+		<property name="largestNonFilmLeadtime" type="java.lang.Integer"/>
+        <property name="surCharge" type="java.lang.String" />
+		<property name="earlyShipment" type="boolean"/>
+		<property name="orderPreference" type="java.lang.Boolean"/>
+    </bean>
+    
+    
+	
+	<!-- used in CartConverter -->
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+        <property name="discountPrice" type="java.lang.String"/>
+        <property name="discountPercentage" type="java.lang.String"/>
+        <property name="estimatedShipDates" type="java.util.List&lt;String>"/>
+        <property name="notes" type="String" />
+        <property name="isEngineeringHold" type="java.lang.Boolean" />
+        <property name="entryNotes" type="java.lang.String"/>
+        
+        <!-- Added for Price and Availability Check -->
+		<property name="requestedDeliveryDate" type="java.util.Date"/>
+		<property name="plant" type="java.lang.String"/>
+		<property name="availableQuantity" type="java.lang.String"/>
+		<property name="availabilityDetails" 
+					type="java.util.List&lt;com.bhge.facades.BHGEAvailabilityDetailsData&gt;"/>
+		<property name="stockDetails" 
+					type="java.util.Set&lt;com.bhge.facades.BHGEStockDetailsData&gt;"/>
+		<property name="requestedDelvDate" type="java.lang.String"/>
+		<property name="plantName" type="java.lang.String"/>
+		
+		<!-- Added for Coupons & Promotions -->
+		<property name="couponDiscount" type="java.lang.Double"/>
+		<property name="couponDiscountPercentage" type="java.lang.Double"/>
+		<property name="fixedPricefromCoupon" type="java.lang.Double"/>
+		<!-- Same Day Shipment -->
+		<property name="isSameDayShipEnabled" type="java.lang.Boolean" />
+		<property name="isSameDayShipChecked" type="java.lang.Boolean" />
+		<property name = "shipmentCost" type = "java.lang.Double"/>
+		<property name="sdsCriteria" type="java.lang.String" />
+		<property name="isPlantEnabled" type="java.lang.Boolean" />
+		<property name="isDomesticPlant" type="java.lang.Boolean" />
+		<property name="isCutOffTime" type="java.lang.Boolean" />
+		<property name="isQtyAvailable" type="java.lang.Boolean" />
+		<property name = "netTotal" type = "java.lang.Double"/>
+		<property name="subTotalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="isListprice" type="java.lang.Boolean"/>
+		<property name="shipmentCostStr" type="java.lang.String"/>
+		<property name="couponDiscountStr" type="java.lang.String"/>
+		<property name="isDuplicateLine" type="java.lang.Boolean"/>
+		<property name="entryLevelSellingPriceStr" type="java.lang.String"/>
+		<property name="estimatedShipQtys" type="java.util.List&lt;String>"/>
+		<property name="endUserNumber" type="java.lang.String" />
+		<property name="productType" type="java.lang.String" />
+		<property name="vcOptionsPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="silverClausePrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="silverClausePricePercentage" type="java.lang.String"/>
+		<property name="listPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netSellingPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netSellingPriceStr" type="java.lang.String" />
+		<property name="componentPriceList" type="java.util.List&lt;com.bhge.facades.VCComponentPriceData&gt;" />
+		<property name="OffPriceData" type="com.bhge.facades.product.data.OffPriceData" />	
+		<!-- Min Order Qty -->
+		<property name="minOrderQtyError" type="Boolean" />
+		<property name="uom" type="java.lang.String" />
+		<property name="lineLevelPrice" type="java.lang.Double" />
+		<!-- for rma -->
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="partName" type="java.lang.String"/>
+		<property name="unitSelling" type="java.lang.Double"/>
+		<property name="netSelling" type="java.lang.Double"/>
+		<property name="unitList" type="java.lang.Double"/>
+		<property name="silverClause" type="java.lang.Double"/>
+		<property name="silverClausePercentage" type="java.lang.String"/>
+		<property name="returnLocation" type="java.lang.String" />
+		
+		
+		<property name="offeringData" type="java.lang.String" />
+		
+		<property name="unitListRMA" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="unitSellingRMA" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="netSellingRMA" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="serviceOfferingText" type="java.lang.String" />
+		<property name="parentEntryNumber" type="java.lang.Integer"/>
+		<property name="estShipData" type="java.util.List&lt;com.bhge.facades.product.data.EstimateShipData>"/>
+		<property name="unitSellingFormattedValue" type="java.lang.String"/>
+		<property name="leadTime" type="java.lang.Integer"/>
+		<property name="fullyConfigurePartNumber" type="java.lang.String"/>
+		<property name="referenceNumber" type="java.lang.String"/>
+		<property name="tagInformation" type="java.lang.String"/>
+		<property name="accessoryEntryNumbers" type="java.lang.String"/>
+		<property name="dummyPartNumber" type="java.lang.String"/>
+		<property name="longConfiguration" type="java.lang.String"/>
+		<property name="longConfigEntry" type="java.lang.Boolean"/>
+		<property name="dummyProductDescription" type="java.lang.String"/>
+		<property name="actualPartNumber" type="java.lang.String"/>
+		<property name="configurationValid" type="java.lang.Boolean"/>
+		<property name="dummyProduct" type="java.lang.Boolean"/>
+
+	</bean>
+     
+      <bean class="com.bhge.facades.order.data.BHGEOrderEntryData">
+		<property name="discountPrice" type="String" />	
+		<property name="estShipDate" type="String" />
+	  </bean>
+	
+	<bean class="com.bhge.facades.BHGEAvailabilityDetailsData">
+    	<property name="plant" type="java.lang.String" />
+    	<property name="committedDate" type="java.lang.String"/>
+    	<property name="committedQuantity" type="java.lang.String" />
+    	<property name="actualStockQty" type="java.lang.String"/>
+    	<property name="isDefaultPlant" type="java.lang.Boolean"/>
+    	<property name="plantName" type="java.lang.String"/>
+    </bean>
+    
+    <bean class="com.bhge.facades.VCComponentPriceData">
+    	<property name="name" type="java.lang.String" />
+    	<property name="description" type="java.lang.String" />
+    	<property name="currency" type="java.lang.String"/>
+    	<property name="componentPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+    	<property name="totalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+    </bean>
+    
+    <bean class="com.bhge.facades.BHGEStockDetailsData">
+    	<property name="plant" type="java.lang.String" />
+    	<property name="actualStockQty" type="java.lang.String"/>
+    	<property name="material" type="java.lang.String"/>
+    	<property name="plantName" type="java.lang.String"/>
+		<property name="leadtime" type="java.lang.Integer"/>
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.user.data.CountryData">
+    	<property name="countryName" type="java.lang.String" />
+		<property name="risk" type="java.lang.Boolean" />
+		<property name="sanctioned" type="java.lang.Boolean" />
+    </bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.CountryWsDTO">
+		<property name="risk" type="Boolean">
+			<description>Risk</description>
+		</property>
+		<property name="sanctioned" type="Boolean">
+			<description>Sanctioned</description>
+		</property>
+	</bean>
+    
+ <bean class="de.hybris.platform.commercefacades.quote.data.QuoteData">
+    	<property name="userName" type="java.lang.String" />
+    	<property name="company" type="java.lang.String" />
+    	<property name="contactNumber" type="java.lang.String" />
+    	<property name="emailAddress" type="java.lang.String" />
+    	<property name="address1" type="java.lang.String" />
+    	<property name="address2" type="java.lang.String" />
+    	<property name="country" type="java.lang.String" />
+    	<property name="region" type="java.lang.String" />
+    	<property name="city" type="java.lang.String" />
+    	<property name="postalCode" type="java.lang.String" />
+    	<property name="emailtype" type="java.lang.String" />
+		<!-- End user address details -->
+		<property name="endUserType" type="java.lang.String" />
+		<property name="endUserCompanyName" type="java.lang.String" />
+    	<property name="endUserLine1" type="java.lang.String" />
+    	<property name="endUserLine2" type="java.lang.String" />
+    	<property name="endUserTownCity" type="java.lang.String" />
+    	<property name="endUserRegionIso" type="java.lang.String" />
+    	<property name="endUserRegionName" type="java.lang.String" />
+    	<property name="endUserPostcode" type="java.lang.String" />
+    	<property name="endUserCountryIso" type="java.lang.String" />
+    	<property name="errorCode" type="java.lang.String" />
+    	<property name="cartCode" type="java.lang.String" />
+    </bean>	
+
+    <bean class="com.bhge.facades.EndUserTypeData">
+        <property name="code" type="java.lang.String" />
+    	<property name="name" type="java.lang.String" />
+    </bean>
+    
+    <bean class="com.bhge.facades.EndUserTypeDataList">
+		<property name="endUserTypeList"
+			type="java.util.List&lt;com.bhge.facades.EndUserTypeData>" />
+	</bean>
+
+		<bean class="com.bhge.servicelayer.ordersplit.CommerceSplitOrderParameters">
+		<property name="parentCart" type="de.hybris.platform.core.model.order.CartModel">
+            <description>The parent CartModel to be split</description>
+        </property>
+		<property name="enableHooks" type="boolean"/>
+	</bean>
+	
+	<bean class="com.bhge.servicelayer.ordersplit.CommerceSplitOrderResult">
+		<property name="childCarts" type="java.util.List&lt;de.hybris.platform.core.model.order.CartModel>">
+            <description>The CartModels that are split</description>
+        </property>
+	</bean>
+
+	<bean class="com.bhge.facades.user.data.BHGESoldTo">
+		<description>DTO for SoldToData</description>
+		<property name="soldToId" type="String" />
+		<property name="soldToName" type="String" />
+		<property name="zipCode" type="String" />
+		<property name="address" type="String" />
+		<property name="currency" type = "de.hybris.platform.commercefacades.storesession.data.CurrencyData"/>
+		<property name="baseStoreName" type="java.lang.String" />
+        <property name="salesAreaMessage" type="java.lang.String" />
+        <property name="active" type="java.lang.Boolean" />
+        <property name="salesAreaAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+	</bean>
+	
+	 <bean class="com.bhge.facades.address.BHGEShippingAddressFormData" extends="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="countryName" type="String" />
+		<property name="stateName" type="String" />
+		<!--<property name="deliveryPoint" type="String" />
+		<property name="email" type="String" />-->
+		<property name="fromEmail" type="String" />
+		<property name="fromName" type="String" />
+		<property name="emailSubject" type="String" />
+		<property name="customerName" type="String" />
+		<property name="endUserType" type="String" />
+	</bean>
+   
+   	<bean class="de.hybris.platform.commercefacades.enums.data.ContactUsSettingsData">
+	      <property name="productLine" type="java.lang.String" />
+	      <property name="region" type="java.lang.String" />
+		  <property name="subRegion" type="java.lang.String" />
+	      <property name="country" type="java.lang.String" />
+	      <property name="salesArea" type="java.lang.String" />
+	      <property name="email" type="java.lang.String" />
+	      <property name="phoneNum" type="java.lang.String" />
+	      <property name="workingHours" type="java.lang.String" />
+	      <property name="contactUsCommerceType" type="java.lang.String" />
+	      <property name="commerceTypeValue" type="java.lang.String" />	      
+    </bean>
+    
+    <bean class="de.hybris.platform.commercefacades.order.data.OrderData"
+		extends="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<!--<property name="deliveryAccount" type="java.lang.String" />
+		<property name="commerceType" type="java.lang.String" />
+		<property name="notes" type="java.lang.String" />
+		<property name="shipToContactName" type="java.lang.String" />
+		<property name="shipToContactPhone" type="java.lang.String" />
+		<property name="orderConfirmation" type="java.lang.String" />
+		<property name="shipNotificationEmail" type="java.lang.String" />
+		<property name="invoiceEmail" type="java.lang.String" />
+		<property name="isGovernment" type="java.lang.Boolean" />
+		<property name="isExport" type="java.lang.Boolean" />
+		<property name="planToExport" type="java.lang.String" />
+		<property name="exportAddress" type="java.lang.String" />
+		<property name="deliveryOptions" type="java.lang.String" />
+		<property name="deliveryCarrier" type="java.lang.String" />-->
+		<property name="OrderNum" type="java.lang.String" />
+		<property name="OrderDate" type="java.lang.String" />
+		<property name="SoldToName" type="java.lang.String" />
+		<!--<property name = "isShipCompleteOrder" type="Boolean"/>
+		
+		<property name="isNuclearOppurtunity" type="java.lang.Boolean"/>
+		<property name="isSpecialDiscountPresent" type="java.lang.Boolean"/>
+		<property name="specialDiscountCode" type="java.lang.String"/>
+		<property name="deliveryPoint" type="java.lang.String"/>
+		<property name="attachments" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+		<property name="isAttachmentMoved" type="Boolean" />
+		<property name="attachmentName" type="java.lang.String" />
+		<property name="requestedHdrDeliveryDateFilm" type="java.lang.String" />
+		<property name="requestedHdrDeliveryDate" type="java.lang.String" />
+		<property name="totalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />-->
+		<property name="totalRmaListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<!--<property name="shipmentCost" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />-->
+		<property name="contactusEmail" type="java.lang.String" />
+		<property name="contactusPhone" type="java.lang.String" />
+		<!--<property name="cartType" type="java.lang.String" />-->
+		<!--<property name="endUserNumber" type="java.lang.String" />-->
+		<property name="soldToForOrder" type="java.lang.String" />
+		<property name="rmaNumber" type="java.lang.String" />
+		<property name="poAttachments" type="java.util.List&lt;java.lang.String>"/>
+		<property name="mediaBaseUrl" type="java.lang.String" />
+		<property name="rmaItemList" type="java.util.List&lt;com.bhge.facades.data.CheckoutRmaLineData&gt;"/>
+		<property name="incoterms" type="java.lang.String" />
+		<property name="paymentTrms" type="com.bhge.facades.PaymentTermsData"/>
+		<property name="ordersilverClause" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		
+	</bean>
+	
+	<bean class="com.bhge.facades.user.data.BHGEBulkUploadEntryData">
+		<description>DTO for Bulk upload modal</description>
+		<property name="partNum" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="unitPrice"
+			type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="quantity" type="java.lang.Integer" />
+		<property name="status" type="java.lang.String" />
+		<property name="productSNo" type="java.lang.String" />
+		<property name="configurationflag" type="java.lang.String" />
+		<property name="productImage" type="de.hybris.platform.commercefacades.product.data.ImageData" />
+		<property name="url" type="java.lang.String" />
+		<property name="statusMap" type="java.util.Map&lt;java.lang.String, java.lang.Object>" />
+		<property name="isAddedToCart" type="java.lang.Boolean" />
+		<property name="productAccessData" type="com.bhge.facades.product.data.BHGEProductAccessData" />
+		<property name="formattedPrice" type="java.lang.String"/>
+		<property name="priceAvailabilityData" type="com.bhge.facades.user.data.BHGEPriceAvailabilityEntryData"/>
+		<property name="configurable" type="java.lang.Boolean" />
+		<property name="actualPartNum" type="java.lang.String" />
+		<property name="dummyProduct" type="java.lang.Boolean" />
+		<property name="configurationValid" type="java.lang.Boolean" />
+		<property name="baseProductValid" type="java.lang.Boolean" />
+		<property name="dummyProductDescription" type="java.lang.String" />
+		<property name="configId" type="java.lang.String" />
+		<property name="dummyPartNum" type="java.lang.String" />
+		<property name="productType" type="java.lang.String" />
+		<property name="ecaCode" type="java.lang.String"/>
+		<property name="enduserAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="ecaPONumber" type="java.lang.String"/>
+        <property name="isCurrencyDiffFromCart" type="java.lang.Boolean" />
+	</bean>
+	<bean class="com.bhge.facades.user.data.BHGEPriceAvailabilityEntryData">
+		<description>DTO for Bulk upload modal</description>
+		<property name="partNum" type="java.lang.String" />
+		<property name="quantity" type="java.lang.Integer" />
+		<property name="productSNo" type="java.lang.String" />
+		<property name="leadTime" type="java.lang.Integer"/>
+		<property name="availabilityDetails"
+				  type="java.util.List&lt;com.bhge.facades.BHGEAvailabilityDetailsData&gt;"/>
+		<property name="stockDetails"
+				  type="java.util.List&lt;com.bhge.facades.BHGEStockDetailsData&gt;"/>
+		<property name="discountPrice" type="java.lang.String"/>
+		<property name="basePrice" type="java.lang.Double"/>
+		<property name="estShipData" type="java.util.List&lt;com.bhge.facades.product.data.EstimateShipData>"/>
+		<property name="vcOptionsPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="silverClausePrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="silverClausePricePercentage" type="java.lang.String"/>
+		<property name="listPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netSellingPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="subTotalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="componentPriceList" type="java.util.List&lt;com.bhge.facades.VCComponentPriceData&gt;" />
+		<property name="OffPriceData" type="com.bhge.facades.product.data.OffPriceData" />
+		<property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="yourPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="discountPercentage" type="java.lang.String"/>
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+	</bean>
+	
+	<bean class="com.bhge.facades.user.data.BHGEConfigPartNumbersData">
+		<description>DTO for Part Number details</description>
+		<property name="number" type="String" />
+		<property name="name" type="String" />
+		<property name="qty" type="String" />
+		<property name="unit" type="String" />
+		<property name="explosionLevel" type="String"/>
+		<property name="itemNumber" type="String"/>
+		<property name="listPrice" type="String"/>
+		<property name="leadTime" type="String"/>
+		<property name="countryOrigin" type="String"/>
+		<property name="countryName" type="String"/>
+		<property name="material" type="String"/>
+	</bean>
+	
+	<bean
+		class="com.bhge.facades.user.data.BHGEBulkUploadInputEntryData">
+		<description>DTO for Bulk upload modal left pane, all fields are Strings to tolerant errors </description>
+		<property name="lineNo" type="java.lang.String" />
+		<property name="partNum" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="unitPrice" type="java.lang.String" />
+		<property name="quantity" type="java.lang.String" />
+		<property name="shipToAddress" type="java.lang.String" />
+		<property name="requestedShipDate" type="java.lang.String" />
+		<property name="excelInputData" type="com.bhge.facades.user.data.BHGEExcelUploadInputEntryData" />
+	</bean>
+		<bean
+		class="com.bhge.facades.user.data.BHGEExcelUploadInputEntryData">
+		<description>DTO for Excel upload modal left pane, all fields are Strings to tolerant errors </description>
+		<property name="shipToCompanyName" type="java.lang.String" />
+		<property name="shipToAddress1" type="java.lang.String" />
+		<property name="shipToAddress2" type="java.lang.String" />
+		<property name="shipToCity" type="java.lang.String" />
+		<property name="shipToState" type="java.lang.String" />
+		<property name="shipToCountry" type="java.lang.String" />
+		<property name="shipToZipCode" type="java.lang.String" />
+		<property name="shipToDeliveryPoint" type="java.lang.String" />
+		<property name="shipToContactName" type="java.lang.String" />
+		<property name="shipComplete" type="java.lang.String" />
+		<property name="shippingMethod" type="java.lang.String" />
+		<property name="shippingCarrier" type="java.lang.String" />
+		<property name="deliveryAccount" type="java.lang.String" />
+		<property name="partnerPONumber" type="java.lang.String" />
+		<property name="endCustomerRefNo" type="java.lang.String" />
+		<property name="shippingRemarks" type="java.lang.String" />
+		<property name="orderAckEmail" type="java.lang.String" />
+		<property name="shipNotificationEmail" type="java.lang.String" />
+		<property name="invoiceEmail" type="java.lang.String" />
+		<property name="specialDiscount" type="java.lang.String" />
+		<property name="discountCode" type="java.lang.String" />
+		<property name="shipToContactPhone" type="java.lang.String" />
+		<property name="statusMap" type="java.util.Map" />
+		<property name="sapCustomerId" type="java.lang.String" />
+		<property name="requestedDeliveryDateheader" type="java.lang.String" />
+		<property name="validatedAddressList" 
+				type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData&gt;"></property>
+	</bean>
+   
+   <!-- Bulk Upload OCR -->
+     
+   <bean class="com.bhge.facades.user.data.BHGEBulkUploadListData">
+		<description>list of GEEdgeBulkUploadEntryData</description>
+		<property name="bulkUploadList"
+			type="java.util.List&lt;com.bhge.facades.user.data.BHGEBulkUploadEntryData>" />
+	</bean>
+	
+	<bean class="com.bhge.facades.data.BhgeExceptionData">
+		<property name="exceptionString" type="java.lang.String"/>
+		<property name="exceptionTime" type="java.lang.String"/>
+		<property name="customer" type="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="exceptionFromAddress" type="java.lang.String"/>
+		<property name="requestUrl" type="java.lang.String"/>
+		<property name="siteLanguage" type="java.lang.String"/>
+		<property name="browser" type="java.lang.String"/>
+		<property name="nodeId" type="java.lang.String"/>
+		<property name="environment" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData">
+		<property name="favorite" type="boolean"/>
+		<property name="salesAreaObjectList" type="java.util.List&lt;com.bhge.facades.data.BhgeSalesAreaObject>" />
+		<property name="recent" type="boolean"/>
+		<property name="mediaurl" type="java.lang.String" />
+		<property name="currencyIso" type="java.lang.String" />
+		<property name="currencySymbol" type="java.lang.String" />
+		<property name="salesAreaObjectDataList" type="java.util.List&lt;com.bhge.facades.data.BhgeSalesAreaObjectData>" />
+		<property name="currency" type ="de.hybris.platform.commercefacades.storesession.data.CurrencyData"/>
+		<property name="defaultUnit" type="boolean" />
+	</bean>
+	
+	<bean class="com.bhge.facades.data.BhgeSalesAreaObject">
+		<property name="salesAreaId" type="java.lang.String"/>
+		<property name="salesAreaName" type="java.lang.String"/>
+		<property name="active" type="boolean"/>
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.data.BhgeSalesAreaObjectData">
+		<property name="salesAreaId" type="java.lang.String"/>
+		<property name="salesAreaName" type="java.lang.String"/>
+		<property name="active" type="boolean"/>
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+        <property name="salesAreaMessage" type="java.lang.String"/>
+	</bean>
+		
+	<bean class="com.bhge.facades.data.BhgeSalesAreaObjectListData">
+		<property name="salesAreaObjects" type="java.util.List&lt;com.bhge.facades.data.BhgeSalesAreaObjectData>"/>
+	</bean>
+	
+	<bean class="com.bhge.core.search.solrfacetsearch.data.BHGESolrSearchQueryData" extends="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchQueryData">
+		<property name="filter" type="java.lang.String"/>
+		<property name="guestSalesArea" type="java.lang.String"/>
+	</bean>
+	
+<!-- 	<bean class="com.bhge.core.search.solrfacetsearch.data.BHGESolrSearchQueryData" extends="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchQueryData">
+		<property name="filter" type="java.lang.String"/>
+	</bean> -->
+
+	
+	<!-- RMA form Migration starts -->
+	<bean class="com.bhge.facades.rma.data.BHGEChemicalsDetailData">
+		<property name="chemicalName" type="java.lang.String"/>
+		<property name="un" type="java.lang.String"/>
+		<property name="isMsdnSupplied" type="java.lang.Boolean"/>
+		<property name="chemicalNotes" type="java.lang.String"/>
+	</bean>
+	<bean class="com.bhge.facades.rma.data.BHGEHazardousInfoData">
+		<property name="chemicalDetails" type="java.util.List&lt;com.bhge.facades.rma.data.BHGEChemicalsDetailData>"/>
+		<property name="hazardType" type="java.util.List&lt;java.lang.String>"/>
+		<property name="hazardInfo" type="java.lang.String"/>
+		<property name="declarationA" type="java.lang.Boolean"/>
+		<property name="declarationB" type="java.lang.Boolean"/>
+		<property name="decontaminated" type="java.lang.Boolean"/>
+		<property name="containsFluids" type="java.lang.Boolean"/>
+		<property name="isOther" type="java.lang.Boolean"/>
+		<property name="fluidText" type="java.lang.String"/>
+		<property name="otherText" type="java.lang.String"/>
+		<property name="partList" type="java.util.List&lt;com.bhge.facades.rma.data.BHGEHazardPartName>"/>
+		<property name="hazardFormAttachments" type="java.util.List&lt;java.lang.String>"/>
+		<property name="isHazardSaved" type="java.lang.Boolean"/>
+	</bean>
+	<bean class="com.bhge.facades.rma.data.BHGEHazardPartName">
+		<property name="partName" type="java.lang.String"/>
+		<property name="partCode" type="java.lang.String"/>
+</bean>
+	<bean class="com.bhge.facades.rma.data.BHGEAdditionalInfoData">
+		<property name="manufactureYear" type="java.lang.String"/>
+		<property name="warrantyStatement" type="java.lang.String"/>
+		<property name="asFoundReceived" type="java.lang.Boolean"/>
+		<property name="recommendedAccessories" type="java.lang.String"/>
+		<property name="serviceNotes" type="java.lang.String"/>
+		<property name="isAccessoryPresent" type="java.lang.Boolean"/>
+		<property name="formAttachments" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+		<property name="additionalAttachments" type="java.util.List&lt;java.lang.String>"/>
+		<property name="additionalAttachmentsFileSizes" type="java.util.List&lt;java.lang.String>"/>		
+	</bean>
+	<bean class="com.bhge.facades.rma.data.BHGEServiceOfferingsData">
+		<property name="offeringType" type="java.lang.String"/>
+		<property name="offeringCode" type="java.lang.String"/>
+		<property name="offeringPrice" type="java.lang.Double"/>
+		<property name="offeringDiscount" type="java.lang.Double"/>
+		<property name="offeringText" type="java.lang.String"/>
+		<property name="problemDescription" type="java.lang.String"/>
+		<property name="otherDetails" type="java.lang.String"/>
+		<property name="offeringValidFlag" type="java.lang.String"/>
+		<property name="availableSitesList" type="java.util.List&lt;com.bhge.facades.rma.data.AvailableSitesData>"/>
+		<property name="offeringLongText" type="java.lang.String"/>
+		<property name="offeringLongTextConfirmation" type="java.lang.String"/>
+	</bean>
+	<bean class="com.bhge.facades.rma.data.BHGERmaFormData" extends="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<!--<property name="partNumber" type="java.lang.String"/>-->
+		<property name="serialNumber" type="java.util.List&lt;java.lang.String>"/>
+		<property name="productDetails" type="java.lang.String"/>
+		<property name="problemDescription" type="java.lang.String"/>
+		<property name="pricingInfo" type="java.lang.String"/>
+		<property name="isComplete" type="java.lang.Boolean"/>
+		<property name="returnToSiteId" type="java.lang.Integer"/>
+		<property name="returnToSiteName" type="java.lang.String"/>
+		<property name="lineNotes" type="java.lang.String"/>
+		<property name="serviceOfferings" type="java.util.List&lt;com.bhge.facades.rma.data.BHGEServiceOfferingsData>"/>
+		<property name="additionalInfo" type="com.bhge.facades.rma.data.BHGEAdditionalInfoData"/>
+		<property name="hazardousInfo" type="com.bhge.facades.rma.data.BHGEHazardousInfoData"/>
+		<property name="availableSites" type="java.util.List&lt;java.lang.String>"/>
+		<property name="planningSite" type="java.lang.String"/>	
+		<property name="currencyIsoCode" type="java.lang.String"/>
+		<property name="currencySymbol" type="java.lang.String"/>
+		<property name="userName" type="java.lang.String"/>
+		<property name="cartDate" type="java.lang.String"/>
+		<property name="availableSitesList" type="java.util.List&lt;com.bhge.facades.rma.data.AvailableSitesData>"/> 
+		<property name="cartCode" type="java.lang.String"/>
+		<property name="otherDetails" type="java.lang.String"/>
+		<property name="similarPart" type="java.lang.Boolean"/>
+		<property name="isAccessory" type="java.lang.Boolean"/>
+		<property name="accessoryPartNumbers" type="java.util.List&lt;java.lang.String>"/>
+		<property name="offeringDataList" type="java.util.List&lt;com.bhge.facades.rma.data.OfferingData>" />
+	</bean>
+	
+	
+	<bean class="com.bhge.facades.rma.data.BHGERmaFormEntryData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="serialNumber" type="java.util.List&lt;java.lang.String>"/>
+		<property name="quantity" type="java.lang.Long"/>
+		<property name="productDetails" type="java.lang.String"/>
+		<property name="problemDescription" type="java.lang.String"/>
+		<property name="pricingInfo" type="java.lang.String"/>
+		<property name="isComplete" type="java.lang.Boolean"/>
+		<property name="isAccessory" type="java.lang.Boolean"/>
+		<property name="similarPart" type="java.lang.Boolean"/>
+		<property name="accessoryProducts" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+		<property name="formattedPrice" type="java.lang.String"/>
+		<property name="returnToSiteName" type="java.lang.String"/>
+		<property name="lineNotes" type="java.lang.String"/>
+		<property name="serviceOfferings" type="java.util.List&lt;com.bhge.facades.rma.data.BHGEServiceOfferingsData>"/>
+		<property name="additionalInfo" type="com.bhge.facades.rma.data.BHGEAdditionalInfoData"/>
+		<property name="hazardousInfo" type="com.bhge.facades.rma.data.BHGEHazardousInfoData"/>
+		<property name="availableSitesList" type="java.util.List&lt;com.bhge.facades.rma.data.AvailableSitesData>"/>
+		<property name="price" type="java.lang.Double"/>
+		<property name="planningSite" type="java.lang.String"/>	
+		<property name="entryNumber" type="java.lang.Integer"/>
+		<property name="otherDetails" type="java.lang.String"/>
+		<property name="parentOfferingList" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.rma.data.BHGERmaData" extends="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+	<property name="rmaNumber" type="java.lang.String"/>
+	<property name="authorizedPaymentAmount" type="java.lang.String"/>
+	<property name="poDetails" type="java.lang.String"/>
+	<!--<property name="isBuyer" type="java.lang.Boolean"/>-->
+	<property name="IsManufacturer" type="java.lang.Boolean"/>
+	<property name="isExpediteRequest" type="java.lang.Boolean"/>
+	<property name="usTaxExempt" type="java.lang.Boolean"/>
+	<property name="usTaxExempId" type="java.lang.String"/>
+	<property name="shippingConatct1Name" type="java.lang.String"/>
+	<property name="shippingConatct1Number" type="java.lang.String"/>
+	<property name="shippingConatct2Name" type="java.lang.String"/>
+	<property name="carrierName" type="java.lang.String"/>
+	<property name="shippingMethod" type="java.lang.String"/>
+	<property name="userComments" type="java.lang.String"/>
+	<property name="rmaFormData" type="com.bhge.facades.rma.data.BHGERmaFormData"/>
+	<property name="rmaAttachments" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+	<property name="poDocs" type="java.util.List&lt;de.hybris.platform.core.model.media.MediaModel>"/>
+    <property name="hazardInfoDoc" type="de.hybris.platform.core.model.media.MediaModel"/>
+    <property name="entryNumber" type="java.lang.Integer"></property>
+	</bean>
+	
+	<bean class="com.bhge.facades.rma.data.WarrantyData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="partSerialNumber" type="java.lang.String"/>
+		<property name="equipmentNumber" type="java.lang.String"/>
+		<property name="warrantyDate" type="java.lang.String"/>
+		<property name="warrantyText" type="java.lang.String"/>
+    </bean>
+
+	<bean class="com.bhge.facades.rma.data.AccessoryData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="accessoryList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="serviceOffering" type="java.util.List&lt;java.lang.String>"/>
+		<property name="cartEntryNumber" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="com.bhge.facades.rma.data.RMAOrderRFCData">
+		<property name="rmaNumber" type="java.lang.String"/>
+		<property name="errorNumber" type="java.lang.String"/>
+		<property name="rfcStatusFlag" type="java.lang.String"/>
+	</bean>
+
+
+	<bean class="com.bhge.facades.rma.data.OfferingData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="serialNumber" type="java.lang.String"/>
+		<property name="planningPlant" type="java.lang.String"/>
+		<property name="dropShipPlant" type="java.lang.String"/>
+		<property name="alternatePlant" type="java.lang.String"/>
+		<property name="serviceOffering" type="java.lang.String"/>
+		<property name="offeringText" type="java.lang.String"/>
+		<property name="offeringTextConfirmation" type="java.lang.String"/>
+    </bean>
+	<bean class="com.bhge.facades.rma.data.MaterialData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="serialNumber" type="java.lang.String"/>
+	</bean>
+    <bean class="com.bhge.facades.rma.data.PricingData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="serialNumber" type="java.lang.String"/>
+		<property name="plant" type="java.lang.String"/>
+		<property name="currency" type = "de.hybris.platform.commercefacades.storesession.data.CurrencyData"/>
+		<property name="serviceOffering" type="java.lang.String"/>
+		<property name="unitPrice" type="java.lang.String"/>
+		<property name="unitDiscount" type="java.lang.String"/>
+    </bean>
+    <bean class="com.bhge.facades.rma.data.OfferDescriptionData">
+		<property name="serviceOffering" type="java.lang.String"/>
+		<property name="serviceOfferingDescription" type="java.lang.String"/>
+		<property name="serviceOfferingLongDesc" type="java.lang.String"/>
+		<property name="category" type="java.lang.String"/>
+		<property name="plants" type="java.util.List&lt;com.bhge.facades.rma.data.PlantServiceData>"/>
+		<property name="offeringText" type="java.lang.String"/>
+		<property name="offeringTextConfirmation" type="java.lang.String"/>
+    </bean>
+    
+     <bean class="com.bhge.facades.rma.data.BHGERmaOfferingData">
+		 <property name="MaterialDataTable"
+				   type="java.util.Map&lt;String,java.util.List&lt;com.bhge.facades.rma.data.MaterialData&gt;&gt;" />
+     <property name="warrantyDataTable" 
+			type="java.util.Map&lt;String,java.util.List&lt;com.bhge.facades.rma.data.WarrantyData&gt;&gt;" />
+			<property name="offeringsDataTable" 
+			type="java.util.Map&lt;String,java.util.List&lt;com.bhge.facades.rma.data.OfferingData&gt;&gt;" />
+     <property name="PricingDataTable" type="java.util.Map&lt;String,java.util.List&lt;com.bhge.facades.rma.data.PricingData&gt;&gt;"/>
+     <property name="OfferDescriptionDataTable" type="java.util.List&lt;com.bhge.facades.rma.data.OfferDescriptionData>"/>
+     <property name="ErrorDescriptionDataTable" type="java.util.Map&lt;String,java.util.List&lt;com.bhge.facades.rma.data.ErrorData&gt;&gt;"/>
+
+     </bean>
+      
+      <bean class="com.bhge.facades.rma.data.PlantServiceData">
+      	<property name="plantType" type="java.lang.String"/>
+		<property name="plantCode" type="java.lang.String"/>
+		<property name="price" type="java.lang.String"/>
+		<property name="discount" type="java.lang.String"/>
+      </bean>
+      
+      
+      <bean class="com.bhge.facades.rma.data.AvailableSitesData">
+      	<property name="siteId" type="java.lang.Integer"/>
+		<property name="siteName" type="java.lang.String"/>
+      </bean>
+      
+       <bean class="com.bhge.facades.rma.data.RmaReturnCartData">
+      	<property name="partNumber" type="java.lang.String"/>
+      	<property name="partName" type="java.lang.String"/>
+		<property name="quantity" type="java.lang.Long"/>
+		<property name="returnReason" type="java.lang.String"/>
+		<property name="cartEntryNumber" type="java.lang.Integer"/>
+		<property name="percentComplted" type="java.lang.String"/>
+		<property name="returnLocationId" type="java.lang.String"/> 
+		<property name="returnLocation" type="java.lang.String"/>
+		<property name="serialNoList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="productImageURL" type="java.lang.String"/>
+		<property name="offeringList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="availableSites" type="java.util.List&lt;java.lang.String>"/>
+		<property name="totalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="totalDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="total" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="unitSelling" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="isCompletedFlag" type="java.lang.Boolean"/>
+		<property name="currencyIsoCode" type="java.lang.String"/>
+		<property name="currencySymbol" type="java.lang.String"/>
+		<property name="parentEntryNumber" type="java.lang.String"/>
+		<property name="product" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="availableSitesList" type="java.util.List&lt;com.bhge.facades.rma.data.AvailableSitesData>"/>		
+      </bean>
+      
+       <bean class="com.bhge.facades.rma.data.ErrorData">
+		<property name="materialNumber" type="java.lang.String"/>
+		<property name="SerialNumber" type="java.lang.String"/>
+		<property name="zsrvOff" type="java.lang.String"/>
+		<property name="Werks" type="java.lang.String"/>
+		<property name="message" type="java.lang.String"/>
+    </bean>
+    
+    	<bean class="com.bhge.facades.product.data.RMAData">
+		<property name="materialNumber" type="String"/>
+		<property name="serialNumber" type="String"/>
+		<property name="srvOff" type="String"/>
+		<property name="plant" type="String"/>
+	</bean>
+	 	<bean class="com.bhge.facades.product.data.OffPriceData">
+		<property name="unitList" type="Double"/>
+		<property name="discount" type="Double"/>
+		<property name="unitSelling" type="Double"/>
+		<property name="netSelling" type="Double"/>
+	</bean>
+	 <bean class="com.bhge.facades.rma.data.BHGERMAMultipleFormData">
+		<property name="MATERIAL_NUM" type="String" />
+		<property name="SERIAL_NUM" type="String" />
+		<property name="SRV_OFF" type="String" />
+		<property name="PLANT" type="String" />		
+	</bean>
+	
+	 <bean class="com.bhge.facades.rma.data.BHGECheckoutFormData">
+		
+		<property name="planningSite" type="java.lang.String" />
+		<property name="deliveryAccountNo" type="java.lang.String" />
+		<property name="returnToSite" type="java.lang.String" />
+
+		<property name="exportAddress" type="java.lang.String" />	
+		<property name="orderConfMail" type="java.lang.String" />
+		<!-- not in Sumeet's Request -->
+		<property name="poNumber" type="java.lang.String" />
+		<property name="endCustomerPo" type="java.lang.String" />
+		
+		<property name="endCustomerRefNumber" type="java.lang.String" />
+		<property name="csrFlag" type="java.lang.Boolean" />
+		
+		<property name="carrier" type="java.lang.String" />
+		<property name="deliveryPoint" type="java.lang.String" />
+		<property name="shippingMethod" type="java.lang.String" />
+		<property name="reqShipDate" type="java.lang.String" />
+		
+		<property name="soldToAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		<property name="billingAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		
+		<property name="invoiceMail" type="java.lang.String" />
+		<property name="shippingRemarks" type="java.lang.String" />
+		<property name="shipNotification" type="java.lang.String" />
+		<property name="alternateContactEmail" type="java.lang.String" />
+		
+		<property name="shipContactName" type="java.lang.String" />
+		<property name="shipContactPhoneNumber" type="java.lang.String" />
+		<property name="alternateContactName" type="java.lang.String" />
+		<property name="alternateContactPhoneNumber" type="java.lang.String" />
+		
+
+		<property name="isGovernment" type="java.lang.Boolean" />
+		<property name="materialExport" type="java.lang.Boolean" />
+		<property name="isNuclear" type="java.lang.Boolean" />
+		<property name="isGovernmentBuyer" type="java.lang.String" />
+			
+		<property name="endUserName" type="java.lang.String" />
+		<property name="endUserCategory" type="java.lang.String" />
+		<property name="endUserAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		<property name="endUserCountry" type="com.bhge.facades.rma.data.BhgeCountryData" />
+		<property name="endUserState" type="com.bhge.facades.rma.data.BhgeStateData" />
+		<property name="endUserCity" type="java.lang.String" />
+		<property name="endUserZip" type="java.lang.String" />
+		<property name="orderDetails" type="java.util.List&lt;com.bhge.facades.rma.data.OrderDetails>" />
+		<property name="isSaveDraft" type="java.lang.Boolean" />
+
+		 <property name="orderPreference" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="com.bhge.facades.rma.data.OrderDetails">
+		<property name="CustomerNumber" type="String" />
+		<property name="RmaNumber" type="String" />
+		<property name="customerPO" type="String" />
+	</bean>
+     
+     	 <bean class="com.bhge.facades.rma.data.SavedCartData">
+		<property name="totalItems" type="java.lang.Integer" />
+		<property name="salesArea" type="String" />
+		<property name="salesAreaID" type="String" />
+		<property name="salesAreaUID" type="String" />
+		<property name="cartType" type="String" />
+		<property name="savedDate" type="String" />
+		<property name="savedCartName" type="String" />
+		<property name="cartPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="activeCart" type="String"/>
+		<property name="cartID" type="String"/>
+		<property name="currencyIsoCode" type="java.lang.String"/>
+		<property name="currencySymbol" type="java.lang.String"/>
+		<property name="changeSalesArea" type="java.lang.Boolean"/>
+	</bean>
+
+	 <bean class="com.bhge.facades.rma.data.CheckoutData">
+		<property name="cart" type="java.util.List&lt;com.bhge.facades.rma.data.CheckoutCartData>"/>
+		<property name="summary" type="com.bhge.facades.rma.data.CheckoutSummaryData"/>
+		<property name="cartCommerceType" type="String" />
+		
+	</bean>
+	<bean class="com.bhge.facades.rma.data.CheckoutCartData">
+		<property name="productId" type="String" />
+		<property name="description" type="String" />
+		<property name="imageUrl" type="String" />
+		<property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="quantity" type="java.lang.Long" />
+		<property name="orderPreference" type="java.lang.Boolean"/>
+	</bean>
+		<bean class="com.bhge.facades.rma.data.CheckoutSummaryData">
+		<property name="cartType" type="String" />
+		<property name="orderTotal" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="quantity" type="java.lang.Long" />
+		<property name="orderPreference" type="java.lang.Boolean"/>
+	</bean>
+
+	
+       <bean class="com.bhge.facades.rma.data.BhgeCountryData">
+		<property name="countryCode" type="java.lang.String" />
+		<property name="countryName" type="java.lang.String" />
+	</bean>
+	   <bean class="com.bhge.facades.rma.data.BhgeStateData">
+		<property name="stateCode" type="java.lang.String" />
+		<property name="stateName" type="java.lang.String" />
+	</bean>
+	   <bean class="com.bhge.facades.rma.data.BhgeAddrData">
+		<property name="firstName" type="java.lang.String" />
+		<property name="lastName" type="java.lang.String" />
+			<property name="companyName" type="java.lang.String" />
+		<property name="line1" type="java.lang.String" />
+			<property name="line2" type="java.lang.String" />
+		<property name="town" type="java.lang.String" />
+			<property name="regionName" type="java.lang.String" />
+		<property name="district" type="java.lang.String" />
+			<property name="postalCode" type="java.lang.String" />
+			<property name="countryName" type="java.lang.String" />
+	</bean>
+	<bean class="com.bhge.facades.rma.data.BHGEPrePopulateFormData">
+		<property name="soldToAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		<property name="billingAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		<property name="endUserAddress" type="com.bhge.facades.rma.data.BhgeAddrData" />
+		<property name="paymentTerms" type="java.lang.String" />
+		<property name="incoterm1" type="java.lang.String" />
+		<property name="incoterm2" type="java.lang.String" />
+		<property name="carrier" type="java.util.Map&lt;String,java.util.List&lt;java.lang.String&gt;&gt;" />
+		<property name="endUserCategory" type="java.util.List&lt;java.lang.String>" />
+		<property name="endUserCountry" type="java.util.List&lt;com.bhge.facades.rma.data.BhgeCountryData>" />
+		<property name="endUserProvince" type="java.util.List&lt;com.bhge.facades.rma.data.BhgeStateData>" />
+		</bean>
+		
+	<bean class="com.bhge.facades.data.BhgeActiveAccount">
+		<property name="salesAreaId" type="java.lang.String"/>
+		<property name="storeName" type="java.lang.String"/>
+		<property name="soldtoUid" type="java.lang.String"/>
+		<property name="soldtoName" type="java.lang.String"/>
+		<property name="mediaUrl" type="java.lang.String"/>
+	</bean>
+	<bean class="com.bhge.facades.data.CheckoutRmaData">
+		<property name="rmaNumber" type="java.lang.String"/>
+		<property name="poNumber" type="java.lang.String"/>
+		<property name="custNumber" type="java.lang.String"/>
+		<property name="lineItems" type="java.lang.String"/>
+		<property name="rmaLineData" type="java.util.List&lt;com.bhge.facades.data.CheckoutRmaLineData>" />
+	</bean>	
+	<bean class="com.bhge.facades.data.CheckoutRmaLineData">
+		<property name="partNumber" type="java.lang.String"/>
+		<property name="partName" type="java.lang.String"/>
+		<property name="partDescription" type="java.lang.String"/>
+		<property name="quantity" type="java.lang.Long"/>
+		<property name="unitSelling" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="unitList" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="netSelling" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="silverClause" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="silverClausePercentage" type="java.lang.String"/>
+		<property name="currencyIsoCode" type="java.lang.String"/>
+		<property name="currencySymbol" type="java.lang.String"/>
+		<property name="serviceOfferingText" type="java.lang.String" />
+	</bean>
+	<bean class="com.bhge.facades.data.ReturnPoData">
+		<property name="returnPoNum" type="java.lang.String" />
+		<property name="returnCustPoNum" type="java.lang.String" />
+		<property name="returnLocation" type="java.lang.String" />
+	</bean>
+	
+	
+	<!-- RMA form Migration ends -->
+
+	<!--Bulk Upload Start -->
+	<bean class="com.ds.facades.bulkOrder.DsBulkOrderValidateData">
+		<property name="productCode" type="String" />
+		<property name="quantity" type="String" />
+		<property name="requestedShipDate" type="String" />
+	</bean>
+
+	<bean class="com.ds.facades.bulkOrder.DsBulkOrderSuccessData">
+		<property name="partNumber" type="String" />
+		<property name="partName" type="String" />
+		<property name="quantity" type="String" />
+		<property name="requestedShipDate" type="String" />
+		<property name="productLine" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.ds.facades.bulkOrder.DsBulkOrderFailureData">
+		<property name="partNumber" type="String" />
+		<property name="partName" type="String" />
+		<property name="quantity" type="String" />
+		<property name="requestedShipDate" type="String" />
+		<property name="errorMessage" type="java.util.Map&lt;String, String>" />
+		<property name="productLine" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.ds.facades.bulkOrder.DsBulkOrderData">
+		<property name="isSingleSoldtoSalesArea" type="String" />
+		<property name="geEdgeCustomerData" type="com.bhge.facades.user.data.BHGECustomerData"/>
+		<property name="excelInputData" type="com.bhge.facades.user.data.BHGEExcelUploadInputEntryData" />
+		<property name="regions"
+				  type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.RegionData>"/>
+		<property name="geEdgeBulkCartData" type="com.bhge.facades.user.data.BHGEBulkUploadListData" />
+		<property name="bulkUploadList"
+				  type="java.util.List&lt;com.bhge.facades.user.data.BHGEBulkUploadInputEntryData>"/>
+		<property name="validatedBulkUploadList"
+				  type="java.util.List&lt;com.bhge.facades.user.data.BHGEBulkUploadEntryData>" />
+		<property name="listOfStates"
+				  type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.RegionData>"/>
+		<property name="currencyISO" type="String" />
+		<property name="currencyFormattedValue" type="String" />
+		<property name="invalidPartsCount" type="java.lang.Integer"/>
+		<property name="configurePartCount" type="java.lang.Integer"/>
+		<property name="success" type="java.util.List&lt;com.ds.facades.bulkOrder.DsBulkOrderSuccessData&gt;" />
+		<property name="failure" type="java.util.List&lt;com.ds.facades.bulkOrder.DsBulkOrderFailureData&gt;" />
+		<property name="successCount" type="String" />
+		<property name="customerRole" type="String" />
+        <property name="invalidPartsList" type="java.util.List&lt;String&gt;"/>
+	</bean>
+
+	<bean class="com.ds.facades.bulkOrder.DsBulkOrderRequestData">
+		<property name="shipMode" type="String" />
+		<property name="delAcc" type="String" />
+		<property name="shipName" type="String" />
+		<property name="shipPhone" type="String" />
+		<property name="delOptions" type="java.lang.String" />
+		<property name="newCartData" type="de.hybris.platform.commercefacades.order.data.CartData" />
+		<property name="globalMessage" type="String" />
+		<property name="bulkUploadFile" type="String" />
+	</bean>
+	<!--Bulk Upload -->
+
+	<!-- Search API Start -->
+	<bean class="de.hybris.platform.commercefacades.search.data.SearchStateData">
+		<property name="categoryName" type="String"/>
+		<property name="categoryDescription" type="String"/>
+		<property name="categoryPictureUrl" type="String"/>
+	</bean>
+	<!-- Search API End -->
+
+	<!-- PDP API Start -->
+	<bean class="de.hybris.platform.warehousingfacades.storelocator.data.WarehouseData">
+		<property name="name" type="String"></property>
+		<property name="stockAvailable" type="String"></property>
+		<property name="defaultPlant" type="java.lang.Boolean"></property>
+	</bean>
+	<!-- PDP API End -->
+
+	<bean class="com.ds.facades.orderDetails.OrderDetailsData">
+		<property name="ordersList" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderData>"/>
+		<property name="yourPriceDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="totalDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netSilverClause" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netAmount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="currenySymbol" type="java.lang.String" />
+		<property name="currenyIso" type="java.lang.String" />
+		<property name="couponDiscount" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="totalListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" /> 
+		<property name="totalReturnListPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="payerAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="isCardExist" type="java.lang.Boolean"/>
+		<property name="isQuote" type="java.lang.Boolean"/>
+	</bean>
+	
+	<!--RMA Attachment  -->
+	<bean class="com.ds.facades.rma.RmaAttachmentData">
+		<property name="fileName" type="java.lang.String" />
+		<property name="fileType" type="java.lang.String" />
+	</bean>
+	
+	<!--RMA Sharing  -->
+	
+	<bean class="com.ds.facades.rma.EmailResponseData">
+		<property name="status" type="java.lang.Boolean" />
+		<property name="emailid" type="java.lang.String" />
+	</bean>
+	<bean class="com.bhge.facades.product.data.DSNotificationData">
+        <property name="notificationID" type="java.lang.String" />
+        <property name="UserSSO" type="java.lang.String" />
+        <property name="isFlagged" type="java.lang.Boolean" />
+        <property name="isDismissed" type="java.lang.Boolean" />
+        <property name="notificationTime" type="java.lang.String" />
+        <property name="isRead" type="java.lang.Boolean" />
+        <property name = "lastCalibrationDate" type="java.lang.String"/>
+        <property name="partNumber" type="String"/>
+		<property name="serialNumber" type="String"/>
+		<property name="partName" type="String"/>
+		<property name="lastServiceDate" type="String"/>
+		<property name="htsCode" type="String"/>
+		<property name="serviceInterval" type="String"/>
+		<property name="endCustomerName" type="String"/>
+		<property name="endCustomer" type="String"/>
+		<property name="nextServiceDueInMonths" type="String"/>
+		<property name="serviceDueDate" type="java.util.Date"/>
+        <property name="customer" type="String"/>
+        <property name="notificationMessage" type="String" />
+    </bean>
+	<bean class="com.ds.dsocc.calibration.data.GuestUserDetailsData">
+	    <property name="firstName" type="String" />
+	    <property name="lastName" type="String" />
+	    <property name="title" type="String" />
+	    <property name="organization" type="String" />
+	    <property name="streetAddress" type="String" />
+	    <property name="address" type="String" />
+	    <property name="city" type="String" />
+	    <property name="state" type="String" />
+	    <property name="zipCode" type="String" />
+	    <property name="country" type="String" />
+	    <property name="workPhone" type="String" />
+	    <property name="email" type="String" />
+	    <property name="probeSerialNumber" type="String" />
+	    <property name="communicationsPreference" type="String" />
+		<property name="sensorType" type="String" />
+		<property name="lastCalibrationDate" type="java.lang.String" />
+
+	</bean>
+	<!-- Wygate Data start -->
+	<bean class="com.bhge.facades.data.WygateCaliberationData">
+		<property name="caliberationType" type="String" />
+		<property name="number" type="String" />
+		<property name="foundInDB" type="java.lang.Boolean" />
+	</bean>
+	<bean class="com.bhge.facades.data.DSWygateChemistryData">
+		<property name="artoms" type="String" />
+		<property name="fabricationNumber" type="String" />
+		<property name="part" type="String" />
+		<property name="mabcCode" type="String" />
+		<property name="expiry" type="String" />
+		<property name="type" type="String" />
+		<property name="shippingContent" type="String" />		
+	</bean>
+	<bean class="com.bhge.facades.data.DSWygateFilmData">
+		<property name="type" type="com.bhge.facades.data.DSWygateBatchLookupData" />
+		<property name="batch" type="String" />
+		<property name="emNr" type="String" />
+		<property name="rol" type="String" />
+		<property name="sper" type="String" />
+		<property name="cper" type="String" />
+		<property name="control" type="String" />
+		<property name="expiry" type="String" />				
+	</bean>
+	
+	<bean class="com.bhge.facades.data.DSWygateBatchLookupData">
+		<property name="type" type="String" />
+		<property name="classType" type="String" />
+		<property name="g2" type="String" />
+		<property name="g4" type="String" />
+		<property name="sigmaD2" type="String" />
+		<property name="gSigmaD" type="String" />
+		<property name="ksmGy" type="String" />
+		<property name="kv120" type="String" />	
+		<property name="isoSpeed" type="String" />	
+		<property name="avgContrast" type="String" />	
+		<property name="ir192" type="String" />
+	</bean>
+	
+	<!-- individual Search result -->
+	<bean class="com.bhge.facades.data.bynder.search.DsBynderSearchResultData">
+		<property name="id" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="copyright" type="java.lang.String" />
+		<property name="tags" type="java.util.List&lt;String>" />
+		<property name="type" type="java.lang.String" />
+		<property name="idHash" type="java.lang.String" />
+		<property name="height" type="java.lang.Integer" />
+		<property name="archive" type="java.lang.Integer" />
+		<property name="datePublished" type="java.util.Date" />
+		<property name="fileSize" type="java.lang.Integer" />
+		<property name="brandId" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+		<property name="extension" type="java.util.List&lt;String>" />
+		<property name="userCreated" type="java.lang.String" />
+		<property name="dateCreated" type="java.util.Date" />
+		<property name="isPublic" type="java.lang.Integer" />
+		<property name="propertyOptions" type="java.util.List&lt;String>" />
+		<property name="orientation" type="java.lang.String" />
+		<property name="dateModified" type="java.util.Date" />
+		<property name="width" type="java.lang.Integer" />
+		<property name="watermarked" type="java.lang.Integer" />
+		<property name="limited" type="java.lang.Integer" />
+		<property name="property_productCompany" type="java.util.List&lt;String>" />
+		<property name="property_jobNumber" type="java.lang.String" />
+		<property name="property_visibleTo" type="java.util.List&lt;String>" />
+		<property name="property_assetType" type="java.util.List&lt;String>" />
+		<property name="property_assetSubType" type="java.util.List&lt;String>" />
+		<property name="property_usage" type="java.util.List&lt;String>" />
+		<property name="thumbnails" type="com.bhge.facades.data.bynder.search.ImageData" />
+	</bean>
+	
+	<!-- List of Search results -->
+	<bean class="com.bhge.facades.data.bynder.search.DsBynderSearchResultDataList">
+		<property name="searchResults" type="java.util.List&lt;com.bhge.facades.data.bynder.search.DsBynderSearchResultData>" />
+		<property name="isInBynder" type="Boolean" />
+		<property name="isInSAP" type="Boolean" />
+		<property name="isPinned" type="Boolean" />
+		<property name="errorMessage" type="String"/>
+		<property name="statusCode" type="Integer"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.data.bynder.search.ImageData">
+		<property name="mini" type="String" />
+		<property name="webimage" type="String" />
+		<property name="thul" type="String" />
+	</bean>
+
+	<bean class="com.bhge.facades.data.bynder.download.DsDruckDownloadData">
+		<property name="serialNumber" type="String" />
+		<property name="s3_file" type="String" />
+		<property name="errorMessage" type="String"/>
+		<property name="statusCode" type="Integer"/>
+	</bean>
+   
+   <bean class="com.bhge.facades.data.bynder.search.DsBynderErrorData">
+		<property name="message" type="String" />
+		<property name="statuscode" type="String" />
+		<property name="status_code" type="String" />
+	</bean>
+	
+	 <bean class="com.bhge.facades.data.bynder.search.DsDruckSearchResultResponseData">
+    	<property name="serialNumber" type="java.lang.String" />
+    	<property name="mediaId" type="java.lang.String" />
+    	<property name="isInBynder" type="Boolean" />
+    	<property name="isInSAP" type="Boolean" />
+    	<property name="isPinned" type="Boolean" />
+		<property name="sensorType" type="String" />
+		<property name="partNumber" type="String" />
+		<property name="partName" type="String" />
+		<property name="probeModel" type="String" />
+		<property name="customer" type="String" /> 		
+		<property name="lastCalibrationDate" type="String" />
+		<property name="additionalInfo" type="String" />
+		<property name="lastServiceDate" type="String" />
+		<property name="productData" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="rmaStatus" type="String" />
+    </bean>
+    
+	<bean class="com.bhge.facades.data.bynder.search.DsDruckSerialNumberSearchListData">
+		<property name="searchData" type="com.bhge.facades.data.bynder.search.DsDruckSearchResultResponseData" />
+		<property name="errors" type="com.bhge.facades.data.bynder.error.DsDruckErrorResponseData" />
+		<property name="statusCode" type="Integer" />
+    </bean>
+    
+    <bean class="com.bhge.facades.data.bynder.error.DsDruckErrorResponseData">
+    	<property name="errorCode" type="String" />
+    	<property name="errorMessage" type="java.lang.String" />
+    	<property name="additionalInfo" type="java.lang.String" />
+    </bean>
+   
+	<bean class="com.bhge.facades.user.data.BHGECategorytoSalesOrgData">
+		<property name="salesOrg" type="java.lang.String"/>
+		<property name="distributionChannel" type="java.lang.String"/>
+		<property name="division" type="java.lang.String"/>
+	</bean>
+  
+  
+    <bean class="com.bhge.facades.data.TrainingDocumentData">
+		<property name="name" type="java.lang.String"/>
+		<property name="mediaslink" type="java.lang.String"/>
+		<property name="youtubeURL" type="java.lang.String"/>
+		<property name="fileType" type="java.lang.String"/>
+		<property name="modifiedTime" type="String"/>
+		<property name="active" type="java.lang.Boolean"/>
+	</bean>
+	
+	<!-- List Of Portals Start -->
+	
+	<bean class = "com.bhge.facades.data.DSListOfPortalsData" >
+        <property name = "url" type = "String" />
+        <property name = "siteName" type = "String" />
+        <property name = "productLine" type="String" />
+        <property name = "description" type = "String" />
+        <property name = "type" type = "String" />
+        <property name = "loginRequired" type = "String" />
+ 	</bean>
+ 	
+ 	<!-- List Of Portals End -->
+
+	<!-- US-465613 Credit Card Data  -->
+	<bean class = "com.bhge.facades.data.BHGECreditCardData" >
+		<property name="isNewCard" type="java.lang.Boolean"/>
+		<property name="ccType" type="java.lang.String"/>
+		<property name="ccNumber" type="java.lang.String"/>
+		<property name="ccName" type="java.lang.String"/>
+		<property name="ccValidTru" type="java.lang.String"/>
+		<property name="merchantid" type="java.lang.String"/>
+		<property name="token" type = "java.lang.String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.CartData">
+		<property name="ccName" type="java.lang.String"/>
+		<property name="ccNumber" type="java.lang.String"/>
+		<property name="ccValidTru" type="java.lang.String"/>
+		<property name="ccType" type="java.lang.String"/>
+		<property name="deletedProductCodes" type="String"/>
+		<property name="productLine" type="String"/>
+		<property name="isQuote" type="boolean"/>
+		<property name="dummyProductPresent" type="java.lang.Boolean"/>
+		<property name="ecaCode" type="Long"/>
+		<property name="enduserAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="ecaPONumber" type="java.lang.String"/>
+		<property name="orderPreference" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="com.bhge.facades.data.InventoryRequestData">
+		<property name="commerceType" type="java.lang.String"/>
+		<property name="isEngineeringHold" type="java.lang.String"/>
+		<property name="deliveryAddress" type="java.lang.String"/>
+		<property name="currency" type="java.lang.String"/>
+		<property name="soldTo" type="java.lang.String"/>
+		<property name="cartType" type="java.lang.String"/>
+		<property name="endUserNumber" type="java.lang.String"/>
+		<property name="email" type="java.lang.String"/>
+		<property name="productRequestList" type="java.util.List&lt;com.bhge.facades.data.InventoryRequestProductData>"/>
+		<property name="vcProductRequestList" type="java.util.List&lt;com.bhge.facades.data.InventoryRequestProductData>"/>
+		<property name="errorReceived" type="boolean"/>
+		<property name="country" type="java.lang.String"/>
+		<property name="region" type="java.lang.String"/>
+		<property name="sapCustomerId" type="java.lang.String"/>
+        <property name="pricingProcedure" type="java.lang.String"/>
+        <property name="requestType" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.bhge.facades.data.InventoryRequestProductData">
+		<property name="code" type="java.lang.String"/>
+		<property name="itemLineNumber" type="java.lang.Integer"/>
+		<property name="quantity" type="java.lang.Integer"/>
+		<property name="productType" type="java.lang.String"/>
+		<property name="unitSapCode" type="java.lang.String"/>
+		<property name="atp" type="java.lang.String"/>
+		<property name="externalConfiguration" type="java.lang.String"/>
+		<property name="discountPrice" type="java.lang.String"/>
+		<property name="listPrice" type="java.lang.Double"/>
+		<property name="basePrice" type="java.lang.Double"/>
+		<property name="vcOptionsPrice" type="java.lang.Double"/>
+		<property name="silverClausePricePercentage" type="java.lang.String"/>
+		<property name="silverClausePrice" type="java.lang.Double"/>
+		<property name="yourPriceDiscount" type="java.lang.Double"/>
+		<property name="discountPercentage" type="java.lang.String"/>
+		<property name="isEngineeringHold" type="java.lang.Boolean"/>
+		<property name="plant" type="java.lang.String"/>
+		<property name="plantName" type="java.lang.String"/>
+		<property name="availableQuantity" type="java.lang.String"/>
+		<property name="availabilityDetails"
+				  type="java.util.List&lt;com.bhge.facades.BHGEAvailabilityDetailsData&gt;"/>
+		<property name="estShippingDates" type="java.util.List&lt;java.lang.String>"/>
+		<property name="stockDetails"
+				  type="java.util.List&lt;com.bhge.facades.BHGEStockDetailsData&gt;"/>
+		<property name="leadtime" type="java.lang.Integer"/>
+		<property name="sapConfigurable" type="boolean"/>
+		<property name="endCustomerRefNum" type="java.lang.String"/>
+		<property name="longConfigNumber" type="java.lang.String"/>
+        <property name="fullyConfiglongNumber" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.bhge.facades.order.notification.data.OrderNotificationData">
+		<property name="orderId" type="String"/>
+		<property name="status" type="String"/>
+		<property name="updatedDate" type="String"/>
+		<property name="isOrderRead" type="boolean"/>
+		<property name="blockedReason" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.productconfig.facades.ConfigurationData">
+		<property name="disableResetConfigFlag" type="boolean"/>
+		<property name="isZeroBuy" type="boolean" />
+		<property name="longConfigurationValues" type="java.util.Map&lt;String, String>" />
+        <property name="longConfigValuesRequest" type="java.util.List&lt;com.bhge.facades.data.BHGEConfigRequestValues&gt;"/>
+	</bean>
+
+    <bean class="com.bhge.facades.data.BHGEConfigRequestValues">
+        <property name="charc" type="String"/>
+        <property name="value" type="String"/>
+        <property name="author" type="String"/>
+    </bean>
+	
+	
+	<bean class="com.bhge.facades.data.BHGEVCConfigurationData">
+		<property name="productCode" type="String"/>
+		<property name="configId" type="String"/>
+		<property name="configurationDataList"
+				  type="java.util.List&lt;com.bhge.facades.data.BHGECharasteristicData&gt;"/>
+	</bean>
+
+	<bean class="com.bhge.facades.data.BHGECharasteristicData">
+		<property name="charasteristicKey" type="String"/>
+		<property name="charasteristicValue" type="String"/>
+	</bean>
+
+	<bean class="com.bhge.facades.data.PriceSummaryData">
+		<property name="value" type="java.math.BigDecimal"/>
+		<property name="formattedValue" type="String"/>
+		<property name="minQuantity" type="Long"/>
+		<property name="maxQuantity" type="Long"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.user.data.ManageUsersB2bUnitData">
+		<property name="uid" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+	<bean class="com.bhge.facades.invoice.data.InvoiceTrackingRequestData">
+		<property name="company" type="String"/>
+		<property name="customer" type="String"/>
+		<property name="fromDate" type="String"/>
+		<property name="toDate" type="String"/>
+		<property name="invoiceNumber" type="String"/>
+	</bean>
+     <bean class="com.bhge.facades.invoice.data.InvoiceTrackingResponseData">
+		 <property name="customer" type="String"/>
+		 <property name="company" type="String"/>
+		 <property name="invoiceNumber" type="String"/>
+		 <property name="invoiceStatus" type="String"/>
+		 <property name="currency" type="String"/>
+		 <property name="invoiceDate" type="String"/>
+		 <property name="dueDate" type="String"/>
+		 <property name="amount" type="Double"/>
+		 <property name="docType" type="String"/>
+		 <property name="paymentStatus" type="String"/>
+         <property name="paidDate" type="String"/>
+         <property name="paymentMethod" type="String"/>
+         <property name="paymentMethodDescription" type="String"/>
+         <property name="paymentTerm" type="String"/>
+         <property name="paymentTermDescription" type="String"/>
+	</bean>
+	<bean class="com.bhge.facades.invoice.data.InvoicePaymentData">
+		<property name="invoiceID" type="java.lang.String"/>
+		<property name="totalAmount" type="java.lang.String"/>
+		<property name="isCredit" type="java.lang.Boolean"/>
+	</bean>
+	<bean class="com.bhge.facades.invoice.data.InvoicePaymentRequestData">
+		<property name="customer" type="String"/>
+		<property name="company" type="String"/>
+		<property name="invoiceNumber" type="String"/>
+		<property name="creditCardToken" type="String"/>
+		<property name="amount" type="String"/>
+	</bean>
+	<bean class="com.bhge.facades.invoice.data.InvoicePaymentResponseData">
+		<property name="customer" type="String"/>
+		<property name="company" type="String"/>
+		<property name="invoiceNumber" type="String"/>
+		<property name="status" type="java.lang.String"/>
+		<property name="message" type="java.lang.String"/>
+		<property name="document" type="java.lang.String"/>
+	</bean>
+	<bean class="com.bhge.facades.invoice.data.OrderStatusSoldToNameData">
+		<property name="name" type="java.lang.String" />
+		<property name="uid" type="java.lang.String" />
+		<property name="number" type="java.lang.String" />
+		<property name="favouritesFlag" type="java.lang.Boolean" />
+	</bean>
+
+
+	<bean class="com.bhge.facades.quote.data.QuoteTrackingRequestData">
+		<property name="fromDate" type="String"/>
+		<property name="toDate" type="String"/>
+		<property name="quoteStatus" type="String"/>
+		<property name="quoteNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.facades.quote.data.QuoteTrackingResponseData">
+		<property name="quoteCode" type="String"/>
+		<property name="quoteStatus" type="String"/>
+		<property name="currency" type="String"/>
+		<property name="createdBy" type="String"/>
+		<property name="createdOn" type="String"/>
+		<property name="validUntill" type="String"/>
+		<property name="shipTOAddress" type="String"/>
+		<property name="soldToAddress" type="String"/>
+		<property name="endCustomerAddress" type="String"/>
+		<property name="totalListPrice" type="String"/>
+		<property name="comments" type="String"/>
+		<property name="b2bUnit" type="String"/>
+		<property name="quoteEntries" type="java.util.List&lt;com.bhge.facades.quote.data.QuoteTrackingEntriesResData>"/>
+	</bean>
+
+
+	<bean class="com.bhge.facades.quote.data.QuoteTrackingEntriesResData">
+		<property name="status" type="String"/>
+		<property name="prodCode" type="String"/>
+		<property name="prodName" type="String"/>
+		<property name="unit" type="String"/>
+		<property name="qty" type="Double"/>
+		<property name="reqData" type="String"/>
+		<property name="shipDate" type="String"/>
+		<property name="listPrice" type="Double"/>
+		<property name="basePrice" type="Double"/>
+		<property name="silverClausePrice" type="Double"/>
+		<property name="silverClausePricePercentage" type="String"/>
+		<property name="yourPriceDiscount" type="Double"/>
+		<property name="discountPercentage" type="String"/>
+		<property name="discountPrice" type="String"/>
+	</bean>
+
+	<bean class="com.ds.dsocc.quote.data.QuoteCreationRequestData">
+		<property name="quoteAckMail" type="String"/>
+		<property name="csrReason" type="String"/>
+		<property name="soaContact" type="String"/>
+		<property name="soaPhone" type="String"/>
+		<property name="csrReview" type="String"/>
+		<property name="exportAddress" type="String"/>
+		<property name="exportFlag" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.AddToCartParams">
+		<property name="longConfiguration" type="java.lang.String"/>
+		<property name="ecaCode" type="Long"/>
+	</bean>
+	
+</beans>

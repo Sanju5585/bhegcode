@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "remove": "REMOVER",
+    "edit": "Editar",
+    "back": "VOLTAR",
+    "submit": "Enviar",
+    "continue": "Criar nova conta",
+    "save": "Salvar",
+    "done": "Feito",
+    "home": "Página Inicial",
+    "noData": "Sem dados.",
+    "confirm": "confirme"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} resultado para {{query}}",
+      "title_plural": " {{count}} resultados para {{query}}"
+    },
+    "checkout": {
+      "title": "Confira {{count}} item",
+      "title_plural": "Confira {{count}} item"
+    },
+    "search": {
+      "title": "{{count}} resultados para \"{{query}}\"",
+      "title_plural": "{{count}} result for \"{{query}}\"",
+      "findProductTitle": "{{count}} resultados para cupom \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} resultados para cupom \"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "Carregando..."
+  },
+  "navigation": {
+    "shopAll": "Compre tudo {{ navNode}} >"
+  },
+  "searchBox": {
+    "placeholder": "Procure aqui...",
+    "help": {
+      "insufficientChars": "Digite 3 ou mais caracteres para pesquisar",
+      "noMatch": "Não conseguimos encontrar nenhum resultado",
+      "exactMatch": "{{ term }}",
+      "empty": "Pergunte-nos qualquer coisa"
+    }
+  },
+  "sorting": {
+    "date": "Data",
+    "orderNumber": "NÚMERO DO PEDIDO",
+    "rma": "Número de Devolução",
+    "replenishmentNumber": "Número de Reposição",
+    "nextOrderDate": "Data do próximo pedido"
+  },
+  "httpHandlers": {
+    "badGateway": "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Por favor faça login novamente.",
+    "badRequestOldPasswordIncorrect": "Senha antiga incorreta.",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} email já existe. Por favor, finalize a compra com um e-mail diferente para se registrar usando uma conta de convidado.",
+    "conflict": "Já existe.",
+    "forbidden": "Você não está autorizado a realizar esta ação. Entre em contato com o seu administrador se você acha que isso é um erro.",
+    "gatewayTimeout": "O servidor não respondeu, tente novamente mais tarde.",
+    "internalServerError": "Ocorreu um erro interno do servidor. Por favor, tente novamente mais tarde.",
+    "sessionExpired": "Sua sessão expirou. Por favor faça login novamente.",
+    "unknownError": "Ocorreu um erro desconhecido",
+    "unauthorized": {
+      "common": "Ocorreu um erro de autorização desconhecido",
+      "invalid_client": "Credenciais de cliente prejudicial"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "O cartão de crédito selecionado não é compatível. Selecione outro.",
+        "card_accountNumber": "O número do cartão de crédito inserido não é válido.",
+        "card_cvNumber": "O código de segurança inserido não é válido.",
+        "card_expirationMonth": "A data de validade do cartão de crédito inserida não é válida.",
+        "card_expirationYear": "A data de validade do cartão de crédito inserida não é válida.",
+        "billTo_firstName": "O primeiro nome inserido não é válido.",
+        "billTo_lastName": "O sobrenome inserido não é válido.",
+        "billTo_street1": "O endereço inserido não é válido.",
+        "billTo_street2": "O endereço inserido não é válido.",
+        "billTo_city": "A cidade informada não é válida para este cartão de crédito.",
+        "billTo_state": "O estado / província inserido não é válido para este cartão de crédito.",
+        "billTo_country": "O país inserido não é válido para este cartão de crédito.",
+        "billTo_postalCode": "O CEP / código postal não é válido para este cartão de crédito.",
+        "country": {
+          "isocode": "País ausente"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "A data de validade do cartão de crédito inserida não é válida.",
+        "firstName": "O nome inserido não é válido.",
+        "lastName": "O sobrenome inserido não é válido.",
+        "password": "A senha inserida não é válida.",
+        "uid": "UID não é válido.",
+        "code": "O código não é válido.",
+        "email": "E-mail não é válido."
+      }
+    },
+    "cartNotFound": "Carrinho não encontrado.",
+    "invalidCodeProvided": "Código inválido fornecido."
+  },
+  "miniCart": {
+    "item": "{{count}} item atualmente em seu carrinho",
+    "item_plural": "{{count}} item atualmente em seu carrinho",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Olá {{name}}",
+    "signInRegister": "Entrar / Registrar"
+  },
+  "skipLink": {
+    "skipTo": "Pule para",
+    "labels": {
+      "header": "Cabeçalho",
+      "main": "Conteúdo principal",
+      "footer": "Rodapé",
+      "productFacets": "Facetas do produto",
+      "productList": "Lista de produtos"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "O formulário que você está tentando enviar contém erros.",
+    "required": "Este campo é necessário",
+    "cxInvalidEmail": "Este não é um formato de e-mail válido",
+    "cxInvalidPassword": "Este não é um formato de senha válido",
+    "cxPasswordsMustMatch": "Os campos de senha devem corresponder",
+    "cxEmailsMustMatch": "Os campos do e-mail devem corresponder",
+    "cxStarRatingEmpty": "O campo de classificação é obrigatório",
+    "cxNoSelectedItemToCancel": "Selecione pelo menos um item",
+    "cxNegativeAmount": "O valor deve ser igual ou maior que zero",
+    "cxContainsSpecialCharacters": "O campo não pode conter caracteres especiais",
+    "date": {
+      "required": "Este campo é necessário",
+      "min": "Date cannot be before {{min}}",
+      "max": "A data não pode ser posterior {{max}}",
+      "pattern": "Use o formato de data aaaa-mm-dd",
+      "invalid": "Use uma data válida"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "Falha ao carregar o script.",
+    "refreshThePage": "Atualize a página."
+  }
+}

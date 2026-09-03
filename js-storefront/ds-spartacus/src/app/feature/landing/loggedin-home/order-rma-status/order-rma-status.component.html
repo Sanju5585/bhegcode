@@ -1,0 +1,202 @@
+<div class="rma-status">
+  <div class="status-check">
+    {{ 'loggedinHome.trackStatusLabel' | cxTranslate }}
+    <span class="help-icon" *ngIf="!isClassicView">
+      <span class="material-icons-outlined icon-size"> help_outline </span>
+      <span class="find-text" (click)="trackorderstatus()">{{
+        'loggedinHome.whereDofind' | cxTranslate
+      }}</span>
+    </span>
+  </div>
+  <div class="changing-container" *ngIf="!isClassicView">
+    <div class="input-field">
+      <div class="purchase-input col-md-5">
+        <bh-text-input
+          type="text"
+          [value]="purchaseNumber"
+          maxlength="35"
+          label="{{ 'loggedinHome.orderNumber' | cxTranslate }}"
+          (keyup)="onChange($event, 'purchaseNumber')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="or-divide">{{ 'loggedinHome.or' | cxTranslate }}</div>
+      <div class="rma-input col-md-5">
+        <bh-text-input
+          type="text"
+          [value]="rmaNumber"
+          [message]="error.rmaNumber"
+          [attr.error]="error.rmaNumber ? error.rmaNumber : null"
+          label="{{ 'loggedinHome.rmaNumber' | cxTranslate }}"
+          maxlength="12"
+          (keyup)="onChange($event, 'rmaNumber')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="button">
+      <div class="reset-button">
+        <bh-button
+          type="secondary"
+          label="{{ 'loggedinHome.reset' | cxTranslate }}"
+          class="reset"
+          (click)="reset()"
+        >
+        </bh-button>
+      </div>
+      <div class="track-button">
+        <bh-button
+          type="primary"
+          label="{{ 'loggedinHome.track' | cxTranslate }}"
+          class="track"
+          [ngClass]="
+            (purchaseNumber !== '' || rmaNumber !== '') &&
+            error.rmaNumber === ''
+              ? 'track-green'
+              : ''
+          "
+          (click)="showData()"
+          [attr.disabled]="showSpinner ? true : null"
+          [attr.loading]="showSpinner ? true : null"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+  <div class="changing-container" *ngIf="isClassicView">
+    <div class="input-field">
+      <div class="purchase-input col-md-5">
+        <bh-text-input
+          required
+          placeholder="{{
+            'loggedinHome.purchaseOrderNumberPlaceholder' | cxTranslate
+          }}"
+          type="text"
+          [value]="purchaseNumber"
+          maxlength="35"
+          label="{{ 'loggedinHome.purchaseOrderNumber' | cxTranslate }}"
+          (keyup)="onChange($event, 'purchaseNumber')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="or-divide">{{ 'loggedinHome.or' | cxTranslate }}</div>
+      <div class="rma-input col-md-5">
+        <bh-text-input
+          required
+          placeholder="{{
+            'loggedinHome.orderReferenceNumberPlaceholder' | cxTranslate
+          }}"
+          type="text"
+          [value]="rmaNumber"
+          [message]="error.rmaNumber"
+          [attr.error]="error.rmaNumber ? error.rmaNumber : null"
+          label="{{ 'loggedinHome.orderReferenceNumber' | cxTranslate }}"
+          maxlength="12"
+          (keyup)="onChange($event, 'rmaNumber')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="button">
+      <div class="track-button track-button-cview">
+        <bh-button
+          type="primary"
+          label="{{ 'loggedinHome.trackStatus' | cxTranslate }}"
+          class="track track-cview"
+          [ngClass]="
+            (purchaseNumber !== '' || rmaNumber !== '') &&
+            error.rmaNumber === ''
+              ? 'track-green'
+              : ''
+          "
+          (click)="showData()"
+          [attr.disabled]="showSpinner ? true : null"
+          [attr.loading]="showSpinner ? true : null"
+        >
+        </bh-button>
+      </div>
+      <div class="reset-button reset-button-cview">
+        <bh-button
+          type="secondary"
+          label="{{ 'loggedinHome.reset' | cxTranslate }}"
+          class="reset reset-cview"
+          (click)="reset()"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-top" *ngIf="showStatus">
+    <h2 class="rma-result" *ngIf="rmaStatus">
+      {{ 'loggedinHome.rmaResult' | cxTranslate }}
+    </h2>
+    <h2 class="rma-result" *ngIf="orderStatus">
+      {{ 'loggedinHome.orderResult' | cxTranslate }}
+    </h2>
+    <tr class="table-header">
+      <th *ngIf="rmaStatus">{{ 'loggedinHome.rmaNum' | cxTranslate }}</th>
+      <th *ngIf="orderStatus">{{ 'loggedinHome.orderNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.status' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.poNum' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.price' | cxTranslate }}</th>
+      <th>{{ 'loggedinHome.pendingAction' | cxTranslate }}</th>
+    </tr>
+    <ng-container *ngIf="orderStatus">
+      <tr class="table-data" *ngFor="let data of statusDetails">
+        <td>{{ data?.code }}</td>
+        <td>{{ data?.orderStatus }}</td>
+        <td>{{ data?.purchaseOrderNumber }}</td>
+        <td>{{ data?.currency }} {{ data?.totalNetPrice }}</td>
+        <td class="linkButton">
+          <span>{{ 'loggedinHome.na' | cxTranslate }}</span>
+          <span
+            class="material-icons-outlined custom-icon"
+            (click)="orderRedirect(data?.code, data)"
+            >arrow_right</span
+          >
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="rmaStatus">
+      <tr class="table-data" *ngFor="let rmaData of statusDetails">
+        <td>{{ rmaData?.rmaNumber }}</td>
+        <td>
+          {{ rmaData?.rmaStatus }}
+          <ng-continer *ngIf="checkRMAProcessingStatus(rmaData)">
+            <div
+              class="text-danger typography--body-small bh-form-message--error"
+              matTooltipClass="vs-tooltip capitalize"
+              matTooltipPosition="below"
+            >
+              <span class="rma-processing-track-status">
+                <i class="typography--icon-small bh-form-message__icon"
+                  >error_outline</i
+                >
+                <strong class="font-await-process-order"
+                  >{{ 'rma-tracking.pending' | cxTranslate }} :
+                  {{
+                    'rma-tracking.awaitingPurchaseOrder' | cxTranslate
+                  }}</strong
+                >
+              </span>
+            </div>
+          </ng-continer>
+        </td>
+        <td>{{ rmaData?.purchaseOrderNumber }}</td>
+        <td>
+          {{ rmaData?.netPrice == '0.0' ? '' : rmaData?.currency }}
+          {{ rmaData?.netPrice == '0.0' ? '' : rmaData?.netPrice }}
+        </td>
+        <td class="linkButton">
+          <span>{{ 'loggedinHome.na' | cxTranslate }}</span>
+          <span
+            class="material-icons-outlined custom-icon"
+            (click)="rmaRedirect(rmaData?.rmaNumber, rmaData)"
+            >arrow_right</span
+          >
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+  <div class="no-data" *ngIf="noDataFound">{{ 'loggedinHome.noDataFound' | cxTranslate }}</div>
+</div>

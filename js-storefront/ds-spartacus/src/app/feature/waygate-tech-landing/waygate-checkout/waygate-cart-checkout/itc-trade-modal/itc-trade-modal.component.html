@@ -1,0 +1,29 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <div class="row">
+        <p class="subtitle">
+          {{ itcTradeText }}
+        </p>
+      </div>
+    </div>
+    <div class="cx-dialog-actions">
+      <div class="cx-dialog-buttons">
+        <a
+          class="bh-button motion--normal bh-button--type-secondary"
+          (click)="closeModal(false)"
+        >
+          {{ 'dashboard.cancel' | cxTranslate }}
+        </a>
+        <a
+          class="bh-button motion--normal bh-button--type-primary"
+          autofocus
+          (click)="closeModal(true)"
+        >
+          {{ 'dashboard.proceed' | cxTranslate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

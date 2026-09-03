@@ -1,0 +1,42 @@
+<div class="my-cart">
+  <div class="my-cart-text">
+    {{ 'loggedinHome.myCart' | cxTranslate }}
+    <a href="/saved-carts"
+      ><span class="view-all">{{
+        'loggedinHome.viewAll' | cxTranslate
+      }}</span></a
+    >
+  </div>
+  <div class="table-top">
+    <table class="table">
+      <tr class="table-header">
+        <th>{{ 'loggedinHome.name' | cxTranslate }}</th>
+        <th>{{ 'loggedinHome.type' | cxTranslate }}</th>
+        <th>{{ 'loggedinHome.qty' | cxTranslate }}</th>
+        <th>{{ 'loggedinHome.dataSaved' | cxTranslate }}</th>
+        <th>{{ 'loggedinHome.totalId' | cxTranslate }}</th>
+      </tr>
+      <tr
+        class="table-data"
+        *ngFor="let data of viewcartData"
+        (click)="viewDetail(data.code)"
+      >
+        <td>{{ data?.name }}</td>
+        <td>{{ data?.commerceType }}</td>
+        <td>{{ data?.totalUnitCount }}</td>
+        <td>{{ data?.saveTime | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          {{
+            data?.commerceType == 'RETURNS'
+              ? data?.entries[0]?.basePrice?.formattedValue
+              : data?.totalPrice?.formattedValue
+          }}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="no-save-data" *ngIf="!showCart">
+    {{ 'loggedinHome.noSaveCart' | cxTranslate }}
+  </div>
+</div>

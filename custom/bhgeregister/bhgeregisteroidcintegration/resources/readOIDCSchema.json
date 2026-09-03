@@ -1,0 +1,229 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"directoryBranch": {
+			"type": "string",
+			"enum": [
+				"200",
+				"100",
+				"400"
+			]
+		},
+		"permitAbbreviatedRecords": {
+			"type": "string",
+			"enum": [
+				"True",
+				"False"
+			]
+		},
+		"abbreviatedFieldList": {
+			"type": "object",
+			"properties": {
+				"field": {
+					"type": "array",
+					"items": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						}
+					]
+				}
+			},
+			"required": [
+				"field"
+			]
+		},
+		"primaryKey": {
+			"type": "object",
+			"properties": {
+				"uid": {
+					"type": "string"
+				},
+				"mail": {
+					"type": "string"
+				},
+				"givenname": {
+					"type": "string"
+				},
+				"sn": {
+					"type": "string"
+				},
+				"gessostatus": {
+					"type": "string"
+				},
+				"gessotheblob": {
+					"type": "string"
+				},
+				"gessolinkedbu": {
+					"type": "string"
+				},
+				"gessochallenge": {
+					"type": "string"
+				},
+				"gessoresponse": {
+					"type": "string"
+				},
+				"cn": {
+					"type": "string"
+				},
+				"userPassword": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": true,
+			"anyOf": [
+				{
+					"required": [
+						"uid"
+					]
+				},
+				{
+					"required": [
+						"mail"
+					]
+				},
+				{
+					"required": [
+						"givenname"
+					]
+				},
+				{
+					"required": [
+						"sn"
+					]
+				},
+				{
+					"required": [
+						"gessostatus"
+					]
+				},
+				{
+					"required": [
+						"gessotheblob"
+					]
+				},
+				{
+					"required": [
+						"gessolinkedbu"
+					]
+				},
+				{
+					"required": [
+						"gessochallenge"
+					]
+				},
+				{
+					"required": [
+						"gessoresponse"
+					]
+				},
+				{
+					"required": [
+						"cn"
+					]
+				},
+				{
+					"required": [
+						"userPassword"
+					]
+				}
+			]
+		},
+		"fieldList": {
+			"type": "object",
+			"properties": {
+				"field": {
+					"type": "array",
+					"items": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "string"
+						}
+					]
+				}
+			},
+			"additionalProperties": true,
+			"required": [
+				"field"
+			]
+		}
+	},
+	"required": [
+		"directoryBranch",
+		"permitAbbreviatedRecords",
+		"abbreviatedFieldList",
+		"primaryKey",
+		"fieldList"
+	]
+}

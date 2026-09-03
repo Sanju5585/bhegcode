@@ -1,0 +1,11 @@
+<ng-container *ngIf="authError$ | async">
+  <div *ngIf="showError" class="sso-page">
+    <div class="unauthorized-error">
+      <div class="container">
+        <div class="unauth-img"></div>
+        <h1>{{ errorDetails.title }}</h1>
+        <p [innerHtml]="errorDetails.description"></p>
+      </div>
+    </div>
+  </div>
+</ng-container>

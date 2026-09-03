@@ -1,0 +1,43 @@
+<ng-container *ngIf="cart$ | async as cart"
+  ><div class="summary">
+    <div class="summary-title">
+      <p class="summary-title-p">
+        {{ 'quoteCart.quoteSummary' | cxTranslate }}
+      </p>
+    </div>
+    <!-- <div class="summary-fee">
+    <div class="summary-fee-div">
+      <p class="summary-fee-div-title">Quote fee</p>
+      <p class="summary-fee-div-value">$250.00</p>
+    </div>
+    <hr />
+  </div> -->
+    <div class="summary-total">
+      <div class="summary-total-cart">
+        <p class="summary-total-cart-title">
+          {{ 'quoteCart.cartTotal' | cxTranslate }}
+        </p>
+        <p class="summary-total-cart-value">
+          {{ cart?.totalPrice?.formattedValue }}
+        </p>
+      </div>
+      <p class="summary-total-order">
+        {{ 'quoteCart.billable' | cxTranslate }}
+      </p>
+      <hr />
+    </div>
+    <div *ngIf="!restrictedSalesArea" class="summary-checkout">
+      <bh-button
+        class="return-btn"
+        [type]="'primary'"
+        label="{{ 'quoteCart.proceedToCheckout' | cxTranslate }}"
+        (click)="proceedToCheckout()"
+        [attr.disabled]="
+          (cart?.cartType == cartType.Typ3 ||
+            cart?.cartType == cartType.Typ1) &&
+          !cart.enduserAddress &&
+          isEndUserType
+        "
+      ></bh-button>
+    </div></div
+></ng-container>

@@ -1,0 +1,10 @@
+<div *ngIf="navNodes$ | async as nodeItem" class="footer-nav-nodes">
+  <div *ngFor="let node of nodeItem['children']; let i = index" class="d-flex">
+    <bh-a
+      type="primary"
+      [text]="node.title"
+      class="mr-4"
+      (click)="onLinkClick(node, i)"
+    ></bh-a>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+## messageSource=classpath:/bhgecore/messages/email-orderNotification_$lang.properties
+<!DOCTYPE html>
+<!-- xmlns="http://www.w3.org/1999/xhtml" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        .colorRed{color:#C21A2C;}
+        .orderNumber{ color: #02A783; text-decoration: none; cursor: pointer;font-weight: 700;}
+        .orderBlocked{ font-family: Poppins;font-size: 14px;font-weight: 700;line-height: 20px;text-align: left;}
+        .orderReleased{ font-family: Poppins;font-size: 14px;font-weight: 700;line-height: 20px;text-align: left;color: #02A783;}
+        ul{font-family: Poppins;font-size: 12px;font-weight: 500;line-height: 18px;letter-spacing: -0.25px;text-align: left; color: #595959;}
+        .orderBlockedStatus{font-family: Poppins;font-size: 14px;font-weight: 700;line-height: 20px;text-align: left;color:#C21A2C;}
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+<div style="width: 600px; height: 405px; display: flex; align-items: center; margin: auto;">
+    <table width="600" height="405" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin: auto; font-family: Poppins; background-color: #FFFFFF; display: flex; justify-content: center; align-items: center; color: #121212">
+        <tr style="background-color: #FFFFFF; width: 600px; text-align: center; border:0;">
+            <td style="border:1px solid #E2E2E2 !important; padding: 20px; width: 600px; height: 405px;">
+                <img width="333" style="width: 333px;" src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/logo_blue.png" alt="logo">
+                #if($ctx.orderBlocked == 'true')
+                    <h1 class="colorRed" style="font-family: Poppins; font-size: 50px; font-weight: 600; line-height: 28px; letter-spacing: -0.5px; text-align: center;">${ctx.messages.getMessage('blockStatus')}</h1>
+                #else
+                    <h1 style="font-family: Poppins; font-size: 50px; font-weight: 600; line-height: 28px; letter-spacing: -0.5px; text-align: center;">${ctx.messages.getMessage('blockReleasedStatus')}</h1>
+                #end
+                <p style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                    margin-top: 50px; color: #121212;">${ctx.messages.dear} ${ctx.userName},</p>
+                #if($ctx.orderBlocked == 'true')
+                    <p style="font-family: Poppins; font-size: 14px; font-weight: 400; line-height: 20px; text-align: left;">${ctx.messages.getMessage('blockOrder', ${ctx.orderId}, ${ctx.messages.getMessage('blockOrderStatus')}, ${ctx.orderURL})} </p>
+                    #if($ctx.blockReason)
+                        <p style="font-family: Poppins; font-size: 14px; font-weight: 400; line-height: 20px; text-align: left; letter-spacing: -0.25px;"><ul> <li> ${ctx.blockReason}</li></ul></p>
+                    #end
+                #else
+                    <p style="font-family: Poppins; font-size: 14px; font-weight: 400; line-height: 20px; text-align: left;">${ctx.messages.getMessage('blockReleased', ${ctx.orderId}, ${ctx.messages.getMessage('blockReleasedOrderStatus')}, ${ctx.orderURL})} </p>
+                #end
+                <p style="font-family: Poppins; font-size: 14px; font-weight: 400; line-height: 20px; text-align: left;">${ctx.messages.getMessage('supportMessage',${ctx.contactusURL})}</p>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products stock levels into Powertools Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=bhge
+
+#INSERT_UPDATE Warehouse;code[unique=true];name[lang=en]
+#;pw_warehouse_s;Powertools Warehouse South
+#;pw_warehouse_e;Powertools Warehouse East
+#;pw_warehouse_w;Powertools Warehouse West
+#;pw_warehouse_n;Powertools Warehouse North
+#
+#
+#INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(code);maxPreOrder;maxStockLevelHistoryCount;overSelling;preOrder;productCode[unique=true];reserved
+#;100;pw_warehouse_s;notSpecified;0;0;0;0;0059171;0
+#;100;pw_warehouse_e;notSpecified;0;0;0;0;0058639;0
+#;100;pw_warehouse_w;notSpecified;1;0;0;0;0059167;0
+#;100;pw_warehouse_n;notSpecified;1;0;0;0;0058638;0
+#;100;pw_warehouse_s;notSpecified;1;0;0;0;0059169;0
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;0058637;0
+#
+#
+#INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(code);maxPreOrder;maxStockLevelHistoryCount;overSelling;preOrder;productCode[unique=true];reserved
+#;100;pw_warehouse_s;notSpecified;0;0;0;0;68433;0
+#;100;pw_warehouse_e;notSpecified;0;0;0;0;66506;0
+#;100;pw_warehouse_w;notSpecified;1;0;0;0;113-241-240;0
+#;100;pw_warehouse_n;notSpecified;1;0;0;0;500035;0
+#;100;pw_warehouse_s;notSpecified;1;0;0;0;113-262-240;0
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-263-260;0
+#
+#;100;pw_warehouse_s;notSpecified;0;0;0;0;100729;0
+#;100;pw_warehouse_e;notSpecified;0;0;0;0;113-241-260;0
+#;100;pw_warehouse_w;notSpecified;1;0;0;0;113-242-240;0
+#;100;pw_warehouse_n;notSpecified;1;0;0;0;113-242-260;0
+#;100;pw_warehouse_s;notSpecified;1;0;0;0;113-243-240;0
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-243-260;0
+#
+##FILM
+#;100;pw_warehouse_n;notSpecified;1;0;0;0;293DC;0
+#;100;pw_warehouse_s;notSpecified;1;0;0;0;29DJQ;0
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;28XSC;0
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-143-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-144-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-144-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-144-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-146-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-152-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-152-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-154-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-154-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-162-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-162-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-164-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-164-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-226-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-232-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-233-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-234-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-236-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-241-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-241-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-242-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-242-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-242-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-243-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-243-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-244-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-244-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-244-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-246-000;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-246-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-246-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-250-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-250-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-251-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-251-123;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-252-043;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-252-123;0 
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-232-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-232-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-233-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-233-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-234-680;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-234-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-242-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-243-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-244-700;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500063;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500064;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500065;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500066;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500067;0 
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-142-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-143-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-144-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-145-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-212-585;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-214-585;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-216-585;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-580;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-222-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-580;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-223-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-580;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-224-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-225-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-226-580;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-226-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-231-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-231-596;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-232-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-232-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-233-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-233-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-234-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-234-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-235-591;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-236-590;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-241-580;0 
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;500194;0 
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;57660;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;57661;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;57662;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;65140;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;66089;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;67158;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;67159;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;67160;0 
+#
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-118-320;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-118-330;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-118-340;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-122-300;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-122-340;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-122-420;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-123-320;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-123-340;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-280;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-290;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-300;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-320;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-330;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-340;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-400;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-410;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-124-420;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-280;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-290;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-300;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-320;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-330;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-126-340;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-280;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-290;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-300;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-302;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-320;0 
+#;100;pw_warehouse_e;notSpecified;1;0;0;0;113-127-330;0
+#
+## Warehouse Mappings for base stores
+#UPDATE Warehouse;code[unique=true];BaseStores(uid)
+##;pw_warehouse_s;5020_BaseStore,1810_BaseStore,7160_BaseStore,6170_BaseStore,6060_BaseStore,1820_BaseStore,7140_BaseStore,1830_BaseStore,6180_BaseStore,6250_BaseStore,7030_BaseStore,6270_BaseStore,3000_BaseStore,6210_BaseStore,6030_BaseStore,6020_BaseStore,1720_BaseStore,1800_BaseStore,6040_BaseStore,6240_BaseStore
+##;pw_warehouse_n;5020_BaseStore,1810_BaseStore,7160_BaseStore,6170_BaseStore,6060_BaseStore,1820_BaseStore,7140_BaseStore,1830_BaseStore,6180_BaseStore,6250_BaseStore,7030_BaseStore,6270_BaseStore,3000_BaseStore,6210_BaseStore,6030_BaseStore,6020_BaseStore,1720_BaseStore,1800_BaseStore,6040_BaseStore,6240_BaseStore
+##;pw_warehouse_e;5020_BaseStore,1810_BaseStore,7160_BaseStore,6170_BaseStore,6060_BaseStore,1820_BaseStore,7140_BaseStore,1830_BaseStore,6180_BaseStore,6250_BaseStore,7030_BaseStore,6270_BaseStore,3000_BaseStore,6210_BaseStore,6030_BaseStore,6020_BaseStore,1720_BaseStore,1800_BaseStore,6040_BaseStore,6240_BaseStore
+##;pw_warehouse_w;5020_BaseStore,1810_BaseStore,7160_BaseStore,6170_BaseStore,6060_BaseStore,1820_BaseStore,7140_BaseStore,1830_BaseStore,6180_BaseStore,6250_BaseStore,7030_BaseStore,6270_BaseStore,3000_BaseStore,6210_BaseStore,6030_BaseStore,6020_BaseStore,1720_BaseStore,1800_BaseStore,6040_BaseStore,6240_BaseStore
+#

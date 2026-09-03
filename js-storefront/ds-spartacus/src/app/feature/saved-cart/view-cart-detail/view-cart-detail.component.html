@@ -1,0 +1,342 @@
+<ng-container *ngIf="data; else loading">
+  <section>
+    <div class="section-container">
+      <div class="row mt-3">
+        <div class="col-md-8 savedmsg">
+          <!--split case text-->
+          <div class="saved-cart-info" style="display: block">
+            <span class="logo"
+              ><img src="/assets/img/saved-cart-vector.png"
+            /></span>
+            <span
+              class="value"
+              *ngIf="
+                data.cartType != cartType.Typ3 && data?.locationMap.length == 1
+              "
+              >{{ 'savedCart.cartDetails' | cxTranslate }}</span
+            >
+            <span class="value" *ngIf="data.cartType == cartType.Typ3">{{
+              'savedCart.splitOrderInfo' | cxTranslate
+            }}</span>
+            <span class="value" *ngIf="data?.locationMap.length > 1">{{
+              'savedCart.splitRMAInfo' | cxTranslate
+            }}</span>
+          </div>
+          <!--split case text-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container mt-3 table-align">
+    <div class="table-responsive col-md-8">
+      <table
+        class="table"
+        id="subs-table"
+        *ngIf="data.cartType != cartType.Typ3 && data?.locationMap?.length == 1"
+      >
+        <thead>
+          <tr>
+            <th class="tb-heading index-column"></th>
+            <th class="tb-heading product-column">
+              {{ 'savedCart.product' | cxTranslate }}
+            </th>
+            <th class="tb-heading quantity-column">
+              {{ 'savedCart.quantity' | cxTranslate }}
+            </th>
+            <th class="tb-heading price-column">
+              {{ 'savedCart.price' | cxTranslate }}
+            </th>
+
+            <th class="tb-heading total-column">
+              {{ 'savedCart.total' | cxTranslate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody id="cartDetails" [ngbCollapse]="showToggle">
+          <tr
+            *ngFor="let item of data?.entries; index as i"
+            id="'cartrRowDetails-' +{{ i }}"
+          >
+            <td class="tb-content index-column">{{ i + 1 }}</td>
+            <td class="tb-content product-column">
+              <div class="product-info">
+                <div class="code">
+                  <div class="label">
+                    {{ 'savedCart.partModelNumber' | cxTranslate }}
+                  </div>
+                  <div class="value">
+                    <a>{{ item.product.code }}</a>
+                  </div>
+                </div>
+                <div class="name">
+                  <div class="label">
+                    {{ 'savedCart.partDescription' | cxTranslate }}
+                  </div>
+                  <div class="value">{{ item.product.name }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="tb-content quantity-column">
+              {{ item.quantity }} {{ 'savedCart.each' | cxTranslate }}
+            </td>
+            <td class="tb-content total-column">
+              {{
+                data?.commerceType == 'RETURNS'
+                  ? item?.basePrice?.formattedValue
+                  : item?.totalPrice?.formattedValue
+              }}
+            </td>
+            <td class="tb-content price-column">
+              {{
+                item.netSellingPrice?.value <= 0
+                  ? 'To be quoted'
+                  : item.netSellingPrice?.formattedValue
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--split case table-->
+      <div
+        class="ordercase"
+        *ngIf="
+          (data.cartType == cartType.Typ3 && this.nonFilmProduct) ||
+          (data?.locationMap?.length > 1 && this.nonFilmProduct)
+        "
+      >
+        <span *ngIf="data.cartType == cartType.Typ3">{{
+          'savedCart.order2' | cxTranslate
+        }}</span>
+        <span *ngIf="data?.locationMap.length > 1">{{
+          'savedCart.RMA1' | cxTranslate
+        }}</span>
+        <span class="ml-1" *ngIf="this.nonFilmProduct?.length > 1"
+          >({{ this.nonFilmProduct.length }} {{ 'waygate.listing.items' | cxTranslate }})</span
+        >
+        <span class="ml-1" *ngIf="this.nonFilmProduct?.length == 1"
+          >({{ this.nonFilmProduct.length }} {{ 'waygate.listing.item' | cxTranslate }})</span
+        >
+      </div>
+      <table
+        class="table"
+        id="subs-table"
+        *ngIf="
+          (data.cartType == cartType.Typ3 && this.nonFilmProduct) ||
+          (data?.locationMap?.length > 1 && this.nonFilmProduct)
+        "
+      >
+        <thead>
+          <tr>
+            <th class="tb-heading index-column"></th>
+            <th class="tb-heading product-column">
+              {{ 'savedCart.product' | cxTranslate }}
+            </th>
+            <th class="tb-heading quantity-column">
+              {{ 'savedCart.quantity' | cxTranslate }}
+            </th>
+            <th class="tb-heading price-column">
+              {{ 'savedCart.price' | cxTranslate }}
+            </th>
+
+            <th class="tb-heading total-column">
+              {{ 'savedCart.total' | cxTranslate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody id="cartDetails" [ngbCollapse]="showToggle">
+          <tr
+            *ngFor="let item of this.nonFilmProduct; index as i"
+            id="'cartrRowDetails-' +{{ i }}"
+          >
+            <td class="tb-content index-column">{{ i + 1 }}</td>
+            <td class="tb-content product-column">
+              <div class="product-info">
+                <div class="code">
+                  <div class="label">
+                    {{ 'savedCart.partModelNumber' | cxTranslate }}
+                  </div>
+                  <div class="value">
+                    <a>{{ item.product.code }}</a>
+                  </div>
+                </div>
+                <div class="name">
+                  <div class="label">
+                    {{ 'savedCart.partDescription' | cxTranslate }}
+                  </div>
+                  <div class="value">{{ item.product.name }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="tb-content quantity-column">
+              {{ item.quantity }} {{ 'savedCart.each' | cxTranslate }}
+            </td>
+            <td class="tb-content total-column">
+              {{
+                data?.cartType == 'HYBRID'
+                  ? item?.totalPrice?.value <= 0
+                    ? 'To be quoted'
+                    : item?.totalPrice?.formattedValue
+                  : item?.total?.value <= 0
+                    ? 'To be quoted'
+                    : item.total?.formattedValue
+              }}
+            </td>
+            <td class="tb-content price-column">
+              {{
+                item.netSellingPrice?.formattedValue ||
+                  (item?.totalPrice?.value <= 0
+                    ? 'To be quoted'
+                    : item?.totalPrice?.formattedValue)
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="ordercase ordertwo"
+        *ngIf="
+          (data.cartType == cartType.Typ3 && this.filmProduct) ||
+          (data?.locationMap?.length > 1 && this.filmProduct)
+        "
+      >
+        <span *ngIf="data.cartType == cartType.Typ3">{{
+          'savedCart.order1' | cxTranslate
+        }}</span>
+        <span *ngIf="data?.locationMap.length > 1">{{
+          'savedCart.RMA2' | cxTranslate
+        }}</span>
+        <span class="ml-1" *ngIf="this.filmProduct?.length > 1"
+          >({{ this.filmProduct.length }} {{ 'waygate.listing.items' | cxTranslate }})</span
+        >
+        <span class="ml-1" *ngIf="this.filmProduct?.length == 1"
+          >({{ this.filmProduct.length }} {{ 'waygate.listing.item' | cxTranslate }})</span
+        >
+      </div>
+      <table
+        class="table"
+        id="subs-table"
+        *ngIf="
+          (data.cartType == cartType.Typ3 && this.filmProduct) ||
+          (data?.locationMap?.length > 1 && this.filmProduct)
+        "
+      >
+        <thead>
+          <tr>
+            <th class="tb-heading index-column"></th>
+            <th class="tb-heading product-column">
+              {{ 'savedCart.product' | cxTranslate }}
+            </th>
+            <th class="tb-heading quantity-column">
+              {{ 'savedCart.quantity' | cxTranslate }}
+            </th>
+            <th class="tb-heading price-column">
+              {{ 'savedCart.price' | cxTranslate }}
+            </th>
+
+            <th class="tb-heading total-column">
+              {{ 'savedCart.total' | cxTranslate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody id="cartDetails" [ngbCollapse]="showToggle">
+          <tr
+            *ngFor="let item of this.filmProduct; index as i"
+            id="'cartrRowDetails-' +{{ i }}"
+          >
+            <td class="tb-content index-column">{{ i + 1 }}</td>
+            <td class="tb-content product-column">
+              <div class="product-info">
+                <div class="code">
+                  <div class="label">
+                    {{ 'savedCart.partModelNumber' | cxTranslate }}
+                  </div>
+                  <div class="value">
+                    <a>{{ item.product.code }}</a>
+                  </div>
+                </div>
+                <div class="name">
+                  <div class="label">
+                    {{ 'savedCart.partDescription' | cxTranslate }}
+                  </div>
+                  <div class="value">{{ item.product.name }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="tb-content quantity-column">
+              {{ item.quantity }} {{ 'savedCart.each' | cxTranslate }}
+            </td>
+            <td class="tb-content total-column">
+              {{
+                data?.cartType == 'HYBRID'
+                  ? item?.totalPrice?.value <= 0
+                    ? 'To be quoted'
+                    : item?.totalPrice?.formattedValue
+                  : item?.total?.value <= 0
+                    ? 'To be quoted'
+                    : item.total?.formattedValue
+              }}
+            </td>
+            <td class="tb-content price-column">
+              {{
+                item.netSellingPrice?.formattedValue ||
+                  (item?.totalPrice?.value <= 0
+                    ? 'To be quoted'
+                    : item?.totalPrice?.formattedValue)
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--splitcase table end-->
+    </div>
+    <div class="cart-summary col-md-4 float-right">
+      <span class="title">
+        {{ showCartName }}
+      </span>
+
+      <p class="saveddate">{{ 'savedCart.lastSavedOn' | cxTranslate }} {{ savedTime }}</p>
+      <!-- Last saved on Thur, Jul 29 2021 (02:53:51 PDT) -->
+      <div class="sales-area">
+        <span class="heading-text float-left">{{
+          'savedCart.totalItems' | cxTranslate
+        }}</span>
+        <span class="content-bold cart">{{ data?.totalItems }}</span>
+      </div>
+      <div class="sales-area">
+        <span class="heading-text float-left"
+          >{{ 'savedCart.salesArea' | cxTranslate }} :</span
+        >
+        <span class="content-bold cart">{{ data?.saleaAreaName }}</span>
+      </div>
+      <div class="sales-area">
+        <span class="heading-text float-left"
+          >{{ 'savedCart.salesAreaNo' | cxTranslate }} :</span
+        >
+        <span class="content-bold cart">{{ data?.saleaAreaID }}</span>
+      </div>
+      <div class="actions">
+        <bh-button
+          class="float-left"
+          medium
+          type="primary"
+          label="{{ 'savedCart.restore' | cxTranslate }}"
+          (click)="openPopup('detail')"
+        ></bh-button>
+        <bh-button
+          class="float-right"
+          medium
+          type="secondary"
+          label="{{ 'savedCart.returnToCart' | cxTranslate }}"
+          (click)="goToCart()"
+        ></bh-button>
+      </div>
+    </div>
+  </section>
+</ng-container>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

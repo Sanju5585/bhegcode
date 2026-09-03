@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "Details zur Rückmeldung",
+    "subject": "Betreff",
+    "name": "Name",
+    "phoneNumber": "Telefonnummer",
+    "emailAddress": "E-Mail-Adresse",
+    "message": "Nachricht",
+    "characters": "Zeichen",
+    "attachement": "Anhang",
+    "clipboard": "Datei hierher ziehen und ablegen",
+    "selectFile": "Wählen Sie eine Datei (nur Bild oder pdf)",
+    "uploadFile": "LADE DATEI HOCH",
+    "submit": "Absenden",
+    "successSubmit": "Ihr Kommentar wurde erfolgreich übermittelt",
+    "errorMessage": "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal.",
+    "dragdropvalidfile": "Bitte wählen Sie einen gültigen Dateityp aus. Valid file types are - jpg,pdf",
+    "error": {
+      "phoneNumberMessage": "Die Telefonnummer darf nur aus Ziffern bestehen.",
+      "emailMessage": "E-Mail-Adresse muss eine gültige E-Mail-Adresse sein",
+      "subjectMessage": "Betreff wird benötigt",
+      "nameMessage": "Name wird benötigt",
+      "phoneReq": "Telefonnummer wird benötigt",
+      "emailReq": "Emailadresse wird benötigt",
+      "message": "Nachricht wird benötigt"
+    }
+  }
+}

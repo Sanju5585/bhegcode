@@ -1,0 +1,296 @@
+<div class="quote-list">
+  <div class="tile-content">
+    <div class="statusTile">
+      <vs-status-tiles
+        (filteredTile)="onTileClick($event)"
+        [tiles]="quoteTiles"
+        [currentStatusType]="firstStatusType"
+      >
+      </vs-status-tiles>
+    </div>
+  </div>
+  <div class="order-content">
+    <div class="refresh" *ngIf="!noData" (click)="refreshList(true)">
+      <em class="material-icons icon-size">Refresh</em>
+      <span class="btn-txt">{{ 'order-tracking.refresh' | cxTranslate }}</span>
+    </div>
+    <a
+      matTooltipClass="vs-tooltip capitalize"
+      matTooltip="Download XLS"
+      (click)="downloadXLS()"
+    >
+      <em class="icons download icon-size"></em>
+      <span class="btn-txt">{{
+        'order-tracking.downloadXls' | cxTranslate
+      }}</span></a
+    >
+  </div>
+  <div class="before-table">
+    <div class="leftcontent">
+      <div *ngIf="this.resData?.customerAccounts" class="custDetail">
+        <ng-select
+          [items]="customerAccData"
+          [multiple]="true"
+          bindLabel="name1"
+          placeholder="{{ 'order-tracking.customeraccount' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="id"
+          [(ngModel)]="selectedCustomer"
+          (change)="getselectedcustomer()"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <div (click)="getselectedCustAcc(item$)">
+              <input
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+                class="checckboxacc"
+              />
+              <span class="prodName">{{ item.name }}</span>
+              <small>{{ item.id }}</small>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="dateRange">
+        <vs-date-range-picker
+          (selectedDateRange)="getDateRange($event)"
+          [fromMaxDate]="toMinDate"
+          [fromMinDate]="fromMax"
+          [toMinDate]="toMinDate"
+          [toMaxDate]="toMinDate"
+          [changeDate]="changeDate"
+        ></vs-date-range-picker>
+      </div>
+      <div *ngIf="this.resData?.productLines" class="prodLine">
+        <ng-select
+          [items]="productLineData"
+          [multiple]="true"
+          bindLabel="name"
+          placeholder="{{ 'order-tracking.productline' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="id"
+          [(ngModel)]="selectedProdLine"
+          (change)="getselectedProdLine()"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <div (click)="selectedProductLine(item$)">
+              <input
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+              />
+              <span class="prodName">{{ item }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="rightContent">
+      <div class="icon">
+        <em class="material-icons keyarrow">keyboard_arrow_up</em>
+        <em class="material-icons keyarrow">keyboard_arrow_down</em>
+      </div>
+      <ng-select
+        [searchable]="true"
+        [clearable]="false"
+        [items]="this.sortConditions"
+        bindLabel="name"
+        placeholder="{{ 'order-tracking.sortby' | cxTranslate }}"
+        (change)="orderAlignment($event)"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          {{ item.name }}
+        </ng-template>
+      </ng-select>
+      <div class="search">
+        <input
+          type="text"
+          class="form-control search-btn"
+          placeholder="{{ 'order-tracking.search' | cxTranslate }}"
+          #search
+          name="search"
+          [(ngModel)]="searchTerm"
+          (keydown.enter)="modelChange()"
+        />
+        <span
+          ><em class="material-icons search-icon" (click)="modelChange()"
+            >search</em
+          ></span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="example-contaner mat-elevation-z8 tb-parent">
+    <div class="left-content" *ngIf="statusFilterTxt">
+      {{ this.statusFilterTxt }}
+      <em class="material-icons" (click)="clearStatus()">close</em>
+    </div>
+    <div class="left-content" *ngIf="dateRange">
+      {{ this.fromDate.formattedDate }} - {{ this.toDate.formattedDate }}
+      <em class="material-icons" (click)="clearDateRange()">close</em>
+    </div>
+    <div class="left-content" *ngIf="searchFieldUpdated">
+      {{ 'order-tracking.search' | cxTranslate }} - {{ searchTerm }}
+      <em class="material-icons" (click)="clearSearchTerm()">close</em>
+    </div>
+    <div class="prodDetail" *ngIf="selectedProdLine.length > 0">
+      <div *ngFor="let prodLine of selectedProdLine" class="left-content">
+        {{ 'rma-tracking.productLine' | cxTranslate }} - {{ prodLine }}
+        <em class="material-icons" (click)="clearProductLine(prodLine)"
+          >close</em
+        >
+      </div>
+    </div>
+    <div class="prodDetail" *ngIf="selectedCustomer.length > 0">
+      <div
+        *ngFor="let customerSelected of selectedCustomer"
+        class="left-content"
+      >
+        {{ 'order-tracking.customeraccount' | cxTranslate }} -
+        {{ customerSelected }}
+        <em class="material-icons" (click)="clearCustAcc(customerSelected)"
+          >close</em
+        >
+      </div>
+    </div>
+    <div
+      class="clear-link"
+      *ngIf="
+        dateRange ||
+        (searchFieldUpdated && searchTerm.trim().length > 0) ||
+        statusFilterTxt ||
+        selectedCustomer.length > 0 ||
+        selectedProdLine.length > 0
+      "
+      (click)="clearAll()"
+    >
+      <span class="clear-all">{{
+        'order-tracking.clearAllBtn' | cxTranslate
+      }}</span>
+    </div>
+    <ds-scroll-container
+      *ngIf="!noData && !isLoadMoreInProgress"
+      [more]="true"
+      [scrollDelay]="2000"
+      [scrollOffset]="2000"
+      (scrolled)="loadMoreOrders()"
+      [class.full]="full"
+      [class.part]="!full"
+    >
+      <mat-table
+        class="clearfix"
+        #table
+        [dataSource]="this.tableData"
+        [ngClass]="{ mt: !dateRange }"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="Order">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'order-tracking.orderHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+            <span class="code-hyperlink" (click)="selectedOrder(element)">{{
+              element.code
+            }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Order Status">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'order-tracking.orderStatusHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            class="tb-content {{ displaycolor(element.orderStatus) }}"
+          >
+            {{ displayStatus(element.orderStatus) }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Payment Type">
+          <mat-header-cell *matHeaderCellDef class="tb-heading payment-type"
+            >{{ 'order-tracking.paymentType' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content payment-type">
+            {{ element.purchaseOrderNumber }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="PO Date">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'order-tracking.poDateHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            <span
+              class="ml-3"
+              *ngIf="element.purchaseOrderNumber === 'CREDIT CARD ORDER'"
+            >
+              -
+            </span>
+            <span *ngIf="element.purchaseOrderNumber !== 'CREDIT CARD ORDER'">
+              {{ element.purchaseOrderDate | date: 'dd MMM yyyy' }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Net Price">
+          <mat-header-cell *matHeaderCellDef class="tb-heading">
+            {{ 'order-tracking.netPriceHeader' | cxTranslate }}</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.currency }} {{ element.totalNetPrice }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Order Created">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'order-tracking.orderCreatedHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.placed | date: 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Last Updated">
+          <mat-header-cell *matHeaderCellDef class="tb-heading"
+            >{{ 'order-tracking.lastUpdateHeader' | cxTranslate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tb-content">
+            {{ element.lastUpdatedDate | date: 'dd MMM yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </ds-scroll-container>
+    <div *ngIf="isLoadMoreInProgress">
+      <cx-spinner></cx-spinner>
+    </div>
+    <div
+      class="currently-loading-spinner"
+      *ngIf="currentlyLoading && !isLoadMoreInProgress"
+    >
+      <cx-spinner></cx-spinner>
+    </div>
+  </div>
+  <div *ngIf="noData" class="noData">
+    <div class="img"></div>
+    <h2 class="heading">{{ 'order-tracking.noOrdersFound' | cxTranslate }}</h2>
+  </div>
+</div>

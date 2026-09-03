@@ -1,0 +1,108 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <ng-container
+      class="product-dialog-container"
+      *ngIf="overview || modalIsOpen; else loading"
+    >
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          <span class="product-overview-title">{{
+            'quoteCart.productConfiguration' | cxTranslate
+          }}</span>
+          <h6 class="product-overview-name">{{ productname }}</h6>
+        </div>
+        <button
+          type="button"
+          aria-label="Close"
+          class="close"
+          (click)="close('configurator-modal-confirm')"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body product-dialog-body" *ngIf="overview">
+        <div class="configure-info-body">
+          <div class="row entry-item-row">
+            <div class="product-desc-col">
+              <div *ngFor="let group of overview.groups">
+                <div class="prodcut-overview-group h6">
+                  <strong>{{
+                    group.description || group.groupDescription
+                  }}</strong>
+                </div>
+                <div
+                  *ngFor="
+                    let attribute of group.attributes ||
+                      group.characteristicValues
+                  "
+                >
+                  <div *ngIf="attribute.characteristic && attribute.value">
+                    <div class="cx-attribute-label">
+                      {{ attribute.characteristic }}
+                    </div>
+                    <div class="cx-attribute-value">{{ attribute.value }}</div>
+                  </div>
+                  <div *ngIf="attribute.value">
+                    <div class="cx-attribute-label">
+                      {{ attribute.langDepName }}
+                    </div>
+                    <div *ngFor="let domainvalue of attribute.domainValues">
+                      <div *ngIf="attribute.value == domainvalue.key">
+                        <div class="cx-attribute-value">
+                          {{ domainvalue.langDepName }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total container -->
+      <div class="cx-dialog-actions">
+        <!-- Actions -->
+        <div class="cx-dialog-buttons">
+          <bh-button
+            [type]="'secondary'"
+            label="Edit Configuration"
+            (click)="close('update configuration')"
+            *ngIf="cartId"
+          ></bh-button>
+          <bh-button
+            [type]="'tertiary'"
+            label="Close"
+            (click)="close('configurator-modal-confirm')"
+          ></bh-button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="cx-dialog-header modal-header">
+        <div class="cx-dialog-title modal-title">
+          {{ 'quoteCart.productConfiguration' | cxTranslate }}
+        </div>
+        <button
+          _ngcontent-fit-c364=""
+          type="button"
+          aria-label="Close"
+          class="close"
+          (click)="close('configurator-modal-confirm')"
+        >
+          <i _ngcontent-fit-c364="" class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="cx-dialog-body modal-body">
+        <div class="cx-dialog-row">
+          <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

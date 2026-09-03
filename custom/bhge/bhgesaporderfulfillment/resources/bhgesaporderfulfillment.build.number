@@ -1,0 +1,11 @@
+#Ant properties
+#Wed Jan 10 08:25:14 UTC 2024
+version.api=2211
+vendor=hybris
+group.id=de.hybris.platform
+name=bhgesaporderfulfillment
+description=bhgesaporderfulfillment
+builddate=20240110 0824
+releasedate=20240109 1758
+version=2211.15
+module.name=platform-module

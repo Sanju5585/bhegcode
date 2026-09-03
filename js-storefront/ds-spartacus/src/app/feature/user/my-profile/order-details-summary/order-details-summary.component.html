@@ -1,0 +1,149 @@
+<div class="row my-profile" *ngIf="!loadingFlag; else loading">
+  <div class="col-md-12 tabcontent-display-line">
+    <div class="row custom-bottom-border">
+      <div class="col-md-12">
+        <h5 class="tabcontent-display-line-section-heading">
+          {{ 'myProfile.orderDetailSummary' | cxTranslate }}
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12 horizontal">
+            <div class="radio-group-label">
+              {{ 'myProfile.ship' | cxTranslate }}
+            </div>
+            <bh-radio-button
+              label=" {{ 'myProfile.completeLabel' | cxTranslate }}"
+              [attr.checked]="shippingType == true ? true : false"
+              value="true"
+              name="shippingType"
+              (change)="handleChange($event, 'shippingType')"
+            ></bh-radio-button>
+            <bh-radio-button
+              label=" {{ 'myProfile.partialLabel' | cxTranslate }}"
+              [attr.checked]="shippingType == false ? true : false"
+              value="false"
+              name="shippingType"
+              (change)="handleChange($event, 'shippingType')"
+            ></bh-radio-button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 horizontal">
+            <div class="radio-group-label">
+              {{ 'myProfile.carrierLabel' | cxTranslate }}:
+            </div>
+            <bh-radio-button
+              label=" {{ 'myProfile.collect' | cxTranslate }}"
+              [attr.checked]="shippingMethod == 'COLLECT' ? true : false"
+              value="COLLECT"
+              (change)="handleChange($event, 'shippingMethod')"
+              name="shippingMethod"
+            ></bh-radio-button>
+            <bh-radio-button
+              label=" {{ 'myProfile.prepay' | cxTranslate }}"
+              [attr.checked]="shippingMethod == 'Prepay & Add' ? true : false"
+              value="Prepay & Add"
+              (change)="handleChange($event, 'shippingMethod')"
+              name="shippingMethod"
+            ></bh-radio-button>
+          </div>
+        </div>
+
+        <div
+          *ngIf="this.shippingMethod == 'COLLECT' ? true : false"
+          class="row"
+        >
+          <div class="col-md-12 margin-top">
+            <bh-text-input
+              type="text"
+              [value]="deliveryAccount"
+              small
+              label="{{ 'myProfile.shippingAccountNumber' | cxTranslate }}"
+              [message]="error.shipAccountNo"
+              [attr.error]="error.shipAccountNo ? error.shipAccountNo : null"
+              maxlength="35"
+              (keyup)="handleChange($event, 'deliveryAccount')"
+            ></bh-text-input>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 margin-top">
+            <bh-dropdown
+              menuWidth="fluid"
+              [menuItems]="carrierItems"
+              [value]="carrier"
+              unselectable="false"
+              label="{{ 'myProfile.carrier' | cxTranslate }}"
+              isSmall="true"
+              (selected)="handleChange($event, 'carrier')"
+            >
+            </bh-dropdown>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 margin-top">
+            <bh-text-input
+              type="text"
+              small
+              [value]="contactName"
+              label="{{ 'myProfile.contactNameLabel' | cxTranslate }}"
+              maxlength="35"
+              (keyup)="handleChange($event, 'contactName')"
+            ></bh-text-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 margin-top">
+            <bh-text-input
+              type="text"
+              small
+              [value]="contactPhone"
+              label="{{ 'myProfile.contactPhoneLabel' | cxTranslate }}"
+              [message]="error.contactPhone"
+              [attr.error]="error.contactPhone ? error.contactPhone : null"
+              maxlength="16"
+              (keyup)="handleChange($event, 'contactPhone')"
+            >
+            </bh-text-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 margin-top">
+            <bh-text-input
+              type="text"
+              label="{{ 'myProfile.contactEmailLabel' | cxTranslate }}"
+              [attr.error]="error.shipNotiEmail ? error.shipNotiEmail : null"
+              small
+              [value]="shipNotiEmail"
+              maxlength="40"
+              [message]="error.shipNotiEmail"
+              (keyup)="handleChange($event, 'shipNotiEmail')"
+            ></bh-text-input>
+          </div>
+        </div>
+        <div class="row custom-border-top">
+          <div class="col-12 button-group">
+            <bh-button
+              [attr.disabled]="showLoading ? true : null"
+              [attr.loading]="showLoading ? true : null"
+              type="primary"
+              small
+              (click)="onSubmit()"
+              label="{{ 'myProfile.saveBtn' | cxTranslate }}"
+            ></bh-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

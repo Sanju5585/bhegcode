@@ -1,0 +1,9 @@
+﻿#if((${ctx.productLine} =='waygate')&& (${ctx.order.getCommerceType()} != "RETURNS"))
+${ctx.messages.getMessage('waygateOrderEmailSubject', ${ctx.order.code})}
+#else
+#if(${ctx.order.getCommerceType()} == "RETURNS")
+${ctx.messages.getMessage('rmaEmailSubject', ${ctx.order.getRmaNumber()})}
+#else 
+${ctx.messages.getMessage('orderEmailSubject', ${ctx.order.code})}
+#end
+#end

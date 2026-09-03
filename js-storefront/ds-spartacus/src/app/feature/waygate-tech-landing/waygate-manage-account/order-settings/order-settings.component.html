@@ -1,0 +1,204 @@
+<ng-container *ngIf="!loadingFlag; else loading">
+  <form
+    class="waygate-order-settings-container"
+    [formGroup]="orderSettingsForm"
+    (ngSubmit)="submitForm()"
+  >
+    <h4 class="common-header">
+      {{ 'rma-tracking.orderSettings' | cxTranslate }}
+    </h4>
+    <div class="order-settings-content shippment-radio">
+      <div class="order-setting-half">
+        <h5>{{ 'rma-tracking.shipmentPreference' | cxTranslate }}</h5>
+        <div class="radio-group">
+          <div class="form-check form-check-inline radio-wrapper">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="shippingType"
+              id="completeRadio"
+              formControlName="shippingType"
+              [value]="true"
+            />
+            <label class="form-check-label" for="completeRadio">
+              {{ 'rma-tracking.complete' | cxTranslate }}</label
+            >
+          </div>
+          <div class="form-check form-check-inline radio-wrapper">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="shippingType"
+              id="partialRadio"
+              formControlName="shippingType"
+              [value]="false"
+            />
+            <label class="form-check-label" for="partialRadio">
+              {{ 'rma-tracking.partial' | cxTranslate }}</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="order-setting-half">
+        <h5>{{ 'rma-tracking.shipmentMethod' | cxTranslate }}</h5>
+        <div class="radio-group">
+          <div class="form-check form-check-inline radio-wrapper">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="shippingMethod"
+              id="collectRadio"
+              formControlName="shippingMethod"
+              [value]="'COLLECT'"
+              [attr.disabled]="disableCollect"
+            />
+            <label class="form-check-label" for="collectRadio">
+              {{ 'rma-tracking.collect' | cxTranslate }}</label
+            >
+          </div>
+          <div class="form-check form-check-inline radio-wrapper">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="shippingMethod"
+              id="prePayRadio"
+              formControlName="shippingMethod"
+              [value]="'Prepay & Add'"
+            />
+            <label class="form-check-label" for="prePayRadio">
+              {{ 'rma-tracking.prepayAdd' | cxTranslate }}</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-settings-content mr-20">
+      <div
+        class="order-setting-item"
+        [hidden]="orderSettingsForm.value.shippingMethod !== 'COLLECT'"
+      >
+        <label for="accountNumber" class="element-label">{{
+          'rma-tracking.shippingAccountNumber' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="accountNumber"
+          class="order-input"
+          formControlName="deliveryAccount"
+        />
+      </div>
+      <div class="order-setting-item">
+        <label for="name" class="element-label">{{
+          'rma-tracking.shiptoContactName' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="name"
+          class="order-input"
+          formControlName="contactName"
+        />
+      </div>
+    </div>
+    <div class="order-settings-content mr-20">
+      <div class="order-setting-item">
+        <label for="contactNumber" class="element-label">{{
+          'rma-tracking.shippingtoContactPhone' | cxTranslate
+        }}</label>
+        <input
+          type="text"
+          id="contactNumber"
+          class="order-input"
+          formControlName="contactPhone"
+        />
+        <div
+          *ngIf="
+            formControls.contactPhone.touched &&
+            formControls.contactPhone.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <!-- <div *ngIf="formControls.contactPhone.errors.required">
+                    Invoice Notification Phone No is required
+                </div> -->
+          <div *ngIf="formControls.contactPhone.errors.pattern">
+            {{ 'rma-tracking.pleaseEnterValidPhoneNo' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="order-setting-item">
+        <label for="email" class="element-label">{{
+          'rma-tracking.shippingtoContactEmail' | cxTranslate
+        }}</label>
+        <input
+          type="email"
+          id="email"
+          class="order-input"
+          formControlName="shipNotiEmail"
+        />
+        <div
+          *ngIf="
+            formControls.shipNotiEmail.touched &&
+            formControls.shipNotiEmail.invalid
+          "
+          class="typography--body-small bh-form-message--error inline-error-wrapper"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >
+          <!-- <div *ngIf="formControls.shipNotiEmail.errors.required">
+                    Email is required
+                </div> -->
+          <div *ngIf="formControls.shipNotiEmail.errors.pattern">
+            {{ 'rma-tracking.emailError' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-settings-content mr-20">
+      <div class="order-setting-item">
+        <label class="element-label">{{
+          'rma-tracking.carrierLbl' | cxTranslate
+        }}</label>
+        <ng-select
+          id="seperator"
+          [searchable]="false"
+          [clearable]="false"
+          formControlName="carrier"
+        >
+          <ng-option
+            *ngFor="let carrier of carriers; let i = index"
+            [value]="carrier.value"
+          >
+            {{ carrier.label }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="order-setting-item"></div>
+    </div>
+    <div class="order-settings-content mr-top-40">
+      <button
+        class="save-btn action-btn"
+        type="submit"
+        [disabled]="orderSettingsForm.invalid || !orderSettingsForm.dirty"
+      >
+        {{ 'rma-tracking.saveChanges' | cxTranslate }}
+      </button>
+
+      <button
+        class="discard-btn action-btn"
+        type="button"
+        (click)="discardChanges()"
+      >
+        {{ 'rma-tracking.discard' | cxTranslate }}
+      </button>
+    </div>
+  </form>
+</ng-container>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

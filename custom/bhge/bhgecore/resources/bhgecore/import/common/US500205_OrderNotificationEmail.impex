@@ -1,0 +1,33 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+$emailPackageName=$config-emailContextPackageName
+
+$lang=en
+
+INSERT_UPDATE  EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;BlockedOrderNotificationEmailTemplate;Blocked Order Notificaion Email Template;true;blockOrderNotificationEmail;bhge_Email_Block_Order_Notification_Subject;bhge_Email_Block_Order_Notification_Body;EmailPage
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;description[$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];rendererType(code)[default='velocity']
+;bhge_Email_Block_Order_Notification_Body;$emailPackageName.BlockedOrderNotificationEmailContext;"Block Order Notification Body";$emailResource/email-orderNotificationBody.vm;
+;bhge_Email_Block_Order_Notification_Subject;$emailPackageName.BlockedOrderNotificationEmailContext;"Block Order Notification Subject";$emailResource/email-orderNotificationSubject.vm;
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];fromEmail;fromName
+;;BlockOrderNotificationEmail;Block Order Notification Email;BlockedOrderNotificationEmailTemplate;true;;SVC-Prod-DSStore@bakerhughes.com;Baker Hughes
+
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+                             ;bhgeOldOrderNotificationJob;bhgeOldOrderNotificationJob;true
+                             ;bhgeBlockedOrderNotificationJob;bhgeBlockedOrderNotificationJob;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+                     ;bhgeOldOrderNotificationJob;bhgeOldOrderNotificationJob;en;true
+                     ;bhgeBlockedOrderNotificationJob;bhgeBlockedOrderNotificationJob;en;true
+
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true]		;active ;cronExpression
+                     ;bhgeOldOrderNotificationJob	;true	;0 0 0 1/1 * ? *
+                     ;bhgeBlockedOrderNotificationJob	;true	;0 0 0 1/1 * ? *

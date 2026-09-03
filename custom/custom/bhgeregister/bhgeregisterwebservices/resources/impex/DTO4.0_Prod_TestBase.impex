@@ -1,0 +1,132 @@
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg;groups(uid)
+;dot-19001;503028851;Smitha Prabhu;Smitha;Prabhu;smitha1.prabhu@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+;dot-19002;503061607;Jignesh Gandhi;Jignesh;Gandhi;jignesh.gandhi@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+;dot-19003;502401544;Rahul Gangan;Rahul;Gangan;rahul.gangan@bhge.com;BHGERegister;true;1;false;BHGEUserManagerGroup
+;dot-19004;503040507;Kanav Sharma;Kanav;Sharma;kanav.sharma@bhge.com;BHGERegister;true;1;false;BHGEUserManagerGroup
+;dot-19005;503061609;Virender Kumar;Virender;Kumar;Virender.Kumar@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+;dot-19006;503024979;Rajat Kholiya;Rajat;Kholiya;Rajat1.Kholiya@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+;dot-19007;503045990;Bibaswan Ghosh;Bibaswan;Ghosh;	Bibaswan.Ghosh@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+;dot-19008;320001994;Gopi Myneni;Gopi;Myneni;gopi.myneni@bhge.com;BHGERegister;true;1;false;BHGECSRApproverGroup
+
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;1;19;TestCSRGroup;DOT Prod Test Team;dot-19001,dot-19002,dot-19005,dot-19006,dot-19007;jignesh.gandhi@bhge.com
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;19;dot-19001
+;19;dot-19002
+;19;dot-19005
+;19;dot-19006
+;19;dot-19007
+;19;dot-19008
+
+INSERT_UPDATE BHGEMnCEcommMatrix;matrixRuleId(attributeId)[unique=true];regionAttrib(attributeId);subregionAttrib(attributeId);countryAttrib(attributeId);productlineAttrib(attributeId);csrApproverValue(approverID)
+;1;1;;;273;19
+;2;1;;;274;19
+;3;1;;;275;19
+;4;1;;;276;19
+;5;1;;;277;19
+;6;1;;;278;19
+;7;1;;;279;19
+;8;1;;;280;19
+;9;1;;;281;19
+;10;1;;;282;19
+;11;1;;;283;19
+;12;2;;;273;19
+;13;2;;;274;19
+;14;2;;;275;19
+;15;2;;;276;19
+;16;2;;;277;19
+;17;2;;;278;19
+;18;2;;;279;19
+;19;2;;;280;19
+;20;2;;;281;19
+;21;2;;;282;19
+;22;2;;;283;19
+;23;3;;;273;19
+;24;3;;;274;19
+;25;3;;;275;19
+;26;3;;;276;19
+;27;3;;;277;19
+;28;3;;;278;19
+;29;3;;;279;19
+;30;3;;;280;19
+;31;3;;;281;19
+;32;3;;;282;19
+;33;3;;;283;19
+;34;4;;;273;19
+;35;4;;;274;19
+;36;4;;;275;19
+;37;4;;;276;19
+;38;4;;;277;19
+;39;4;;;278;19
+;40;4;;;279;19
+;41;4;;;280;19
+;42;4;;;281;19
+;43;4;;;282;19
+;44;4;;;283;19
+;45;5;;;273;19
+;46;5;;;274;19
+;47;5;;;275;19
+;48;5;;;276;19
+;49;5;;;277;19
+;50;5;;;278;19
+;51;5;;;279;19
+;52;5;;;280;19
+;53;5;;;281;19
+;54;5;;;282;19
+;55;5;;;283;19
+;56;6;;;273;19
+;57;6;;;274;19
+;58;6;;;275;19
+;59;6;;;276;19
+;60;6;;;277;19
+;61;6;;;278;19
+;62;6;;;279;19
+;63;6;;;280;19
+;64;6;;;281;19
+;65;6;;;282;19
+;66;6;;;283;19
+;67;7;;;273;19
+;68;7;;;274;19
+;69;7;;;275;19
+;70;7;;;276;19
+;71;7;;;277;19
+;72;7;;;278;19
+;73;7;;;279;19
+;74;7;;;280;19
+;75;7;;;281;19
+;76;7;;;282;19
+;77;7;;;283;19
+;78;8;;;273;19
+;79;8;;;274;19
+;80;8;;;275;19
+;81;8;;;276;19
+;82;8;;;277;19
+;83;8;;;278;19
+;84;8;;;279;19
+;85;8;;;280;19
+;86;8;;;281;19
+;87;8;;;282;19
+;88;8;;;283;19
+;89;9;;;273;19
+;90;9;;;274;19
+;91;9;;;275;19
+;92;9;;;276;19
+;93;9;;;277;19
+;94;9;;;278;19
+;95;9;;;279;19
+;96;9;;;280;19
+;97;9;;;281;19
+;98;9;;;282;19
+;99;9;;;283;19
+;100;0;;;273;19
+;101;0;;;274;19
+;102;0;;;275;19
+;103;0;;;276;19
+;104;0;;;277;19
+;105;0;;;278;19
+;106;0;;;279;19
+;107;0;;;280;19
+;108;0;;;281;19
+;109;0;;;282;19
+;110;0;;;283;19

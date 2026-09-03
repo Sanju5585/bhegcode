@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "remove": "削除",
+    "edit": "編集",
+    "back": "戻る",
+    "submit": "送信",
+    "continue": "新規アカウントの作成",
+    "save": "保存",
+    "done": "完了",
+    "home": "ホーム",
+    "noData": "データがありません",
+    "confirm": "確認"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} result for {{query}}",
+      "title_plural": "{{count}} results for {{query}}"
+    },
+    "checkout": {
+      "title": "{{count}}のアイテムを確認",
+      "title_plural": "{{count}}のアイテムを確認"
+    },
+    "search": {
+      "title": "{{count}} result for \"{{query}}\"",
+      "title_plural": "{{count}} results for \"{{query}}\"",
+      "findProductTitle": "{{count}} result for coupon \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} results for coupon \"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "読み込んでいます..."
+  },
+  "navigation": {
+    "shopAll": "全ての{{ navNode}}>を購入"
+  },
+  "searchBox": {
+    "placeholder": "ここを検索",
+    "help": {
+      "insufficientChars": "検索には3文字以上入力してください",
+      "noMatch": "何も見つかりませんでした",
+      "exactMatch": "{{ term }}",
+      "empty": "お気軽にお問い合わせください。"
+    }
+  },
+  "sorting": {
+    "date": "日付",
+    "orderNumber": "弊社受注番号",
+    "rma": "返却番号",
+    "replenishmentNumber": "補充番号",
+    "nextOrderDate": "次回のご注文日"
+  },
+  "httpHandlers": {
+    "badGateway": "サーバーエラーが発生しました しばらくしてからもう一度お試しください",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Please login again.",
+    "badRequestOldPasswordIncorrect": "古いパスワードに間違いがあります",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} email already exist. ゲストアカウントを使用して登録する為に、別のメールアドレスでチェックアウトしてください",
+    "conflict": "すでに存在しています",
+    "forbidden": "この処理を行う権限がありません もしこれがお間違いの場合は管理者までご連絡をお願いします",
+    "gatewayTimeout": "サーバーが反応していません。しばらくしてからもう一度お試しください",
+    "internalServerError": "内部サーバーエラーが発生しました しばらくしてからもう一度お試しください",
+    "sessionExpired": "セッションは時間切れです もう一度ログインしてください",
+    "unknownError": "不明なエラーが発生しました",
+    "unauthorized": {
+      "common": "不明な認証エラーが発生しました",
+      "invalid_client": "不正なクライアント認証情報"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "選択されたクレジットカードはサポートされておりません 他を選択してください",
+        "card_accountNumber": "入力されたクレジットカード番号は無効です",
+        "card_cvNumber": "入力されたセキュリティコードは無効です",
+        "card_expirationMonth": "入力されたクレジットカード有効期限は無効です",
+        "card_expirationYear": "入力されたクレジットカード有効期限は無効です",
+        "billTo_firstName": "入力された内容は無効です",
+        "billTo_lastName": "入力された内容は無効です",
+        "billTo_street1": "入力された内容は無効です",
+        "billTo_street2": "入力された内容は無効です",
+        "billTo_city": "入力された町/市はこのクレジットカードには無効です",
+        "billTo_state": "入力された区域はこのクレジットカードには無効です",
+        "billTo_country": "入力された国はこのクレジットカードには無効です",
+        "billTo_postalCode": "入力された郵便番号はこのクレジットカードには無効です",
+        "country": {
+          "isocode": "国が入力されていません"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "入力されたクレジットカード有効期限は無効です",
+        "firstName": "入力された内容は無効です",
+        "lastName": "入力された内容は無効です",
+        "password": "入力されたパスワードは無効です",
+        "uid": "UIDは無効です",
+        "code": "コードは無効です",
+        "email": "メールアドレスは無効です"
+      }
+    },
+    "cartNotFound": "カートが見つかりません",
+    "invalidCodeProvided": "無効なコードが入力されました"
+  },
+  "miniCart": {
+    "item": "{{count}} item currently in your cart",
+    "item_plural": "{{count}} items currently in your cart",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Hi, {{name}}",
+    "signInRegister": "サインイン / 登録"
+  },
+  "skipLink": {
+    "skipTo": "へスキップ",
+    "labels": {
+      "header": "ヘッダー",
+      "main": "主な内容",
+      "footer": "フッター",
+      "productFacets": "製品の側面",
+      "productList": "製品リスト"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "送信されようとしているフォームにエラーが発生しています",
+    "required": "このフィールドは入力必須です。",
+    "cxInvalidEmail": "このメールフォーマットはご利用いただけません",
+    "cxInvalidPassword": "このパスワードフォーマットはご利用いただけません",
+    "cxPasswordsMustMatch": "パスワード欄は一致させる必要があります",
+    "cxEmailsMustMatch": "メールアドレス欄は一致させる必要があります",
+    "cxStarRatingEmpty": "評価フィールドは必須です",
+    "cxNoSelectedItemToCancel": "最低1点のアイテムを選択してください",
+    "cxNegativeAmount": "価格は0かそれ以上でなければいけません",
+    "cxContainsSpecialCharacters": "特殊文字は使用できません",
+    "date": {
+      "required": "このフィールドは入力必須です。",
+      "min": "Date cannot be before {{min}}",
+      "max": "Date cannot be after {{max}}",
+      "pattern": "yyyy-mm-dd の日付フォーマットを使用してください",
+      "invalid": "有効な日付を使用してください"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "スクリプトの読み込みに失敗しました",
+    "refreshThePage": "ページを更新してください"
+  }
+}

@@ -1,0 +1,58 @@
+################################################################################################################
+## This impex is for creating Page Template, Content Slots and Components related to variant configuration Overview page
+##
+##################################################################################################################
+
+$contentCatalog=bhgeContentCatalog 
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
+
+######################################################################
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;VariantConfigurationOverviewTemplate;Variant Configuration Overview;configuration/configurationOverViewPage;ContentPage
+
+
+# Default Product Config Page
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default=true];approvalStatus(code)[default='approved']
+;;variantConfigOverview;Variant Configuration Overview;VariantConfigurationOverviewTemplate;/configure-overview/vc
+
+#########################################################################################
+
+
+INSERT_UPDATE CMSFlexComponent;$contentCV[unique=true];uid[unique=true];name;flexType
+;;ConfiguratorOverviewSidebar;Configuration Overview Sidebar;ConfiguratorOverviewSidebar
+;;ConfiguratorOverviewFilterButton;Configuration Overview Filter Button;ConfiguratorOverviewFilterButton
+;;ConfiguratorOverviewForm;Configuration Overview;ConfiguratorOverviewForm
+;;ConfiguratorOverviewBanner;Configuration Banner;ConfiguratorOverviewBanner
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='VariantConfigurationOverviewTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;VariantConfigOverviewNavigation-VariantOverview;VariantConfigOverviewNavigation;;VariantConfigOverviewNavigationSlot;true
+;;VariantConfigOverviewExitButton-VariantOverview;VariantConfigOverviewExitButton;;VariantConfigOverviewExitButtonSlot;true
+;;SiteContext-VariantOverview;SiteContext;;SiteContextSlot;true
+;;VariantConfigOverviewHeader-VariantOverview;VariantConfigOverviewHeader;;VariantConfigOverviewHeaderSlot;true
+;;VariantConfigOverviewBottombar-VariantOverview;VariantConfigOverviewBottombar;;VariantConfigOverviewBottombarSlot;true
+;;VariantConfigOverviewFilterButton-VariantOverview;VariantConfigOverviewFilterButton;;VariantConfigOverviewFilterButtonSlot;true
+;;VariantConfigOverviewLoading-VariantOverview;VariantConfigOverviewLoading;;VariantConfigOverviewLoadingContentSlot;true
+;;VariantConfigOverviewContent-VariantOverview;VariantConfigOverviewContent;;VariantConfigOverviewContentSlot;true
+;;VariantConfigOverviewBanner-VariantOverview;VariantConfigOverviewBanner;;VariantConfigOverviewBannerContentSlot;true
+
+;;NavigationBar-VariantOverview;NavigationBar;;NavigationBarSlot;true
+;;HeaderLinks-VariantOverview;HeaderLinks;;HeaderLinksSlot;true
+;;MiniCart-VariantOverview;MiniCart;;MiniCartSlot;true
+;;TopHeader-VariantOverview;TopHeaderSlot;;TopHeaderSlot;true
+#;;BottomHeader-VariantOverview;BottomHeaderSlot;;BottomHeaderSlot;true
+;;SiteLogo-VariantOverview;SiteLogo;;SiteLogoSlot;true
+;;Footer-VariantOverview;Footer;;FooterSlot;true
+;;PlaceholderContent-VariantOverview;PlaceholderContentSlot;;PlaceholderContentSlot;true
+;;SearchBox-VariantOverview;SearchBox;;SearchBoxSlot;true
+;;HomepageNavLink-VariantOverview;HomepageNavLink;;HomepageNavLinkSlot;true
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;VariantConfigOverviewNavigationSlot;Variant Configuration Overview Navigation Slot;true;ConfiguratorOverviewSidebar
+;;VariantConfigOverviewExitButtonSlot;Variant Configuration Overview Exit Button Slot;true;ConfiguratorExitButton
+;;VariantConfigOverviewHeaderSlot;Variant Configuration Overview Header Slot;true;ConfiguratorProductTitle, ConfiguratorTabBar
+;;VariantConfigOverviewBottombarSlot;Variant Configuration Overview Bottom Bar Slot;true;ConfiguratorPriceSummary, ConfiguratorAddToCartButton
+;;VariantConfigOverviewFilterButtonSlot;Variant Configuration Overview Filter Button Slot;true;ConfiguratorOverviewFilterButton
+;;VariantConfigOverviewLoadingContentSlot;Variant Configuration Overview Loading Content Slot;true;
+;;VariantConfigOverviewContentSlot;Variant Configuration Overview Content Slot;true;ConfiguratorOverviewForm
+;;VariantConfigOverviewBannerContentSlot;Variant Configuration Overview Banner Content Slot;true;ConfiguratorOverviewBanner

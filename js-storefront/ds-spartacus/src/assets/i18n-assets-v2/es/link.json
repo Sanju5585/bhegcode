@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "Other Portals & Links",
+    "tblSiteName": "Site Name",
+    "productLine": "Linea de productos",
+    "tblDescription": "Descripción",
+    "type": "Tipo",
+    "loginRequired": "Acceso",
+    "error": {
+      "errorMessage": "Se produjo un error. Vuelve a intentarlo más tarde."
+    }
+  }
+}

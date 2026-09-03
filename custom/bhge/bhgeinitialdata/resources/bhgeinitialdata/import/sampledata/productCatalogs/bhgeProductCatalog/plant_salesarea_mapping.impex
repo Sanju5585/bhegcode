@@ -1,0 +1,332 @@
+"#% impex.info(""###############    essentialData_SameDayShipment_Latest.impex  -start  ################"")"
+
+# Warehouse
+INSERT_UPDATE Warehouse;code[unique=true];name
+;1800;Waygate Technologies USA, LP
+;1801;Waygate Technologies USA, LP
+;1802;Waygate Technologies USA, LP
+;1820;Druck LLC
+;3000;Bently do Brasil Ltd
+;3001;Baker Hughes Energy Technology do Brasil Limitada
+;6020;Baker Hughes Digital Solutions Italia S.r.l.
+;6032;Baker Hughes Digital Solutions France
+;6033;Baker Hughes Digital Solutions France
+;6043;Baker Hughes Digital Solutions GmbH
+;6044;GMBH Shipping Point
+;6045;Baker Hughes Digital Solutions GmbH
+;6046;Baker Hughes Digital Solutions GmbH
+;6047;Baker Hughes Digital Solutions GmbH
+;6170;Baker Hughes Belgium BV
+;6210;Druck Holdings Limited
+;6211;Druck Ltd.
+;6270;Masoneilan S.L.U.
+;7030;Baker Hughes Digital Solutions Australia Pty Ltd
+;7110;Changzhou
+;7140;Baker Hughes Inspection & Control Technologies (Shanghai)
+;7161;Baker Hughes Japan Co., Ltd.
+;5020;BNC -Delhi Plant 1
+;5500;DVI - India
+;5023;Baker Hughes Energy India Private Limited
+;1000;Bently Nevada, LLC
+;1500;Nexus Controls LLC
+;1700;Baker Hughes Energy Services Canada Inc.
+;1720;Baker Hughes Energy Services Canada Inc.
+;1830;Panametrics LLC
+;3140;Baker Hughes Digital Solutions GmbH - Argentina Branch
+;5022;Baker Hughes Energy India Private Limited
+;6060;Baker Hughes Energy Netherlands B.V.
+;6180;Baker Hughes EMEA Unlimited Company
+;7000;Baker Hughes Solutions (Singapore) Ltd.
+;7160;Baker Hughes Japan Co., Ltd.
+;7200;Baker Hughes Solutions (Singapore) Ltd.
+;1810;F&PT Alexandria
+;1811;F&PT Jacksonville
+;6260;Dresser Produits Ind. SAS
+
+# Feature Set
+INSERT_UPDATE FeatureSet;code[unique=true];name;description
+;SDS;Same Day Shipment;Same day shipment feature for the plant
+
+# Sales Organization
+INSERT_UPDATE SAPSalesOrganization;salesOrganization[unique=true];distributionChannel;division
+;1720;GE;GE
+;1800;GE;GE
+;1820;GE;GE
+;1810;GE;GE
+;3000;GE;GE
+;6020;GE;GE
+;6030;GE;GE
+;6040;GE;GE
+;6060;GE;GE
+;6170;GE;GE
+;6210;GE;GE
+;6240;GE;GE
+;6270;GE;GE
+;7030;GE;GE
+;7140;GE;GE
+;7160;GE;GE
+;5020;GE;GE
+
+
+#TIME ZONE #
+INSERT_UPDATE Zone;code[unique=true]
+;Europe/Berlin
+;Europe/London
+;America/Detroit
+;America/Chicago
+;America/Sao_Paulo
+;Australia/Sydney
+;Asia/Shanghai
+;Asia/Japan
+;Asia/India
+;PST
+
+# ADDRESS MODEL FOR WAREHOUSE #
+INSERT_UPDATE Address;owner(Warehouse.code)[unique=true];country(isocode);&refAddressNo
+;1800;US;1800
+;1801;US;1801
+;1802;US;1802
+;1820;US;1820
+;1810;US;1810
+;3000;BR;3000
+;3001;BR;3001
+;6020;IT;6020
+;6032;FR;6032
+;6033;FR;6033
+;6043;DE;6043
+;6044;DE;6044
+;6045;DE;6045
+;6046;DE;6046
+;6047;DE;6047
+;6170;BE;6170
+;6210;GB;6210
+;6211;GB;6211
+;6270;ES;6270
+;7030;AU;7030
+;7110;CN;7110
+;7140;CN;7140
+;7161;JP;7161
+;5020;IN;5020
+
+# MAPPING ADDRESS, TIME ZONE, CUTOFF TIME FOR THE WAREHOUSE #
+INSERT_UPDATE Warehouse;code[unique=true];timeZone(code);plantLocation(&refAddressNo);cutOffTime
+
+;1800;America/Detroit;1800;15
+;1801;America/Detroit;1801;15
+;1802;America/Chicago;1802;15
+;1820;America/Chicago;1820;15
+;1810;America/Chicago;1810;15
+;3000;America/Sao_Paulo;3000;15
+;3001;America/Sao_Paulo;3001;15
+;6020;Europe/Berlin;6020;15
+;6032;Europe/Berlin;6032;15
+;6033;Europe/Berlin;6033;15
+;6043;Europe/Berlin;6043;15
+;6044;Europe/Berlin;6044;15
+;6045;Europe/Berlin;6045;15
+;6046;Europe/Berlin;6046;15
+;6047;Europe/Berlin;6047;15
+;6170;Europe/Berlin;6170;15
+;6210;Europe/London;6210;15
+;6211;Europe/London;6211;15
+;6270;Europe/Berlin;6270;15
+;7030;Australia/Sydney;7030;15
+;7110;Asia/Shanghai;7110;15
+;7140;Asia/Shanghai;7140;15
+;7161;Asia/Japan;7161;15
+;5020;Asia/India;5020;15
+
+# SALES ORGANISATION SDS OPTION #
+
+INSERT_UPDATE SAPConfiguration;core_name[unique=true];isSDSEnabled
+;1720_BaseStoreConfiguration;false
+;1800_BaseStoreConfiguration;true
+;1820_BaseStoreConfiguration;true
+;1810_BaseStoreConfiguration;true
+;3000_BaseStoreConfiguration;false
+;6020_BaseStoreConfiguration;false
+;6030_BaseStoreConfiguration;false
+;6040_BaseStoreConfiguration;false
+;6060_BaseStoreConfiguration;false
+;6170_BaseStoreConfiguration;false
+;6210_BaseStoreConfiguration;false
+;6270_BaseStoreConfiguration;false
+;7030_BaseStoreConfiguration;false
+;7140_BaseStoreConfiguration;false
+;7160_BaseStoreConfiguration;false
+;5020_BaseStoreConfiguration;false
+
+
+
+
+# GEEDGESAPPLANTSALESORG DATA #
+# Import config properties into impex macros
+INSERT_UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$rfcDestination=$config-SAP_RFC_SERVER_NAME
+
+INSERT_UPDATE SAPLogicalSystem;sapLogicalSystemName[unique=true];sapHTTPDestination(httpDestinationName);
+;$rfcDestination;$rfcDestination
+
+INSERT_UPDATE SAPGlobalConfiguration;sapLogicalSystemGlobalConfig(sapLogicalSystemName)
+;$rfcDestination
+
+INSERT_UPDATE GEEdgeSAPPlantLogSysOrg;sapConfiguration(core_name);plant(code)[unique=true];logSys(sapLogicalSystemName);salesOrg(salesOrganization)[unique=true];shippingFee;&refNo
+
+### CANADA ###
+;1720_BaseStoreConfiguration;1801;$rfcDestination;1720;0;1720_1801
+
+### US ##
+#;1800_BaseStoreConfiguration;1800;$rfcDestination;1800;0;1800_1800
+;1800_BaseStoreConfiguration;1801;$rfcDestination;1800;0;1800_1801
+;1800_BaseStoreConfiguration;1802;$rfcDestination;1800;0;1800_1802
+;1820_BaseStoreConfiguration;1820;$rfcDestination;1820;0;1820_1820
+;1810_BaseStoreConfiguration;1810;$rfcDestination;1810;0;1810_5500
+
+## BRAZIL ##
+;3000_BaseStoreConfiguration;3000;$rfcDestination;3000;0;3000_3000
+
+## ITALY ##
+;6020_BaseStoreConfiguration;6210;$rfcDestination;6020;0;6020_6210
+;6020_BaseStoreConfiguration;6020;$rfcDestination;6020;0;6020_6020
+;6020_BaseStoreConfiguration;6043;$rfcDestination;6020;0;6020_6043
+
+## FRANCE ##
+;6030_BaseStoreConfiguration;6210;$rfcDestination;6030;0;6030_6210
+;6030_BaseStoreConfiguration;6043;$rfcDestination;6030;0;6030_6043
+;6030_BaseStoreConfiguration;6032;$rfcDestination;6030;0;6030_6032
+;6030_BaseStoreConfiguration;6033;$rfcDestination;6030;0;6030_6033
+
+### GERMANY ###
+;6040_BaseStoreConfiguration;6043;$rfcDestination;6040;0;6040_6043
+;6040_BaseStoreConfiguration;6044;$rfcDestination;6040;0;6040_6044
+;6040_BaseStoreConfiguration;6045;$rfcDestination;6040;0;6040_6045
+;6040_BaseStoreConfiguration;6046;$rfcDestination;6040;0;6040_6046
+
+### NETHERLANDS ###
+;6060_BaseStoreConfiguration;6210;$rfcDestination;6060;0;6060_6210
+
+## BELGIUM ##
+;6170_BaseStoreConfiguration;6170;$rfcDestination;6170;0;6170_6170
+
+## UK ##
+;6210_BaseStoreConfiguration;6210;$rfcDestination;6210;0;6210_6210
+;6210_BaseStoreConfiguration;6211;$rfcDestination;6210;0;6210_6211
+;6210_BaseStoreConfiguration;1801;$rfcDestination;6210;0;6210_1801
+;6210_BaseStoreConfiguration;6043;$rfcDestination;6210;0;6210_6043
+
+## SPAIN ##
+;6270_BaseStoreConfiguration;6043;$rfcDestination;6270;0;6270_6043
+;6270_BaseStoreConfiguration;6270;$rfcDestination;6270;0;6270_6270
+
+### AUSTRALIA ###
+;7030_BaseStoreConfiguration;7030;$rfcDestination;7030;0;7030_7030
+
+### CHINA -SHANGHAI ###
+;7140_BaseStoreConfiguration;7140;$rfcDestination;7140;0;7140_7140
+;7140_BaseStoreConfiguration;7110;$rfcDestination;7140;0;7140_7110
+
+### JAPAN ###
+;7160_BaseStoreConfiguration;7161;$rfcDestination;7160;0;7160_7161
+
+### INDIA ###
+;5020_BaseStoreConfiguration;5020;$rfcDestination;5020;0;5020_5020
+
+
+## SALESAREA FEATURE MAPPING ##
+INSERT_UPDATE GESalesAreaPlantFeatureMapping;sapPlantLogSysOrg(&refNo)[unique=true];featureSet(code);isEnabled
+
+### CANADA ###
+;1720_1801;SDS;false
+
+### US ##
+#;1800_1800;SDS;true
+;1800_1801;SDS;true
+;1800_1802;SDS;true
+;1820_1820;SDS;true
+;1810_5500;SDS;true
+
+## BRAZIL ##
+;3000_3000;SDS;false
+
+## ITALY ##
+;6020_6210;SDS;false
+;6020_6020;SDS;false
+;6020_6043;SDS;false
+
+## FRANCE ##
+;6030_6210;SDS;false
+;6030_6043;SDS;false
+;6030_6032;SDS;false	
+;6030_6033;SDS;false
+
+## NETHERLANDS ##
+;6060_6210;SDS;false
+
+### GERMANY ###
+;6040_6043;SDS;false
+;6040_6044;SDS;false
+;6040_6045;SDS;false
+;6040_6046;SDS;false
+
+## BELGIUM ##
+;6170_6170;SDS;false
+
+## UK ##
+;6210_6210;SDS;false
+;6210_6211;SDS;false
+;6210_1801;SDS;false	
+;6210_6043;SDS;false
+
+## SPAIN ##
+;6270_6043;SDS;false
+;6270_6270;SDS;false
+
+### AUSTRALIA ###
+;7030_7030;SDS;false
+
+### CHINA SHANGHAI ###
+;7140_7140;SDS;false
+;7140_7110;SDS;false
+
+### JAPAN ###
+;7160_7161;SDS;false
+
+### INDIA ###
+;5020_5020;SDS;false
+
+"#% impex.info(""###############    essentialData_SameDayShipment_Latest.impex  -End  ################"")"
+
+#####GERITM11582120
+UPDATE Warehouse;code[unique=true];name[lang=en];name[lang=de];name[lang=es]
+;1000;Bently - Nevada, USA;
+;1500;Nexus Controls - Colorado, USA;
+;1700;Baker Hughes Canada - Leduc, CA;
+;1720;Baker Hughes Canada - Edmonton, CA;
+;1800;Waygate - Skaneateles, NY, USA;
+;1801;Waygate - Skaneateles, NY, USA;
+;1802;Waygate - Pasadena, TX, USA;
+;1820;Druck - Billerica, MA, USA;
+;1830;Panametrics - Billerica, MA, USA;
+;3001;Baker Hughes Brasil - Campinas;
+;3140;Baker Hughes DS Argentina - Puerto Madero;
+;5022;Baker Hughes India - Pune;
+;5023;Baker Hughes India - Pune;
+;6020;Baker Hughes DS Italia - Milano;
+;6032;Baker Hughes DS France - Limonest;
+;6033;Baker Hughes DS France - Labège;
+;6043;Baker Hughes DS Germany - Hürth;Baker Hughes DS Deutscheland - Hürth;
+;6045;Baker Hughes DS Germany - Ahrensburg;Baker Hughes DS Deutscheland - Ahrensburg;
+;6046;Baker Hughes DS Germany - Wunstorf;Baker Hughes DS Deutscheland - Wunstorf;
+;6047;Baker Hughes DS Germany - Frankfurt;Baker Hughes DS Deutscheland - Frankfurt;
+;6060;Baker Hughes Netherlands - Delft;
+;6170;Baker Hughes Belgium - Berchem;
+;6180;Baker Hughes EMEA - Shannon, Ireland;
+;6210;Druck Holdings - Groby, UK;
+;6211;Druck Ltd - Groby, UK;
+;6270;Masoneilan - Madrid, Spain;;Masoneilan - Madrid, España;
+;7000;Baker Hughes Solutions (Singapore) Ltd.;
+;7030;Baker Hughes DS Australia - North Sydney
+;7140;Baker Hughes Shanghai;
+;7160;Baker Hughes Japan - Tokyo;
+;7161;Baker Hughes Japan - Kariwa;
+;7200;Baker Hughes Solutions (Singapore) Ltd.;

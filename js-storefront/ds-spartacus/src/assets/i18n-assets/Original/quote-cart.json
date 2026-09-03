@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "Guest Quote Cart",
+    "checkoutBtn": "PROCEED TO CHECKOUT",
+    "delete": "delete",
+    "comments": "Comments",
+    "quantity": "Quantity",
+    "each": "Each",
+    "saving": "Saving...",
+    "commentscart": "Comments not saved, please click on save icon to save your comments",
+    "commenterror": "Please add some comments before saving",
+    "characterlefft": "Characters Left:",
+    "item": "Item",
+    "cartEmpty": "Your cart is empty",
+    "noItemIncart": "You do not have any item in your cart.",
+    "explore": "Explore ",
+    "ourCatalogue": "Our Catalog ",
+    "toAdditems": "to add items",
+    "error": {
+      "removeMsg": "Selected items have been removed successfully",
+      "errorMessage": "Something went wrong, please try again later."
+    }
+  }
+}

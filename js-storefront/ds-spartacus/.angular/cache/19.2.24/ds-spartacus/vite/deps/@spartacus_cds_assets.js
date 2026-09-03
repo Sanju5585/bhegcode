@@ -1,0 +1,43 @@
+import {
+  cdsTranslationChunksConfig,
+  cdsTranslations,
+  cs,
+  de,
+  en,
+  es,
+  es_CO,
+  fr,
+  hi,
+  hu,
+  id,
+  it,
+  ja,
+  ko,
+  pl,
+  pt,
+  ru,
+  zh,
+  zh_TW
+} from "./chunk-OEKWOJRP.js";
+import "./chunk-EWA6Q2EU.js";
+export {
+  cdsTranslationChunksConfig,
+  cdsTranslations,
+  cs as cdsTranslationsCs,
+  de as cdsTranslationsDe,
+  en as cdsTranslationsEn,
+  es as cdsTranslationsEs,
+  es_CO as cdsTranslationsEs_CO,
+  fr as cdsTranslationsFr,
+  hi as cdsTranslationsHi,
+  hu as cdsTranslationsHu,
+  id as cdsTranslationsId,
+  it as cdsTranslationsIt,
+  ja as cdsTranslationsJa,
+  ko as cdsTranslationsKo,
+  pl as cdsTranslationsPl,
+  pt as cdsTranslationsPt,
+  ru as cdsTranslationsRu,
+  zh as cdsTranslationsZh,
+  zh_TW as cdsTranslationsZh_TW
+};

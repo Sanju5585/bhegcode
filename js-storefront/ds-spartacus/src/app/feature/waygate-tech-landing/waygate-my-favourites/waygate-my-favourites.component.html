@@ -1,0 +1,282 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-my-fav-container">
+    <div class="my-fav-heading">
+      <div class="header-green-border"></div>
+      <h1>{{ 'favorites.pageTitle' | cxTranslate }}</h1>
+    </div>
+    <div class="my-fav-content">
+      <div class="my-fav-content-sub">
+        <bh-checkbox
+          class="checkbox"
+          name="checkAll"
+          id="checkall"
+          [attr.checked]="checkAll()"
+          [attr.indeterminate]="indeterminateValue"
+          (change)="selectAllchecbox($event)"
+        ></bh-checkbox>
+        <!-- </div> -->
+        <span
+          >{{ checkedCount }}/{{ favouritesData?.productList?.length }}
+          {{ 'buyCart.itemsSelected' | cxTranslate }}</span
+        >
+
+        <div class="waygate-search-input-container">
+          <input
+            type="text"
+            name="search"
+            class="waygate-search-input"
+            [(ngModel)]="searchTerm"
+            (keydown.enter)="modelChange($event)"
+            #searchFocusInput
+            placeholder="{{ 'favorites.searchBYProductName' | cxTranslate }}"
+          /><span
+            (click)="modelChange($event)"
+            class="material-icons waygate-search-icon"
+          >
+            search
+          </span>
+        </div>
+      </div>
+      <div class="my-fav-btn-main">
+        <div>
+          <bh-button
+            class="delete-btn"
+            type="secondary"
+            icon="delete"
+            label="{{ 'favorites.removeSelected' | cxTranslate }}"
+            (click)="DeleteFavorites($event, 'deleteselected', -1)"
+          ></bh-button>
+        </div>
+        <div>
+          <bh-button
+            class="add-to-cart-btn"
+            type="primary"
+            icon="add_shopping_cart"
+            label="{{ 'favorites.addToCart' | cxTranslate }}"
+            loading="false"
+            [attr.disabled]="checkedCount == 0"
+            (click)="addToCart('all', $event, -1)"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div
+        *ngIf="
+          !loadingFlag || favouritesData?.productList?.length == 0;
+          else loading
+        "
+      >
+        <table class="waygate-my-fav-table">
+          <tbody>
+            <ng-container
+              *ngFor="let fav of favouritesData?.productList; let i = index"
+            >
+              <tr>
+                <td>
+                  <div class="checkbox-holder">
+                    <bh-checkbox
+                      [attr.disabled]="
+                        !(
+                          fav?.yourPrice?.value &&
+                          fav?.productAccessData
+                            ?.isPresentInAllowedProdPrincipal
+                        )
+                      "
+                      name="singleCheckbox"
+                      [attr.checked]="fav.checked"
+                      (change)="selectCheckbox($event, i)"
+                      id="fav-checkbox-{{ i }}"
+                    >
+                    </bh-checkbox>
+                  </div>
+                </td>
+                <td class="img-container">
+                  <div class="part-image-holder">
+                    <a
+                      (click)="gtmSelectItemEvent(fav, i)"
+                      [routerLink]="[
+                        '/',
+                        productLine,
+                        'product',
+                        fav.code,
+                        fav.name,
+                      ]"
+                    >
+                      <cx-media
+                        [container]="fav.images"
+                        [alt]="fav.code"
+                      ></cx-media>
+                    </a>
+                  </div>
+                </td>
+
+                <td>
+                  <div
+                    class="part-name"
+                    (click)="gtmSelectItemEvent(fav, i)"
+                    [routerLink]="[
+                      '/',
+                      productLine,
+                      'product',
+                      fav.code,
+                      fav.name,
+                    ]"
+                  >
+                    {{ fav.name }}
+                  </div>
+                  <div class="part-num">{{ fav.code }}</div>
+                  <div class="part-price">
+                    <div class="part-price-1" *ngIf="fav?.yourPrice?.value > 0">
+                      {{ fav?.yourPrice?.formattedValue }}
+                    </div>
+                    <div class="part-price-2" *ngIf="fav?.listPrice?.value > 0">
+                      <s>{{ fav?.listPrice?.formattedValue }}</s>
+                    </div>
+                    <div
+                      class="part-price-disc"
+                      *ngIf="fav?.discountPercentage > 0"
+                    >
+                      {{ fav.discountPercentage }} % Discount
+                    </div>
+
+                    <div
+                      *ngIf="fav?.listPrice?.value || fav?.yourPrice?.value"
+                      class="col-4 product-view-breakdown"
+                    >
+                      <!-- Item Price -->
+                      <div class="extended-price unit-selling-price">
+                        <a
+                          #breakup
+                          class="view-breakup-link"
+                          (click)="togglePriceBreakup(i)"
+                          ><span>{{
+                            'favorites.viewBreakup' | cxTranslate
+                          }}</span
+                          ><span
+                            *ngIf="breakUpMenu != i"
+                            class="material-icons arrow"
+                          >
+                            expand_more </span
+                          ><span
+                            *ngIf="breakUpMenu == i"
+                            class="material-icons arrow"
+                          >
+                            expand_less
+                          </span></a
+                        >
+                      </div>
+                      <div
+                        class="breakup-dropdown p-0"
+                        [clickSourceId]="breakup"
+                        (clickOutside)="togglePriceBreakup(-1)"
+                        *ngIf="breakUpMenu == i"
+                        #breakupContent
+                      >
+                        <div class="breakdown-price">
+                          <div
+                            class="cart-entry-text-bold breakdown-heading p-2"
+                          >
+                            {{ 'favorites.breakdownPrice' | cxTranslate }}
+                          </div>
+                          <hr class="horizontal-line" />
+                          <div class="p-2">
+                            <ng-container>
+                              <div
+                                *ngIf="fav?.listPrice?.value"
+                                class="price-row"
+                              >
+                                <label>{{
+                                  'favorites.listPrice' | cxTranslate
+                                }}</label>
+                                <div class="cart-entry-text-bold">
+                                  <span>
+                                    {{ fav?.listPrice?.formattedValue }}</span
+                                  >
+                                </div>
+                              </div>
+                              <div
+                                *ngIf="fav?.discountPercentage"
+                                class="price-row"
+                              >
+                                <label>
+                                  <span>{{
+                                    'favorites.discount' | cxTranslate
+                                  }}</span>
+                                </label>
+                                <label
+                                  >{{
+                                    fav.discountPercentage | number: '1.0-0'
+                                  }}%</label
+                                >
+                                <div class="cart-entry-text-bold">
+                                  <span>
+                                    <!-- - {{ fav?.listPrice?.currencyIso }} -->
+                                    -
+                                    {{
+                                      fav?.listPrice?.value -
+                                        fav?.yourPrice?.value
+                                        | customNumber
+                                          : fav?.listPrice?.currencyIso
+                                    }}</span
+                                  >
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                          <hr class="horizontal-line" />
+                          <div class="p-2">
+                            <div
+                              *ngIf="fav?.yourPrice?.value"
+                              class="price-row"
+                            >
+                              <label class="cart-entry-text">{{
+                                'favorites.netPrice' | cxTranslate
+                              }}</label>
+                              <span class="cart-entry-text-bold">
+                                {{ fav?.yourPrice?.formattedValue }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span
+                    *ngIf="
+                      fav?.yourPrice?.value &&
+                      fav?.productAccessData?.isPresentInAllowedProdPrincipal
+                    "
+                    class="material-icons"
+                    (click)="addToCart('selected', $event, i)"
+                  >
+                    add_shopping_cart
+                  </span>
+                </td>
+                <!-- <td><span class="material-icons"> delete_outlined </span></td> -->
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="favouritesData?.productList?.length == 0">
+        <div class="no-orders-found">
+          <img
+            src="../../../../assets/img/Illustration.png"
+            alt="No Records Found!"
+          />
+          <h4>{{ 'favorites.norecords' | cxTranslate }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,23 @@
+// @import "../../../../shared/styles/index";
+
+// @include primaryButton(90px, 35px);
+// @include textButton(90px, 35px);
+
+@import '../../../../../../styles/responsive_mixins.scss';
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin-right: 5px;
+  }
+}
+
+
+:host::ng-deep .cx-modal-content{
+  @include media-sm-max{
+    position: fixed;
+    top: 10%;
+  }
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IQM by Baker Hughes Access Request Submitted</title>
+
+    <style>
+	
+#templateHeader {
+  background-color: #595194;
+}
+.headerContent {
+  color: #ffffff;
+  font-family: "GE Inspira", "ge-inspira", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 100%;
+  padding-top: 18px;
+  padding-right: 40px;
+  padding-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+}
+.headerContent.logo {
+  width: 96px;
+  padding-left: 22px;
+}
+.headerContent.title {
+  padding-top: 32px;
+  padding-left: 40px;
+}
+        @font-face {
+            font-family: GEInspiraSans;
+            src: url('$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+        }
+    </style>
+</head>
+
+
+<body style="font-family:GEInspiraSans; font-size: 11pt;width:550px;color: #13294b;">
+
+<div>
+   <div class="_2zOpJb7ZbCN0X1DoeFyiYw JWNdg1hee9_Rz6bIGvG1c allowTextSelection">
+      <div>
+         <style>
+            <!--
+               @font-face
+               	{font-family:"Cambria Math"}
+               @font-face
+               	{font-family:Calibri}
+               @font-face
+               	{font-family:"GE Inspira Sans"}
+               .rps_553e p.x_MsoNormal, .rps_553e li.x_MsoNormal, .rps_553e div.x_MsoNormal
+               	{margin:0in;
+               	margin-bottom:.0001pt;
+               	font-size:11.0pt;
+               	font-family:"Calibri",sans-serif}
+               .rps_553e a:link, .rps_553e span.x_MsoHyperlink
+               	{color:#4132AB;
+               	text-decoration:underline}
+               .rps_553e a:visited, .rps_553e span.x_MsoHyperlinkFollowed
+               	{color:#4132AB;
+               	text-decoration:underline}
+               .rps_553e p.x_msonormal0, .rps_553e li.x_msonormal0, .rps_553e div.x_msonormal0
+               	{margin-right:0in;
+               	margin-left:0in;
+               	font-size:11.0pt;
+               	font-family:"Calibri",sans-serif}
+               .rps_553e p.x_readmsgbody, .rps_553e li.x_readmsgbody, .rps_553e div.x_readmsgbody
+               	{margin-right:0in;
+               	margin-left:0in;
+               	font-size:11.0pt;
+               	font-family:"Calibri",sans-serif}
+               .rps_553e p.x_externalclass, .rps_553e li.x_externalclass, .rps_553e div.x_externalclass
+               	{margin-right:0in;
+               	margin-left:0in;
+               	font-size:11.0pt;
+               	font-family:"Calibri",sans-serif}
+               .rps_553e span.x_EmailStyle20
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle21
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle22
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle23
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle24
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle25
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle26
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle27
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle28
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle29
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle30
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle31
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle33
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e span.x_EmailStyle34
+               	{font-family:"Calibri",sans-serif;
+               	color:windowtext}
+               .rps_553e .x_MsoChpDefault
+               	{font-size:10.0pt}
+               @page WordSection1
+               	{margin:1.0in 1.0in 1.0in 1.0in}
+               .rps_553e div.x_WordSection1
+               	{}
+               -->
+         </style>
+         <div class="rps_553e">
+            <div lang="EN-US" link="#4132AB" vlink="#4132AB">
+               <div class="x_WordSection1">
+                  <div align="center">
+                     <table class="container__table" role="presentation" border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+                        <tr class="container__row">
+                            <td class="container__cell" width="100%" align="left" valign="top">
+                                <div class="row">
+                                    <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                        <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+                                                <a href="#" class="a" style="color: #05322b; text-decoration: none;"><span class="a__text" style="color: #05322b; text-decoration: none;"> <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="1024"/></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+								<br>
+                                <div class="heading row">
+                                        <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                          <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+                                              <h1 class="header h1" style="margin: 20px 0; line-height: 40px; font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px; margin-left: 0; margin-top: -40px;">
+                                              IQM by Baker Hughes
+											  <br>
+											  Access Request Submitted
+                                              </h1>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                </div>
+                                <!-- <br /> -->
+                            </td>
+                        </tr>
+                    </table>
+                  </div>
+                  <p class="x_MsoNormal">&nbsp;</p>
+                  <div align="center">
+                     <table class="x_MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%; border-collapse:collapse">
+                        <tbody>
+                           <tr>
+                              <td valign="top" style="background:white; padding:0in 0in 0in 0in">
+                                 <div align="center">
+                                    <table class="x_MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="max-width:525.0pt; border-collapse:collapse">
+                                       <tbody>
+                                          <tr>
+                                             <td width="100%" colspan="3" valign="top" style="width:100.0%; background:white; padding:0in 0in 0in 0in"></td>
+                                          </tr>
+                                          <tr>
+                                             <td width="13%" style="width:13.0%; background:white; padding:0in 0in 0in 0in; border-spacing:0">
+                                                <p class="x_MsoNormal"><span style="font-size:1.0pt">&nbsp;</span></p>
+                                             </td>
+                                             <td width="74%" valign="top" style="">
+                                                <p class="x_MsoNormal" style="margin-bottom:13.5pt; line-height:140%"><span style="font-size: 13.5pt; line-height: 140%; font-family: font-family: 'Poppins','Lucida Sans'; color: #05322b;"><br>
+                                                   Hi</span><span style="font-size: 13.5pt; line-height: 140%; font-family: 'Poppins','Lucida Sans'"> <span style="color:#05322b">${ctx.userName},
+                                                   <br>
+                                                   <br>
+                                                   Your access request to IQM by Baker Hughes has been successfully submitted.&nbsp; &nbsp;Please allow 24 to 48 hours for your Welcome email confirming access to IQM by Baker Hughes.
+                                                   </span></span>
+                                                </p>
+                                                <p class="x_MsoNormal" style="margin-bottom:13.5pt; line-height:140%"><span style="font-size: 13.5pt; line-height: 140%; font-family: 'Poppins','Lucida Sans'; color: #05322b;">If you need assistance
+                                                   <a href="mailto:IQM.byBHGE@ge.com?subject=IQM%20Assistance" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk181187">
+                                                   let us know</a>.<br>
+                                                   We are looking forward to see you taking the most out of IQM!</span>
+                                                </p>
+                                             </td>
+                                             <td width="13%" style="width:13.0%; background:white; padding:0in 0in 0in 0in; border-spacing:0">
+                                                <p class="x_MsoNormal"><span style="font-size:1.0pt">&nbsp;</span></p>
+                                             </td>
+                                          </tr>
+                                          <tr>
+                                             <td width="13%" style="width:13.0%; background:white; padding:0in 0in 0in 0in; border-spacing:0">
+                                                <p class="x_MsoNormal"><span style="font-size:1.0pt">&nbsp;</span></p>
+                                             </td>
+
+                                             <!--<td width="74%" valign="top" style="">
+                                                <p class="x_MsoNormal" style="margin-bottom:12.0pt; line-height:140%"><span style="font-size: 10pt; line-height: 140%; font-family: &quot;GE Inspira Sans&quot;, sans-serif, serif, EmojiFont; color: rgb(187, 187, 187);"><br>
+                                                   <br>
+                                                   Copyright 2019 Baker Hughes, a GE company</span>
+                                                </p>
+                                             </td> -->
+
+                                             <td width="13%" style="width:13.0%; background:white; padding:0in 0in 0in 0in; border-spacing:0">
+                                                <p class="x_MsoNormal"><span style="font-size:1.0pt">&nbsp;</span></p>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <p class="x_MsoNormal">&nbsp;</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="_1yuNDaQBDoy0YwHOMGXFkz"></div>
+</div>
+
+</body>
+</html>

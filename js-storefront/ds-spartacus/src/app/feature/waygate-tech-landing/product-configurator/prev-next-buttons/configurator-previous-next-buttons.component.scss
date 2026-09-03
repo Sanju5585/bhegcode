@@ -1,0 +1,24 @@
+/*  .prev-nxt-btn{
+    background-color: white;
+    color:#02A783;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+} 
+.container{
+    background-color: #ced7d4;
+} */
+.prev-nxt-btn-enabled {
+  background-color: #f8faf9;
+  color: #02a783;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
+.prev-nxt-btn-disabled {
+  background-color: #f8faf9;
+  color: #adbdb9;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}

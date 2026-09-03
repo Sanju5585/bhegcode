@@ -1,0 +1,143 @@
+<ng-container
+  *ngIf="
+    cart?.commerceType == commerceTypes.RETURNS
+      ? (cart?.returnsCartData | rmaProduct)?.length
+      : cart.entries?.length;
+    else noData
+  "
+>
+  <div class="mini-cart-details-container">
+    <section class="mini-cart-details--header">
+      <span *ngIf="cart?.commerceType == commerceTypes.BUY">{{
+        'mini-cart.buyCart' | cxTranslate
+      }}</span>
+      <span *ngIf="cart?.commerceType == commerceTypes.RETURNS">{{
+        'mini-cart.returnCart' | cxTranslate
+      }}</span>
+      <span *ngIf="cart?.commerceType == commerceTypes.GUESTBUY">{{
+        'mini-cart.activeGuestCart' | cxTranslate
+      }}</span>
+      <span *ngIf="cart?.commerceType == commerceTypes.GUESTQUOTE">{{
+        'mini-cart.activeRFQCart' | cxTranslate
+      }}</span>
+      <span *ngIf="cart?.commerceType == commerceTypes.QUOTE">{{
+        'mini-cart.quoteCart' | cxTranslate
+      }}</span>
+      <div>
+        {{
+          'mini-cart.showing' | cxTranslate : {
+            shown: cart?.commerceType == commerceTypes.RETURNS
+              ? (cart?.returnsCartData | rmaProduct | slice : 0 : MAX_SHOW_LENGTH)?.length
+              : (cart.entries | slice : 0 : MAX_SHOW_LENGTH)?.length,
+            total: cart?.commerceType == commerceTypes.RETURNS
+              ? (cart?.returnsCartData | rmaProduct)?.length
+              : cart.entries?.length
+          }
+        }}
+      </div>
+      <div class="price-section">
+        {{ 'mini-cart.total' | cxTranslate }}:
+        {{ cart?.totalPrice?.formattedValue }}
+      </div>
+    </section>
+    <section class="mini-cart-details--body">
+      <ng-container
+        *ngFor="
+          let product of cart?.commerceType == commerceTypes.RETURNS
+            ? (cart?.returnsCartData | rmaProduct | slice : 0 : MAX_SHOW_LENGTH)
+            : (cart.entries | slice : 0 : MAX_SHOW_LENGTH)
+        "
+      >
+        <div class="mini-cart-details--product">
+          <cx-media
+            [container]="
+              product?.productImageUrl || product?.product?.images?.PRIMARY
+            "
+            [alt]="product?.partName || product?.product?.name"
+            class="product-image"
+          ></cx-media>
+          <div class="mini-cart-details--product-description">
+            <div>{{ product?.partNumber || product?.product?.code }}</div>
+            <div class="bold">
+              {{ product?.partName || product?.product?.name }}
+            </div>
+          </div>
+          <div class="mini-cart-details--product-quantity">
+            <div>{{ 'mini-cart.quantity' | cxTranslate }}</div>
+            <div class="bold">{{ product?.quantity }}</div>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+    <section class="mini-cart-details--footer">
+      <ng-container *ngIf="showWaygate; else nowaygate">
+        <bh-button
+          *ngIf="cart?.commerceType !== commerceTypes.GUESTQUOTE"
+          class="mini-cart-button"
+          [type]="'secondary'"
+          [label]="'mini-cart.viewCart' | cxTranslate"
+          loading="false"
+          small
+          (click)="closeBox()"
+        ></bh-button>
+      </ng-container>
+      <ng-template #nowaygate>
+        <bh-button
+          *ngIf="cart?.commerceType !== commerceTypes.GUESTQUOTE"
+          class="mini-cart-button"
+          [type]="'secondary'"
+          [label]="'mini-cart.viewCart' | cxTranslate"
+          loading="false"
+          small
+          [routerLink]="
+            cart?.commerceType == commerceTypes.RETURNS ? '/rma/cart' : '/cart'
+          "
+          (click)="closeBox()"
+        ></bh-button>
+      </ng-template>
+      <bh-button
+        *ngIf="cart?.commerceType == commerceTypes.GUESTQUOTE"
+        class="mini-cart-button"
+        [type]="'secondary'"
+        [label]="'mini-cart.viewCart' | cxTranslate"
+        loading="false"
+        small
+        [routerLink]="'/quote/cart'"
+        (click)="closeBox()"
+      ></bh-button>
+    </section>
+  </div>
+</ng-container>
+<ng-template #noData>
+  <div class="mini-cart-details-container" *ngIf="!loadingData">
+    <div class="mini-cart-details--empty">
+      <div class="mini-cart-details--image"></div>
+    </div>
+    <div class="mini-cart-details--content">
+      <div class="mini-cart-details--text bold">
+        {{ 'mini-cart.cartEmpty' | cxTranslate }}
+      </div>
+      <div class="mini-cart-details--text">
+        {{ 'mini-cart.browseOurProducts' | cxTranslate }}
+      </div>
+      <div class="mini-cart-details--text help-text">
+        {{ 'mini-cart.cartTrouble' | cxTranslate }}
+      </div>
+<bh-button
+  class="mini-cart-button clear-all-btn"
+  [type]="'primary'"
+  [label]="'mini-cart.deleteAllCarts' | cxTranslate"
+  loading="false"
+  small
+  (click)="openDeleteAllCartsPopup('confirm')">
+</bh-button>
+    </div>
+  </div>
+  <div class="mini-cart-details-container" *ngIf="loadingData">
+    <div class="mini-cart-details--content">
+      <div class="mini-cart-details-spinner cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,226 @@
+<ng-container>
+  <div class="waygate-cart-list-container">
+    <div>
+      <button
+        id="btnScrollToTop"
+        (click)="scrollTop()"
+        *ngIf="isShowBtnScrollTop"
+      >
+        {{ 'waygate.goToTop' | cxTranslate }}
+        <span class="material-icons">arrow_upward </span>
+      </button>
+      <button
+        id="btnScrollToBottom"
+        (click)="scrollToSummary()"
+        *ngIf="isShowBtnScrollbottom"
+      >
+        {{ 'waygate.goToSummary' | cxTranslate }}
+        <span class="material-icons">arrow_downward </span>
+      </button>
+    </div>
+
+    <div class="waygate-cart-item-list">
+      <div *ngIf="cart$ | async as cart" class="waygate-endcustomer-address">
+        <!-- {{ isChannelPartner }} {{ cart?.cartType == cartType.Typ1 }} -->
+        <ng-container
+          *ngIf="
+            isChannelPartner && cart?.cartType == cartType.Typ1 && cart?.isQuote
+          "
+        >
+          <app-waygate-end-customer-address
+            id="endUserDetails"
+            [endUserAddress]="endUserAddress"
+            [cartType]="cartType"
+            [userType]="userType"
+            [cart$]="cart$"
+            (checkEnduserAddress)="checkEnduserAddress($event)"
+          >
+          </app-waygate-end-customer-address>
+        </ng-container>
+      </div>
+      <div class="waygate-cart-selectall-checkbox">
+        <hr class="horizontal-line" />
+        <div class="waygate-cart-actions">
+          <div class="selectall-checkbox my-2">
+            <input
+              class="float-left ml-2"
+              id="check-all"
+              type="checkbox"
+              value="true"
+              name="check-all"
+              [(ngModel)]="checkAll"
+              (click)="checkAllEntries($event)"
+            />
+            <div *ngIf="selectedItems?.length" class="total-line-items">
+              {{
+                'buyCart.itemsSelectedSummary'
+                  | cxTranslate
+                    : {
+                        selected: selectedItems?.length,
+                        total: items.length,
+                      }
+              }}
+            </div>
+            <div *ngIf="!selectedItems?.length" class="total-line-items">
+              {{ items.length }} {{ 'waygate.listing.items' | cxTranslate }}
+            </div>
+          </div>
+          <div class="product-remove">
+            <i class="material-icons-outlined"> delete </i>
+            <a class="action-links" (click)="removeDialog()">
+              {{ 'buyCart.remove' | cxTranslate }}
+            </a>
+          </div>
+        </div>
+
+        <hr class="horizontal-line" />
+      </div>
+      <div class="waygate-cart-body">
+        <!-- Products  -->
+        <ng-container *ngIf="cart.cartType != cartType.Typ3">
+          <div class="cx-item-list-row">
+            <div
+              class="cx-item-list-row mt-4"
+              *ngFor="let item of items; let i = index"
+            >
+              <div
+                class="cx-item-list-items"
+                *ngIf="getControl(item) | async as control"
+                [class.is-changed]="control.get('quantity').dirty"
+              >
+                <app-waygate-cart-item
+                  [item]="item"
+                  [quantityControl]="control.get('quantity')"
+                  [readonly]="readonly"
+                  [promotionLocation]="promotionLocation"
+                  [options]="options"
+                  [entryNum]="i"
+                  [totalEntries]="items.length"
+                  [productOpen]="showToggle"
+                  [userType]="userType"
+                  [cart]="cart"
+                  [checkAll]="checkAll"
+                  (selectedEntry)="onEntryCheck($event)"
+                  [isPartialShipment]="isPartialShipment"
+                  (requestedShipmentDate)="dateAndDisabledChange($event)"
+                  #cartEntry
+                ></app-waygate-cart-item>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- Film Products  -->
+        <ng-container>
+          <div
+            class="filmProduct-container"
+            *ngIf="cart.cartType == cartType.Typ3 && this.filmProduct"
+          >
+            <div class="film-prod">
+              <span class="film-order-chip">{{
+                'buyCart.order1' | cxTranslate
+              }}</span>
+              <span class="ml-3" *ngIf="this.filmProduct?.length > 1"
+                >({{ this.filmProduct.length }}
+                {{ 'waygate.listing.items' | cxTranslate }})</span
+              >
+              <span class="ml-3" *ngIf="this.filmProduct?.length == 1"
+                >({{ this.filmProduct.length }}
+                {{ 'waygate.listing.item' | cxTranslate }})</span
+              >
+            </div>
+            <div class="cx-item-list-row">
+              <div
+                class="cx-item-list-row"
+                *ngFor="let item of filmProduct; let i = index"
+              >
+                <div
+                  class="cx-item-list-items"
+                  *ngIf="getControl(item) | async as control"
+                  [class.is-changed]="control.get('quantity').dirty"
+                >
+                  <app-waygate-cart-item
+                    [item]="item"
+                    [quantityControl]="control.get('quantity')"
+                    [readonly]="readonly"
+                    [promotionLocation]="promotionLocation"
+                    [options]="options"
+                    [entryNum]="i"
+                    [totalEntries]="filmProduct.length"
+                    [productOpen]="showToggle"
+                    [userType]="userType"
+                    [cart]="cart"
+                    [checkAll]="checkAll"
+                    (selectedEntry)="onEntryCheck($event)"
+                    #cartEntry
+                  >
+                  </app-waygate-cart-item>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- Non Film Products  -->
+        <ng-container>
+          <div
+            class="nonFilmProduct-container"
+            *ngIf="cart.cartType == cartType.Typ3 && this.nonFilmProduct"
+          >
+            <div class="film-prod">
+              <span class="non-film-order-chip">{{
+                'buyCart.order2' | cxTranslate
+              }}</span>
+              <span class="ml-3" *ngIf="this.nonFilmProduct?.length > 1"
+                >({{ this.nonFilmProduct.length }}
+                {{ 'waygate.listing.items' | cxTranslate }})</span
+              >
+              <span class="ml-3" *ngIf="this.nonFilmProduct?.length == 1"
+                >({{ this.nonFilmProduct.length }}
+                {{ 'waygate.listing.item' | cxTranslate }})</span
+              >
+            </div>
+            <div class="cx-item-list-row">
+              <div
+                class="cx-item-list-row"
+                *ngFor="let item of nonFilmProduct; let i = index"
+              >
+                <div
+                  class="cx-item-list-items"
+                  *ngIf="getControl(item) | async as control"
+                  [class.is-changed]="control.get('quantity').dirty"
+                >
+                  <app-waygate-cart-item
+                    [item]="item"
+                    [quantityControl]="control.get('quantity')"
+                    [readonly]="readonly"
+                    [promotionLocation]="promotionLocation"
+                    [options]="options"
+                    [entryNum]="i"
+                    [totalEntries]="nonFilmProduct.length"
+                    [productOpen]="showToggle"
+                    [userType]="userType"
+                    [cart]="cart"
+                    [checkAll]="checkAll"
+                    (selectedEntry)="onEntryCheck($event)"
+                    #cartEntry
+                  >
+                  </app-waygate-cart-item>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="waygate-cart-summary">
+      <app-waygate-cart-order-summary
+        [cart$]="cart$"
+        [userType]="userType"
+        (scrollToEntry)="scrollCartEntryIntoView($event)"
+        [cart]="cart"
+        [items]="items"
+        [profileType]="profileType"
+        [dateAndDisabledChange]="dateAndDisabledEvent"
+      ></app-waygate-cart-order-summary>
+    </div>
+  </div>
+</ng-container>

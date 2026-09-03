@@ -1,0 +1,148 @@
+<section class="search-filter" [formGroup]="searchForm">
+  <div class="search-container">
+    <div class="search-container-item">
+      <div class="d-flex">
+        <label for="partNumberInput" class="required">
+          {{ 'mySiteEquipment.enterPartNumber' | cxTranslate }}
+        </label>
+        <span
+          class="material-icons-outlined"
+          (mouseenter)="showPartNoInfo = true"
+          (mouseleave)="showPartNoInfo = false"
+        >info</span>
+      </div>
+      <div *ngIf="showPartNoInfo" class="col-1 view-validation-info">
+        <div class="dropdown set-position-partNO-info p-0">
+          <div class="breakdown-price">
+            {{ 'rma-form.partNumberInfoText' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="part-number-input position-relative">
+        <input
+          #partNumberInput
+          id="partNumberInput"
+          class="input-container"
+          placeholder="{{ 'mySiteEquipment.enterPartNumber' | cxTranslate }}"
+          maxlength="18"
+          formControlName="partNumber"
+          (input)="autoSearchResults($event)"
+          [value]="selectedPart?.code || ''"
+          autocomplete="off"
+        />
+        <div class="input-message">
+          <span class="material-icons-outlined">info</span>
+          {{'mySiteEquipment.inputMessage' | cxTranslate}}
+        </div>
+        <span
+          *ngIf="selectedPart"
+          class="material-icons"
+          (click)="clearPartSelection()"
+        >close</span>      
+        <div
+          *ngIf="searchingProducts && !selectedPart"
+          class="part-input-side-loader side-loader cx-spinner"
+        >
+          <cx-spinner></cx-spinner>
+        </div>
+        <div
+          class="part-number-suggestions"
+          *ngIf="openSuggestions && !selectedPart"
+          [clickSourceId]="partNumberInput"
+          (clickOutside)="openSuggestions = false"
+        >
+          <a
+            class="part-number-autocomplete"
+            *ngFor="let part of  $any(parts | slice: 0 : 5)"
+            (click)="selectPart(part)"
+          >
+            <cx-media
+              class="col-2 p-0 part-image"
+              [container]="part.images"
+              format="thumbnail"
+              [alt]="part.summary"
+            ></cx-media>
+            <div class="col-10 product-details-holder">
+              <div class="part-name">{{ part.name }}</div>
+              <div class="part-number-code">{{ part.code }}</div>
+            </div>
+          </a>
+          <div
+            *ngIf="!searchingProducts && parts.length === 0"
+            class="no-results-message"
+          >
+            <div class="no-matching-parts">
+              {{ 'rma-form.noMatchingParts' | cxTranslate }}
+            </div>
+            <a class="find-similar-btn" (click)="openHelpSearch()">
+              {{ 'rma-form.findSimilar' | cxTranslate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-container-item">
+      <div class="d-flex">
+        <label for="serialNumber">
+          {{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}
+        </label>
+        <span
+          class="material-icons-outlined"
+          (mouseenter)="showserialNOInfo = true"
+          (mouseleave)="showserialNOInfo = false"
+        >info</span>
+      </div>
+      <div *ngIf="showserialNOInfo" class="col-1 view-validation-info">
+        <div class="dropdown set-position-serialNO-info p-0">
+          <div class="breakdown-price">
+            {{ 'rma-form.serialNumberInfoText' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="part-number-input">
+        <input
+          #serialInput
+          id="serialNumber"
+          class="input-container"
+          formControlName="serialNumber"
+          autocomplete="off"
+          placeholder="{{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}"
+          maxlength="18"
+          [value]="selectedPart?.summary || ''"
+          (input)="autoSearchSerial($event)"
+        />
+        <div
+          *ngIf="searchingResults"
+          class="part-input-side-loader side-loader cx-spinner"
+        >
+          <cx-spinner></cx-spinner>
+        </div>
+        <div
+          class="part-number-suggestions"
+          *ngIf="openSerialSuggestions  && !disableSerialSearch"
+          [clickSourceId]="serialInput"
+          (clickOutside)="openSerialSuggestions = false"
+        >
+          <a
+            class="part-number-autocomplete"
+            *ngFor="let product of serialSearchResults | slice: 0 : 5"
+            (click)="selectSerial(product)"
+          >
+            <cx-media
+              class="col-2 p-0 part-image"
+              [container]="product.images"
+              format="thumbnail"
+              [alt]="product.name"
+            ></cx-media>
+            <div class="col-10 product-details-holder">
+              <div class="part-name">{{ product.name }}</div>
+              <div class="part-number-code">
+                {{ product.code }}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<ng-container *ngIf="product$ | async as product">
+  <ng-container *ngIf="product.configurable">
+    <a
+      (click)="navigateTo()"
+      class="bh-button motion--normal bh-button--type-primary"
+      cxAutoFocus
+      >{{ 'configurator.header.toconfig' | cxTranslate }}
+      <i class="material-icons-outlined"> settings </i></a
+    >
+  </ng-container>
+</ng-container>

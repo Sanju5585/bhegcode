@@ -1,0 +1,214 @@
+<div class="back-link-wrap">
+  <div class="col-md-12 col-lg-12 col-sm-12">
+    <bh-a
+      type="primary"
+      class="back-link"
+      text="< Back"
+      (click)="
+        backClick(
+          equipmentDetailslData.partNumber,
+          equipmentDetailslData.serialNumber
+        )
+      "
+    ></bh-a>
+  </div>
+</div>
+
+<div class="row mt-4 mb-4 equipment-details-wrap">
+  <div class="col-md-4 col-lg-4 col-sm-12 pr-5">
+    <img
+      class="equipment-img"
+      src="{{ baseSiteURL }}{{ equipmentDetailslData.productData.mediaurl }}"
+    />
+  </div>
+  <div class="col-md-8 col-lg-8 col-sm-12">
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <h4 class="box-title">
+          {{ 'mySiteEquipment.serialId' | cxTranslate }} {{ equipmentDetailslData.serialNumber }}
+        </h4>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.partNumber' | cxTranslate }}
+        </div>
+        <div class="list-data">{{ equipmentDetailslData.partNumber }}</div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.partName' | cxTranslate }}
+        </div>
+        <div class="list-data">{{ equipmentDetailslData.partName }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.siteLocation' | cxTranslate }}
+          <bh-icon
+            icon="info"
+            size="small"
+            color="teal"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="Where is this equipment installed?"
+          ></bh-icon>
+          <bh-text-input
+            type="text"
+            [value]="equipmentDetailslData.location"
+            required
+            name="siteLocation"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12 mt-4">
+        <div class="list-price">
+          {{ 'equipmentDetails.lastService' | cxTranslate }}
+        </div>
+        <div class="list-data">{{ equipmentDetailslData.lastServiceDate }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.serviceInterval' | cxTranslate }}
+
+          <bh-icon
+            icon="info"
+            size="small"
+            color="teal"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="How often do you need to create an RMA for this equipment?"
+          ></bh-icon>
+
+          <bh-text-input
+            type="text"
+            [value]="equipmentDetailslData.serviceInterval"
+            required
+            name="serviceInterval"
+            required
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12 mt-4">
+        <div class="list-price">
+          {{ 'equipmentDetails.status' | cxTranslate }}
+        </div>
+        <div class="list-data">{{ equipmentDetailslData.status }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.tagandAssetNum' | cxTranslate }}
+          <bh-icon
+            icon="info"
+            size="small"
+            color="teal"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="The unique number you assigned to this equipment"
+          ></bh-icon>
+
+          <bh-text-input
+            type="text"
+            [value]="equipmentDetailslData.assetNumber"
+            required
+            name="tagandAssetNum"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div class="list-price">
+          {{ 'equipmentDetails.customeTariff' | cxTranslate }}
+          <bh-icon
+            icon="info"
+            size="small"
+            color="teal"
+            href=""
+            target=""
+            matTooltipClass="vs-tooltip"
+            matTooltipPosition="right"
+            matTooltip="Used when you create an RMA and need to ship the equipment to another country for service."
+          ></bh-icon>
+
+          <bh-text-input
+            type="text"
+            [value]="equipmentDetailslData.htsCode"
+            required
+            name="customeTariff"
+          ></bh-text-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-7">
+        <span class="dd-label">* {{ 'equipmentDetails.endCustomer' | cxTranslate }}</span>
+        <bh-dropdown
+          class="salesarea-dd"
+          isFluid="false"
+          isSmall="false"
+          width="large"
+          menuWidth="large"
+          unselectable="false"
+          [menuItems]="endCustomers"
+          value="{{ equipmentDetailslData.endCustomerName }}"
+          isEllipsis="false"
+        ></bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="list-price">{{ 'equipmentDetails.notes' | cxTranslate }}</div>
+        <bh-text-area
+          class="shipping-remarks"
+          label=""
+          value=""
+          placeholder="{{ 'equipmentDetails.note' | cxTranslate }}"
+        ></bh-text-area>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-2 col-md-2 col-sm-12 reset-button">
+        <bh-button
+          type="secondary"
+          label="{{ 'equipmentDetails.cancel' | cxTranslate }}"
+          (click)="
+            cancelUpdate(
+              equipmentDetailslData.partNumber,
+              equipmentDetailslData.serialNumber
+            )
+          "
+          class="reset"
+        >
+        </bh-button>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-12 track-button">
+        <bh-button
+          type="primary"
+          (click)="updateEquipmentData()"
+          label="{{ 'equipmentDetails.saveChanges' | cxTranslate }}"
+          class="track"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+</div>

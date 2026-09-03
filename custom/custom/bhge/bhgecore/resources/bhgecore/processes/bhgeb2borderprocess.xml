@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition"
+    start="bhgeorderprocessaction" name="bhgeb2borderprocess"
+    processClass="de.hybris.platform.b2b.process.approval.model.B2BApprovalProcessModel">
+    <action id="bhgeorderprocessaction" bean="bhgeOrderProcess">
+        <transition name="NOK" to="failed" />
+        <transition name="OK" to="success" />
+    </action>
+ 
+    <end id="error" state="ERROR">All went wrong.</end>
+    <end id="failed" state="FAILED">Order process failed.</end>
+    <end id="success" state="SUCCEEDED">Order process finished.</end>
+</process>

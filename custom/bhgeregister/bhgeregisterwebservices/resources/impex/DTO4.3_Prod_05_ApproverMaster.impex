@@ -1,0 +1,105 @@
+INSERT_UPDATE BHGEInquiryEmail;id[unique=true];governmentUser;quoteOrderInquiry;serviceReturnsInquiry;shippingInquiry;invoicingInquiry
+;122;Bently.CustomerCare@bhge.com;Bently.CustomerCare@bhge.com;NAMService@bhge.com;Bently.CustomerCare@bhge.com;Bently.CustomerCare@bhge.com;
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg
+;usr-30009;204039972;Souza Vera;Vera;Souza;vera.souza@bhge.com;BHGERegister;false;1;false
+;usr-30010;212429613;Zohra Abbas;Zohra;Abbas;zohra.abbas@bhge.com;BHGERegister;false;1;false
+;usr-30011;304003159;Rong Wang;Rong;Wang;rong.wang2@bhge.com;BHGERegister;false;1;false
+;usr-30012;312007728;Xiaoying Zhang;Xiaoying;Zhang;xiaoying.zhang1@bhge.com;BHGERegister;false;1;false
+;usr-30013;300001682;Aquino Mylin;Mylin;Aquino;mylin.aquino@bhge.com;BHGERegister;false;1;false
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];groups(uid)
+;usr-30009;BHGECSRApproverGroup
+;usr-20460;BHGECSRApproverGroup
+;usr-20461;BHGECSRApproverGroup
+;usr-30010;BHGECSRApproverGroup
+;usr-19135;BHGECSRApproverGroup
+;usr-30011;BHGECSRApproverGroup
+;usr-30012;BHGECSRApproverGroup
+;usr-20519;BHGECSRApproverGroup
+;usr-30013;BHGECSRApproverGroup
+
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;1;100;Europe/RCISApproversGroup;Europe/RCISApproversGroup;;HybrisApprovers.EU@ge.com
+;1;101;NorthAmerica/HybrisApproversInspTechNAGroup;NorthAmerica/HybrisApproversInspTechNAGroup;;hybrisapprovers.insptechna@ge.com
+;1;102;NorthAmerica/HybrisApproversMSPressureNAGroup;NorthAmerica/HybrisApproversMSPressureNAGroup;;hybrisapprovers.mspressurena@ge.com
+;1;103;NorthAmerica/HybrisApproversMSFGMNAGroup;NorthAmerica/HybrisApproversMSFGMNAGroup;;HybrisApprovers.MSFGMNA@ge.com
+;1;104;NorthAmerica/HybrisApproversMSRSGroup;NorthAmerica/HybrisApproversMSRSGroup;;hybrisapprovers.msrs@ge.com
+;1;105;NorthAmerica/ControlPartsGroup;NorthAmerica/ControlPartsGroup;;ControlParts@BHGE.com
+;1;106;NorthAmerica/HybrisApproversBentlyNAGroup;NorthAmerica/HybrisApproversBentlyNAGroup;;hybrisapprovers.bentlyna@ge.com
+;1;107;NorthAmerica/HybrisApproversNAGroup;NorthAmerica/HybrisApproversNAGroup;;HybrisApprovers.NA@ge.com
+;1;108;NorthAmerica/BentleyNevadaNorth;NorthAmerica/BentleyNevadaNorth;;cc.bn.la@ge.com
+;1;109;NorthAmerica/HybrisApproversLAGroup;HybrisApproversLAGroup;;HybrisApprovers.LA@ge.com
+;1;110;Individual/KarkitaSterlingGroup;Individual/KarkitaSterlingGroup;;karkita.sterling@bhge.com
+;1;111;Individual/MeriamReynosoGroup;Individual/MeriamReynosoGroup;;Meriam.Reynoso@bhge.com
+;1;112;MENATHybrisApproversGroup;MENATHybrisApproversGroup;;HybrisApprovers.MENAT@ge.com
+;1;113;SSAHybrisApproversGroup;SSAHybrisApproversGroup;;HybrisApprovers.SSA@ge.com
+;1;114;IndiaHybrisApproversGroup;IndiaHybrisApproversGroup;;HybrisApprovers.India@ge.com 
+;1;115;ChinaHybrisApproversGroup;ChinaHybrisApproversGroup;;HybrisApprovers.China@ge.com
+;1;116;AsiaHybrisApproversGroup;AsiaHybrisApproversGroup;;HybrisApprovers.Asia@ge.com 
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;100;usr-19130
+;100;usr-20539
+;100;usr-20540
+;100;usr-20548
+;100;usr-20547
+;100;usr-20208
+;100;usr-19182
+;100;usr-20209
+;100;usr-19181
+;100;usr-19140
+;100;usr-19123
+;100;usr-20538
+;101;usr-19009
+;101;usr-20080
+;104;usr-30005
+;104;usr-30004
+;102;usr-30008
+;102;usr-30006
+;103;usr-30007
+;103;usr-30006
+;106;usr-30001
+;106;usr-30002
+;106;usr-30003
+;109;usr-30008
+;109;usr-30007
+;110;usr-30008
+;111;usr-30007
+;1;usr-19018
+;1;usr-19003
+;1;usr-19004
+;1;usr-20499
+;107;usr-19130
+;107;usr-20539
+;107;usr-20540
+;107;usr-20548
+;107;usr-20547
+;107;usr-20208
+;107;usr-19182
+;107;usr-20209
+;107;usr-19181
+;107;usr-19140
+;107;usr-19123
+;107;usr-20538
+;107;usr-19009
+;107;usr-20080
+;107;usr-30008
+;107;usr-30007
+;107;usr-30006
+;107;usr-30005
+;107;usr-30004
+;107;usr-30001
+;107;usr-30002
+;107;usr-30003
+;109;usr-30009
+;112;usr-30010
+;112;usr-20460
+;112;usr-20461
+;113;usr-20460
+;113;usr-20461
+;114;usr-19135
+;115;usr-30011
+;115;usr-30012
+;116;usr-20519
+;116;usr-30013

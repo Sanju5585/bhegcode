@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="reg-conf-template">
+    <ng-container *ngIf="response$ | async as accountMsg; else loading">
+      <ng-container *ngIf="pageStatus == 'confirm-email'">
+        <ng-container
+          *ngIf="
+            accountMsg == registerStatus.SUCCESS;
+            else activationEmailFailure
+          "
+        >
+          <div class="email-title-header">
+            <span class="material-icons-outlined success"> check_circle </span>
+            <h2>{{ 'confirm-email.requestConfirmed' | cxTranslate }}</h2>
+          </div>
+          <div class="email-body-content">
+            {{ 'confirm-email.usernameAccepted' | cxTranslate }}. <br />
+            {{ 'confirm-email.notifiedByMail' | cxTranslate }}.
+          </div>
+        </ng-container>
+        <ng-template #activationEmailFailure>
+          <ng-container
+            *ngIf="
+              accountMsg == registerStatus.FAILURE;
+              else activationEmailActive
+            "
+          >
+            <div class="email-title-header">
+              <span class="material-icons-outlined failure"> cancel </span>
+              <h2>{{ 'confirm-email.activationFailed' | cxTranslate }}</h2>
+            </div>
+            <div class="email-body-content">
+              {{ 'confirm-email.notActivated' | cxTranslate }}. <br />
+              {{ 'confirm-email.please' | cxTranslate }}
+               <a routerLink="/resend-email/{{ email }}">
+                {{ 'confirm-email.clickHere' | cxTranslate }}
+              </a>
+              {{ 'confirm-email.generateNewCode' | cxTranslate }}
+            </div>
+          </ng-container>
+        </ng-template>
+        <ng-template #activationEmailActive>
+          <ng-container
+            *ngIf="
+              accountMsg == registerStatus.ACTIVE;
+              else activationEmailError
+            "
+          >
+            <div class="email-title-header">
+              <span class="material-icons-outlined info"> info </span>
+              <h2>{{ 'confirm-email.userActive' | cxTranslate }}</h2>
+            </div>
+            <div class="email-body-content">
+              {{ 'confirm-email.userAlreadyActive' | cxTranslate }}. <br />
+              {{ 'confirm-email.notifiedByMail' | cxTranslate }}.
+            </div>
+          </ng-container>
+        </ng-template>
+        <ng-template #activationEmailError>
+          <ng-container
+            *ngIf="
+              accountMsg == registerStatus.ACTIVE;
+              else activationEmailError
+            "
+          >
+            <div class="email-title-header">
+              <span class="material-icons-outlined warning">
+                help_outline
+              </span>
+              <h2>{{ 'confirm-email.somethingWentWrong' | cxTranslate }}</h2>
+            </div>
+            <div class="email-body-content">
+              {{ 'confirm-email.performigAction' | cxTranslate }}. <br />
+              {{ 'confirm-email.pleaseReachout' | cxTranslate }}
+              <a href="mailTo:ogmchybris.support@bakerhughes.com"
+                >{{ 'confirm-email.supportTeam' | cxTranslate }}</a
+              >
+              {{ 'confirm-email.tryAgainLater' | cxTranslate }}.
+            </div>
+          </ng-container>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="pageStatus == 'resend-email'">
+        <ng-container
+          *ngIf="accountMsg == registerStatus.SUCCESS; else resendEmailFailure"
+        >
+          <div class="email-title-header">
+            <span class="material-icons-outlined success"> check_circle </span>
+            <h2>{{ 'confirm-email.emailSent' | cxTranslate }}</h2>
+          </div>
+          <div class="email-body-content">
+            {{ 'confirm-email.newConfirmEmail' | cxTranslate }}. <br />
+            {{ 'confirm-email.pleaseCheckMail' | cxTranslate }}.
+          </div>
+        </ng-container>
+        <ng-template #resendEmailFailure>
+          <div class="email-title-header">
+            <span class="material-icons-outlined warning"> help_outline </span>
+            <h2>{{ 'confirm-email.somethingWentWrong' | cxTranslate }}</h2>
+          </div>
+          <div class="email-body-content">
+            {{ 'confirm-email.performigAction' | cxTranslate }}. <br />
+            {{ 'confirm-email.pleaseReachout' | cxTranslate }}
+            <a href="mailTo:ogmchybris.support@bakerhughes.com">
+              {{ 'confirm-email.supportTeam' | cxTranslate }}
+            </a>
+            {{ 'confirm-email.tryAgainLater' | cxTranslate }}.
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="pageStatus == 'cancel-activation'">
+        <ng-container
+          *ngIf="accountMsg == registerStatus.SUCCESS; else cancellationFailure"
+        >
+          <div class="email-title-header">
+            <span class="material-icons-outlined info"> check_circle </span>
+            <h2>{{ 'confirm-email.requestCanceled' | cxTranslate }}</h2>
+          </div>
+          <div class="email-body-content">
+            {{ 'confirm-email.yourRequestCanceled' | cxTranslate }}. <br />
+          </div>
+        </ng-container>
+        <ng-template #cancellationFailure>
+          <ng-container
+            *ngIf="
+              accountMsg == registerStatus.FAILURE;
+              else cancellationActive
+            "
+          >
+            <div class="email-title-header">
+              <span class="material-icons-outlined failure"> cancel </span>
+              <h2>{{ 'confirm-email.cancellationFailed' | cxTranslate }}</h2>
+            </div>
+            <div class="email-body-content">
+              {{ 'confirm-email.performigAction' | cxTranslate }}. <br />
+              {{ 'confirm-email.pleaseReachout' | cxTranslate }}
+              <a href="mailTo:ogmchybris.support@bakerhughes.com"
+                >{{ 'confirm-email.supportTeam' | cxTranslate }}</a
+              >
+              {{ 'confirm-email.tryAgainLater' | cxTranslate }}.
+            </div>
+          </ng-container>
+        </ng-template>
+        <ng-template #cancellationActive>
+          <ng-container
+            *ngIf="accountMsg == registerStatus.ACTIVE; else cancellationError"
+          >
+            <div class="email-title-header">
+              <span class="material-icons-outlined info"> info </span>
+              <h2>{{ 'confirm-email.userActive' | cxTranslate }}</h2>
+            </div>
+            <div class="email-body-content">
+              {{ 'confirm-email.userAlreadyActive2' | cxTranslate }}. <br />
+              {{ 'confirm-email.proceedToSetUP' | cxTranslate }}.
+            </div>
+          </ng-container>
+        </ng-template>
+        <ng-template #cancellationError> {{ 'confirm-email.error' | cxTranslate }} </ng-template>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

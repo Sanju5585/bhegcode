@@ -1,0 +1,100 @@
+.overlay {
+  font-family: var(--font-family-body-medium);
+  letter-spacing: 0.1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.overlay .overlay-fav-txt {
+  color: var(--color-base-teal-700);
+  font-size: var(--font-size-body-small);
+  font-family: var(--font-family-body-large);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 21px;
+  letter-spacing: 0.1px;
+}
+
+.overlay .overlay-fav-icon {
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-18);
+  position: relative;
+  top: 4px;
+  margin-right: 3px;
+  color: var(--color-base-teal-700);
+}
+
+.overlay .overlay-eq-icon {
+  background-image: url('../../../../assets/img/equipment.svg');
+  height: 14px;
+  width: 14px;
+  top: 6px;
+  float: left;
+}
+
+.overlay .overlay-eq-txt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  float: left;
+  max-width: 70%;
+  margin-left: 7px;
+  margin-top: 3px;
+}
+
+.cx-product-name {
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  /* height: auto !important;
+  font-size: var(--font-size-body-small); */
+  margin-top: 3px;
+  margin-bottom: 3px;
+  color: #757575;
+  text-decoration: none;
+  letter-spacing: 0.75px;
+  line-height: 18px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--font-base-font-size-14);
+  padding: 0px 10px;
+}
+
+.cx-product-code {
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-size-body-small);
+  margin: 2px 0 3px 0;
+  color: #757575;
+  text-decoration: none;
+  font-size: var(--font-base-font-size-14);
+}
+
+.padding-lr-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fav-add-eq-row {
+  display: none;
+  position: relative;
+  top: -25px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+  padding: 0px 10px;
+  background: #f8faf9;
+  height: 26px;
+  align-items: center;
+}
+
+.overlay:hover {
+  text-decoration: none;
+}

@@ -1,0 +1,111 @@
+<ng-container *ngIf="products.length > 0; else noResultsFound">
+  <div class="eqipment-search-result-preheader">
+    <label class="equipment-search-results">
+      {{ 'rma-form.searchResults' | cxTranslate }}
+    </label>
+    <!-- <div class="equipment-search-result-filter">
+      <span class="filter-icon"><i class="material-icons">filter_list</i></span>
+      <ng-select
+        class="search-result-filter-dropdown"
+        [searchable]="false"
+        [clearable]="false"
+        placeholder="Select"
+      >
+        <ng-option> ssss </ng-option>
+      </ng-select>
+    </div> -->
+  </div>
+  <div class="equipment-search-result--header">
+    <div class="equipment-search-result--header-text mr-1">
+      <span>{{ 'rma-form.partName' | cxTranslate }}</span>
+    </div>
+    <div class="equipment-search-result--header-text mr-1">
+      <span>{{ 'rma-form.partNumber' | cxTranslate }}</span>
+    </div>
+    <div class="equipment-search-result--header-text mr-1">
+      <span>{{ 'rma-form.categoryName' | cxTranslate }}</span>
+    </div>
+    <div class="equipment-search-result--header-text mr-1">
+      <span>{{ 'rma-form.serialNumber' | cxTranslate }}</span>
+    </div>
+    <div class="equipment-search-result--header-text mr-1">
+      <span>{{ 'rma-form.action' | cxTranslate }}</span>
+    </div>
+  </div>
+  <ng-container *ngFor="let product of products | slice: 0 : pageSize">
+    <div class="equipment-search-result--body">
+      <div class="equipment-search-result--body-text mr-2">
+        <span>{{ product.name }}</span>
+      </div>
+      <div class="equipment-search-result--body-text mr-2">
+        <span>{{ product.code }}</span>
+      </div>
+      <div class="equipment-search-result--body-text mr-1">
+        <span
+          matTooltipClass="vs-tooltip capitalize"
+          [matTooltip]="getProductCategories(product.brandName).hierarchy"
+          >{{ getProductCategories(product.brandName).title }}</span
+        >
+      </div>
+      <div class="equipment-search-result--body-text mr-1">
+        <span>{{ product.summary }}</span>
+      </div>
+      <div
+        class="equipment-search-result--body-text equipment-box-btn-container"
+      >
+        <ng-container>
+          <a
+            *ngIf="product.switchActiveButton"
+            (click)="switchDsCustomer(product)"
+            class="switch-account"
+            >{{ 'rma-form.switchBusiness' | cxTranslate }}
+          </a>
+          <div
+            *ngIf="!product.switchActiveButton"
+            class="equipment-box-btn primary-box-btn"
+            (click)="addPart(1, product)"
+          >
+            {{ 'rma-form.myPart' | cxTranslate }}
+          </div>
+        </ng-container>
+        <div
+          class="equipment-box-btn secondary-box-btn"
+          (click)="addPart(2, product)"
+        >
+          {{ 'rma-form.similar' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+    <hr />
+  </ng-container>
+
+  <section class="result-pagination">
+    <!-- <div class="form-group cx-sort-dropdown">
+      <h4 class="sort-label mb-1">Items per page</h4>
+      <ng-select
+        [searchable]="false"
+        [items]="items"
+        bindLabel="name"
+        bindValue="id"
+        [clearable]="false"
+        placeholder="{{ pagination.pageSize }}"
+        class="items-per-page"
+        [(ngModel)]="pagination.pageSize"
+      >
+      </ng-select>
+    </div> -->
+    <cx-pagination
+      [pagination]="pagination"
+      [defaultPage]="pagination.currentPage"
+      (viewPageEvent)="currentPage($event)"
+    ></cx-pagination>
+  </section>
+</ng-container>
+
+<ng-template #noResultsFound>
+  <div class="eqipment-search-no-results">
+    <label class="equipment-search-results">
+      {{ 'rma-form.noResultsFound' | cxTranslate }}
+    </label>
+  </div>
+</ng-template>

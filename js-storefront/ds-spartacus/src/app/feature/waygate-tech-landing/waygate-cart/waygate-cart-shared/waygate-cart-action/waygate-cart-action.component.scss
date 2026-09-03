@@ -1,0 +1,283 @@
+@import '../../../../../../styles/responsive_mixins.scss';
+.waygate-cart-container {
+  .waygate-cart-action {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    .action-green-border {
+      border-top: 2px solid #02a783;
+      width: 60px;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: #121212;
+    }
+    .mobile-view{
+      margin-left: 37%;
+      margin-top: 2%;
+      display: none;
+      @include media-md-max{
+        display: contents;
+      }
+    }
+    @include media-md-max{
+      display: flex;
+    flex-direction: row;
+    }
+  }
+  .waygate-cart-action-content {
+    height: 42px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Poppins;
+
+    .waygate-cart-shipment-preference {
+      display: flex;
+      align-items: center;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 400;
+      .waygate-cart-shipment-preference-text {
+        width: 304px;
+        height: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: left;
+        color: hsl(0, 0%, 0%);
+        .vs-tooltip-icon {
+          width: 0px;
+          height: 10px;
+          &::before {
+            font-family: var(--font-base-font-family-icon);
+            content: 'info' !important;
+            font-size: 18px;
+            color: #1a2321;
+            position: relative;
+            left: 280px;
+            top: -25px;
+          }
+          .vs-tooltip {
+            visibility: hidden;
+            position: relative;
+            top: -25px;
+            left: 17rem;
+            max-width: 250px;
+            width: 250px;
+            min-height: 34px;
+            align-items: center;
+            padding: 8px 12px;
+            background: #212121;
+            opacity: 0.9;
+            border-radius: 4px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0.25px;
+            color: #ffffff;
+            z-index: 1;
+            @include media-lg-max{
+              left: 4rem;
+            }
+          }
+        }
+
+        .vs-tooltip-icon:hover .vs-tooltip {
+          visibility: visible;
+        }
+      }
+
+      .waygate-cart-radio-btn {
+        display: flex;
+        gap: 1rem;
+
+        input[type='radio']:checked:after {
+          color: #02a783;
+        }
+      }
+    }
+    .waygate-cart-action-options {
+      width: 412px;
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 15px;
+      .waygate-cart-action-option {
+        .waygate-cart-action-option-text {
+          font-size: 12px;
+          font-weight: 600;
+          text-align: right;
+          color: #595959;
+        }
+        .action-links {
+          text-decoration: none;
+        }
+
+        .action-option-icon {
+          position: relative;
+          top: -32px;
+          left: 10px;
+          font-size: 18px;
+        }
+      }
+      @include media-md-max{
+        display: none;
+      }
+      @include media-md-lg{
+        margin-top: -9%;
+        margin-left: -2%;
+      }
+      @include media-lg-xl{
+        margin-top: -7%;
+      }
+    }
+    @include media-lg-max{
+      margin-left : 4% ;
+  }
+  }
+  .budgetary-action{
+   display: flex;
+   margin-left: 47%;
+  }
+  
+  .budgetary-actions-container {
+        display: flex;
+        justify-content: flex-end;     
+        margin-top: 10px;
+        gap: 12px;                 
+        flex-wrap: nowrap;    
+        
+        bh-button{
+            margin-left: 3px;
+            margin-top: -30px;
+            position: relative;   
+          }   
+  }
+
+  .waygate-cart-action-checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
+    
+width: auto;       
+  flex: 0 0 auto;
+
+    .checkbox {
+      width: 32px;
+      height: 24px;
+      gap: 8px;
+      opacity: 0px;
+      input[type='checkbox'] {
+        height: 18px;
+        width: 18px;
+      }
+      input[type='checkbox']:checked {
+        accent-color: #02a783 !important;
+      }
+      input[type='checkbox']:disabled {
+        cursor: default;
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    }
+
+    .para {
+      margin: auto 0;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+    }
+    .vs-tooltip-icon2 {
+      width: 0px;
+      height: 10px;
+      margin-top: -3px;
+
+      &::before {
+        font-family: var(--font-base-font-family-icon);
+        content: 'info' !important;
+        font-size: 18px;
+        color: #1a2321;
+      }
+      .vs-tooltip {
+        visibility: hidden;
+        max-width: 250px;
+        width: 250px;
+        min-height: 34px;
+        align-items: center;
+        padding: 8px 12px;
+        background: #212121;
+        opacity: 0.9;
+        border-radius: 4px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.25px;
+        color: #ffffff;
+        z-index: 1;
+        @include media-lg-max{
+          position: relative;
+          left: -6rem;
+        }
+      }
+    }
+
+    .vs-tooltip-icon2:hover .vs-tooltip {
+      visibility: visible;
+    }
+    @include media-lg-max{
+      margin: 5% 0 0 -2%;
+    }
+  }
+}
+:host::ng-deep .bh-button--type-secondary span {
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  color: #595959;
+}
+::ng-deep .cxFeat_a11yVisibleFocusOverflows :focus:not(main){
+  z-index: 0;
+}
+
+.login-menu {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 11rem;
+  z-index: 9999;
+  right: 0;
+  background-color: #ffffff;
+  overflow: auto;
+  transition: width 1s;
+  animation-name: slide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  clear: both;
+  display: inline-block;
+  width: 38%;
+  white-space: nowrap;
+  height: 155px;
+  &.top-margin {
+    margin: 136px 0;
+    position: fixed;
+    overflow: auto;
+  }
+  
+  .waygate-cart-action-option{
+    @include media-md-max{
+      height: 20px;
+    }
+  }
+  @include media-sm-md{
+    left: 16rem;
+  }
+}

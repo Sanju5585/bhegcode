@@ -1,0 +1,179 @@
+.documentation-container {
+  font-family: var(--font-family-body-medium);
+  border: 1px solid var(--color-base-earth-100);
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 3rem 2rem;
+  padding-top: 18px !important;
+  .search-filter {
+    display: flex;
+    gap: 4em;
+    margin-bottom: 2em;
+    .dropdown-returns {
+      min-width: 15em;
+    }
+  }
+  .documentation-info {
+    display: flex;
+    .documentation-info--icons {
+      margin: 0 0.5em;
+      .material-icons-outlined {
+        font-size: 30px;
+        color: var(--color-base-teal-700);
+      }
+    }
+    .documentation-info--texts {
+      font-family: var(--font-family-body-medium);
+      font-style: normal;
+      font-weight: bold;
+      font-size: var(--font-base-font-size-16);
+      line-height: 24px;
+      color: var(--color-base-teal-500);
+      .documentation-info--texts--title-primary {
+        color: var(--color-fill-avatar-primary);
+        font-weight: 600;
+      }
+      .documentation-info--texts--title-secondary {
+        font-weight: 600;
+      }
+    }
+  }
+  .warranty-claim {
+    margin: 2em 0;
+    bh-text-area {
+      max-height: 150px;
+    }
+    .service-notes-label {
+      display: flex;
+      align-items: center;
+      .material-icons {
+        font-size: 17px;
+      }
+    }
+  }
+  .accessories {
+    margin: 0.7em 0;
+    .accessories-tabs-group {
+      display: flex;
+      .accessories-tab {
+        padding: 0.25em;
+        border-bottom: 1px solid lightgray;
+        min-width: 8em;
+        text-align: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .tab-active {
+        border-bottom: 3px solid var(--color-fill-avatar-primary);
+      }
+    }
+    .add-file-btn {
+      padding: 0.5em;
+      border: 2px solid var(--color-fill-avatar-primary);
+      width: 9em;
+      border-radius: 4px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .file-list {
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+  }
+
+  .warranty-claim-text {
+    font-family: var(--font-family-body-small);
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-body-small);
+    line-height: var(--font-line-height-body-small);
+    letter-spacing: var(--font-letter-spacing-body-small);
+    color: red;
+  }
+}
+
+.attcahment-separte {
+  margin-top: 27px;
+}
+
+.deslast {
+  p {
+    margin-bottom: 16px;
+    font-weight: var(--font-base-font-weight-semibold);
+    font-size: var(--font-size-subtitle-small);
+    font-family: var(--font-family-body-large);
+    color: var(--color-text-common-primary);
+  }
+}
+
+:host::ng-deep {
+  .ng-dropdown-panel-items {
+    width: 207px;
+  }
+  .upload-files--btn {
+    border: 2px solid var(--color-base-teal-500) !important;
+  }
+}
+
+.fileformat {
+  font-family: var(--font-base-font-family-body);
+  font-style: normal;
+  font-weight: var(--font-base-font-weight-semibold);
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-base-line-height-16);
+  letter-spacing: 0.25px;
+  color: var(--color-text-label-default);
+}
+
+.vs-tooltip-icon {
+  position: relative;
+  height: 18px;
+  left: 201px;
+  width: 18px;
+  height: 18px;
+  margin-top: -27px;
+  &::before {
+    font-family: var(--font-base-font-family-icon);
+    content: 'info' !important;
+    height: 15px;
+    width: 15px;
+    margin-left: 8px;
+    color: #1a2321;
+    position: absolute;
+  }
+  .vs-tooltip {
+    visibility: hidden;
+    position: relative;
+    top: 1px;
+    left: 29px;
+    width: 263px;
+    height: 105px;
+    align-items: center;
+    padding: 8px 12px;
+    background: #212121;
+    opacity: 0.9;
+    border-radius: 4px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+  }
+}
+
+.warranty-claim {
+  .vs-tooltip-icon {
+    left: 85px;
+  }
+  .vs-tooltip {
+    height: 106px;
+  }
+}
+
+.vs-tooltip-icon:hover .vs-tooltip {
+  visibility: visible;
+}

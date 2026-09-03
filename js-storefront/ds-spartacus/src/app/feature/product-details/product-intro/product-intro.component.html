@@ -1,0 +1,112 @@
+<ng-container
+  *ngIf="product$ | async as product"
+  class="product-intro-component column fontclass"
+>
+  <div class="part-number">
+    {{ 'pdp.partNumber' | cxTranslate }}<strong> {{ product.code }}</strong>
+  </div>
+
+  <div class="product-name">{{ product.name }}</div>
+  <div class="favorite-row">
+    <a
+      class="favorite-section"
+      (click)="onFavoriteClick(product)"
+      *ngIf="loggedIn"
+    >
+      <em class="material-icons overlay-fav-icon">{{
+        favStatus ? 'star' : 'star_border'
+      }}</em>
+      <span class="overlay-fav-txt">
+        {{
+          (favStatus ? 'pdp.removeFromFav' : 'pdp.addToFav') | cxTranslate
+        }}</span
+      >
+    </a>
+  </div>
+  <ng-container
+    *ngIf="currentBuyAction == buyActions.CHECK_PRICE || !isPriceAvailable"
+  >
+    <div class="error-display">
+      <span class="material-icons"> info </span
+      ><span>
+        {{ 'pdp.priceNotFound' | cxTranslate }}
+      </span>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER">
+    <div class="error-display">
+      <span class="material-icons"> info </span
+      ><span>
+        {{ 'pdp.salesArea' | cxTranslate }}
+      </span>
+    </div>
+  </ng-container>
+  <div></div>
+  <ng-container
+    *ngIf="currentBuyAction != buyActions.CHECK_PRICE && isPriceAvailable"
+  >
+    <div class="price-display" *ngIf="product?.price || product?.netPrice">
+      <div class="price-display-segment row">
+        <span class="col-2 right p-0"
+          >{{ 'pdp.listPrice' | cxTranslate }} :</span
+        >
+        <div class="col-10">
+          <span
+            class="bold-text mr-2 float-left"
+            *ngIf="product?.price; else noPrice"
+            >{{ product.price.formattedValue }}</span
+          >
+          <ng-template #noPrice>
+            <span class="bold-text mr-2 float-left">{{
+              'pdp.unavailable' | cxTranslate
+            }}</span>
+          </ng-template>
+          <span class="suffix-text float-left" *ngIf="product?.price">{{
+            'pdp.perItem' | cxTranslate
+          }}</span>
+        </div>
+      </div>
+
+      <div class="price-display-segment row mt-2" *ngIf="loggedIn">
+        <span class="col-2 right p-0">{{ 'pdp.price' | cxTranslate }} :</span>
+        <div class="col-10">
+          <span
+            class="bold-text mr-2 float-left"
+            *ngIf="product?.yourPrice; else noNetPrice"
+            >{{ product.yourPrice.formattedValue }}</span
+          >
+          <ng-template #noNetPrice>
+            <span class="bold-text mr-2 float-left">{{
+              'pdp.unavailable' | cxTranslate
+            }}</span>
+          </ng-template>
+
+          <span class="suffix-text float-left" *ngIf="product?.price">{{
+            'pdp.perItem' | cxTranslate
+          }}</span>
+          <!-- <div
+            (click)="toggleMenu()"
+            *ngIf="loggedIn"
+            class="price-details-link ml-4 float-left"
+          >
+            {{ 'pdp.priceDetails' | cxTranslate }}<i
+              *ngIf="openMenu"
+              class="material-icons open-icon"
+              >keyboard_arrow_down</i
+            ><i *ngIf="!openMenu" class="material-icons open-icon"
+              >keyboard_arrow_right</i
+            >
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!-- <div class="availibilty-display">
+    <div class="availibilty-display-segment row">
+      <span class="col-2 right spec-title">Available at :</span>
+      <div>
+
+      </div>
+    </div>
+  </div> -->
+</ng-container>

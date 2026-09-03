@@ -1,0 +1,173 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="row mt-3">
+      <div class="col-md-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.firstName' | cxTranslate }}"
+          name="firstName"
+          placeholder="{{ 'labels.firstName' | cxTranslate }}"
+          maxlength="19"
+          [value]="firstName"
+          [message]="error.firstName"
+          [attr.error]="error.firstName ? error.firstName : null"
+          (keyup)="onChange($event, 'firstName')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-md-5">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.lastName' | cxTranslate }}"
+          name="lastName"
+          placeholder="{{ 'labels.lastName' | cxTranslate }}"
+          [value]="lastName"
+          [message]="error.lastName"
+          [attr.error]="error.lastName ? error.lastName : null"
+          maxlength="19"
+          (keyup)="onChange($event, 'lastName')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 ml-12">
+        <div class="address-heading-text">
+          {{ 'titles.soldToAddress' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.companyName' | cxTranslate }}"
+          name="companyName"
+          placeholder="{{ 'labels.companyName' | cxTranslate }}"
+          [value]="companyName"
+          [message]="error.companyName"
+          [attr.error]="error.companyName ? error.companyName : null"
+          maxlength="40"
+          (keyup)="onChange($event, 'companyName')"
+        >
+        </bh-text-input>
+      </div>
+
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.addressline1' | cxTranslate }}"
+          name="addressline1"
+          placeholder="{{ 'labels.addressline1' | cxTranslate }}"
+          [value]="addressline1"
+          [message]="error.addressline1"
+          [attr.error]="error.addressline1 ? error.addressline1 : null"
+          maxlength="40"
+          (keyup)="onChange($event, 'addressline1')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'labels.addressline2' | cxTranslate }}"
+          name="addressline2"
+          placeholder="{{ 'labels.addressline2' | cxTranslate }}"
+          [value]="addressline2"
+          maxlength="40"
+          (keyup)="onChange($event, 'addressline2')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-5 ml-12">
+        <bh-dropdown
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="countryItems"
+          unselectable="false"
+          label="{{ 'labels.country' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'labels.select' | cxTranslate }}"
+          [message]="error.country"
+          [attr.error]="error.country ? error.country : null"
+          isSmall="true"
+          (selected)="onGetStates($event, 'country')"
+          [value]="country"
+          disabled
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-5 dropdown-loading">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="stateItems"
+          unselectable="false"
+          label="{{ 'labels.state' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'labels.select' | cxTranslate }}"
+          [value]="state"
+          [message]="error.state"
+          [attr.error]="error.state ? error.state : null"
+          isSmall="true"
+          (selected)="onChange($event, 'state')"
+        >
+        </bh-dropdown>
+        <div *ngIf="loadingFlag" class="address-search-spinner cx-spinner">
+          <cx-spinner></cx-spinner>
+        </div>
+      </div>
+
+      <div class="col-5 ml-12">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.city' | cxTranslate }}"
+          name="city"
+          placeholder="{{ 'labels.city' | cxTranslate }}"
+          [value]="city"
+          [message]="error.city"
+          [attr.error]="error.city ? error.city : null"
+          maxlength="40"
+          (keyup)="onChange($event, 'city')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-5">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'labels.zipcode' | cxTranslate }}"
+          name="zipcode"
+          placeholder="{{ 'labels.zipcode' | cxTranslate }}"
+          [value]="zipcode"
+          [message]="error.zipcode"
+          [attr.error]="error.zipcode ? error.zipcode : null"
+          maxlength="10"
+          (keyup)="onChange($event, 'zipcode')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </form>
+</div>

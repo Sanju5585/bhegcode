@@ -1,0 +1,210 @@
+<div class="waygate-navigation-menu desktop-view">
+  <nav class="container" *ngIf="!isChooseBrandPage">
+    <ul>
+      <li class="home-only">
+        <a [routerLink]="['/', productLine]">
+          {{ 'navigation-menu.home' | cxTranslate }}
+        </a>
+      </li>
+      <li #guestProductCategoryLink [class.selected]="showProdCat">
+        <a class="prod-link" (click)="toggleProdCat()">
+          {{ 'navigation-menu.products' | cxTranslate }}
+          <!-- <div> -->
+          <!-- <span class="material-icons down-arrow"> keyboard_arrow_up </span> -->
+          <span class="material-icons" *ngIf="!showProdCat">
+            keyboard_arrow_down
+          </span>
+          <span class="material-icons" *ngIf="showProdCat">
+            keyboard_arrow_up
+          </span>
+          <!-- </div> -->
+        </a>
+      </li>
+      <div class="cat-menu">
+        <app-waygate-menu *ngIf="showProdCat" [clickSourceId]="guestProductCategoryLink"
+          (clickOutside)="toggleProdCat()" (closeMenu)="toggleProdCat()" [legalEntities]="this.legalEntities"
+          (toggleCategoryMenu)="toggleProdCat()">
+        </app-waygate-menu>
+        <!-- <ds-category-menu
+            *ngIf="showProdCat"
+            [clickSourceId]="guestProductCategoryLink"
+            (clickOutside)="toggleProdCat()"
+            [legalEntities]="this.legalEntities"
+            (toggleCategoryMenu)="toggleProdCat()"
+          ></ds-category-menu> -->
+      </div>
+      <ng-container *ngIf="isServicesVisible">
+        <li #services [class.selected]="servicesOpened">
+          <a class="prod-link" (click)="toggleService()">
+            {{ 'navigation-menu.services' | cxTranslate }}
+            <!-- <div> -->
+            <!-- <span class="material-icons down-arrow"> keyboard_arrow_up </span> -->
+            <span class="material-icons" *ngIf="!servicesOpened">
+              keyboard_arrow_down
+            </span>
+            <span class="material-icons" *ngIf="servicesOpened">
+              keyboard_arrow_up
+            </span>
+            <!-- </div> -->
+          </a>
+        </li>
+        <div class="cat-menu">
+          <app-waygate-menu-secondary *ngIf="servicesOpened" [clickSourceId]="services" (clickOutside)="toggleService()"
+            (closeMenu)="toggleService()" [external]="true" [list]="servicesList">
+          </app-waygate-menu-secondary>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="isIndustriesVisible">
+        <li #industries [class.selected]="industriesOpened">
+          <a class="prod-link" (click)="toggleIndustries()">
+            {{ 'navigation-menu.industries' | cxTranslate }}
+            <!-- <div> -->
+            <!-- <span class="material-icons down-arrow"> keyboard_arrow_up </span> -->
+            <span class="material-icons" *ngIf="!industriesOpened">
+              keyboard_arrow_down
+            </span>
+            <span class="material-icons" *ngIf="industriesOpened">
+              keyboard_arrow_up
+            </span>
+            <!-- </div> -->
+          </a>
+        </li>
+        <div class="cat-menu">
+          <app-waygate-menu-secondary *ngIf="industriesOpened" [clickSourceId]="industries"
+            (clickOutside)="toggleIndustries()" (closeMenu)="toggleIndustries()" [external]="true"
+            [list]="industriesList">
+          </app-waygate-menu-secondary>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="user$ | async as user; else guestUser">
+        <li #equipmentMenuLink [class.selected]="showEqMenu">
+          <a class="prod-link" (click)="toggleEqMenu()">
+            {{ 'navigation-menu.support' | cxTranslate }}
+            <!-- <div> -->
+            <!-- <span class="material-icons down-arrow"> keyboard_arrow_up </span> -->
+            <span class="material-icons" *ngIf="!showEqMenu">
+              keyboard_arrow_down
+            </span>
+            <span class="material-icons" *ngIf="showEqMenu">
+              keyboard_arrow_up
+            </span>
+            <!-- </div> -->
+          </a>
+        </li>
+        <div class="cat-menu">
+          <app-waygate-menu-secondary *ngIf="showEqMenu" [clickSourceId]="equipmentMenuLink"
+            (clickOutside)="toggleEqMenu()" (closeMenu)="toggleEqMenu()" [external]="false" [list]="supportList">
+          </app-waygate-menu-secondary>
+        </div>
+      </ng-container>
+      <ng-template #guestUser>
+        <li #equipmentMenuLink [class.selected]="showEqMenu">
+          <a class="prod-link" (click)="toggleEqMenu()">
+            {{ 'navigation-menu.support' | cxTranslate }}
+            <!-- <div> -->
+            <!-- <span class="material-icons down-arrow"> keyboard_arrow_up </span> -->
+            <span class="material-icons" *ngIf="!showEqMenu">
+              keyboard_arrow_down
+            </span>
+            <span class="material-icons" *ngIf="showEqMenu">
+              keyboard_arrow_up
+            </span>
+            <!-- </div> -->
+          </a>
+        </li>
+        <div class="cat-menu">
+          <app-waygate-menu-secondary *ngIf="showEqMenu" [clickSourceId]="equipmentMenuLink"
+            (clickOutside)="toggleEqMenu()" (closeMenu)="toggleEqMenu()" [external]="false" [list]="supportListGuest">
+          </app-waygate-menu-secondary>
+        </div>
+      </ng-template>
+      <ng-container *ngIf="user$ | async as user">
+        <li *ngIf="isQuickOrderDisplay">
+          <a class="prod-link" (click)="quickOrderRedirect()">
+            {{ 'navigation-menu.quickorder' | cxTranslate }}
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+  <div>
+    <ds-waygate-customer-account-slider *ngIf="showSlider" [salesAreadata]="salesAreaData"
+      [activeSalesArea]="activeSalesArea" (closeSlider)="showSlider = false"></ds-waygate-customer-account-slider>
+  </div>
+</div>
+<div class="waygate-navigation-menu mobile-view">
+  <div class="accordion">
+    <details>
+      <summary>
+        {{ 'navigation-menu.products' | cxTranslate }}
+        <span class="material-icons open"> expand_more </span><span class="material-icons close">expand_less</span>
+      </summary>
+      <ng-container *ngIf="productCategories$ | async as productCategories">
+        <ng-container *ngFor="
+            let productCategory of productCategories
+              | keyvalue
+              | selectedCategory : productLineCode
+          ">
+          <div class="title-label">Browse Product Catalog <a [routerLink]="constructCategoryUrl(productCategory)" (click)="clicked($event)">Explore ></a
+            ></div>
+          <div>
+            <ng-container *ngFor="let category of productCategory?.categories">
+              <a class= "menu-name" (click)="close()" [routerLink]="constructCategoryUrl(category)"
+              >{{ category?.name }}<span
+                  *ngIf="category?.categories?.length > 0">></span></a>
+
+            </ng-container>
+          </div>
+
+        </ng-container>
+      </ng-container>
+    </details>
+    <details *ngIf="isServicesVisible">
+      <summary>
+        {{ 'navigation-menu.services' | cxTranslate
+        }}<span class="material-icons open"> expand_more </span><span class="material-icons close">expand_less</span>
+      </summary>
+
+      <div>
+        <ng-container *ngFor="let service of servicesList">
+          <a class= "menu-name" target="_blank"  href="{{service?.url}}">{{ service?.name }}<span
+              *ngIf="service?.categories?.length > 0">></span></a>
+        </ng-container>
+      </div>
+    </details>
+    <details *ngIf="isIndustriesVisible">
+      <summary>
+        {{ 'navigation-menu.industries' | cxTranslate
+        }}<span class="material-icons open"> expand_more </span><span class="material-icons close">expand_less</span>
+      </summary>
+      <div>
+        <ng-container *ngFor="let industry of industriesList">
+          <a class= "menu-name" target="_blank"  href="{{industry?.url}}">{{ industry?.name }}<span
+              *ngIf="industry?.categories?.length > 0">></span></a>
+        </ng-container>
+      </div>
+    </details>
+    <details>
+      <summary>
+        {{ 'navigation-menu.support' | cxTranslate
+        }}<span class="material-icons open"> expand_more </span><span class="material-icons close">expand_less</span>
+      </summary>
+      <ng-container *ngFor="let support of supportList">
+        <a class="menu-name" (click)="close()" [routerLink]="support.url">{{
+          support.name
+          }}</a>
+      </ng-container>
+    </details>
+    <details *ngIf="user$ | async as user">
+      <summary *ngIf="isQuickOrderDisplay" class="quick-order-mgn">
+        <a class= "menu-name" (click)="quickOrderRedirect()">
+          {{ 'navigation-menu.quickorder' | cxTranslate }}
+        </a>
+      </summary>
+    </details>
+  </div>
+  <div>
+    <ds-waygate-customer-account-slider *ngIf="showSlider" [salesAreadata]="salesAreaData"
+      [activeSalesArea]="activeSalesArea" (closeSlider)="showSlider = false"></ds-waygate-customer-account-slider>
+  </div>
+</div>

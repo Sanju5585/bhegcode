@@ -1,0 +1,100 @@
+<ng-container *ngIf="configuration$ | async as configuration">
+  <div *ngIf="hasConflictMessageDisplayed$ | async as conflictMsg">
+    <p class="conflict-msg" *ngIf="conflictMsg">
+      {{ 'waygate.conflictsInConfig' | cxTranslate }}
+    </p>
+  </div>
+</ng-container>
+<ng-container *ngIf="showConfigurationIncompletError">
+  <div class="configuration-incomplete-message">
+    Configuration is not completed. If any support required, please
+    <span (click)="openModal()">click here</span> for customer care help
+  </div>
+  <br />
+</ng-container>
+<ng-container *ngIf="product$ | async as product">
+  <ng-container *ngIf="configuration$ | async as configuration">
+    <div class="configure-page-headerbar">
+      <div class="container">
+        <div class="left-items">
+          <span id="title">
+            {{ 'waygate.configureProduct' | cxTranslate }}
+          </span>
+          <span id="pipe">|</span>
+          <span id="prod-title">{{ product.name }}</span>
+        </div>
+        <div class="right-items">
+          <button
+            (click)="resetData(configuration.configId)"
+            [ngClass]="{
+            'reset-btn': resetFlag,
+            'reset-container-disabled': !resetFlag,
+          }"
+          >
+            <mat-icon>refresh</mat-icon>
+            <div class="reset-font">
+              {{ 'waygate.resetBtn' | cxTranslate }}
+            </div>
+          </button>
+          <button
+            id="download-btn"
+            (click)="downloadCSV(configuration.configId)"
+          >
+            <div class="download-csv-font">
+              <span
+                ><img src="../../../../../assets/img/Download_csv.svg"
+              /></span>
+              <div class="download-csv-label">
+                {{ 'waygate.downloadCSV' | cxTranslate }}
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<br />
+<div *ngIf="configuration$ | async as configuration">
+  <div class="configuration-progress-header">
+    <div *ngFor="let i of configurableProducts">
+      <div *ngIf="configurableProducts.length > 1">
+        <div
+          [ngClass]="{
+            'product-details-selected': checkCurrentProduct(
+              i,
+              configuration.productCode
+            ),
+            'product-details': !checkCurrentProduct(
+              i,
+              configuration.productCode
+            )
+          }"
+        >
+          <span
+            ><i class="material-icons-outlined" *ngIf="!checkCompletion(i)">
+              settings
+            </i></span
+          >
+          <span *ngIf="checkCompletion(i)"
+            ><i class="material-icons-outlined"> check_circle </i></span
+          >
+          <span class="product-name" (click)="navigateTo(i)">{{ i }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <sup>*</sup>&nbsp;&nbsp; {{ 'waygate.indicatesRequired' | cxTranslate }}
+</div>
+<div *ngIf="configurationError">
+  <div class="error-message">
+    <h4>
+      {{ 'waygate.techError' | cxTranslate }}
+    </h4>
+  </div>
+</div>
+<br /><br />

@@ -1,0 +1,62 @@
+<div class="enduser-details">
+  <div class="row" *ngIf="enduserdata; else loading">
+    <div class="col-lg-6 col-md-6 col-sm-6 mb-1">
+      <div class="mb-3">
+        <bh-dropdown
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="endUserItems"
+          unselectable="false"
+          label="{{ 'labels.enduserType' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'labels.enduserType' | cxTranslate }}"
+          isSmall="true"
+          [value]="endUserCategory"
+          [message]="error.endUserCategory"
+          [attr.error]="error.endUserCategory ? error.endUserCategory : null"
+          (selected)="getEnduserType($event)"
+        >
+        </bh-dropdown>
+      </div>
+
+      <div class="shipping-checkout enduserdetails">
+        {{ 'titles.endUserAddress' | cxTranslate }}
+      </div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.firstName }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.companyName }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.line1 }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.town }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.region?.name }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.country?.name }}</div>
+      <div class="enduser-address">{{ rmaEndUserAddress?.postalCode }}</div>
+
+      <div
+        *ngIf="errorMsg"
+        class="bh-form-message typography--body-small bh-form-message--error enduser-address"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ this.errorMsg }}
+      </div>
+      <div class="row col-auto add-to-cart-buttons">
+        <bh-button
+          type="secondary"
+          label="{{ 'labels.selectAddress' | cxTranslate }}"
+          (click)="openAddressModel()"
+        >
+        </bh-button>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 mb-1">
+      <span class="shipping-checkout">{{
+        'labels.customerAccountNumber' | cxTranslate
+      }}</span>
+      <div>{{ customerAccount }}</div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

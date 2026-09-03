@@ -1,0 +1,203 @@
+.waygate-my-fav-container {
+  font-family: Poppins;
+  min-height: 500px;
+  padding-bottom: 130px;
+  .my-fav-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    .header-green-border {
+      border-top: 2px solid #02a783;
+      width: 60px;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: #121212;
+    }
+  }
+
+  .my-fav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .my-fav-content-sub {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      .checkbox {
+        padding-top: 5px;
+      }
+      .waygate-search-input-container {
+        display: flex;
+        position: relative;
+        align-items: center;
+        border-radius: 20px;
+        .waygate-search-input {
+          border: 1px solid #a0a0a0;
+          border-radius: 20px;
+          width: 231px;
+          padding: 5px 10px;
+        }
+        .waygate-search-icon {
+          position: absolute;
+          right: 5px;
+        }
+      }
+    }
+    .my-fav-btn-main {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .waygate-my-fav-table {
+    width: 100%;
+    tr {
+      border-bottom: 1px solid #ced7d4;
+      border-top: 1px solid #ced7d4;
+    }
+    .img-container {
+      width: 80px;
+      height: 80px;
+      padding: 10px 10px 10px 0;
+      .part-image-holder {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ced7d4;
+      }
+    }
+    .material-icons {
+      font-size: 18px;
+      color: #595959;
+      cursor: pointer;
+    }
+    .part-name {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: -0.25px;
+      color: #121212;
+      cursor: pointer;
+    }
+    .part-num {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #595959;
+      margin: 2px 0 5px 0;
+    }
+    .part-price {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 5px;
+      .part-price-1 {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: #121212;
+      }
+      .part-price-2 {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: #595959;
+      }
+      .part-price-disc {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.25px;
+        color: #02a783;
+      }
+      .product-view-breakdown {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        padding: 0px;
+
+        .view-breakup-link {
+          color: #1a2321;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          font-size: 12px;
+          cursor: pointer;
+        }
+
+        .breakup-dropdown {
+          position: absolute;
+          left: -12rem;
+          z-index: 10;
+          min-width: 340px;
+          min-height: 30px;
+          opacity: 0.8;
+          background: #000000;
+          border-radius: 4px;
+          box-shadow: 0px 2px 6px 0px #0000001f;
+          font-size: 12px;
+          line-height: 16px;
+          letter-spacing: 0.25px;
+          color: #ffffff;
+          .horizontal-line {
+            border: 1px solid #595959;
+            margin: 0px;
+          }
+          .breakdown-price {
+            display: flex;
+            flex-direction: column;
+
+            .price-row {
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .cart-entry-text-bold {
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 18px;
+              text-align: left;
+            }
+            .cart-entry-text {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 18px;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+:host::ng-deep {
+  .bh-button--type-primary {
+    // width: 130px;
+    height: 36px;
+    background-color: #147d64;
+  }
+  .bh-button--type-secondary {
+    // width: 167px;
+    height: 36px;
+  }
+}
+.no-orders-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+  .img {
+    height: 160px;
+    object-fit: cover;
+    width: fit-content;
+  }
+  h4 {
+    font-weight: 600;
+    padding: 20px;
+  }
+}

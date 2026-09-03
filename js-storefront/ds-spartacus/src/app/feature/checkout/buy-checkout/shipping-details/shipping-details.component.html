@@ -1,0 +1,310 @@
+<div *ngIf="loading" class="cx-spinner">
+  <cx-spinner></cx-spinner>
+</div>
+
+<div calss="shipping-details">
+  <form
+    (ngSubmit)="customerForm.form.valid && isSubmitted && onSubmit()"
+    #customerForm="ngForm"
+    novalidate
+  >
+    <div class="row">
+      <div class="row col-lg-6 col-md-6 col-sm-6">
+        <div class="shipping-checkout col-lg-12 col-md-12 col-sm-12 mb-1">
+          {{ 'labels.shippingAddress' | cxTranslate }}
+        </div>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12"
+          >{{ this.sippingAddress?.firstName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.companyName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.line1 }}</span
+        >
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.town }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.region?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.country?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.sippingAddress?.postalCode }}</span
+        >
+
+        <div
+          *ngIf="this.error.shipAddress"
+          class="bh-form-message typography--body-small bh-form-message--error col-lg-12 col-md-12 col-sm-12"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ this.error.shipAddress }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 sippingAddress">
+        <div
+          class="shipping-customer csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ 'labels.customerAccountNumber' | cxTranslate }}
+        </div>
+        <div
+          class="shipping-checkouaddress csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ checkoutData?.defaultSoldTo?.uid }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-auto add-to-cart-buttons">
+      <bh-button
+        type="secondary"
+        small
+        label="{{ 'labels.changeAddress' | cxTranslate }}"
+        (click)="openAddress()"
+      >
+      </bh-button>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="tooltipdp">
+          <span class="tooltiplabel">{{
+            'labels.deliveryPoint' | cxTranslate
+          }}</span>
+          <div class="vs-tooltip-icon deliveryPoint-icon">
+            <p class="vs-tooltip">
+              {{ 'labels.deliveryPointToolTip' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <div class="vs-text-field">
+          <bh-text-input
+            class="delivery-point"
+            type="text"
+            small
+            label=""
+            placeholder="{{ 'labels.deliveryPoint' | cxTranslate }}"
+            maxlength="25"
+            [value]="deliveryPoint"
+            (keyup)="onChange($event, 'deliveryPoint')"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+    </div>
+    <div class="row shippinginco">
+      <span
+        class="shipping-checkouaddress inco-terms shipping-pay col-lg-12 col-md-12 col-sm-12"
+        >{{ 'titles.incoTerms' | cxTranslate }}
+        <div class="vs-tooltip-icon inco-terms-icon">
+          <p class="vs-tooltip">
+            {{ 'labels.incoTermToolTip' | cxTranslate }}
+            <span
+              ><a href="{{ incoTermUrl }}" target="_blank">{{
+                'labels.here' | cxTranslate
+              }}</a></span
+            >
+            .
+          </p>
+        </div>
+      </span>
+
+      <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">{{
+        this.inkoTerm
+      }}</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="tooltipdp vs-text-field mb-4 requestedDate">
+          <span
+            class="tooltiplabel text-icon-label delivery-point bold-label"
+            >{{
+              cartType == 'HYBRID'
+                ? ('labels.order1requestedShipDate' | cxTranslate)
+                : ('labels.requestedShipDate' | cxTranslate)
+            }}</span
+          >
+          <div class="vs-tooltip-icon deliveryPoint-icon">
+            <p class="vs-tooltip">
+              {{ 'labels.requestedTooltip' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <div class="">
+          <vs-date-picker
+            id="requestShipDate"
+            class="date-picker-PDP"
+            [filterWeekend]="filterWeekend"
+            [min]="minDate"
+            (selectedDate)="onDateChange($event)"
+          >
+          </vs-date-picker>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="cartType == 'HYBRID'">
+        <div class="tooltipdp vs-text-field mb-4 requestedDate">
+          <span class="tooltiplabel text-icon-label delivery-point bold-label">
+            {{ 'labels.order2requestedShipDate' | cxTranslate }}</span
+          >
+        </div>
+        <div class="">
+          <vs-date-picker
+            id="orderShipDate"
+            class="date-picker-PDP"
+            [filterWeekend]="filterWeekend"
+            [min]="min1Date"
+            (selectedDate)="hybridDateChange($event)"
+          >
+          </vs-date-picker>
+        </div>
+      </div>
+      <div class="col-12 mb-4 typography--label-small">
+        <span>{{ 'labels.requestedHelpText' | cxTranslate }}</span>
+      </div>
+    </div>
+    <div class="row shipdetails" *ngIf="this.showShipping">
+      <p class="shipping-checkout shippingMethod col-lg-12 col-md-12 col-sm-12">
+        {{ 'labels.shippingMethod' | cxTranslate }}
+      </p>
+    </div>
+    <div class="shipping-mail" *ngIf="this.showShipping">
+      <div class="radio-btn">
+        <bh-radio-button
+          *ngIf="this.showPrepay"
+          label=" {{ 'labels.collect' | cxTranslate }}"
+          value="collect"
+          checked
+          name="group1"
+          (change)="handleChange($event)"
+        >
+        </bh-radio-button>
+        <bh-radio-button
+          label=" {{ 'labels.partialAndAdd' | cxTranslate }}"
+          value="prepayadd"
+          name="group1"
+          [attr.checked]="!this.showPrepay"
+          (change)="handleChange($event)"
+        >
+        </bh-radio-button>
+        <div class="vs-text-field" *ngIf="this.showPrepay">
+          <bh-text-input
+            *ngIf="showCarrierText"
+            required
+            type="text"
+            small
+            maxlength="35"
+            label="{{ 'labels.shippingAccountNumber' | cxTranslate }}"
+            placeholder="{{ 'labels.shippingAccountNumber' | cxTranslate }}"
+            [value]="collect"
+            [message]="error.shipAccountNo"
+            [attr.error]="error.shipAccountNo ? error.shipAccountNo : null"
+            (keyup)="onChange($event, 'collectText')"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="row shipdetails" *ngIf="this.showPrepay">
+        <div class="col-lg-6 col-md-6 px-0 col-sm-6">
+          <div class="vs-text-field col-5 ml-12">
+            <bh-dropdown
+              menuWidth="fluid"
+              unselectable="false"
+              ngbTooltip="{{ carrier }}"
+              [menuItems]="props"
+              unselectable="false"
+              label="{{ 'labels.carrier' | cxTranslate }} "
+              required="true"
+              placeholder="{{ 'labels.select' | cxTranslate }} "
+              [value]="carrier"
+              isSmall="true"
+              (select)="getCarrier($event)"
+            >
+            </bh-dropdown>
+          </div>
+          <div
+            *ngIf="this.error.shipCarrier"
+            class="bh-form-message typography--body-small bh-form-message--error col-lg-12 col-md-12 col-sm-12"
+          >
+            <i class="typography--icon-small bh-form-message__icon"
+              >error_outline</i
+            >{{ this.error.shipCarrier }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.shipContactName' | cxTranslate }} "
+            placeholder="{{ 'labels.shipContactName' | cxTranslate }} "
+            [value]="ShipName"
+            [message]="error.ShipName"
+            [attr.error]="error.ShipName ? error.ShipName : null"
+            (keyup)="onChange($event, 'ShipName')"
+            maxlength="35"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.shipContactNo' | cxTranslate }} "
+            placeholder="{{ 'labels.shipContactNo' | cxTranslate }} "
+            [value]="shipContact"
+            [message]="error.shipContact"
+            [attr.error]="error.shipContact ? error.shipContact : null"
+            (keyup)="onChange($event, 'shipContact')"
+            maxlength="20"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="vs-text-field">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.shipNotificationEmail' | cxTranslate }} "
+            placeholder="{{ 'labels.shipNotificationEmail' | cxTranslate }} "
+            [value]="shipNotimail"
+            [message]="error.shipNotimail"
+            [attr.error]="error.shipNotimail ? error.shipNotimail : null"
+            (keyup)="onChange($event, 'shipNotimail')"
+            maxlength="241"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 mt-3">
+      <label class="text-icon-label"
+        ><span class="star"></span> {{ 'labels.shippingRemarks' | cxTranslate }}
+      </label>
+      <div class="vs-tooltip-icon remarks-icon">
+        <p class="vs-tooltip">
+          {{ 'labels.shippingRemarksTooltip' | cxTranslate }}
+        </p>
+      </div>
+      <textarea
+        class="textarea-buycheckout"
+        name="reasonForCsrReview"
+        [(ngModel)]="shippingRemark"
+        maxlength="1500"
+      ></textarea>
+    </div>
+  </form>
+</div>

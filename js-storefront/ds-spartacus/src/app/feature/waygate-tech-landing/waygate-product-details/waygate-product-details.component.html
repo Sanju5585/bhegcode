@@ -1,0 +1,671 @@
+<ng-container *ngIf="product; else loading">
+  <app-waygate-breadcrumbs
+    [breadcrumbs]="breadcrumbs"
+  ></app-waygate-breadcrumbs>
+  <ng-container *ngIf="isProductNotAdded">
+    <div class="container">
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <div class="d-flex alert-wrapper">
+            <span class="material-icons info-icon"> info_outline </span>
+            <span class="info-text">
+              {{ 'pdp.productNotAdded' | cxTranslate }}
+              <ul>
+                <li>
+                  {{ productCode }}
+                </li>
+              </ul>
+            </span>
+            <button type="button" aria-label="Close" class="close">
+              <i class="material-icons" (click)="onCloseClick()">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="waygate-product-details-container container">
+    <div class="waygate-details-image-container">
+      <div
+        class="waygate-details-image"
+        *ngIf="!!productImages?.GALLERY; else missingImage"
+      >
+        <cx-media
+          class="cx-product-image waygate-product-image"
+          [container]="selectedImg"
+          format="product"
+          [alt]="selectedImg?.product?.altText"
+        ></cx-media>
+        <ul class="list-inline text-center thumbnail-image mb-2">
+          <li
+            *ngFor="let gallaryImg of productImages.GALLERY; let i = index"
+            class="d-inline mr-2 mt-2"
+          >
+            <cx-media
+              [class.selected-thumbnail]="
+                gallaryImg.thumbnail.galleryIndex === selectedGalleryImgIdx
+              "
+              class="img-small"
+              [container]="gallaryImg"
+              format="thumbnail"
+              [alt]="gallaryImg.altText"
+              (click)="
+                thumbnailImgClicked(
+                  gallaryImg,
+                  gallaryImg.thumbnail.galleryIndex
+                )
+              "
+            ></cx-media>
+          </li>
+        </ul>
+      </div>
+      <ng-template #missingImage>
+        <div class="waygate-details-image">
+          <cx-media
+            class="cx-product-image waygate-product-image"
+            [container]="product?.images?.PRIMARY"
+            format="product"
+            [alt]="selectedImg?.summary"
+          ></cx-media>
+        </div>
+      </ng-template>
+      <div class="favorite-row">
+        <a
+          class="favorite-section"
+          (click)="onFavoriteClick(product)"
+          *ngIf="isLoggedIn"
+        >
+          <em class="material-icons overlay-fav-icon">{{
+            favStatus ? 'star' : 'star_border'
+          }}</em>
+        </a>
+      </div>
+      <cx-product-image-zoom-trigger></cx-product-image-zoom-trigger>
+    </div>
+    <div class="waygate-details-product-container">
+      <div class="waygate-product-intro">
+        <div class="product-name" [innerHTML]="product?.name"></div>
+        <div class="product-code">
+          <div class="code">
+            {{ 'pdp.partNumbers' | cxTranslate }}:
+            <strong>{{ product?.code }}</strong>
+          </div>
+          <div
+            class="lead-time"
+            *ngIf="product?.leadTime && currentBuyAction === buyActions.BUY"
+          >
+            <div class="desktop-view">|</div>
+            <div>
+              {{ 'pdp.leadTime' | cxTranslate }}:
+              <strong>
+                {{ getLeadTime(product?.leadTime) }}
+                {{
+                  product?.leadTime === 1 || product?.leadTime === '1'
+                    ? ('pdp.week' | cxTranslate)
+                    : ('pdp.weeks' | cxTranslate)
+                }}
+              </strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isLoggedIn; else priceonRequest">
+        <!-- <hr /> -->
+        <div
+          *ngIf="
+            product?.configurable && currentBuyAction == buyActions.CONFIGURE
+          "
+        >
+          <hr />
+          <div
+            class="configure-product-text"
+            [innerHTML]="'Configure for Price'"
+          ></div>
+          <hr />
+        </div>
+        <ng-container
+          *ngIf="
+            currentBuyAction == buyActions.CHECK_PRICE &&
+            !product?.configurable &&
+            currentReturnAction != returnActions.RETURN
+          "
+        >
+          <div class="warning-display">
+            <span class="material-icons"> info </span
+            ><span>
+              {{ 'pdp.priceNotFound' | cxTranslate }}
+            </span>
+          </div>
+          <hr />
+        </ng-container>
+        <ng-container
+          *ngIf="
+            currentBuyAction != buyActions.CHECK_PRICE &&
+            currentBuyAction != buyActions.CONTACT_CUSTOMER_CARE &&
+            !product?.configurable
+          "
+        >
+          <hr />
+          <div
+            class="waygate-product-price"
+            *ngIf="product?.price || product?.yourPrice"
+          >
+            <div class="price-display-segment">
+              <ng-container *ngIf="product?.price?.value > 0">
+                <div
+                  id="waygateListPrice"
+                  class="waygate-price waygate-list-price"
+                >
+                  <div class="price-label">
+                    {{ 'pdp.listPrice' | cxTranslate }}:
+                  </div>
+                  <div class="price-value">
+                    <!-- {{product?.price?.currencyIso}}  -->
+                    {{
+                      product?.price?.value
+                        | customNumber: product?.price?.currencyIso
+                    }}
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="user$ | async as user">
+                <ng-container *ngIf="product?.yourPrice?.value > 0">
+                  <div class="waygate-price">
+                    <div class="price-label">
+                      {{ 'pdp.price' | cxTranslate }}:
+                    </div>
+                    <div class="your-price-container">
+                      <div class="price-value your-price">
+                        <!-- {{product?.yourPrice?.currencyIso}}  -->
+                        {{
+                          product?.yourPrice?.value
+                            | customNumber: product?.yourPrice?.currencyIso
+                        }}
+                      </div>
+                      <!-- START- view price breakup  -->
+                      <div class="product-view-breakdown">
+                        <!-- Item Price  -->
+                        <div class="extended-price unit-selling-price">
+                          <label>
+                            <a
+                              #viewBreakUp
+                              class="view-breakup-link"
+                              (click)="togglePriceBreakup()"
+                              ><span>{{
+                                'buyCart.viewBreakup' | cxTranslate
+                              }}</span
+                              ><span
+                                *ngIf="!breakUpMenu"
+                                class="material-icons arrow"
+                              >
+                                expand_more </span
+                              ><span
+                                *ngIf="breakUpMenu"
+                                class="material-icons arrow"
+                              >
+                                expand_less
+                              </span></a
+                            >
+                          </label>
+                        </div>
+                        <div
+                          class="breakup-dropdown p-0"
+                          [clickSourceId]="viewBreakUp"
+                          (clickOutside)="togglePriceBreakup()"
+                          *ngIf="breakUpMenu"
+                          #breakupContent
+                        >
+                          <div class="breakdown-price">
+                            <div
+                              class="cart-entry-text-bold breakdown-heading p-2"
+                            >
+                              {{ 'pdp.breakdownPrice' | cxTranslate }}
+                            </div>
+                            <hr class="horizontal-line" />
+                            <div class="p-2">
+                              <ng-container>
+                                <div
+                                  *ngIf="product?.price?.value"
+                                  class="extended-price row"
+                                >
+                                  <label>{{
+                                    'pdp.listPrice' | cxTranslate
+                                  }}</label>
+                                  <div class="cart-entry-text-bold">
+                                    <span>
+                                      {{ product?.price?.formattedValue }}</span
+                                    >
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <hr class="horizontal-line" />
+                            <div class="p-2">
+                              <div *ngIf="product?.yourPrice" class="price-row">
+                                <label class="cart-entry-text">{{
+                                  'pdp.netPrice' | cxTranslate
+                                }}</label>
+                                <span class="cart-entry-text-bold">
+                                  {{ product?.yourPrice?.formattedValue }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="breakup-dropdown"
+                        *ngIf="breakUp"
+                        (clickOutside)="closeMenu($event)"
+                      ></div>
+                      <!-- END- view price breakup  -->
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <hr />
+        </ng-container>
+
+        <div
+          *ngIf="accessories$ | async as accessories; else loading"
+          class="accessories"
+        >
+          <div>
+            <div
+              *ngIf="
+                !product?.configurable && accessories.references.length != 0
+              "
+              class="waygate-add-to-cart"
+            >
+              <span
+                class="acc-add-to-cart-container"
+                *ngIf="
+                  !product?.configurable &&
+                  accessories.references.length != 0 &&
+                  product?.productAccessData?.isBuy &&
+                  !(
+                    currentBuyAction == buyActions.CHECK_PRICE &&
+                    !product?.configurable &&
+                    currentReturnAction != returnActions.RETURN
+                  )
+                "
+              >
+                <div class="quantity-container">
+                  <label class="quantity-label">Quantity</label>
+                  <div class="waygatecart-counter">
+                    <form [formGroup]="quantityForm">
+                      <app-custom-quantity-counter
+                        [max]="9999"
+                        [control]="quantityForm.get('quantity')"
+                        (quantityAdded)="quantityAdded($event)"
+                        (quantityIncrement)="increaseQuantity($event)"
+                        (quantityDecrement)="decreaseQuantity($event)"
+                      ></app-custom-quantity-counter>
+                    </form>
+                  </div>
+                </div>
+              </span>
+              <span
+                [ngClass]="
+                  !product?.configurable &&
+                  accessories.references.length != 0 &&
+                  product?.productAccessData?.isBuy &&
+                  !(
+                    currentBuyAction == buyActions.CHECK_PRICE &&
+                    !product?.configurable &&
+                    currentReturnAction != returnActions.RETURN
+                  )
+                    ? ['pdp-add-to-cart', 'acc-check-availability']
+                    : ['pdp-add-to-cart', 'acc-check-availability-no-buy']
+                "
+                class="pdp-add-to-cart acc-check-availability"
+              >
+                <!-- <cx-add-to-cart [mode]="'pdp'" [product]="product" [productCode]="product?.code"
+          [showQuantity]="true"></cx-add-to-cart> -->
+                <app-waygate-add-to-cart
+                  [product]="product"
+                  [productCode]="productCode"
+                  [leadTime]="leadTime"
+                  [inStock]="inStock"
+                  [currentBuyAction]="currentBuyAction"
+                  [currentReturnAction]="currentReturnAction"
+                  [currentGuestAction]="currentGuestAction"
+                  [accessories]="accessories$"
+                  [accessoriesPresent]="accessories.references.length !== 0"
+                  (isProductNotAddedToCart)="isProductNotAddedToCart($event)"
+                ></app-waygate-add-to-cart>
+              </span>
+              <br /><br />
+            </div>
+          </div>
+          <h5
+            class="accessories-heading"
+            *ngIf="
+              accessories.references.length > 0 &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <br />
+            Accessories
+          </h5>
+
+          <p
+            class="mandatory-heading"
+            *ngIf="
+              mandatoryAccessories.length > 0 &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <br />
+            Required for this Product
+          </p>
+          <div *ngFor="let obj of accessories.references">
+            <div
+              *ngIf="
+                obj.referenceType === 'MANDATORY' &&
+                product?.productAccessData?.isBuy &&
+                !(
+                  currentBuyAction == buyActions.CHECK_PRICE &&
+                  !product?.configurable &&
+                  currentReturnAction != returnActions.RETURN
+                )
+              "
+              class="mandatory-accessories-block"
+            >
+              <div *ngIf="!!obj?.target?.mediaurl; else missingImage">
+                <img src="{{ imgUrl }}{{ obj.target.mediaurl }}" />
+              </div>
+              <div class="mandatory-product-details">
+                <strong>{{ obj.target.code }}</strong>
+                <p>{{ obj.target.name }}</p>
+              </div>
+              <div class="mandatory-quantity-box">
+                <p>1</p>
+              </div>
+              <div
+                class="mandatory-accessories-price"
+                *ngIf="obj.target.configurable !== true"
+              >
+                <p>{{ obj.target.price.formattedValue }}</p>
+              </div>
+              <div
+                class="mandatory-accessories-price"
+                *ngIf="obj.target.configurable === true"
+              >
+                <p>Configure for price</p>
+              </div>
+            </div>
+          </div>
+
+          <p
+            class="other-accessories-heading"
+            *ngIf="
+              optionalAccessoriesForm.value.length > 0 &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <br /><br />
+            Other Accessories
+          </p>
+          <div
+            *ngIf="
+              optionalAccessoriesForm.value.length > 0 &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <form [formGroup]="form">
+              <div
+                formArrayName="optionalAccessories"
+                *ngFor="
+                  let group of optionalAccessoriesForm.controls;
+                  let i = index
+                "
+              >
+                <div [formGroupName]="i" class="accessory-card">
+                  <div class="checkbox-section">
+                    <input type="checkbox" formControlName="selected" />
+                  </div>
+                  <div *ngIf="group.get('imageUrl')?.value; else missingImage">
+                    <img [src]="group.get('imageUrl')?.value" />
+                  </div>
+                  <div class="item-details">
+                    <strong>{{ group.get('code')?.value }}</strong>
+                    <p>{{ group.get('name')?.value }}</p>
+                  </div>
+
+                  <div class="counter">
+                    <span class="counter-value">{{
+                      group.get('count')?.value
+                    }}</span>
+                    <span (click)="decrement(i)" class="decrement-button"
+                      >-</span
+                    >
+                    <span (click)="increment(i)" class="increment-button"
+                      >+</span
+                    >
+                  </div>
+                  <div
+                    class="item-price"
+                    *ngIf="group.get('configurable')?.value != true"
+                  >
+                    <p>{{ group.get('price')?.value }}</p>
+                  </div>
+                  <div
+                    class="item-price"
+                    *ngIf="group.get('configurable')?.value === true"
+                  >
+                    <p>Configure for price</p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br />
+        </div>
+
+        <!-- Configure Product Button for VC Products-->
+        <div *ngIf="product?.configurable" class="waygate-pdp-action-button">
+          <div *ngIf="currentBuyAction == buyActions.CONFIGURE">
+            <a
+              (click)="navigateTo()"
+              class="bh-button motion--normal bh-button--type-primary configure-button"
+              cxAutoFocus
+              >{{ 'configurator.header.toconfig' | cxTranslate }}
+              <i class="material-icons-outlined"> settings </i></a
+            >
+          </div>
+
+          <button
+            class="waygate-return-product"
+            (click)="returnProduct()"
+            *ngIf="currentReturnAction == returnActions.RETURN"
+          >
+            <div class="button-label">{{ 'buyCart.return' | cxTranslate }}</div>
+            <span class="material-icons"> local_shipping </span>
+          </button>
+          <br />
+        </div>
+        <!--  Ends -->
+
+        <div *ngIf="configurableFlag$ | async" class="config-add-to-cart-acc">
+          <div
+            *ngIf="
+              !product?.configurable &&
+              showConfigureButton &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <a
+              (click)="navigateTo()"
+              class="bh-button motion--normal bh-button--type-primary configure-button"
+              cxAutoFocus
+              >{{ 'configurator.header.toconfig' | cxTranslate }}
+              <i class="material-icons-outlined"> settings </i></a
+            >
+          </div>
+          <div
+            *ngIf="
+              !product?.configurable &&
+              !showConfigureButton &&
+              product?.productAccessData?.isBuy &&
+              !(
+                currentBuyAction == buyActions.CHECK_PRICE &&
+                !product?.configurable &&
+                currentReturnAction != returnActions.RETURN
+              )
+            "
+          >
+            <!-- <button class="acc-pdp-add-to-cart" (click)="addtocartacc()">
+              <span>Add to cart</span>
+              <span class="material-icons"> add_shopping_cart </span>
+            </button> -->
+            <div class="waygate-pdp-action-button">
+              <button class="waygate-add-to-cart" (click)="addtocartacc()">
+                <div class="button-label">
+                  {{ 'buyCart.addToCart' | cxTranslate }}
+                </div>
+                <span class="material-icons"> add_shopping_cart </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="accessories$ | async as accessories; else loading">
+          <div
+            class="waygate-add-to-cart"
+            *ngIf="
+              !product?.configurable && accessories.references.length === 0
+            "
+          >
+            <div class="pdp-add-to-cart">
+              <!-- <cx-add-to-cart [mode]="'pdp'" [product]="product" [productCode]="product?.code"
+            [showQuantity]="true"></cx-add-to-cart> -->
+              <app-waygate-add-to-cart
+                [product]="product"
+                [productCode]="productCode"
+                [leadTime]="leadTime"
+                [inStock]="inStock"
+                [currentBuyAction]="currentBuyAction"
+                [currentReturnAction]="currentReturnAction"
+                [currentGuestAction]="currentGuestAction"
+                [accessories]="accessories$"
+                (isProductNotAddedToCart)="isProductNotAddedToCart($event)"
+              ></app-waygate-add-to-cart>
+            </div>
+          </div>
+          <br />
+          <div *ngIf="(configurableFlag$ | async) === false">
+            <div
+              *ngIf="
+                !product?.configurable &&
+                accessories.references.length != 0 &&
+                product?.productAccessData?.isBuy &&
+                !(
+                  currentBuyAction == buyActions.CHECK_PRICE &&
+                  !product?.configurable &&
+                  currentReturnAction != returnActions.RETURN
+                )
+              "
+              class="waygate-add-to-cart acc-add-to-cart"
+            >
+              <div class="waygate-pdp-action-button">
+                <button class="waygate-add-to-cart" (click)="addtocartacc()">
+                  <div class="button-label">
+                    {{ 'buyCart.addToCart' | cxTranslate }}
+                  </div>
+                  <span class="material-icons"> add_shopping_cart </span>
+                </button>
+              </div>
+              <br /><br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #priceonRequest>
+        <div class="waygate-product-price">
+          <div class="price-display-segment">
+            <div class="waygate-price">
+              <div class="price-label">
+                {{ 'pdp.listPrice' | cxTranslate }}:
+              </div>
+              <div class="price-on-request">
+                <div>{{ 'pdp.priceOnRequest' | cxTranslate }}</div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <app-waygate-add-to-cart
+            [product]="product"
+            [productCode]="productCode"
+            [leadTime]="leadTime"
+            [inStock]="inStock"
+            [currentBuyAction]="currentBuyAction"
+            [currentReturnAction]="currentReturnAction"
+            [currentGuestAction]="currentGuestAction"
+            (isProductNotAddedToCart)="isProductNotAddedToCart($event)"
+          ></app-waygate-add-to-cart>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="product-descriptions-attachments-container">
+    <div class="tab-container">
+      <div class="tab-header">
+        <div class="container">
+          <ng-container *ngIf="product?.description?.length > 0">
+            <div class="product-details-tab-header active">
+              {{ 'pdp.details' | cxTranslate }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div class="container">
+          <div
+            *ngIf="product?.description?.length > 0"
+            class="product-details-tab-content"
+            [innerHTML]="product?.description"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="category-main container position-relative"
+    *ngIf="relProducts && relProducts?.length > 0"
+  >
+    <app-related-prods [products]="relProducts"></app-related-prods>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

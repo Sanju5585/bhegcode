@@ -1,0 +1,46 @@
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  :host {
+    align-items: flex-start;
+  }
+
+  .cx-modal-content {
+    position: relative;
+  }
+
+  .dialog-container {
+    width: 95%;
+    max-height: 85vh;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 30px 15px 15px;
+  }
+}
+
+.dialog-container {
+  position: relative;
+  align-items: flex-start;
+  max-height: 100%;
+  overflow-y: auto;
+  margin-top: 20px;
+  padding: 40px 20px 20px;
+}

@@ -1,0 +1,223 @@
+$lang=en
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];name;email;groups(uid);defaultB2BUnit(uid);Customerid;productLine(attributeId);governmentOrg;activeStatus;familyName;givenName;sso
+;1901;Smitha Prabhu;smitha1.prabhu@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;true;true;Prabhu;Smitha;503028851
+;1902;Jignesh Gandhi;jignesh.gandhi@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;true;true;Gandhi;Jignesh;503061607
+;1903;Rahul Gangan;rahul.gangan@bhge.com;BHGECSRApproverGroup,BHGEUserManagerGroup;BHGERegister;1;1;true;true;Gangan;Rahul;502401544
+;1904;Kanav Sharma;kanav.sharma@bhge.com;BHGEUserManagerGroup;BHGERegister;1;1;true;true;Sharma;Kanav;503040507
+;1905;Anne David;anne.david@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;14;14;212694656
+;1906;Shubhangi Gorwadkar;shubhangi.gorwadkar@ge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;14;14;503056545
+;1907;Gopi Myneni;gopi.myneni@ge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Myneni;Gopi;320001994
+;1908;Nora Szalay;Nora.Szalay@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Szalay;Nora;212367191
+;1909;Beata Kiss;beata1.kiss@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Kiss;Beata;108015301
+;1910;Adel Molnar;adel.molnar@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Molnar;Adel;212590143
+;1911;Orsolya Gulden;orsolya.gulden@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Gulden;Orsolya;212591420
+;1912;Szilvia Balogh;szilvia.balogh@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Balogh;Szilvia;212571220
+;1913;Dennis Mills;Dennis.Mills@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Mills;Dennis;204028330
+;1914;Bryan Schnittjer;	bryan.schnittjer@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Schnittjer;Bryan;213043289
+;1915;Abhishek Pawaskar;smitha1.prabhu@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Pawaskar;Abhishek;502592010
+;1916;Manish Mahajan;smitha1.prabhu@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Mahajan;Manish;503080490
+;1917;Eniko Horosz;Eniko.Horosz@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Horosz;Eniko;120011756
+;1918;Ágnes Szabó;agnes.szabo@bhge.com;BHGECSRApproverGroup;BHGERegister;1;1;false;true;Szabó;Ágnes;212590251
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;19;1921
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];groups(uid)
+;1921;BHGECSRApproverGroup,BHGEUserManagerGroup
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];groups(uid)
+;usr-19004;BHGECSRApproverGroup,BHGEUserManagerGroup
+;usr-20498;BHGECSRApproverGroup,BHGEUserManagerGroup
+
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;1;19;GlobalCSRGroup;GlobalCSRGroup;1901,1902,1904;rahul.gangan@ge.com
+;0;500;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;1;501;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;2;502;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;3;503;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;4;504;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;5;505;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+
+INSERT_UPDATE BHGEMnCEcommMatrix;matrixRuleId(attributeId)[unique=true];regionAttrib(attributeId);subregionAttrib(attributeId);countryAttrib(attributeId);productlineAttrib(attributeId);csrApproverValue(approverID)
+;1;1;;;273;19
+;2;1;;;274;19
+;3;1;;;275;19
+;4;1;;;276;19
+;5;1;;;277;19
+;6;1;;;278;19
+;7;1;;;279;19
+;8;1;;;280;19
+;9;1;;;281;19
+;10;1;;;282;19
+;11;1;;;283;19
+;12;2;;;273;19
+;13;2;;;274;19
+;14;2;;;275;19
+;15;2;;;276;19
+;16;2;;;277;19
+;17;2;;;278;19
+;18;2;;;279;19
+;19;2;;;280;19
+;20;2;;;281;19
+;21;2;;;282;19
+;22;2;;;283;19
+;23;3;;;273;19
+;24;3;;;274;19
+;25;3;;;275;19
+;26;3;;;276;19
+;27;3;;;277;19
+;28;3;;;278;19
+;29;3;;;279;19
+;30;3;;;280;19
+;31;3;;;281;19
+;32;3;;;282;19
+;33;3;;;283;19
+;34;4;;;273;19
+;35;4;;;274;19
+;36;4;;;275;19
+;37;4;;;276;19
+;38;4;;;277;19
+;39;4;;;278;19
+;40;4;;;279;19
+;41;4;;;280;19
+;42;4;;;281;19
+;43;4;;;282;19
+;44;4;;;283;19
+;45;5;;;273;19
+;46;5;;;274;19
+;47;5;;;275;19
+;48;5;;;276;19
+;49;5;;;277;19
+;50;5;;;278;19
+;51;5;;;279;19
+;52;5;;;280;19
+;53;5;;;281;19
+;54;5;;;282;19
+;55;5;;;283;19
+;56;6;;;273;19
+;57;6;;;274;19
+;58;6;;;275;19
+;59;6;;;276;19
+;60;6;;;277;19
+;61;6;;;278;19
+;62;6;;;279;19
+;63;6;;;280;19
+;64;6;;;281;19
+;65;6;;;282;19
+;66;6;;;283;19
+;67;7;;;273;19
+;68;7;;;274;19
+;69;7;;;275;19
+;70;7;;;276;19
+;71;7;;;277;19
+;72;7;;;278;19
+;73;7;;;279;19
+;74;7;;;280;19
+;75;7;;;281;19
+;76;7;;;282;19
+;77;7;;;283;19
+;78;8;;;273;19
+;79;8;;;274;19
+;80;8;;;275;19
+;81;8;;;276;19
+;82;8;;;277;19
+;83;8;;;278;19
+;84;8;;;279;19
+;85;8;;;280;19
+;86;8;;;281;19
+;87;8;;;282;19
+;88;8;;;283;19
+;89;9;;;273;19
+;90;9;;;274;19
+;91;9;;;275;19
+;92;9;;;276;19
+;93;9;;;277;19
+;94;9;;;278;19
+;95;9;;;279;19
+;96;9;;;280;19
+;97;9;;;281;19
+;98;9;;;282;19
+;99;9;;;283;19
+;100;0;;;273;19
+;101;0;;;274;19
+;102;0;;;275;19
+;103;0;;;276;19
+;104;0;;;277;19
+;105;0;;;278;19
+;106;0;;;279;19
+;107;0;;;280;19
+;108;0;;;281;19
+;109;0;;;282;19
+;110;0;;;283;19
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;19;1901
+;19;1902
+;19;1903
+;19;1904
+;19;1905
+;19;1906
+;19;1907
+;19;1908
+;19;1909
+;19;1910
+;19;1911
+;19;1912
+;19;1913
+;19;1914
+;19;1915
+;19;1916
+;19;usr-20498
+;19;usr-19014
+;19;usr-19004
+;19;1917
+;19;1918
+
+###############################################################################
+INSERT_UPDATE BHGEAccountData;accountNumber[unique=true];accountName
+;125462;125462
+;123855;123855
+;125411;125411
+
+INSERT_UPDATE BHGEManager2AccountRelation;source(pk)[unique=true];target(uid)[unique=true]
+;8796158609990;1901
+;8796158642758;1901
+;8796158609990;usr-20498
+;8796158642758;usr-20498
+;8796158609990;1902
+;8796158642758;1902
+;8796158609990;1903
+;8796158642758;1903
+
+INSERT_UPDATE BHGEAccount2CustomerRelation;source(pk)[unique=true];target(uid)[unique=true]
+;8796158609990;1909
+;8796158609990;1910
+;8796158609990;1911
+;8796158609990;1912
+;8796158642758;1913
+;8796158642758;1914
+;8796158642758;1915
+;8796158642758;1916
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;9101;1909;1;REGISTER_MICROSITE;APPROVED;true;
+;9102;1910;1;REGISTER_MICROSITE;APPROVED;true;
+;9103;1911;1;REGISTER_MICROSITE;APPROVED;true;
+;9104;1912;1;REGISTER_MICROSITE;APPROVED;true;
+;9105;1913;1;REGISTER_MICROSITE;APPROVED;true;
+;9106;1914;1;REGISTER_MICROSITE;APPROVED;true;
+;9107;1915;1;REGISTER_MICROSITE;APPROVED;true;
+;9108;1916;1;REGISTER_MICROSITE;APPROVED;true;
+;9109;1903;1;REGISTER_MICROSITE;APPROVED;true;
+;9110;usr-19014;1;REGISTER_MICROSITE;APPROVED;true;
+
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];name;email;groups(uid);defaultB2BUnit(uid);Customerid;productLine(attributeId);governmentOrg;activeStatus;familyName;givenName;sso
+;usr-503076543;Hardik Mistry;hardik.mistry@ge.com;BHGECSRApproverGroup,BHGEUserManagerGroup;BHGERegister;1;1;true;true;Mistry;Hardik;503076543
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;19;usr-503076543
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;2019120301;usr-503076543;1;REGISTER_MICROSITE;APPROVED;true;

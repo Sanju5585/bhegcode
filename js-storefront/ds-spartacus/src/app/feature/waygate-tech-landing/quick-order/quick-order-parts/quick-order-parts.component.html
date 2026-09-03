@@ -1,0 +1,157 @@
+<div class="mainAlign">
+  <div class="part-order">
+    <div class="order-search">
+      <div class="accessories">
+        <div class="accessories-tabs-group">
+          <div
+            class="accessories-tab"
+            [ngClass]="index == 0 ? 'tab-active' : ''"
+            (click)="index = 0"
+          >
+            {{ 'quickorder.pasteParts' | cxTranslate }}
+          </div>
+          <div
+            class="accessories-tab"
+            [ngClass]="index == 1 ? 'tab-active' : ''"
+            (click)="index = 1"
+          >
+            {{ 'quickorder.lineByLine' | cxTranslate }}
+          </div>
+        </div>
+        <div class="accessories-tab-details">
+          <div class="accessories-tab-details--section" *ngIf="index == 0">
+            <div class="check">
+              <span class="textPartNum">{{
+                'quickorder.partNumbers' | cxTranslate
+              }}</span>
+              <span class="find-text" (click)="clear('pastePart')">{{
+                'quickorder.clear' | cxTranslate
+              }}</span>
+            </div>
+            <div>
+              <bh-text-area
+                required
+                name="pastePartNumber"
+                class="textAreaHeight"
+                messageType="count"
+                placeholder="{{'quickorder.placeholderDescription' | cxTranslate }}"
+                [value]="pastePartNumber"
+                messageType="custom"
+                messageText=" "
+                (input)="onChange($event, 'partPaste', 'i')"
+                #textval
+                (focusout)="trimText()"
+              ></bh-text-area>
+            </div>
+            <div class="action-button">
+              <div class="clear-button">
+                <bh-button
+                  type="secondary"
+                  label="{{ 'waygate.cancel' | cxTranslate }}"
+                  class="clear"
+                  (click)="goToHomepage()"
+                >
+                </bh-button>
+              </div>
+              <div class="add-button track-button">
+                <bh-button
+                  type="primary"
+                  [label]="updateBtn ? 'Update List' : 'Add To List'"
+                  class="add-cart"
+                  [ngClass]="
+                    updateBtn
+                      ? textContent?.trim() != pastePartNumber?.trim()
+                        ? 'track-green'
+                        : ''
+                      : pastePartNumber?.trim() !== ''
+                        ? 'track-green'
+                        : ''
+                  "
+                  (click)="addToCart('pastePartNumber')"
+                  [attr.disabled]="showSpinner || !listUpdated ? true : null"
+                  [attr.loading]="showSpinner ? true : null"
+                >
+                  <!-- [class.track-green]="!stopCount()"
+                (click)="addToCart('pastePartNumber')"
+                [attr.disabled]="((showSpinner ||stopCount() )? true : null) "
+                [attr.loading]="(showSpinner ? true : null)" -->
+                </bh-button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="index == 1">
+            <div class="line">
+              <div class="txt-lable">
+                <span class="textPartNum">{{
+                  'quickorder.partNumber' | cxTranslate
+                }}</span>
+                <span class="qty">{{
+                  'quickorder.quantity' | cxTranslate
+                }}</span>
+              </div>
+
+              <div *ngFor="let field of fieldArray; let i = index">
+                <div class="content-form">
+                  <bh-text-input
+                    id="{{ i }}"
+                    type="text"
+                    name="{{ field.partLineNumber }}"
+                    [value]="field.partLineNumber"
+                    (keyup)="onChange($event, 'linePartNumber', i)"
+                  ></bh-text-input>
+
+                  <vs-item-counter
+                    id="{{ i }}"
+                    class="increment-size"
+                    [control]="bulkQty.get('text' + i)"
+                    [max]="9999"
+                    (quantityIncrement)="increaseQuantity($event, i)"
+                    (quantityDecrement)="decreaseQuantity($event, i)"
+                  ></vs-item-counter>
+                   <i 
+                   class="material-icons-outlined delete-btn"
+                   *ngIf="fieldArray.length > 1"
+                    (click)="deleteFieldValue(i)"
+                    [ngClass]="fieldArray.length < 2 ? 'disabled' : ''"
+                   > delete </i>
+                </div>
+              </div>
+              <a
+                class="link"
+                (click)="addField()"
+                *ngIf="fieldArray.length < lineByLinePartNumber"
+                >{{ 'quickorder.addPartNumber' | cxTranslate }}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="index == 1">
+  <div class="action-button">
+    <div class="clear-button">
+      <bh-button
+        type="secondary"
+        label="{{ 'waygate.cancel' | cxTranslate }}"
+        class="clear"
+        (click)="clear('addLinePartNumber')"
+      >
+      </bh-button>
+    </div>
+    <div class="add-button track-button">
+      <bh-button
+        type="primary"
+        [label]="updateBtn ? 'Update List' : 'Add To List'"
+        class="add-cart"
+        [ngClass]="lineNumber.trim() !== '' ? 'track-green' : ''"
+        (click)="addToCart('linePartNumber')"
+        [attr.disabled]="showSpinner || !listUpdated ? true : null"
+        [attr.loading]="showSpinner ? true : null"
+      >
+      </bh-button>
+    </div>
+  </div>
+</div>

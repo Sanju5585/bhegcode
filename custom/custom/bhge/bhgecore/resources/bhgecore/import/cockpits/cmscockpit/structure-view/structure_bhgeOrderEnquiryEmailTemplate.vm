@@ -1,0 +1,91 @@
+## messageSource=classpath:/bhgecore/messages/email-bhgeOrderEnquiryEmail_$lang.properties
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Digital Solution Store – Inactive User Notification</title>
+
+    <style>
+        @font-face {
+            font-family: GEInspiraSans;
+            src: url('$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/fonts/GEInspiraSans-Regular-v02.woff');
+        }
+        
+
+    </style>
+</head>
+
+
+<body style="font-family:GEInspiraSans; font-size: 11pt;width:550px;color: #13294b;border: solid 0.3px #979797;">
+
+   <!-- <div class="row">
+                                    <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                        <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+												 <a href="#" class="a" style="color: #05322b; text-decoration: none;"><span class="a__text" style="color: #05322b; text-decoration: none;"> <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="100%"/></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div> -->
+	<div class="heading row">
+      <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+          <tr class="row__row">
+               <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+               <h1 class="header h1" style="margin: 20px 0; line-height: 40px; font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px; margin-left: 0; margin-top: -40px;">
+               ${ctx.messages.orderInquiry}
+               </h1>
+               </td>
+               </tr>
+     </table>
+   </div>
+
+	<div class="emailBody" style="padding:14px 22px 0px 34px;">
+		<div class="headerInformation" style="padding-bottom:27px;letter-spacing: -0.4px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+		    <h3>${ctx.messages.inquiry}</h3>
+		    <h3 style="color:red;">${ctx.messages.actionRequired}</h3>
+			<p><b>${ctx.messages.inquiryDetails}:</b> $ctx.inquiryDetails</p><br>
+
+	        <div class="emailMidContent" style="background-color: #f9f9f9; width:70%;">
+	            <div class="contentTitle" style=" letter-spacing: -0.5px;  font-weight: bold;margin-left:6px;margin-right:6px;padding-bottom: 4px; border-bottom: solid 0.3px #979797;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+	            ${ctx.messages.orderDetails}: 
+	            </div>
+	            <div class="contentBody" style="margin-left:6px;font-size:11pt; text-align: left;padding-top:11px;padding-bottom:11px;color: #05322b;font-family: 'Poppins','Lucida Sans';">
+	              <table>
+					<tr>
+						<td>${ctx.messages.username}</td>
+						<td>:<strong> $ctx.userName</strong></td>
+					</tr>
+					<tr>
+						<td>${ctx.messages.customerName}</td>
+						<td>:<strong> $ctx.businessName</strong></td>
+					</tr>
+					<tr>
+						<td>${ctx.messages.customerPO}</td>
+						<td>:<strong> $ctx.poNumber</strong></td>
+					</tr>
+					<tr>
+						<td>${ctx.messages.orderNumber}</td>
+						<td>:<strong>  $ctx.orderNumber</strong></td>
+					</tr>
+					<tr>
+						<td>${ctx.messages.datePlaced}</td>
+						<td>:<strong> $ctx.datePlaced</strong></td>
+					</tr>
+					<tr>
+                        <td>${ctx.messages.enquiryType}</td>
+                        <td>:<strong> $ctx.enquiryType</strong></td>
+                    </tr>
+				</table>
+	               	
+	            </div>
+	        </div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

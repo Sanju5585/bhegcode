@@ -1,0 +1,29 @@
+<div class="waygate-facet-container">
+  <div class="facet-title" (click)="expand = !expand">
+    <h4>{{ facet.name }}</h4>
+    <div class="material-icons" *ngIf="expand">expand_less</div>
+    <div class="material-icons" *ngIf="!expand">expand_more</div>
+  </div>
+  <div class="facet-body" *ngIf="expand">
+    <ng-container *ngFor="let value of facet.values | facetSort">
+      <a
+        (click)="closeSlider()"
+        routerLink="./"
+        [queryParams]="getLinkParams(value)"
+        class="waygate-facet-link"
+        [class.selected]="value?.selected"
+        [class.disabled]="
+          selectedOne && !value?.selected && facet?.priority > 9000
+        "
+      >
+        <bh-checkbox
+          [attr.checked]="value?.selected ? true : null"
+        ></bh-checkbox>
+        <span class="facet-label">
+          <span>{{ value.name }}</span>
+          <span>({{ value.count }})</span>
+        </span>
+      </a>
+    </ng-container>
+  </div>
+</div>

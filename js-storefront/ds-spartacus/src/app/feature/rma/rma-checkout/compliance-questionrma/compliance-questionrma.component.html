@@ -1,0 +1,111 @@
+<div class="compliance question">
+  <form (ngSubmit)="onSubmit()">
+    <div class="upload questions">
+      <span> {{ 'labels.governmentOrMilitaryOpportunity' | cxTranslate }}</span>
+      <div class="radio-btn">
+        <bh-radio-button
+          label=" {{ 'labels.yes' | cxTranslate }}"
+          value="true"
+          name="radiobtnbuy"
+          (change)="handleChange($event, 'radiobtnbuy')"
+        ></bh-radio-button>
+        <bh-radio-button
+          label=" {{ 'labels.no' | cxTranslate }}"
+          value="false"
+          name="radiobtnbuy"
+          (change)="handleChange($event, 'radiobtnbuy')"
+        ></bh-radio-button>
+        <div
+          class="bh-form-message typography--body-small bh-form-message--error"
+          *ngIf="submitted && !radiobtnbuy"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ 'labels.mandatory' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+    <div class="upload questions">
+      <span>{{ 'labels.nuclearOpportunity' | cxTranslate }}</span>
+      <div class="radio-btn">
+        <bh-radio-button
+          label=" {{ 'labels.yes' | cxTranslate }}"
+          value="true"
+          name="radiobtnbuy1"
+          (change)="handleChange($event, 'radiobtnbuy1')"
+        ></bh-radio-button>
+        <bh-radio-button
+          label=" {{ 'labels.no' | cxTranslate }}"
+          value="false"
+          name="radiobtnbuy1"
+          (change)="handleChange($event, 'radiobtnbuy1')"
+        ></bh-radio-button>
+        <div
+          class="bh-form-message typography--body-small bh-form-message--error"
+          *ngIf="submitted && !radiobtnbuy1"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ 'labels.mandatory' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="upload questions">
+      <span>{{ 'labels.orderToExported' | cxTranslate }}</span>
+      <div class="radio-btn">
+        <bh-radio-button
+          label=" {{ 'labels.yes' | cxTranslate }}"
+          value="true"
+          name="radiobtnbuy2"
+          (change)="handleChange($event, 'radiobtnbuy2')"
+        ></bh-radio-button>
+        <bh-radio-button
+          label=" {{ 'labels.no' | cxTranslate }}"
+          value="false"
+          name="radiobtnbuy2"
+          (change)="handleChange($event, 'radiobtnbuy2')"
+        ></bh-radio-button>
+        <div
+          class="bh-form-message typography--body-small bh-form-message--error"
+          *ngIf="submitted && !radiobtnbuy2"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ 'labels.mandatory' | cxTranslate }}
+        </div>
+      </div>
+      <textarea
+        *ngIf="this.radiobtnbuy2 == 'true'"
+        class="textarea-buycheckout col-lg-12 col-md-12 col-sm-12"
+        name="reasonForCsrReview"
+        [(ngModel)]="rmaExportAddress"
+      ></textarea>
+    </div>
+    <div class="upload questions">
+      <span> {{ 'labels.forGovernment' | cxTranslate }}</span>
+      <div class="radio-btn">
+        <bh-radio-button
+          label=" {{ 'labels.yes' | cxTranslate }}"
+          value="true"
+          name="radiobtnbuy3"
+          (change)="handleChange($event, 'radiobtnbuy3')"
+        ></bh-radio-button>
+        <bh-radio-button
+          label=" {{ 'labels.no' | cxTranslate }}"
+          value="false"
+          name="radiobtnbuy3"
+          (change)="handleChange($event, 'radiobtnbuy3')"
+        ></bh-radio-button>
+        <div
+          class="bh-form-message typography--body-small bh-form-message--error"
+          *ngIf="submitted && !radiobtnbuy3"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ 'labels.mandatory' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,142 @@
+<div class="collapsible-header" (click)="toggleDocumentation()">
+    <div class="documentation-header">
+      <div>
+        <span class="documentation-title">{{ 'rma-form.documentation' | cxTranslate }}</span>
+        <span class="documentation-option">({{ 'rma-form.optional' | cxTranslate }})</span>
+      </div>
+      <div class="material-icons-outlined">
+        {{ isDocumentationCollapsed ? 'expand_more' : 'expand_less' }}
+      </div>
+    </div>
+    <div class="documentation-sub-header">
+      <p>{{ 'rma-form.descriptionlast' | cxTranslate }}</p>
+    </div>
+  </div>
+  
+  <div class="documentation-wrapper" *ngIf="!isDocumentationCollapsed">
+    <div class="documentation-container">
+      <section class="search-filter">
+        <div class="dropdown-returns">
+          <div>
+            <div class="year-label">
+              {{ 'rma-form.yearOfManufacture' | cxTranslate }}
+            </div>
+            <div class="vs-tooltip-icon">
+              <p class="vs-tooltip">
+                {{ 'rma-form.tooltipestimated' | cxTranslate }}
+              </p>
+            </div>
+          </div>
+          <ng-select
+            class="filter-dropdown"
+            [searchable]="false"
+            [ngModel]="manufactureYearSelected"
+            [clearable]="false"
+            placeholder="{{ 'rma-form.select' | cxTranslate }}"
+            (change)="changeYearOfManufacture($event)"
+          >
+            <ng-option
+              *ngFor="let year of yearRange(START_YEAR, END_YEAR, STEP)"
+              [value]="year"
+            >
+              {{ year }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </section>
+      <section class="documentation-info"></section>
+      <section class="warranty-claim">
+        <div>
+          <div class="warranty-label">
+            {{ 'rma-form.warrantyClaimInfo' | cxTranslate }}
+          </div>
+          <div class="vs-tooltip-icon">
+            <p class="vs-tooltip">{{ warrantyText }}</p>
+          </div>
+        </div>
+        <bh-text-area
+          class="problem-desc-input"
+          [placeholder]="'rma-form.warrentyClaiminfoPlaceholder' | cxTranslate"
+          [value]="additionalInfo.warrantyStatement"
+          (change)="warrantyClaimInput($event)"
+          messageType="count"
+          maxcharacters="500"
+          fluidhorz
+          fluidvert
+          (keypress)="stop($event)"
+          (paste)="myFunction($event)"
+          #textval
+          (focusout)="trimText()"
+        >
+        </bh-text-area>
+        <div class="text-center" *ngIf="warrentyClaimFlag">
+          <span class="warranty-claim-text">
+            {{ 'rma-form.warrentyClaiminfoPlaceholder' | cxTranslate }}</span
+          >
+        </div>
+      </section>
+      <section class="service-note">
+        <div>
+          <div class="service-notes-label">
+            {{ 'rma-form.serviceInformation' | cxTranslate }}
+          </div>
+          <div class="vs-tooltip-icon">
+            <p class="vs-tooltip">
+              {{ 'rma-form.tooltipservice' | cxTranslate }}
+            </p>
+          </div>
+        </div>
+        <bh-text-area
+          class="problem-desc-input"
+          [placeholder]="'rma-form.serviceNotesPlaceholder' | cxTranslate"
+          [value]="additionalInfo.serviceNotes"
+          (change)="serviceNotesInput($event)"
+          messageType="count"
+          maxcharacters="500"
+          fluidhorz
+          fluidvert
+          (keypress)="stopServiceNotes($event)"
+          (paste)="myFunctionServiceNotes($event)"
+          #textval2
+          (focusout)="trimTextServiceNotes()"
+        >
+        </bh-text-area>
+      </section>
+    </div>
+    <div class="documentation-container attcahment-separte">
+      <section class="accessories">
+        <label class="additional-document-label">
+          {{ 'rma-form.AdditionalDocument' | cxTranslate }}
+        </label>
+  
+        <ds-file-upload
+          [label]="'hazardInfo.upload' | cxTranslate"
+          [maxLength]="5"
+          [maxSizeInMB]="30"
+          [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+          (selectedFiles)="selectedFiles($event)"
+          [icon]="'cloud_upload'"
+          [showIcon]="true"
+          >upload</ds-file-upload
+        >
+        <div class="file-list">
+          <ds-file-upload-progress
+            *ngFor="let file of files; let i = index"
+            [layout]="layouts.BOX"
+            [file]="file"
+            [uploadParams]="uploadParams"
+            [uploadUrl]="uploadUrl"
+            [deleteUrl]="deleteUrl"
+            [deleteMethod]="'GET'"
+            [deleteParams]="deleteParams"
+            (deletedFiles)="deletedFiles($event)"
+            [showProgress]="true"
+            [entryNumber]="i"
+          ></ds-file-upload-progress>
+        </div>
+        <span class="fileformat mt-1"
+          >{{ 'rma-form.fileFormat' | cxTranslate }}
+        </span>
+      </section>
+    </div>
+  </div>  

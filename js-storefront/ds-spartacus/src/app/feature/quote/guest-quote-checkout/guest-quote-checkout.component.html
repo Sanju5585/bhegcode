@@ -1,0 +1,72 @@
+<div class="quote-checkout">
+  <div class="row quotecart quotecartquoted">
+    <div class="col-lg-6 col-md-6 col-sm-6 quotecartid">
+      <span class="quotenormal quotebold">{{
+        'quotecheckout.quoteCartID' | cxTranslate
+      }}</span>
+      <span class="quotebold">{{ cartID }}</span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 quotebtn">
+      <button
+        class="bh-button motion--normal bh-button--small bh-button--type-secondary continueshopping"
+        (click)="continueshopping()"
+      >
+        <span class="bh-button__label typography--button-link-small">{{
+          'quotecheckout.continueShipping' | cxTranslate
+        }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row quotecartquoted">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <span class="material-icons-outlined flag-icon">flag</span>
+      <span>{{ 'quotecheckout.quoteCartquoted' | cxTranslate }} </span>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <span class="quotenormal">{{
+        'quotecheckout.quoteStatus' | cxTranslate
+      }}</span>
+      <span class="quotebold"> {{ 'quotecheckout.drafted' | cxTranslate }}</span>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <span class="quotenormal"
+        >{{ 'quotecheckout.quoteId' | cxTranslate }}
+      </span>
+      <span class="quotebold">{{ quoteId }}</span>
+    </div>
+  </div>
+  <div class="row quotecartquoted">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <span class="quotenormalsmall">{{
+        'quotecheckout.quoteChecktext' | cxTranslate
+      }}</span>
+    </div>
+  </div>
+
+  <div class="accessories">
+    <div class="accessories-tabs-group">
+      <div
+        class="accessories-tab"
+        [ngClass]="index == 0 ? 'tab-active' : ''"
+        (click)="index = 0"
+      >
+        {{ 'quotecheckout.quotebakerTab' | cxTranslate }}
+      </div>
+      <div
+        class="accessories-tab"
+        [ngClass]="index == 1 ? 'tab-active' : ''"
+        (click)="index = 1"
+      >
+        {{ 'quotecheckout.quotebakeremailTab' | cxTranslate }}
+      </div>
+    </div>
+    <div class="accessories-tab-details">
+      <div class="accessories-tab-details--section" *ngIf="index == 0">
+        <app-guest-quote-bakertab></app-guest-quote-bakertab>
+      </div>
+      <div class="accessories-tab-details--section" *ngIf="index == 1">
+        <app-guest-quote-emailtab></app-guest-quote-emailtab>
+      </div>
+    </div>
+  </div>
+</div>

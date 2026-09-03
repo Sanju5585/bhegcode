@@ -1,0 +1,101 @@
+/* $visual-focus: #6d9df7; */
+/* $visual-focus: #6d9df7; */
+/* $visual-focus: #6d9df7; */
+/* $visual-focus: #6d9df7; */
+/* $visual-focus: #6d9df7; */
+/* $visual-focus: #6d9df7; */
+.vs-primary-btn {
+  min-width: 90px;
+  width: 90px;
+  min-height: 18px;
+  height: 35px;
+  box-shadow: none;
+  border: 0px;
+  background: var(--color-base-teal-500);
+  border-radius: 4px;
+  font-family: 'var(--font-base-font-family-decorative)-Regular';
+  font-style: normal;
+  font-size: var(--font-base-font-size-12);
+  line-height: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.vs-primary-btn:hover {
+  background-color: var(--color-base-teal-700);
+}
+
+.vs-primary-btn[disabled],
+.vs-primary-btn:disabled {
+  background-color: rgba(2, 167, 131, 0.5);
+  cursor: not-allowed;
+}
+
+.vs-primary-btn:active {
+  background-color: var(--color-base-teal-900);
+}
+
+.vs-primary-btn span,
+.vs-primary-btn i {
+  margin: 0px 10px;
+}
+
+.vs-text-btn {
+  min-width: 90px;
+  width: 90px;
+  min-height: 32px;
+  height: 35px;
+  box-shadow: none;
+  border: 0px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-family: 'var(--font-base-font-family-decorative)-Regular';
+  font-style: normal;
+  font-size: var(--font-base-font-size-12);
+  line-height: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  text-align: center;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  color: #1a2321;
+}
+
+.vs-text-btn:hover {
+  background-color: #ebefee;
+}
+
+.vs-text-btn[disabled],
+.vs-text-btn:disabled {
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.vs-text-btn:active {
+  background-color: #ced7d4;
+}
+
+.vs-text-btn span,
+.vs-text-btn i {
+  margin: 0px 3px;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.action-container button {
+  margin-right: 5px;
+}

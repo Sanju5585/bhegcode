@@ -1,0 +1,5 @@
+
+
+INSERT_UPDATE  BHGEGlobalProperties;uid[unique=true];value
+
+;SCPI_ZHYB_LONG_CONFIG_ENDPOINT_URL; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/HybrisVC_ECCDS/SkippingConfig

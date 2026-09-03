@@ -1,0 +1,50 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content share-order-space">
+    <div class="share-order-title">
+      <h2>{{ 'rma-tracking.shareRma' | cxTranslate }}</h2>
+      <span class="material-icons" (click)="cancel()">close</span>
+    </div>
+    <div class="share-order">
+      <p>
+        {{ 'rma-tracking.toSendStatus' | cxTranslate }}
+      </p>
+      <div class="emailText">
+        <p>{{ 'rma-tracking.emailID'  | cxTranslate }}</p>
+        <bh-text-input
+          type="text"
+          required
+          placeholder="{{ 'rma-tracking.emailRecipientMail' | cxTranslate }}"
+          [value]="email"
+          [message]="emailError"
+          [attr.error]="emailError ? emailError : null"
+          (keyup)="onChange($event)"
+          maxlength="241"
+        >
+        </bh-text-input>
+        <!-- <input
+      placeholder=" {{ 'rma-tracking.emailRecipientMail' | cxTranslate }}"
+      class="wdt334"
+      type="text"
+      (ngModelChange)="onChange($event)"
+      [ngModel]="email"
+    />
+    <p *ngIf="emailError">
+      {{ 'rma-tracking.emailRecipientMail' | cxTranslate }}
+    </p> -->
+      </div>
+      <div class="customeBtn">
+        <bh-button
+          [type]="'secondary'"
+          [label]="'rma-tracking.cancel' | cxTranslate"
+          (click)="cancel()"
+        ></bh-button>
+        <bh-button
+          [type]="'tertiary'"
+          [label]="'rma-tracking.share' | cxTranslate"
+          (click)="onSubmit()"
+          [attr.loading]="showLoading"
+        ></bh-button>
+      </div>
+    </div>
+  </div>
+</div>

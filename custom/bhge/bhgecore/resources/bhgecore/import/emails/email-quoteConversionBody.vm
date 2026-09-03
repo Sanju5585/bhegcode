@@ -1,0 +1,30 @@
+## messageSource=classpath:/bhgecore/messages/email-quoteConversion_$lang.properties
+<!DOCTYPE html>
+<!-- xmlns="http://www.w3.org/1999/xhtml" -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="margin: 0; padding: 0;">
+<div style="width: 600px; height: 405px; display: flex; align-items: center; margin: auto;">
+    <table width="600" height="405" border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin: auto; font-family: Poppins; background-color: #FFFFFF; display: flex; justify-content: center; align-items: center; color: #121212">
+        <tr style="background-color: #FFFFFF; width: 600px; text-align: center; border:0;">
+            <td style="border:1px solid #E2E2E2 !important; padding: 20px; width: 600px; height: 405px;">
+                <img width="333" style="width: 333px;" src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/logo_blue.png" alt="logo">
+                <h1 style="font-family: Poppins; font-size: 24px; font-weight: 600; line-height: 28px; letter-spacing: -0.5px; text-align: center;">${ctx.messages.quoteConversion}</h1>
+                <p style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                    margin-top: 50px; color: #121212;">${ctx.messages.dear} ${ctx.userName},</p>
+                #if ($ctx.erpFailureReason)
+                    <p style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                    margin-top: 50px; color: #121212;">${ctx.messages.getMessage('quoteConversionFailed', ${ctx.quoteId})}</p>
+                #else
+                    <p style="font-family: Poppins; font-size: 18px; font-weight: 600; line-height: 24px; letter-spacing: -0.25px; text-align: left;
+                    margin-top: 50px; color: #121212;">${ctx.messages.getMessage('requestedQuote', ${ctx.quoteId}, ${ctx.orderId})}</p>
+                #end
+                <p style="font-family: Poppins; font-size: 14px; font-weight: 400; line-height: 20px; text-align: left;">${ctx.messages.getMessage('supportMessage',${ctx.contactusURL})}</p>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

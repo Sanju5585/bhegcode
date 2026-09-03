@@ -1,0 +1,131 @@
+<ng-container *ngIf="iscontentAvailableFromSlot">
+  <ng-container *ngIf="!showLoading; else loading">
+    <div class="featured-products-header">
+      <div class="header-green-border"></div>
+      <ng-container *ngIf="productLine === allProductLine.bently;else otherProd">
+        <h1>{{ 'waygate.featuredProdHeadingBen' | cxTranslate }}</h1>
+      </ng-container>
+      <ng-template #otherProd>
+        <h1>{{ 'waygate.featuredProdHeading' | cxTranslate }}</h1>
+      </ng-template>
+    </div>
+    <div
+      class="feature-container"
+      *ngIf="productListItem?.length > 0; else noDataFound"
+    >
+      <div
+        class="tab"
+        *ngIf="isProductsDisplayAsPerCategory && categories.length > 0"
+      >
+        <button
+          class="tablinks"
+          *ngFor="let cat of categories; let i = index"
+          (click)="tabClickForCategory(cat, i)"
+          [class.active]="cat === selectedCategory"
+        >
+          {{ dispalyCategoryFromUI(cat) }}
+        </button>
+      </div>
+      <div
+        class="feature-prod-main"
+        (mouseover)="stopMovement()"
+        (mouseleave)="startMovement()"
+      >
+        <div class="cards" [ngClass]="{ 'w-100': totalPages === 1 }">
+          <div
+            class="overflow"
+            [ngStyle]="{ width: overflowWidth, left: pagePosition }"
+          >
+            <div
+              class="card-separator"
+              *ngFor="
+                let item of getProductsBYCategory(selectedCategory);
+                let i = index
+              "
+              [ngStyle]="{ width: cardWidth }"
+            >
+              <div class="featured-img-1">
+                <cx-media
+                  class="cx-product-image img-resize custom-featured-img"
+                  [container]="item?.images?.PRIMARY"
+                  format="product"
+                  [alt]="item?.summary"
+                  (click)="gtmSelectItemEvent(item)"
+                  [routerLink]="[
+                    '/',
+                    productLine,
+                    'product',
+                    item?.code,
+                    item?.name
+                  ]"
+                ></cx-media>
+              </div>
+              <div
+                class="text-wrapper"
+                *ngIf="productLine !== allProductLine.bently"
+              >
+                <div class="img-header-text" [innerHTML]="item?.name"></div>
+                <div class="part-number"># {{ item?.code }}</div>
+                <span class="part-desc" [innerHTML]="item?.description"></span>
+                <div class="part-price">
+                  <div *ngIf="item?.price?.value > 0; else noPrice">
+                    <span class="card-price">{{
+                      'waygate.perUnitPrice' | cxTranslate
+                    }}</span>
+                    <span class="card-price-value">{{
+                      item?.price?.formattedValue
+                    }}</span>
+                  </div>
+                  <ng-template #noPrice>
+                    <span
+                      class="card-price"
+                      *ngIf="user$ | async as loggedInuser; else guestUser"
+                      >{{ 'waygate.priceNotAvailable' | cxTranslate }}</span
+                    >
+                    <ng-template #guestUser>
+                      <span class="card-price">
+                        {{ 'waygate.loginForPrice' | cxTranslate }}
+                      </span>
+                    </ng-template>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="carousel-left material-icons"
+        (click)="currentPage === 1 ? '' : currentPage != 1 && changePage(-1)"
+        [ngClass]="{ disabled: currentPage === 1 }"
+      >
+        navigate_before
+      </div>
+
+      <div
+        class="carousel-right material-icons"
+        (click)="
+          currentPage === totalPages
+            ? ''
+            : currentPage != totalPages && changePage(+1)
+        "
+        [ngClass]="{ disabled: currentPage === totalPages }"
+      >
+        navigate_next
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #noDataFound>
+  <div *ngIf="!this.componentLoad" class="no-product-found">
+    <span class="featured-prod-label"
+      [innerHTML]="'waygate.notAbleToFind' | cxTranslate : { contactus: ('/' + (productLine$ | async) + '/contactus') }">
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

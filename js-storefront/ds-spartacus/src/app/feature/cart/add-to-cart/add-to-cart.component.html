@@ -1,0 +1,1086 @@
+<ng-container *ngIf="userLoggedIn$ | async; else anonymousAddToCart">
+  <form *ngIf="productCode" [formGroup]="addToCartForm">
+    <div
+      class="row product-state"
+      *ngIf="mode != 'pdp' && mode != 'search' && mode != 'favorites'"
+    >
+      <div class="col-auto padding-lr-0">
+        <span
+          *ngIf="
+            product?.productAccessData?.isBuy ||
+            product?.productAccessData?.isBuyPresentInOtherSalesArea
+          "
+          class="buyable chip-label"
+          >{{ 'buyCart.buyableProduct' | cxTranslate }}</span
+        >
+        <span
+          *ngIf="product.productAccessData?.isobsolete"
+          class="buyable chip-label"
+          >{{ 'buyCart.obsoleteProduct' | cxTranslate }}</span
+        >
+        <span
+          *ngIf="product?.productAccessData?.isCatalogOnly"
+          class="buyable chip-label"
+          >{{ 'buyCart.catalogOnlyProduct' | cxTranslate }}</span
+        >
+      </div>
+      <div class="col-auto padding-lr-0">
+        <span
+          *ngIf="
+            product.productAccessData?.isService ||
+            product.productAccessData?.isServicePresentInOtherSalesArea
+          "
+          class="returnable chip-label"
+          >{{ 'buyCart.returnableProduct' | cxTranslate }}</span
+        >
+      </div>
+    </div>
+
+    <div *ngIf="mode == viewModes.Grid" class="cart-additions-section row m-0">
+      <div class="col-auto mb-2 mt-2">
+        <div class="quantity row" *ngIf="showQuantity">
+          <label class="bold m-0 mr-1">{{
+            'addToCart.quantity' | cxTranslate
+          }}</label>
+          <cx-item-counter
+            [max]="maxQuantity"
+            [control]="addToCartForm.get('quantity')"
+          ></cx-item-counter>
+
+          <label class="normal m-0 ml-1"
+            >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+
+      <div class="col-auto add-to-cart-buttons pl-2 pr-2">
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.BUY"
+          [type]="'primary'"
+          [icon]="'add_shopping_cart'"
+          label="{{ 'buyCart.buy' | cxTranslate }}"
+          loading="false"
+          (click)="addToCart()"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.CHECK_PRICE"
+          [type]="'primary'"
+          class="btn-align-pos"
+          label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+          [attr.loading]="isCheckingPrice"
+          (click)="checkPrice()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.tobuythisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.OBSOLETE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.REPLACEMENT"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link"
+            ><span>{{ 'buyCart.replacementProduct' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotbuythisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+      <div class="col-auto add-to-cart-buttons mb-3 pl-2 pr-2">
+        <bh-button
+          class="return-btn"
+          *ngIf="currentReturnAction == returnActions.RETURN"
+          [type]="'primary'"
+          label="{{ 'buyCart.return' | cxTranslate }}"
+          loading="false"
+          icon="local_shipping"
+          (click)="returnProduct()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.toreturnthisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotreturnthisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mode == viewModes.List"
+      class="cart-additions-section list-view-mode row m-0"
+    >
+      <div class="col-md-4 mb-2 mt-2">
+        <div class="quantity row" *ngIf="showQuantity">
+          <label class="bold m-0 mr-1">{{
+            'addToCart.quantity' | cxTranslate
+          }}</label>
+          <cx-item-counter
+            [max]="maxQuantity"
+            [control]="addToCartForm.get('quantity')"
+          ></cx-item-counter>
+
+          <label class="normal m-0 ml-1"
+            >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+
+      <div class="col-md-4 add-to-cart-buttons mb-3">
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.BUY"
+          [type]="'primary'"
+          [icon]="'add_shopping_cart'"
+          label="{{ 'buyCart.buy' | cxTranslate }}"
+          loading="false"
+          (click)="addToCart()"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.CHECK_PRICE"
+          [type]="'primary'"
+          class="btn-align-pos"
+          label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+          [attr.loading]="isCheckingPrice"
+          (click)="checkPrice()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.tobuythisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.OBSOLETE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.REPLACEMENT"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link"
+            ><span>{{ 'buyCart.replacementProduct' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotbuythisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+      <div class="col-md-4 add-to-cart-buttons mb-3">
+        <bh-button
+          class="return-btn"
+          *ngIf="currentReturnAction == returnActions.RETURN"
+          [type]="'primary'"
+          label="{{ 'buyCart.return' | cxTranslate }}"
+          loading="false"
+          icon="local_shipping"
+          (click)="returnProduct()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.toreturnthisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotreturnthisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="mode == 'pdp'" class="cart-additions-section m-0">
+      <ng-container
+        *ngIf="
+          product?.price?.value > 0 &&
+          !product.productAccessData.isBuyPresentInOtherSalesArea
+        "
+      >
+        <div class="availibilty-display">
+          <div class="availibilty-display-segment row">
+            <span class="col-2 right spec-title p-0">{{
+              'buyCart.shipDate' | cxTranslate
+            }}</span>
+            <div class="col-10">
+              <ng-container *ngFor="let shipDate of product.estShipData">
+                <span class="col-12 bold-text p-0 mb-1 spec-value">{{
+                  getShipDate(shipDate)
+                }}</span>
+                <span *ngIf="shipDate?.stockQty" class="ml-1 bold-text"
+                  >({{ shipDate.stockQty }}
+                  {{ 'buyCart.available' | cxTranslate }})</span
+                >
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="availibilty-display mb-4">
+          <div class="availibilty-display-segment row">
+            <div
+              class="col-2 right spec-title mt-6 p-0"
+              *ngIf="product?.plantAvailableAt"
+            >
+              {{ 'buyCart.availableat' | cxTranslate }}
+            </div>
+            <ng-select
+              [searchable]="false"
+              [clearable]="false"
+              class="col-7 availibility"
+              *ngIf="product?.plantAvailableAt"
+              (change)="changePlant($event)"
+              formControlName="availableAt"
+            >
+              <ng-option
+                [value]="availableAddress"
+                *ngFor="let availableAddress of product?.plantAvailableAt"
+                [selected]="
+                  availableAddress?.defaultPlant == 'true' ? true : false
+                "
+              >
+                <span>{{ availableAddress?.name }}</span>
+                <span>
+                  ({{
+                    availableAddress?.stockAvailable | number: '1.0-0'
+                  }})</span
+                >
+                <span *ngIf="availableAddress.defaultPlant">
+                  {{ 'buyCart.default' | cxTranslate }}</span
+                >
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div *ngIf="showUpdateBtn" class="availability-check-info">
+          <span class="material-icons mr-2 line-text-icon"> info </span>
+          <span class="line-text">{{
+            'buyCart.buttoncheckavailability' | cxTranslate
+          }}</span>
+        </div>
+        <div class="counter-placeholder">
+          <div class="mb-2 mt-2">
+            <div class="quantity row" *ngIf="showQuantity">
+              <label class="bold m-0 mr-1 custom-pdp-padding">{{
+                'addToCart.quantity' | cxTranslate
+              }}</label>
+
+              <cx-item-counter
+                [max]="maxQuantity"
+                [control]="addToCartForm.get('quantity')"
+              ></cx-item-counter>
+
+              <label class="normal m-0 ml-1 custom-pdp-padding"
+                >{{ product.uom }}
+              </label>
+            </div>
+          </div>
+          <bh-button
+            class="mb-2 mt-2 update-bh-button"
+            *ngIf="showUpdateBtn"
+            small="true"
+            [type]="'secondary'"
+            label="{{ 'buyCart.update' | cxTranslate }}"
+            [attr.loading]="isProductUpdating"
+            (click)="updateAvailibity()"
+          ></bh-button>
+        </div>
+      </ng-container>
+      <div class="pdp-buttons add-to-cart-buttons mt-3">
+        <div class="buy-action-section p-0">
+          <bh-button
+            *ngIf="currentBuyAction == buyActions.BUY"
+            [type]="'primary'"
+            [icon]="'add_shopping_cart'"
+            label="{{ 'buyCart.buy' | cxTranslate }}"
+            loading="false"
+            class="pdp-minimum-width"
+            (click)="addToCart()"
+          ></bh-button>
+
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.CHECK_PRICE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotbuythisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+
+          <bh-button
+            *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER"
+            [type]="'secondary'"
+            icon="shopping_basket"
+            class="pdp-minimum-width"
+            label="{{ 'buyCart.switchBusiness' | cxTranslate }}"
+            (click)="switchDsCustomer()"
+          ></bh-button>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.OBSOLETE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.REPLACEMENT"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link"
+              ><span>{{ 'buyCart.replacementProduct' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotbuythisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+        <div class="vl"></div>
+        <div class="return-action-section p-0">
+          <bh-button
+            *ngIf="currentReturnAction == returnActions.RETURN"
+            class="return-btn pdp-minimum-width"
+            [type]="'primary'"
+            label="{{ 'buyCart.return' | cxTranslate }}"
+            loading="false"
+            icon="local_shipping"
+            (click)="returnProduct()"
+          ></bh-button>
+          <div
+            class="action-links-holder"
+            *ngIf="currentReturnAction == returnActions.SWITCH_CUSTOMER"
+          >
+            <span class="action-help-text">{{
+              'buyCart.toreturnthisproduct' | cxTranslate
+            }}</span>
+            <a
+              class="action-link"
+              (click)="
+                $event.stopPropagation();
+                $event.preventDefault();
+                switchDsCustomer()
+              "
+              ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentReturnAction == returnActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotreturnthisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-auto add-to-cart-buttons mb-3"></div>
+    </div>
+    <div *ngIf="mode == 'search'">
+      <div class="search-suggestoin-actions add-to-cart-buttons row">
+        <div class="buy-action-section col-7 p-0">
+          <div *ngIf="currentBuyAction == buyActions.BUY" class="quantity row">
+            <span class="bold qty-labels">{{
+              'addToCart.quantity' | cxTranslate
+            }}</span>
+
+            <cx-item-counter
+              [max]="maxQuantity"
+              [control]="addToCartForm.get('quantity')"
+            ></cx-item-counter>
+
+            <span class="normal qty-labels"
+              >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</span
+            >
+          </div>
+
+          <bh-button
+            *ngIf="currentBuyAction == buyActions.BUY"
+            [type]="'primary'"
+            [icon]="'add_shopping_cart'"
+            label="{{ 'buyCart.buy' | cxTranslate }}"
+            loading="false"
+            small="true"
+            class="pdp-minimum-width"
+            (click)="addToCart()"
+          ></bh-button>
+
+          <bh-button
+            *ngIf="currentBuyAction == buyActions.CHECK_PRICE"
+            [type]="'primary'"
+            class="pdp-minimum-width btn-align-pos"
+            label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+            small="true"
+            loading="false"
+            (click)="checkPrice()"
+          ></bh-button>
+
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER"
+          >
+            <span class="action-help-text">{{
+              'buyCart.tobuythisproduct' | cxTranslate
+            }}</span>
+            <a
+              (click)="
+                $event.stopPropagation();
+                $event.preventDefault();
+                switchDsCustomer()
+              "
+              class="action-link"
+              ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.OBSOLETE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.REPLACEMENT"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link"
+              ><span>{{ 'buyCart.replacementProduct' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentBuyAction == buyActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotbuythisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+
+        <div class="return-action-section col-5 p-0">
+          <bh-button
+            *ngIf="currentReturnAction == returnActions.RETURN"
+            class="return-btn pdp-minimum-width"
+            [type]="'primary'"
+            label="{{ 'buyCart.return' | cxTranslate }}"
+            loading="false"
+            icon="local_shipping"
+            (click)="returnProduct()"
+          ></bh-button>
+          <div
+            class="action-links-holder"
+            *ngIf="currentReturnAction == returnActions.SWITCH_CUSTOMER"
+          >
+            <span class="action-help-text">{{
+              'buyCart.toreturnthisproduct' | cxTranslate
+            }}</span>
+            <a
+              class="action-link"
+              (click)="
+                $event.stopPropagation();
+                $event.preventDefault();
+                switchDsCustomer()
+              "
+              ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentReturnAction == returnActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotreturnthisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="mode == 'favorites'"
+      class="cart-additions-section list-view-mode row m-0"
+    >
+      <div class="col-md-6 add-to-cart-buttons">
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.BUY"
+          [type]="'primary'"
+          [icon]="'add_shopping_cart'"
+          label="{{ 'buyCart.buy' | cxTranslate }}"
+          loading="false"
+          (click)="addToCart()"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentBuyAction == buyActions.CHECK_PRICE"
+          [type]="'primary'"
+          class="btn-align-pos"
+          label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+          [attr.loading]="isCheckingPrice"
+          (click)="checkPrice()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.tobuythisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.OBSOLETE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.REPLACEMENT"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link"
+            ><span>{{ 'buyCart.replacementProduct' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentBuyAction == buyActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotbuythisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+      <div class="col-md-6 add-to-cart-buttons mb-3">
+        <bh-button
+          class="return-btn"
+          *ngIf="currentReturnAction == returnActions.RETURN"
+          [type]="'primary'"
+          label="{{ 'buyCart.return' | cxTranslate }}"
+          loading="false"
+          icon="local_shipping"
+          (click)="returnProduct()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.SWITCH_CUSTOMER"
+        >
+          <span class="action-help-text">{{
+            'buyCart.toreturnthisproduct' | cxTranslate
+          }}</span>
+          <a (click)="switchDsCustomer()" class="action-link"
+            ><span>{{ 'buyCart.switchDSBusiness' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentReturnAction == returnActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotreturnthisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #anonymousAddToCart>
+  <form *ngIf="productCode" [formGroup]="addToCartForm">
+    <div class="row product-state" *ngIf="mode != 'pdp' && mode != 'search'">
+      <div class="col-auto padding-lr-0">
+        <span *ngIf="product.isAnonymousBuy" class="buyable chip-label">{{
+          'buyCart.buyableProduct' | cxTranslate
+        }}</span>
+        <span *ngIf="product.isAnonymousObsolete" class="buyable chip-label">{{
+          'buyCart.obsoleteProduct' | cxTranslate
+        }}</span>
+        <span *ngIf="product.isAnonymousQuote" class="quoteable chip-label">{{
+          'buyCart.requestforQuote' | cxTranslate
+        }}</span>
+        <span *ngIf="product.isAnonymousCatalog" class="buyable chip-label">{{
+          'buyCart.catalogOnlyProduct' | cxTranslate
+        }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="mode == viewModes.Grid" class="cart-additions-section row m-0">
+      <div class="col-auto mb-2 mt-2">
+        <div class="quantity row" *ngIf="showQuantity">
+          <label class="bold m-0 mr-1">{{
+            'addToCart.quantity' | cxTranslate
+          }}</label>
+          <cx-item-counter
+            [max]="maxQuantity"
+            [control]="addToCartForm.get('quantity')"
+          ></cx-item-counter>
+
+          <label class="normal m-0 ml-1"
+            >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+
+      <div class="col-auto add-to-cart-buttons">
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.BUY"
+          [type]="'primary'"
+          [icon]="'add_shopping_cart'"
+          label="{{ 'buyCart.buy' | cxTranslate }}"
+          loading="false"
+          (click)="addToCart()"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.CHECK_PRICE"
+          [type]="'primary'"
+          class="btn-align-pos"
+          label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+          [attr.loading]="isCheckingPrice"
+          (click)="checkPrice(true)"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.QUOTE"
+          class="quote-button"
+          [type]="'tertiary'"
+          [icon]="'receipt_long'"
+          label="{{ 'buyCart.requestQuote' | cxTranslate }}"
+          loading="false"
+          (click)="requestQuote()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentGuestAction == guestActions.OBSOLETE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentGuestAction == guestActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotbuythisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mode == viewModes.List"
+      class="cart-additions-section list-view-mode row m-0"
+    >
+      <div class="col-md-4 mb-2 mt-2">
+        <div class="quantity row" *ngIf="showQuantity">
+          <label class="bold m-0 mr-1">{{
+            'addToCart.quantity' | cxTranslate
+          }}</label>
+          <cx-item-counter
+            [max]="maxQuantity"
+            [control]="addToCartForm.get('quantity')"
+          ></cx-item-counter>
+
+          <label class="normal m-0 ml-1"
+            >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+
+      <div class="col-md-4 add-to-cart-buttons">
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.BUY"
+          [type]="'primary'"
+          [icon]="'add_shopping_cart'"
+          label="{{ 'buyCart.buy' | cxTranslate }}"
+          loading="false"
+          (click)="addToCart()"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.CHECK_PRICE"
+          [type]="'primary'"
+          class="btn-align-pos"
+          label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+          [attr.loading]="isCheckingPrice"
+          (click)="checkPrice(true)"
+        ></bh-button>
+        <bh-button
+          *ngIf="currentGuestAction == guestActions.QUOTE"
+          class="quote-button"
+          [type]="'tertiary'"
+          [icon]="'receipt_long'"
+          label="{{ 'buyCart.requestQuote' | cxTranslate }}"
+          loading="false"
+          (click)="requestQuote()"
+        ></bh-button>
+        <div
+          class="action-links-holder"
+          *ngIf="currentGuestAction == guestActions.OBSOLETE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.thisisanobsoleteproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+        <div
+          class="action-links-holder"
+          *ngIf="currentGuestAction == guestActions.CONTACT_CUSTOMER_CARE"
+        >
+          <span class="action-help-text">{{
+            'buyCart.youcannotbuythisproduct' | cxTranslate
+          }}</span>
+          <a class="action-link" [routerLink]="'/contactus'"
+            ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+          >
+        </div>
+      </div>
+
+      <div class="alternate-text" *ngIf="!buy">
+        <div>{{ 'buyCart.youcannotreturnthisproduct' | cxTranslate }},</div>
+        <a [routerLink]="'/contactus'">{{
+          'buyCart.contactCustomerCare' | cxTranslate
+        }}</a>
+      </div>
+    </div>
+    <div *ngIf="mode == 'pdp'" class="cart-additions-section m-0">
+      <ng-container *ngIf="product?.price?.value > 0">
+        <div class="availibilty-display">
+          <div class="availibilty-display-segment row">
+            <span class="col-2 right spec-title p-0">{{
+              'buyCart.shipDate' | cxTranslate
+            }}</span>
+            <div class="col-10">
+              <ng-container *ngFor="let shipDate of product.estShipData">
+                <span class="col-12 bold-text p-0 mb-1 spec-value">{{
+                  getShipDate(shipDate)
+                }}</span>
+                <span *ngIf="shipDate?.stockQty" class="ml-1 bold-text"
+                  >({{ shipDate.stockQty }}
+                  {{ 'buyCart.available' | cxTranslate }})</span
+                >
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="availibilty-display mb-4">
+          <div class="availibilty-display-segment row">
+            <div
+              class="col-2 right spec-title mt-6 p-0"
+              *ngIf="product?.plantAvailableAt"
+            >
+              {{ 'buyCart.availableat' | cxTranslate }}
+            </div>
+
+            <ng-select
+              [searchable]="false"
+              [clearable]="false"
+              class="col-7 availibility"
+              *ngIf="product?.plantAvailableAt"
+              (change)="changePlant($event)"
+              formControlName="availableAt"
+            >
+              <ng-option
+                [value]="availableAddress"
+                *ngFor="let availableAddress of product?.plantAvailableAt"
+                [selected]="
+                  availableAddress?.defaultPlant == 'true' ? true : false
+                "
+              >
+                <span>{{ availableAddress?.name }}</span>
+                <span>
+                  ({{
+                    availableAddress?.stockAvailable | number: '1.0-0'
+                  }})</span
+                >
+                <span *ngIf="availableAddress.defaultPlant">
+                  {{ 'buyCart.default' | cxTranslate }}</span
+                >
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="counter-placeholder">
+          <div class="mb-2 mt-2">
+            <div class="quantity row" *ngIf="showQuantity">
+              <label class="bold m-0 mr-1 custom-pdp-padding">{{
+                'addToCart.quantity' | cxTranslate
+              }}</label>
+
+              <cx-item-counter
+                [max]="maxQuantity"
+                [control]="addToCartForm.get('quantity')"
+              ></cx-item-counter>
+
+              <label class="normal m-0 ml-1 custom-pdp-padding"
+                >{{ product.uom }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="guest-pdp-buttons add-to-cart-buttons mt-3">
+        <div class="buy-action-section p-0">
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.BUY"
+            [type]="'primary'"
+            [icon]="'add_shopping_cart'"
+            label="{{ 'buyCart.buy' | cxTranslate }}"
+            loading="false"
+            class="pdp-minimum-width"
+            (click)="addToCart()"
+          ></bh-button>
+
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.CHECK_PRICE"
+            [type]="'primary'"
+            class="btn-align-pos"
+            label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+            loading="false"
+            class="pdp-minimum-width btn-align-pos"
+            [attr.loading]="isCheckingPrice"
+            (click)="checkPrice(true)"
+          ></bh-button>
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.QUOTE"
+            class="pdp-minimum-width quote-button"
+            [type]="'tertiary'"
+            [icon]="'receipt_long'"
+            label="{{ 'buyCart.requestQuote' | cxTranslate }}"
+            loading="false"
+            (click)="requestQuote()"
+          ></bh-button>
+        </div>
+        <div class="return-action-section p-0">
+          <div
+            class="action-links-holder"
+            *ngIf="currentGuestAction == guestActions.OBSOLETE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentGuestAction == guestActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotbuythisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-auto add-to-cart-buttons mb-3"></div>
+    </div>
+    <div *ngIf="mode == 'search'">
+      <div class="search-suggestoin-actions add-to-cart-buttons row">
+        <div class="buy-action-section col-10 p-0">
+          <div
+            *ngIf="currentGuestAction == guestActions.BUY"
+            class="quantity row mt-3"
+          >
+            <span class="bold qty-labels">{{
+              'addToCart.quantity' | cxTranslate
+            }}</span>
+
+            <cx-item-counter
+              [max]="maxQuantity"
+              [control]="addToCartForm.get('quantity')"
+            ></cx-item-counter>
+
+            <span class="normal qty-labels"
+              >{{ product.uom }} {{ 'buyCart.each' | cxTranslate }}</span
+            >
+          </div>
+
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.BUY"
+            [type]="'primary'"
+            [icon]="'add_shopping_cart'"
+            label="{{ 'buyCart.buy' | cxTranslate }}"
+            loading="false"
+            small="true"
+            class="pdp-minimum-width"
+            (click)="addToCart()"
+          ></bh-button>
+
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.CHECK_PRICE"
+            [type]="'primary'"
+            class="pdp-minimum-width btn-align-pos"
+            label="{{ 'buyCart.checkPrice' | cxTranslate }}"
+            small="true"
+            loading="false"
+            (click)="checkPrice(true)"
+          ></bh-button>
+
+          <bh-button
+            *ngIf="currentGuestAction == guestActions.QUOTE"
+            class="quote-button"
+            [type]="'tertiary'"
+            [icon]="'receipt_long'"
+            label="{{ 'buyCart.requestQuote' | cxTranslate }}"
+            loading="false"
+            (click)="requestQuote()"
+          ></bh-button>
+          <div
+            class="action-links-holder"
+            *ngIf="currentGuestAction == guestActions.OBSOLETE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.thisisanobsoleteproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+          <div
+            class="action-links-holder"
+            *ngIf="currentGuestAction == guestActions.CONTACT_CUSTOMER_CARE"
+          >
+            <span class="action-help-text">{{
+              'buyCart.youcannotbuythisproduct' | cxTranslate
+            }}</span>
+            <a class="action-link" [routerLink]="'/contactus'"
+              ><span>{{ 'buyCart.contactCustomerCare' | cxTranslate }}</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

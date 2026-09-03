@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "Other Portals & Links",
+    "tblSiteName": "Site Name",
+    "productLine": "Компания по производству продуктов",
+    "tblDescription": "Описание",
+    "type": "Категория",
+    "loginRequired": "Access",
+    "error": {
+      "errorMessage": "Что то пошло не так, пожалуйста попытайтесь позже."
+    }
+  }
+}

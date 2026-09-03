@@ -1,0 +1,437 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# Import essential data for the Accelerator
+#
+# Includes:
+# * Languages
+# * Currencies
+# * Titles
+# * Vendors
+# * Warehouses
+# * Supported Credit/Debit cards
+# * User Groups
+# * DistanceUnits for Storelocator
+# * MediaFolders
+# * MediaFormats                               s
+# * Tax & Tax Groups
+# * Jobs
+#% impex.setLocale(Locale.GERMAN);
+
+# Languages
+INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
+;en;;;
+;de;en;;
+;ja;en;;
+;zh;en;;
+
+# Currencies
+INSERT_UPDATE Currency ; active[allownull=true] ; base[allownull=true] ; conversion[allownull=true] ; digits[allownull=true] ;isocode[unique=true,allownull=true]; name[lang=en];sapCode ;symbol[allownull=true]
+; false                  ; false                ;1;0; ADP                                 ; Andoran peseta                          ; ADP     ;ADP
+; false                  ; false                ;1;2; AED                                 ; United Arab Emirates Dirham             ; AED     ;د.إ
+; false                  ; false                ;1;0; AFG                                 ; Afghani (Old)                           ; AFA     ;؋
+; false                  ; false                ;1;2; AFN                                 ; Afghani                                 ; AFN     ;؋
+; false                  ; false                ;1;2; ALL                                 ; Albanian Lek                            ; ALL     ;L
+; false                  ; false                ;1;2; AMD                                 ; Armenian Dram                           ; AMD     ;֏
+; false                  ; false                ;1;2; ANG                                 ; West Indian Guilder                     ; ANG     ;ƒ
+; false                  ; false                ;1;2; AOA                                 ; Angolanische Kwanza                     ; AOA     ;Kz
+; false                  ; false                ;1;2; AON                                 ; Angolan New Kwanza                      ; AON     ;Kz
+; false                  ; false                ;1;2; AOR                                 ; Angolan Kwanza Reajustado               ; AOR     ;Kz
+; false                  ; false                ;1;2; ARS                                 ; Argentine Peso                          ; ARS     ;$
+; false                  ; false                ;1;2; ATS                                 ; Austrian Schilling                      ; ATS     ;S
+; false                  ; false                ;1;2; AUD                                 ; Australian Dollar                       ; AUD     ;A$
+; false                  ; false                ;1;2; AWG                                 ; Aruban Guilder                          ; AWG     ;ƒ
+; false                  ; false                ;1;2; AZM                                 ; Azerbaijan Manat                        ; AZM     ;₼
+; false                  ; false                ;1;2; AZN                                 ; Azerbaijan Manat -New                   ; AZN     ;₼
+; false                  ; false                ;1;2; BAM                                 ; Bosnia and Herzegovina Convertible Mark ; BAM     ;KM
+; false                  ; false                ;1;2; BBD                                 ; Barbados Dollar                         ; BBD     ;Bds$
+; false                  ; false                ;1;2; BDT                                 ; Bangladesh Taka                         ; BDT     ;৳
+; false                  ; false                ;1;0; BEF                                 ; Belgian Franc                           ; BEF     ;fr.
+; false                  ; false                ;1;0; BGL                                 ; Bulgarian Lev                           ; BGL     ;Лв.
+; false                  ; false                ;1;2; BGN                                 ; Bulgarian Lev                           ; BGN     ;Лв.
+; false                  ; false                ;1;3; BHD                                 ; Bahrain Dinar                           ; BHD     ;BD
+; false                  ; false                ;1;0; BIF                                 ; Burundi Franc                           ; BIF     ;FBu
+; false                  ; false                ;1;2; BMD                                 ; Bermudan Dollar                         ; BMD     ;$
+; false                  ; false                ;1;2; BND                                 ; Brunei Dollar                           ; BND     ;B$
+; false                  ; false                ;1;2; BOB                                 ; Bolivian peso                           ; BOB     ;Bs
+; false                  ; false                ;1;2; BRL                                 ; Brazilian Real                          ; BRL     ;R$
+; false                  ; false                ;1;2; BSD                                 ; Bahaman Dollar                          ; BSD     ;B$
+; false                  ; false                ;1;2; BTN                                 ; Bhutan Ngultrum                         ; BTN     ;Nu.
+; false                  ; false                ;1;2; BWP                                 ; Botswana Pula                           ; BWP     ;P
+; false                  ; false                ;1;0; BYB                                 ; Belorussian Ruble                       ; BYB     ;Br
+; false                  ; false                ;1;2; BYR                                 ; Belorussian Ruble                       ; BYR     ;Br
+; false                  ; false                ;1;2; BZD                                 ; Belize Dollar                           ; BZD     ;$
+; false                  ; false                ;14;2; CAD                                 ; Canadian Dollar                         ; CAD     ; C$
+; false                  ; false                ;1;2; CDF                                 ; Congolese Franc                         ; CDF     ;FC
+; false                  ; false                ;1;2; CFP                                 ; French Franc (Pacific Islands)          ; CFP     ;F
+; false                  ; false                ;1;2; CHF                                 ; Swiss Franc                             ; CHF     ;SFr.
+; false                  ; false                ;1;0; CLP                                 ; Chilean Peso                            ; CLP     ;$
+; false                  ; false                ;1;2; CNY                                 ; Renmimbi                                ; CNY     ; ¥
+; false                  ; false                ;1;0; COP                                 ; Columbian Peso                          ; COP     ;$
+; false                  ; false                ;1;2; CRC                                 ; Costa Rica Colon                        ; CRC     ;₡
+; false                  ; false                ;1;2; CUP                                 ; Cuban Peso                              ; CUP     ;₱
+; false                  ; false                ;1;2; CVE                                 ; Cape Verde Escudo                       ; CVE     ;Esc
+; false                  ; false                ;1;2; CYP                                 ; Cyprus Pound                            ; CYP     ;‎£
+; false                  ; false                ;1;2; CZK                                 ; Czech Krona                             ; CZK     ;Kč
+; false                  ; false                ;1;2; DEM                                 ; German Mark                             ; DEM     ;DM
+; false                  ; false                ;1;0; DJF                                 ; Djibouti Franc                          ; DJF     ;Fdj
+; false                  ; false                ;1;2; DKK                                 ; Danish Krone                            ; DKK     ;Kr.
+; false                  ; false                ;1;2; DOP                                 ; Dominican Peso                          ; DOP     ;RD$
+; false                  ; false                ;1;2; DZD                                 ; Algerian Dinar                          ; DZD     ;دج
+; false                  ; false                ;1;0; ECS                                 ; Ecuadorian Sucre                        ; ECS     ;S/.
+; false                  ; false                ;1;2; EEK                                 ; Estonian Krone                          ; EEK     ;kr
+; false                  ; false                ;1;2; EGP                                 ; Egyptian Pound                          ; EGP     ;ج.م
+; false                  ; false                ;1;2; ERN                                 ; Eritrean Nafka                          ; ERN     ;Nfk
+; false                  ; false                ;1;0; ESP                                 ; Spanish Peseta                          ; ESP     ;Pta
+; false                  ; false                ;1;2; ETB                                 ; Ethiopian Birr                          ; ETB     ;ብር
+; false                  ; true                 ;1;2; EUR                                 ; Euro                                    ; EUR     ; €
+; false                  ; false                ;1;2; FIM                                 ; Finnish markka                          ; FIM     ;mk
+; false                  ; false                ;1;2; FJD                                 ; Fiji Dollar                             ; FJD     ;FJ$
+; false                  ; false                ;1;2; FKP                                 ; Falkland Pound                          ; FKP     ;£
+; false                  ; false                ;1;2; FRF                                 ; French Franc                            ; FRF     ;Fr
+; false                  ; false                ;1;2; GBP                                 ; British Pound                           ; GBP     ; £
+; false                  ; false                ;1;2; GEL                                 ; Georgian Lari                           ; GEL     ;ლ
+; false                  ; false                ;1;2; GHC                                 ; Ghanian Cedi                            ; GHC     ;gh₵
+; false                  ; false                ;1;2; GHS                                 ; Ghanian Cedi                            ; GHS     ;gh₵
+; false                  ; false                ;1;2; GIP                                 ; Gibraltar Pound                         ; GIP     ;£
+; false                  ; false                ;1;2; GMD                                 ; Gambian Dalasi                          ; GMD     ;D
+; false                  ; false                ;1;0; GNF                                 ; Guinean Franc                           ; GNF     ;FG
+; false                  ; false                ;1;0; GRD                                 ; Greek Drachma                           ; GRD     ;₯
+; false                  ; false                ;1;2; GTQ                                 ; Guatemalan Quetzal                      ; GTQ     ;Q
+; false                  ; false                ;1;2; GWP                                 ; Guinea Peso                             ; GWP     ; GWP
+; false                  ; false                ;1;2; GYD                                 ; Guyanese Dollar                         ; GYD     ;G$
+; false                  ; false                ;1;2; HKD                                 ; Hong Kong Dollar                        ; HKD     ;HK$
+; false                  ; false                ;1;2; HNL                                 ; Honduran Lempira                        ; HNL     ;L
+; false                  ; false                ;1;2; HRK                                 ; Croatian Kuna                           ; HRK     ;kn
+; false                  ; false                ;1;2; HTG                                 ; Haitian Gourde                          ; HTG     ;G
+; false                  ; false                ;1;0; HUF                                 ; Hungarian Forint                        ; HUF     ;Ft
+; false                  ; false                ;1;0; IDR                                 ; Indonesian Rupiah                       ; IDR     ;Rp
+; false                  ; false                ;1;2; IEP                                 ; Irish Punt                              ; IEP     ;IR£
+; false                  ; false                ;1;2; ILS                                 ; Israeli Scheckel                        ; ILS     ;₪
+; false                  ; false                ;1;2; INR                                 ; Indian Rupee                            ; INR     ;₹
+; false                  ; false                ;1;2; IQD                                 ; Iraqui Dinar                            ; IQD     ;ع.د
+; false                  ; false                ;1;2; IRR                                 ; Iranian Rial                            ; IRR     ;﷼
+; false                  ; false                ;1;2; ISK                                 ; Iceland Krona                           ; ISK     ;Íkr
+; false                  ; false                ;1;0; ITL                                 ; Italian Lira                            ; ITL     ;L
+; false                  ; false                ;1;2; JMD                                 ; Jamaican Dollar                         ; JMD     ;J$
+; false                  ; false                ;1;3; JOD                                 ; Jordanian Dinar                         ; JOD     ;د.ا
+; false                  ; false                ;120;0; JPY                                 ; Japanese Yen                            ; JPY     ;¥
+; false                  ; false                ;1;2; KES                                 ; Kenyan Shilling                         ; KES     ;ksh
+; false                  ; false                ;1;2; KGS                                 ; Kyrgyzstan Som                          ; KGS     ;Лв
+; false                  ; false                ;1;2; KHR                                 ; Cambodian Riel                          ; KHR     ;៛
+; false                  ; false                ;1;0; KMF                                 ; Comoros Franc                           ; KMF     ;CF
+; false                  ; false                ;1;2; KPW                                 ; North Korean Won                        ; KPW     ;₩
+; false                  ; false                ;1;0; KRW                                 ; South Korean Won                        ; KRW     ;₩
+; false                  ; false                ;1;3; KWD                                 ; Kuwaiti Dinar                           ; KWD     ;د.ك
+; false                  ; false                ;1;2; KYD                                 ; Cayman Dollar                           ; KYD     ;$
+; false                  ; false                ;1;2; KZT                                 ; Kazakstan Tenge                         ; KZT     ;₸
+; false                  ; false                ;1;0; LAK                                 ; Laotian Kip                             ; LAK     ;₭
+; false                  ; false                ;1;2; LBP                                 ; Lebanese Pound                          ; LBP     ;ل.ل.
+; false                  ; false                ;1;2; LKR                                 ; Sri Lankan Rupee                        ; LKR     ;රු
+; false                  ; false                ;1;2; LRD                                 ; Liberian Dollar                         ; LRD     ;L$
+; false                  ; false                ;1;2; LSL                                 ; Lesotho Loti                            ; LSL     ;L
+; false                  ; false                ;1;2; LTL                                 ; Lithuanian Lita                         ; LTL     ;Lt
+; false                  ; false                ;1;0; LUF                                 ; Luxembourg Franc                        ; LUF     ;F
+; false                  ; false                ;1;2; LVL                                 ; Latvian Lat                             ; LVL     ;Ls
+; false                  ; false                ;1;3; LYD                                 ; Libyan Dinar                            ; LYD     ;ل.د
+; false                  ; false                ;1;2; MAD                                 ; Moroccan Dirham                         ; MAD     ;DH
+; false                  ; false                ;1;2; MDL                                 ; Moldavian Lei                           ; MDL     ;L
+; false                  ; false                ;1;2; MGA                                 ; Madagascan Ariary (New)                 ; MGA     ;Ar
+; false                  ; false                ;1;0; MGF                                 ; Madagascan Franc                        ; MGF     ;Ar
+; false                  ; false                ;1;2; MKD                                 ; Macedonian Denar                        ; MKD     ;Ден
+; false                  ; false                ;1;2; MMK                                 ; Myanmar Kyat                            ; MMK     ;K
+; false                  ; false                ;1;2; MNT                                 ; Mongolian Tugrik                        ; MNT     ;₮
+; false                  ; false                ;1;2; MOP                                 ; Macao Pataca                            ; MOP     ;MOP$
+; false                  ; false                ;1;2; MRO                                 ; Mauritanian Ouguiya                     ; MRO     ;UM
+; false                  ; false                ;1;2; MTL                                 ; Maltese Lira                            ; MTL     ;Lm
+; false                  ; false                ;1;2; MUR                                 ; Mauritian Rupee                         ; MUR     ;Rs
+; false                  ; false                ;1;2; MVR                                 ; Maldive Rufiyaa                         ; MVR     ;Rf
+; false                  ; false                ;1;2; MWK                                 ; Malawi Kwacha                           ; MWK     ;MK
+; false                  ; false                ;1;2; MXN                                 ; Mexican Pesos                           ; MXN     ;mex$
+; false                  ; false                ;1;2; MXV                                 ; Mexican Unidad de Inversion (UDI)       ; MXV     ;MXV
+; false                  ; false                ;1;2; MYR                                 ; Malaysian Ringgit                       ; MYR     ;RM
+; false                  ; false                ;1;0; MZM                                 ; Mozambique Metical                      ; MZM     ;MT
+; false                  ; false                ;1;2; MZN                                 ; Mozambique Metical                      ; MZN     ;MT
+; false                  ; false                ;1;2; NAD                                 ; Namibian Dollar                         ; NAD     ;N$
+; false                  ; false                ;1;2; NGN                                 ; Nigerian Naira                          ; NGN     ;₦
+; false                  ; false                ;1;2; NIO                                 ; Nicaraguan Cordoba Oro                  ; NIO     ;C$
+; false                  ; false                ;1;2; NLG                                 ; Dutch Guilder                           ; NLG     ;ƒ
+; false                  ; false                ;1;2; NOK                                 ; Norwegian Krone                         ; NOK     ;kr
+; false                  ; false                ;1;2; NPR                                 ; Nepalese Rupee                          ; NPR     ;Re.
+; false                  ; false                ;1;2; NZD                                 ; New Zealand Dollars                     ; NZD     ;$
+; false                  ; false                ;1;3; OMR                                 ; Omani Rial                              ; OMR     ;ر.ع.
+; false                  ; false                ;1;2; PAB                                 ; Panamanian Balboa                       ; PAB     ;B/.
+; false                  ; false                ;1;2; PEN                                 ; Peruvian New Sol                        ; PEN     ;S/
+; false                  ; false                ;1;2; PGK                                 ; Papua New Guinea Kina                   ; PGK     ;K
+; false                  ; false                ;1;2; PHP                                 ; Philippino Peso                         ; PHP     ;₱
+; false                  ; false                ;1;2; PKR                                 ; Pakistani Rupee                         ; PKR     ;₨
+; false                  ; false                ;1;2; PLN                                 ; Polish Zloty (new)                      ; PLN     ;zł
+; false                  ; false                ;1;2; PLR                                 ; PLR                                     ; PLR     ;PLR
+; false                  ; false                ;1;0; PTE                                 ; Portuguese Escudo                       ; PTE     ;PTE
+; false                  ; false                ;1;0; PYG                                 ; Paraguayan Guarani                      ; PYG     ;₲
+; false                  ; false                ;1;2; QAR                                 ; Qatar Riyal                             ; QAR     ;ر.ق
+; false                  ; false                ;1;2; RMB                                 ; Chinese Renminbi Yuan                   ; RMB     ;¥
+; false                  ; false                ;1;0; ROL                                 ; Roumanian Lei                           ; ROL     ;lei
+; false                  ; false                ;1;2; RON                                 ; New Romanian Leu                        ; RON     ;lei
+; false                  ; false                ;1;2; RSD                                 ; Serbian Dinar                           ; RSD     ;din
+; false                  ; false                ;1;2; RUB                                 ; Russian Rouble                          ; RUB     ;P
+; false                  ; false                ;1;0; RWF                                 ; Rwandan Franc                           ; RWF     ;FRw
+; false                  ; false                ;1;2; SAR                                 ; Saudi Riyal                             ; SAR     ;﷼‎
+; false                  ; false                ;1;2; SBD                                 ; Solomon Islands Dollar                  ; SBD     ;Si$
+; false                  ; false                ;1;2; SCR                                 ; Seychelles Rupee                        ; SCR     ;SR
+; false                  ; false                ;1;2; SDD                                 ; Sudanese Dinar                          ; SDD     ;LSd
+; false                  ; false                ;1;2; SDG                                 ; Sudanese pound                          ; SDG     ;ج.س.
+; false                  ; false                ;1;2; SDP                                 ; Sudanese Pound                          ; SDP     ;ج.س.
+; false                  ; false                ;1;2; SEK                                 ; Swedish Krona                           ; SEK     ;kr
+; false                  ; false                ;1;2; SGD                                 ; Singapore Dollar                        ; SGD     ;S$
+; false                  ; false                ;1;2; SHP                                 ; St.Helena Pound                         ; SHP     ;£
+; false                  ; false                ;1;2; SIT                                 ; Slovenian Tolar                         ; SIT     ;SIT
+; false                  ; false                ;1;2; SKK                                 ; Slovakian Krona                         ; SKK     ;Sk
+; false                  ; false                ;1;2; SLL                                 ; Leone                                   ; SLL     ;Le
+; false                  ; false                ;1;2; SOS                                 ; Somalian Shilling                       ; SOS     ;Sh.so.
+; false                  ; false                ;1;2; SRD                                 ; Surinam Dollar                          ; SRD     ;$
+; false                  ; false                ;1;2; SRG                                 ; Surinam Guilder                         ; SRG     ;ƒ 
+; false                  ; false                ;1;2; SSP                                 ; South Sudanese Pound                    ; SSP     ;£
+; false                  ; false                ;1;2; STD                                 ; Sao Tome / Principe Dobra               ; STD     ;Db
+; false                  ; false                ;1;2; SVC                                 ; El Salvador Colon                       ; SVC     ;C
+; false                  ; false                ;1;2; SYP                                 ; Syrian Pound                            ; SYP     ;£S
+; false                  ; false                ;1;2; SZL                                 ; Swaziland Lilangeni                     ; SZL     ;L
+; false                  ; false                ;1;2; THB                                 ; Thailand Baht                           ; THB     ;฿
+; false                  ; false                ;1;0; TJR                                 ; Tadzhikistani Ruble                     ; TJR     ; TJR
+; false                  ; false                ;1;2; TJS                                 ; Tajikistani Somoni                      ; TJS     ;SM
+; false                  ; false                ;1;0; TMM                                 ; Turkmenistani Manat                     ; TMM     ;T
+; false                  ; false                ;1;2; TMT                                 ; Turkmenistani manat                     ; TMT     ;T
+; false                  ; false                ;1;3; TND                                 ; Tunisian Dinar                          ; TND     ;د.ت
+; false                  ; false                ;1;2; TOP                                 ; Tongan Pa'anga                          ; TOP     ;PT
+; false                  ; false                ;1;0; TPE                                 ; Timor Escudo                            ; TPE     ; TPE
+; false                  ; false                ;1;0; TRL                                 ; Turkish Lira                            ; TRL     ;₺
+; false                  ; false                ;1;2; TRY                                 ; Turkish Lira                            ; TRY     ;₺
+; false                  ; false                ;1;2; TTD                                 ; Trinidad and Tobago Dollar              ; TTD     ;TT$
+; false                  ; false                ;1;2; TWD                                 ; New Taiwan Dollar                       ; TWD     ;NT$
+; false                  ; false                ;1;2; TZS                                 ; Tanzanian Shilling                      ; TZS     ;TSh
+; false                  ; false                ;1;2; UAH                                 ; Ukraine Hryvnia                         ; UAH     ;₴
+; false                  ; false                ;1;0; UGX                                 ; Ugandan Shilling                        ; UGX     ;USh
+; false                  ; false                ;14;2; USD                                 ; US Dollar                               ; USD     ; $
+; false                  ; false                ;1;2; UYU                                 ; Uruguayan Peso (new)                    ; UYU     ;$U
+; false                  ; false                ;1;2; UZS                                 ; Uzbekistan Sum                          ; UZS     ;лв
+; false                  ; false                ;1;2; VEB                                 ; Venezuelan Bolivar                      ; VEB     ;Bs.
+; false                  ; false                ;1;2; VEF                                 ; Bolívar Fuerte                          ; VEF     ;Bs.
+; false                  ; false                ;1;0; VND                                 ; Vietnamese Dong                         ; VND     ;₫
+; false                  ; false                ;1;0; VUV                                 ; Vanuatu Vatu                            ; VUV     ;VT
+; false                  ; false                ;1;2; WST                                 ; Samoan Tala                             ; WST     ;WS$
+; false                  ; false                ;1;0; XAF                                 ; Gabon C.f.A Franc                       ; XAF     ;FCFA
+; false                  ; false                ;1;2; XCD                                 ; East Carribean Dollar                   ; XCD     ;$
+; false                  ; false                ;1;2; XDS                                 ; St. Christopher Dollar                  ; XDS     ; XDS
+; false                  ; false                ;1;2; XEU                                 ; European Currency Unit (E.C.U.)         ; XEU     ; XEU
+; false                  ; false                ;1;0; XOF                                 ; Benin C.f.A. Franc                      ; XOF     ;CFA
+; false                  ; false                ;1;0; XPF                                 ; CFP Franc                               ; XPF     ;₣
+; false                  ; false                ;1;2; YER                                 ; Yemeni Ryal                             ; YER     ;﷼
+; false                  ; false                ;1;2; YUM                                 ; New Yugoslavian Dinar                   ; YUM     ;din.
+; false                  ; false                ;1;2; ZAR                                 ; South African Rand                      ; ZAR     ;R
+; false                  ; false                ;1;2; ZMK                                 ; Zambian Kwacha                          ; ZMK     ;ZK
+; false                  ; false                ;1;2; ZMW                                 ; Zambian Kwacha                          ; ZMW     ;ZK
+; false                  ; false                ;1;0; ZRN                                 ; Zaire                                   ; ZRN     ;Z
+; false                  ; false                ;1;2; ZWD                                 ; Zimbabwean Dollar                       ; ZWD     ;$
+
+
+
+# Vendor
+INSERT_UPDATE Vendor;code[unique=true];name
+;default;Default Vendor
+
+# Disable preview for email pages
+UPDATE CMSPageType;code[unique=true];previewDisabled
+;EmailPage;true
+
+# Titles
+INSERT_UPDATE Title;code[unique=true]
+;mr
+;mrs
+;miss
+;ms
+;dr
+;rev
+
+# Media Folders
+INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]
+;images;images
+;email-body;email-body
+;email-attachments;email-attachments
+
+# Media formats
+INSERT_UPDATE MediaFormat;qualifier[unique=true]
+;1200Wx1200H
+;515Wx515H
+;365Wx246H
+;300Wx300H
+;96Wx96H
+;65Wx65H
+;30Wx30H
+;mobile
+;tablet
+;desktop
+;widescreen
+
+# Tax & Tax Groups
+INSERT_UPDATE UserTaxGroup;code[unique=true]
+;de-taxes
+;jp-taxes
+;uk-taxes
+;us-taxes
+;ca-taxes
+
+INSERT_UPDATE ProductTaxGroup;code[unique=true]
+;jp-vat-full
+;eu-vat-full
+;eu-vat-half
+;us-sales-tax-full
+;ca-sales-tax-full
+
+INSERT_UPDATE Tax;code[unique=true];value;currency(isocode)
+;de-vat-full;19
+;de-vat-half;7
+;jp-vat-full;5
+;uk-vat-full;20
+;uk-vat-half;5
+;us-sales-tax-full;0
+;ca-sales-tax-full;0
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;cartRemovalJob;cartRemovalJob
+;siteMapMediaJob;siteMapMediaJob
+;quoteToExpireSoonJobPerformable;quoteToExpireSoonJobPerformable
+;quoteExpiredJobPerformable;quoteExpiredJobPerformable
+
+#ENUM IMPORT VALUES
+INSERT_UPDATE PrePayShippingCarrierMethod;code[unique=true];name
+;101;UPS-GROUND COM
+;103;UPS-3 DAY SELECT
+;104;UPS-2ND DAY AIR
+;105;UPS-2NDDAYAIRAM
+;107;UPS-NEXT DAY AIR
+;108;UPS-NEXT DAY EARLY AM
+;109;UPS-NEXT DAY SATURDAY DELIVERY
+;201;FEDERAL EXPRESS-GROUND
+;204;Federal Express DX-1ST Next Business AM
+;205;FEDERAL EXPRESS-STANDARD-NEXTBUSINESS-PM
+;206;FEDERAL EXPRESS -PRIORITY-NEXTBUSINESS-AM
+;207;Federal Express-Next Day SATURDAY-DELIVERY
+;210;FEDERAL EXPRESS -2ND DAY
+;848;USPS PARCEL-MAIL
+;115;UPS-INTL Express
+;117;UPS INTERNATIONAL STANDARD
+;132;UPS-INTL Express-COL
+;203;FEDERAL EXPRESS -2ND DAY
+;214;FEDERAL EXPRESSINTERNATIONAL ECONOMY3-5 DAY
+;608;USPS PARCEL-MAIL
+;609;Other:Check Ship Cmn
+;703;AIRFREIGHT COLLECT
+;707;ABHOLUNG
+;709;DHL
+;712;UPS COLLECT
+;717;FEDEX
+;718;UPS
+;719;DPD
+;723;AIRFREIGHT
+;725;BY TRUCK
+;741;VIA COURIER
+;750;TNT
+;816;UPS EXPRESS SAVER
+
+
+
+INSERT_UPDATE CollectShippingCarrierMethod;code[unique=true];name
+#;119;FEDERAL EXPRESS-SATURDAY DELIVERY-NEXTBUSINESS-PM
+;118;UPS-GROUND COM
+;121;UPS-2ND DAY AIR
+;122;UPS-2ND DAYAIRAM
+;124;UPS-NEXT DAY AIR
+;125;UPS-NEXTDAY EARLY AM
+;126;UPS-NEXTDAY SATURDAYDELIVERY
+;134;UPS INTERNATIONAL STANDARD
+;135;UPS-3 DAY SELECT
+;217;FEDERAL EXPRESS-GROUND
+;219;FEDERAL EXPRESS-2ND DAY 
+;220;FEDERAL EXPRESS-PRIORITY-NEXTBUSINESS-AM
+;222;FEDERAL EXPRESS -1ST NEXTBBUSINESS AM
+;223;FEDERAL EXPRESS-NEXTDAY SATURDAY-DELIVERY
+;230;FEDERAL EXPRESSINTERNATIONAL ECONOMY3-5 DAY
+;132;UPS-INTL Express
+;221;FEDERAL EXPRESS-STANDARD-NEXTBUSINESS-PM
+;608;USPS PARCEL-MAIL
+;609;Other:Check Ship Cmn
+;703;AIRFREIGHT
+;711;FEDEX COLLECT
+;712;UPS COLLECT
+;713;DPD
+;714;BY TRUCK
+;722;VIA COURIER
+;750;TNT
+;816;UPS EXPRESS SAVER
+
+INSERT_UPDATE GEEdgeServiceProvider;serviceProvider[unique=true];url;
+;UPS-Grnd Com-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Com-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Next Day Air-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-INTL Express-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Com-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA-Saver-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd Day Air-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-Grnd Resi-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-NDA Early AM-COL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-AFRT-ECO-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-ND SATDEL-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd DayAirAM-PPA;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS-2nd Day Air-COLL;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;UPS;http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=
+;FEDEX-Ground-COLL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+;FDX-Std-NB-PM-COL;http://www.fedex.com/Tracking?action=track&tracknumbers=
+
+# Media Folders
+INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]
+;customerdata;customerdata
+
+# Deactivate Frontend Restriction on category by default for perfomance purposes
+#UPDATE SearchRestriction;code[unique=true];active[default=false]
+#;Frontend_RestrictedCategory
+
+# Deactivate Frontend Restriction on category by default for perfomance purposes
+UPDATE SearchRestriction;code[unique=true];active[default=false]
+;Frontend_RestrictedCategory
+
+UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code)[unique=true];active;generate[default=true]
+;Backend_visibility;Backend visiblity;{catalogVersion} IN ( ?session.catalogversions ) OR  {catalogVersion} IS NULL;b2bcustomergroup;Category;false;;
+;Frontend_Category;Frontend Category;{item:catalogVersion} IN (?session.catalogversions);customergroup;Category;false;;
+
+
+# Disable SearchRestriction for B2BCostCenter and B2B Unit
+INSERT_UPDATE SearchRestriction;code[unique=true];active;
+;costcenter_restriction;0
+;branch_restriction;0
+;b2busergroup_restriction;0
+INSERT_UPDATE Script  ; scriptType(code)  ; active  ; code[unique=true]     ; version   ; content;
+                      ; GROOVY            ; true    ; confirmPickup         ; 0         ; "import de.hybris.platform.basecommerce.enums.ConsignmentStatus; import com.hybris.cockpitng.actions.ActionContext; import com.hybris.cockpitng.actions.ActionResult; import de.hybris.platform.ordersplitting.model.ConsignmentModel; import de.hybris.platform.ordersplitting.model.ConsignmentProcessModel; import de.hybris.platform.processengine.BusinessProcessService; import com.hybris.cockpitng.util.BackofficeSpringUtil; import com.hybris.cockpitng.actions.CockpitAction; import com.hybris.cockpitng.dataaccess.facades.object.ObjectFacade; import com.hybris.cockpitng.dataaccess.facades.object.exceptions.ObjectSavingException;  public class PickupConfirmationAction implements CockpitAction {        public ActionResult perform(final ActionContext ctx)      {         final Object data = ctx.getData();         if(data instanceof ConsignmentModel){             try{                 ((ConsignmentModel)data).setStatus(ConsignmentStatus.PICKUP_COMPLETE);                 getObjectFacade().save(data);                 for (final ConsignmentProcessModel process : ((ConsignmentModel)data).getConsignmentProcesses())                 {                     getBusinessProcessService().triggerEvent(process.getCode() + ""_ConsignmentPickup"");                 }             }             catch(final ObjectSavingException e){                 throw new RuntimeException(e);             };             return new ActionResult(ActionResult.SUCCESS);         };         return new ActionResult(ActionResult.ERROR);     };      public boolean canPerform(final ActionContext ctx)     {         return (ctx.getData() instanceof ConsignmentModel) && ((ConsignmentModel)ctx.getData()).getStatus().equals(ConsignmentStatus.READY_FOR_PICKUP)     };      public boolean needsConfirmation(final ActionContext ctx)     {         return false;     };      public String getConfirmationMessage(final ActionContext ctx)     {         return ""Are you sure?"";     };       public ObjectFacade getObjectFacade(){         return (ObjectFacade) BackofficeSpringUtil.getBean(""objectFacade"");     };       protected BusinessProcessService getBusinessProcessService()     {         return BackofficeSpringUtil.getBean(""businessProcessService"", BusinessProcessService.class);     } }";
+
+#BHGE Currency Format 
+INSERT_UPDATE BHGECurrencyFormat; code[unique=true];isDefaultLocale;currencyDisplay
+;de_DE;false;12.345.678,12
+;fr_CA;false;12 345 678,12
+;en_US;true;12,345,678.12                      
+
+
+UPDATE Country;isocode[unique=true];guestShipToCountries(isocode)
+;US;US,CA
+
+INSERT_UPDATE BHGECurrency ;currency;customerId;salesOrg;pricingProcedure;productType;remit
+                           ;EUR;0000147075;6040;ZSEU1;FILM;;
+
+
+INSERT_UPDATE SAPSalesOrganization;salesOrganization[unique=true];distributionChannel;division;isAPAC;minOrderValue
+                                  ;7140;GE;GE;true;100000

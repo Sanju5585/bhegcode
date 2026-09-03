@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "Other Portals & Links",
+    "tblSiteName": "Site Name",
+    "productLine": "Product Company",
+    "tblDescription": "Description",
+    "type": "Type",
+    "loginRequired": "Access",
+    "error": {
+      "errorMessage": "Something went wrong, please try again later."
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="popup-page">
+      <div class="content-center">
+        <img class="green-line" src="/assets/img/dataRequestSuccess.svg" />
+        <h2 class="page-title">
+          {{ 'mySiteEquipment.sendSheet' | cxTranslate }}
+        </h2>
+        <p class="page-description">
+          {{ 'mySiteEquipment.checkInbox' | cxTranslate }}
+        </p>
+        <p class="page-description">
+          {{ 'mySiteEquipment.calibrationPlan' | cxTranslate }}
+        </p>
+        <div class="row mt-4 align-items">
+          <div class="col-lg-6 col-md-6">
+            <bh-button
+              type="secondary"
+              label="{{ 'mySiteEquipment.guestFormClear' | cxTranslate }}"
+              class="reset float-left mr-3"
+              (click)="closeModal()"
+            >
+            </bh-button>
+          </div>
+          <div class="col-lg-6 col-md-6 align-button">
+            <bh-button
+              type="primary"
+              label="{{ 'mySiteEquipment.createAccount' | cxTranslate }}"
+              class="track"
+            >
+            </bh-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

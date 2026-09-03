@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!--
+		Example Data POJO
+	
+	<bean class="com.bhge.register.application.mncecommerce.data.AbstractPojo" abstract="true">
+		<property name="id" type="String"/>
+		<property name="flag" type="boolean"/>
+	</bean>
+
+	<bean class="com.bhge.register.application.mncecommerce.data.MyPojo" extends="com.bhge.register.application.mncecommerce.data.AbstractPojo">
+		<property name="message" type="String"/>
+	</bean>
+
+	<bean class="com.bhge.register.application.mncecommerce.data.AnnotatedPojo">
+
+		<import type="javax.xml.bind.annotation.XmlRootElement"/>
+		<import type="javax.xml.bind.annotation.XmlElements"/>
+		<import type="javax.xml.bind.annotation.XmlElement"/>
+
+		<annotations>@XmlRootElement</annotations>
+		
+		<property name="someText" type="String">
+
+			<annotations scope="getter">
+			@XmlElements(value = {
+					@XmlElement(name="map",
+						type=ValueAsMap.class),
+					@XmlElement(name="string",
+						type=ValueAsString.class)
+			})
+			</annotations>
+
+		</property>
+
+	</bean>
+
+    <bean  class="de.hybris.platform.catalog.data.Equals1">
+    	<property name="a1" type="boolean" equals="true"/>
+    	<property name="a2" type="int" equals="true"/>
+    	<property name="a3" type="String" equals="true"/>
+    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
+    	<property name="a5" type="java.lang.Integer" equals="true"/>
+    	<property name="a6" type="java.util.List" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+	-->
+
+	<bean class="com.bhgeregister.dto.BHGERegisterRequest">
+		<property name="customerNumber" type="java.lang.String" />
+		<property name="phoneNumber" type="java.lang.Long" />
+		<property name="productLine" type="java.lang.String" />
+		<property name="companyName" type="java.lang.String" />
+		<property name="country" type="java.lang.String" />
+		<property name="companyAddressLine1" type="java.lang.String" />
+		<property name="companyAddressLine2" type="java.lang.String" />
+		<property name="stateProvince" type="java.lang.String" />
+		<property name="postalCode" type="java.lang.String" />
+		<property name="govtOrg" type="java.lang.String"></property>
+		<property name="sapContactId" type="java.lang.String"></property>
+		<property name="town" type="java.lang.String" />
+		<property name="iqmProductLine" type="java.lang.String" />
+		<property name="iqmCompanyName" type="java.lang.String" />
+		<property name="iqmCountry" type="java.lang.String" />
+		<property name="iqmCompanyAddressLine1" type="java.lang.String" />
+		<property name="iqmCompanyAddressLine2" type="java.lang.String" />
+		<property name="iqmStateProvince" type="java.lang.String" />
+		<property name="iqmPostalCode" type="java.lang.String" />
+		<property name="iqmTown" type="java.lang.String" />
+		<property name="duns" type="java.lang.String" />
+		<property name="appList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="iqmRole" type="java.lang.String" />
+		<property name="damProductLine" type="java.lang.String" />
+		<property name="damCustomerAccNumber" type="java.lang.String" />
+		<property name="damCompanyName" type="java.lang.String" />
+		<property name="damCompanyAddressLine1" type="java.lang.String" />
+		<property name="damCompanyAddressLine2" type="java.lang.String" />
+		<property name="damStateProvince" type="java.lang.String" />
+		<property name="damTown" type="java.lang.String" />
+		<property name="damPostalCode" type="java.lang.String" />
+		<property name="damCountry" type="java.lang.String" />
+		
+		<!-- US8159: Properties added for FPT ValvStore BHGERegisterRequest Start -->
+		<property name="fptCustomerAccNumber" type="java.lang.String"/>
+		<property name="fptCompanyAddressLine1" type="java.lang.String" />
+		<property name="fptCompanyAddressLine2" type="java.lang.String" />
+		<property name="fptStateProvince" type="java.lang.String" />
+		<property name="fptTown" type="java.lang.String" />
+		<property name="fptPostalCode" type="java.lang.String" />
+		<property name="fptCompanyName" type="java.lang.String" />
+		<property name="fptCountry" type="java.lang.String" />
+		<property name="fptProductLine" type="java.util.List&lt;String&gt;" />
+		<property name="fptLegalEntities" type="java.util.List&lt;String&gt;" />
+		<property name="fptRole" type="java.lang.String" />
+		<property name="srcSystem" type="java.lang.String"/>
+		<property name="userEvent" type="java.lang.String"/>
+		<property name="endCustomer" type="java.lang.Boolean" />
+		<property name="governmentEntity" type="java.lang.Boolean" />
+		<property name="detailNumber" type="java.lang.String" />
+		<property name="addressType" type="java.lang.String" />
+		<property name="detailNumberValue" type="java.lang.String" />
+		<property name="addressProof" type="java.lang.String" />
+		<property name="ownershipStructure" type="java.lang.String" />
+		<!-- US8159: Properties added for FPT ValvStore BHGERegisterRequest End -->
+		
+		<!-- OFS Properties added here  -->
+
+        <property name="ofsCustomerAccNumber" type="java.lang.String"/>
+        <property name="ofsCompanyName" type="java.lang.String" />
+        <property name="ofsCompanyAddressLine1" type="java.lang.String" />
+        <property name="ofsCompanyAddressLine2" type="java.lang.String" />
+        <property name="ofsStateProvince" type="java.lang.String" />
+        <property name="ofsTown" type="java.lang.String" />
+        <property name="ofsPostalCode" type="java.lang.String" />
+        <property name="ofsCountry" type="java.lang.String" />
+		<property name="ofsAccountType" type="java.lang.String"/>
+
+        <!-- OFS Properties added here  -->
+		<!-- New DSS Properties added here  -->
+		<property name="subProductLine" type="java.util.List&lt;java.lang.String>" />
+		<property name="dsMarket" type="java.util.List&lt;java.lang.String>" />
+		<property name="dsRole" type="java.lang.String" />
+		<property name="dsAccountType" type="java.util.List&lt;java.lang.String>" />
+	</bean>
+	
+	<bean class="com.bhgeregister.dto.BHGECSRRequest">
+	    <property name="requestAccessId" type="java.lang.String" />
+		<property name="companyName" type="java.lang.String" />
+		<property name="companyAddress" type="java.lang.String" />
+		<property name="companyAddressLine2" type="java.lang.String" />
+		<property name="district" type="java.lang.String" />
+		<property name="town" type="java.lang.String" />
+		<property name="postalCode" type="java.lang.String" />
+		<property name="country" type="java.lang.String" />
+		<property name="productLine" type="java.lang.String" />
+	</bean>
+	
+</beans>

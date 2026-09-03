@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+	<!-- DATA -->
+	<bean class="com.bhge.register.webservices.data.UserDataList">
+		<property name="users" type="java.util.List&lt;com.bhge.register.webservices.data.UserData>"/>
+	</bean>
+
+	<bean class="com.bhge.register.webservices.data.UserData" >
+		<property name="defaultBillingAddress" type="com.bhge.register.webservices.data.AddressData"/>
+		<property name="defaultShippingAddress" type="com.bhge.register.webservices.data.AddressData"/>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.webservices.data.AddressData>"/>
+		<property name="description" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.webservices.data.AddressData>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.data.AddressData">
+		<property name="streetname" type="String"/>
+		<property name="streetnumber" type="String"/>
+		<property name="town" type="String"/>
+		<property name="shippingAddress" type="boolean"/>
+		<property name="billingAddress" type="boolean"/>
+		<property name="defaultAddress" type="boolean"/>
+		<property name="formattedAddress" type="String"/>
+	</bean>
+
+	<!-- DTO -->
+	<bean class="com.bhge.register.webservices.dto.SampleWsDTO">
+		<description>Sample DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">sample</hint>
+		</hints>
+		<property name="value" type="String">
+			<description>sample value</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+	</bean>
+
+	<bean class="com.bhge.register.webservices.dto.UsersListWsDTO">
+		<description>User list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersList</hint>
+		</hints>
+		<property name="users" type="java.util.List&lt;com.bhge.register.webservices.dto.UserWsDTO>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.dto.UsersPageWsDTO" extends="de.hybris.platform.webservicescommons.dto.SearchPageWsDTO&lt;com.bhge.register.webservices.dto.UserWsDTO>" >
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersPage</hint>
+		</hints>
+	</bean>
+
+	<bean class="com.bhge.register.webservices.dto.UserWsDTO">
+		<description>User DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">user</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.webservices.dto.AddressWsDTO>"/>
+		<property name="firstName" type="String">
+			<description>First Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="lastName" type="String">
+			<description>Last Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="info" type="String" />
+		<property name="billingAddress" type="com.bhge.register.webservices.dto.AddressWsDTO">
+			<description>Billing Address</description>
+		</property>
+		<property name="shippingAddress" type="com.bhge.register.webservices.dto.AddressWsDTO">
+			<description>Shipping Address</description>
+		</property>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.dto.AddressListWsDTO">
+		<description>List of addresses</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">addressList</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;com.bhge.register.webservices.dto.AddressWsDTO>"/>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.dto.AddressWsDTO">
+		<description>Address DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">address</hint>
+		</hints>
+		<property name="street" type="String"/>
+		<property name="town" type="String"/>
+		<property name="streetNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.bhge.register.webservices.dto.TestMapWsDTO">
+		<description>Example of DTO with map</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">testMap</hint>
+		</hints>
+		<property name="stringMap" type="java.util.Map&lt;String,String>"/>
+		<property name="integerMap" type="java.util.Map&lt;String,Integer>"/>
+	</bean>
+	<bean class="com.bhge.register.webservices.appoval.StatusCountBean" >
+		<property name="pendingApprovalCount" type="Integer"/>
+		<property name="approvedCount" type="Integer"/>
+		<property name="onHoldCount" type="Integer"/>
+		<property name="rejectedCount" type="Integer"/>
+		<property name="completedCount" type="Integer"/>
+	</bean>
+	<bean class="com.bhge.register.webservices.data.ManualApprovalData">
+		<property name="accessRequestId" type="String"/>
+		<property name="comments" type="String"/>
+		<property name="email" type="String"/>
+		<property name="firstname" type="String"/>
+		<property name="lastname" type="String"/>
+		<property name="accountNumber" type="String"/>
+		<property name="approvalStatus" type="String"/>
+		<property name="username" type="String"/>
+		<property name="region" type="String"/>
+		<property name="app" type="String"/>
+		<property name="appId" type="String"/>
+		<property name="companyName" type="String"/>
+		<property name="companyCountry" type="String"/>
+		<property name="companyAddress" type="String"/>
+		<property name="processedBy" type="String"/>
+		<property name="companyAddressLine1" type="String"/>
+		<property name="companyAddressLine2" type="String"/>
+		<property name="district" type="String"/>
+		<property name="requestorDate" type="String"/>
+		<property name="ssoId" type="String"/>
+		<property name="postalCode" type="String"/>
+		<property name="accountLinking" type="java.util.List&lt;com.bhge.register.webservices.data.AccountLinkingData>"/>
+		<property name="approvalRuleList" type="java.util.List&lt;com.bhgeregister.dto.BHGERegisterRuleData>"/>
+		<property name="productLine" type="String"/>
+		<property name="town" type="String"/>
+		<property name="processDate" type="String"/>
+		<property name="endCustomer" type="java.lang.Boolean" />
+		<property name="governmentEntity" type="java.lang.Boolean" />
+		<property name="detailNumber" type="java.lang.String" />
+		<property name="addressType" type="java.lang.String" />
+		<property name="detailNumberValue" type="java.lang.String" />
+		<property name="addressProof" type="java.lang.String" />
+		<property name="ownershipStructure" type="java.lang.String" />
+
+		<property name="iqmRole" type="String"/>
+		<property name="iqmCompanyName" type="String"/>
+		<property name="iqmCompanyAddress" type="String"/>
+		<property name="iqmCompanyAddressLine1" type="String"/>
+		<property name="iqmCompanyAddressLine2" type="String"/>
+		<property name="iqmDistrict" type="String"/>
+		<property name="iqmTown" type="String"/>
+		<property name="iqmPostalCode" type="String"/>
+		<property name="iqmCompanyCountry" type="String"/>
+		<property name="iqmRegion" type="String"/>
+		<property name="iqmDunsNumber" type="String"/>
+		<property name="iqmProductLine" type="String"/>
+		
+		<property name="damCustomerId" type="String"/>
+		<property name="damRole" type="String"/>
+		<property name="damCompanyName" type="String"/>
+		<property name="damCompanyAddress" type="String"/>
+		<property name="damCompanyAddressLine1" type="String"/>
+		<property name="damCompanyAddressLine2" type="String"/>
+		<property name="damDistrict" type="String"/>
+		<property name="damTown" type="String"/>
+		<property name="damPostalCode" type="String"/>
+		<property name="damCompanyCountry" type="String"/>
+		<property name="damProductLine" type="String"/>
+		
+		<property name="requesterState" type="String"/>
+		<!--FPT Implementation  -->
+		<property name="fptCustomerAccNumber" type="java.lang.String"/>
+		<property name="fptCompanyAddressLine1" type="java.lang.String" />
+		<property name="fptCompanyAddressLine2" type="java.lang.String" />
+		<property name="fptStateProvince" type="java.lang.String" />
+		<property name="fptTown" type="java.lang.String" />
+		<property name="fptPostalCode" type="java.lang.String" />
+		<property name="fptCompanyName" type="java.lang.String" />
+		<property name="fptCountry" type="java.lang.String" />
+		<property name="fptProductLine" type="java.util.List&lt;String&gt;" />
+		<property name="fptLegalEntities" type="java.util.List&lt;String&gt;" />
+		<property name="fptRole" type="java.util.List&lt;String&gt;" />
+		<property name="fptSelectedProductLines" type="java.util.Map&lt;String, java.lang.Boolean&gt;" />
+		<property name="fptSelectedRole" type="java.lang.String" />
+		<property name="fptLegalEntity" type="java.util.List&lt;String&gt;" />
+		<property name="fptSaleAreaText" type="java.util.List&lt;String&gt;" />
+		<!--FPT ends  -->
+
+		<property name="ofsAccountType" type="String" />
+		<property name="subProductLine" type="java.util.List&lt;String&gt;" />
+	</bean>
+	<bean class="com.bhge.register.webservices.data.AccountLinkingData">
+		<property name="customerNumber" type="String" />
+		<property name="salesareaList" type="java.util.List&lt;String> "/>
+		<!--FPT Implementation  -->
+		<property name="fptroleid" type="String" />
+		<property name="fptproductLinesList" type="java.util.List&lt;String> "/>
+		<!--FPT Implementation  ends-->
+	</bean>
+
+	<!-- <bean class="com.bhge.register.webservices.dam.UserData">
+		<property name="type" type="String" />
+		<property name="id" type="String"/>
+		<property name="username" type="String"/>
+		<property name="password1" type="String"/>
+		<property name="password2" type="String"/>
+		<property name="first" type="String"/>
+		<property name="last" type="String"/>
+		<property name="name" type="String"/>
+		<property name="email" type="String"/>
+		<property name="datecreated" type="String"/>
+		<property name="lastlogin" type="String"/>
+		<property name="company" type="String"/>
+		<property name="companyurl" type="String"/>
+		<property name="phone" type="String"/>
+		<property name="fax" type="String"/>
+		<property name="country" type="String"/>
+		<property name="city" type="String"/>
+		<property name="address1" type="String"/>
+		<property name="address2" type="String"/>
+		<property name="zip" type="String"/>
+		<property name="status" type="String"/>
+		<property name="sendemail" type="String"/>
+	</bean> -->
+
+	<bean class="com.bhge.register.webservices.data.MannualApprovalDataList">
+		<property name="worklistData" type="java.util.List&lt;com.bhge.register.webservices.data.ManualApprovalData>"/>
+	</bean>
+
+</beans>

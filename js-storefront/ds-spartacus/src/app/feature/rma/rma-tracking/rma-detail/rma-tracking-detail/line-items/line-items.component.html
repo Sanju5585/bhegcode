@@ -1,0 +1,13 @@
+<div *ngIf="rmaTrackingResponse" class="pageBtnMargin">
+  <div
+    *ngFor="let product of rmaTrackingResponse; let i = index"
+    class="listitemOutercontainer"
+  >
+    <vs-rma-tracking-product
+      [indexNo]="i"
+      [productItem]="product"
+      [productOpen]="expandAll"
+      [historyStatus]="rmaTrackingResponse.rmaSummaryStatus"
+    ></vs-rma-tracking-product>
+  </div>
+</div>

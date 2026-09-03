@@ -1,0 +1,279 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# Import essential data for the Accelerator
+#
+# Includes:
+# * Languages
+# * Currencies
+# * Titles
+# * Vendors
+# * Warehouses
+# * Supported Credit/Debit cards
+# * User Groups
+# * DistanceUnits for Storelocator
+# * MediaFolders
+# * MediaFormats
+# * Tax & Tax Groups
+# * Jobs
+
+# Languages
+INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
+;en;;;
+;de;en;;
+;ja;en;;
+;zh;en;;
+
+
+# Currencies
+INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
+;EUR;1;2;€
+;USD;1,4;2;$
+;CAD;1,4;2;C$
+
+# Vendor
+INSERT_UPDATE Vendor;code[unique=true];name
+;default;Default Vendor
+;powertools;Powertools
+;bhge;bhge
+
+INSERT Warehouse;code[unique=true];name;vendor(code)[default=default, forceWrite=true];default[default=true, forceWrite=true]
+"#% beforeEach:
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.ordersplitting.model.WarehouseModel;
+String warehouseCode = line.get(Integer.valueOf(1));
+WarehouseModel warehouse;
+try
+{
+    warehouse = Registry.getApplicationContext().getBean(""warehouseService"").getWarehouseForCode(warehouseCode);
+}
+catch (Exception e)
+{
+    warehouse = null;
+}
+if (warehouse != null)
+{
+    line.clear();
+}"
+;default;Default Warehouse;
+;pw_warehouse_s;;powertools
+;pw_warehouse_e;;powertools
+;pw_warehouse_w;;powertools
+;pw_warehouse_n;;powertools
+
+# Disable preview for email pages
+UPDATE CMSPageType;code[unique=true];previewDisabled
+;EmailPage;true
+
+# Titles
+INSERT_UPDATE Title;code[unique=true]
+;mr
+;mrs
+;miss
+;ms
+;dr
+;rev
+
+# Media Folders
+INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]
+;images;images
+;email-body;email-body
+;email-attachments;email-attachments
+;documents;documents
+
+# Media formats
+INSERT_UPDATE MediaFormat;qualifier[unique=true]
+;1200Wx1200H
+;515Wx515H
+;365Wx246H
+;300Wx300H
+;96Wx96H
+;65Wx65H
+;30Wx30H
+
+# Tax & Tax Groups
+INSERT_UPDATE UserTaxGroup;code[unique=true]
+;us-taxes
+;ca-taxes
+
+INSERT_UPDATE ProductTaxGroup;code[unique=true]
+;us-sales-tax-full
+;ca-sales-tax-full
+
+INSERT_UPDATE Tax;code[unique=true];value;currency(isocode)
+;us-sales-tax-full;0
+;ca-sales-tax-full;0
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;cartRemovalJob;cartRemovalJob
+;siteMapMediaJob;siteMapMediaJob
+
+
+
+
+#New Hybris Status & Material Status
+
+INSERT_UPDATE HybrisStatus;code[unique=true];name[lang=en]
+;E1;E1
+;E3;E3
+;E4;E4
+;E5;E5
+;E6;E6
+ 
+INSERT_UPDATE MaterialChannelStatus;code[unique=true];name[lang=en]
+;01;01
+;02;02
+;03;03
+;04;04
+;11;11
+;AO;AO
+;CC;CC
+;DB;DB
+;E1;E1
+;E3;E3
+;E4;E4
+;E5;E5
+;E6;E6
+;FT;FT
+;IO;IO
+;IQ;IQ
+;NE;NE
+;NS;NS
+;P1;P1
+;P2;P2
+;P3;P3
+;P4;P4
+;P5;P5
+;PL;PL
+;PR;PR
+;PT;PT
+;RB;RB
+;SF;SF
+;SO;SO
+;SV;SV
+;TP;TP
+;BS;BS
+
+
+#DE7579 - Film eCommerce Issue - No End-User Discount Field
+#CustomerClasses allowed for EndUser Address/Discount to be added here
+INSERT_UPDATE BHGEGlobalProperties;uid[unique=true];value
+#BHI-21339313 - adding Customerclass PR to be allowed for EndUser Address/Discount
+;customerClassListForEndUserDiscount;DS,PR
+;1;true
+;4;true
+;ENDUSER;I am the end user
+;RESELLER;I am a Reseller, purchasing for my stockroom
+;RESELLERENDUSER;I am a Reseller, purchasing for a customer PO
+;MANUFACTURER;I am an Original Equipment Manufacturer
+;DSS;sso.okta.group.b2b
+;FPT;sso.vs.okta.group.b2b
+
+#US10499 - DS Store Contact Page - Enhancement
+INSERT_UPDATE BHGEContactUsJobRole;role[unique=true]
+;Engineering/Technical
+;General Management
+;Information Technology
+;Maintenance/Reliability
+;Operations
+;Purchasing
+;Student/Applicant
+;Supplier
+;Other
+
+
+INSERT_UPDATE BHGEAreaOfInterest;type[unique=true]
+;Condition Monitoring & Asset Protection by Bently Nevada
+;Control Systems and Migrations
+;Downhole Solutions - MWD and LWD Sensors
+;Eddy Current Inspection
+;Emissions Measurement and Reduction
+;Flame Sensors by Reuter-Stokes
+;Flare Management by Panametrics
+;Flowmeters by Panametrics
+;Industrial Cybersecurity
+;Industrial Radiography & CT
+;Industrial Ultrasound
+;Moisture and Gas Analyzers by Panametrics
+;Nuclear Instrumentation by Reuter-Stokes
+;Pressure Measurement by Druck
+;Radiation Measurement by Reuter-Stokes
+;Remote Visual Inspection
+;Other
+
+#US10924 - Data retention - country based
+INSERT_UPDATE BHCountryDataRetention;country(isocode)[unique=true];dataRetentionPeriod
+;AT;144
+;BE;120
+;BG;120
+;CZ;120
+;HR;132
+;CY;84
+;DK;120
+;FI;84
+;FR;120
+;DE;120
+;GR;132
+;HU;96
+;IE;84
+;IT;120
+;LU;120
+;NL;84
+;NO;84
+;PL;84
+;PT;120
+;RO;120
+;SK;120
+;ES;120
+;SE;120
+;CH;120
+;GB;84
+;RU;84
+;US;84
+;AU;84
+;CA;120
+;IN;84
+;JP;84
+;NZ;84
+;CN;180
+;HK;84
+;ID;84
+;KR;60
+;MY;84
+;PH;84
+;SG;84
+;TW;60
+;TH;84
+#MENAT Countries
+;DZ;84
+;BH;84
+;EG;84
+;IL;84
+;JO;84
+;KW;84
+;LY;84
+;MA;84
+;OM;84
+;QA;84
+;SA;84
+;TN;84
+;AE;84
+;YE;84
+;MA;84
+
+
+##################################### Waygate BatchLookup Data #############################
+INSERT_UPDATE DSWaygateBatchLookup;Type[unique=true];Clas;G2;G4;SigmaD2;GSigmaD;KsmGy;kV120;ISOSpeed;AvgContrast;IR192
+;D2;C1;5.5;9.9;0.016;344;22.3;48;32;6.4;14
+;D3;C2;5.4;9.7;0.020;270;14.0;100;64;6.4;32
+;D4;C3;4.7;9.0;0.022;214;8.7;200;125;5.4;50
+;D5;C4;4.6;8.0;0.028;164;4.6;300;200;5.25;80
+;D7;C5;4.5;8.1;0.032;141;3.2;500;320;5.4;125
+;D7-M;C5;4.5;8.1;0.032;141;3.2;500;320;5.4;125

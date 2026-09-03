@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype elementtype="java.lang.String" code="BHGECustomerSalesList"
+			autocreate="true" generate="true" />
+		<collectiontype elementtype="java.lang.String" code="BHGEAppAttribList"
+			autocreate="true" generate="true" />
+		<collectiontype elementtype="BHGERegieterCustomer"
+			code="BHGEApproverUserList" autocreate="true" generate="true" />
+			
+			<!-- US8159 : FPT ValvStore Changes start -->
+		<collectiontype elementtype="BHGERegisterKeyValueData"
+			code="FPTProductLineList" autocreate="true" generate="true" />
+			
+		<collectiontype elementtype="BHGERegisterKeyValueData" 
+			code="FPTLegalEntitiesList" autocreate="true" generate="true"/>	
+			
+		<collectiontype elementtype="BHGEApprovalDetails" 
+			code="BHGEApprovalDetailsList" autocreate="true" generate="true"/>	
+			
+		<collectiontype elementtype="java.lang.String" code="FptLegalEntity" autocreate="true" generate="true"/>	
+			
+		<!-- US8159 : FPT Valvstore changes end -->
+		<collectiontype elementtype="BHGERegisterKeyValueData"
+						code="SubProductLineList" autocreate="true" generate="true" />
+		<collectiontype elementtype="BHGERegisterKeyValueData"
+						code="DsMarketList" autocreate="true" generate="true" />
+		<collectiontype elementtype="BHGERegisterKeyValueData"
+						code="DsAccountTypeList" autocreate="true" generate="true" />
+	</collectiontypes>
+
+	<enumtypes>
+		<enumtype code="BHGEAccessRequestSource" autocreate="true"
+			generate="true" dynamic="false">
+			<value code="REGISTER_MICROSITE" />
+		</enumtype>
+		<enumtype code="BHGEAccessRequestStatus" autocreate="true"
+			generate="true" dynamic="false">
+			<value code="PENDING_ACTIVATION" />
+			<value code="ERROR_OUT" />
+			<value code="PENDING_APPROVAL" />
+			<value code="AUTO_APPROVED" />
+			<value code="APPROVED" />
+			<value code="REJECTED" />
+			<value code="ONHOLD" />
+			<value code="DEACTIVATED" />
+			<value code="COMPLETED" />
+			<value code="CANCELLED" />
+		</enumtype>
+		<enumtype code="BHGESAPRuleStatus" autocreate="true"
+			generate="true" dynamic="false">
+			<value code="SUCCESS" />
+			<value code="FAILURE" />
+		</enumtype>
+		<enumtype code="DetailNumber" autocreate="true"
+				  generate="true" dynamic="false">
+			<value code="SERIAL_NUMBER" />
+			<value code="PO_NUMBER" />
+			<value code="INVOICE_NUMBER" />
+			<value code="DUNS_BREAD_SHEET_NUMBER" />
+		</enumtype>
+		<enumtype code="AddressType" autocreate="true"
+				  generate="true" dynamic="false">
+			<value code="BRANCH_OFFICE" />
+			<value code="MANUFACTURING_FACILITY" />
+			<value code="SERVICE_SHOPS" />
+		</enumtype>
+	</enumtypes>
+
+	<relations>
+
+		<relation code="BHGEApprover2CustomerRelation" autocreate="true"
+			generate="true" localized="false">
+			<deployment table="BHGEApproverRel" typecode="19009" />
+			<sourceElement qualifier="bhgeApprovers" type="BHGEApprovalDetails"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Approver List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />					
+			</sourceElement>
+
+			<targetElement qualifier="bhgeCustomers" type="BHGERegieterCustomer"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Customer List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />
+			</targetElement>
+
+		</relation>
+
+		<relation code="BHGEAccount2CustomerRelation" autocreate="true"
+			generate="true" localized="false">
+			<deployment table="BHGEAccountRel" typecode="19011" />
+			<sourceElement qualifier="bhgeAccounts" type="BHGEAccountData"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Approver List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />
+			</sourceElement>
+
+			<targetElement qualifier="bhgeCustomers" type="BHGERegieterCustomer"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Customer List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />
+			</targetElement>
+
+		</relation>
+
+		<relation code="BHGEManager2AccountRelation" autocreate="true"
+			generate="true" localized="false">
+			<deployment table="BHGEManagerRel" typecode="19013" />
+			<sourceElement qualifier="bhgeAccounts" type="BHGEAccountData"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Approver List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />
+			</sourceElement>
+
+			<targetElement qualifier="bhgeManagers" type="BHGERegieterCustomer"
+				cardinality="many" collectiontype="list" ordered="true">
+				<description>Customer List</description>
+				<modifiers read="true" write="true" search="true"
+					optional="true" />
+			</targetElement>
+
+		</relation>
+		
+		<relation code="FPTApprover2UserAcessRelation" autocreate="true" generate="true" localized="false">
+		<deployment table="FPTApprovAcessRel" typecode="19015" />
+		<sourceElement qualifier="bhgeUserAccess"
+			type="BHGEUserAccessRequest" cardinality="many" collectiontype="list"
+			ordered="true">
+			<description>User Access Request</description>
+			<modifiers read="true" write="true" search="true"
+				optional="true" />
+		</sourceElement>
+
+		<targetElement qualifier="bhgeApprovals"
+			type="BHGEApprovalDetails" cardinality="many" collectiontype="list"
+			ordered="true">
+			<description>Approvers List</description>
+			<modifiers read="true" write="true" search="true"
+				optional="true" />
+		</targetElement>
+		</relation>
+
+	</relations>
+
+	<itemtypes>
+
+
+
+
+		<!-- Extended Item Types - START -->
+		<itemtype code="BHGERegieterCustomer" extends="B2BCustomer"
+			jaloclass="de.hybris.platform.core.model.BHGERegieterCustomer"
+			autocreate="true" generate="true">
+			<attributes>
+				<attribute qualifier="givenName" type="java.lang.String">
+					<description>User Given Name</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="familyName" type="java.lang.String">
+					<description>User Family Name</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="companyName" type="java.lang.String">
+					<description>User Company Name</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="companyAddress" type="Address">
+					<description>User Company Address</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="productLine" type="BHGERegisterKeyValueData">
+					<description>User Company Address</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="activeStatus" type="java.lang.Boolean">
+					<description>User Active Status</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="requestCustomerId" type="java.lang.String">
+					<description>Request Customer Id</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="governmentOrg" type="java.lang.Boolean">
+					<description>Government Organization</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverCustomerDetails" type="BHGECustomerSalesList">
+					<description>User SAP Sales Area</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="tokenValue" type="java.lang.String">
+					<description>Request Customer Id</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="tokenTime" type="java.lang.Long">
+					<description>Request Customer Id</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="iqmCompanyAddress" type="Address">
+					<description>IQM Company Address</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="iqmRegion" type="BHGERegisterKeyValueData">
+					<description>IQM Region</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="iqmProductLine" type="BHGERegisterKeyValueData">
+					<description>IQM Product Line</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="iqmDunsNumber" type="java.lang.String">
+					<description>IQM Duns Number</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="damCustomerId" type="java.lang.String">
+					<description>DAM Customer Id</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="damCompanyAddress" type="Address">
+					<description>DAM Company Address</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="damProductLine" type="BHGERegisterKeyValueData">
+					<description>DAM Product Line</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<!-- US8159: FPT Valvstore changes start -->
+				<attribute qualifier="fptProductLine" type="FPTProductLineList">
+					<description>FPT Product Line list</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<attribute qualifier="fptLegalEntities" type="FPTLegalEntitiesList">
+					<description>FPT Product Line list</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<attribute qualifier="fptRoles" type="BHGERegisterKeyValueData">
+					<description>FPT Roles</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<attribute qualifier="fptLegalEntity" type="FptLegalEntity">
+					<description>FPT Legal Entity</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<attribute qualifier="fptSaleAreaText" type="FptLegalEntity">
+					<description>FPT Legal Entity</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<!-- US8159: FPT Valvstore changes end -->
+				<attribute qualifier="ofsAccountType" type="BHGERegisterKeyValueData">
+					<description>OFS Account Type</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<!-- New DSS Properties -->
+				<attribute qualifier="subProductLine" type="SubProductLineList">
+					<description>Sub Product Line</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="dsMarket" type="DsMarketList">
+					<description>Market to operate</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="dsRole" type="java.lang.String">
+					<description>Roles</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="dsAccountType" type="DsAccountTypeList">
+					<description>Account Type</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="endCustomer" type="java.lang.Boolean">
+					<description>End Customer</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="governmentEntity" type="java.lang.Boolean">
+					<description>Government Entity</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="detailNumber" type="DetailNumber">
+					<description>Detail Number</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="addressType" type="AddressType">
+					<description>Address Type</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="detailNumberValue" type="java.lang.String">
+					<description>Detail Number Value</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="addressProof" type="Media">
+					<description>KYC Document</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="ownershipStructure" type="Media">
+					<description>Ownership Structure</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+
+			</attributes>
+		</itemtype>
+		<!-- Extended Item Types - END -->
+
+		<!-- Custom Item Types - START -->
+		<itemtype code="BHGEApplicationDetails" autocreate="true"
+			generate="true">
+			<deployment table="BHGEApplicationDetails" typecode="19001" />
+			<attributes>
+				<attribute qualifier="applicationId" type="java.lang.Long">
+					<description>Application ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="applicationName" type="localized:java.lang.String">
+					<description>Application Name</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="applicationDetails" type="localized:java.lang.String">
+					<description>Application Details</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="applicationLink" type="java.lang.String">
+					<description>Application Link</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAttribList" type="BHGEAppAttribList">
+					<description>Application Attribute List</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEAppAccessLevel" autocreate="true"
+			generate="true">
+			<deployment table="BHGEAppAccessLevel" typecode="19002" />
+			<attributes>
+				<attribute qualifier="applicationInfo" type="BHGEApplicationDetails">
+					<description>Application Information</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessLevelId" type="java.lang.Long">
+					<description>Application Access Level ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessLevelName" type="localized:java.lang.String">
+					<description>Application Access Level Name</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessLevelDetails" type="localized:java.lang.String">
+					<description>Application Access Level Details</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEApprovalDetails" autocreate="true"
+			generate="true">
+			<deployment table="BHGEApprovalDetails" typecode="19003" />
+			<attributes>
+				<attribute qualifier="appAccessLevel" type="BHGEAppAccessLevel">
+					<description>Application Access Level</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverID" type="java.lang.Long">
+					<description>Approver ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverGroupName" type="java.lang.String">
+					<description>Approver Group Name</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverGroupDetails" type="java.lang.String">
+					<description>Approver Group Details</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverUserId" type="BHGEApproverUserList">
+					<description>Approver Group Details</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="emailDistribList" type="java.lang.String">
+					<description>Email Distribution List</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEUserAccessRequest" autocreate="true"
+			generate="true">
+			<deployment table="BHGEUserAccessRequest" typecode="19004" />
+			<attributes>
+				<attribute qualifier="accessRequestId" type="java.lang.Long">
+					<description>Access Request ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="requesterId" type="BHGERegieterCustomer">
+					<description>Requestor Id</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverDetails" type="BHGEApprovalDetails">
+					<description>Approver Details</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="accessRequestSource" type="BHGEAccessRequestSource">
+					<description>Access Request Source</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="requestStatus" type="BHGEAccessRequestStatus">
+					<description>Approval Status</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="approverResponse" type="java.lang.String">
+					<description>Approver Response</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+                <!-- Anish POST -->
+				<attribute qualifier="requestorComment" type="java.lang.String">
+					<description>Requestor Comment</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<!-- Anish POST -->
+				<attribute qualifier="approverResponseLong" type="java.lang.String">
+					<description>Approver Response Long</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property">
+					<columntype database="oracle">
+							<value>varchar2(2000)</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+                    </persistence>
+				</attribute>
+				<attribute qualifier="processedBy" type="BHGERegieterCustomer">
+					<description>Processed By</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="linkedWithRegister" type="java.lang.Boolean">
+					<description>Access linked with Register Request</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="requesterState" type="java.lang.String">
+					<description>Requester State</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="processDate" type="java.util.Date">
+					<description>Process Date</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<!-- FPT ValvStore changes start -->
+				<attribute qualifier="fptApproverDetailsList" type="BHGEApprovalDetailsList">
+					<description>Approver Detail List for FPT Store</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="fptApproverCustomerDetails" type="BHGECustomerSalesList">
+					<description>User SAP Sales Area for FPT</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+			<!-- FPT ValvStore changes end -->
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEAppAccessRules" autocreate="true"
+			generate="true">
+			<deployment table="BHGEAppAccessRules" typecode="19005" />
+			<attributes>
+				<attribute qualifier="applicationInfo" type="BHGEApplicationDetails">
+					<description>Application Information</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessRuleId" type="java.lang.Long">
+					<description>Application Access Rule Id</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessRuleName" type="localized:java.lang.String">
+					<description>Application Access Rule Name</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessRuleDetails" type="localized:java.lang.String">
+					<description>Application Access Rule Details</description>
+					<modifiers read="true" write="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEUserAccessRules" autocreate="true"
+			generate="true">
+			<deployment table="BHGEUserAccessRules" typecode="19006" />
+			<attributes>
+				<attribute qualifier="userAccessRuleId" type="java.lang.Long">
+					<description>User Access Rule Id</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="userAccessRequest" type="BHGEUserAccessRequest">
+					<description>User Access Request</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="appAccessRuleDetails" type="java.lang.String">
+					<description>Application Access Rule</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="ruleStatus" type="BHGESAPRuleStatus">
+					<description>Rule Status</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="ruleReasoning" type="java.lang.String">
+					<description>Rule Reasoning</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGERegisterKeyValueData" autocreate="true"
+			generate="true">
+			<deployment table="BHGERegisterKeyValueData" typecode="19007" />
+			<attributes>
+				<attribute qualifier="attributeId" type="java.lang.String">
+					<description>Attribute ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="attributeType" type="java.lang.String">
+					<description>Key Value Attribute Type</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="attributeKey" type="java.lang.String">
+					<description>Attribute Key</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="attributeValue" type="java.lang.String">
+					<description>Attribute Value</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="activeStatus" type="java.lang.Boolean">
+					<description>Active Status</description>
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="parentAttrib" type="BHGERegisterKeyValueData">
+					<description>Parent Attribute</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="externalLookupId" type="java.lang.String">
+					<description>External Looup Id</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="refPL" type="java.lang.String">
+					<description>Reference for Product Line relation with SubproductLine, Role, Market,</description>
+					<modifiers read="true" write="true" search="false"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="riskClassification" type="java.lang.String">
+					<description>Risk Classification</description>
+					<modifiers read="true" write="true" search="false"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEMnCEcommMatrix" autocreate="true"
+			generate="true">
+			<deployment table="BHGEMnCEcommMatrix" typecode="19008" />
+			<attributes>
+				<attribute qualifier="matrixRuleId" type="BHGERegisterKeyValueData">
+					<description>Decision Matrix Rule ID</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="regionAttrib" type="BHGERegisterKeyValueData">
+					<description>Region Attribute</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="subregionAttrib" type="BHGERegisterKeyValueData">
+					<description>Sub Region Attribute</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="countryAttrib" type="BHGERegisterKeyValueData">
+					<description>Country Attribute</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="productlineAttrib" type="BHGERegisterKeyValueData">
+					<description>Product Line Attribute</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="csrApproverValue" type="BHGEApprovalDetails">
+					<description>Approver Value</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="emailInquiryType" type="BHGEInquiryEmail"> 
+					<description>InquiryType Value</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				
+				<!--US8159 : FPT Valv store changes start-->
+				<attribute qualifier="legalEntity" type="BHGERegisterKeyValueData" >
+					<description>Legal Entity</description>
+					<modifiers read="true" write="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<!--US8159 : FPT Valv store changes end-->
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BHGEAccountData" autocreate="true" generate="true">
+			<deployment table="BHGEAccountData" typecode="19014" />
+			<attributes>
+				<attribute qualifier="accountNumber" type="java.lang.String">
+					<description>Account Number</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+
+				<attribute qualifier="accountName" type="java.lang.String">
+					<description>Account Name</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+
+		</itemtype>
+		
+		<itemtype code="BHGEInquiryEmail" autocreate="true" generate="true">
+			<deployment table="BHGEInquiryEmail" typecode="20159" />
+			<attributes>
+			<attribute qualifier="id" type="java.lang.Long">
+					<description>Government User Id</description>
+					<modifiers read="true" write="true" unique="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="governmentUser" type="java.lang.String">
+					<description>Government User</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+
+				<attribute qualifier="quoteOrderInquiry" type="java.lang.String">
+					<description>Quote Order Inquiry</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="serviceReturnsInquiry" type="java.lang.String">
+					<description>Service Returns Inquiry</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>
+					<attribute qualifier="shippingInquiry" type="java.lang.String">
+					<description>Shipping Inquiry</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute> 
+				<attribute qualifier="invoicingInquiry" type="java.lang.String">
+					<description>Invoicing Inquiry</description>
+					<modifiers read="true" write="true" />
+					<persistence type="property" />
+				</attribute>  
+				
+				
+				
+
+			</attributes>
+
+		</itemtype>
+		<!-- Custom Item Types - END -->
+
+	</itemtypes>
+</items>

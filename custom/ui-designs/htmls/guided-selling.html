@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Ecommerce</title>
+</head>
+
+<body>
+          <header class="bgcolor row col-md-12">
+            <div class="col-md-3">
+             <div class="logo"><img src="images/logo.png" border="0"/></div> 
+            </div>
+            <div class="col-md-9 row language">
+             <div class="col-md-2 offset-3 language">
+                    <select class="classic">
+                    <option>English</option>
+                    <option>French</option>
+                    <option>Spanish</option>
+                </select>
+            </div>
+             <div class="col-md-2 language"><i class="fa fa-globe fa-2x"></i><span class="white-text">India</span></div>   
+             <div class="col-md-2 language"><button class="btn btn-outline-primary" value="Login/Register">Login/Register</button></div>
+             <div class="col-md-2 cart"><i class="fa fa-shopping-cart fa-2x"><mark class="big swing">7</mark></i>
+             </div>
+            </div>
+            
+          </header>
+           <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <li class="active"><a href="#"><img src="images/tools-23.png" border="0"/><br/>Buy</a></li>
+                <li><a href="#"><img src="images/tools1.png" border="0"/><br/>Service</a></li>  
+                 <li><a href="#"><img src="images/order-25.png" border="0"/><br/>Order Status</a></li>    
+                 <li><a href="#"><img src="images/product-26.png" border="0"/></i><br/>Find a Product</a></li>           
+            </ul>
+        </nav>
+        <section>
+            <div class="col-md-7 offset-3 text-center maintext">
+               <h1>Hello, let us help you and the right product.</h1><p>This tool will help you quickly navigate to the desired product.</p>
+               <button class="btn btn-primary col-md-2 btn-rounded start pull-right">Start</button>
+            </div>
+        </section>
+       
+    
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/jscrollpane.js"></script>
+    <script>
+        function openNav(parentid,id,Menuname) 
+        {
+            parentid = parentid.trim();
+            document.getElementById(parentid).innerHTML = '<a href="javascript:void(0)" id="closeid" class="closebtn" onclick="closeNav('+"'"+parentid+"'"+','+"'"+id+"'"+','+"'"+Menuname+"'"+');" aria-pressed="false" autocomplete="off"><i class="fa fa-close"></i></a>';
+            document.getElementById(id).style.width = "180px";
+        }
+
+        function closeNav(parentid,id,Menuname) 
+        {
+            parentid = parentid.trim();
+            document.getElementById(parentid).innerHTML = '<a href="#'+parentid+'" onclick="openNav('+"'"+parentid+"'"+','+"'"+id+"'"+','+"'"+Menuname+"'"+');" aria-pressed="false" autocomplete="off">'+Menuname+'</a>';
+            document.getElementById(id).style.width = "0px";
+        }
+</script>     
+</body> 
+</html>

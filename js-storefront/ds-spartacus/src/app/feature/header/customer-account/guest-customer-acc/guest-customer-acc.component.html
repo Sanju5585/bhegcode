@@ -1,0 +1,26 @@
+<ng-container *ngIf="activeSalesArea$ | async as activeSalesArea">
+  <div class="guest-ds-company d-none">
+    <div class="top-tier">
+      <span class="sales-area-name overflow-ellipsis">{{
+        activeSalesArea.salesAreaName
+      }}</span>
+      <span class="divider mr-2 ml-2">|</span>
+      <span class="sales-area-address overflow-ellipsis">{{
+        activeSalesArea.address?.formattedAddress
+      }}</span>
+    </div>
+    <div class="bottom-tier" *ngIf="!disabelChangeAcc">
+      <bh-a
+        *ngIf="activeSalesArea.salesAreaName"
+        type="inverse"
+        text="{{ 'customer-account.changeDSCompany' | cxTranslate }}"
+        (click)="changeDSCompany()"
+      ></bh-a>
+    </div>
+    <div class="bottom-tier" *ngIf="disabelChangeAcc">
+      <span class="change-account-disable">
+        {{ 'customer-account.changeAccount' | cxTranslate }}
+      </span>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!--
+		Example Data POJO
+	
+	<bean class="com.bhge.register.integration.oidc.data.AbstractPojo" abstract="true">
+		<property name="id" type="String"/>
+		<property name="flag" type="boolean"/>
+	</bean>
+
+	<bean class="com.bhge.register.integration.oidc.data.MyPojo" extends="com.bhge.register.integration.oidc.data.AbstractPojo">
+		<property name="message" type="String"/>
+	</bean>
+
+	<bean class="com.bhge.register.integration.oidc.data.AnnotatedPojo">
+
+		<import type="javax.xml.bind.annotation.XmlRootElement"/>
+		<import type="javax.xml.bind.annotation.XmlElements"/>
+		<import type="javax.xml.bind.annotation.XmlElement"/>
+
+		<annotations>@XmlRootElement</annotations>
+		
+		<property name="someText" type="String">
+
+			<annotations scope="getter">
+			@XmlElements(value = {
+					@XmlElement(name="map",
+						type=ValueAsMap.class),
+					@XmlElement(name="string",
+						type=ValueAsString.class)
+			})
+			</annotations>
+
+		</property>
+
+	</bean>
+
+    <bean  class="de.hybris.platform.catalog.data.Equals1">
+    	<property name="a1" type="boolean" equals="true"/>
+    	<property name="a2" type="int" equals="true"/>
+    	<property name="a3" type="String" equals="true"/>
+    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
+    	<property name="a5" type="java.lang.Integer" equals="true"/>
+    	<property name="a6" type="java.util.List" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+    
+    
+
+	-->
+
+	<bean class="com.bhgeregister.dto.BHGERegisterRequest">
+		<property name="firstName" type="java.lang.String"/>
+		<property name="lastName" type="java.lang.String"/>
+		<property name="userId" type="java.lang.String"/>
+		<property name="email" type="java.lang.String"/>
+		<property name="userSecret" type="java.lang.String"/>
+		<property name="insertFlag" type="java.lang.String"/>
+		<property name="serviceFlag" type="java.lang.String"/>
+		<property name="geSSOChallenge" type="java.lang.String"/>
+		<property name="geSSOChallengeResponse" type="java.lang.String"/>
+		<property name="formFlag" type="java.lang.String"/>
+		
+	</bean>
+
+	<bean class="com.bhgeregister.dto.BHGERegisterRuleData">
+		<property name="ruleCode" type="java.lang.String"/>
+		<property name="ruleMessage" type="java.lang.String"/>
+		<property name="ruleStatus" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.bhgeregister.dto.BHGEUserManagerData">
+		<property name="managerMessage" type="java.lang.String"/>
+		<property name="managerStatus" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.bhgeregister.dto.BHGEApplicationData">
+		<property name="applicationId" type="java.lang.String"/>
+		<property name="applicationName" type="java.lang.String"/>
+		<property name="applicationDetails" type="java.lang.String"/>
+		<property name="applicationStatus" type="java.lang.String"/>
+		<property name="applicationUrl" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.bhgeregister.dto.BHGESoldtoData">
+		<property name="soldtoStatus" type="java.lang.String"/>
+		<property name="salesareaList" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+
+	<bean class="com.bhgeregister.dto.BHGERegisterResponse">
+		<property name="statusCode" type="java.lang.String"/>
+		<property name="errorMessage" type="java.lang.String"/>
+		<property name="statusDetails" type="java.lang.String"/>
+		<property name="userMessage" type="java.lang.String"/>
+		<property name="userMessageList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="ruleMessageList" type="java.util.List&lt;com.bhgeregister.dto.BHGERegisterRuleData>"/>
+	    <property name="country" type="java.lang.String"/>
+	    <property name="region" type="java.lang.String"/>
+	    <property name="userManagerList" type="java.util.List&lt;com.bhgeregister.dto.BHGEUserManagerData>"/>
+	    <property name="applicationList" type="java.util.List&lt;com.bhgeregister.dto.BHGEApplicationData>"/>
+	    <property name="countryList" type="java.util.Map&lt;String,String&gt;"/>
+	    <property name="productList" type="java.util.List&lt;java.lang.String>"/>
+	    <property name="soldtoData" type="java.util.Map&lt;String,com.bhgeregister.dto.BHGESoldtoData>"/>
+		<property name="updatesuccessflag" type="java.lang.String"/> 
+		<property name="soldtoResult" type="java.util.List&lt;java.lang.String>"/>
+		<property name="salesraeaResult" type="java.util.List&lt;java.lang.String>"/>
+		<property name="salesraeaText" type="java.util.List&lt;java.lang.String>"/>
+		<property name="legalEntityList" type="java.util.List&lt;String&gt;"/>
+		<property name="accountTypeList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="subProductList" type="java.util.List&lt;java.lang.String>"/>
+		<property name="dsMarket" type="java.util.List&lt;java.lang.String>"/>
+		<property name="dsRoles" type="java.util.List&lt;java.lang.String>"/>
+		<property name="userName" type="java.lang.String"/>
+		<property name="errorMessageList" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+
+</beans>

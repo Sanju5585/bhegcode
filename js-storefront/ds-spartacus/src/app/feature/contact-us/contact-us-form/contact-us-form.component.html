@@ -1,0 +1,265 @@
+<div class="contact-us-container">
+  <div class="contact-us-lable">
+    {{ 'contactUs.pageText' | cxTranslate }}
+    <div class="add-line">&nbsp;</div>
+  </div>
+  <div class="mt-3 mb-3 status">
+    <div class="success-content top-success" *ngIf="isSuccessMsg">
+      {{ 'contactUs.successMeg' | cxTranslate }}
+    </div>
+  </div>
+  <div class="contact-us-form-container">
+    <div class="row">
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.firstName' | cxTranslate }}"
+          name="firstName"
+          [value]="firstName"
+          maxlength="19"
+          [message]="error.firstName"
+          [attr.error]="error.firstName ? error.firstName : null"
+          (keyup)="onChange($event, 'firstName')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.lastName' | cxTranslate }}"
+          name="lastName"
+          [value]="lastName"
+          maxlength="19"
+          [message]="error.lastName"
+          [attr.error]="error.lastName ? error.lastName : null"
+          (keyup)="onChange($event, 'lastName')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.companyName' | cxTranslate }}"
+          name="companyName"
+          [value]="companyName"
+          maxlength="40"
+          [message]="error.companyName"
+          [attr.error]="error.companyName ? error.companyName : null"
+          (keyup)="onChange($event, 'companyName')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-md-6">
+        <bh-dropdown
+          searchable
+          [menuItems]="jobRolesItems"
+          label="{{ 'contactUs.jobRole' | cxTranslate }}"
+          placeholder="{{ 'contactUs.jobRoleselect' | cxTranslate }}"
+          required="true"
+          [value]="jobRole"
+          [message]="error.jobRole"
+          [attr.error]="error.jobRole ? error.jobRole : null"
+          (selected)="onChange($event, 'jobRole')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.companyEmail' | cxTranslate }}"
+          name="companyEmail"
+          [value]="companyEmail"
+          maxlength="255"
+          [message]="error.companyEmail"
+          [attr.error]="error.companyEmail ? error.companyEmail : null"
+          (keyup)="onChange($event, 'companyEmail')"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.phoneNumber' | cxTranslate }}"
+          name="phoneNumber"
+          maxlength="12"
+          [value]="phoneNumber"
+          [message]="error.phoneNumber"
+          [attr.error]="error.phoneNumber ? error.phoneNumber : null"
+          (keyup)="onChange($event, 'phoneNumber')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <bh-dropdown
+          searchable
+          [menuItems]="countryItems"
+          label="{{ 'contactUs.country' | cxTranslate }}"
+          placeholder="{{ 'contactUs.countryselect' | cxTranslate }}"
+          required="true"
+          [value]="country"
+          [message]="error.country"
+          [attr.error]="error.country ? error.country : null"
+          (selected)="getStateList($event, 'country')"
+        >
+        </bh-dropdown>
+      </div>
+      <div class="col-md-6">
+        <bh-dropdown
+          searchable
+          [menuItems]="stateItems"
+          label="{{ 'contactUs.state' | cxTranslate }}"
+          placeholder="{{ 'contactUs.stateselect' | cxTranslate }}"
+          required="true"
+          [value]="state"
+          [message]="error.state"
+          [attr.error]="error.state ? error.state : null"
+          (selected)="onChange($event, 'state')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.postalCode' | cxTranslate }}"
+          name="postalCode"
+          maxlength="10"
+          [value]="postalCode"
+          [message]="error.postalCode"
+          [attr.error]="error.postalCode ? error.postalCode : null"
+          (keyup)="onChange($event, 'postalCode')"
+          [attr.pattern]="REGULAR_PATTERN.alphaNumeric"
+        >
+        </bh-text-input>
+      </div>
+      <div class="col-md-6">
+        <bh-text-input
+          required
+          type="text"
+          label="{{ 'contactUs.city' | cxTranslate }}"
+          name="city"
+          maxlength="50"
+          [value]="city"
+          [message]="error.city"
+          [attr.error]="error.city ? error.city : null"
+          (keyup)="onChange($event, 'city')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+
+    <div class="row areaofintrest">
+      <div class="col-md-6">
+        <bh-dropdown
+          searchable
+          [menuItems]="areasOfInterestItems"
+          label="{{ 'contactUs.areaOfIntrest' | cxTranslate }}"
+          placeholder="{{ 'contactUs.areaselect' | cxTranslate }}"
+          required="true"
+          [value]="areaOfIntrest"
+          [message]="error.areaOfIntrest"
+          [attr.error]="error.areaOfIntrest ? error.areaOfIntrest : null"
+          (selected)="onChange($event, 'areaOfIntrest')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <span class="custom">*</span>
+        <bh-text-area
+          label="{{ 'contactUs.requestDetails' | cxTranslate }}"
+          messageType="count"
+          [required]="true"
+          messageText=""
+          maxlength="300"
+          [value]="requestDetails"
+          [message]="error.requestDetails"
+          [attr.error]="error.requestDetails ? error.requestDetails : null"
+          (keyup)="onChange($event, 'requestDetails')"
+          (keypress)="stop($event)"
+          (paste)="myFunction($event)"
+          #textval
+          (focusout)="trimText()"
+        ></bh-text-area>
+      </div>
+
+      <div
+        *ngIf="error.requestDetails"
+        class="bh-form-message typography--body-small bh-form-message--error enduser-address col-lg-12 col-md-12 col-sm-12"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ error.requestDetails }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 bh-text-area__label typography--label-small">
+        <span class="red">*</span>
+        {{ 'contactUs.communicationPrf' | cxTranslate }}
+      </div>
+      <div class="col-md-12">
+        <bh-radio-button
+          label="{{ 'contactUs.communicationPefOpt1' | cxTranslate }}"
+          [value]="true"
+          (change)="onChange($event, 'communicationPef')"
+          name="communicationPef"
+          #communicationPef2
+        ></bh-radio-button>
+      </div>
+      <div class="col-md-12">
+        <bh-radio-button
+          label="{{ 'contactUs.communicationPefOpt2' | cxTranslate }}"
+          [value]="false"
+          (change)="onChange($event, 'communicationPef')"
+          name="communicationPef"
+          #communicationPef1
+        ></bh-radio-button>
+      </div>
+      <div
+        class="bh-form-message typography--body-small bh-form-message--error"
+        *ngIf="error.communicationPef"
+      >
+        <em class="typography--icon-small bh-form-message__icon pl-3"
+          >error_outline</em
+        >
+        {{ 'contactUs.error.communicationPef' | cxTranslate }}
+      </div>
+      <div 
+        class="col-md-12 detaileddata"
+        [innerHTML]="'contactUs.communicationPreferenceDetails' | cxTranslate"
+      >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <bh-button
+          fluid
+          [attr.disabled]="loadSpinner ? true : null"
+          [attr.loading]="loadSpinner ? true : null"
+          [type]="'primary'"
+          label="{{ 'contactUs.submit' | cxTranslate }}"
+          (click)="onSubmit()"
+        ></bh-button>
+      </div>
+    </div>
+  </div>
+</div>

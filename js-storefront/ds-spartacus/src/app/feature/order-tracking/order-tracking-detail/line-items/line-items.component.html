@@ -1,0 +1,12 @@
+<div *ngIf="orderTrackingResponse" class="pageBtnMargin">
+  <div
+    *ngFor="let product of orderTrackingResponse; let i = index"
+    class="listitemOutercontainer"
+  >
+    <vs-order-tracking-product
+      [indexNo]="i"
+      [productItem]="product"
+      [productOpen]="expandAll"
+    ></vs-order-tracking-product>
+  </div>
+</div>

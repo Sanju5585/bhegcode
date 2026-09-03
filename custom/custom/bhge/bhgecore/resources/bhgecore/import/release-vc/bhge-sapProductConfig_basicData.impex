@@ -1,0 +1,26 @@
+
+
+$productCatalog = ERP_CLASSIFICATION_HYB
+$configurableCategory = CPQConfigurableCategory
+$productCV = catalogVersion(catalog(id[default=$productCatalog]),version[default='ERP_IMPORT'])
+$catalogVersion = catalogVersion(catalog(id[default=$productCatalog]),version[default='ERP_IMPORT'])[unique=true,default=$productCatalog:ERP_IMPORT]
+
+
+
+INSERT_UPDATE CPQConfiguratorSettings ; $productCV[unique=true] ; id[unique=true]         ; configuratortype(code) ; qualifier               ; configurationcategory(code,$catalogVersion)
+                                      ;                         ; CPQConfiguratorSettings ; CPQCONFIGURATOR        ; CPQCONFIGURATORSETTINGS ; $configurableCategory                      
+
+
+INSERT_UPDATE ConfigurationCategory ; $productCV[unique=true] ; code[unique=true]     ; name[lang=en]             ; configuratorsettings(id,$catalogVersion)
+                                    ;                         ; $configurableCategory ; CPQ Configurable Category ; CPQConfiguratorSettings                 
+
+
+
+
+
+
+#################################################################################
+# Products                          
+#################################################################################
+INSERT_UPDATE Product ; code[unique=true] ; $supercategories ; manufacturerName ; manufacturerAID ; ean ; variantType(code) ; unit(code)[default=PCE] ; $catalogversion ; name[lang=en] ; description[lang=en] ; summary[lang=en] ; $prices ; $approved ;  
+

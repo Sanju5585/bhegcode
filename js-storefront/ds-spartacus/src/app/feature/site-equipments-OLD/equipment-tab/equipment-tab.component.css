@@ -1,0 +1,18 @@
+.equipment-tab {
+  width: 100%;
+  height: 207px;
+  border: solid 1px #e3e3e3;
+  background-color: #ffffff;
+}
+
+.equipment-tab .tab-header {
+  width: 100%;
+  height: 50px;
+  border-bottom: solid 1px #e3e3e3;
+  background-color: #e5f8f4;
+  padding: 15px;
+}
+
+.equipment-tab .tab-content {
+  padding: 20px;
+}

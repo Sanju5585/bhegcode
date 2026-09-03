@@ -1,0 +1,31 @@
+.radio-btn .bh-radio-button {
+  display: inline-block;
+  padding-top: 8px;
+  padding-right: 10px;
+}
+
+:host::ng-deep {
+  .bh-radio-button__label {
+    color: #1a2321;
+  }
+  .bh-radio-button__input-icon {
+    border: 2px solid #616161;
+  }
+  .upload:after,
+  .upload:after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .upload:before,
+  .upload::before {
+    color: var(--color-fill-cta-critical-default);
+    content: ' *';
+  }
+}
+
+.upload {
+  font-family: var(--font-base-font-family-body);
+  font-size: var(--font-base-font-size-14);
+  line-height: 21px;
+  color: var(--color-text-common-primary);
+}

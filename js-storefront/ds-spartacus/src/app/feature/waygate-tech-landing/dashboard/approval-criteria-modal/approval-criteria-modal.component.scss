@@ -1,0 +1,30 @@
+.cx-modal-container {
+  .bg-green {
+    background-color: #147d64;
+    color: #ffff;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .actions {
+    .btn {
+      padding: 9px 20px;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      min-width: 100px;
+      min-height: 38px;
+    }
+    .btn-cancel {
+      color: #121212;
+    }
+  }
+}
+button.close {
+  color: #ffffff;
+  opacity: unset !important;
+}

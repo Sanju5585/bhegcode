@@ -1,0 +1,43 @@
+<h4 class="box-title">
+  <span class="box-heading">{{
+    'guest-home.equipmentCalibrationData' | cxTranslate
+  }}</span>
+</h4>
+<div class="box-container">
+  <p>
+    {{ 'guest-home.calibrationBoxDesc' | cxTranslate }}
+  </p>
+
+  <span>
+    <ul class="calibrationCompanyInfo">
+      <li>
+        <strong>{{ 'guest-home.druck' | cxTranslate }}</strong>
+        {{ 'guest-home.druckCertificate' | cxTranslate }}
+      </li>
+      <li>
+        <strong>{{ 'guest-home.panametrics' | cxTranslate }}</strong>
+        {{ 'guest-home.panametricsCertificate' | cxTranslate }}
+      </li>
+      <li>
+        <strong>{{ 'guest-home.waygate' | cxTranslate }}</strong>
+        {{ 'guest-home.waygateCertificate' | cxTranslate }}
+      </li>
+    </ul>
+  </span>
+
+  <p class="calibrationBoxDescription2">
+    {{ 'guest-home.calibrationBoxDescription2' | cxTranslate }}<br />
+    {{ 'guest-home.calibrationBoxDescriptionLine2' | cxTranslate }}
+  </p>
+  <div class="row mt-3 calibration-buttons-wrap">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <bh-button
+        type="secondary"
+        label="{{ 'guest-home.findDataAndCerts' | cxTranslate }}"
+        class="float-left mr-3 calibration-buttons mb-2"
+        (click)="viewCalibration()"
+      >
+      </bh-button>
+    </div>
+  </div>
+</div>

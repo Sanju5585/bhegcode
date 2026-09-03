@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd"
+    default-lazy-init="true">
+    
+    <context:annotation-config/>
+    
+
+	<bean id="registerCacheValueLoader" class="com.bhge.register.webservices.cache.RegisterCacheValueLoader">
+    </bean>
+	
+    <bean name="registerCacheRegion"
+		class="de.hybris.platform.regioncache.region.impl.DefaultCacheRegion" lazy-init="true">
+		<constructor-arg name="name" value="${regioncache.register.name}" />
+		<constructor-arg name="maxEntries" value="#{100000 * ( T(java.lang.Runtime).runtime.maxMemory() / ( 1024 * 1024 * 1024 * 4.0 ) )  }"/>
+		<!--<constructor-arg name="evictionPolicy" value="${regioncache.register.evictionpolicy}" />-->
+		<constructor-arg name="statsEnabled" value="${regioncache.stats.enabled:true}" />
+		<constructor-arg name="exclusiveComputation" value="${regioncache.exclusivecomputation:false}" />
+		<constructor-arg name="ttlSeconds" value="${regioncache.register.ttlseconds}"/>
+		<property name="handledTypes">
+			<array>
+				<value>_REGISTER_CACHE_</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="registerCacheRegionRegistrar" class="de.hybris.platform.regioncache.region.CacheRegionRegistrar" 
+			c:region-ref="registerCacheRegion" />
+			
+	 <!-- Add the cache region to the available cache regions list -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="cacheRegionsList"/>
+        <property name="targetMethod" value="add"/>
+        <property name="arguments">
+            <ref bean="registerCacheRegion" />
+        </property>
+    </bean>
+
+</beans>

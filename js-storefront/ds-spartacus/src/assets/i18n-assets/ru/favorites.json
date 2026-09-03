@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "Мое избранное",
+    "items": " Товары",
+    "delSelected": "УДАЛИТЬ ВЫБРАННЫЕ",
+    "addedOn": "Добавлено",
+    "buy": "КУПИТЬ",
+    "return": "ВОЗВРАТ",
+    "addtoEquip": "Добавить в мое оборудование",
+    "switchSalesArea": "ИЗМЕНИТЬ ЗОНУ ПРОДАЖ",
+    "salesAreaText": "Вы можете вернуть этот товар в другой зоне продажи.",
+    "contactCustomerCare": "ОБРАТИТЕСЬ В СЛУЖБУ ПОДДЕРЖКИ",
+    "norecords": "Данных не найдено",
+    "listPrice": "Цена на продажу",
+    "unavailable": "недоступно",
+    "priceNotrFound": "Цена не найдена",
+    "viewBreakup": "Посмотреть разбивку",
+    "breakdownPrice": "Price Breakdown",
+    "discount": "Скидка",
+    "netPrice": "Ценна Нетто",
+    "searchBYProductName": "Search by product name",
+    "removeSelected": "Remove selected",
+    "addToCart": "Добавить в корзину",
+    "searchList": "Search this list",
+    "error": {
+      "removeMsg": "элементы были успешно удалены",
+      "loadingMsg": "При загрузке списка заказов возникла проблема"
+    }
+  }
+}

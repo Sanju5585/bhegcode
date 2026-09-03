@@ -1,0 +1,126 @@
+<ng-container *ngIf="!loadingFlag; else loading">
+  <div class="waygate-customer-account-container">
+    <h4 class="common-header">
+      {{ 'customer-account.customerAccount' | cxTranslate }}
+    </h4>
+    <div class="customer-account-content">
+      <form
+        [formGroup]="customerAccount"
+        (ngSubmit)="onCustomerAccountSubmit()"
+      >
+        <div class="account-row">
+          <div class="dropdown-wrapper">
+            <label class="select-label">{{
+              'customer-account.customerAccount' | cxTranslate
+            }}</label>
+            <ng-select
+              formControlName="accountName"
+              id="accountName"
+              [searchable]="false"
+              [clearable]="false"
+              [readonly]="true"
+              (change)="onChange($event)"
+            >
+              <ng-option
+                *ngFor="let account of customerAcc; let i = index"
+                [value]="account.value"
+              >
+                {{ account.label }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="dropdown-wrapper">
+            <label class="select-label">{{
+              'customer-account.bakerHughesBusiness' | cxTranslate
+            }}</label>
+            <ng-select
+              formControlName="businessName"
+              id="businessName"
+              placeholder="{{ 'customer-account.search' | cxTranslate }}"
+              [searchable]="false"
+              [clearable]="false"
+            >
+              <ng-option
+                *ngFor="let business of bhBusinesses; let i = index"
+                [value]="business.value"
+              >
+                {{ business.label }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="account-row">
+          <div class="dropdown-wrapper">
+            <label class="select-label">{{
+              'customer-account.shiptoAddress' | cxTranslate
+            }}</label>
+            <ng-select
+              class="address-select"
+              formControlName="shippingAddress"
+              id="address"
+              [searchable]="false"
+              [clearable]="false"
+            >
+              <ng-option
+                *ngFor="let address of addresses; let i = index"
+                [value]="address.value"
+              >
+                {{ address.label }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="account-row">
+          <div
+            class="dropdown-wrapper"
+            [class.not-allowed]="disableDecimalFormatter"
+          >
+            <label class="select-label">{{
+              'customer-account.chooseSeparatorFmt' | cxTranslate
+            }}</label>
+            <ng-select
+              formControlName="decimalFormater"
+              id="seperator"
+              [searchable]="false"
+              [clearable]="false"
+              [class.not-allowed]="disableDecimalFormatter"
+            >
+              <ng-option
+                *ngFor="let format of formats; let i = index"
+                [value]="format.value"
+              >
+                {{ format.label }}
+              </ng-option>
+            </ng-select>
+            <p class="format-info">
+              {{ 'customer-account.decimalFormatPreference' | cxTranslate }}
+            </p>
+          </div>
+          <div class="dropdown-wrapper"></div>
+        </div>
+        <div class="account-row actions-row">
+          <button
+            class="save-btn action-btn"
+            type="submit"
+            [disabled]="customerAccount.invalid || !customerAccount.dirty"
+          >
+            {{ 'customer-account.saveChanges' | cxTranslate }}
+          </button>
+          <button
+            class="discard-btn action-btn"
+            type="button"
+            (click)="discardChanges()"
+          >
+            {{ 'customer-account.discard' | cxTranslate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

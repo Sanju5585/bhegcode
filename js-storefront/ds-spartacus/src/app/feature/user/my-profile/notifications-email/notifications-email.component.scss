@@ -1,0 +1,98 @@
+.tabcontent {
+  &-display-line {
+    &-section-heading {
+      font-family: var(--font-base-font-family-decorative);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-semibold);
+      font-size: var(--font-base-font-size-16);
+      line-height: var(--font-base-line-height-22);
+      color: var(--color-base-teal-950);
+      margin-bottom: 20px;
+    }
+    &-label {
+      font-family: var(--font-base-font-family-body);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-base-font-size-12);
+      letter-spacing: 0.25px;
+      color: var(--color-base-earth-950);
+      margin-top: 40px;
+      margin-bottom: 11px;
+    }
+    &-data {
+      font-family: var(--font-base-font-family-body);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-semibold);
+      font-size: var(--font-base-font-size-12);
+      letter-spacing: 0.25px;
+      color: var(--color-base-earth-950);
+      border: none;
+    }
+  }
+}
+
+.custom-bottom-border {
+  border-bottom: 1px solid var(--color-base-earth-100);
+}
+.custom-border-top {
+  margin-top: 40px;
+  border-top: 1px solid var(--color-base-earth-100);
+}
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px 0px;
+  left: 325px;
+  bh-button {
+    margin: 0px 5px;
+  }
+}
+
+.cancel-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px 0px;
+  bh-button {
+    margin: 0px 5px;
+  }
+}
+.margin-top {
+  margin: 20px 0px 0px 0px;
+}
+
+.margin-top-two {
+  margin-top: 40px;
+}
+
+:host::ng-deep {
+  .bh-text-input__input.small {
+    width: 364px;
+  }
+  .bh-menu__ul {
+    overflow-y: auto;
+  }
+}
+
+.login-radio-button {
+  display: flex;
+  right: 250px;
+}
+
+.tabcontent {
+  &-display-line {
+    &-section-transactional-heading {
+      font-family: var(--font-base-font-family-decorative);
+      font-style: normal;
+      font-weight: var(--font-base-font-weight-semibold);
+      font-size: var(--font-base-font-size-16);
+      line-height: var(--font-base-line-height-22);
+      color: var(--color-base-teal-950);
+    }
+  }
+}
+
+:host::ng-deep .bh-radio-button {
+  padding-right: 20px;
+}

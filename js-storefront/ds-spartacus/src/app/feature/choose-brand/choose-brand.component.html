@@ -1,0 +1,103 @@
+<app-waygate-header [isChooseBrandPage]="true"></app-waygate-header>
+<div class="container" *ngIf="disabelChangeAcc; else changeAccount">
+  <div class="heading">
+    <h1 class="our-brands">
+      {{ 'waygate.brand.custSalesRegion' | cxTranslate }}
+      <b>{{ currentSalesArea }}</b>
+    </h1>
+    <p class="looking-for">{{ 'waygate.brand.selectUrBrand' | cxTranslate }}</p>
+  </div>
+  <div
+    class="brand-list"
+    [ngClass]="{ 'justify-content-center': availableProductLines.length === 2 }"
+  >
+    <div
+      class="brand-item"
+      *ngIf="availableProductLines.includes(productLine.waygate)"
+      (click)="routeToRedirect(productLine.waygate)"
+    >
+      <div class="brand-img">
+        <img
+          src="../../../assets/img/bannernav1.png"
+          [alt]="productLine.waygate"
+        />
+      </div>
+      <div class="brand-desc">
+        {{ 'waygate.brand.waygateDesc' | cxTranslate }}
+      </div>
+    </div>
+    <div
+      class="brand-item"
+      *ngIf="availableProductLines.includes(productLine.druck)"
+      (click)="routeToRedirect(productLine.druck)"
+    >
+      <div class="brand-img">
+        <img
+          src="../../../assets/img/druck_homepage_logo.png"
+          [alt]="productLine.druck"
+        />
+      </div>
+      <div class="brand-desc">
+        {{ 'waygate.brand.druckDesc' | cxTranslate }}
+      </div>
+    </div>
+    <div
+      class="brand-item"
+      *ngIf="availableProductLines.includes(productLine.bently)"
+      (click)="routeToRedirect(productLine.bently)"
+    >
+      <div class="brand-img">
+        <img
+          class="cordant-image"
+          src="../../../assets/img/bannernav4.png"
+          [alt]="productLine.bently"
+        />
+      </div>
+      <div class="brand-desc">
+        {{ 'waygate.brand.bentlyDesc' | cxTranslate }}
+      </div>
+    </div>
+    <div
+      class="brand-item"
+      *ngIf="availableProductLines.includes(productLine.panametrics)"
+      (click)="routeToRedirect(productLine.panametrics)"
+    >
+      <div class="brand-img">
+        <img
+          src="../../../assets/img/Pana_brand_logo.png"
+          [alt]="productLine.panametrics"
+        />
+      </div>
+      <div class="brand-desc">
+        {{ 'waygate.brand.panametricsDesc' | cxTranslate }}
+      </div>
+    </div>
+    <div
+      class="brand-item"
+      *ngIf="availableProductLines.includes(productLine.reuterStokes)"
+      (click)="routeToRedirect(productLine.reuterStokes)"
+    >
+      <div class="brand-img">
+        <img
+          src="../../../assets/img/bannernav5.png"
+          [alt]="productLine.reuterStokes"
+        />
+      </div>
+      <div class="brand-desc">
+        {{ 'waygate.brand.reuterStokesDesc' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #changeAccount>
+<div class="container">
+  <div class="heading">
+    <h1 class="our-brands">
+      {{ 'waygate.brand.cutomerConfig' | cxTranslate }} </h1>
+    <p class="looking-for">{{ 'waygate.brand.selectAccMsg' | cxTranslate }}</p>
+    <bh-a class="change-acc" noUnderline type="inverse" text="Change Customer" (click)="openSlider()"></bh-a>
+  </div>
+</div>
+</ng-template>
+
+<app-waygate-footer [isChooseBrandPage]="true"></app-waygate-footer>

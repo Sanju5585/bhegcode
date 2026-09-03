@@ -1,0 +1,447 @@
+<div class="cx-modal-container waygate-address-modal-common">
+  <div class="cx-modal-content">
+    <div class="container common-add">
+      <div class="row main-div" *ngIf="!newAdd">
+        <div class="col-10">
+          <div class="row search-field">
+            <div>
+              <div class="vs-text-field">
+                <label class="add-search"
+                  >{{ 'address-model.select' | cxTranslate }}
+                  {{ componentAddress }}
+                  {{ 'address-model.addressbook' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+            <!-- <div class="col-6 btn-col">
+                <button class="vs-primary-btn sample-btn new-add" *ngIf="componentAddress === 'Ship To' || componentAddress === 'End Customer'">
+                  <span (click)="addAddress()">+ Add New Address</span>
+                </button>
+              </div> -->
+            <div class="add-count">
+              {{ 'address-model.found' | cxTranslate }}
+              <strong>{{ userAddressList?.addresses?.length }} </strong>
+              {{ 'address-model.addressfound' | cxTranslate }}
+            </div>
+            <input
+              type="text"
+              class="search-btn"
+              [placeholder]="placeholder"
+              [(ngModel)]="term"
+              (keydown.enter)="addressSearch()"
+              #search
+              name="search"
+            /><i
+              *ngIf="!showAddProductLoader"
+              (click)="addressSearch()"
+              class="material-icons search-icon"
+              >search</i
+            >
+          </div>
+        </div>
+        <div class="col-2">
+          <i
+            class="material-icons close-icon"
+            (click)="closeForm('Cross click')"
+            >close</i
+          >
+        </div>
+
+        <div
+          *ngIf="userAddressList$ | async; else loading"
+          class="button-addresses"
+        >
+          <ng-container
+            *ngIf="
+              (isChinaApac | async) && addressFor === 'shipping';
+              else noChinaApac
+            "
+          >
+            <div
+              class="vs-radio-button mb-2"
+              *ngFor="
+                let userAddress of userAddressList.addresses;
+                let i = index
+              "
+            >
+            <!-- *ngIf="userAddress.id == this.radioSelected" -->
+              <ng-container>
+                <bh-radio-button
+                  label="{{ userAddress.companyName }}, {{
+                    userAddress.firstName
+                  }} {{ userAddress.lastName }} {{
+                    cleanFormattedAddress(userAddress)
+                  }} {{ userAddress?.country?.name }}"
+                  value="{{ i }}"
+                  name="group1"
+                  (click)="onStatusChange(userAddress)"
+                  [attr.checked]="userAddress.id == this.radioSelected"
+                  [attr.disabled]="userAddress?.isDisabled"
+                ></bh-radio-button>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-template #noChinaApac>
+            <div
+              class="vs-radio-button mb-2"
+              *ngFor="
+                let userAddress of userAddressList.addresses;
+                let i = index
+              "
+            >
+              <bh-radio-button
+                label="{{ userAddress.companyName }}, {{
+                  userAddress.firstName
+                }} {{ userAddress.lastName }} {{
+                  cleanFormattedAddress(userAddress)
+                }} {{ userAddress?.country?.name }}"
+                value="{{ i }}"
+                name="group1"
+                (click)="onStatusChange(userAddress)"
+                [attr.checked]="userAddress.id == this.radioSelected"
+                [attr.disabled]="userAddress?.isDisabled"
+              ></bh-radio-button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div *ngIf="!newAdd" class="btn-grp">
+        @if(isQuickOrder){
+          <div class="mb-3">
+            <bh-checkbox label="Apply this address to all film products" (change)="applyToAll($event)"></bh-checkbox>
+          </div>
+        }
+        <div class="right-btn">
+          <ng-container *ngIf="isDisabledAddAddress">
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'address-model.addnew' | cxTranslate }}"
+              (click)="addAddress()"
+            >
+            </bh-button>
+          </ng-container>
+          <ng-container *ngIf="isDisabledAddAddressBuyCheckoutDetails">
+            <bh-button
+              [type]="'tertiary'"
+              label="{{ 'address-model.addnew' | cxTranslate }}"
+              (click)="addAddress()"
+            >
+            </bh-button>
+          </ng-container>
+        </div>
+        <div class="left-btn">
+          <bh-button
+            class="mr-3"
+            [type]="'secondary'"
+            label="{{ 'address-model.cancel' | cxTranslate }}"
+            (click)="closeForm('cancel')"
+          ></bh-button>
+          <bh-button
+            [type]="'tertiary'"
+            label="{{ 'address-model.select' | cxTranslate }}"
+            (click)="addressSelected(this.radioSelected, allSelect)"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="newAdd" class="new-address-from">
+      <div class="row">
+        <div class="col-11">
+          <div class="vs-text-field">
+            <label class="add-address-form">{{
+              'address-model.newaddress'
+                | cxTranslate : { address: componentAddress }
+            }}</label>
+          </div>
+        </div>
+        <div class="col-1">
+          <i
+            class="material-icons close-icon"
+            (click)="closeForm('Cross click')"
+            >icon</i
+          >
+        </div>
+      </div>
+      <form ngNativeValidate [formGroup]="addressForm">
+        <div class="add-form">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field">
+                <label
+                  ><span *ngIf="nameMandatory" class="star">*</span
+                  >{{ 'address-model.first' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.first' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="firstName"
+                />
+                <label
+                  class="error"
+                  *ngIf="
+                    isSubmitted && firstName.invalid && addressForm.invalid
+                  "
+                  >{{ 'address-model.firsterror' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field">
+                <label
+                  ><span *ngIf="nameMandatory" class="star">*</span
+                  >{{ 'address-model.last' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.last' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="lastName"
+                  name="lastName"
+                />
+                <label
+                  class="error"
+                  *ngIf="isSubmitted && lastName.invalid && addressForm.invalid"
+                  >{{ 'address-model.lasterror' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.company' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.company' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="companyName"
+                  maxlength="35"
+                />
+                <label
+                  class="error"
+                  *ngIf="
+                    isSubmitted && companyName.invalid && addressForm.invalid
+                  "
+                  >{{ 'address-model.companyerror' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.address1' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="line1"
+                  name="line1"
+                  maxlength="35"
+                />
+                <label
+                  class="error"
+                  *ngIf="isSubmitted && line1.invalid && addressForm.invalid"
+                  >{{ 'address-model.address1error' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field mt-3">
+                <label
+                  ><span class="star"></span
+                  >{{ 'address-model.address2' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="line2"
+                  name="line2"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.country' | cxTranslate }}
+                </label>
+                <ng-select
+                  [searchable]="true"
+                  [clearable]="false"
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  appendTo="body"
+                  formControlName="country"
+                  (change)="countryRegions()"
+                >
+                  <ng-option value="">{{
+                    'address-model.select' | cxTranslate
+                  }}</ng-option>
+                  <ng-option
+                    *ngFor="let country of countryNames; let i = index"
+                  >
+                    {{ country.name }}</ng-option
+                  >
+                </ng-select>
+
+                <label
+                  class="error"
+                  *ngIf="isSubmitted && country.invalid && addressForm.invalid"
+                  >{{ 'address-model.countryerror' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.state' | cxTranslate }}</label
+                >
+                <ng-select
+                  [searchable]="true"
+                  [clearable]="false"
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  appendTo="body"
+                  id="selectRegionArea"
+                  formControlName="state"
+                  (change)="regions()"
+                >
+                  <ng-option value="">{{
+                    'address-model.select' | cxTranslate
+                  }}</ng-option>
+                  <ng-option
+                    *ngFor="let region of countryRegionNames; let i = index"
+                    >{{ region.name }}</ng-option
+                  >
+                </ng-select>
+
+                <label
+                  class="error"
+                  *ngIf="isSubmitted && state.invalid && addressForm.invalid"
+                  >{{ 'address-model.errorstate' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.town' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  formControlName="city"
+                  name="city"
+                  maxlength="35"
+                />
+                <label
+                  class="error"
+                  *ngIf="isSubmitted && city.invalid && addressForm.invalid"
+                  >{{ 'address-model.errortown' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-6">
+              <div class="vs-text-field mt-3">
+                <label
+                  ><span class="star">*</span
+                  >{{ 'address-model.zip' | cxTranslate }}
+                </label>
+                <input
+                  placeholder="{{ 'address-model.select' | cxTranslate }}"
+                  class="wdt334"
+                  type="text"
+                  [ngClass]="
+                    (postalCode.invalid &&
+                      (postalCode.dirty || postalCode.touched) &&
+                      !postalCode.valid) ||
+                    (isSubmitted && !postalCode.valid)
+                      ? 'error'
+                      : ''
+                  "
+                  formControlName="postalCode"
+                  name="postalCode"
+                  maxlength="10"
+                />
+                <label
+                  class="error"
+                  *ngIf="
+                    (isSubmitted &&
+                      postalCode.invalid &&
+                      addressForm.invalid) ||
+                    (postalCode.invalid &&
+                      (postalCode.dirty || postalCode.touched) &&
+                      !postalCode.valid)
+                  "
+                  >{{ 'address-model.errorzip' | cxTranslate }}</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <bh-checkbox
+              class="float-left checkboxterms"
+              label=""
+              name="isSaveAddress"
+              [value]="isSaveAddress"
+              (change)="onChange($event)"
+            >
+              <p class="vs-tooltip">
+                {{ 'address-model.addressTooltip' | cxTranslate }}
+              </p>
+            </bh-checkbox>
+            <span class="ml-2">{{
+              'address-model.saveAddress'
+                | cxTranslate : { address: componentAddress }
+            }}</span>
+          </div>
+
+          <div class="row custom-margin-address">
+            <div class="row custom-margin-top-address">
+              <bh-button
+                class="mr-3"
+                [type]="'secondary'"
+                label="{{ 'address-model.cancel' | cxTranslate }}"
+                (click)="cancel()"
+              ></bh-button>
+              <bh-button
+                class="save-address-btn"
+                [type]="'tertiary'"
+                label="{{ 'address-model.saveuseadd' | cxTranslate }}"
+                (click)="onSubmit()"
+              >
+              </bh-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <ng-template #loading>
+      <div class="address-search-spinner cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

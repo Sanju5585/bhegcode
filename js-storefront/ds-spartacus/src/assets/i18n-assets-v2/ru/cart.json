@@ -1,0 +1,50 @@
+{
+  "cartDetails": {
+    "id": "ID",
+    "proceedToCheckout": "Продолжить к Завершению заказа",
+    "cartName": "Корзина №{{code}}"
+  },
+  "cartItems": {
+    "id": "ID",
+    "description": "Описание",
+    "item": "Товар",
+    "itemPrice": "Цена товара",
+    "quantity": "Количество",
+    "quantityTitle": "Количество представляет собой итоговое число товара в вашей корзине.",
+    "total": "Итого",
+    "cartTotal": "Итого в Корзине ({{count}}товар)",
+    "cartTotal_plural": "Итого в Корзине ({{count}}товары)"
+  },
+  "orderCost": {
+    "orderSummary": "Итог заказа",
+    "subtotal": "Итого после скидок:",
+    "shipping": "Доставка:",
+    "estimatedShipping": "Приблизительная доставка:",
+    "discount": "Вы сохранили:",
+    "salesTax": "Налог на продажу:",
+    "grossTax": "Итог заказа не включает в себя налог по",
+    "total": "Итого:",
+    "toBeDetermined": "Подлежит уточнению"
+  },
+  "voucher": {
+    "coupon": "Есть купон?",
+    "coupon_plural": "Коды купонов",
+    "apply": "Применить",
+    "placeholder": "Промо код",
+    "applyVoucherSuccess": "{{voucherCode}}был(а) применен. ",
+    "removeVoucherSuccess": "{{voucherCode}}был(а) удален. ",
+    "anchorLabel": "Укажите или удалите код вашего купона",
+    "vouchersApplied": "Применимые купоны",
+    "availableCoupons": "Доступные купоны",
+    "availableCouponsLabel": "Вы можете добавить эти купоны к этому заказу. "
+  },
+  "saveForLaterItems": {
+    "itemTotal": "Сохранено на потом ({{count}}товар)",
+    "itemTotal_plural": "Сохранено на потом ({{count}}товар)",
+    "cartTitle": "Корзина",
+    "saveForLater": "Сохранить на потом",
+    "moveToCart": "Перейти к Корзине",
+    "stock": "Склад",
+    "forceInStock": "На складе"
+  }
+}

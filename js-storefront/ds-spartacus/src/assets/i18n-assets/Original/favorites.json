@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "My Favorites",
+    "items": " items",
+    "delSelected": "DELETE SELECTED",
+    "addedOn": "Added on",
+    "buy": "BUY",
+    "return": "RETURN",
+    "addtoEquip": "Add to My Equipment",
+    "switchSalesArea": "SWITCH SALES AREA",
+    "salesAreaText": "You can return this product in another sales area.",
+    "contactCustomerCare": "CONTACT CUSTOMER CARE",
+    "norecords": "No Records found",
+    "listPrice": "List Price",
+    "unavailable": "Unavailable",
+    "priceNotrFound": "Price Not Found",
+    "viewBreakup": "View Breakup",
+    "breakdownPrice": "Price Breakdown",
+    "discount": "Discount",
+    "netPrice": "Net Price",
+    "searchBYProductName": "Search by product name",
+    "removeSelected": "Remove selected",
+    "addToCart": "Add to cart",
+    "searchList": "Search this list",
+    "error": {
+      "removeMsg": "items have been removed successfully",
+      "loadingMsg": "There was some issue while loading your orders list"
+    }
+  }
+}

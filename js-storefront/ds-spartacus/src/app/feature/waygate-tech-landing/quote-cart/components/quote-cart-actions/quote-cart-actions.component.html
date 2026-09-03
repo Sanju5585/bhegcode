@@ -1,0 +1,49 @@
+<!-- <ng-container *ngIf="cart$ | async as cart"> -->
+<div class="waygate-cart-container my-3">
+  <div class="waygate-cart-action-content">
+    <!-- <div class="waygate-cart-shipment-preference">
+      <div class="waygate-cart-radio-btn mt-2">
+        <bh-radio-button
+          label="Standard"
+          value="'standard'"
+          name="group"
+          checked="checked"
+          (change)="handleChange('standard')"
+          [attr.disabled]="isShipmentSelectionDisabled"
+        ></bh-radio-button>
+        <bh-radio-button
+          label="Express quote +250$"
+          value="'express'"
+          name="group"
+          (change)="handleChange('express')"
+          [attr.disabled]="isShipmentSelectionDisabled"
+        ></bh-radio-button>
+      </div>
+    </div> -->
+    <div class="waygate-cart-action-options">
+      <div class="waygate-cart-action-option ds-datepicker">
+        <label for="requestShipDate">{{ 'quoteCart.requestedShipdate' | cxTranslate }}</label>
+        <vs-date-picker
+          class="product-date-picker"
+          id="waygateProductShipDate"
+          [filterWeekend]="true"
+          [defaultDate]="defaultDate"
+          [min]="minDate"
+          (selectedDate)="dateChange($event)"
+          [isScroll]="false"
+        >
+        </vs-date-picker>
+      </div>
+      <div class="waygate-cart-action-option">
+        <a class="action-links mr-4" (click)="applyToAll()">
+          <bh-button
+            type="secondary"
+            class="waygate-cart-action-option-text"
+            label="{{ 'quoteCart.applyToAll' | cxTranslate }}"
+          ></bh-button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </ng-container> -->

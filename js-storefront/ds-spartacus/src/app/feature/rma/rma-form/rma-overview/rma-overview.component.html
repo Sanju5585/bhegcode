@@ -1,0 +1,3 @@
+<ng-container *ngIf="overviewTextData$ | async as overviewTextData">
+  <div class="overview" [innerHtml]="overviewTextData.content"></div>
+</ng-container>

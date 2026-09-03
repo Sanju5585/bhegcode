@@ -1,0 +1,110 @@
+.date-picker-input {
+  background: #ffffff;
+  border: 1px solid #9e9e9e;
+  box-sizing: border-box;
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: 230px;
+  height: 32px;
+  padding: 4px;
+  cursor: pointer;
+
+  .today {
+    float: right;
+    color: #757575;
+    font-size: var(--font-base-font-size-20);
+    margin-right: 14px;
+  }
+
+  .date-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-14);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+  }
+
+  &.error {
+    border-color: #e12d39;
+  }
+
+  &.disabled {
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.date-picker {
+  background: #ffffff;
+  box-shadow:
+    0px 2px 4px rgba(0, 0, 0, 0.2),
+    0px 1px 10px rgba(0, 0, 0, 0.12),
+    0px 4px 5px rgba(0, 0, 0, 0.14);
+  position: absolute;
+  z-index: 100;
+
+  .calendar-container {
+    padding: 15px 20px 20px 20px;
+
+    .mat-calendar {
+      width: 280px;
+      background: #ffffff;
+      border: 1px solid #eeeeee;
+      box-sizing: border-box;
+      box-shadow:
+        0px 2px 4px rgba(0, 0, 0, 0.05),
+        0px 1px 10px rgba(0, 0, 0, 0.03),
+        0px 2px 5px rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
+
+      .mat-calendar-body-selected {
+        background-color: var(--color-base-teal-500) !important;
+        color: #fff;
+      }
+    }
+
+    .col-md-6.from-calendar {
+      padding-right: 5px;
+    }
+
+    .col-md-6.to-calendar {
+      padding-left: 5px;
+    }
+  }
+
+  .action-container {
+    height: 75px;
+    background: #fafafa;
+    padding: 20px 15px;
+
+    p.selected-dates {
+      margin-top: 5px;
+
+      .to-text {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
+
+    .vs-text-btn {
+      margin-right: 5px;
+      background-color: inherit;
+    }
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+
+    .content-bold {
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-base-font-size-12);
+      line-height: 16px;
+      letter-spacing: 0.25px;
+
+      margin-left: 15px;
+    }
+  }
+}

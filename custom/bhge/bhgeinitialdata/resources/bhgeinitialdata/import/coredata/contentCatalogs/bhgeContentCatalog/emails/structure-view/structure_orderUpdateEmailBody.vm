@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title> YOUR BELOW ORDERS HAS BEEN UPDATED </title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px;">
+<br>
+Dear $ctx.customerName,
+<br>
+We wanted to inform you that there have been updates to your recent orders.Please review the details below:
+<br><br>
+#if($ctx.headerUpdate)
+    <table width="600" cellpadding="0" cellspacing="0" border="1">
+                <tr style="background-color:##4CAF50;">
+                    <td width="250" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Order Number</strong></font></td>
+                    <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Type</strong></font></td>
+                    <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Status</strong></font></td>
+                    <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Description</strong></font></td>
+                </tr>
+        #foreach($bhgeOrderUpdateEmailNotificationData in $ctx.orderUpdateEmailNotificatonList)
+            #if($bhgeOrderUpdateEmailNotificationData.itemNo == "HEADER")
+                <tr bgcolor="#ffffff">
+                    <td align="center"><font style="color:#c90000; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.geSalesOrderNumber</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.updateField</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.updateType</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.description</font></td>
+                </tr>
+            #end
+        #end
+    </table>
+#end
+<br><br>
+#if($ctx.itemUpdate)
+    <table width="600" cellpadding="0" cellspacing="0" border="1">
+        <tr style="background-color:##4CAF50;">
+            <td width="250" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Order Number</strong></font></td>
+            <td width="250" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Item Number</strong></font></td>
+            <td width="250" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Material</strong></font></td>
+            <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>Change Type</strong></font></td>
+            <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>From</strong></font></td>
+            <td width="60" align="center"><font style="font-family:Arial, Helvetica, sans-serif; color:#606060; font-size:11px;"><strong>To</strong></font></td>
+        </tr>
+        <tr>
+            <td colspan="5" height="1" style="border-bottom:#dadada 1px solid;"><img src="$ctx.baseUrl/images/border_1px.gif" width="600" height="1"/></td>
+        </tr>
+        #foreach($bhgeOrderUpdateEmailNotificationData in $ctx.orderUpdateEmailNotificatonList)
+            #if($bhgeOrderUpdateEmailNotificationData.itemNo != "HEADER")
+               <tr bgcolor="#ffffff">
+                    <td align="center"><font style="color:#c90000; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.geSalesOrderNumber</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.itemNo</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.material</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.updateField</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.oldValue</font></td>
+                    <td align="center"><font style="color:#696969; font-size:12px; font-family:Arial, Helvetica, sans-serif;">$bhgeOrderUpdateEmailNotificationData.newValue</font></td>
+                </tr>
+            #end
+        #end
+    </table>
+#end
+<p>We understand how important timely updates are for your planning, and we&#39;re committed to keeping you informed every step of the way.</p>
+
+  <h3>What this means for you:</h3>
+  <ul>
+    <li>If your order is blocked due to payment or credit hold, please complete the required action to avoid delays.</li>
+    <li>For delivery-related issues, confirm your shipping details or contact our support team.</li>
+  </ul>
+
+  <p>You can view your order details in our <strong> <a href="${ctx.jsUrl}/waygate">Waygate Store</strong></a>.</p>
+
+  <p>If you have any questions or need further assistance, please don&#39;t hesitate to reach out to our Customer Care team.</p>
+
+  <p>Thank you for choosing <strong>Waygate Technologies</strong>.</p>
+
+  <p>Best regards,<br>
+  <strong>Waygate Technologies Team</strong></p>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "다른 포털 & 링크",
+    "tblSiteName": "사이트 이름",
+    "productLine": "제품 회사",
+    "tblDescription": "설명",
+    "type": "유형",
+    "loginRequired": "접근",
+    "error": {
+      "errorMessage": "문제가 발생했습니다. 나중에 다시 시도해 주시기 바랍니다."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+$contentCatalog=bhgeContentCatalog
+$contentCatalogName=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+INSERT_UPDATE CMSNavigationNode	;uid[unique=true]		;$contentCV[unique=true]	;name		;title			;parent(uid, $contentCV)	;links(&linkRef)		;&nodeRef
+                                   ;MyInvoicesNavNode		;							;My Invoices	;My Invoices			;DsMyAccountNavNode			;						;MyInvoicesNavNode
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry	;uid[unique=true]			;$contentCV[unique=true]	;name							;navigationNode(&nodeRef)	;item(&linkRef)			;
+                                    ;MyInvoicesNavNodeEntry		;							;MyInvoicesNavNodeEntry			;MyInvoicesNavNode			;MyInvoicesLink			;
+
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name            ;url           ;&linkRef         ;target(code)[default='sameWindow'] ;styleAttributes
+                              ;						  ;MyInvoicesLink  ;MyInvoicesLink  ;/my-invoices   ;MyInvoicesLink   ;									 ;list_alt
+
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true]	;$contentCV[unique=true]	;children(uid,$contentCV)[mode=append]
+                               ;DsMyAccountNavNode ;							;MyInvoicesNavNode
+
+UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];children(uid,$contentCV)
+                        ;DsMyAccountNavNode;;MyProfileNavNode,OrderHistoryNavNode,MyInvoicesNavNode,MyReturnsNavNode,MyQuotesNavNode,SavedCartsNavNode,MyEquipmentNavNode,MyFavNavNode,FeedbackLinksNavNode,AppDashboardNavNode,UserManageNavNode

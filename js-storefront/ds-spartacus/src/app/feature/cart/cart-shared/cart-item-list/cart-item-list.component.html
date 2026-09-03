@@ -1,0 +1,269 @@
+<div *ngIf="cart.cartType == cartType.Typ3" class="hybrid-cart-warning row">
+  <span class="material-icons">info</span>
+  <span class="ml-2">{{ 'buyCart.splitCartInfo' | cxTranslate }}</span>
+</div>
+<div class="cart-action-container">
+  <div class="action-left">
+    <a class="action-links mr-4" (click)="openDeleteDialog()">
+      <i class="material-icons mr-2"> delete </i>
+      <span>{{ 'buyCart.deleteSelected' | cxTranslate }}</span>
+    </a>
+    <a class="action-links mr-4" (click)="openClearCartDialog()">
+      <span class="material-icons mr-2"> delete </span>
+      <span>{{ 'buyCart.clearCart' | cxTranslate }}</span>
+    </a>
+  </div>
+  <div class="action-right" *ngIf="userType == 'current'">
+    <a class="action-links mr-4" (click)="downloadCart()">
+      <i class="material-icons mr-2"> save_alt </i>
+      <span>{{ 'buyCart.downloadXLS' | cxTranslate }}</span>
+    </a>
+    <a class="action-links mr-4" (click)="printPage()">
+      <i class="material-icons mr-2">print</i>
+      <span>{{ 'buyCart.printScreen' | cxTranslate }}</span>
+    </a>
+    <a class="action-links" (click)="openSaveCartModal()">
+      <i class="material-icons mr-2"> save </i>
+      <span>{{ 'buyCart.savecart' | cxTranslate }}</span>
+    </a>
+  </div>
+</div>
+
+<div *ngIf="cart.cartType != cartType.Typ3">
+  <mat-accordion multi>
+    <mat-expansion-panel [expanded]="true" disabled>
+      <mat-expansion-panel-header class="accordtion-header bdr-btm" role="none">
+        <div class="row w-100 accordion-header-row">
+          <div class="col-md-2 pl-0">
+            <div class="float-left cart-header-cell-1">
+              <span>#</span>
+              <span class="prodcutImg">{{
+                'buyCart.product' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-2 quantity-header pl-0">
+            {{ 'buyCart.quantity' | cxTranslate }}
+          </div>
+          <div class="col-md-2 quantity-header pl-0">
+            {{ 'buyCart.price' | cxTranslate }}
+          </div>
+          <div class="col-md-2 pl-0">
+            {{ 'buyCart.additionalDetails' | cxTranslate }}
+          </div>
+          <div class="col-md-1 right expandAll p-0">
+            <a class="panel-head" (click)="toggleButton()">
+              <span class="expand"
+                >{{ !showToggle ? ' EXPAND ALL' : 'COLLAPSE ALL' }}
+                <i *ngIf="showToggle" class="material-icons">
+                  keyboard_arrow_up
+                </i>
+                <i *ngIf="!showToggle" class="material-icons down">
+                  keyboard_arrow_down
+                </i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="cx-item-list-row">
+        <div class="cx-item-list-row" *ngFor="let item of items; let i = index">
+          <div
+            class="cx-item-list-items"
+            *ngIf="getControl(item) | async as control"
+            [class.is-changed]="control.get('quantity').dirty"
+          >
+            <ds-cart-item
+              [item]="item"
+              [quantityControl]="control.get('quantity')"
+              [readonly]="readonly"
+              [promotionLocation]="promotionLocation"
+              [options]="options"
+              [entryNum]="i"
+              [totalEntries]="items.length"
+              [productOpen]="showToggle"
+              [userType]="userType"
+              [cart]="cart"
+              [checkAll]="checkAll"
+              (selectedEntry)="onEntryCheck($event)"
+              #cartEntry
+            >
+            </ds-cart-item>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div *ngIf="cart.cartType == cartType.Typ3 && this.nonFilmProduct">
+  <div class="film-prod">
+    <span class="non-film-order-chip">{{
+      'buyCart.order2' | cxTranslate
+    }}</span>
+    <span class="ml-3" *ngIf="this.nonFilmProduct?.length > 1"
+      >({{ this.nonFilmProduct.length }} {{ 'waygate.listing.items' | cxTranslate }})</span
+    >
+    <span class="ml-3" *ngIf="this.nonFilmProduct?.length == 1"
+      >({{ this.nonFilmProduct.length }} {{ 'waygate.listing.item' | cxTranslate }})</span
+    >
+  </div>
+  <mat-accordion multi>
+    <mat-expansion-panel [expanded]="true" disabled>
+      <mat-expansion-panel-header class="accordtion-header bdr-btm" role="none">
+        <div class="row w-100 accordion-header-row">
+          <div class="col-md-2 pl-0">
+            <div class="float-left cart-header-cell-1">
+              <span>#</span>
+              <span class="prodcutImg">{{
+                'buyCart.product' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-2 quanity-header pl-0">
+            {{ 'buyCart.quantity' | cxTranslate }}
+          </div>
+          <div class="col-md-2 quanity-header pl-0">
+            {{ 'buyCart.price' | cxTranslate }}
+          </div>
+          <div class="col-md-2 pl-0">
+            {{ 'buyCart.additionalDetails' | cxTranslate }}
+          </div>
+          <div class="col-md-1 right expandAll p-0">
+            <a class="panel-head" (click)="toggleButton()">
+              <span
+                >{{ !showToggle ? ' EXPAND ALL' : 'COLLAPSE ALL' }}
+                <i *ngIf="showToggle" class="material-icons">
+                  keyboard_arrow_up
+                </i>
+                <i *ngIf="!showToggle" class="material-icons down">
+                  keyboard_arrow_down
+                </i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="cx-item-list-row">
+        <div
+          class="cx-item-list-row"
+          *ngFor="let item of nonFilmProduct; let i = index"
+        >
+          <div
+            class="cx-item-list-items"
+            *ngIf="getControl(item) | async as control"
+            [class.is-changed]="control.get('quantity').dirty"
+          >
+            <ds-cart-item
+              [item]="item"
+              [quantityControl]="control.get('quantity')"
+              [readonly]="readonly"
+              [promotionLocation]="promotionLocation"
+              [options]="options"
+              [entryNum]="i"
+              [totalEntries]="nonFilmProduct.length"
+              [productOpen]="showToggle"
+              [userType]="userType"
+              [cart]="cart"
+              [checkAll]="checkAll"
+              (selectedEntry)="onEntryCheck($event)"
+              #cartEntry
+            >
+            </ds-cart-item>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div *ngIf="cart.cartType == cartType.Typ3 && this.filmProduct">
+  <div class="film-prod">
+    <span class="film-order-chip">{{ 'buyCart.order1' | cxTranslate }}</span>
+    <span class="ml-3" *ngIf="this.filmProduct?.length > 1"
+      >({{ this.filmProduct.length }} {{ 'waygate.listing.items' | cxTranslate }})</span
+    >
+    <span class="ml-3" *ngIf="this.filmProduct?.length == 1"
+      >({{ this.filmProduct.length }} {{ 'waygate.listing.item' | cxTranslate }})</span
+    >
+  </div>
+  <mat-accordion multi>
+    <mat-expansion-panel [expanded]="true" disabled>
+      <mat-expansion-panel-header class="accordtion-header bdr-btm" role="none">
+        <div class="row w-100 accordion-header-row">
+          <div class="col-md-2 pl-0">
+            <div class="float-left cart-header-cell-1">
+              <span>#</span>
+              <span class="prodcutImg">{{
+                'buyCart.product' | cxTranslate
+              }}</span>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-2 quanity-header pl-0">
+            {{ 'buyCart.quantity' | cxTranslate }}
+          </div>
+          <div class="col-md-2 quantity-header pl-0">
+            {{ 'buyCart.price' | cxTranslate }}
+          </div>
+          <div class="col-md-2 pl-0">
+            {{ 'buyCart.additionalDetails' | cxTranslate }}
+          </div>
+          <div class="col-md-1 right expandAll p-0">
+            <a class="panel-head" (click)="toggleButton()">
+              <span
+                >{{ !showToggle ? ' EXPAND ALL' : 'COLLAPSE ALL' }}
+                <i *ngIf="showToggle" class="material-icons">
+                  keyboard_arrow_up
+                </i>
+                <i *ngIf="!showToggle" class="material-icons down">
+                  keyboard_arrow_down
+                </i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="cx-item-list-row">
+        <div
+          class="cx-item-list-row"
+          *ngFor="let item of filmProduct; let i = index"
+        >
+          <div
+            class="cx-item-list-items"
+            *ngIf="getControl(item) | async as control"
+            [class.is-changed]="control.get('quantity').dirty"
+          >
+            <ds-cart-item
+              [item]="item"
+              [quantityControl]="control.get('quantity')"
+              [readonly]="readonly"
+              [promotionLocation]="promotionLocation"
+              [options]="options"
+              [entryNum]="i"
+              [totalEntries]="filmProduct.length"
+              [productOpen]="showToggle"
+              [userType]="userType"
+              [cart]="cart"
+              [checkAll]="checkAll"
+              (selectedEntry)="onEntryCheck($event)"
+              #cartEntry
+            >
+            </ds-cart-item>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<ng-template #totalHeader>
+  <div class="cx-item-list-total col-md-2 col-lg-2 col-xl-2">
+    {{ 'cartItems.total' | cxTranslate }}
+  </div>
+</ng-template>

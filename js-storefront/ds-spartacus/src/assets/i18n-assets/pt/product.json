@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "DI",
+    "quantity": "QTDE",
+    "productDetails": "Detalhes do produto",
+    "specification": "Especificações",
+    "reviews": "Avaliações",
+    "shipping": "Envio",
+    "share": "Compartilhar",
+    "showReviews": "Mostrar resenhas",
+    "noReviews": "Ainda não há comentários"
+  },
+  "productList": {
+    "filterBy": {
+      "label": "Filtrar por",
+      "action": "Filtrar por"
+    },
+    "appliedFilter": "Filtro aplicado:",
+    "showLess": "Mostre menos...",
+    "showMore": "Mostre mais...",
+    "sortByRelevance": "Classificar por Relevância",
+    "backToTopBtn": "DE VOLTA AO TOPO",
+    "showMoreBtn": "MOSTRE MAIS"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "Filtrar por",
+      "action": "Filtrar por"
+    },
+    "appliedFilter": "Filtro aplicado:",
+    "showLess": "Mostre menos...",
+    "showMore": "Mostre mais...",
+    "sortByRelevance": "Classificar por Relevância"
+  },
+  "productSummary": {
+    "id": "DI",
+    "showReviews": "Mostrar resenhas",
+    "share": "Compartilhar"
+  },
+  "productReview": {
+    "overallRating": "Avaliação geral",
+    "reviewTitle": "Revisar Título",
+    "writeYourComments": "Escreva seus comentários",
+    "rating": "Avaliação",
+    "reviewerName": "Nome do revisor (opcional)",
+    "writeReview": "Escreva uma análise",
+    "more": "Mais",
+    "less": "Menos",
+    "thankYouForReview": "Obrigado pela revisão! Observe que os comentários podem exigir revisão antes de aparecer aqui."
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "Item (ns) adicionado (s) ao seu carrinho",
+    "itemsIncrementedInYourCart": "Este item já estava em seu carrinho. A quantidade foi atualizada.",
+    "items": "Itens",
+    "updatingCart": "Updating cart...",
+    "addToCart": "ADICIONAR AO CARRINHO",
+    "viewCart": "ver carrinho",
+    "proceedToCheckout": "fazer o check-out",
+    "quantity": "QTDE",
+    "outOfStock": "Fora de estoque",
+    "inStock": "Em estoque",
+    "selectStyleAndSize": "Selecione o estilo e o tamanho para verificar o estoque"
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "Detalhes do produto",
+      "ProductSpecsTabComponent": "Especificações",
+      "ProductReviewsTabComponent": "Avaliações",
+      "deliveryTab": "Envio",
+      "TabPanelContainer": "Tab Container"
+    }
+  },
+  "variant": {
+    "style": "Estilo",
+    "selectedStyle": "Estilo selecionado",
+    "size": "Tamanho",
+    "color": "Cor",
+    "sizeGuideLabel": "Guia de estilo"
+  },
+  "addToWishList": {
+    "add": "Adicionar a lista de desejos",
+    "remove": "Remover da lista de desejos",
+    "anonymous": "Faça login para adicionar à lista de desejos"
+  },
+  "stockNotification": {
+    "notifyMe": "ME AVISE",
+    "stopNotify": "PARAR A NOTIFICAÇÃO",
+    "getNotify": "Seja notificado quando este produto estiver disponível.",
+    "getNotifySuffix": "para ser notificado quando este produto estiver disponível.",
+    "activateChannelsPrefix": "Para ser notificado, você precisa ativar o ",
+    "channelsLink": "Canais de Notificação",
+    "activateChannelsSuffix": ".",
+    "notified": "Você será notificado quando este produto estiver em estoque.",
+    "getNotified": "Seja notificado quando este produto estiver em estoque.",
+    "unsubscribeSuccess": "Você não receberá uma notificação de volta em estoque para este produto.",
+    "subscriptionDialog": {
+      "header": "Subscrição em falta",
+      "notifiedPrefix": "Você será notificado em:",
+      "notifiedSuffix": "assim que este produto estiver em estoque.",
+      "manageChannelsPrefix": "Gerencie seus canais de notificação preferidos no ",
+      "manageChannelsLink": "Preferência de Notificação",
+      "manageChannelsSuffix": " página.",
+      "manageSubscriptionsPrefix": "Você pode gerenciar suas assinaturas em ",
+      "manageSubscriptionsLink": "Meus interesses",
+      "manageSubscriptionsSuffix": " página.",
+      "okBtn": "OK",
+      "subscribing": "Inscrevendo você para notificações de falta de estoque para este produto"
+    }
+  }
+}

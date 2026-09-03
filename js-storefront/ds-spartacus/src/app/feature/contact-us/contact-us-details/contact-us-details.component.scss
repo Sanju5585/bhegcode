@@ -1,0 +1,161 @@
+table {
+  width: 100%;
+}
+
+.contact-us-container {
+  margin: 10px 50px 10px 50px;
+}
+
+.contactus-heading {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: var(--font-family-headline-small);
+  font-size: var(--font-base-font-size-20);
+  font-style: normal;
+  font-weight: var(--font-weight-headline-small);
+  line-height: 30px;
+  letter-spacing: 0px;
+  color: #003525;
+}
+
+.view-other-product-line {
+  font-family: var(--font-base-font-family-body);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 20px;
+  text-align: right;
+  letter-spacing: 0.05px;
+  color: var(--color-base-teal-500);
+  cursor: pointer;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-header-row {
+  background: #effcf6;
+  font-family: var(--font-base-font-family-decorative);
+  font-style: normal;
+  line-height: 20px;
+}
+
+.mat-header-cell {
+  color: #1a2321;
+}
+
+.mat-header-cell {
+  font-weight: 600 !important;
+  font-size: var(--font-base-font-size-14);
+}
+
+.show-product-line .mat-header-row {
+  background: #eeeeee;
+}
+
+.mat-column-type,
+.mat-column-region,
+.mat-column-country {
+  flex: 0 0 9%;
+  width: 10%;
+}
+
+.mat-column-phoneNum {
+  max-width: 140px;
+}
+
+.mat-column-country {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow-wrap: break-word;
+}
+
+.mat-column-subRegion {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 11% !important;
+  width: 12% !important;
+  overflow-wrap: break-word;
+}
+
+.mat-column-productLine {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow-wrap: break-word;
+}
+
+.mat-column-email {
+  min-width: 260px;
+}
+
+.arrow-up {
+  font-family: 'Material Icons';
+  content: 'expand_more';
+  float: right;
+  padding-left: 8px;
+  margin-top: -12px;
+  font-style: normal !important;
+}
+
+.arrow-down {
+  font-family: 'Material Icons';
+  content: 'expand_less';
+  float: right;
+  font-style: normal !important;
+}
+
+.arrow {
+  cursor: pointer;
+  margin-left: 8px;
+  margin-top: -6px;
+  width: 18px;
+  height: 18px;
+  div {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+.tb-content {
+  height: auto;
+  min-height: 65px;
+}
+
+.tb-heading {
+  height: 42px;
+  margin: 5px;
+}
+
+.mat-cell {
+  white-space: normal !important;
+  display: grid !important;
+  word-break: break-word !important;
+  word-wrap: break-word !important;
+  margin: 5px;
+}
+
+mat-header-row {
+  min-height: 52px !important;
+}
+
+.contactfirst .mat-column-country {
+  display: none;
+}
+
+:host::ng-deep {
+  .contact-us-spinner {
+    cx-spinner {
+      --cx-spinner-radius: 50px;
+      --cx-spinner-border-width: 10px;
+    }
+  }
+  mat-footer-cell:last-of-type,
+  mat-cell:last-of-type,
+  mat-header-cell:last-of-type {
+    padding-right: 0px !important;
+  }
+}

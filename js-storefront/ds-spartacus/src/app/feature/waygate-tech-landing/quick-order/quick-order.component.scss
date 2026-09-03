@@ -1,0 +1,105 @@
+.quick-order-container {
+  padding: 30px 15px;
+  .quick-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    .left-side {
+      .order-text {
+        color: #121212;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .order-side-text {
+        font-size: 14px;
+        color: #757575;
+        font-weight: 600;
+      }
+    }
+  }
+  .quick-order-body {
+    display: flex;
+    gap: 15px;
+    app-order-parts {
+      flex: 1 1 30%;
+    }
+    app-quick-order-products {
+      flex: 1 1 70%;
+    }
+  }
+}
+.action-error {
+  border: 1px solid #fd7c05;
+  padding: 8px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: var(--font-base-font-family-body);
+  color: var(--fill-semantic-warning-default, #e87516);
+  background-color: lightyellow;
+  i.material-icons {
+    vertical-align: middle;
+    color: var(--fill-semantic-warning-default, #e87516);
+    font-size: var(--font-base-font-size-18);
+    line-height: 18px;
+  }
+  strong {
+    vertical-align: middle;
+    color: #121212;
+    font-size: var(--font-base-font-size-12);
+    line-height: 18px;
+    padding: 0px 8px;
+    font-weight: 400;
+  }
+}
+.explore-prods-nav-link {
+  color: #003525;
+  text-decoration: none;
+  // text-transform: capitalize;
+  font-size: var(--font-base-font-size-14);
+  display: flex;
+  justify-content: right;
+  align-content: center;
+  padding: 5px 5px;
+  align-items: center;
+  margin-left: 100px;
+}
+.explore-prods-arrow {
+  color: var(--color-text-link-inverse-hover);
+  margin-top: -4px;
+  margin-left: 2px;
+}
+
+.waygate-cart-action-option {
+  .waygate-cart-action-option-text {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    color: #595959;
+  }
+  .action-links {
+    text-decoration: none;
+  }
+
+  .action-option-icon {
+    position: relative;
+    top: -32px;
+    left: 10px;
+    font-size: 18px;
+  }
+}
+.right-side {
+  display: flex;
+  gap: 25px;
+}
+.add-button-disabled {
+  pointer-events: none;
+  filter: opacity(0.5);
+}
+
+.quick-order-blocked-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 150px 0;
+}

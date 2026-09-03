@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "フィードバックの詳細",
+    "subject": "題名",
+    "name": "返却先名",
+    "phoneNumber": "電話番号",
+    "emailAddress": "電子メールアドレス",
+    "message": "メッセージ",
+    "characters": "文字",
+    "attachement": "添付",
+    "clipboard": "ファイルをここにドラッグアンドドロップ",
+    "selectFile": "ファイルを選択(画像、pdfのみ)",
+    "uploadFile": "ファイルをアップロードする",
+    "submit": "送信",
+    "successSubmit": "お客様のフィードバックは正しく送信されました",
+    "errorMessage": "何らかのエラーが発生しました。後でもう一度お試しください",
+    "dragdropvalidfile": "有効なファイルタイプを選択してください 有効なファイルタイプは jpg, pdf です",
+    "error": {
+      "phoneNumberMessage": "電話番号は数字のみで入力してください",
+      "emailMessage": "正しいメールアドレスを入力してください",
+      "subjectMessage": "件名は必須です",
+      "nameMessage": "入力必須です",
+      "phoneReq": "電話番号は必須です",
+      "emailReq": "Eメールアドレスは必須です",
+      "message": "メッセージは必須です"
+    }
+  }
+}

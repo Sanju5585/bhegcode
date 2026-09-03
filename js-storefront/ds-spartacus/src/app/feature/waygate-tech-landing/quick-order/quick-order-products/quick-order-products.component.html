@@ -1,0 +1,543 @@
+<div class="quick-order-table-container">
+  <ng-container *ngIf="!displayDataScource">
+    <div class="no-products-found">
+      <div class="">
+        <div class="check">
+          <div class="empty-img"></div>
+          <div class="text">
+            {{ 'quickorder.noProductsAdded' | cxTranslate }}
+          </div>
+          <div class="textPartNum">
+            {{ 'quickorder.startAddingProducts' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+      <div class="box"></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="displayDataScource">
+    <div class="quick-order-table-body">
+      <div class="quick-order-products-header">
+        <div class="left-side">
+          <div class="order-text">
+            {{ 'quickorder.productList' | cxTranslate }}
+          </div>
+          <span class="textPartNum"
+            >{{ selectedRowsCount }} / {{ totalCount }}
+            {{ 'quickorder.productsSelcetd' | cxTranslate }}</span
+          >
+        </div>
+        <div class="right-side">
+          <button
+            type="button"
+            class="find-text"
+            aria-label="Close"
+            (click)="removeProducts()"
+          >
+            {{ 'quickorder.remove' | cxTranslate }}
+          </button>
+        </div>
+      </div>
+      <div class="box">
+        <table class="waygate-quick-order-table">
+          <thead>
+            <tr>
+              <th class="checkboxWidth">
+                <mat-checkbox
+                  (click)="$event.stopPropagation()"
+                  (change)="$event ? toggleSelectionAll($event) : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                ></mat-checkbox>
+              </th>
+              <th class="Partheight">
+                {{ 'quickorder.partNumber' | cxTranslate }}
+              </th>
+              <th class="descheight">
+                {{ 'quickorder.availableStock' | cxTranslate }}
+              </th>
+              <th class="quantityheight">
+                {{ 'quickorder.priceUsd' | cxTranslate }}
+              </th>
+              <th class="priceheight">
+                {{ 'quickorder.estimatedShipdate' | cxTranslate }}
+              </th>
+            </tr>
+
+            <tr></tr>
+          </thead>
+
+          <tbody>
+            <ng-container
+              *ngFor="
+                let row of validatedBulkUploadList
+                  | slice: startRange - 1 : endRange
+              "
+            >
+              <!-- <h3>{{validatedBulkUploadList | json}}</h3> -->
+              <tr
+                [ngClass]="{
+                  'row-disabled':
+                    !row?.productAccessData?.isBuy ||
+                    (isChanelPartner &&
+                      selectedProductType &&
+                      getProductType(row) !== selectedProductType),
+                }"
+              >
+                <td>
+                  <mat-checkbox
+                    (click)="$event.stopPropagation()"
+                    (change)="$event ? toggleSelection(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [disabled]="
+                      (isChanelPartner &&
+                        selectedProductType &&
+                        getProductType(row) !== selectedProductType) ||
+                      (row?.configurable &&
+                        (!row?.configurationValid ||
+                          !row?.priceAvailabilityData?.listPrice?.value))
+                    "
+                  >
+                  </mat-checkbox>
+                </td>
+
+                <td>
+                  <div class="headTextBold">
+                    {{
+                      row?.configurable &&
+                      (!row?.configurationValid ||
+                        !row?.priceAvailabilityData?.listPrice?.value) &&
+                      row?.actualPartNum
+                        ? row?.actualPartNum
+                        : row?.partNum
+                    }}
+                  </div>
+                  <div>{{ row.description }}</div>
+                  <div
+                    *ngIf="
+                      (row.dummyProduct == false &&
+                        row.baseProductValid == true &&
+                        row.configurable == true &&
+                        (row.configurationValid == false ||
+                          !row?.priceAvailabilityData?.listPrice?.value)) ||
+                      (row.dummyProduct == false &&
+                        row.baseProductValid == true &&
+                        row.configurable == true &&
+                        (row.configurationValid == false ||
+                          !row?.priceAvailabilityData?.listPrice?.value))
+                    "
+                    class="configure-text"
+                    (click)="
+                      navigateToConfigurePage(row.actualPartNum, row.partNum)
+                    "
+                  >
+                    View and Configure
+                  </div>
+                  <div
+                    *ngIf="
+                      row.dummyProduct == true &&
+                      row.baseProductValid == false &&
+                      row.configurable == false &&
+                      row.configurationValid == false
+                    "
+                    class="configure-text"
+                    (click)="toggleTextBox(row.partNum)"
+                  >
+                    <span
+                      ><i
+                        class="material-icons-outlined"
+                        *ngIf="getButtonLabel(row.partNum) === 'Edit Details'"
+                      >
+                        settings
+                      </i></span
+                    ><span class="edit-details-text">{{
+                      getButtonLabel(row.partNum)
+                    }}</span>
+                  </div>
+                  <div
+                    *ngIf="showTextBoxMap[row.partNum]"
+                    class="configure-text-box"
+                  >
+                    <input
+                      type="text"
+                      [value]="productDetailsMap[row.partNum] || ''"
+                      (input)="
+                        onDetailsChange(row.partNum, $event.target.value)
+                      "
+                      placeholder="Enter details"
+                      maxlength="50"
+                    />
+                  </div>
+                  <div></div>
+                </td>
+                <td>
+                  <div>{{ 'quickorder.requiredQty' | cxTranslate }}</div>
+                  <div class="headTextBold">{{ row.quantity }}</div>
+                  <div>{{ 'quickorder.availableQty' | cxTranslate }}</div>
+                  <ng-container
+                    *ngIf="
+                      row?.priceAvailabilityData?.availabilityDetails;
+                      else noavlqty
+                    "
+                  >
+                    <div
+                      [ngClass]="
+                        row?.quantity <
+                        row?.priceAvailabilityData?.availabilityDetails[0]
+                          ?.actualStockQty
+                          ? 'headTextBold'
+                          : 'colorChange'
+                      "
+                    >
+                      {{
+                        row?.priceAvailabilityData?.availabilityDetails[0]
+                          ?.actualStockQty
+                      }}
+                    </div>
+                  </ng-container>
+                  <ng-template #noavlqty>
+                    <div>{{ 'quickorder.availableQtyInfo' | cxTranslate }}</div>
+                  </ng-template>
+                </td>
+                <td>
+                  <div
+                    *ngIf="
+                      row?.priceAvailabilityData?.listPrice?.value &&
+                      row?.priceAvailabilityData?.yourPrice?.value
+                    "
+                  >
+                    <div>{{ 'quickorder.listPrice' | cxTranslate }}</div>
+                    <div class="headTextBold">
+                      <!-- {{ row?.priceAvailabilityData?.listPrice?.currencyIso }} -->
+                      {{
+                        row?.priceAvailabilityData?.listPrice?.value
+                          | customNumber
+                            : row?.priceAvailabilityData?.listPrice?.currencyIso
+                      }}
+                    </div>
+                    <div>{{ 'quickorder.yourPrice' | cxTranslate }}</div>
+                    <div class="headTextBold">
+                      <!-- {{ row?.priceAvailabilityData?.yourPrice?.currencyIso }} -->
+                      {{
+                        row?.priceAvailabilityData?.yourPrice?.value
+                          | customNumber
+                            : row?.priceAvailabilityData?.yourPrice?.currencyIso
+                      }}
+                    </div>
+                    <div (click)="viewBreakUp(row)" *ngIf="!row?.configurable">
+                      <a
+                        (click)="this.breakUp = !this.breakUp"
+                        class="arw detail-view"
+                        >{{ 'quickorder.viewBreakup' | cxTranslate }}
+                        <i *ngIf="!breakUp" class="material-icons"
+                          >keyboard_arrow_down</i
+                        >
+                        <i *ngIf="breakUp" class="material-icons"
+                          >keyboard_arrow_right</i
+                        ></a
+                      >
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      !row?.priceAvailabilityData?.listPrice?.value &&
+                      !row?.priceAvailabilityData?.yourPrice?.value &&
+                      !row?.configurable &&
+                      !row?.dummyProduct
+                    "
+                  >
+                    {{ 'quickorder.priceNotAvialble' | cxTranslate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      !row?.priceAvailabilityData?.listPrice?.value &&
+                      !row?.priceAvailabilityData?.yourPrice?.value &&
+                      (row?.configurable || row?.dummyProduct)
+                    "
+                  >
+                    -
+                  </div>
+                  <div
+                    *ngIf="
+                      !row?.priceAvailabilityData?.listPrice?.value &&
+                      !row?.priceAvailabilityData?.yourPrice?.value &&
+                      !row.configurable &&
+                      !row.dummyProduct
+                    "
+                    (click)="viewBreakUp(row)"
+                  >
+                    <a
+                      (click)="this.breakUp = !this.breakUp"
+                      class="arw detail-view"
+                      >{{ 'quickorder.viewBreakup' | cxTranslate }}
+                      <i *ngIf="!breakUp" class="material-icons"
+                        >keyboard_arrow_down</i
+                      >
+                      <i *ngIf="breakUp" class="material-icons"
+                        >keyboard_arrow_right</i
+                      ></a
+                    >
+                  </div>
+                </td>
+                <td>
+                  <ng-container
+                    *ngIf="row?.priceAvailabilityData?.availabilityDetails"
+                  >
+                    <ng-container *ngIf="!compareQty(row)">
+                      <div>
+                        {{
+                          row?.priceAvailabilityData?.estShipData[0]?.shipDate
+                        }}
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="compareQty(row)">
+                      <ng-container *ngIf="notAvailibility(row)">
+                        <div class="danger-out-of-stock">
+                          {{ 'quickorder.noStockAvialble' | cxTranslate }}
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="!notAvailibility(row)">
+                        <div
+                          class=""
+                          *ngIf="
+                            row?.priceAvailabilityData?.estShipData[0]
+                              ?.stockQty &&
+                            row?.priceAvailabilityData?.estShipData[0]?.shipDate
+                          "
+                        >
+                          {{
+                            'quickorder.qtyIsAvialbleOn'
+                              | cxTranslate
+                                : {
+                                    qty: row?.priceAvailabilityData
+                                      ?.estShipData[0]?.stockQty,
+                                    date: row?.priceAvailabilityData
+                                      ?.estShipData[0]?.shipDate,
+                                  }
+                          }}
+                        </div>
+                        <ng-container
+                          *ngIf="
+                            row?.priceAvailabilityData?.leadTime > 0 &&
+                            compareQty(row) &&
+                            selectedSalesArea !== '7140'
+                          "
+                        >
+                          <div>
+                            {{
+                              'quickorder.leadTimeForRemainingQty'
+                                | cxTranslate
+                                  : {
+                                      leadTime:
+                                        row?.priceAvailabilityData?.leadTime,
+                                    }
+                            }}
+                          </div>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="row?.priceAvailabilityData?.leadTime <= 0"
+                        >
+                          <div
+                            [innerHTML]="
+                              'quickorder.leadTimeForRemainingQtyNotAvailable'
+                                | cxTranslate
+                                  : {
+                                      contactus: contactUsUrl,
+                                    }
+                            "
+                          ></div>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      !row?.priceAvailabilityData?.availabilityDetails &&
+                      !(
+                        row?.priceAvailabilityData?.estShipData[0]?.stockQty &&
+                        row?.priceAvailabilityData?.estShipData[0]?.shipDate
+                      ) &&
+                      !row?.configurable
+                    "
+                  >
+                    <div class="danger-out-of-stock">
+                      {{ 'quickorder.stockInfoNotAvailable' | cxTranslate }}
+                    </div>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      !row?.priceAvailabilityData?.availabilityDetails &&
+                      !(
+                        row?.priceAvailabilityData?.estShipData[0]?.stockQty &&
+                        row?.priceAvailabilityData?.estShipData[0]?.shipDate
+                      ) &&
+                      row?.configurable
+                    "
+                  >
+                    <div class="danger-out-of-stock">-</div>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="breakup-dropdown" *ngIf="breakUp">
+      <div class="row-heading list-price-row m-0">
+        <span class="price-menu-heading bold col-6">{{
+          'quickorder.latestUpdates' | cxTranslate
+        }}</span>
+      </div>
+      <div
+        *ngIf="displayViewBreakUpItem?.priceAvailabilityData?.listPrice?.value"
+        class="row discounts"
+      >
+        <span class="price-menu-heading">{{
+          'quickorder.listPrice' | cxTranslate
+        }}</span>
+        <span class="price-menu-content bold">
+          <!-- {{
+            displayViewBreakUpItem?.priceAvailabilityData?.listPrice
+              ?.currencyIso
+          }} -->
+          {{
+            displayViewBreakUpItem?.priceAvailabilityData?.listPrice?.value
+              | customNumber
+                : displayViewBreakUpItem?.priceAvailabilityData?.listPrice
+                    ?.currencyIso
+          }}
+        </span>
+      </div>
+      <div
+        *ngIf="
+          displayViewBreakUpItem?.priceAvailabilityData?.yourPriceDiscount
+            ?.value
+        "
+        class="row discounts"
+      >
+        <span class="price-menu-heading">{{
+          'quickorder.discount' | cxTranslate
+        }}</span>
+        <span class="price-menu-content">
+          {{
+            displayViewBreakUpItem?.priceAvailabilityData?.discountPercentage
+              | number: '1.2-2'
+          }}%
+        </span>
+        <span class="price-menu-content bold">
+          <!-- -{{
+            displayViewBreakUpItem?.priceAvailabilityData?.yourPriceDiscount
+              ?.currencyIso
+          }} -->
+          -
+          {{
+            displayViewBreakUpItem?.priceAvailabilityData?.yourPriceDiscount
+              ?.value
+              | customNumber
+                : displayViewBreakUpItem?.priceAvailabilityData
+                    ?.yourPriceDiscount?.currencyIso
+          }}
+        </span>
+      </div>
+      <div
+        *ngIf="
+          displayViewBreakUpItem?.priceAvailabilityData?.netSellingPrice?.value
+        "
+        class="row total-discounts"
+      >
+        <span class="price-menu-heading bold">{{
+          'quickorder.netPrice' | cxTranslate
+        }}</span>
+        <span class="price-menu-content bold">
+          <!-- {{
+            displayViewBreakUpItem?.priceAvailabilityData?.netSellingPrice
+              ?.currencyIso
+          }} -->
+          {{
+            displayViewBreakUpItem?.priceAvailabilityData?.netSellingPrice
+              ?.value
+              | customNumber
+                : displayViewBreakUpItem?.priceAvailabilityData?.netSellingPrice
+                    ?.currencyIso
+          }}
+        </span>
+      </div>
+    </div>
+    <div class="quick-order-pagination" *ngIf="totalCount > 10">
+      <div class="page-size-container">
+        <div>{{ 'quickorder.itemsPerPage' | cxTranslate }}</div>
+        <div>
+          <select name="" id="" (change)="pageSizeChanged($event)">
+            <ng-container *ngFor="let value of pageSizes">
+              <option [value]="value" [selected]="value == currentPageSize">
+                {{ value }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+        <div>
+          {{
+            'waygate.rangeSummary'
+              | cxTranslate
+                : {
+                    start: startRange,
+                    end: endRange,
+                    total: totalCount,
+                  }
+          }}
+        </div>
+      </div>
+      <div class="page-number-selector-container" *ngIf="totalPages > 1">
+        <span
+          class="material-icons"
+          (click)="pageSelected(1)"
+          [class.disabled]="currentPage == 1"
+        >
+          keyboard_double_arrow_left
+        </span>
+        <span
+          class="material-icons"
+          (click)="pageSelected(currentPage - 1)"
+          [class.disabled]="currentPage == 1"
+        >
+          chevron_left
+        </span>
+        <div *ngIf="currentPage > 2" class="disabled">...</div>
+        <ng-container *ngFor="let value of getPageArray(); let i = index">
+          <ng-container
+            *ngIf="
+              currentPage == value ||
+              currentPage - 1 == value ||
+              currentPage + 1 == value
+            "
+          >
+            <div
+              class="pagination-numbers"
+              [class.active]="value == currentPage"
+              (click)="pageSelected(value)"
+            >
+              {{ value }}
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <div *ngIf="currentPage < totalPages - 2" class="disabled">...</div>
+        <span
+          class="material-icons"
+          (click)="pageSelected(currentPage + 1)"
+          [class.disabled]="currentPage == totalPages"
+        >
+          chevron_right
+        </span>
+        <span
+          class="material-icons"
+          (click)="pageSelected(totalPages)"
+          [class.disabled]="currentPage == totalPages"
+        >
+          keyboard_double_arrow_right
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</div>

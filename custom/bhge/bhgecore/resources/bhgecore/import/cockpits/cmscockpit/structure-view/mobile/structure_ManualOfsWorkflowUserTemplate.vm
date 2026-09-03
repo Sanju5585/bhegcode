@@ -1,0 +1,110 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopBakerHughes</title>
+    <style>
+        a {
+            color: #121212;
+        }
+
+        button {
+            background-color: #02A783;
+            color: #FFFFFF;
+        }
+
+        .img-center {
+            margin-left: 25%;
+        }
+
+        button:hover {
+            color: white;
+        }
+
+        .container {
+            margin-left: 3%
+        }
+
+        .content {
+            border: 1px solid #E2E2E2;
+            margin-right: 25%;
+            margin-left: 15%;
+            background-image: url("$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/OFS_Email_Background.png");
+            background-repeat: no-repeat;
+            background-position-x: 350px;
+            background-position-y: 10px;
+            background-size: 50%;
+        }
+
+        p {
+            font-size: 18px;
+            font-family: Poppins;
+            font-style: Regular;
+            line-height: 20x;
+            color: #121212;
+        }
+
+        h5 {
+            text-align: center;
+            font-size: 24px;
+            color: #506C65;
+        }
+
+        @media only screen and (max-width: 850px) {
+            p {
+                font-size: 16px;
+            }
+
+            h5 {
+                font-size: 18px;
+                color: #506C65;
+            }
+
+            .responsive {
+                width: 202px;
+                height: 60px;
+            }
+
+            .content {
+                border: none;
+                background-color: #E5E5E5
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="img-center mb-4">
+                <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/OFS_Email_Header.png" width="383px" height="112px"
+                    class="responsive" />
+            </div>
+            <h5>Registration Denied</h5>
+
+
+            <div class="container mt-4">
+                <h6 style="margin-top: 5%; font-size: 18px;"><strong>Dear ${ctx.userName},</strong>
+                </h6>
+                <p>Thank you for your interest in the ShopBakerHughes.</p>
+                <p>
+                    Your access request for username - ${ctx.sso} has been denied at this time, because
+                    <strong> ${ctx.reason}</strong> .
+                </p>
+                <br>
+                <h6 style="margin-top: 6px; font-size: 14px;"><strong>Where can I find help?</strong></h6>
+                <a href="mailto:${ctx.supportMail}">Contact support</a>
+				<br><br>
+                <p style="margin-top: 5%;">Best regards,</p>
+                <p>ShopBakerHughes Support team</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

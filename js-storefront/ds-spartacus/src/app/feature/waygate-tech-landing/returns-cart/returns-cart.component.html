@@ -1,0 +1,142 @@
+<div class="container">
+  <ng-container *ngIf="cart$ | async as cart; else loading">
+    <ng-container *ngIf="(cart | json) != '{}'; else loading">
+      <ng-container
+        *ngIf="cart.returnsCartData?.length > 0; else noCartEntries"
+      >
+        <div class="rma-container">
+          <div class="header-sec">
+            <div class="waygate-my-orders-header">
+              <div class="header-green-border"></div>
+              <div class="waygate-my-order-row">
+                <h1 class="waygate-my-order-title">
+                  {{ 'rma-cart.pageTitleRMA' | cxTranslate }}
+                </h1>
+              </div>
+            </div>
+            <div class="waygate-cart-action-options">
+              <div class="waygate-cart-action-option">
+                <a class="action-links mr-4" (click)="printScreen()">
+                  <bh-button
+                    type="secondary"
+                    class="waygate-cart-action-option-text"
+                    label="{{ 'rma-cart.printScreen' | cxTranslate }}"
+                    [leftIcon]="'print'"
+                  ></bh-button>
+                </a>
+              </div>
+              <div class="waygate-cart-action-option">
+                <a class="action-links mr-4" (click)="saveCart(cart)">
+                  <bh-button
+                    type="secondary"
+                    class="waygate-cart-action-option-text"
+                    label="{{ 'rma-cart.saveCart' | cxTranslate }}"
+                    [leftIcon]="'save'"
+                  ></bh-button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="rma-cart--info">
+            <div class="hazard-info-container">
+              <div class="order-ack-label">
+                <span>{{ 'rma-cart.hazardousTitle' | cxTranslate }}</span
+                ><span class="required"> * </span>
+              </div>
+              <div class="hazardous-content">
+                <div class="hazardous-content-div">
+                  {{ 'rma-cart.hazardousLineItemsInfo' | cxTranslate }}
+                </div>
+              </div>
+              <div>
+                <div class="radio-btn-div">
+                  <span class="reviewed-text">{{
+                    'rma-cart.hazardousReviewInfo' | cxTranslate
+                  }}</span
+                  ><span class="required"> * </span>
+                  <div class="vs-tooltip-icon2">
+                    <p class="vs-tooltip">
+                      {{ 'hazardInfo.tooltip' | cxTranslate }}
+                    </p>
+                  </div>
+                </div>
+                <div class="radio-btn mt-2" *ngIf="showHazardousOptions">
+                  <bh-radio-button
+                    [checked]="isHazardous === true"
+                    label="{{ 'labels.yes' | cxTranslate }}"
+                    value="'Yes'"
+                    name="group"
+                    (change)="handleChange($event)"
+                  ></bh-radio-button>
+                  <bh-radio-button
+                    [checked]="isHazardous === false"
+                    label="{{ 'labels.no' | cxTranslate }}"
+                    value="'No'"
+                    name="group"
+                    (change)="handleChange($event)"
+                  ></bh-radio-button>
+                </div>
+              </div>
+              <div
+                *ngIf="distinctPlantList?.length > 1"
+                class="hybrid-cart-warning"
+              >
+                <span class="material-icons ml-2">info</span>
+                <span class="ml-2">{{
+                  'rma-cart.rmaSplitInfo' | cxTranslate
+                }}</span>
+              </div>
+              <app-returns-cart-item-list
+                [cart]="cart"
+                [hazardStatus]="hazardStatus"
+                [distinctPlantList]="distinctPlantList"
+              ></app-returns-cart-item-list>
+
+              <div class="waygate-returns-footer" *ngIf="isHazardous != null">
+                <bh-checkbox
+                  class="float-left"
+                  label=""
+                  [value]="declarationCheck"
+                  (change)="onChange($event)"
+                >
+                </bh-checkbox>
+                <div>
+                  <span _ngcontent-ng-c3577292391="" class="star">*</span>
+                  <span *ngIf="isHazardous === true">{{
+                    'rma-cart.rmaConfirmationCheck' | cxTranslate
+                  }}</span>
+                  <span *ngIf="isHazardous === false">{{
+                    'hazardInfo.notContaminated' | cxTranslate
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <app-return-summary-component
+              [declarationCheck]="declarationCheck"
+              [cart]="cart"
+              [hazardStatus]="hazardStatus"
+              [isHazardous]="isHazardous"
+            ></app-return-summary-component>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #noCartEntries>
+      <div class="empty-cart-page">
+        <div class="container">
+          <div class="empty-img"></div>
+          <h1>{{ 'rma-cart.returnCartEmpty' | cxTranslate }}</h1>
+          <p>
+            {{ 'rma-cart.searchOrBrowse' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner> {{ 'rma-cart.loading' | cxTranslate }}</cx-spinner>
+  </div>
+</ng-template>

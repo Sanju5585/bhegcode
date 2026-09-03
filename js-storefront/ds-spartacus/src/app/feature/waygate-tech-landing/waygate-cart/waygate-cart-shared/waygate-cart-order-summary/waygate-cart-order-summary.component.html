@@ -1,0 +1,158 @@
+<ng-container *ngIf="cart$ | async as cart">
+  <div class="waygate-order-summary">
+    <div class="order-summary-coupon">
+      <div class="order-summary-coupon-text">
+        {{ 'buyCart.couponCode' | cxTranslate }}
+      </div>
+      <div
+        class="order-summary-coupon-input"
+        *ngIf="
+          userType == 'current' &&
+          (!cart.appliedVouchers || cart.appliedVouchers.length <= 0)
+        "
+      >
+        <div class="vs-text-field">
+          <input
+            type="text"
+            class="coupon-input"
+            placeholder="{{ 'buyCart.enterCouponCode' | cxTranslate }}"
+            [(ngModel)]="coupon"
+            (keyup.enter)="applyCoupon()"
+            [disabled]="isQuoteOrderConvertFlow"
+            [class.error]="
+              (couponErrorMsg || noValueCouponMsg) && coupon.length <= 0
+            "
+          />
+          <label
+            *ngIf="couponErrorMsg && coupon.length <= 0"
+            class="text-danger coupon-error"
+            >{{ 'buyCart.enterVaildCoupon' | cxTranslate }}</label
+          >
+          <label
+            *ngIf="noValueCouponMsg && coupon.length <= 0"
+            class="text-danger coupon-error"
+            >{{ 'buyCart.couponNotApplicable' | cxTranslate }}</label
+          >
+        </div>
+        <a
+          class="return-btn"
+          (click)="isQuoteOrderConvertFlow ? '' : applyCoupon()"
+          [ngClass]="{ 'disabled-btn': isQuoteOrderConvertFlow }"
+          >{{ 'buyCart.apply' | cxTranslate }}</a
+        >
+      </div>
+      <div
+        *ngIf="cart?.appliedVouchers?.length > 0"
+        class="applied-coupon-holder"
+      >
+        <span class="applied-coupon-icon mr-2"></span>
+        <div class="coupons-holder">
+          <span class="applied-coupon">{{ cart.appliedVouchers[0].code }}</span>
+          <span class="applied-coupon-text">{{
+            'buyCart.couponApplied' | cxTranslate
+          }}</span>
+        </div>
+        <a
+          (click)="removeCoupon(cart.appliedVouchers[0].code)"
+          class="remove-coupon"
+          ><span class="material-icons cancel">cancel</span></a
+        >
+      </div>
+      <!-- <div class="available-coupon">View available coupons</div> -->
+    </div>
+    <hr class="horizontal-line" />
+    <div class="order-summary-heading">
+      {{ 'buyCart.orderSummary' | cxTranslate }}
+    </div>
+    <div class="order-summary-content">
+      <div class="order-summary-sub-content">
+        <div>{{ 'buyCart.subTotal' | cxTranslate }}</div>
+        <div class="order-summary-price">
+          {{ cart?.totalListPrice?.formattedValue }}
+        </div>
+      </div>
+      <div class="order-summary-sub-content" *ngIf="cart?.surCharge">
+        <div>Freight Charge</div>
+        <div class="order-summary-price">
+          {{ cart?.surCharge | customNumber: cart?.totalPrice?.currencyIso }}
+        </div>
+      </div>
+      <!--       <div class="order-summary-sub-content">
+        <div>Surcharge<i class="material-icons mr-2">info</i></div>
+        <div class="vs-tooltip-icon">
+          <p class="vs-tooltip">
+            Partial shipments will be sent as each item from the order is ready
+            to be shipped. Complete shipments will be sent only when the entire
+            order is ready to be shipped
+          </p>
+        </div>
+        <div class="order-summary-price">$0.00</div>
+      </div> -->
+      <!-- <div class="order-summary-sub-content">
+        <div>Discount</div>
+        <div class="order-summary-price">
+          {{ cart?.yourPriceDiscount?.formattedValue }}
+        </div>
+      </div> -->
+      <div class="coupon-discount" *ngIf="userType == 'current'">
+        <ng-container *ngIf="cart?.yourPriceDiscount?.value > 0">
+          <span class="heading-text float-left">{{
+            'buyCart.discount' | cxTranslate
+          }}</span>
+          <span class="float-right content-bold">{{
+            cart?.yourPriceDiscount?.formattedValue
+          }}</span>
+        </ng-container>
+      </div>
+      <div class="coupon-discount" *ngIf="userType == 'current'">
+        <ng-container *ngIf="cart?.totalDiscounts?.value > 0">
+          <span class="heading-text float-left coupon-info">{{
+            'checkoutConfirmation.couponInfo' | cxTranslate
+          }}</span>
+          <span class="float-right content-bold">
+            <!-- {{ cart?.currencyIso }} {{ cart?.currencySymbol }} -->
+            {{
+              cart?.totalListPrice?.value -
+                cart?.yourPriceDiscount?.value -
+                cart?.totalPrice?.value
+                | customNumber: cart?.totalPrice?.currencyIso
+            }}
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <hr class="horizontal-line" />
+    <div class="order-summary-total">
+      <div class="total-text">{{ 'buyCart.total' | cxTranslate }}</div>
+      <div class="order-summary-price">
+        {{ cart?.totalPrice?.formattedValue }}
+      </div>
+    </div>
+
+    <!-- <ng-container *ngIf="productLine === allproductline.panametrics">
+      <app-tariff></app-tariff>
+    </ng-container> -->
+
+    <ng-container *ngIf="currentUserAccess$ | async as userType">
+      <div
+        *ngIf="
+          !restrictedSalesArea &&
+          (userType?.indexOf(userRoleEnum.ADMIN) > -1 ||
+            userType?.indexOf(userRoleEnum.GUEST) > -1)
+        "
+        class="order-summary-actions"
+      >
+        <bh-button
+          class="return-btn"
+          [type]="'primary'"
+          [attr.loading]="showLoading"
+          [label]="'buyCart.proceedToCheckout' | cxTranslate"
+          (click)="proceedToCheckoutNavigate()"
+          [attr.disabled]="
+            cart.isMinOrderQtyProductExists || dateAndDisabledChange?.disabled
+          "
+        ></bh-button>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

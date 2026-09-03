@@ -1,0 +1,169 @@
+.waygate-notification-main {
+  font-family: Poppins;
+  //   width: 728px;
+  //   height: 328px;
+  color: #000000;
+  .waygate-notification-main-heading {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+
+    color: #000000;
+  }
+  .notification-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .notification-label {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: -0.25px;
+      text-align: left;
+    }
+    .order-ack-label {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: -0.25px;
+      color: #121212;
+    }
+    .shipping-check {
+      display: flex;
+      gap: 8px;
+    }
+    .shipping-checkbox-label {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #595959;
+    }
+    .notification-contact-main {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+    .invoice-main {
+      .invoice-contact-label {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: -0.25px;
+        color: #121212;
+      }
+      .invoice-check {
+        display: flex;
+        gap: 8px;
+      }
+      .invoice-checkbox-label {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: #595959;
+      }
+    }
+  }
+
+  .notification-remarks {
+    .uploadattachment {
+      .reviewed-text {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+      }
+      .radio-btn {
+        display: flex;
+        gap: 20px;
+      }
+      .additional-attachment-label {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+      }
+      .fileformat {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #595959;
+      }
+
+      .file-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+      .warning-box {
+        display: flex;
+        align-items: center;
+        background-color: #fff1c8;
+        border: var(--cx-border, none);
+        border-radius: 4px;
+        border: 1px solid #fff1c8;
+        letter-spacing: normal;
+        line-height: 15px;
+        // width: 96%;
+        height: 46px;
+
+        .alert-warning {
+          color: var(--cx-color, var(--cx-color-warning));
+          padding: 5px;
+        }
+        .alert-text {
+          font-family: var(--font-family-body-large);
+          // position: absolute;
+          color: darkgoldenrod;
+          // width: 75%;
+          background: none;
+          padding: 5px;
+          font-size: var(--font-base-font-size-12);
+          font-weight: normal;
+        }
+      }
+      .textarea-label {
+        font-family: var(--font-family-body-large);
+        font-size: var(--font-size-body-small);
+        color: var(--color-text-common-primary);
+      }
+      .textarea-buycheckout {
+        width: 100%;
+      }
+    }
+  }
+
+  .bh-form-message {
+    display: flex;
+  }
+  .bh-form-message--error {
+    color: var(--color-text-label-error);
+  }
+}
+:host::ng-deep {
+  .upload-files .upload-files--btn {
+    width: 260px !important;
+    height: 44px;
+    border: 1px solid #adbdb9 !important;
+    justify-content: center !important;
+    gap: 10px;
+  }
+  .upload-files .label-color {
+    color: #121212 !important;
+  }
+  .upload-files .icon-color {
+    color: #121212 !important;
+  }
+  .bh-text-input__required:after,
+  .reasonforchange:after,
+  .bh-dropdown__required:after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .bh-text-input__required:before,
+  .reasonforchange:before,
+  .bh-dropdown__required::before {
+    color: var(--color-fill-cta-critical-default);
+    content: ' *';
+  }
+}

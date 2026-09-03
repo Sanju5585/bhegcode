@@ -1,0 +1,54 @@
+<div class="modal">
+  <div class="modal-content">
+    <div>
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h2>{{ 'waygate.manage-user.changeCustomerAccount' | cxTranslate }}</h2>
+    </div>
+    <div class="customer-account-search-actions">
+      <div class="customer-account-search">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="{{ 'waygate.manage-user.searchByAccountNameNo' | cxTranslate }}"
+          (input)="onSearch()"
+          (keypress.enter)="onSearch()"
+        />
+        <span class="material-icons" (click)="onSearch()">search</span>
+      </div>
+    </div>
+    <div class="scrollable-list">
+      <div *ngIf="showLoader" class="cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+      <div
+        *ngIf="!showLoader && filteredAccounts.length === 0 && searchPerformed"
+      >
+        {{ 'waygate.manage-user.noCustomerAccountFound' | cxTranslate }}
+      </div>
+      <div>
+        <div *ngFor="let b2bUnit of filteredAccounts">
+          <div
+            class="row"
+            [ngClass]="b2bUnit?.value?.active ? 'activeAcc' : ''"
+          >
+            <div class="A">
+              <bh-radio-button
+                [value]="b2bUnit.uid"
+                name="account"
+                (change)="onSelectAccount(b2bUnit)"
+              >
+              </bh-radio-button>
+            </div>
+            <div class="A">{{ b2bUnit.name }} - {{ b2bUnit.uid }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div><hr class="bh-divider" /></div>
+    <div>
+      <button (click)="selectAccount()">
+        {{ 'waygate.manage-user.select' | cxTranslate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,221 @@
+<!-- <app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs> -->
+<div class="container" *ngIf="loadingFlag; else loading">
+  <div class="waygate-cart-checkout-container">
+    <div class="section-container">
+      <div class="action-error" *ngIf="showBinLookupErr">
+        <i class="material-icons notification-icon link-anchor">notifications</i
+        ><strong>{{ 'errors.binLookErr' | cxTranslate }}</strong>
+      </div>
+      <div class="action-error" *ngIf="showSavedCardError">
+        <i class="material-icons notification-icon link-anchor">notifications</i
+        ><strong>{{ 'errors.savedCardErr' | cxTranslate }}</strong>
+      </div>
+      <div class="action-error" *ngIf="showUnexpectedErr">
+        <i class="material-icons notification-icon link-anchor">notifications</i
+        ><strong>{{
+          'errors.creditCardPaymentUnexpectedErr' | cxTranslate
+        }}</strong>
+      </div>
+      <div class="action-error" *ngIf="showCardNotAllowedErr">
+        <i class="material-icons notification-icon link-anchor">notifications</i
+        ><strong>{{ 'errors.cardNotAllowedErr' | cxTranslate }}</strong>
+      </div>
+    </div>
+    <div class="waygate-cart-checkout-header">
+      <div>
+        <h1>{{ 'titles.checkoutpageTitle' | cxTranslate }}</h1>
+      </div>
+      <div class="waygate-cart-checkout-option">
+        <a class="action-links mr-4" (click)="printPage()">
+          <bh-button
+            [leftIcon]="'picture_as_pdf'"
+            type="secondary"
+            class="waygate-cart-checkout-option-text"
+            label="{{ 'titles.downloadPdf' | cxTranslate }}"
+          ></bh-button>
+        </a>
+      </div>
+    </div>
+    <!-- <div *ngIf="productLine == AllProductLine.bently && userTypes == 'internal'" class="cordant-checkout-order-preference row">
+        <div class="cordant-checkout-order-preference-text mr-3">
+          <div>{{ 'labels.selectYourOrder' | cxTranslate }}</div>
+          <div class="vs-tooltip-icon">
+          </div>
+        </div>
+        <div class="waygate-cart-radio-btn mt-2 col-xs-12">
+          <bh-radio-button [attr.checked]="" label="{{ 'labels.Standard' | cxTranslate }}"
+            value="false" name="group" (change)="handleChange($event)"
+            ></bh-radio-button>
+          <bh-radio-button [attr.checked]="" label="{{ 'labels.Demo' | cxTranslate }}"
+            value="true" name="group" (change)="handleChange($event)"
+            ></bh-radio-button>          
+        </div>
+      </div> -->
+    <div class="cart-checkout-stepper">
+      <ol>
+        <ng-container *ngIf="isQuote">
+          <li
+            [ngClass]="
+              isEnduserAddress && soldToAddress && shippingAddress
+                ? 'active'
+                : ''
+            "
+          >
+            <span class="li-label">{{ 'labels.address' | cxTranslate }}</span>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!isQuote">
+          <li
+            [ngClass]="
+              isEnduserAddress && soldToAddress && shippingAddress
+                ? 'active'
+                : ''
+            "
+          >
+            <span class="li-label">{{ 'labels.address' | cxTranslate }}</span>
+          </li>
+          <li [ngClass]="isPaymentVal ? 'active' : ''">
+            <span class="li-label"> {{ 'titles.payment' | cxTranslate }}</span>
+          </li>
+
+          <li [ngClass]="isShippingAddressVal ? 'active' : ''">
+            <span class="li-label">{{ 'titles.shipping' | cxTranslate }} </span>
+          </li></ng-container
+        >
+        <li [ngClass]="isComplianceVal ? 'active' : ''">
+          <span class="li-label"
+            >{{ 'rma-confirmation.compliance' | cxTranslate }}
+          </span>
+        </li>
+        <li [class.active]="isNotificationVal">
+          <span class="li-label">{{
+            'titles.notification' | cxTranslate
+          }}</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="waygate-cart-checkout-content-container">
+      <div class="cart-checkout-content-sub-container">
+        <div class="cart-checkout-content">
+          <app-waygate-soldto-address
+            id="solToDetails"
+            [soldAddress]="soldToAddress"
+            [customerAccount]="customerAccount"
+          >
+          </app-waygate-soldto-address>
+
+          <app-waygate-shipto-address
+            id="shipToDetails"
+            [shippingAddress]="shippingAddress"
+            [customerAccount]="customerAccount"
+            (checkShippingAddressVal)="checkShippingAddressVal($event)"
+            (shippingAddressUpdated)="onShippingAddressUpdated($event)"
+          ></app-waygate-shipto-address>
+          <ng-container *ngIf="isEndUserType">
+            <app-waygate-end-customer-address
+              [isQuote]="isQuote"
+              id="endUserDetails"
+              [endUserAddress]="endUserAddress"
+              [cartType]="cartType"
+              [customerAccount]="customerAccount"
+              [cart$]="cart$"
+              [shippingAddress]="shippingAddress"
+              [sameAsShipping]="sameAsShipping"
+              [currentPage]="'CHECKOUT'"
+              (checkEnduserAddress)="checkEnduserAddress($event)"
+              (addressUpdated)="onAddressUpdated($event)"
+              [fromCheckOutComp]="true"
+            >
+            </app-waygate-end-customer-address>
+          </ng-container>
+
+          <app-upload-euc-form
+            [isChinaOrder]="isChinaApacOrder"
+            [endUserAddress]="endUserAddress"
+            [soldAddress]="soldToAddress"
+            (eucFormValid)="isEUCFormValid($event)"
+            [isChina]="isChina"
+            [isApac]="isApac"
+            [cart$]="cart$"
+          ></app-upload-euc-form>
+
+          <app-waygate-payment
+            [returnList]="returnList"
+            [isQuote]="!isQuote"
+            id="paymentDetails"
+            [cart$]="cart$"
+            [paymentTerm]="paymentTerm"
+            (setPaymentData)="getPaymentInput($event)"
+            (sendPayInfoData)="getPaymentInfo($event)"
+            (isPaymentValid)="isPaymentValid($event)"
+            [showCreditCard]="showCreditCard"
+            [hidePurchaseOrder]="hidePurchaseOrder"
+            [ccPaymentInfo]="ccPaymentInfo"
+            [savedPayCards]="savedCards"
+            [completeOrder]="cart?.isShipCompleteOrder"
+            [isEndUserType]="isEndUserType"
+          ></app-waygate-payment>
+
+          <app-waygate-shipping
+            [isQuote]="!isQuote"
+            id="shippingDetails"
+            [sippingAddress]="shippingAddress"
+            [inkoTerm]="inkoTerm"
+            [largestFilmLeadtime]="largestFilmLeadtime"
+            [largestNonFilmLeadtime]="largestNonFilmLeadtime"
+            [collectType]="collectList"
+            [cartType]="cartType"
+            [prePayAddType]="prePayAddList"
+            [checkoutData]="checkoutData"
+            (setModelData)="getShippingInput($event)"
+            (setReqDate)="getReqDate($event)"
+            (checkShippingAddressVal)="checkShippingAddressVal($event)"
+            [profileType]="customerUserType"
+            [cart$]="cart$"
+          ></app-waygate-shipping>
+
+          <app-waygate-compliance-questions
+            [isQuote]="isQuote"
+            id="complianceDetails"
+            (setComplianceData)="getComplianceInput($event)"
+            (isComplianceValid)="isComplianceValid($event)"
+            [ccPaymentInfo]="ccPaymentInfoForSnapPay"
+          ></app-waygate-compliance-questions>
+
+          <app-waygate-notifications-attachments
+            id="notificationDetails"
+            [rmaInvoiceMail]="invoiceMail"
+            [orderAckMail]="orderAckMail"
+            [invoiceName]="invoiceName"
+            [invoicePhone]="invoicePhone"
+            [orderAckName]="orderAckName"
+            [orderAckPhone]="orderAckPhone"
+            (setNotificationData)="getNoitificationInput($event)"
+            (checkNotificationVal)="checkNotificationVal($event)"
+            [isQuote]="isQuote"
+            [isChinaOrder]="isChinaApacOrder"
+            [endUserAddress]="endUserAddress"
+            [soldAddress]="soldToAddress"
+            [cart$]="cart$"
+          ></app-waygate-notifications-attachments>
+        </div>
+        <div class="cart-checkout-summary">
+          <app-waygate-order-summary
+            (checkTermNCondition)="isChecked($event)"
+            (OrderPreferenceEvent)="onOrderPreferenceReceived($event)"
+            [noCartEntriesData]="data"
+            [isQuote]="isQuote"
+            [isRMA]="isRMA"
+            [selectedSalesArea]="selectedSalesArea"
+          ></app-waygate-order-summary>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

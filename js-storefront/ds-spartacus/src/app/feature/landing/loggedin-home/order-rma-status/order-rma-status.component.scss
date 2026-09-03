@@ -1,0 +1,222 @@
+.rma-status {
+  border: 1px solid #eeeeee;
+  box-sizing: border-box;
+  margin-top: 40px;
+  min-height: 236px;
+}
+
+.rma-result {
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--font-base-font-size-18);
+  line-height: 27px;
+  text-transform: capitalize;
+  color: #003525;
+  padding-top: 15px;
+  padding-left: 10px;
+}
+
+.status-check {
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--font-base-font-size-18);
+  line-height: 27px;
+  text-transform: capitalize;
+  color: #003525;
+  padding-top: 15px;
+  padding-left: 25px;
+}
+
+.icon-size {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 17px;
+  line-height: 1.1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  color: #05322b;
+}
+
+.find-text {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 5px;
+  font-family: var(--font-family-body-large);
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--font-base-font-size-12);
+  line-height: 14px;
+  color: #000000;
+  text-transform: none;
+  color: var(--color-base-teal-950) !important;
+  cursor: pointer;
+}
+
+.linkButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.help-icon {
+  float: right;
+  margin-right: 150px;
+}
+
+.input-field {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 12px;
+  margin-top: 15px;
+}
+
+.or-divide {
+  font-size: var(--font-base-font-size-12);
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #999999;
+  position: relative;
+  top: 3.5em;
+  left: 0.4em;
+  display: inline-block;
+  font-style: italic;
+}
+
+.purchase-input {
+  width: 48%;
+}
+
+.rma-input {
+  width: 45%;
+}
+
+.button {
+  display: flex;
+  margin-top: 1.7rem;
+  margin-right: 15px;
+}
+
+.table th,
+.table td {
+  border: 0px;
+}
+
+.table-header {
+  background-color: #f3f3f3;
+}
+
+.table-top {
+  margin-top: 20px;
+}
+
+:host::ng-deep {
+  .bh-text-input {
+    label {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-base-font-size-14);
+      line-height: 19px;
+      color: #1a2321;
+    }
+    input {
+      border-radius: 0px;
+      height: 39px;
+      width: 100%;
+    }
+  }
+  .reset-button .reset .bh-button {
+    width: 155px;
+    height: 44px;
+    border: 1px #bdbdbd;
+    border-style: solid;
+    border-width: 1px;
+  }
+  .reset-button .reset span {
+    font-family: var(--font-family-headline-large);
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--font-base-font-size-12);
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    color: #1a2321;
+  }
+  .bh-button:focus:not(:active):not(:hover) {
+    box-shadow: none;
+  }
+  .track-button {
+    margin-left: 25px;
+  }
+  .reset-button {
+    margin-left: 25px;
+  }
+  .track-button-cview {
+    margin-left: 0px;
+  }
+  .reset-button-cview {
+    margin-left: 25px;
+  }
+  .track-button .track .bh-button {
+    width: 155px;
+    height: 44px;
+    background: #ebefee;
+  }
+  .track-button .track span {
+    font-family: var(--font-family-headline-large);
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--font-base-font-size-12);
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    color: #ced7d4;
+  }
+  .track-button .track-green .bh-button {
+    background: var(--color-base-teal-500);
+  }
+  .track-button .track-green span {
+    color: #ffffff !important;
+  }
+  .no-data {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .track-button .track-cview span,
+  .reset-button .reset-cview span {
+    text-transform: capitalize;
+  }
+  .bh-button__container {
+    height: 44px;
+  }
+  .bh-button {
+    height: 44px !important;
+  }
+}
+
+.custom-icon {
+  color: #018374;
+  cursor: pointer;
+}
+.changing-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.rma-processing-track-status {
+  display: flex;
+  gap: 0.1rem;
+}
+.font-await-process-order {
+  font-size: 9px;
+}

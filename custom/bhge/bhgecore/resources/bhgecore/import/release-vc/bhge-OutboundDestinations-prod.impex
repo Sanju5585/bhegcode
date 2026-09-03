@@ -1,0 +1,42 @@
+
+#***  OAuth CredentialS ***#
+
+$oAuthUrl = https://bhcpiprod.authentication.us10.hana.ondemand.com/oauth/token
+$clientId = sb-56996ccb-9c92-4f81-870b-e542ea0a2994!b11281|it-rt-bhcpiprod!b2455
+$clientSecret = 95868351-4e37-4790-b0c7-5b5ec78db659$QJYfagy89E_YbwO0GWtuValkf5dPtIc-loGnbfGrfa8=
+
+
+
+
+
+#***  Order URL ***#
+
+$orderUrl = https://bhcpidev.it-cpi003-rt.cfapps.us10.hana.ondemand.com/gw/odata/SAP/REPLICATE-ORDERS-WITH-PRODUCTCONFIGURATION-FROM-SAP-COMMERCE-CLOUD-TO-SAP-ERP_DS;
+$orderVersion = v=1
+
+
+
+
+#***  OAuth Credentials ***#
+
+INSERT_UPDATE ConsumedOAuthCredential; Id[unique = true]   		; clientId  ; clientSecret  ; oAuthUrl
+                                     ; scpiOauthCredentialNew 	; $clientId ; $clientSecret ; $oAuthUrl
+
+
+#***  Endpoints ***#
+
+INSERT_UPDATE Endpoint; id[unique = true]             ; version[unique = true]; specUrl                                ; name
+                      ; scpiOrderEndpoint             ; unknown               ; "$orderUrl;$orderVersion/"             ; scpiOrderEndpoint
+
+
+#***  Destination Target  ***#
+
+INSERT_UPDATE DestinationTarget; id[unique = true]
+                               ; scpiDestinationTarget
+
+
+#***  Consumed Destinations  ***#
+
+INSERT_UPDATE ConsumedDestination; id[unique = true]                ; url                                                                    ; endpoint(id, version)                 ; credential(id)      		; additionalProperties(key, value)[map-delimiter = |]; destinationTarget(id)[default = scpiDestinationTarget]; active[default = true]
+                                 ; scpiOrderDestination             ; "$orderUrl;$orderVersion/SAPCpiOutboundOrders"                         ; scpiOrderEndpoint:unknown             ; scpiOauthCredentialNew 	; "csrfURL->$orderUrl;$orderVersion/"                ;
+

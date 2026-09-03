@@ -1,0 +1,11 @@
+# Cron Job Impex				   
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+                             ;bhgePendingQuoteCreationJob;bhgePendingQuoteCreationJob;true
+
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+                     ;bhgePendingQuoteCreationJob;bhgePendingQuoteCreationJob;en;true
+
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true]		;active ;cronExpression
+                     ;bhgePendingQuoteCreationJob	;true	;0 0 0/3 1/1 * ? *

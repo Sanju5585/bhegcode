@@ -1,0 +1,4 @@
+#Appliation Approval Details
+INSERT_UPDATE BHGEApprovalDetails;appAccessLevel(appAccessLevelId);approverID[unique=true];approverGroupName;approverGroupDetails;approveruserid(uid);emailDistribList
+;22001;22001;IQM Approvers;IQM Approvers;;IQM.byBHGE@ge.com
+;22002;22002;IQM Approvers;IQM Approvers;;IQM.byBHGE@ge.com

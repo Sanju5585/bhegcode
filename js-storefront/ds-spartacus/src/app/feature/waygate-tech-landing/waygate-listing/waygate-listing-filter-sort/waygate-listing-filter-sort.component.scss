@@ -1,0 +1,53 @@
+.filter-select-main {
+  // padding: 32px 52px 32px 32px;
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  background-color: #ffffff;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
+  transition: width 1s;
+  animation-name: slide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+
+  &.top-margin {
+    margin: 136px 0;
+    position: fixed;
+    overflow: auto;
+  }
+
+  .waygate-facets {
+    padding: 4%;
+    margin-bottom: 38%;
+  }
+
+  .sort-header {
+    padding: 4%;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .selected-filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    background: #ffffff;
+    color: #595959;
+    border-radius: 30px;
+    border: 1px solid #a0a0a0;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .sort-items{
+    padding: 5px;
+    gap: 15px;
+    flex-wrap: wrap;
+    display: flex;
+  }
+}

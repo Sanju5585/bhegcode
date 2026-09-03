@@ -1,0 +1,115 @@
+<ng-container *ngIf="cart$ | async as cart; else loading">
+  <ng-container *ngIf="(cart | json) != '{}'; else loading">
+    <ng-container
+      *ngIf="
+        cart.totalItems > 0 && cart.commerceType !== 'RETURNS';
+        else noCartEntries
+      "
+    >
+      <ng-container>
+        <div
+          *ngIf="cart?.isMinOrderQtyProductExists"
+          class="min-order-error mb-5"
+        >
+          <i class="material-icons">report</i
+          ><span class="min-order-text">{{
+            'buyCart.minOrderError' | cxTranslate
+          }}</span>
+        </div>
+        <div class="row m-0 background-shade">
+          <div class="col-md-8 order-actions-container">
+            <ds-cart-action
+              [userType]="userType"
+              [cart$]="cart$"
+              (scrollToEntry)="scrollCartEntryIntoView($event)"
+              (updateCart)="reloadCart($event)"
+            >
+            </ds-cart-action>
+          </div>
+
+          <div
+            class="col-md-4 order-summary-container pr-0"
+            *ngIf="entries$ | async as entries"
+          >
+            <ds-order-summary
+              [items]="entries"
+              [cart$]="cart$"
+              [cart]="cart"
+              [userType]="userType"
+              (scrollToEntry)="scrollCartEntryIntoView($event)"
+            >
+            </ds-order-summary>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="entries$ | async as entries">
+        <div *ngIf="cart.totalItems > 0" class="cart-details-wrapper m-0">
+          <ds-cart-item-list
+            [items]="entries"
+            [hasHeader]="true"
+            [userType]="userType"
+            [cart]="cart"
+            (cartEntryList)="setCartEntryList($event)"
+          ></ds-cart-item-list>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="entries$ | async as entries">
+        <div class="row cart-detail-bottom mt-3 mr-0">
+          <div class="col-md-8"></div>
+
+          <div class="col-md-4 order-padding pr-0">
+            <ds-order-summary
+              [items]="entries"
+              [cart$]="cart$"
+              [userType]="userType"
+              (scrollToEntry)="scrollCartEntryIntoView($event)"
+              [cart]="cart"
+            >
+            </ds-order-summary>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noCartEntries>
+    <div class="empty-cart-page">
+      <div class="container">
+        <div class="empty-img"></div>
+        <h1>{{ 'buyCart.cartEmpty' | cxTranslate }}</h1>
+        <p class="noitems">
+          {{ 'buyCart.noItemIncart' | cxTranslate }}
+        </p>
+        <p class="noitems">
+          <span>{{ 'buyCart.explore' | cxTranslate }}</span>
+          <span>
+            <a
+              class="view-data-link"
+              routerLink="/Products/c/ECOM_LVL0_00000000"
+              >{{ 'buyCart.ourCatalogue' | cxTranslate }}</a
+            ></span
+          >
+          <span>{{ 'buyCart.toAdditems' | cxTranslate }}</span>
+        </p>
+        <p class="noitems">{{ 'buyCart.or' | cxTranslate }}</p>
+        <p class="noitems">
+          <span>{{ 'buyCart.visit' | cxTranslate }}</span>
+          <span>
+            <a class="view-data-link" routerLink="/saved-carts">{{
+              'buyCart.myCarts' | cxTranslate
+            }}</a></span
+          >
+          <span>{{ 'buyCart.toExistingCarts' | cxTranslate }}</span>
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner>{{ 'buyCart.loading' | cxTranslate }}</cx-spinner>
+  </div>
+</ng-template>

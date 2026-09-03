@@ -1,0 +1,71 @@
+<div *ngIf="loading" class="cx-spinner">
+  <cx-spinner></cx-spinner>
+</div>
+
+<div calss="shipping-details">
+  <form
+    (ngSubmit)="customerForm.form.valid && isSubmitted && onSubmit()"
+    #customerForm="ngForm"
+    novalidate
+  >
+    <div class="row">
+      <div class="row col-lg-6 col-md-6 col-sm-6">
+        <div class="shipping-checkout col-lg-12 col-md-12 col-sm-12 mb-1">
+          {{ 'labels.billtoAddress' | cxTranslate }}
+        </div>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12"
+          >{{ this.billtoAddress?.firstName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.companyName }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.line1 }}</span
+        >
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.town }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.region?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.country?.name }}
+        </span>
+        <span class="shipping-checkouaddress col-lg-12 col-md-12 col-sm-12">
+          {{ this.billtoAddress?.postalCode }}</span
+        >
+
+        <div
+          *ngIf="this.error.shipAddress"
+          class="bh-form-message typography--body-small bh-form-message--error col-lg-12 col-md-12 col-sm-12"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ this.error.shipAddress }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 billtoAddress">
+        <div
+          class="shipping-customer csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ 'labels.customerAccountNumber' | cxTranslate }}
+        </div>
+        <div
+          class="shipping-checkouaddress csutomer_account col-lg-12 col-md-12 col-sm-12"
+        >
+          {{ checkoutData?.defaultSoldTo?.uid }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-auto add-to-cart-buttons">
+      <bh-button
+        type="secondary"
+        small
+        label="{{ 'labels.changeAddress' | cxTranslate }}"
+        (click)="openAddress()"
+      >
+      </bh-button>
+    </div>
+  </form>
+</div>

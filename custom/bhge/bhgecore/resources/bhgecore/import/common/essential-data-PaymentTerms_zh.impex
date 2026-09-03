@@ -1,0 +1,708 @@
+INSERT_UPDATE Paymentterm;code[unique=true];name[lang=zh]
+;	%COD	;	1/2 CASH IN ADVANCE, 1/2 COD
+;	.5%	;	0.5/15 net 30
+;	.5%1	;	0.5/15 net 30
+;	.5/1	;	.5% 10 net 30
+;	0001	;	Do not use
+;	1%10	;	1.00/10 NET 30 DAYS
+;	1%15	;	1.00/15 NET 30 DAYS
+;	1-10	;	1.00/10 NET 42 DAYS
+;	1-15	;	1.00/15 NET 42 DAYS
+;	10NM	;	10TH OF NEXT MONTH
+;	1N30	;	1.50 % 10 N/30 INVOICE DATE
+;	2%10	;	2.00/10 NET 30 DAYS
+;	2%15	;	2.00/15 NET 30 DAYS
+;	2%40	;	2% 15 NET 45 DAYS
+;	2%45	;	2% 15 NET 45 DAYS
+;	2-10	;	2.00/10 NET 42 DAYS
+;	2-15	;	2.00/15 NET 42 DAYS
+;	2-20	;	Within 60 days Due net
+;	2-30	;	2% 15 NET 30 DAYS
+;	2-40	;	2% 15 NET 30 DAYS
+;	2.5%	;	2.5% within 30 days
+;	20NM	;	20TH OF NEXT MONTH
+;	25NM	;	10TH OF NEXT MONTH
+;	3%10	;	3.00/10 NET 30 DAYS
+;	3%15	;	3.00/15 NET 30 DAYS
+;	3%90	;	3.00/ 30 NET 90 DAYS
+;	3-10	;	3.00/10 NET 42 DAYS
+;	3-15	;	3.00/15 NET 42 DAYS
+;	30SD	;	30 DAYS FROM SHIPDATE
+;	4%10	;	4%10 NET 30 DAYS
+;	4%15	;	4% 15 NET 30 DAYS
+;	4-10	;	4% 10 NET 42 DAYS
+;	4-15	;	4% 15 NET 42 DAYS
+;	5%10	;	5% 10 NET 30 DAYS
+;	5%15	;	5% 15 NET 30 DAYS
+;	5-10	;	5% 10 NET 42 DAYS
+;	5-15	;	5% 15 NET 42 DAYS
+;	50%N	;	50% ADV PAY / NET 30
+;	60SD	;	60 DAYS FROM SHIPDATE
+;	75SD	;	75 DAYS FROM SHIPDATE
+;	7_NM	;	7TH OF NEXT MONTH
+;	90SD	;	90 DAYS FROM SHIPDATE
+;	ACR1	;	25% due upon receipt of order / 75% advance pay pr
+;	ACR2	;	15% due upon receipt of order / 85% advance pay pr
+;	ACR3	;	10% due upon receipt of order / 90% advance pay pr
+;	ALC	;	Advise Letter of Credit Due in 60 Days
+;	AP	;	Advance Pay
+;	AP1	;	买方提货前或卖方发货或提供现场服务前以公司名义全额电汇转帐结清。
+;	AP1A	;	Advice Payment Conditions
+;	AP1B	;	Advice Payment 50% Default
+;	AP1C	;	Advice Payment 50% Final
+;	AP30	;	25% Advance Pay / Balance Net 30 terms
+;	APCR	;	买方提货前或卖方发货或提供现场服务前以公司名义全额电汇转帐结清。
+;	APPD	;	Adv. Pay/Don’t Build/Past Due Balance
+;	BLNK	;	Payment term BLNK will not be printed on invoice
+;	CC	;	Purchasing Credit Card
+;	CC01	;	Credit Card Payment
+;	CCSD	;	Credit Card Pay Immediately
+;	CCSL	;	CREDIT CARD SALES         
+;	CIAD	;	电汇，全款到发货。
+;	CLC	;	100%不可撤销即期信用证。
+;	COD	;	Cash on Delivery
+;	COO	;	电汇，预付100%全款后合同生效。
+;	CSAD	;	CASH IN ADVANCE           
+;	CVD	;	CASH AGAINST DOCUMENTS
+;	D322	;	2% 10 NET 30 DAYS
+;	DV01	;	40 DAYS NO DISCOUNT
+;	E120	;	120 days End Of the month 10th of the following mt
+;	E301	;	30days End of the month 5th of following month
+;	E302	;	30days End of the month 10th of following month
+;	E303	;	30days End of the month 15th of following month
+;	E304	;	30days End of the month 25th of following month
+;	E601	;	60days End of the month 5th of following month
+;	E602	;	60days End of the month 10th of following month
+;	E603	;	60days End of the month 15th of following month
+;	E604	;	60days End of the month 25th of following month
+;	E901	;	90days End of the month5th of following month
+;	E902	;	90days End of the month 10th of following month
+;	E903	;	90days End of the month 15th of following month
+;	E904	;	90days End of the month 25th of following month
+;	EM30	;	30 days end of the month
+;	EM45	;	45 days end of the month
+;	EM60	;	EOM+60 NO DISCOUNT
+;	EM90	;	90 days end of the month
+;	EMJP	;	90 days end of the month
+;	G1	;	1.00/15 Net 75
+;	G1.5	;	1.50/15 Net 75
+;	G10	;	1.00/30 NET 60 DAYS
+;	G102	;	2.00/15  NET 45
+;	G106	;	2.00/15  NET 75
+;	G107	;	2.00 % 15  NET 86
+;	G109	;	2.00/20  NET 75
+;	G11	;	1% 30 NET 75 DAYS
+;	G110	;	2.00 % 25  NET 75
+;	G111	;	2.00/30 NET 45
+;	G112	;	2.00/ 30 NET 60
+;	G113	;	2.00/5  NET 60
+;	G114	;	2.03 % 15  NET 75
+;	G115	;	2.13 % 10  NET 75
+;	G116	;	2.17/10  NET 75
+;	G117	;	2.20/10  NET 60
+;	G118	;	2.20 % 15  NET 60
+;	G119	;	2.50/15  NET 45
+;	G12	;	1% 30 NET 90 DAYS
+;	G120	;	2.50/15  NET 75
+;	G124	;	2.50/35  NET 90
+;	G125	;	2.50/18  NET 30
+;	G126	;	2.50/20  NET 60
+;	G127	;	2.50 % 5  NET 75
+;	G128	;	2.60 % 15  NET 75
+;	G129	;	3.00 % 15  NET 75
+;	G13	;	1% 45 NET 75 DAYS
+;	G131	;	5.00 % 15  NET 60
+;	G132	;	3.5/15 NET 120 DAYS
+;	G133	;	2.50/15 NET 30 DAYS
+;	G134	;	1.5/30 NET 90 DAYS
+;	G135	;	2.00/15 NET 120 DAYS
+;	G136	;	1.5/15 NET 60 DAYS
+;	G137	;	3.00/20 net 90
+;	G138	;	3.00/20, 2.35/35 Net 90
+;	G139	;	1.00/15,0.75/30 Net 75
+;	G14	;	1.50/15 NET 30 DAYS
+;	G140	;	1.50/15,1.00/30 Net 60
+;	G141	;	1.50/15,1.13/30 Net 75
+;	G142	;	1 .50/30, 1.00/45 Net 75
+;	G143	;	1.75/20,1.27/35 Net 75
+;	G144	;	2.00/10, 1.40/25 NET 60
+;	G145	;	2.00/10, 1.54/25 Net 75
+;	G146	;	2.00/15,1.71/30 Net 120
+;	G147	;	2.00/15, 1.33/30 Net 60
+;	G148	;	2.00/15,1.60/30 Net 90
+;	G149	;	2.00/30 , 1.50/45 Net 90
+;	G15	;	1.50/30 NET 75 DAYS
+;	G150	;	2.50/15 ,1.88/30 Net 75
+;	G151	;	2.50/30 ,1.88/45 Net 90
+;	G152	;	2.50/35 ,1.82/50  Net 90
+;	G153	;	3.00/15 ,2.25/30  Net 75
+;	G154	;	3.50/15, 3.00/30 NET 120
+;	G155	;	5.00/15, 3.33/30 NET 60
+;	G156	;	3.00/20 NET 120
+;	G157	;	3.00/20, 2.40/40 Net 120
+;	G158	;	3% 14, Net 21
+;	G159	;	2% 8, Net 30
+;	G16	;	2.00/20 NET 45 DAYS
+;	G160	;	5% 8, Net 30
+;	G161	;	4% 14, Net 30
+;	G162	;	0.33% 15, Net 30
+;	G163	;	0.42% 15, Net 30
+;	G164	;	1.75% 15, Net 30
+;	G165	;	3.50/15, Net 30
+;	G166	;	0.5% 18, Net 30
+;	G167	;	1% 18, Net 30
+;	G168	;	1.5% 18, Net 30
+;	G169	;	2.75/18, Net 30
+;	G17	;	2.00/10 NET 60 DAYS
+;	G170	;	2.5% 21, Net 30
+;	G171	;	3% 21, Net 30
+;	G172	;	1% 7, Net 45
+;	G173	;	0.50/10, Net 45
+;	G174	;	2.00/10, Net 45
+;	G175	;	3% 14, Net 45
+;	G176	;	1.15% 15, Net 45
+;	G177	;	1.25% 15, Net 45
+;	G178	;	3.5% 15, Net 45
+;	G179	;	1.00/18, Net 45
+;	G18	;	2.00/15 NET 60 DAYS
+;	G180	;	2.5% 18, Net 45
+;	G181	;	3% 21, Net 45
+;	G182	;	3% 30, Net 45
+;	G183	;	0.5% 15, Net 50
+;	G184	;	1.90/3, 1.40/18, Net 60
+;	G185	;	1% 13, Net 60
+;	G186	;	1% 14, Net 60
+;	G187	;	3% 14, Net 60
+;	G188	;	2.5% 15, Net 60
+;	G189	;	2.50/15, Net 60
+;	G19	;	2.00/15 NET 90 DAYS
+;	G190	;	2.5% 15, Net 60
+;	G191	;	2.59% 15, Net 60
+;	G192	;	3.00/15, Net 60
+;	G193	;	3.5% 15, Net 60
+;	G194	;	3.50/15, Net 60
+;	G195	;	1.5% 18, Net 60
+;	G196	;	2.00/18, Net 60
+;	G197	;	2.75/18, Net 60
+;	G198	;	2% 20, Net 60
+;	G199	;	3% 21, Net 60
+;	G2	;	2.00/15, 1.50/30 NET 75
+;	G20	;	2.00/30 NET 90
+;	G200	;	1.5% 30, Net 60
+;	G201	;	2.5% 30, Net 60
+;	G202	;	2.75% 30, Net 60
+;	G203	;	3.00/30 NET 60
+;	G204	;	2% 8, Net 67
+;	G205	;	2% 8, Net 68
+;	G206	;	1.75% 18, Net 70
+;	G207	;	2.40/3, 1.90/18 NET 75
+;	G208	;	2.4% 3, 1.9% 18, Net 75
+;	G209	;	1.5% 10, Net 75
+;	G21	;	2.5% 30 NET 90 DAYS
+;	G210	;	2.36% 10, Net 75
+;	G211	;	0.7% 15, Net 75
+;	G212	;	1.75/15 NET 75
+;	G213	;	3.50/15 NET 75
+;	G214	;	1.875% 18, Net 75
+;	G215	;	2% 18, Net 75
+;	G216	;	2.5% 18, Net 75
+;	G217	;	3% 21, Net 75
+;	G218	;	3% 30, Net 75
+;	G219	;	0.64/45 NET 75
+;	G22	;	2.50/15 NET 90 DAYS
+;	G220	;	2% 45, Net 75
+;	G221	;	1% 60, Net 75
+;	G222	;	2.00/60 NET 75
+;	G223	;	2.50/15, 1.96/30 NET 85
+;	G224	;	3.50/15, 2.75/30 NET 85
+;	G225	;	2.32/3, 1.92/18 NET 90
+;	G226	;	2.90/3, 2.40/18 NET 90
+;	G227	;	2.50/5, 2.06/20 NET 90
+;	G228	;	3.00/5, 2.47/20 NET 90
+;	G229	;	2.00/10, 1.75/20 NET 90
+;	G23	;	2.70/30 NET 120
+;	G230	;	2.50/10, 2.19/20 NET 90
+;	G231	;	2.67/10, 2.34/20 NET 90
+;	G232	;	2.84/10, 2.49/20 NET 90
+;	G233	;	3.00/10, 2.63/20 NET 90
+;	G234	;	0.02% 15, 0.016% 30, Net 90
+;	G235	;	0.03% 15, 0.024% 30, Net 90
+;	G237	;	1% 15, 0.8% 30, Net 90
+;	G238	;	1.00/15, 0.80/30 NET 90
+;	G239	;	1.10/15, 0.88/30 NET 90
+;	G24	;	3.50/15 NET 120
+;	G240	;	1.70/15, 1.36/30 NET 90
+;	G241	;	1.75/15, 1.40/30 NET 90
+;	G242	;	2.20/15, 1.76/30 NET 90
+;	G243	;	2.70/15, 2.16/30 NET 90
+;	G244	;	2.90/15, 2.32/30 NET 90
+;	G245	;	2.9% 15, 2.32% 30, Net 90
+;	G246	;	3.00/15, 2.40/30 NET 90
+;	G247	;	3% 15, 2.4% 30, Net 90
+;	G248	;	3.25/15, 2.60/30 NET 90
+;	G249	;	3.50/15, 2.80/30 NET 90
+;	G25	;	1.5% 30, Net 90
+;	G250	;	3.5% 15, 2.8% 30, Net 90
+;	G251	;	4.00/15, 3.20/30 NET 90
+;	G252	;	1.00/18, 0.75/36 NET 90
+;	G253	;	1.50/18, 1.13/36 NET 90
+;	G254	;	1.80/18, 1.35/36 NET 90
+;	G255	;	2.00/18, 1.50/36 NET 90
+;	G256	;	2.20/18, 1.65/36 NET 90
+;	G257	;	2.50/18, 1.88/36 NET 90
+;	G258	;	2.5% 18, 1.88% 36, Net 90
+;	G259	;	2.59/18, 1.94/36 NET 90
+;	G260	;	2.75/18, 2.06/36 NET 90
+;	G261	;	3.00/18, 2.25/36 NET 90
+;	G262	;	3.25/18, 2.44/36 NET 90
+;	G263	;	3.50/18, 2.63/36 NET 90
+;	G264	;	2.33/20, 1.66/40 NET 90
+;	G265	;	3.00/21, 2.09/42 NET 90
+;	G266	;	10.00/30, 5.00/60 NET 90
+;	G267	;	0.93% 45, Net 90
+;	G268	;	2% 60, Net 90
+;	G269	;	3.50/18, 2.68/36 NET 95
+;	G27	;	0.50/15 NET 60
+;	G270	;	2.00/18, 1.56/36 NET 100
+;	G271	;	2.75/18, 2.15/36 NET 100
+;	G272	;	3.50/15, 2.92/30 NET 105
+;	G273	;	3.50/10, 3.18/20 NET 120
+;	G274	;	2.25/15, 1.93/30 NET 120
+;	G275	;	2.25% 15, 1.93% 30, Net 120
+;	G276	;	2.50/15, 2.14/30 NET 120
+;	G277	;	2.5% 15, 2.14% 30, Net 120
+;	G278	;	2.70/15, 2.31/30 NET 120
+;	G279	;	2.75/15, 2.36/30 NET 120
+;	G28	;	0.50/10 NET 30
+;	G280	;	2.57/30 NET 120
+;	G281	;	3.00/15, 2.57/30 NET 120
+;	G282	;	3.15/15, 2.70/30 NET 120
+;	G283	;	3.15% 15, 2.7% 30, Net 120
+;	G284	;	3.25/15, 2.79/30 NET 120
+;	G285	;	3.30/15, 2.83/30 NET 120
+;	G286	;	1.00/18, 0.82/36 NET 120
+;	G287	;	1.75/18, 1.44/36 NET 120
+;	G288	;	2.25/18, 1.85/36 NET 120
+;	G289	;	2.50/18, 2.06/36 NET 120
+;	G29	;	0.50% 15 NET 60
+;	G290	;	2.75/18, 2.26/36 NET 120
+;	G291	;	2.80/18, 2.31/36 NET 120
+;	G293	;	3.00/18, 2.47/36 NET 120
+;	G294	;	3.13/18, 2.57/36 NET 120
+;	G295	;	3.25/18, 2.68/36 NET 120
+;	G296	;	3.50/18, 2.88/36 NET 120
+;	G297	;	3.75/18, 3.09/36 NET 120
+;	G298	;	3.70/20, 2.96/40 NET 120
+;	G299	;	1.78/30, 1.19/60 NET 120
+;	G3	;	2.50/15, 2.00/30 NET 90
+;	G30	;	0.50/30 NET 60
+;	G300	;	1.78% 30, 1.19% 60, Net 120
+;	G301	;	3.00/30, 2.00/60 NET 120
+;	G302	;	3.29/30, 2.19/60 NET 120
+;	G303	;	2.50/45, 1.00/90 NET 120
+;	G304	;	2.00/60 NET 120
+;	G305	;	1.5% 75, Net 120
+;	G306	;	1.00/90 NET 120
+;	G307	;	1.25/18, 1.05/36 NET 130
+;	G308	;	3.00/18, 2.52/36 NET 130
+;	G309	;	3.50/18, 2.94/36 NET 130
+;	G31	;	0.50% 45 NET 60
+;	G310	;	3.75/30, 2.81/60 NET 150
+;	G311	;	2.75/18, 2.42/36 NET 170
+;	G312	;	2.75/18, 2.42/36 NET 90
+;	G313	;	1.44/15 NET 60
+;	G314	;	1.16/30 NET 60
+;	G315	;	1% 14, Net 30
+;	G316	;	3.00/15 NET 45
+;	G317	;	2.15/15 NET 90
+;	G318	;	1.00/18 NET 60
+;	G319	;	3.50/10 NET 120
+;	G32	;	0.6% 12 NET 27
+;	G320	;	1.00/20 NET 120
+;	G321	;	1.00/20 NET 30
+;	G322	;	1% 20, Net 90
+;	G323	;	1.00/30 NET 90
+;	G324	;	1.2% 20, Net 120
+;	G325	;	1.25/15 NET 90
+;	G326	;	1.297% 45, Net 120
+;	G327	;	1.50/10 NET 90
+;	G328	;	1.5% 14, Net 30
+;	G329	;	1.50/15 NET 120
+;	G33	;	0.6% 12 NET 30
+;	G330	;	1.5% 18, Net 45
+;	G331	;	1.50/18 NET 90
+;	G332	;	1.50/20 NET 120
+;	G333	;	1.5% 20, Net 90
+;	G334	;	1.55% 30, Net 105
+;	G335	;	1.75/18 NET 45
+;	G336	;	1.8% 30, Net 120
+;	G337	;	10% 15, Net 30
+;	G338	;	2.00/10 NET 14
+;	G339	;	2% 10, Net 20
+;	G34	;	0.64% 30 NET 60
+;	G340	;	2.00/10 NET 40
+;	G341	;	2.00/10 NET 90
+;	G342	;	2% 14, Net 105
+;	G343	;	2% 14, Net 21
+;	G344	;	2.00/14 NET 30
+;	G345	;	3.00/10, 2.00/14 NET 30
+;	G346	;	3.00/7, 2.00/14 NET 30
+;	G347	;	3.00/8, 2.00/14 NET 30
+;	G348	;	2.00/14 NET 60
+;	G349	;	2.00/14 NET 75
+;	G35	;	0.70% 10 NET 30
+;	G350	;	2.00/14 NET 90
+;	G351	;	2% 18, Net 105
+;	G352	;	2.00/18 NET 120
+;	G353	;	2% 18, Net 30
+;	G354	;	2.00/18 NET 45
+;	G355	;	2.00/18 NET 90
+;	G356	;	2.00/20 NET 120
+;	G357	;	2.00/20 NET 30
+;	G358	;	2% 20, Net 35
+;	G359	;	2.00/7 NET 30
+;	G36	;	0.70% 10 NET 45
+;	G360	;	2% 8 , Net 14
+;	G361	;	2% 8 , Net 20
+;	G362	;	0.75/10 NET 60
+;	G363	;	2.50/10 NET 30
+;	G364	;	2.50/10 NET 90
+;	G365	;	2.5% 14, Net 105
+;	G366	;	2.5% 14, Net 30
+;	G368	;	2.50/18 NET 90
+;	G369	;	2.5% 20, Net 120
+;	G37	;	0.70/10 NET 60
+;	G370	;	2.50/20 NET 90
+;	G371	;	2.50/30 NET 75
+;	G372	;	2.6% 15, Net 45
+;	G373	;	2.7% 18, Net 105
+;	G374	;	2.70/18 NET 120
+;	G375	;	2.7% 18, Net 30
+;	G376	;	2.7% 18, Net 45
+;	G377	;	2.7% 18, Net 60
+;	G378	;	2.70/18 NET 90
+;	G379	;	2.70/45 NET 120
+;	G38	;	0.70% 20 NET 60
+;	G380	;	2.75/15 NET 60
+;	G381	;	2.75% 18, Net 105
+;	G382	;	2.75/18 NET 120
+;	G383	;	2.75/18 NET 45
+;	G384	;	2.75/18 NET 90
+;	G385	;	2.75% 20, Net 90
+;	G386	;	2.8% 18, Net 120
+;	G387	;	3.00/10 NET 120
+;	G388	;	3% 10, Net 50
+;	G39	;	0.70% 15 NET 45
+;	G390	;	3% 10, Net 60
+;	G391	;	3.00/10 NET 90
+;	G392	;	3.00/14 NET 30
+;	G393	;	3.00/14 NET 90
+;	G394	;	3.00/15 NET 120
+;	G395	;	3% 15, Net 35
+;	G396	;	3.00/15 NET 60 TIERS
+;	G397	;	3.00/15 NET 90
+;	G398	;	3.00/18 NET 120
+;	G399	;	3.00/18 NET 30
+;	G4	;	1.25/15, 1.00/30 NET 90
+;	G40	;	0.70% 30 NET 60
+;	G400	;	3% 18, Net 45
+;	G401	;	3.00/18 NET 90
+;	G402	;	3.00/30 NET 120
+;	G403	;	3.15/15 NET 120
+;	G404	;	3.50/15 NET 90
+;	G405	;	3.5% 15, Net 100
+;	G406	;	3.50/18 NET 120
+;	G407	;	3.50/20 NET 120
+;	G408	;	3.5% 7 , Net 120
+;	G409	;	3.75% 15, Net 120
+;	G41	;	0.77% 10 NET 75
+;	G410	;	4% 10, Net 20
+;	G411	;	4% 18, Net 30
+;	G412	;	4% 20, Net 75
+;	G413	;	5.00/30 NET 30
+;	G414	;	0.50/10 NET 90
+;	G415	;	2.00/10 NET 120
+;	G416	;	1.00/15 NET 120
+;	G417	;	1.5% 15, Net 90
+;	G418	;	2% 10, Net 120
+;	G419	;	2.00/15 NET 45
+;	G42	;	0.77% 15 NET 75
+;	G420	;	2.5% 18, Net 30
+;	G421	;	1.00/8 NET 30
+;	G422	;	1.7% 45, Net 90
+;	G423	;	2% 7, Net 14
+;	G424	;	2% 8, Net 90
+;	G425	;	2.5% 14, Net 45
+;	G426	;	2.5% 20, Net 30
+;	G427	;	2.75% 10, Net 60
+;	G428	;	26 DAYS NO DISCOUNT
+;	G429	;	3.00/8 NET 30
+;	G43	;	0.80% 15 NET 60
+;	G431	;	3.5% 25, Net 120
+;	G432	;	4% 20, Net 90
+;	G433	;	5% 7, Net 30
+;	G434	;	1.00/10 NET 120
+;	G435	;	1.00/15 NET 90
+;	G436	;	1%/18, Net 60
+;	G437	;	1%/20, Net 120
+;	G438	;	1.50/18 NET 120
+;	G439	;	1.80/30, Net120
+;	G44	;	0.80% 25 NET 60
+;	G440	;	2%/10, Net 120
+;	G441	;	2%/18, Net 120
+;	G442	;	2%/18, Net 45
+;	G443	;	2.50/15 NET 120
+;	G444	;	2.50/18, Net 90
+;	G445	;	2.50/20, Net 120
+;	G446	;	2.50/20 NET 120
+;	G447	;	2.70/18 NET 30
+;	G448	;	2.70/18, Net 30
+;	G449	;	2.70/18 NET 45
+;	G45	;	0.85% 10 NET 60
+;	G450	;	2.70/18 NET 60
+;	G451	;	2.7% 18, Net 90
+;	G452	;	25 DAYS NO DISCOUNT
+;	G453	;	27 DAYS NO DISCOUNT
+;	G454	;	3%/15, Net 90
+;	G455	;	3.50/20, Net 120
+;	G456	;	CASH IN ADVANCE
+;	G46	;	0.85% 30 NET 75
+;	G47	;	0.90% 15 NET 55
+;	G48	;	0.90% 15 NET 60
+;	G49	;	0.90% 20 NET 60
+;	G5	;	2.00/10 NET 75
+;	G50	;	1.00/10 NET 45
+;	G501	;	2.625/15 NET 120
+;	G502	;	1,50/20 NET 90
+;	G503	;	1,875/18 NET 75
+;	G504	;	1,00/18 NET 60
+;	G505	;	1,00/20 NET 90
+;	G506	;	1,20/30 NET 90
+;	G507	;	Within 45 d 1.297% cash disc,Within 120 d due net
+;	G508	;	1,44% 15 NET 90
+;	G509	;	1.45/15 NET 105
+;	G51	;	1.00/15 NET 45
+;	G510	;	1,5/15 NET 120
+;	G511	;	2,00/14 NET 30
+;	G512	;	2,00/15 NET 85
+;	G513	;	2,00/18 NET 120
+;	G514	;	2,00/20 NET 35
+;	G515	;	2,20/15 NET 60
+;	G516	;	2,50/20 NET 120
+;	G517	;	2,50/20 NET 90
+;	G518	;	2,70/18 NET 105
+;	G519	;	2,70/18 NET 120
+;	G520	;	2,70/18 NET 45
+;	G521	;	2,70/18 NET 60
+;	G522	;	2,70/45 NET 120
+;	G523	;	2,75/18 NET 105
+;	G524	;	2,75/18 NET 45
+;	G525	;	3,00/10 NET 50
+;	G526	;	3,00/14 NET 30
+;	G527	;	3,00/14 NET 90
+;	G528	;	3,00/15 NET 40
+;	G529	;	3,00/20 NET 85
+;	G53	;	1% 17 NET 32
+;	G530	;	3,00/30 NET 90
+;	G531	;	3,125/18 NET 120
+;	G532	;	3,5/20 NET120
+;	G533	;	3.50/16, 1.50/60 NET 90
+;	G534	;	40 DAYS NO DISCOUNT
+;	G535	;	80 DAYS NO DISCOUNT
+;	G536	;	2,25/15 NET 60
+;	G537	;	1,00/10 NET 55
+;	G538	;	1.15/15, 0.86/30 NET 75
+;	G539	;	1% 10, Net 120
+;	G54	;	1% 20 NET 60
+;	G540	;	1.00/10 NET 90
+;	G541	;	1% 15, Net 90
+;	G542	;	1.00/18 NET 120
+;	G543	;	2.25/15 NET 120
+;	G544	;	2.50/15, 2.00/30 NET 120
+;	G545	;	.93% 15/ .80% 30/N120
+;	G546	;	0.75/10 NET 60 TIERS VARIABLE
+;	G547	;	1.00/15 NET 75 TIERS
+;	G548	;	1.00/15 NET 75 TIERS VARIABLE
+;	G549	;	1.00/15 NET 90 TIERS
+;	G55	;	1% 25 NET 60
+;	G550	;	1.00/18 NET 90
+;	G551	;	1.15/15 NET 75 TIERS
+;	G552	;	1.45/15 NET 105 VARIABLE
+;	G553	;	1.50/15 NET 60 TIERS
+;	G554	;	1.78/30 NET 120
+;	G555	;	1.80/18 NET 90
+;	G556	;	1.95/15 NET 90
+;	G557	;	2.00/15 NET 120 TIERS
+;	G558	;	2.00/15 NET 75 TIERS
+;	G559	;	2.00/15 NET 90 TIERS
+;	G56	;	1% 30 NET 45
+;	G560	;	2.25/15 NET 120 TIERS
+;	G561	;	2.50/15 NET 120 TIERS
+;	G562	;	2.50/15 NET 75 TIERS
+;	G563	;	2.50/15 NET 90 TIERS
+;	G564	;	2.50/15 NET 90 TIERS VARIABLE
+;	G565	;	2.50/18 NET 120
+;	G566	;	2.50/18 NET 90 TIERS
+;	G567	;	2.50/45 NET 120
+;	G568	;	2.50/5 NET 90 TIERS
+;	G569	;	2.70/15 NET 120
+;	G57	;	1.05 % 15 NET 60
+;	G570	;	2.70/15 NET 90
+;	G571	;	2.75/30 NET 120
+;	G572	;	3.00/21 NET 90
+;	G573	;	3.15/15 NET 120 TIERS
+;	G574	;	3.15/15 NET 120 TIERS VARIABLE
+;	G575	;	3.25/18 NET 90
+;	G576	;	3.30/15 NET 120
+;	G577	;	3.50/15 NET 105
+;	G578	;	3.50/15 NET 120 TIERS
+;	G58	;	1.05 % 25 NET 60
+;	G580	;	ADVANCE PAYMENT
+;	G581	;	1.69/7 NET 113 VARIABLE
+;	G59	;	1.07 % 15 NET 75
+;	G6	;	2.00/20 NET 90
+;	G60	;	1.10 % 10 NET 60
+;	G61	;	1.10 % 10 NET 75
+;	G62	;	1.10 % 15 NET 60
+;	G63	;	1.10 % 15 NET 75
+;	G64	;	1.10 % 20 NET 75
+;	G65	;	1.15/15 NET 60
+;	G66	;	1.15 % 15 NET 90
+;	G67	;	1.15 % 25 NET 60
+;	G68	;	1.20 % 10 NET 45
+;	G69	;	1.20 % 15 NET 60
+;	G7	;	1.00/10 NET 60
+;	G70	;	1.20 % 15 NET 75
+;	G71	;	1.20 % 20 NET 60
+;	G72	;	1.20 % 25 NET 60
+;	G73	;	1.22 % 10 NET 60
+;	G74	;	1.25/15 NET 60
+;	G75	;	1.25 % 18 NET 60
+;	G76	;	1.25/20 NET 60
+;	G77	;	1.30 % 15 NET 60
+;	G78	;	1.33 % 15 NET 60
+;	G79	;	1.35 % 15 NET 60
+;	G8	;	1% 10 NET 75 DAYS
+;	G80	;	1.40 % 15 NET 60
+;	G81	;	1.40 % 20 NET 60
+;	G82	;	1.50/10 NET 30
+;	G83	;	1.50 % 10 NET 60
+;	G84	;	1.50/15 NET 45
+;	G85	;	1.50 % 15 NET 50
+;	G88	;	1.50/15 NET 90
+;	G89	;	1.50 % 20 NET 60
+;	G9	;	1.00/15 NET 60
+;	G90	;	1.60 % 10 NET 60
+;	G91	;	1.60 % 20 NET 60
+;	G92	;	1.75/15 NET 60
+;	G93	;	1.75 % 20 NET 75
+;	G94	;	1.80 % 15 NET 60
+;	G95	;	1.80 % 20 NET 60
+;	G96	;	1.90 % 15 NET 60
+;	G97	;	2.00 % 10 NET 75
+;	G98	;	2.00/1 NET 30
+;	G99	;	2.00/10 NET 25
+;	GE%	;	1.5% 15 net 60
+;	GN75	;	Within 75 days Due Net
+;	IBS	;	GE INTERNAL BILLING SYSTEM
+;	IR42	;	42 DAYS UPON RECEIPT OF INVOICE
+;	IR45	;	45 DAYS UPON RECEIPT OF INVOICE BY CUSTOMER
+;	LCLD	;	LTR OFCREDI/LIQ DAMAGE                            
+;	LTC3	;	LETTER OF CREDIT          
+;	LTC6	;	LETTER OF CREDIT          
+;	LTCR	;	LETTER OF CREDIT          
+;	N100	;	100 DAYS NO DISCOUNT
+;	N105	;	105 DAYS NO DISCOUNT
+;	N110	;	110 days due net
+;	N120	;	120 DAYS NO DISCOUNT
+;	N121	;	NET 120 1ST OF THE MONTH
+;	N130	;	Within 130 days due net
+;	N135	;	Within 135 Days due net
+;	N150	;	150 DAYS NO DISCOUNT
+;	N160	;	160 days due net
+;	N180	;	180 DAYS NO DISCOUNT
+;	N301	;	NET 30 1ST OF MONTH
+;	N30D	;	NET 30/LIQ. DAMAGE                                
+;	N45L	;	NET 45/LIQ. DAMAGE
+;	N60	;	Within 60 days Due net
+;	N60L	;	NET 60/LIQ. DAMAGE        
+;	NC	;	No Charge
+;	NT00	;	IMMEDIATE
+;	NT01	;	1 DAY NO DISCOUNT
+;	NT05	;	5 DAYS NO DISCOUNT
+;	NT08	;	8  DAYS NO DISCOUNT
+;	NT10	;	10 DAYS NO DISCOUNT
+;	NT11	;	11 DAYS NO DISCOUNT
+;	NT12	;	12 DAYS NO DISCOUNT
+;	NT13	;	13 DAYS NO DISCOUNT
+;	NT14	;	14 DAYS NO DISCOUNT
+;	NT15	;	15 DAYS NO DISCOUNT
+;	NT17	;	17 DAYS NO DISCOUNT
+;	NT18	;	18 DAYS NO DISCOUNT
+;	NT21	;	21 DAYS NO DISCOUNT
+;	NT23	;	23 DAYS NO DISCOUNT
+;	NT25	;	25 DAYS NO DISCOUNT
+;	NT27	;	27 DAYS NO DISCOUNT
+;	NT28	;	28 DAYS NO DISCOUNT
+;	NT3	;	3 DAYS NO DISCOUNT
+;	NT30	;	电汇，发货后30天内付全款。
+;	NT31	;	31 DAYS NO DISCOUNT
+;	NT32	;	32 DAYS NO DISCOUNT
+;	NT35	;	35 DAYS NO DISCOUNT
+;	NT38	;	38 DAYS NO DISCOUNT
+;	NT40	;	电汇，发货后40天内付全款。
+;	NT42	;	42 DAYS NO DISCOUNT
+;	NT45	;	电汇，发货后45天内付全款。
+;	NT50	;	50 DAYS NO DISCOUNT
+;	NT55	;	55 DAYS NO DISCOUNT
+;	NT60	;	电汇，发货后60天内付全款。
+;	NT65	;	65 DAYS NO DISCOUNT
+;	NT7	;	7 DAYS NO DISCOUNT
+;	NT70	;	70 DAYS NO DISCOUNT
+;	NT75	;	75 DAYS NO DISCOUNT
+;	NT82	;	Within 82 days due net
+;	NT85	;	85 DAYS NO DISCOUNT
+;	NT90	;	电汇，发货后90天内付全款。
+;	NT95	;	95 DAYS NO DISCOUNT
+;	NTRP	;	NET ON RECEIPT                 
+;	OTHR	;	OTHER                              
+;	PC	;	PER CONTRACT
+;	PRBL	;	PROGRESS BILLING          
+;	SA	;	See Accounting Credit Hold
+;	SD#1	;	SIGHT DRAFT 45 DAYS FROM INVOICE DATE
+;	SD#2	;	SIGHT DRAFT 60 DAYS FROM INVOICE DATE
+;	SD#3	;	SIGHT DRAFT 30 DAYS FROM SUBMISSION OF DOCS
+;	SD#4	;	SIGHT DRAFT 45 DAYS FROM SUBMISSION OF DOCS
+;	SD#5	;	SIGHT DRAFT 60 DAYS FROM SUBMISSION OF DOCS
+;	SIDR	;	SIGHT DRAFT                        
+;	T018	;	TPS 18 DAYS
+;	T020	;	TPS 20 DAYS
+;	T030	;	TPS 30 DAYS
+;	T045	;	TPS 45 DAYS
+;	T060	;	TPS 60 DAYS
+;	T075	;	TPS 75 DAYS
+;	T090	;	TPS 90 DAYS
+;	T105	;	TPS 105 Days
+;	T120	;	TPS 120 DAYS
+;	TEST	;	45 days end of the month
+;	TS30	;	60 days end of the month
+;	UPRT	;	UPON RECEIPT
+;	UR	;	UPON RECEIPT
+;	XT17	;	17 DAYS NO DISCOUNT
+;	Z001	;	电汇，下订单时预付总价的10%, 发货前预付总价的90%。
+;	Z002	;	电汇，下订单时预付总价的15%, 发货前预付总价的85%。
+;	Z003	;	电汇，下订单时预付总价的20%, 发货前预付总价的80%。
+;	Z004	;	电汇，下订单时预付总价的30%, 发货前预付总价的70%。
+;	Z005	;	电汇，下订单时预付总价的5%, 发货前预付总价的95%。
+;	Z006	;	电汇，下订单时预付总价的20%, 发货后30天内再付总价的80%。
+;	Z007	;	电汇，发货前15天预付总价的50%，发货后30天内再付总价的50%。
+;	Z008	;	电汇，下订单时预付总价的30%，收货后7天内再付总价的70%。
+;	Z009	;	电汇，发货前4周预付总价的30%，发货前预付总价的70%。
+;	Z010	;	买方在提货或卖方发货前电汇支付95％合同总额。余额在提货或卖方发货之日后90天内结清。
+;	Z020	;	20TH OF NEXT MONTH
+;	ZX30	;	NET 30 DUE FROM END OF THE BILLING MONTH
+;	ZY30	;	Within 30 days Due Net from receipt of invoice
+;	ZY60	;	Within 60 days Due Net from receipt of invoice
+;	ZY90	;	Within 90 days Due Net from receipt of invoice
+#Added for PaymentTerms issue reported by Bettina for customer 164336 BW Plus NDT GmbH & Co. KG
+;	2%35	;	35天2％的折扣

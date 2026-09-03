@@ -1,0 +1,94 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+INSERT_UPDATE Media ; code[unique=true]                       ; $contentCV[unique=true] ; mime      ; realfilename                      ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ;
+                    ; OrderUpdateEmailTemplate_media ;                                  ; text/html ; structure_orderUpdateEmailBody.vm ; $jarEmailResource/structure-view/structure_orderUpdateEmailBody.vm
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                 ; description[lang=en]                           ; content(code,$contentCV)[lang=en]       ; contextClass                                                     ; outputMimeType ; rendererType(code)
+                               ; OrderUpdateEmailTemplate          ; Velocity template for Order Update Email       ; OrderUpdateEmailTemplate_media          ; com.bhge.core.mailmessages.context.BHGEOrderUpdateMailContext    ; text/html      ; velocity
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true];active
+                             ;bhgeOrderUpdateEmailNotificationJob;bhgeOrderUpdateEmailNotificationJob;true
+
+
+INSERT_UPDATE DsNotificationCronJob; code [unique=true]; job (code); flag[default=E]; salesOrg; soType[default=ZOR]; sessionLanguage(isocode)[default=en];division[default=''];active[default=true]
+                                    ;bhgeOrderUpdateEmailNotificationJob_1800;bhgeOrderUpdateEmailNotificationJob;;1800;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6040;bhgeOrderUpdateEmailNotificationJob;;6040;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7140;bhgeOrderUpdateEmailNotificationJob;;7140;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6030;bhgeOrderUpdateEmailNotificationJob;;6030;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6230;bhgeOrderUpdateEmailNotificationJob;;6230;;;GE;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7050;bhgeOrderUpdateEmailNotificationJob;;7050;;;GE;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5020;bhgeOrderUpdateEmailNotificationJob;;5020;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6020;bhgeOrderUpdateEmailNotificationJob;;6020;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_3000;bhgeOrderUpdateEmailNotificationJob;;3000;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7000;bhgeOrderUpdateEmailNotificationJob;;7000;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6270;bhgeOrderUpdateEmailNotificationJob;;6270;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7030;bhgeOrderUpdateEmailNotificationJob;;7030;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_1720;bhgeOrderUpdateEmailNotificationJob;;1720;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5050;bhgeOrderUpdateEmailNotificationJob;;5050;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7060;bhgeOrderUpdateEmailNotificationJob;;7060;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_3020;bhgeOrderUpdateEmailNotificationJob;;3020;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6170;bhgeOrderUpdateEmailNotificationJob;;6170;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6590;bhgeOrderUpdateEmailNotificationJob;;6590;;;GE;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_9999;bhgeOrderUpdateEmailNotificationJob;;9999;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5040;bhgeOrderUpdateEmailNotificationJob;;5040;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_3140;bhgeOrderUpdateEmailNotificationJob;;3140;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_1820;bhgeOrderUpdateEmailNotificationJob;;1820;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5170;bhgeOrderUpdateEmailNotificationJob;;5170;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6250;bhgeOrderUpdateEmailNotificationJob;;6250;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7010;bhgeOrderUpdateEmailNotificationJob;;7010;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5000;bhgeOrderUpdateEmailNotificationJob;;5000;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5160;bhgeOrderUpdateEmailNotificationJob;;5160;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5610;bhgeOrderUpdateEmailNotificationJob;;5610;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5580;bhgeOrderUpdateEmailNotificationJob;;5580;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_5060;bhgeOrderUpdateEmailNotificationJob;;5060;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_6060;bhgeOrderUpdateEmailNotificationJob;;6060;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_1830;bhgeOrderUpdateEmailNotificationJob;;1830;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_1810;bhgeOrderUpdateEmailNotificationJob;;1810;;;;;
+                                    ;bhgeOrderUpdateEmailNotificationJob_7090;bhgeOrderUpdateEmailNotificationJob;;7090;;;;;
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true]		;active ;cronExpression
+                    ;bhgeOrderUpdateEmailNotificationJob_1800;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6040;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7140;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6030;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6230;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7050;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5020;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6020;true ;0 0 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_3000;true ;0 5 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7000;true ;0 5 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6270;true ;0 5 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7030;true ;0 5 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_1720;true ;0 5 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5050;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7060;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_3020;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6170;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6590;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_9999;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5040;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_3140;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_1820;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5170;true ;0 7 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6250;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7010;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5000;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5160;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5610;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5580;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_5060;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_6060;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_1830;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_1810;true ;0 10 11 1/1 * ? *
+                    ;bhgeOrderUpdateEmailNotificationJob_7090;true ;0 10 11 1/1 * ? *
+
+INSERT_UPDATE BHGEGlobalProperties;uid[unique=true]                              ; value
+                                  ;scpi.zhyb.ds.email.notification.endpoint.url  ; https://bhcpitest.it-cpi003-rt.cfapps.us10.hana.ondemand.com/http/ECCDS/Notifications

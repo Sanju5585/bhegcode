@@ -1,0 +1,3 @@
+# Local OpenID client so anonymous OCC requests can pass DSUserMatchingFilter
+INSERT_UPDATE OpenIDClientDetails;clientId[unique=true];scope;authorizedGrantTypes;authorities;clientSecret;registeredRedirectUri;logoffUrl;oAuthUrl;userProfileUrl;tokenUrl;responseType;issuer;
+;0oamsmy7k5mfMTiyI1d6;profile,openid,email,offline_access;authorization_code;ROLE_CLIENT;GaJBBFuPyDHugBge_yW2AZYKH4jtpnkzJknXRp8D;http://localhost:4200/oauth2/callback;https://login-dev.bakerhughes.com/login/signout;https://login-dev.bakerhughes.com/oauth2/v1/authorize;https://login-dev.bakerhughes.com/oauth2/v1/userinfo;https://login-dev.bakerhughes.com/oauth2/v1/token;code;hybris;

@@ -1,0 +1,65 @@
+<div class="waygate-category-menu">
+  <div class="container">
+    <ng-container *ngIf="list; else loading">
+      <div class="waygate-category-menu-banner">
+        <div class="category-level-1">
+          <ng-container *ngFor="let level_1 of list; let i = index">
+            <ng-container *ngIf="external || level_1?.external; else internal">
+              <a
+                class="level-1-name"
+                [href]="level_1?.url"
+                target="_blank"
+                (click)="clicked($event)"
+                (mouseover)="openSubCategory(level_1?.categories, 0, i)"
+                >{{ level_1?.name }}
+                <span *ngIf="level_1?.categories?.length > 0">></span>
+              </a>
+            </ng-container>
+            <ng-template #internal>
+              <a
+                [target]="level_1?.externalUrl ? '_blank' : '_self'"
+                class="level-1-name"
+                [routerLink]="level_1?.url"
+                (click)="clicked($event)"
+                (click)="
+                  level_1?.externalUrl
+                    ? redirectToBynder(level_1?.externalUrl)
+                    : ''
+                "
+                (mouseover)="openSubCategory(level_1?.categories, 0, i)"
+                >{{ level_1?.name }}
+                <span *ngIf="level_1?.categories?.length > 0">></span>
+              </a>
+            </ng-template>
+          </ng-container>
+        </div>
+        <div class="category-level-1" *ngIf="categories[0]?.length > 0">
+          <ng-container *ngFor="let level_1 of categories[0]; let i = index">
+            <a
+              target="_blank"
+              class="level-1-name"
+              [href]="level_1.url"
+              (click)="clicked($event)"
+              [class.selected]="selecteds[1] == i"
+              (mouseover)="openSubCategory(level_1.categories, 1, i)"
+              >{{ level_1?.name }}
+              <span *ngIf="level_1.categories?.length > 0">></span></a
+            >
+          </ng-container>
+        </div>
+        <div class="category-level-1" *ngIf="categories[1]?.length > 0">
+          <ng-container *ngFor="let level_1 of categories[1]">
+            <a target="_blank" class="level-1-name" [href]="level_1.url">{{
+              level_1?.name
+            }}</a>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

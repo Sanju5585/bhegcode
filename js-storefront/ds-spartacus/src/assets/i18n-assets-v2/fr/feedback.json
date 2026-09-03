@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "Commentaires",
+    "subject": "Sujet",
+    "name": "Nom",
+    "phoneNumber": "Phone number",
+    "emailAddress": "Adresse e-mail",
+    "message": "Message",
+    "characters": "Caractères",
+    "attachement": "Pièce jointe",
+    "clipboard": "Faites glisser et déposez le fichier ici",
+    "selectFile": "Sélectionnez un fichier (image, format pdf)",
+    "uploadFile": "TELECHARGER LE FICHIER",
+    "submit": "soumettre",
+    "successSubmit": "Vos commentaires ont été soumises avec succés",
+    "errorMessage": "Il y a eu un problème. Merci de réessayer plus tard.",
+    "dragdropvalidfile": "Veuillez sélectionner un type de fichier valide. Les types de fichier valides sont - jpg, pdf",
+    "error": {
+      "phoneNumberMessage": "Le numéro de téléphone ne peut contenir que des chiffres",
+      "emailMessage": "L'adresse e-mail doit être une adresse e-mail valide",
+      "subjectMessage": "Le sujet est requis",
+      "nameMessage": "Le nom est requis",
+      "phoneReq": "Le numéro de téléphone est requis",
+      "emailReq": "L'adresse email est requise",
+      "message": "Le message est requis"
+    }
+  }
+}

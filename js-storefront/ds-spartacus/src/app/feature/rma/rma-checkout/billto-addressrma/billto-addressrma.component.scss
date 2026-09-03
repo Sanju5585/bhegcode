@@ -1,0 +1,314 @@
+:host ::ng-deep {
+  .typography--label-small {
+    font-family: var(--font-base-font-family-body);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-12);
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.25px;
+    color: #1a2321;
+    margin-bottom: 7px;
+  }
+  .bh-radio-button__input-icon {
+    border: 2px solid #616161;
+  }
+  .bh-dropdown__icon.typography--icon-small.motion--normal {
+    visibility: hidden;
+  }
+  .bh-dropdown__icon.typography--icon-small.motion--normal:after {
+    visibility: visible;
+    content: 'arrow_drop_down';
+  }
+  .date-picker-input .today {
+    display: none;
+    &::after {
+      content: 'event_note';
+    }
+  }
+  .bh-text-input__input,
+  .bh-dropdown__input {
+    margin-top: 0px;
+  }
+  .radio-btn .bh-radio-button {
+    display: inline-block;
+    padding-right: 10px;
+  }
+  .add-to-cart-buttons {
+    .bh-button--type-secondary {
+      color: var(--color-base-teal-700);
+      background-color: var(--color-fill-cta-secondary-default);
+      border-width: var(--effect-border-width-regular);
+      border-color: var(--color-base-teal-700);
+      border-style: solid;
+      text-transform: uppercase;
+      width: 185px;
+      height: 44px;
+      .typography--button-link-small {
+        font-size: var(--font-base-font-size-14);
+      }
+    }
+  }
+  .bh-radio-button__input:checked ~ .bh-radio-button__label {
+    font-family: var(--font-base-font-family-body);
+    font-style: normal;
+    font-weight: bold;
+    font-size: var(--font-base-font-size-14);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+    color: var(--color-base-teal-700);
+  }
+  .bh-menu__li-label {
+    white-space: unset;
+  }
+  .bh-menu__li {
+    margin: 8px 0px;
+  }
+}
+
+.textarea-buycheckout {
+  width: 100%;
+  height: 72px;
+}
+
+.textarea {
+  padding: 0px 50px 0px 15px;
+}
+
+.row .shipping-checkout,
+.shipping-pay {
+  font-family: var(--font-family-decorative-medium);
+  font-weight: var(--font-weight-headline-large);
+  font-size: var(--font-base-font-size-14);
+  line-height: var(--font-base-line-height-20);
+  color: var(--color-text-common-primary);
+}
+
+.add-to-cart-buttons {
+  margin: 15px -15px;
+}
+
+.shippinginco {
+  margin-top: 16px;
+}
+
+.row span.shipping-checkouaddress {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-base-font-size-14);
+  color: var(--color-text-common-primary);
+  line-height: var(--font-base-line-height-20);
+}
+
+.vs-text-field {
+  padding-top: 8px;
+}
+
+:host::ng-deep {
+  .alt-contactname {
+    .typography--label-small {
+      display: flex;
+    }
+  }
+  .bh-dropdown__value.placeholder {
+    padding: 6px 8px;
+  }
+  .vs-text-field {
+    .typography--label-small {
+      margin-bottom: 7px;
+    }
+  }
+  .bh-text-input__required:after,
+  .bh-dropdown__required:after {
+    color: var(--color-fill-cta-critical-default);
+    content: ' ' !important;
+  }
+  .bh-text-input__required:before,
+  .bh-dropdown__required::before {
+    color: var(--color-fill-cta-critical-default);
+    content: ' *';
+  }
+  .bh-text-input__start-icon {
+    padding-left: 0px !important;
+  }
+}
+
+.shipdetails {
+  margin-top: 8px;
+}
+
+.shippingMethod {
+  margin-bottom: 10px;
+}
+
+.textarea-label {
+  font-family: var(--font-family-decorative-medium);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-title-small);
+  line-height: var(--font-line-height-avatar-xsmall);
+  letter-spacing: 0.25px;
+  color: var(--color-text-link-tertiary-default);
+}
+
+.shipping-mail {
+  padding: 24px;
+  background: var(--color-base-earth-025);
+}
+
+:host::ng-deep {
+  .shippingmail {
+    .bh-text-input__input {
+      text-transform: lowercase;
+    }
+  }
+  .bh-dropdown__input {
+    width: 100%;
+    height: 36px;
+  }
+  .bh-dropdown__value {
+    padding: 5px 15px !important;
+  }
+}
+
+:host::ng-deep {
+  vs-date-picker {
+    .container {
+      padding: 0 !important;
+    }
+    .date-picker-input {
+      min-width: 280px;
+      font-family: var(--font-base-font-family-body);
+      color: #1a2321;
+    }
+  }
+  .delivery-point {
+    .bh-text-input__label {
+      display: flex;
+      font-family: var(--font-family-decorative-medium);
+      font-size: var(--font-base-font-size-14);
+      font-weight: var(--font-weight-title-small);
+      line-height: var(--font-line-height-avatar-xsmall);
+      color: var(--color-text-link-tertiary-default);
+      color: var(--color-text-common-primary);
+    }
+  }
+}
+
+.text-icon-label {
+  display: flex;
+  font-family: var(--font-family-decorative-medium);
+  font-size: var(--font-size-body-small);
+  font-weight: normal;
+  line-height: var(--font-line-height-avatar-xsmall);
+  color: #1a2321;
+}
+
+.bold-label {
+  font-size: var(--font-base-font-size-14) !important;
+  font-weight: bold !important;
+  font-family: var(--font-family-decorative-medium) !important;
+}
+
+.inco-terms {
+  display: flex;
+  font-family: var(--font-family-decorative-medium);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-title-small);
+  line-height: var(--font-line-height-avatar-xsmall);
+  color: var(--color-text-link-tertiary-default);
+  margin: 0;
+}
+
+:host::ng-deep {
+  .bh-radio-button__label {
+    color: #1a2321;
+  }
+}
+
+.vs-tooltip-icon {
+  width: 0px;
+  height: 10px;
+  &::before {
+    font-family: var(--font-base-font-family-icon);
+    content: 'info' !important;
+    height: 15px;
+    width: 15px;
+    font-size: 15px;
+    margin-left: 8px;
+    color: #1a2321;
+    position: absolute;
+    font-weight: bold;
+  }
+  .vs-tooltip {
+    visibility: hidden;
+    position: relative;
+    top: -8px;
+    left: 29px;
+    width: 250px;
+    max-width: 250px;
+    min-height: 34px;
+    align-items: center;
+    padding: 8px 12px;
+    background: #212121;
+    opacity: 0.9;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+  }
+}
+
+.vs-tooltip-icon:hover .vs-tooltip {
+  visibility: visible;
+}
+
+.inco-terms-icon {
+  top: 0px;
+  left: 88px;
+}
+
+.requested-icon {
+  top: 4px;
+  left: 158px;
+}
+
+.remarks-icon {
+  top: -3px;
+  left: 120px;
+  margin-top: -3px;
+}
+
+.deliveryPoint-icon {
+  margin-top: -3px;
+}
+
+.altContact-icon {
+  left: 153px;
+}
+
+.requestedship {
+  margin-bottom: 8px !important;
+}
+
+.alternatetool {
+  margin-top: 8px;
+}
+
+.tooltipdp {
+  display: flex;
+  flex-direction: row;
+  span.tooltiplabel {
+    font-family: var(--font-base-font-family-body);
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--font-base-font-size-14) !important;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.25px;
+    color: #1a2321 !important;
+  }
+}

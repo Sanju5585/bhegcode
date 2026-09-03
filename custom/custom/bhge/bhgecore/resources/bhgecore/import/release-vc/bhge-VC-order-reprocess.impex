@@ -1,0 +1,17 @@
+## ORDER RE-PROCESS JOB
+INSERT_UPDATE CronJob ; code [unique=true]                 ; job(code)                      ; sessionLanguage(isocode) ; active
+                      ; bhgeOrderReProcessCronJob          ; bhgeVCOrderReProcessJob        ; en                       ; true  
+                      ; bhgeOrderStatusNotificationCronJob ; bhgeOrderStatusNotificationJob ; en                       ; true  
+
+## ORDER_RE_PROCESS   
+INSERT_UPDATE ServicelayerJob ; code[unique=true]              ; springId[unique=true]          ; active
+                              ; bhgeVCOrderReProcessJob        ; bhgeVCOrderReProcessJob        ; true  
+                              ; bhgeOrderStatusNotificationJob ; bhgeOrderStatusNotificationJob ; true  
+
+## ORDER_RE_PROCESS -TRIGGER  
+
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]         ; second ; minute ; hour ; day ; month ; year ; relative ; active ; maxAcceptableDelay
+                      ; bhgeOrderReProcessCronJob          ; 0      ; 5      ; 0    ; 0   ; 0     ; 0    ; true     ; true   ; -1                
+                      ; bhgeOrderStatusNotificationCronJob ; 0      ; 0      ; 3    ; 0   ; 0     ; 0    ; true     ; true   ; -1                
+
+

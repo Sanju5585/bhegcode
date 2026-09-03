@@ -1,0 +1,95 @@
+<ng-container *ngIf="cart$ | async as cart; else cartLoading">
+  <ng-container *ngIf="(cart | json) != '{}'; else cartLoading">
+    <div
+      class="quote-cart-container"
+      *ngIf="cart.totalItems > 0; else noCartEntries"
+    >
+      <section>
+        <div class="row quote-cart-top-btns">
+          <div class="row col-md-9 flex-direction-row mt-5">
+            <div class="col-md-1">
+              <bh-checkbox
+                label=""
+                name="delete-all-check-box"
+                value="{{ true }}"
+                [attr.checked]="allSelected(cart?.entries)"
+                [attr.indeterminate]="
+                  selectedItems?.length > 0
+                    ? selectedItems?.length < cart?.entries?.length
+                      ? true
+                      : false
+                    : false
+                "
+                (change)="checkAll($event, cart?.entries)"
+              ></bh-checkbox>
+            </div>
+            <div class="col-md-8">
+              <span
+                [ngClass]="selectedItems.length > 0 ? '' : 'noClick'"
+                class="delete-icon mt-1"
+                (click)="openDeleteDialog()"
+              >
+                {{ 'quote-cart.delete' | cxTranslate }}
+              </span>
+            </div>
+          </div>
+          <div class="col-md-3 p-0 mt-2 flex-direction-row">
+            <bh-button
+              class="quote-cart-btn"
+              fluid
+              [attr.disabled]="showSpinner ? true : null"
+              [attr.loading]="showSpinner ? true : null"
+              [type]="'primary'"
+              label="{{ 'quote-cart.checkoutBtn' | cxTranslate }}"
+              (click)="createQuote()"
+            ></bh-button>
+          </div>
+        </div>
+      </section>
+      <ng-container
+        *ngFor="let cartItem of entries$ | async as entries; let i = index"
+      >
+        <div *ngIf="cart.totalItems > 0" class="cart-details-wrapper m-0">
+          <ds-guest-quote-cart-product
+            [item]="cartItem"
+            [hasHeader]="true"
+            [entryNum]="i"
+            [cartIsLoading]="!(cartLoaded$ | async)"
+            [userType]="userType"
+            [cart]="cart"
+            (cartEntryList)="setCartEntryList($event)"
+            (selectedEntry)="onEntryCheck($event)"
+            [selectAll]="selectAll"
+          ></ds-guest-quote-cart-product>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-template #noCartEntries>
+    <div class="empty-cart-page">
+      <div class="container">
+        <div class="empty-img"></div>
+        <h1>{{ 'quote-cart.cartEmpty' | cxTranslate }}</h1>
+        <p class="noitems">
+          {{ 'quote-cart.noItemIncart' | cxTranslate }}
+        </p>
+        <p class="noitems">
+          <span>{{ 'quote-cart.explore' | cxTranslate }}</span>
+          <span>
+            <a
+              class="view-data-link"
+              routerLink="/Products/c/ECOM_LVL0_00000000"
+              >{{ 'quote-cart.ourCatalogue' | cxTranslate }}</a
+            ></span
+          >
+          <span>{{ 'quote-cart.toAdditems' | cxTranslate }}</span>
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+<ng-template #cartLoading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

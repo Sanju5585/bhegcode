@@ -1,0 +1,113 @@
+.overlay {
+  font-family: var(--font-family-body-medium);
+  letter-spacing: 0.1px;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  .overlay-fav-txt {
+    color: var(--color-base-teal-700);
+    font-size: var(--font-size-body-small);
+    font-family: var(--font-family-body-large);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-12);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+  }
+  .overlay-fav-icon {
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-base-font-size-18);
+    color: #1a2321;
+    &:hover {
+      color: var(--color-base-teal-700);
+    }
+  }
+
+  .overlay-eq-icon {
+    font-size: var(--font-base-font-size-18);
+    color: #1a2321;
+    &:hover {
+      color: var(--color-base-teal-700);
+    }
+  }
+
+  .overlay-eq-txt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-width: 100%;
+  }
+}
+.cx-product-name {
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+
+  margin-top: 3px;
+  margin-bottom: 3px;
+  color: #757575;
+  text-decoration: none;
+  letter-spacing: 0.75px;
+  line-height: 18px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--font-base-font-size-14);
+  padding: 0px 10px;
+}
+.cx-product-code {
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-size-body-small);
+  margin: 5px 0 3px 0;
+  color: #757575;
+  text-decoration: none;
+  font-size: var(--font-base-font-size-12);
+  .price-value {
+    font-size: var(--font-base-font-size-14);
+  }
+}
+.padding-lr-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fav-add-eq-row {
+  display: none;
+  position: relative;
+  top: -25px;
+  padding: 0px 5px;
+  background: #f8faf9;
+  height: 26px;
+  align-items: center;
+}
+
+.overlay:hover {
+  text-decoration: none;
+}
+.equipment {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error {
+  color: var(--color-text-label-error);
+}
+:host::ng-deep {
+  cx-add-to-cart .quantity label.normal {
+    font-weight: normal !important;
+    color: #757575 !important;
+  }
+  cx-add-to-cart .cart-additions-section {
+    padding: 0px 12px;
+  }
+}

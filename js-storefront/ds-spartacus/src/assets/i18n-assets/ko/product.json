@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "아이디",
+    "quantity": "수량",
+    "productDetails": "제품 세부 정보",
+    "specification": "사양",
+    "reviews": "리뷰",
+    "shipping": "배송",
+    "share": "공유",
+    "showReviews": "리뷰 보기",
+    "noReviews": "아직 리뷰가 없습니다."
+  },
+  "productList": {
+    "filterBy": {
+      "label": "에 의한 필터",
+      "action": "에 의한 필터"
+    },
+    "appliedFilter": "적용된 필터:",
+    "showLess": "간단히 보기...",
+    "showMore": "더 보기...",
+    "sortByRelevance": "관련성에 의한 정렬",
+    "backToTopBtn": "위로 가기",
+    "showMoreBtn": "더 보기"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "에 의한 필터",
+      "action": "에 의한 필터"
+    },
+    "appliedFilter": "적용된 필터:",
+    "showLess": "간단히 보기...",
+    "showMore": "더 보기...",
+    "sortByRelevance": "관련성에 의한 정렬"
+  },
+  "productSummary": {
+    "id": "아이디",
+    "showReviews": "리뷰 보기",
+    "share": "공유"
+  },
+  "productReview": {
+    "overallRating": "전체 평가",
+    "reviewTitle": "리뷰 제목",
+    "writeYourComments": "귀하의 의견을 작성해 주시기 바랍니다.",
+    "rating": "평가",
+    "reviewerName": "리뷰 작성자 이름 (선택사항)",
+    "writeReview": "리뷰 작성하기",
+    "more": "더",
+    "less": "간단히",
+    "thankYouForReview": "리뷰 감사 드립니다.  여기에 리뷰가 게시되기 전에 검토가 필요할 수 있습니다."
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "장바구니에 제품이 추가되었습니다.",
+    "itemsIncrementedInYourCart": "장바구니에 제품이 이미 있습니다. 수량이 업데이트되었습니다.",
+    "items": "제품",
+    "updatingCart": "장바구니 업데이트 중",
+    "addToCart": "장바구니에 추가하기",
+    "viewCart": "장바구니 보기",
+    "proceedToCheckout": "결제 진행",
+    "quantity": "수량",
+    "outOfStock": "재고가 없습니다.",
+    "inStock": "재고가 있습니다.",
+    "selectStyleAndSize": "재고 확인을 위해 스타일과 사이즈를 선택해 주시기 바랍니다."
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "제품 세부 정보",
+      "ProductSpecsTabComponent": "사양",
+      "ProductReviewsTabComponent": "리뷰",
+      "deliveryTab": "배송",
+      "TabPanelContainer": "탭 컨테이너"
+    }
+  },
+  "variant": {
+    "style": "스타일",
+    "selectedStyle": "선택된 스타일",
+    "size": "크기",
+    "color": "색상",
+    "sizeGuideLabel": "스타일 가이드"
+  },
+  "addToWishList": {
+    "add": "위시리스트에 추가",
+    "remove": "위시리스트에서 삭제",
+    "anonymous": "위시리스트에 추가하기 위해 로그인 해 주세요."
+  },
+  "stockNotification": {
+    "notifyMe": "알림을 주세요.",
+    "stopNotify": "알림 중지",
+    "getNotify": "제품이 구매 가능할 때 알림 받기",
+    "getNotifySuffix": "제품이 구매 가능할 때 알림 받기 위해서",
+    "activateChannelsPrefix": "알림을 받으려면 을 활성화해야 합니다. ",
+    "channelsLink": "알림 채널",
+    "activateChannelsSuffix": ".",
+    "notified": "이 제품이 재입고되면 알림을 받게 될 것입니다.",
+    "getNotified": "제품이 재입고되면 알림 받기",
+    "unsubscribeSuccess": "이 제품에 대한 재입고 알림을 받지 못할 것입니다.",
+    "subscriptionDialog": {
+      "header": "품절 구독",
+      "notifiedPrefix": "알림을 받게 될 것입니다:",
+      "notifiedSuffix": "이 제품이 재입고 되자마자",
+      "manageChannelsPrefix": "에서 귀하의 선호하는 알림 채널 관리 ",
+      "manageChannelsLink": "알림 기본 설정",
+      "manageChannelsSuffix": " 페이지.",
+      "manageSubscriptionsPrefix": "에서 귀하의 구독을 관리할 수 있습니다. ",
+      "manageSubscriptionsLink": "나의 관심 제품",
+      "manageSubscriptionsSuffix": " 페이지.",
+      "okBtn": "OK",
+      "subscribing": "이 제품에 대한 품절 알림 구독 신청하기"
+    }
+  }
+}

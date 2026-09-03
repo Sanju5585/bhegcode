@@ -1,0 +1,362 @@
+<div class="waygate-product-list-card">
+  <div class="waygate-cart-checkbox">
+    <input
+      class="float-left ml-2"
+      [id]="'cart-entry-' + entryNum"
+      type="checkbox"
+      value="true"
+      [checked]="checkAll"
+      [name]="'cart-entry-' + entryNum"
+      (click)="checkEntry($event)"
+    />
+  </div>
+  <div class="waygate-product-image">
+    <div class="cx-image-container">
+      <a
+        (click)="gtmSelectItemEvent(item)"
+        [routerLink]="[
+          '/',
+          productLine,
+          'product',
+          item.product.code,
+          item.product.name,
+        ]"
+      >
+        <cx-media
+          class="waygate-product-image"
+          [container]="item.product.images?.PRIMARY"
+        ></cx-media>
+      </a>
+    </div>
+  </div>
+  <div class="waygate-product-content">
+    <div class="product-text mb-3" *ngIf="item.product.name">
+      <label class="product-name">{{ item.product.name }}</label>
+      <div class="product-lead-time">
+        {{ item.product.code }}
+        <span class="line">|</span>
+        <label *ngIf="item.leadTime">
+          <span>{{ 'quoteCart.leadTime' | cxTranslate }} </span>
+          <strong
+            >{{ item?.leadTime }} {{ 'quoteCart.weeks' | cxTranslate }}</strong
+          >
+        </label>
+        <div class="vs-tooltip-icon" *ngIf="leadTimeTooltipVisibilityFlag">
+          <p class="vs-tooltip">
+            {{ 'quoteCart.leadTimeTooltipInfo' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="product-pricing mb-3">
+      <div *ngIf="item.totalPrice" class="product-price1">
+        {{
+          item.totalPrice?.value | customNumber: item.totalPrice?.currencyIso
+        }}
+      </div>
+      <div *ngIf="item.listPrice && !!item.discountPercentage" class="7">
+        <s>{{ item.listPrice?.formattedValue }}</s>
+      </div>
+      <div *ngIf="!!item.discountPercentage" class="product-discount">
+        {{ item.discountPercentage }}% Discount
+      </div>
+      <ng-container>
+        <div class="col-4 product-view-breakdown">
+          <!-- Item Price -->
+          <div class="extended-price unit-selling-price">
+            <label>
+              <a
+                #viewBreakUp
+                class="view-breakup-link"
+                (click)="togglePriceBreakup()"
+                ><span>{{ 'quoteCart.viewBreakup' | cxTranslate }}</span
+                ><span *ngIf="!breakUpMenu" class="material-icons arrow">
+                  expand_more </span
+                ><span *ngIf="breakUpMenu" class="material-icons arrow">
+                  expand_less
+                </span></a
+              >
+            </label>
+          </div>
+          <div
+            class="breakup-dropdown p-0"
+            [clickSourceId]="viewBreakUp"
+            (clickOutside)="togglePriceBreakup()"
+            *ngIf="breakUpMenu"
+            #breakupContent
+          >
+            <div class="breakdown-price">
+              <div class="cart-entry-text-bold breakdown-heading p-2">
+                {{ 'quoteCart.breakdownPrice' | cxTranslate }}
+              </div>
+              <hr class="horizontal-line" />
+              <div class="p-2">
+                <ng-container>
+                  <div
+                    *ngIf="item.listPrice && !item.product.configurable"
+                    class="extended-price row"
+                  >
+                    <label>{{ 'quoteCart.listPrice' | cxTranslate }}</label>
+                    <div class="cart-entry-text-bold">
+                      <span> {{ item.listPrice?.formattedValue }}</span>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="item.listPrice && item.product.configurable"
+                    class="extended-price row"
+                  >
+                    <label>{{ 'quoteCart.configPrice' | cxTranslate }}</label>
+                    <div class="cart-entry-text-bold">
+                      <span> {{ item.listPrice?.formattedValue }}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="extended-price row"
+                    *ngIf="
+                      item?.silverClausePrice?.value &&
+                      item?.silverClausePrice?.value != 0
+                    "
+                  >
+                    <label>
+                      {{
+                        'quoteCart.silverClausePrice'
+                          | cxTranslate
+                            : {
+                                percent:
+                                  item?.silverClausePricePercentage
+                                  | number: '1.2-2',
+                              }
+                      }}
+                    </label>
+                    <div class="cart-entry-text-bold">
+                      <span
+                        class="silverLink"
+                        [ngClass]="
+                          item?.silverClausePrice?.value > 0
+                            ? 'negative'
+                            : 'positive'
+                        "
+                      >
+                        <span *ngIf="item?.silverClausePrice.value > 0">{{
+                          item?.silverClausePrice?.formattedValue
+                        }}</span>
+                        <span *ngIf="item?.silverClausePrice.value < 0">
+                          <!-- {{ cart?.currencyIso }} -->
+                          {{
+                            getPositiveSilverClause(
+                              item?.silverClausePrice?.value
+                            ) | customNumber: cart?.currencyIso
+                          }}</span
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="item.yourPriceDiscount"
+                    class="extended-price row"
+                  >
+                    <label>
+                      <span>{{ 'quoteCart.discount' | cxTranslate }}</span>
+                    </label>
+                    <label
+                      >{{ item.discountPercentage | number: '1.2-2' }}%</label
+                    >
+                    <div class="cart-entry-text-bold">
+                      <span>
+                        - {{ item.yourPriceDiscount?.formattedValue }}</span
+                      >
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <hr class="horizontal-line" />
+              <div class="p-2">
+                <div *ngIf="item.totalPrice" class="price-row">
+                  <label class="cart-entry-text">{{
+                    'quoteCart.netSelling' | cxTranslate
+                  }}</label>
+                  <span class="cart-entry-text-bold">
+                    {{ item.totalPrice?.formattedValue }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="breakup-dropdown"
+          *ngIf="breakUp"
+          (clickOutside)="closeMenu($event)"
+        ></div>
+      </ng-container>
+    </div>
+    <div class="waygatecart-counter">
+      <form [formGroup]="quantityForm">
+        <app-custom-quantity-counter
+          [max]="9999"
+          [control]="quantityForm.get('quantity')"
+          (quantityAdded)="onQualityChange($event)"
+          (quantityIncrement)="onQualityChange($event)"
+          (quantityDecrement)="onQualityChange($event)"
+        ></app-custom-quantity-counter>
+      </form>
+      <!-- Availability Action -->
+      <div
+        *ngIf="productOpen && showCheckAvalabilityAction"
+        class="availability-action-holder"
+      >
+        <bh-button
+          [type]="'secondary'"
+          label="{{ 'quoteCart.updateChanges' | cxTranslate }}"
+          (click)="checkAvailability()"
+          [attr.loading]="showAvailabilityLoader"
+          small
+        ></bh-button>
+      </div>
+    </div>
+    <!-- <div class="total-price">
+      <span class="total-price-text"
+        >{{ 'quoteCart.totaPrice' | cxTranslate }}
+      </span>
+      <span class="total-price-value">USD $7,323.00</span>
+    </div> -->
+    <!-- Stock Availability-->
+    <div class="product-nostock">
+      <div class="waygate-availability" *ngIf="disableCheckAvailablity">
+        <ng-container>
+          <ng-container *ngIf="checkStockAvailablity(item.product)">
+            <div class="success-available">
+              {{ 'quoteCart.inStock' | cxTranslate }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!checkStockAvailablity(item.product)">
+            <ng-container *ngIf="getInt(item.product) < 1">
+              <div class="danger-out-of-stock">
+                {{ 'quoteCart.noStockAvailable' | cxTranslate }}
+              </div>
+            </ng-container>
+            <ng-container *ngIf="getInt(item.product) > 0">
+              <div class="">
+                {{
+                  'buyCart.quantityIsAvailableOn'
+                    | cxTranslate
+                      : {
+                          quantity: getInt(item.product),
+                          date: getShipDate(item),
+                        }
+                }}
+              </div>
+            </ng-container>
+            <div *ngIf="getInt(item.product) > 0  && selectedSalesArea !== '7140'">
+              <span
+                [innerHTML]="
+                  'buyCart.leadTimeForReaminingQtyIs'
+                    | cxTranslate
+                      : {
+                          leadTime: getLeadTime(item?.leadTime),
+                          unit:
+                            item?.leadTime === 1 || item?.leadTime === '1'
+                              ? 'Week'
+                              : 'Weeks',
+                        }
+                "
+              ></span>
+            </div>
+            <div
+              *ngIf="getInt(item.product) < 1 && item?.leadTime !== undefined"
+              [innerHTML]="
+                'buyCart.leadTimeIs'
+                  | cxTranslate: { weeks: getLeadTime(item?.leadTime) }
+              "
+            ></div>
+            <div
+              *ngIf="getInt(item.product) < 1 && item?.leadTime === undefined"
+              [innerHTML]="
+                'buyCart.leadTimeForRemainingQtyIsNotAvailable'
+                  | cxTranslate: { contactus: contactUsUrl }
+              "
+            ></div>
+            <div></div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <!-- <div class="waygate-earliest">
+        Earliest ship date for 120 units from DeerPark is 02 Jan 2025
+      </div> -->
+    </div>
+    <!-- <div class="reason-quote">
+      Reason for quote: Price & expedited delivery check
+    </div> -->
+    <!-- Commenting for requirements -->
+    <!-- <div class="product-requested-date">
+      <p class="product-requested-date-label">
+        {{ 'quoteCart.requestedShipdate' | cxTranslate }}
+      </p>
+      <p class="product-requested-date-else">
+        <ng-container *ngIf="item.shipDate; else noDate">
+          {{ item.shipDate }}<span class="material-icons-outlined"> edit </span>
+        </ng-container>
+        <ng-template #noDate>
+          <vs-date-picker
+            class="product-date-picker"
+            id="waygateProductShipDate"
+            [filterWeekend]="true"
+            [defaultDate]="defaultDate"
+            [min]="minDate"
+            (selectedDate)="onDateChange($event)"
+            [isScroll]="false"
+          >
+          </vs-date-picker>
+        </ng-template>
+      </p>
+    </div> -->
+
+    <div class="product-additonal">
+      <div class="product-config-detail" *ngIf="item.product?.configurable">
+        <a class="action-links" (click)="openModal(item)">
+          <i class="material-icons-outlined">settings</i>
+          {{ 'quoteCart.viewConfiguration' | cxTranslate }}
+        </a>
+      </div>
+      <div class="product-additonal-detail">
+        <div>
+          <a (click)="additionalDetailToggle()">
+            <i class="material-icons" *ngIf="additionalDetail">
+              add_circle_outline
+            </i>
+            <i class="material-icons" *ngIf="!additionalDetail">
+              remove_circle_outline
+            </i>
+            {{ 'quoteCart.addAdditionalDetails' | cxTranslate }}
+          </a>
+        </div>
+      </div>
+      <div class="product-remove">
+        <i class="material-icons-outlined"> delete </i>
+        <a class="action-links" (click)="openDeleteDialog(item.entryNumber)">
+          {{ 'quoteCart.remove' | cxTranslate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="additionalDetail" *ngIf="!additionalDetail">
+      <div>
+        <textarea
+          maxlength="200"
+          class="textarea mt-3"
+          placeholder="Write something ..."
+          [(ngModel)]="newItem.entryNotes"
+          (blur)="saveComments()"
+        ></textarea>
+      </div>
+      <div class="savecomments">
+        <label class="char-limit">
+          {{ 'quoteCart.charactersLeft' | cxTranslate
+          }}{{ 200 - newItem.entryNotes?.length }}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="horizontal-line" />

@@ -1,0 +1,111 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Media into Powertools Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=bhgeProductCatalog
+$productCatalogName=bhgeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$erp_catalogVersion = catalogversion(catalog(id[default=ERP_CLASSIFICATION_HYB]),version[default='ERP_IMPORT'])
+$thumbnail=thumbnail($erp_catalogVersion,code)
+$picture=picture($erp_catalogVersion,code)
+
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/productCatalogs/$productCatalog
+$lang=en
+
+
+#images for categories
+INSERT_UPDATE Media    ; code[unique=true]  ; realfilename  ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$erp_catalogVersion
+; /thumbs/cat-ge-it.320x240.jpg    ;cat-ge-it.320x240.jpg      ; $siteResource/images/thumbs/cat-ge-it.320x240.jpg
+; /thumbs/buy-products.jpg         ;buy-products.jpg           ; $siteResource/images/thumbs/buy-products.jpg
+; /thumbs/buy-products-home.jpg    ;buy-products-home.jpg      ; $siteResource/images/thumbs/buy-products-home.jpg
+; /thumbs/conventional-probes.jpg  ;conventional-probes.jpg    ; $siteResource/images/thumbs/conventional-probes.jpg
+; /thumbs/phased-array-probes.jpg  ;phased-array-probes.jpg    ; $siteResource/images/thumbs/phased-array-probes.jpg
+; /thumbs/thickness-probe.jpg      ;thickness-probe.jpg        ; $siteResource/images/thumbs/thickness-probe.jpg
+; /thumbs/ut-probes.jpg            ;ut-probes.jpg              ; $siteResource/images/thumbs/ut-probes.jpg
+; /thumbs/film.jpg                 ;film.jpg.jpg               ; $siteResource/images/thumbs/film.jpg
+#M&S  CATEGORIES IMAGES
+;/thumbs/ms_category/MeasurementandSensing.jpg         ; $siteResource/images/thumbs/ms_category/MeasurementandSensing.jpg
+;/thumbs/ms_category/ADTS405.jpg   	;ADTS405.jpg    	; $siteResource/images/thumbs/ms_category/ADTS405.jpg
+;/thumbs/ms_category/ADTS542F.jpg  	;ADTS542F.jpg   	; $siteResource/images/thumbs/ms_category/ADTS542F.jpg
+;/thumbs/ms_category/ADTS552F.jpg  	;ADTS552F.jpg   	; $siteResource/images/thumbs/ms_category/ADTS552F.jpg
+;/thumbs/ms_category/ADTS553F.jpg  	;ADTS553F.jpg   	; $siteResource/images/thumbs/ms_category/ADTS553F.jpg
+;/thumbs/ms_category/ADTS554F.jpg  	;ADTS554F.jpg   	; $siteResource/images/thumbs/ms_category/ADTS554F.jpg
+;/thumbs/ms_category/ADTSTOUCH.jpg 	;ADTSTOUCH.jpg  	; $siteResource/images/thumbs/ms_category/ADTSTOUCH.jpg
+;/thumbs/ms_category/DPI104.jpg    	;DPI104.jpg     	; $siteResource/images/thumbs/ms_category/DPI104.jpg
+;/thumbs/ms_category/DPI104_IS.jpg 	;DPI104_IS.jpg  	; $siteResource/images/thumbs/ms_category/DPI104_IS.jpg
+;/thumbs/ms_category/DPI610.jpg    	;DPI610.jpg     	; $siteResource/images/thumbs/ms_category/DPI610.jpg
+;/thumbs/ms_category/DPI610_IS.jpg 	;DPI610_IS.jpg  	; $siteResource/images/thumbs/ms_category/DPI610_IS.jpg
+;/thumbs/ms_category/DPI611.jpg    	;DPI611.jpg     	; $siteResource/images/thumbs/ms_category/DPI611.jpg
+;/thumbs/ms_category/DPI612.jpg    	;DPI612.jpg     	; $siteResource/images/thumbs/ms_category/DPI612.jpg
+;/thumbs/ms_category/DPI615.jpg    	;DPI615.jpg     	; $siteResource/images/thumbs/ms_category/DPI615.jpg
+;/thumbs/ms_category/DPI615_IS.jpg 	;DPI615_IS.jpg  	; $siteResource/images/thumbs/ms_category/DPI615_IS.jpg
+;/thumbs/ms_category/DPI620G.jpg   	;DPI620G.jpg    	; $siteResource/images/thumbs/ms_category/DPI620G.jpg
+;/thumbs/ms_category/DPI620G_IS.jpg	;DPI620G_IS.jpg 	; $siteResource/images/thumbs/ms_category/DPI620G_IS.jpg
+;/thumbs/ms_category/DPI705.jpg    	;DPI705.jpg     	; $siteResource/images/thumbs/ms_category/DPI705.jpg
+;/thumbs/ms_category/DPI705_IS.jpg 	;DPI705_IS.jpg  	; $siteResource/images/thumbs/ms_category/DPI705_IS.jpg
+;/thumbs/ms_category/PACE1000.jpg  	;PACE1000.jpg   	; $siteResource/images/thumbs/ms_category/PACE1000.jpg
+;/thumbs/ms_category/PACE5000.jpg  	;PACE5000.jpg   	; $siteResource/images/thumbs/ms_category/PACE5000.jpg
+;/thumbs/ms_category/PACE6000.jpg  	;PACE6000.jpg   	; $siteResource/images/thumbs/ms_category/PACE6000.jpg
+;/thumbs/ms_category/PACE_CM.jpg   	;PACE_CM.jpg    	; $siteResource/images/thumbs/ms_category/PACE_CM.jpg
+;/thumbs/ms_category/PV212.jpg     	;PV212.jpg      	; $siteResource/images/thumbs/ms_category/PV212.jpg
+;/thumbs/ms_category/PV62X-IS.jpg  	;PV62X-IS.jpg   	; $siteResource/images/thumbs/ms_category/PV62X-IS.jpg
+;/thumbs/ms_category/PV62XG.jpg 	;PV62XG.jpg     	; $siteResource/images/thumbs/ms_category/PV62XG.jpg
+;/thumbs/ms_category/ADTS.png 	    ;ADTS.png     	; $siteResource/images/thumbs/ms_category/ADTS.png
+;/thumbs/ms_category/Hand_held.png 	;Hand_held.png     	; $siteResource/images/thumbs/ms_category/Hand_held.png
+;/thumbs/ms_category/Portable_Calibrators.png	;Portable_Calibrators.png     	; $siteResource/images/thumbs/ms_category/Portable_Calibrators.png
+
+##TODO add all M&S 3 category
+UPDATE Category;code[unique=true];$thumbnail;$picture
+#ClassificationClass;ECOM_LVL0_00000000;/thumbs/buy-products.jpg;/thumbs/buy-products.jpg
+ClassificationClass;ECOM_LVL0_00000000;/thumbs/buy-products-home.jpg;/thumbs/buy-products-home.jpg
+ClassificationClass;ECOM_LVL2_00000003;/thumbs/ut-probes.jpg;/thumbs/ut-probes.jpg
+ClassificationClass;ECOM_LVL3_00000021;/thumbs/thickness-probe.jpg;/thumbs/thickness-probe.jpg
+ClassificationClass;ECOM_LVL3_00000019;/thumbs/conventional-probes.jpg;/thumbs/conventional-probes.jpg
+ClassificationClass;ECOM_LVL3_00000020;/thumbs/phased-array-probes.jpg;/thumbs/phased-array-probes.jpg
+ClassificationClass;ECOM_LVL2_00000004;/thumbs/film.jpg;/thumbs/film.jpg
+#M&S  CATEGORIES IMAGES
+
+ClassificationClass;	ECOM_LVL1_00000002;	;/thumbs/ms_category/MeasurementandSensing.jpg   	;/thumbs/ms_category/MeasurementandSensing.jpg
+ClassificationClass;	ECOM_LVL5_00000513;	;/thumbs/ms_category/ADTS405.jpg   	;/thumbs/ms_category/ADTS405.jpg
+ClassificationClass;	ECOM_LVL5_00000498;	;/thumbs/ms_category/ADTS542F.jpg  	;/thumbs/ms_category/ADTS542F.jpg
+ClassificationClass;	ECOM_LVL5_00000499;	;/thumbs/ms_category/ADTS552F.jpg  	;/thumbs/ms_category/ADTS552F.jpg
+ClassificationClass;	ECOM_LVL5_00000500;	;/thumbs/ms_category/ADTS553F.jpg  	;/thumbs/ms_category/ADTS553F.jpg
+ClassificationClass;	ECOM_LVL5_00000501;	;/thumbs/ms_category/ADTS554F.jpg  	;/thumbs/ms_category/ADTS554F.jpg
+ClassificationClass;	ECOM_LVL5_00000502;	;/thumbs/ms_category/ADTSTOUCH.jpg 	;/thumbs/ms_category/ADTSTOUCH.jpg
+ClassificationClass;	ECOM_LVL5_00000464;	;/thumbs/ms_category/DPI104.jpg    	;/thumbs/ms_category/DPI104.jpg
+ClassificationClass;	ECOM_LVL5_00000512;	;/thumbs/ms_category/DPI104_IS.jpg 	;/thumbs/ms_category/DPI104_IS.jpg
+ClassificationClass;	ECOM_LVL5_00000465;	;/thumbs/ms_category/DPI610.jpg    	;/thumbs/ms_category/DPI610.jpg
+ClassificationClass;	ECOM_LVL5_00000503;	;/thumbs/ms_category/DPI610_IS.jpg 	;/thumbs/ms_category/DPI610_IS.jpg
+ClassificationClass;	ECOM_LVL5_00000505;	;/thumbs/ms_category/DPI611.jpg    	;/thumbs/ms_category/DPI611.jpg
+ClassificationClass;	ECOM_LVL5_00000506;	;/thumbs/ms_category/DPI612.jpg    	;/thumbs/ms_category/DPI612.jpg
+ClassificationClass;	ECOM_LVL5_00000466;	;/thumbs/ms_category/DPI615.jpg    	;/thumbs/ms_category/DPI615.jpg
+ClassificationClass;	ECOM_LVL5_00000504;	;/thumbs/ms_category/DPI615_IS.jpg 	;/thumbs/ms_category/DPI615_IS.jpg
+ClassificationClass;	ECOM_LVL5_00000481;	;/thumbs/ms_category/DPI620G.jpg   	;/thumbs/ms_category/DPI620G.jpg
+ClassificationClass;	ECOM_LVL5_00000509;	;/thumbs/ms_category/DPI620G_IS.jpg	;/thumbs/ms_category/DPI620G_IS.jpg
+ClassificationClass;	ECOM_LVL5_00000471;	;/thumbs/ms_category/DPI705.jpg    	;/thumbs/ms_category/DPI705.jpg
+ClassificationClass;	ECOM_LVL5_00000510;	;/thumbs/ms_category/DPI705_IS.jpg 	;/thumbs/ms_category/DPI705_IS.jpg
+ClassificationClass;	ECOM_LVL5_00000440;	;/thumbs/ms_category/Pace1000.png  	;/thumbs/ms_category/Pace1000.png
+ClassificationClass;	ECOM_LVL5_00000441;	;/thumbs/ms_category/PACE5000.jpg  	;/thumbs/ms_category/PACE5000.jpg
+ClassificationClass;	ECOM_LVL5_00000442;	;/thumbs/ms_category/PACE6000.jpg  	;/thumbs/ms_category/PACE6000.jpg
+ClassificationClass;	ECOM_LVL5_00000444;	;/thumbs/ms_category/PACE_CM.jpg   	;/thumbs/ms_category/PACE_CM.jpg
+ClassificationClass;	ECOM_LVL5_00000511;	;/thumbs/ms_category/PV212.jpg     	;/thumbs/ms_category/PV212.jpg
+ClassificationClass;	ECOM_LVL5_00000508;	;/thumbs/ms_category/PV62X-IS.jpg  	;/thumbs/ms_category/PV62X-IS.jpg
+ClassificationClass;	ECOM_LVL5_00000507;	;/thumbs/ms_category/PV62XG.jpg  	;/thumbs/ms_category/PV62XG.jpg
+ClassificationClass;	ECOM_LVL4_00000127;	;;/thumbs/ms_category/ADTS.png  	;/thumbs/ms_category/ADTS.png
+ClassificationClass;	ECOM_LVL4_00000145;	;;/thumbs/ms_category/Hand_held.png  	;/thumbs/ms_category/Hand_held.png
+ClassificationClass;	ECOM_LVL4_00000139;	;;;/thumbs/ms_category/Portable_Calibrators.png  	;/thumbs/ms_category/Portable_Calibrators.png
+
+
+
+

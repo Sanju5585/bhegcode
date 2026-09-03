@@ -1,0 +1,49 @@
+.find-part-comtainer {
+  font-family: var(--font-family-body-medium);
+  border: 1px solid var(--color-base-earth-100);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 2em 0;
+  padding: 1em 1.5em 1.5em 1.5em;
+  .find-help-header {
+    display: flex;
+    justify-content: space-between;
+    .find-help-header--label {
+      font-size: var(--font-size-body-large);
+      text-transform: uppercase;
+    }
+    i {
+      cursor: pointer;
+    }
+  }
+  .search-input {
+    display: flex;
+    gap: 1em;
+    align-items: flex-end;
+    flex-direction: row;
+    margin-top: 12px;
+  }
+}
+
+:host ::ng-deep {
+  .search-input {
+    .bh-text-input {
+      &__label {
+        font-size: var(--font-size-body-medium);
+      }
+    }
+    bh-button {
+      margin-bottom: 5px;
+      .bh-button {
+        min-width: 150px;
+      }
+    }
+  }
+  .cant-find-part-link {
+    color: var(--cx-color-primary);
+    margin-top: 0.35em;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}

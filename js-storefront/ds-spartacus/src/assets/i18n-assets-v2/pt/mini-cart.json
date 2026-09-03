@@ -1,0 +1,28 @@
+{
+  "mini-cart": {
+    "showing": "Showing {{ shown }} of {{ total }} products",
+    "of": " do ",
+    "products": "produtos",
+    "total": "Total",
+    "quantity": "Quantidade",
+    "viewCart": "Ver carrinho",
+    "cartEmpty": "Seu carrinho de compras está vazio",
+    "browseOurProducts": "Navegue pelos nossos produtos selecionando uma categoria acima",
+    "cartTrouble": "Having trouble with your cart?",
+    "deleteAllCarts": "Reset all carts",
+    "buyCart": "COMPRAR CARRINHO",
+    "returnCart": "CARRINHO DE DEVOLUÇÃO",
+    "activeGuestCart": "CARRINHO DE CONVIDADOS ATIVO",
+    "activeRFQCart": "GUEST RFQ CART",
+    "quoteCart": "QUOTE CART",
+    "deleteAllCartsPopupTitle": "This action will permanently reset all customer shopping carts.",
+    "deleteAllCartsPopupPoint1": "Active carts will be lost",
+    "deleteAllCartsPopupPoint2": "This cannot be undone",
+    "deleteAllCartsPopupConfirmMessage": "Are you sure you want to continue?",
+    "deleteAllCartsPopupCancel": "Cancelar",
+    "deleteAllCartsPopupConfirm": "Yes, Continue",
+    "deleteAllCartsPopupCartNotFoundTitle": "There seems to be an issue while loading your carts.",
+    "deleteAllCartsPopupResetMessage": "Please reset your cart to continue.",
+    "deleteAllCartsPopupActiveLost": "Active cart will be lost"
+  }
+}

@@ -1,0 +1,159 @@
+<div class="favorites-container">
+  <div class="items-text">
+    {{ favouritesData?.pagination?.totalResults }}
+    {{ 'favorites.items' | cxTranslate }}
+  </div>
+
+  <div class="header-section col-md-12">
+    <div class="left-section">
+      <bh-checkbox
+        class="checkbox"
+        name="checkAll"
+        id="checkall"
+        [attr.checked]="checkAll()"
+        [attr.indeterminate]="indeterminateValue"
+        (change)="selectAllchecbox($event)"
+      ></bh-checkbox>
+      <div
+        class="delete-text"
+        (click)="DeleteFavorites($event, 'deleteselected', -1)"
+      >
+        {{ 'favorites.delSelected' | cxTranslate }}
+      </div>
+    </div>
+
+    <div class="search">
+      <input
+        type="text"
+        class="form-control search-btn"
+        placeholder="{{ 'favorites.searchList' | cxTranslate }}"
+        #search
+        name="search"
+        [(ngModel)]="searchTerm"
+        (keydown.enter)="modelChange($event)"
+      />
+      <span
+        *ngIf="searchTerm == '' || searchflag == true"
+        class="material-icons search-icon"
+        (click)="modelChange($event)"
+        >search</span
+      >
+
+      <span
+        class="material-icons close_icon"
+        *ngIf="searchTerm != '' && searchflag == false"
+        (click)="clearSearch()"
+        >close</span
+      >
+    </div>
+  </div>
+  <hr />
+  <ds-scroll-container
+    [more]="true"
+    [scrollDelay]="2000"
+    [scrollOffset]="1000"
+    (scrolled)="loadMoreOrders()"
+    [class.full]="full"
+    [class.part]="!full"
+  >
+    <div
+      *ngIf="
+        !loadingFlag || favouritesData?.productList?.length == 0;
+        else loading
+      "
+    >
+      <div
+        class="fav-list"
+        *ngFor="let fav of favouritesData?.productList; let i = index"
+      >
+        <div class="col-md-5 fav-data-holder">
+          <div class="checkbox-holder">
+            <bh-checkbox
+              name="singleCheckbox"
+              [attr.checked]="fav.checked"
+              (change)="selectCheckbox($event, i)"
+              id="fav-checkbox-{{ i }}"
+            >
+            </bh-checkbox>
+          </div>
+          <div class="part-image-holder">
+            <cx-media [container]="fav.url" [alt]="fav.code"></cx-media>
+          </div>
+          <div class="fav-part-info-holder">
+            <div class="fav-part-details" (click)="gtmSelectItemEvent(fav, i)">
+              <a
+                class="bold-A"
+                font="typography--body-medium-semi-bold"
+                href="{{ fav.url }}"
+                text="{{ fav.code }}"
+              >
+              </a>
+              <a
+                *ngIf="fav.name?.length < 50"
+                class=""
+                href="{{ fav.url }}"
+                text="{{ fav.name }}"
+              >
+              </a>
+            </div>
+            <div class="clearFix"></div>
+            <div class="p-b-10">
+              <span
+                >{{ 'favorites.addedOn' | cxTranslate }}
+                {{ fav.addedasFavouriteTime }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 fav-action-holder p-0">
+          <div class="cx-product-price-container">
+            <div class="cx-product-code" aria-label="Product price">
+              {{ 'favorites.listPrice' | cxTranslate }}
+              <strong *ngIf="fav?.price?.value > 0">{{
+                fav?.price?.formattedValue
+              }}</strong>
+              <strong *ngIf="fav?.price?.value <= 0 && !fav?.isPriceNotFound">{{
+                'favorites.unavailable' | cxTranslate
+              }}</strong>
+              <strong class="error" *ngIf="fav?.isPriceNotFound">{{
+                'favorites.priceNotrFound' | cxTranslate
+              }}</strong>
+            </div>
+          </div>
+          <cx-add-to-cart
+            [showQuantity]="true"
+            [product]="fav"
+            [mode]="'favorites'"
+            (emitProductPrice)="fetchCheckPriceProduct($event, i)"
+          ></cx-add-to-cart>
+
+          <a href="/calibration-data" class="addmyequp btn">
+            <i class="material-icons overlay-fav-icon overlay-eq-icon mr-1"
+              >add</i
+            ><span class="bh-button__label typography--button-link-small">{{
+              'favorites.addtoEquip' | cxTranslate
+            }}</span>
+          </a>
+
+          <bh-button
+            small
+            style="margin-left: 10px"
+            class="delete-btn"
+            type="secondary"
+            icon="delete"
+            (click)="DeleteFavorites($event, '', i)"
+          ></bh-button>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </ds-scroll-container>
+  <div *ngIf="favouritesData?.productList?.length == 0">
+    <p class="norecords">{{ 'favorites.norecords' | cxTranslate }}</p>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

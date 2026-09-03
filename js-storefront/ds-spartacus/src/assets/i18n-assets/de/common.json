@@ -1,0 +1,149 @@
+{
+  "common": {
+    "cancel": "Stornieren",
+    "delete": "Löschen",
+    "remove": "ENTFERNEN",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "submit": "Absenden",
+    "continue": "Neues Konto erstellen",
+    "save": "Speichern",
+    "done": "Fertig",
+    "home": "Home",
+    "noData": "Keine Daten",
+    "confirm": "Bestätigen"
+  },
+  "pageMetaResolver": {
+    "category": {
+      "title": "{{count}} Ergebnis für {{query}}",
+      "title_plural": " {{count}}Ergebnis für {{query}} "
+    },
+    "checkout": {
+      "title": "Kassenartikel {{count}}",
+      "title_plural": "Kassenartikel {{count}}"
+    },
+    "search": {
+      "title": "{{count}} Ergebnis für \"{{query}}\"",
+      "title_plural": "{{count}} Ergebnis für \"{{query}}\"",
+      "findProductTitle": "{{count}} Ergebnis für Gutschein \"{{coupon}}\"",
+      "findProductTitle_plural": "{{count}} Ergebnis für Gutschein \"{{coupon}}\""
+    },
+    "product": {
+      "description": "{{description}}",
+      "heading": "{{heading}}",
+      "title": "{{title}}"
+    }
+  },
+  "spinner": {
+    "loading": "Wird geladen..."
+  },
+  "navigation": {
+    "shopAll": "Alle {{ navNode}} kaufen "
+  },
+  "searchBox": {
+    "placeholder": "Suche hier...",
+    "help": {
+      "insufficientChars": "Bitte geben Sie 3 oder mehr Zeichen ein, um zu suchen",
+      "noMatch": "Wir konnten keine Ergebnisse finden",
+      "exactMatch": "{{ term }}",
+      "empty": "Fragen Sie uns etwas"
+    }
+  },
+  "sorting": {
+    "date": "Datum",
+    "orderNumber": "BESTELLNUMMER",
+    "rma": "Rückgabenummer",
+    "replenishmentNumber": "Wiederauffüllungsnummer",
+    "nextOrderDate": "Nächstes Bestelldatum"
+  },
+  "httpHandlers": {
+    "badGateway": "Es ist ein Serverfehler aufgetreten. Versuchen Sie es später erneut.",
+    "badRequestPleaseLoginAgain": "{{ errorMessage }}. Bitte erneut anmelden.",
+    "badRequestOldPasswordIncorrect": "Altes Passwort falsch.",
+    "badRequestGuestDuplicateEmail": "{{ errorMessage }} Emailadresse exisitiert bereits. Bitte melden Sie sich mit einer anderen E-Mail-Adresse an, um sich mit einem Gastkonto zu registrieren.",
+    "conflict": "Existiert bereits",
+    "forbidden": "Sie sind nicht berechtigt, diese Aktion durchzuführen. Bitte wenden Sie sich an Ihren Administrator, wenn Sie glauben, dass dies ein Fehler ist.",
+    "gatewayTimeout": "Der Server hat nicht geantwortet, bitte versuchen Sie es später noch einmal.",
+    "internalServerError": "Ein interner Serverfehler ist aufgetreten. Versuchen Sie es später erneut.",
+    "sessionExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+    "unknownError": "Ein unbekannter Fehler ist aufgetreten\n\n",
+    "unauthorized": {
+      "common": "Ein unbekannter Autorisierungsfehler ist aufgetreten",
+      "invalid_client": "Falsche Zugangsdaten des Kunden"
+    },
+    "validationErrors": {
+      "missing": {
+        "card_cardType": "Die ausgewählte Kreditkarte wird nicht unterstützt. Wählen Sie eine andere",
+        "card_accountNumber": "Die eingegebene Kreditkartennummer ist nicht gültig.",
+        "card_cvNumber": "Der eingegebene Sicherheitskode ist falsch.",
+        "card_expirationMonth": "Das eingegebene Kreditkarten-Ablaufdatum ist ungültig.",
+        "card_expirationYear": "Das eingegebene Kreditkarten-Ablaufdatum ist ungültig.",
+        "billTo_firstName": "Der Vorname ist nicht gültig.",
+        "billTo_lastName": "Der Nachname ist nicht gültig.",
+        "billTo_street1": "Die eingegebene Adresse ist nicht gültig.",
+        "billTo_street2": "Die eingegebene Adresse ist nicht gültig.",
+        "billTo_city": "Die eingegebene Stadt ist für diese Kreditkarte nicht gültig.",
+        "billTo_state": "Der eingegebene Staat/die Provinz ist für diese Kreditkarte nicht gültig.",
+        "billTo_country": "Das eingegebene Land ist für diese Kreditkarte nicht gültig.",
+        "billTo_postalCode": "Die eingegebene Postleitzahl ist für diese Kreditkarte nicht gültig.",
+        "country": {
+          "isocode": "Fehlendes Land"
+        }
+      },
+      "invalid": {
+        "card_expirationMonth": "Das eingegebene Kreditkarten-Ablaufdatum ist ungültig.",
+        "firstName": "Der eingegebene Vorname ist nicht gültig",
+        "lastName": "Der eingegebene Nachname ist nicht gültig.",
+        "password": "Das eingegebene Passwort ist nicht gültig.",
+        "uid": "UID ist ungültig.",
+        "code": "Der Kode ist nicht gültig.",
+        "email": "Die Email ist nicht gültig."
+      }
+    },
+    "cartNotFound": "Warenkorb nicht gefunden.",
+    "invalidCodeProvided": "Der angegebene Kode ist ungültig."
+  },
+  "miniCart": {
+    "item": "{{count}} Teile befinden sich zur Zeit im Warenkorb",
+    "item_plural": " {{count}} Teile befinden sich zur Zeit im Warenkorb",
+    "total": "{{total}}",
+    "count": "{{count}}"
+  },
+  "miniLogin": {
+    "userGreeting": "Hallo, {{name}}",
+    "signInRegister": "Anmelden / Registrieren"
+  },
+  "skipLink": {
+    "skipTo": "Springe zu",
+    "labels": {
+      "header": "Kopfzeile",
+      "main": "Hauptinhalt",
+      "footer": "Fußzeile",
+      "productFacets": "Produkt-Facetten",
+      "productList": "Produktliste"
+    }
+  },
+  "formErrors": {
+    "globalMessage": "Das Formular, das Sie zu übermitteln versuchen, enthält Fehler.",
+    "required": "Dieses Feld ist ein Pflichtfeld",
+    "cxInvalidEmail": "Dies ist kein gültiges E-Mail-Format",
+    "cxInvalidPassword": "Dies ist kein gültiges Passwortformat",
+    "cxPasswordsMustMatch": "Passwortfelder müssen übereinstimmen",
+    "cxEmailsMustMatch": "E-Mail-Felder müssen übereinstimmen",
+    "cxStarRatingEmpty": "Das Feld Bewertung ist erforderlich",
+    "cxNoSelectedItemToCancel": "Wählen Sie mindestens ein Element",
+    "cxNegativeAmount": "Der Betrag muss gleich oder größer als Null sein",
+    "cxContainsSpecialCharacters": "Das Feld kann keine Sonderzeichen enthalten",
+    "date": {
+      "required": "Dieses Feld ist ein Pflichtfeld",
+      "min": "Ein Datum vor dem {{min}} kann nicht gefunden werden.",
+      "max": "Ein Datum nach dem {{max}} kann nicht gefunden werden.",
+      "pattern": "Datumsformat jjjj-mm-tt verwenden",
+      "invalid": "Verwenden Sie ein gültiges Datum"
+    }
+  },
+  "errorHandlers": {
+    "scriptFailedToLoad": "Das Skript konnte nicht geladen werden.",
+    "refreshThePage": "Bitte aktualisieren Sie die Seite."
+  }
+}

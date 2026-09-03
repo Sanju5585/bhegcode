@@ -1,0 +1,75 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title">
+        <span> {{ 'rma-form.addAccessoriesandServices' | cxTranslate }}</span>
+      </div>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="closeModal('close')"
+      >
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p>{{ 'rma-form.noteFillRmaDetails' | cxTranslate }}</p>
+        </div>
+        <div class="cx-dialog-info col-md-12">
+          <span>{{ 'rma-form.partsAddedtoCart' | cxTranslate }}:</span>
+        </div>
+        <div class="cx-dialog-info accessory-tab-holder col-md-12 mt-3">
+          <div
+            *ngFor="let accProduct of availableAccessories"
+            class="accessory-tab"
+          >
+            <bh-checkbox
+              #productSelectCB
+              class="col-1 p-0"
+              [name]="accProduct.code"
+              [value]="accProduct.code"
+              checked="false"
+              (click)="onAccProductClick($event, accProduct)"
+            ></bh-checkbox>
+            <label
+              class="accessory-tab__label col-11 p-0 m-0"
+              (click)="onAccProductLabelClick(accProduct)"
+            >
+              <cx-media
+                class="col-2 p-0 part-image"
+                [container]="accProduct?.images?.PRIMARY"
+                [alt]="accProduct.description"
+              ></cx-media>
+              <div class="accessory-tab--details col-10 p-0 pl-2">
+                <div class="accessory-tab--details__code">
+                  <span>{{ accProduct.code }}</span>
+                </div>
+                <div class="accessory-tab--details__name">
+                  <span>{{ accProduct.description }}</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container mt-3">
+          <bh-button
+            [type]="'secondary'"
+            [label]="'rma-form.cancel' | cxTranslate"
+            (click)="closeModal('close')"
+          ></bh-button>
+          <bh-button
+            [type]="'tertiary'"
+            [label]="'rma-form.add' | cxTranslate"
+            (click)="closeModal('')"
+            [attr.disabled]="selectedAccessories.length <= 0"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

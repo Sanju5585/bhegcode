@@ -1,0 +1,51 @@
+#***  This impex setup the client details, end point urls and product configuration related details ***#
+
+#***  OAuth CredentialS ***#
+
+$oAuthUrl = https://bhcps-dev-wq258evo.authentication.us10.hana.ondemand.com/oauth/token
+$clientIdConfiguration = sb-cafa0c09-4844-4e37-9046-f849373ac302!b300130|cpservices-secured!b391
+$secretConfiguration = 9e7d435e-9a24-4011-8841-6cea3e4e289c$TLfToUeN1_bNnzqw26ckuIvRfQfac6jOoXTLupi2UNs=
+
+$clientIdPricing = sb-bfd3c7ed-24d5-4815-a7ee-9c02179f5452!b300130|cpservices-secured!b391
+$secretPricing = b2c802e6-6d56-4d3d-a38d-78e5a5908dee$B24FRUkEOKUniLEUJl3fhIg6F1wmFovhJtMEBezkquQ=
+
+$clientIdMasterData = 
+$secretMasterData = 
+
+$clientIdKbDetermination = 
+$secretKbDetermination = 
+
+INSERT_UPDATE ConsumedOAuthCredential	; id[unique = true]          ; clientId                 ; clientSecret           ; oAuthUrl
+                              			; credential.configuration   ; $clientIdConfiguration   ; $secretConfiguration   ; $oAuthUrl
+                              			; credential.pricing         ; $clientIdPricing         ; $secretPricing         ; $oAuthUrl
+                              			; credential.masterData      ; $clientIdConfiguration   ; $secretConfiguration   ; $oAuthUrl
+                              			; credential.kbDetermination ; $clientIdConfiguration   ; $secretConfiguration   ; $oAuthUrl
+                              
+                  
+                  
+#************  Endpoints **************************************************************************************************#
+
+INSERT_UPDATE Endpoint	; id[unique = true]			; version[unique = true]; name            ; specUrl
+               			; ConfigurationEndpoint   	; n.a            		; Configuration   ; "n.a"
+               			; MasterDataEndpoint      	; n.a            		; MasterData      ; "n.a"
+               			; PricingEndpoint         	; n.a            		; Pricing         ; "n.a"
+               			; KbDeterminationEndpoint 	; n.a            		; KbDetermination ; "n.a"
+
+
+#************  Destinations************************************************************************************************#
+
+INSERT_UPDATE DestinationTarget	; id[unique=true]
+								; sapproductconfiguration
+
+
+$pricingUrl = https://cpservices-pricing.cfapps.us10.hana.ondemand.com/api
+$configurationUrl = https://cpservices-product-configuration.cfapps.us10.hana.ondemand.com/api
+			
+						
+INSERT_UPDATE ConsumedDestination	; id[unique = true]          ; url                      ; endpoint(id, version)       ; credential(id)             ;additionalProperties(key,value)[map-delimiter=|]                                                                  					; destinationTarget(id)[default=sapproductconfiguration] ; active[default=true]
+                            		; configurationDestination   ; "$configurationUrl/v2"   ; ConfigurationEndpoint:n.a   ; credential.configuration   ;clientClassName->ConfigurationClient|oauth.scope->uaa.resource|sapproductconfigruntimecps.charon.timeout->15000|baseSite->bhge   	;
+                            		; pricingDestination         ; "$pricingUrl/v1"         ; PricingEndpoint:n.a         ; credential.pricing         ;clientClassName->PricingClient|oauth.scope->uaa.resource|sapproductconfigruntimecps.charon.timeout->15000|baseSite->bhge         	;
+                            		; masterDataDestination      ; "$configurationUrl/v2"   ; MasterDataEndpoint:n.a      ; credential.masterData      ;clientClassName->MasterDataClient|oauth.scope->uaa.resource|sapproductconfigruntimecps.charon.timeout->15000|baseSite->bhge      	;
+                            		; kbDeterminationDestination ; "$configurationUrl/v2"	; KbDeterminationEndpoint:n.a ; credential.kbDetermination ;clientClassName->KbDeterminationClient|oauth.scope->uaa.resource|sapproductconfigruntimecps.charon.timeout->15000|baseSite->bhge 	; 
+                           
+                                    

@@ -1,0 +1,118 @@
+<div class="main-wrapper">
+  <app-new-guest-homepage-header></app-new-guest-homepage-header>
+  <div class="new-home-page">
+    <div class="new-home-page-content">
+      <div class="top-text">
+        <div class="our-brands-text" *ngIf="isEnglish()">
+          {{ 'guest-home.ourBrands' | cxTranslate }}
+        </div>
+        <div class="our-brands-text" *ngIf="!isEnglish()">
+          {{ 'guest-home.productBrand' | cxTranslate }}
+        </div>
+
+        <div class="sub-text">{{ 'guest-home.homeTopText' | cxTranslate }}</div>
+      </div>
+      <div class="banner-grid-wrapper">
+        <a class="box cursor-pointer" routerLink="/waygate">
+          <div>
+            <img
+              class="banner-nav"
+              src="assets/img/waygateHomeBanner.svg"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img
+              src="assets/img/waygateHomeSubBanner.png"
+              style="height: 30px"
+              alt=""
+            />
+            <div class="brand-description">
+              {{ 'guest-home.waygateDescription' | cxTranslate }}
+            </div>
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.bently]"
+        >
+          <div>
+            <img
+              class="banner-nav"
+              src="assets/img/cordentHomeBanner.svg"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img
+              src="assets/img/cordentHomeSubBanner.svg"
+              class="height-inherit"
+              alt=""
+            />
+            <div class="brand-description" *ngIf="isEnglish()">
+              {{ 'guest-home.cordantDescription' | cxTranslate }}
+            </div>
+            <div class="brand-description" *ngIf="!isEnglish()">
+              {{ 'guest-home.bentlyDescription' | cxTranslate }}
+            </div>
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.panametrics]"
+        >
+          <div>
+            <img
+              class="banner-nav"
+              src="assets/img/panametricsHomeBanner.svg"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img too src="assets/img/Pana_our_brand.png" alt="" />
+            <div class="brand-description">
+              {{ 'guest-home.panametricDescription' | cxTranslate }}
+            </div>
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer last-row"
+          [routerLink]="['/', allProductsLine.druck]"
+        >
+          <div>
+            <img
+              class="banner-nav"
+              src="assets/img/druckHomeBanner.svg"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img src="assets/img/druck_homepage_logo.png" alt="" />
+            <div class="brand-description">
+              {{ 'guest-home.druckDescription' | cxTranslate }}
+            </div>
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer last-row last-item"
+          [routerLink]="['/', allProductsLine.reuterStokes]"
+        >
+          <div>
+            <img
+              class="banner-nav"
+              src="assets/img/reuterstokesHomeBanner.svg"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img src="assets/img/reuterstokesHomeSubBanner.svg" alt="" />
+            <div class="brand-description">
+              {{ 'guest-home.ReuterDescription' | cxTranslate }}
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <app-new-guest-homepage-footer></app-new-guest-homepage-footer>
+</div>

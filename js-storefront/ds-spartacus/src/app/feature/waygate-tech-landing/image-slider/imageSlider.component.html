@@ -1,0 +1,92 @@
+<ng-container *ngIf="iscontentAvailableFromSlot">
+  <div class="container">
+    <div class="slideshow-container" *ngIf="slidesArr?.length > 0">
+      <ng-container *ngFor="let item of slidesArr; let i = index">
+        <div
+          class="slider-wrapper fadeeffect"
+          [ngStyle]="{ display: slideIndex === i ? 'block' : 'none' }"
+        >
+          <div class="each-slide">
+            <div
+              class="text-wrapper"
+              *ngIf="productLine !== allProductLine.bently"
+            >
+              <div class="title" [innerHTML]="item?.headline"></div>
+              <div class="desc" [innerHTML]="item?.content"></div>
+              <div class="more-details-btn">
+                <button
+                  class="save-btn action-btn"
+                  type="button"
+                  *ngIf="isInternalLink(item?.urlLink); else externalLinkButton"
+                  [routerLink]="item?.urlLink"
+                >
+                  {{ 'waygate.moreDetails' | cxTranslate }}
+                </button>
+                <ng-template #externalLinkButton>
+                  <button
+                    class="save-btn action-btn"
+                    type="button"
+                    (click)="handleExternalUrl(item?.urlLink)"
+                  >
+                    {{ 'waygate.moreDetails' | cxTranslate }}
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+
+            <ng-container
+              *ngIf="productLine === allProductLine.bently; else noBently"
+            >
+              <div
+                class="img-wrapper"
+                *ngIf="
+                  isInternalLink(item?.urlLink);
+                  else externalLinkButtonbentley
+                "
+                [routerLink]="item?.urlLink"
+              >
+                <img
+                  src="{{ baseSiteURL }}{{ item.media?.url }}"
+                  alt="imgage"
+                />
+              </div>
+              <ng-template #externalLinkButtonbentley>
+                <div
+                  class="img-wrapper"
+                  (click)="handleExternalUrl(item?.urlLink)"
+                >
+                  <img
+                    src="{{ baseSiteURL }}{{ item.media?.url }}"
+                    alt="imgage"
+                  />
+                </div>
+              </ng-template>
+            </ng-container>
+            <ng-template #noBently>
+              <div class="img-wrapper">
+                <img
+                  src="{{ baseSiteURL }}{{ item.media?.url }}"
+                  alt="imgage"
+                />
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+      <div
+        class="carousel-left material-icons"
+        (click)="slideIndex === 0 ? '' : plusSlides(-1)"
+        [ngClass]="{ disabled: slideIndex === 0 }"
+      >
+        navigate_before
+      </div>
+      <div
+        class="carousel-right material-icons"
+        (click)="slideIndex === slidesArr.length - 1 ? '' : plusSlides(1)"
+        [ngClass]="{ disabled: slideIndex === slidesArr.length - 1 }"
+      >
+        navigate_next
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,374 @@
+<div class="waygate-order-summary">
+  <ng-container *ngIf="cartData?.appliedVouchers?.length > 0">
+    <div class="order-summary-coupon-text">
+      {{ 'buyCart.couponCode' | cxTranslate }}
+    </div>
+    <div class="applied-coupon-holder">
+      <span class="applied-coupon-icon mr-2"></span>
+      <div class="coupons-holder">
+        <span class="applied-coupon">{{
+          cartData.appliedVouchers[0].code
+        }}</span>
+        <span class="applied-coupon-text">{{
+          'buyCart.couponApplied' | cxTranslate
+        }}</span>
+      </div>
+    </div>
+    <hr class="horizontal-line" />
+  </ng-container>
+
+  <!-- <div class="available-coupon">View available coupons</div> -->
+  <!-- For return summary -->
+  <ng-container *ngIf="isRMA">
+    <div class="order-summary-heading">
+      <span *ngIf="isRMA">{{ 'titles.rmaSummary' | cxTranslate }}</span>
+    </div>
+    <ng-container>
+      <div class="order-summary-content">
+        <div class="order-summary-sub-content">
+          <div class="order-summary-label">
+            {{ 'titles.subTotal' | cxTranslate }}
+          </div>
+          <ng-container
+            *ngIf="cartData?.totalReturnCartPrice?.value > 0; else toBeQuoted"
+          >
+            <ng-container
+              *ngIf="
+                cartData?.totalReturnCartPriceDiscount?.value > 0;
+                else noDiscount
+              "
+            >
+              <div class="order-summary-value">
+                {{ getTotalAmount(cartData) }}
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #noDiscount>
+            <div class="order-summary-value">
+              {{ cartData?.totalReturnCartPrice?.formattedValue }}
+            </div>
+          </ng-template>
+          <ng-template #toBeQuoted>
+            <span class="order-summary-value">{{
+              'rma-cart.toBeQuoted' | cxTranslate
+            }}</span>
+          </ng-template>
+        </div>
+
+        <!-- <div class="order-summary-sub-content">
+          <div class="surcharge-label">
+            Surcharge <i class="material-icons">info</i>
+          </div>
+          <div class="order-summary-value">$0.00</div>
+        </div> -->
+
+        <div
+          class="order-summary-sub-content"
+          *ngIf="cartData?.totalReturnCartPriceDiscount?.value > 0"
+        >
+          <div class="order-summary-label">
+            {{ 'titles.discount' | cxTranslate }}
+          </div>
+          <div class="order-summary-value">
+            {{ cartData?.totalReturnCartPriceDiscount?.formattedValue }}
+          </div>
+        </div>
+        <div class="order-summary-sub-content" *ngIf="cartData?.surCharge">
+          <div class="order-summary-label">Freight Charge</div>
+          <div class="order-summary-value">
+            {{
+              cartData?.surCharge
+                | customNumber: cartData?.totalPrice?.currencyIso
+            }}
+          </div>
+        </div>
+        <div
+          class="order-summary-sub-content"
+          *ngIf="cartData?.totalDiscounts?.value > 0"
+        >
+          <div class="order-summary-label coupon-info">
+            {{ 'checkoutConfirmation.couponInfo' | cxTranslate }}
+          </div>
+          <div class="order-summary-value">
+            <!-- {{ cartData?.totalDiscounts?.formattedValue }} -->
+            <!-- {{ cartData?.currencyIso }} {{ cartData?.currencySymbol }} -->
+            {{
+              cartData?.totalListPrice?.value -
+                cartData?.yourPriceDiscount?.value -
+                cartData?.totalPrice?.value
+                | customNumber: cartData?.currencyIso
+            }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <hr class="horizontal-line" />
+
+    <div class="order-summary-total">
+      <div class="total-label">{{ 'titles.total' | cxTranslate }}</div>
+      <ng-container
+        *ngIf="cartData?.totalReturnCartPrice?.value > 0; else toBeQuoted"
+      >
+        <div class="total-value">
+          {{ cartData?.totalReturnCartPrice?.formattedValue }}
+        </div>
+      </ng-container>
+      <ng-template #toBeQuoted>
+        <span class="rma-cart-value">{{
+          'rma-cart.toBeQuoted' | cxTranslate
+        }}</span>
+      </ng-template>
+    </div>
+
+    <hr class="horizontal-line" />
+  </ng-container>
+
+  <!-- For quote summary -->
+  <ng-container *ngIf="isQuote">
+    <div class="order-summary-heading">
+      <span>{{ 'titles.quoteSummary' | cxTranslate }}</span>
+    </div>
+
+    <div class="summary-total">
+      <div class="summary-total-cart">
+        <p class="summary-total-cart-title">
+          {{ 'quoteCart.cartTotal' | cxTranslate }}
+        </p>
+        <p class="summary-total-cart-value">
+          {{ cartData?.totalPrice?.formattedValue }}
+        </p>
+      </div>
+      <p class="summary-total-order">
+        {{ 'quoteCart.billable' | cxTranslate }}
+      </p>
+    </div>
+    <hr class="horizontal-line" />
+  </ng-container>
+
+  <!-- For buy orders -->
+  <ng-container *ngIf="!isQuote && !isRMA">
+    <div class="order-summary-heading">
+      <span>{{ 'titles.orderSummary' | cxTranslate }}</span>
+    </div>
+    <div class="order-summary-content">
+      <div class="order-summary-sub-content">
+        <div class="order-summary-label">
+          {{ 'titles.subTotal' | cxTranslate }}
+        </div>
+        <div class="order-summary-value">
+          {{ cartData?.totalListPrice?.formattedValue }}
+        </div>
+      </div>
+
+      <div class="order-summary-sub-content">
+        <div class="order-summary-label">
+          {{ 'titles.discount' | cxTranslate }}
+        </div>
+        <div class="order-summary-value">
+          {{ cartData?.yourPriceDiscount?.formattedValue }}
+        </div>
+      </div>
+      <div class="order-summary-sub-content" *ngIf="cartData?.surCharge">
+        <div class="order-summary-label">Freight Charge</div>
+        <div class="order-summary-value">
+          {{
+            cartData?.surCharge
+              | customNumber: cartData?.totalPrice?.currencyIso
+          }}
+        </div>
+      </div>
+      <div
+        class="order-summary-sub-content"
+        *ngIf="cartData?.totalDiscounts?.value > 0"
+      >
+        <div class="order-summary-label coupon-info">
+          {{ 'checkoutConfirmation.couponInfo' | cxTranslate }}
+        </div>
+        <div class="order-summary-value">
+          <!-- {{ cartData?.totalDiscounts?.formattedValue }} -->
+          <!-- {{ cartData?.currencyIso }}  -->
+          {{
+            cartData?.totalListPrice?.value -
+              cartData?.yourPriceDiscount?.value -
+              cartData?.totalPrice?.value
+              | customNumber: cartData?.totalPrice?.currencyIso
+          }}
+        </div>
+      </div>
+    </div>
+
+    <hr class="horizontal-line" />
+    <div class="order-summary-total">
+      <div class="total-label">{{ 'titles.total' | cxTranslate }}</div>
+      <div class="total-value">{{ cartData?.totalPrice?.formattedValue }}</div>
+    </div>
+
+    <hr class="horizontal-line" />
+    <div *ngIf="productLine == allproductline.bently && userTypes == 'internal'" class="order-summary-des row">
+        <div class="cordant-checkout-order-preference-text ml-3">
+          <div>{{ 'labels.selectYourOrder' | cxTranslate }}</div>
+        </div>
+
+  <div class="waygate-cart-radio-btn mt-2 col-xs-12 ml-3">
+    <bh-radio-button [attr.checked]="true" label="{{ 'labels.Standard' | cxTranslate }}"
+        value="false" name="group" (change)="handleChange($event)"
+        ></bh-radio-button>
+        <bh-radio-button [attr.checked]="" label="{{ 'labels.Demo' | cxTranslate }}"
+          value="true" name="group" (change)="handleChange($event)"
+    ></bh-radio-button>          
+  </div>
+</div>
+  
+    <div class="order-summary-des">
+      <ng-container *ngIf="selectedSalesArea === '7140'">
+        <p class="first">{{ 'titles.confirmTitle' | cxTranslate }}</p>
+        {{ 'titles.confirmSubtitle1' | cxTranslate }}<br />
+        {{ 'titles.confirmSubtitle2' | cxTranslate }}
+        <p class="second">{{ 'titles.specialInst' | cxTranslate }}</p>
+        {{ 'titles.specialInst1' | cxTranslate }}<br />
+        {{ 'titles.specialInst2a' | cxTranslate
+        }}{{ 'titles.specialInst2b' | cxTranslate
+        }}{{ 'titles.specialInst2c' | cxTranslate }}
+        <br />
+        {{ 'titles.specialInst3a' | cxTranslate
+        }}{{ 'titles.specialInst3b' | cxTranslate }}
+        <p class="second">{{ 'titles.termsAndCon' | cxTranslate }}</p>
+        {{ 'titles.termsAndCon1' | cxTranslate }}
+        <!-- Below line for only china language -->
+        <br /><a
+          href="./../../../../../../assets/pdf/Waygate store_China Terms and conditions.pdf"
+          target="_blank"
+          >{{ 'titles.termsAndCon2' | cxTranslate }}</a
+        ><br />
+      </ng-container>
+      <ng-container *ngIf="selectedSalesArea !== '7140'">
+        {{ 'titles.checkoutTnCDes' | cxTranslate }}
+      </ng-container>
+    </div>
+  </ng-container>
+  <div class="order-summary-terms mt-2">
+    <bh-checkbox
+      class="float-left terms-checkbox"
+      label=""
+      [value]="agreeTerms"
+      [attr.error]="error.agreeTerms ? error.agreeTerms : null"
+      (change)="onChange(agreeTerms, 'agreeTerms')"
+    >
+    </bh-checkbox>
+    <div>
+      <label
+        class="terms-checkbox-label"
+        *ngIf="!isRMA && selectedSalesArea === '7140'"
+      >
+        {{ 'titles.iagree' | cxTranslate }}
+      </label>
+      <label
+        class="terms-checkbox-label"
+        *ngIf="!isRMA && selectedSalesArea !== '7140'"
+        [innerHtml]="'titles.termsConditions' | cxTranslate"
+      >
+      </label>
+      <label
+        class="terms-checkbox-label"
+        *ngIf="isRMA"
+        [innerHtml]="'titles.termsConditions' | cxTranslate"
+      >
+      </label>
+    </div>
+  </div>
+
+  <!-- <ng-container *ngIf="productLine === allproductline.panametrics">
+    <app-tariff></app-tariff>
+  </ng-container> -->
+
+  <div class="order-summary-actions">
+    <bh-button
+      *ngIf="
+        !makePaymrnt &&
+        (!(
+          selectedSalesArea === '7140' &&
+          cartData?.totalPrice?.value < chinaMOVwithoutTax &&
+          cartData?.cartType == 'FILM' &&
+          cartData?.currencyIso == 'CNY' &&
+          cartData?.commerceType == 'BUY'
+        ) || cartData?.isQuote)
+      "
+      [attr.disabled]="!agreeTermschecked || sapBlocked"      
+      [class.disabled-btn]="!agreeTermschecked || sapBlocked"
+      class="float-left"
+      [ngClass]="{ 'place-order-btn': !isQuote, 'low-width-sub': isQuote }"
+      medium
+      type="primary"
+      label="{{
+        isQuote
+          ? ('titles.submitQuoteReq' | cxTranslate)
+          : isRMA
+            ? ('titles.placeRMA' | cxTranslate)
+            : ('titles.placeOrder' | cxTranslate)
+      }}"
+      (click)="placeOrder()"
+    ></bh-button>
+    <bh-button
+      *ngIf="
+        makePaymrnt &&
+        (!(
+          selectedSalesArea === '7140' &&
+          cartData?.totalPrice?.value < chinaMOVwithoutTax &&
+          cartData?.cartType == 'FILM' &&
+          cartData?.currencyIso == 'CNY' &&
+          cartData?.commerceType == 'BUY'
+        ) || cartData?.isQuote)
+      "
+      [attr.disabled]="!agreeTermschecked"
+      class="float-left place-order-btn"
+      medium
+      type="primary"
+      label="{{ 'titles.makePayment' | cxTranslate }}"
+      (click)="placeOrder()"
+    ></bh-button>
+    <bh-button
+      class="float-right"
+      [ngClass]="{ 'low-width-ret': isQuote }"
+      medium
+      type="secondary"
+      label="{{ 'titles.returntocart' | cxTranslate }}"
+      (click)="goToCart()"
+    >
+    </bh-button>
+  </div>
+  <div *ngIf="sapBlocked" class="order-summary-error">
+    {{ 'errors.sapBlockeddisablederror' | cxTranslate }}
+  </div>
+  <div class="order-summary-actions">
+    <div *ngIf="noCartEntriesData" class="availibility-error">
+      <i class="material-icons">report</i>
+      <span class="error-text">
+        {{ 'errors.technicalErrorsInCHeckout' | cxTranslate }}
+      </span>
+    </div>
+    <div
+      *ngIf="
+        selectedSalesArea === '7140' &&
+        cartData?.totalPrice?.value < chinaMOVwithoutTax &&
+        cartData?.cartType == 'FILM' &&
+        cartData?.currencyIso == 'CNY' &&
+        cartData?.commerceType == 'BUY' && !cartData?.isQuote
+      "
+      class="availibility-error"
+    >
+      <i class="material-icons">report</i>
+      <span class="error-text">
+        {{
+          'errors.chinaMovError'
+            | cxTranslate
+              : {
+                  expectedChinaMOV:
+                    expectedChinaMOV | customNumber: cartData?.currencyIso,
+                }
+        }}
+      </span>
+    </div>
+  </div>
+</div>

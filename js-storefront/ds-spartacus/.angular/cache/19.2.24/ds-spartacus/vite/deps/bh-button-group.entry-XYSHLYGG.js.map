@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@bh-digital-solutions/ui-toolkit/dist/esm/bh-button-group.entry.js"],
+  "sourcesContent": ["import { r as registerInstance, h, H as Host } from './index-b54e60f4.js';\nconst bhButtonGroupCss = \".bh-button-group{display:flex;flex-wrap:nowrap;justify-content:flex-start;align-items:center}.bh-button-group .bh-button__container{padding-right:var(--spacing-padding-medium)}.bh-button-group .bh-button__container--small{padding-right:var(--spacing-padding-small)}.bh-button-group .bh-button__container:last-child{padding-right:0}\";\nconst BhButtonGroupStyle0 = bhButtonGroupCss;\nconst BhButtonGroup = class {\n  constructor(hostRef) {\n    registerInstance(this, hostRef);\n  }\n  render() {\n    return h(Host, {\n      key: '04e96794adc2a09a6340c841bef5ff64c53cf6f3',\n      class: 'bh-button-group'\n    }, h(\"slot\", {\n      key: '6b6c0ae19bed9ac4ffa4e92086149182b4f11c3e'\n    }));\n  }\n};\nBhButtonGroup.style = BhButtonGroupStyle0;\nexport { BhButtonGroup as bh_button_group };\n\n"],
+  "mappings": ";;;;;;;;AACA,IAAM,mBAAmB;AACzB,IAAM,sBAAsB;AAC5B,IAAM,gBAAgB,MAAM;AAAA,EAC1B,YAAY,SAAS;AACnB,qBAAiB,MAAM,OAAO;AAAA,EAChC;AAAA,EACA,SAAS;AACP,WAAO,EAAE,MAAM;AAAA,MACb,KAAK;AAAA,MACL,OAAO;AAAA,IACT,GAAG,EAAE,QAAQ;AAAA,MACX,KAAK;AAAA,IACP,CAAC,CAAC;AAAA,EACJ;AACF;AACA,cAAc,QAAQ;",
+  "names": []
+}

@@ -1,0 +1,11 @@
+{
+  "trainingDocs": {
+    "heading": "Documentos de formación",
+    "sortBy": "Ordenar por\r",
+    "searchInDocs": "Buscar en documentos de formación",
+    "name": "Nombre",
+    "dateModified": "Fecha modificada",
+    "noRecordFound": "Ningún record fue encontrado",
+    "view": "Ver (Where-Used List: Material: View)"
+  }
+}

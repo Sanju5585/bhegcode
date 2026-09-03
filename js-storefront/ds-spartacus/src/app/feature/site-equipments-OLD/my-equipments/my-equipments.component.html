@@ -1,0 +1,1094 @@
+<div class="my-equipments container w-100 p-0 m-t-10">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header-container w-100 pull-left m-b-10">
+        <div class="pull-left">
+          <span
+            class="header-text pull-left"
+            translate="bhge.ng.site.equipment.mel.header_text"
+            >My Equipment List</span
+          >
+          <a
+            [routerLink]=""
+            class="m-l-30 m-t-17 fs-14 pull-left"
+            (click)="startSiteTour()"
+            translate="bhge.ng.site.equipment.mel.start.page.tour"
+            >Page Tour</a
+          >
+        </div>
+        <div class="pull-right">
+          <!--  <a class="m-r-30 hidden" translate="bhge.ng.site.equipment.mel.help_text" [routerLink]="['manEL']" >Help me with my equipment list?</a>-->
+          <!--  <button class="secondary-btn-bhge m-r-10 w-200" translate="bhge.ng.site.equipment.mel.bulk_update">Bulk Update</button>-->
+          <button
+            id="add-equipment-btn"
+            class="primary-btn-bhge w-220"
+            [routerLink]="['add']"
+            routerLinkActive="router-link-active"
+            translate="bhge.ng.site.equipment.mel.add_equip"
+          >
+            Add equipment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" [ngClass]="{ 'sticky-header': isStickyHeader }">
+    <div class="col-md-9">
+      <ul class="equipment-result">
+        <li
+          class="c-pointer"
+          *ngFor="
+            let header of eqHeaders;
+            let first = first;
+            let last = last;
+            let i = index
+          "
+          (click)="filterMelList(header.var)"
+        >
+          <div
+            [id]="'filter-option-' + i"
+            class="card"
+            [ngClass]="{
+              'selected-filter': eqService.melFilters.filterBy == header.var,
+              'past-due-filter': header.var == 'itemsServiceWasDue',
+            }"
+          >
+            <div
+              class="card-container"
+              [tooltip]="header.tooltip | translate: header.i18_tooltip"
+              [classfname]="'first'"
+              [stickyHeader]="isStickyHeader"
+              [offset]="isStickyHeader ? 23 : 30"
+            >
+              <span
+                class="mr-5"
+                [ngClass]="
+                  header.status == 'Pinned Items'
+                    ? 'bhge-icons ico_pushpin_sm'
+                    : header.status == 'Archived Items'
+                      ? 'bhge-mcstore-icons icon-archive'
+                      : header.status == 'Total Items'
+                        ? ' '
+                        : 'bhge-icons ico_scheduler1_sm'
+                "
+              ></span>
+              <span class="card-heading p-bold">{{
+                header.status | translate: header.translate
+              }}</span
+              ><br />
+              <span
+                class="card-sub-heading"
+                [appCounter]="eqService.melPageHeader[header.var]"
+              >
+                <span class="counter-number inspiraSans">0</span>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="col-md-3">
+            <button class="text-bold btn-light-green m-t-20" [routerLink]="['manEL']" [joyrideStep]="siteTourSteps[7]" [title]="siteTourStepsData.step8.title" [text]="siteTourStepsData.step8.text">
+                {{ 'All items in our records' | translate:'bhge.ng.site.equipment.mel.item_record_not_list'}}
+                <i class="bhge-icons ico_aro_navdown_sm pull-right"></i>
+            </button>
+        </div> -->
+  </div>
+
+  <div class="row m-t-15 m-b-15">
+    <div class="col-md-12">
+      <div *ngIf="!eqService.noRecordsFound" class="filter-row">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="filter-options m-b-0">
+              <li class="p-r-10">
+                <i class="bhge-icons ico_filter_sm"></i>
+              </li>
+
+              <li>
+                <button
+                  class="form-control round-button"
+                  [ngClass]="{ 'filter-selected-button': hideProductLine }"
+                  (click)="hideProductLine = !hideProductLine"
+                >
+                  <span translate="bhge.ng.rma.status.product_line"
+                    >Product Line</span
+                  >
+                  <i
+                    [ngClass]="{ 'invert-arrow': !hideProductLine }"
+                    class="bhge-mcstore-icons icon-down-arrow-blue m-0"
+                  ></i>
+                </button>
+              </li>
+              <li>
+                <button
+                  #lastModifiedBtn
+                  class="form-control round-button"
+                  [ngClass]="{ 'filter-selected-button': !hideDateFilter }"
+                  (click)="hideDateFilter = !hideDateFilter"
+                >
+                  <span
+                    translate="bhge.ng.site.equipment.mel.date.last.modified"
+                    >Last Modified</span
+                  >
+                  <i
+                    [ngClass]="{ 'invert-arrow': !hideDateFilter }"
+                    class="bhge-mcstore-icons icon-down-arrow-blue m-0"
+                  ></i>
+                </button>
+              </li>
+              <li>
+                <button
+                  class="form-control round-button"
+                  [ngClass]="{ 'filter-selected-button': showEndCustFilter }"
+                  (click)="showEndCustFilter = !showEndCustFilter"
+                >
+                  <span translate="bhge.ng.site.equipment.mel.end.customer"
+                    >End Customer</span
+                  >
+                  <i
+                    [ngClass]="{ 'invert-arrow': showEndCustFilter }"
+                    class="bhge-mcstore-icons icon-down-arrow-blue m-0"
+                  ></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 p-r-0">
+            <ul class="filter-options m-b-0">
+              <li class="align-input pull-right search-box-container">
+                <div class="form-group m-b-0">
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    class="form-control rma-form-input"
+                    placeholder="Search by Part number, Part name, Serial number"
+                    [(ngModel)]="searchInput"
+                    (keyup)="handelSearchText($event)"
+                  />
+                  <i
+                    style="display: block"
+                    *ngIf="!eqService.isSearchLoading"
+                    class="form-control-feedback bhge-mcstore-icons"
+                    (click)="handelSearchText({ key: 'Search' }, true)"
+                    [ngClass]="{
+                      'icon-search-thin':
+                        !eqService.isSearchLoading &&
+                        !eqService.melFilters.isSearchDone,
+                      'icon-close-new':
+                        eqService.melFilters.isSearchDone &&
+                        searchInput == eqService.melFilters.searchBy &&
+                        eqService.melFilters.searchBy != '',
+                    }"
+                  ></i>
+                  <i
+                    *ngIf="eqService.isSearchLoading"
+                    class="bhge-icons ico_spinner_sm search-spinner"
+                  ></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <ul
+            *ngIf="hideProductLine || !hideDateFilter || showEndCustFilter"
+            class="filter-options m-b-0 m-t-20 m-l-20"
+          >
+            <ng-container *ngIf="hideProductLine">
+              <li *ngFor="let pLine of eqService.productLines; let i = index">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="pLine.selected"
+                  class="rma-custom-checkbox"
+                  (change)="productLineFilter(pLine.selected, pLine)"
+                  id="productline-{{ i }}"
+                />
+                <label for="productlineproductline-{{ i }}">{{
+                  pLine.name
+                }}</label>
+              </li>
+            </ng-container>
+            <li *ngIf="!hideDateFilter">
+              <div class="form-group pull-left m-r-6 date-filter-holder">
+                <input
+                  type="text"
+                  class="form-control rma-form-input"
+                  placeholder="{{
+                    'Start date' | translate: 'bhge.ng.rma.status.start_date'
+                  }}"
+                  [matDatepicker]="matStartDate"
+                  (focus)="matStartDate.open()"
+                  #startDateInput
+                  [(ngModel)]="fromDate"
+                  [max]="toDate"
+                />
+                <mat-datepicker
+                  #matStartDate
+                  startView="multi-year"
+                  [startAt]="fromDate"
+                  (closed)="startDateInput.blur()"
+                ></mat-datepicker>
+                <i
+                  class="c-pointer bhge-icons ico_calendar_sm form-control-feedback position-logo fs-18"
+                  (click)="matStartDate.open()"
+                ></i>
+              </div>
+              <div class="form-group pull-left m-r-6 date-filter-holder">
+                <input
+                  type="text"
+                  class="form-control rma-form-input"
+                  placeholder="{{
+                    'End date' | translate: 'bhge.ng.rma.status.end_date'
+                  }}"
+                  [matDatepicker]="madEndDate"
+                  (focus)="madEndDate.open()"
+                  #endDateInput
+                  [min]="fromDate"
+                  [(ngModel)]="toDate"
+                />
+                <mat-datepicker
+                  #madEndDate
+                  startView="multi-year"
+                  [startAt]="toDate"
+                  (closed)="endDateInput.blur()"
+                ></mat-datepicker>
+                <i
+                  class="c-pointer bhge-icons ico_calendar_sm form-control-feedback position-logo fs-18"
+                  (click)="madEndDate.open()"
+                ></i>
+              </div>
+              <div class="form-group pull-left m-r-6">
+                <button
+                  class="secondary-btn-bhge date-search h-30 p-r-15 p-l-15 m-l-0"
+                  (click)="filterByDate()"
+                  [disabled]="!toDate || !fromDate"
+                  translate="bhge.ng.site.equipment.mel.go"
+                >
+                  Go
+                </button>
+              </div>
+            </li>
+            <li *ngIf="showEndCustFilter">
+              <div class="form-group cust-dd-container">
+                <!-- <label for="endCustName" class="d-block" translate="bhge.ng.site.equipment.end_customer">End customer name & number</label> -->
+                <button
+                  id="serial-search-type"
+                  #endCustomerDropdownButton
+                  (click)="showCustomersInfo = true"
+                  class="form-control rma-form-input cust-account-dd"
+                  type="button"
+                  data-toggle="dropdown"
+                >
+                  <span
+                    *ngIf="selectedCustomer"
+                    class="overflow-ellipsis pull-left dd-selected"
+                    >{{ selectedCustomer.name }}</span
+                  >
+                  <i class="bhge-mcstore-icons icon-down-arrow-blue m-0"></i>
+                </button>
+                <ul
+                  class="dropdown-menu rma-offering-content p-0 w-100 cust-account-dd-content"
+                  #endCustomerDropdown
+                  *ngIf="showCustomersInfo"
+                  style="display: block"
+                >
+                  <li *ngFor="let eachVal of arrCustomers; let i = index">
+                    <a
+                      class="option-text p-l-5"
+                      href
+                      (click)="onCustomerSelect(eachVal, $event)"
+                      >{{ eachVal.name }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <span class="clearfix"></span>
+
+            <p
+              *ngIf="
+                !hideDateFilter &&
+                toDate?.getFullYear() - fromDate?.getFullYear() > 3
+              "
+              class="service-past-warning m-t-5"
+            >
+              <i class="bhge-mcstore-icons icon-info m-r-5"></i>
+              <span translate="bhge.ng.site.equipment.mel.date.filter.warning"
+                >If this query pulls more than 10,000 records you might see a
+                significant delay or a timeout of your query.</span
+              >
+            </p>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-b-15" *ngIf="eqService.melFilterBubbles.length > 0">
+    <div class="col-md-12">
+      <div
+        style="display: inline-block"
+        class="m-r-20 gray-color"
+        translate="bhge.ng.site.equipment.mel.show_results"
+      >
+        Showing results for
+      </div>
+      <div
+        class="chips m-r-15 m-t-5 p-t-6"
+        *ngFor="let i of eqService.melFilterBubbles"
+        [ngClass]="{ 'date-filter-applied': i.type.toLowerCase() == 'date' }"
+      >
+        {{ i.title | translate: i.translate }}
+        <i
+          class="c-pointer icon-close-new m-l-5"
+          (click)="removeBubbles({ type: i.type, id: i.id, name: i.title })"
+        ></i>
+      </div>
+    </div>
+  </div>
+
+  <h3
+    *ngIf="eqService.sapError"
+    class="text-center m-t-50"
+    translate="sap.connectivity.error"
+  >
+    There is Connectivity issue. Please try again later!
+  </h3>
+  <h3
+    *ngIf="!eqService.sapError && eqService.noRecordsFound"
+    class="text-center m-t-50"
+    translate="bhge.ng.site.equipment.mel.no_records_found"
+  >
+    No records found
+  </h3>
+  <div *ngIf="!eqService.noRecordsFound" class="fav-header-panel p-t-20 p-b-20">
+    <div class="mel-multi-options delete-all-holder pull-left">
+      <!-- <input type="checkbox" class="pull-left rma-custom-checkbox" [ngClass] = "classSelected" [(ngModel)]="mulTimelSelectAll" (click)="melMultiCheckAll()" (checked)="mulTimelSelectAll" id="mel-multi-checkbox-all">
+            <label for="mel-multi-checkbox-all" class="pull-left multi-mel-checkbox-label"></label> -->
+      <div
+        class="checkboxAlter"
+        #endCustomerSortButton
+        [ngClass]="classSelected"
+        (click)="melMultiCheckAll()"
+      ></div>
+      <div *ngIf="isShown" class="lineShow"></div>
+    </div>
+    <div *ngIf="isShown" class="row container-fluid" id="melSelectionCheck">
+      <ul class="melSelectOptions">
+        <li
+          [ngClass]="{ active: isActive1 }"
+          (click)="multiSelectAll('all', $event)"
+        >
+          All
+        </li>
+        <li
+          [ngClass]="{ active: isActive2 }"
+          (click)="multiSelectAll('pinned', $event)"
+        >
+          Pinned
+        </li>
+        <li
+          [ngClass]="{ active: isActive3 }"
+          (click)="multiSelectAll('notpinned', $event)"
+        >
+          Not Pinned
+        </li>
+      </ul>
+    </div>
+    <div
+      class="mel-multi-options fav-search-box-holder pull-left"
+      [ngClass]="{ disabled: disabledClass }"
+      title="Archive"
+      (click)="
+        multiSelectServiceConfirmation(
+          archiveValue,
+          eqService.melFilters.groupBy
+        )
+      "
+    >
+      <span class="bhge-mel-multi-archive"
+        ><i class="bhge-mcstore-icons icon-archive"></i
+      ></span>
+    </div>
+    <div
+      class="mel-multi-options fav-search-box-holder pull-left"
+      title="Pinned"
+      [ngClass]="{ disabled: disabledClass }"
+      (click)="multiSelectService(pinnedValue, eqService.melFilters.groupBy)"
+    >
+      <span class="bhge-icons ico_pushpin_sm"></span>
+    </div>
+
+    <div class="align-input pull-right groupby-dropdown-container mr-10">
+      <div class="form-group">
+        <div class="width-60 textFont">
+          <span translate="bhge.ng.site.equipment.mel.sortby">Sort by </span>
+        </div>
+        <mat-select
+          name=""
+          id=""
+          class="form-control rma-form-input"
+          [disableOptionCentering]="true"
+          panelClass="groupby-panel"
+          (selectionChange)="changeSortBy($event.value)"
+          [placeholder]="eqService.melFilters.sortBy"
+          [(ngModel)]="eqService.melFilters.sortBy"
+        >
+          <mat-option
+            *ngFor="let sortBy of eqService.sortBy"
+            [value]="sortBy.paramName"
+            >{{ sortBy.value }}</mat-option
+          >
+        </mat-select>
+      </div>
+    </div>
+    <div class="align-input pull-right groupby-dropdown-container mr-10">
+      <div class="form-group">
+        <div class="width-60 textFont">
+          <span translate="bhge.ng.site.equipment.mel.Groupby">Group by </span>
+        </div>
+        <mat-select
+          name=""
+          id=""
+          class="form-control rma-form-input"
+          [disableOptionCentering]="true"
+          panelClass="groupby-panel"
+          (selectionChange)="changeGroupBy($event.value)"
+          [placeholder]="eqService.melFilters.groupBy"
+          [(ngModel)]="eqService.melFilters.groupBy"
+        >
+          <mat-option
+            *ngFor="let groupBy of eqService.groupBy"
+            [value]="groupBy.paramName"
+            >{{ groupBy.value }}</mat-option
+          >
+        </mat-select>
+      </div>
+    </div>
+  </div>
+  <div class="equipment-list m-t-40">
+    <div
+      [id]="'grouped-by-item-' + i"
+      [ngClass]="{ 'grouped-by-item': groupByFilterApplied }"
+      *ngFor="
+        let groupedEq of eqService.melPageEquipments | keyvalue: returnZero;
+        let i = index
+      "
+    >
+      <div
+        *ngIf="groupByFilterApplied && groupedEq.key.toLowerCase() != 'default'"
+      >
+        <a
+          [id]="'grouped-by-tab-' + i"
+          [routerLink]=""
+          class="grouped-by-tab-header"
+          [ngClass]="{
+            'tab-header-open': i == selectedProductRow,
+            'tab-header-close': i != selectedProductRow,
+          }"
+          (click)="onGroupByTabClick($event, i)"
+        >
+          <h3
+            *ngIf="groupedEq.key.toLowerCase() != 'default'"
+            class="grouped-by-header pull-left"
+          >
+            <span>{{ getEquipmentMetaData(groupedEq.value) }}</span>
+            <span> ({{ getEquipmentGroupByCount(groupedEq.key) }}) items</span>
+          </h3>
+          <button
+            class="pull-right expand-collapse-btn"
+            [ngClass]="{
+              'hide-expand-collapse': selectedProductRow == i,
+              'show-expand-collapse': selectedProductRow != i,
+            }"
+          >
+            <span class="bhge-mcstore-icons icon-expand-button-small"></span>
+          </button>
+          <button
+            class="pull-right expand-collapse-btn"
+            [ngClass]="{
+              'show-expand-collapse': selectedProductRow == i,
+              'hide-expand-collapse': selectedProductRow != i,
+            }"
+          >
+            <span class="bhge-mcstore-icons icon-collapse-button-small"></span>
+          </button>
+        </a>
+      </div>
+      <div
+        class="lineitem-dropdown m-t-10"
+        [ngClass]="{
+          'open-tab': i == selectedProductRow,
+          'close-tab': i != selectedProductRow,
+        }"
+        *ngFor="let eq of groupedEq.value; let indx = index"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <div class="item-header">
+              <button
+                *ngIf="eq.status.toLowerCase() == 'active'"
+                class="align-btn h-30 m-t-0 m-b-0 m-l-10 btn-gray pull-right h5"
+                [routerLink]="[
+                  'add',
+                  eq.partNumber,
+                  eq.partName,
+                  eq.serialNumber,
+                ]"
+                routerLinkActive="router-link-active"
+              >
+                <i
+                  class="clone-btn-icon BHGE-MCStore-Icons icon-rma-document"
+                ></i>
+                CLONE
+              </button>
+              <!-- <span *ngIf="eq.pinned == 'X'"_ngcontent-aev-c3="" class="mr-5 ml-5 pull-right pinnedicons bhge-icons ico_pushpin_sm" ng-reflect-klass="mr-5" ng-reflect-ng-class="bhge-icons ico_pushpin_sm"> <span class="ml-5 pinnedText">Pinned</span></span> 
+                             -->
+              <button
+                *ngIf="eq.pinned == 'X'"
+                class="pinned-btn h-30 m-t-0 m-b-0 btn-gray color-evergreen font-poppins-bold pull-right h5 m-w-86 p-l-20 p-r-20"
+                (click)="archiveEquipment(eq, groupedEq.key, indx, pinnedValue)"
+              >
+                <span
+                  _ngcontent-aev-c3=""
+                  class="mr-5 bhge-icons ico_pushpin_sm"
+                  ng-reflect-klass="mr-5"
+                  ng-reflect-ng-class="bhge-icons ico_pushpin_sm"
+                ></span>
+                UNPIN THIS
+              </button>
+              <button
+                *ngIf="!eq.pinned"
+                class="pinned-btn h-30 m-t-0 m-b-0 btn-gray color-evergreen font-poppins-bold pull-right h5 m-w-86 p-l-20 p-r-20"
+                (click)="archiveEquipment(eq, groupedEq.key, indx, pinnedValue)"
+              >
+                <span
+                  _ngcontent-aev-c3=""
+                  class="mr-5 bhge-icons ico_pushpin_sm"
+                  ng-reflect-klass="mr-5"
+                  ng-reflect-ng-class="bhge-icons ico_pushpin_sm"
+                ></span>
+                PIN THIS
+              </button>
+              <li *ngIf="indx == 0" class="pull-right not-list align-btn p-0">
+                <button
+                  class="archive-btn h-30 m-t-0 m-b-0 btn-gray color-evergreen font-poppins-bold pull-right h5 m-w-86 p-l-20 p-r-20"
+                  [disabled]="eq.archiving || eq.inactiveFlag"
+                  (click)="
+                    archiveEquipmentonfirmation(
+                      eq,
+                      groupedEq.key,
+                      indx,
+                      archiveValue
+                    )
+                  "
+                >
+                  <i *ngIf="eq.archiving" class="bhge-icons ico_spinner_sm"></i>
+                  <i
+                    *ngIf="!eq.archiving"
+                    class="bhge-mcstore-icons icon-archive"
+                  ></i>
+                  <span
+                    *ngIf="eq.status.toLowerCase() == 'active'; else archived"
+                    class="archive-btn-text"
+                    [hidden]="eq.archiving"
+                    translate="bhge.ng.site.equipment.mel_archive"
+                    >ARCHIVE</span
+                  >
+                </button>
+              </li>
+              <button
+                *ngIf="indx > 0"
+                class="archive-btn align-btn h-30 m-t-0 m-b-0 btn-gray color-evergreen font-poppins-bold pull-right h5 m-w-86"
+                [disabled]="eq.archiving || eq.inactiveFlag"
+                (click)="
+                  archiveEquipmentonfirmation(
+                    eq,
+                    groupedEq.key,
+                    indx,
+                    archiveValue
+                  )
+                "
+              >
+                <i *ngIf="eq.archiving" class="bhge-icons ico_spinner_sm"></i>
+                <i
+                  *ngIf="!eq.archiving"
+                  class="bhge-mcstore-icons icon-archive"
+                ></i>
+                <span
+                  *ngIf="eq.status.toLowerCase() == 'active'; else archived"
+                  class="archive-btn-text"
+                  [hidden]="eq.archiving"
+                  translate="bhge.ng.site.equipment.mel_archive"
+                  >ARCHIVE</span
+                >
+              </button>
+
+              <ng-template #archived>
+                <span
+                  translate="bhge.ng.site.equipment.mel.retrieve"
+                  [hidden]="eq.archiving"
+                  class="archive-btn-text"
+                  matTooltip="{{
+                    eqService.getTooltipText(
+                      'bhge.ng.site.equipment.mel.retrieve.tooltip'
+                    )
+                  }}"
+                  matTooltipPosition="below"
+                  >RESTORE</span
+                >
+              </ng-template>
+
+              <div class="m-b-0 p-bold">
+                <div class="w-2 pull-left checkbox-holder p-0">
+                  <input
+                    type="checkbox"
+                    class="rma-custom-checkbox service-mel-multi-check"
+                    [ngModel]="multiMelSelect"
+                    [checked]="eq.addedChecked"
+                    (click)="onMultiSelectMel(eq, groupedEq.key, indx, $event)"
+                    id="bhge--mel-multi-checkbox-{{ indx }}"
+                    [value]="indx"
+                  />
+                  <label
+                    for="bhge--mel-multi-checkbox-{{ indx }}"
+                    class="fav-checkbox-label"
+                  ></label>
+                </div>
+                <span
+                  >{{
+                    'Serial number'
+                      | translate: 'bhge.ng.site.equipment.mel.serialNumber'
+                  }}
+                  : {{ eq.serialNumber }}
+                </span>
+                <span
+                  *ngIf="isServicePast(eq.serviceDueDate)"
+                  class="service-past-warning m-l-25"
+                >
+                  <i class="bhge-mcstore-icons icon-info m-r-5"></i>
+                  <span translate="bhge.ng.site.equipment.mel.past.service.due"
+                    >Item past due for service</span
+                  >
+                </span>
+                <div
+                  *ngIf="
+                    eq.isOwnerDetailsMismatch &&
+                    eq.isOwnerDetailsMismatch.toLowerCase() == 'y'
+                  "
+                  class="owner-mismatch-tab"
+                >
+                  <p
+                    class="owner-mismatch-text"
+                    translate="bhge.ng.site.equipment.mel.owner.mismatch"
+                  >
+                    Owner details mismatch
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-r-0 m-l-0 item-body p-r-15">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2 p-0">
+                <p
+                  class="heading p-bold"
+                  translate="bhge.ng.site.equipment.mel.part.number"
+                >
+                  Part Number
+                </p>
+                <p class="content product-nm">
+                  <a
+                    *ngIf="eq.productData; else noLinkProductNum"
+                    href="{{ eq.productData.url }}"
+                    class="p-bold"
+                    >{{ eq.partNumber }}</a
+                  >
+                  <ng-template #noLinkProductNum>
+                    <span>{{ eq.partNumber }}</span>
+                  </ng-template>
+                </p>
+                <!-- <a *ngIf="eq.productData" [routerLink]="" class="fs-14 m-t-20 pull-left" (click)="onFavouritesClick(eq.partNumber, eq.favourites)">
+                                    <span *ngIf="eq.favourites || eq.favourites == true else nonFavIcon" class="bhge-icons ico_star_sm"></span>
+                                    {{'Favourite'|translate:'bhge.ng.site.equipment.mel.favorite'}}
+                                </a>
+                                <ng-template #nonFavIcon>
+                                    <span class="bhge-icons ico_starempty_sm"></span>
+                                </ng-template> -->
+              </div>
+              <div class="col-md-2 p-l-0">
+                <p
+                  class="heading p-bold"
+                  translate="bhge.ng.site.equipment.mel.part.name"
+                >
+                  Part Name
+                </p>
+                <p class="content product-nm">
+                  <a
+                    *ngIf="eq.productData; else noLinkProductName"
+                    href="{{ eq.productData.url }}"
+                    class="p-bold"
+                    >{{ eq.partName }}</a
+                  >
+                  <ng-template #noLinkProductName>
+                    <span>{{ eq.partName }}</span>
+                  </ng-template>
+                </p>
+              </div>
+              <div class="col-md-2">
+                <p
+                  class="heading p-bold"
+                  translate="bhge.ng.site.equipment.mel.end_customer"
+                >
+                  End Customer
+                </p>
+                <p class="content">{{ getEndCustomer(eq) }}</p>
+              </div>
+              <div *ngIf="indx == 0" class="col-md-2">
+                <p
+                  class="heading p-bold"
+                  translate="bhge.ng.site.equipment.mel.location"
+                >
+                  Site Location
+                </p>
+                <p class="content">{{ eq.location }}</p>
+              </div>
+              <div *ngIf="indx > 0" class="col-md-2">
+                <p
+                  class="heading p-bold"
+                  translate="bhge.ng.site.equipment.mel.location"
+                >
+                  Site Location
+                </p>
+                <p class="content">{{ eq.location }}</p>
+              </div>
+
+              <div class="actions-container col-md-4">
+                <button
+                  translate="bhge.ng.site.equipment.mel.view_details"
+                  class="h-30 w-160 m-l-10 pull-right secondary-btn-bhge"
+                  (click)="redirectUrl(eq.partNumber, eq.serialNumber)"
+                  routerLinkActive="router-link-active"
+                >
+                  View details
+                </button>
+
+                <div
+                  *ngIf="eq.productData; else productCannotReturnAction"
+                  class="return-actions pull-right"
+                >
+                  <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.createRMA(eq.productData.code, eq.productData.name)" -->
+                  <button
+                    *ngIf="
+                      eq.productData.productAccessData.isService;
+                      else switchSalesAreaReturn
+                    "
+                    class="return-btns btn-blue h-30 w-160"
+                    (click)="
+                      eqService.createRMA(
+                        eq.productData.code,
+                        eq.productData.name,
+                        eq.serialNumber
+                      )
+                    "
+                  >
+                    <span class="bhge-mcstore-icons icon-return-button"></span>
+                    <span
+                      class="return-btn-text"
+                      translate="bhge.products.create.rma"
+                      >Create RMA</span
+                    >
+                  </button>
+                  <ng-template #switchSalesAreaReturn>
+                    <div
+                      *ngIf="
+                        !eq.productData.productAccessData.isobsolete &&
+                          eq.productData.productAccessData
+                            .isServicePresentInOtherSalesArea;
+                        else contactCustomerCareReturn
+                      "
+                      class="w-200 text-align-center"
+                    >
+                      <button
+                        type="button"
+                        class="secondary-btn-bhge switch-sales-area-btn h-30 full-width"
+                        (click)="
+                          eqService.switchSalesArea(
+                            eq.productData.code,
+                            eq.productData.url,
+                            'return'
+                          )
+                        "
+                      >
+                        <!-- @click="event.stopPropagation(); event.preventDefault(); ACC.common.switchSalesArea(eq.productData.code, eq.productData.url ,'return'); " -->
+                        <span
+                          class="bhge-mcstore-icons icon-return-button m-l-5"
+                        ></span>
+                        <span
+                          class="switch-sales-text"
+                          translate="bhge.products.switch.sales.area"
+                          >Switch Sales Area</span
+                        >
+                      </button>
+                      <p class="action-text return-text m-t-5">
+                        <span
+                          translate="bhge.ng.site.equipment.mel.return.sales"
+                          >This product is available for return in another sales
+                          area</span
+                        >
+                      </p>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #contactCustomerCareReturn>
+                    <div
+                      *ngIf="
+                        eq.productData.productAccessData.isobsolete &&
+                          !eq.productData.productAccessData
+                            .isServicePresentInOtherSalesArea;
+                        else contactCustomerCareReturn1
+                      "
+                      class="replacement-product m-r-15 w-250 text-align-center"
+                    >
+                      <p
+                        class="action-text return-text m-0 m-b-5"
+                        translate="bhge.products.cannot.return"
+                      >
+                        This products is not yet returnable through this site
+                      </p>
+                      <a
+                        href="/contactus"
+                        translate="bhge.products.customer.care"
+                        class="text-bold"
+                      >
+                        Contact Customer Care
+                      </a>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #contactCustomerCareReturn1>
+                    <div
+                      *ngIf="
+                        !eq.productData.productAccessData.isService &&
+                        !eq.productData.productAccessData.isobsolete &&
+                        !eq.productData.productAccessData
+                          .isServicePresentInOtherSalesArea
+                      "
+                      class="replacement-product m-r-15 w-250 text-align-center"
+                    >
+                      <p
+                        class="action-text return-text m-0 m-b-5"
+                        translate="bhge.products.cannot.return"
+                      >
+                        To return this item please contact or open a dialogue
+                        with Customer Care
+                      </p>
+                      <a
+                        href="/contactus"
+                        translate="bhge.products.customer.care"
+                        class="text-bold"
+                      >
+                        Contact Customer Care
+                      </a>
+                    </div>
+                  </ng-template>
+                </div>
+
+                <ng-template #productCannotReturnAction>
+                  <div class="return-actions">
+                    <div class="replacement-product m-r-15">
+                      <p
+                        class="action-text return-text m-0 m-b-5"
+                        translate="bhge.ng.site.equipment.mel.part.not.recognized"
+                      >
+                        This products is not yet returnable through this site
+                      </p>
+                      <a
+                        href="/contactus"
+                        translate="bhge.products.customer.care"
+                        class="text-bold"
+                      >
+                        Contact Customer Care
+                      </a>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal-main" *ngIf="showArchiveModal">
+      <!-- Modal content -->
+      <div
+        class="modal-content modal-content-fix"
+        style="padding: 27px 45px; height: auto"
+      >
+        <div class="row part-change-header">
+          <div class="col-md-12">
+            <span
+              [hidden]="!archiveText"
+              class="text-bold fs-18"
+              translate="bhge.ng.equipment.archive.popup.heading"
+              >Archive Items Confirmation</span
+            >
+            <span
+              [hidden]="archiveText"
+              class="text-bold fs-18"
+              translate="bhge.ng.equipment.restore.popup.heading"
+              >Restore Items Confirmation</span
+            >
+            <button
+              type="button"
+              (click)="showArchiveModal = false"
+              class="close pull-right"
+              aria-label="Close"
+              style="position: relative; right: -20px; top: -5px"
+            >
+              <i class="bhge-mcstore-icons icon-close-new fs-16"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row m-t-10">
+          <div class="col-md-12">
+            <p
+              [hidden]="!archiveText"
+              class="light-gray-text"
+              tarnslate="bhge.ng.rma.form.notes2"
+            >
+              Are you sure you would like to archive the below item?
+            </p>
+            <p
+              [hidden]="archiveText"
+              class="light-gray-text"
+              tarnslate="bhge.ng.rma.form.notes3"
+            >
+              Are you sure you would like to restore the below item?
+            </p>
+
+            <span
+              [hidden]="!this.pinnedItemsCheck"
+              class="service-past-warning ng-star-inserted"
+            >
+              <i class="bhge-mcstore-icons icon-info m-r-5"></i>
+              <span translate="bhge.ng.rma.form.pinnedText"
+                >Your selection includes some items that were pinned</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="row m-t-10">
+          <div class="col-md-12">
+            <button
+              (click)="
+                archiveEquipment(
+                  eqSelected,
+                  groupByValueSelected,
+                  indxSelected,
+                  selectedOptionValue
+                )
+              "
+              class="btn-green returns-btn w-200 pull-right accessory-add-cart-btn"
+            >
+              <span>Confirm</span>
+            </button>
+            <button
+              (click)="showArchiveModal = false"
+              class="tertiary-btn-bhge w-200 pull-right m-r-10"
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal-main" *ngIf="showModalMultiSelect">
+      <!-- Modal content -->
+      <div
+        class="modal-content modal-content-fix"
+        style="padding: 27px 45px; height: auto"
+      >
+        <div class="row part-change-header">
+          <div class="col-md-12">
+            <span
+              [hidden]="!archiveText"
+              class="text-bold fs-18"
+              translate="bhge.ng.equipment.archive.popup.heading"
+              >Archive Items Confirmation</span
+            >
+            <span
+              [hidden]="archiveText"
+              class="text-bold fs-18"
+              translate="bhge.ng.equipment.restore.popup.heading"
+              >Restore Items Confirmation</span
+            >
+            <button
+              type="button"
+              (click)="showModalMultiSelect = false"
+              class="close pull-right"
+              aria-label="Close"
+              style="position: relative; right: -20px; top: -5px"
+            >
+              <i class="bhge-mcstore-icons icon-close-new fs-16"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row m-t-10">
+          <div class="col-md-12">
+            <p
+              [hidden]="!archiveText"
+              class="light-gray-text"
+              tarnslate="bhge.ng.rma.form.notes2"
+            >
+              Are you sure you would like to archive the below item?
+            </p>
+            <p
+              [hidden]="archiveText"
+              class="light-gray-text"
+              tarnslate="bhge.ng.rma.form.notes3"
+            >
+              Are you sure you would like to restore the below item?
+            </p>
+            <span
+              [hidden]="!this.pinnedItemsCheck"
+              class="service-past-warning ng-star-inserted"
+            >
+              <i class="bhge-mcstore-icons icon-info m-r-5"></i>
+              <span translate="bhge.ng.rma.form.pinnedText"
+                >Your selection includes some items that were pinned</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="row m-t-10">
+          <div class="col-md-12">
+            <button
+              (click)="
+                multiSelectService(eqMultiSelected, groupByMultiSelected)
+              "
+              class="btn-green returns-btn w-200 pull-right accessory-add-cart-btn"
+            >
+              <span>Confirm</span>
+            </button>
+            <button
+              (click)="showModalMultiSelect = false"
+              class="tertiary-btn-bhge w-200 pull-right m-r-10"
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div #scrollLoader></div>
+</div>

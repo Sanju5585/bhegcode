@@ -1,0 +1,300 @@
+<div class="item-detail">
+  <cx-media
+    class="cx-product-image order-product-image"
+    format="product"
+  ></cx-media>
+  <div class="middle-section">
+    <div class="info-section-top">
+      <div class="product-name-details">
+        <h4
+          [innerHTML]="product?.description"
+          *ngIf="productType == 'order'"
+        ></h4>
+        <h4 [innerHTML]="product?.prodName" *ngIf="productType == 'quote'"></h4>
+        <div>
+          <span *ngIf="productType == 'quote'"
+            >{{ product?.prodCode }}
+            <span *ngIf="product?.vcFullyConfigurepartNumber?.length > 0"
+              >&nbsp;&nbsp;|&nbsp;&nbsp;{{ product?.partNumber
+              }}{{ product?.vcFullyConfigurepartNumber }}</span
+            >
+          </span>
+          <span *ngIf="productType == 'order'"
+            >{{ product?.partNumber
+            }}<span *ngIf="product.vcFullyConfigurepartNumber.length > 0"
+              >&nbsp;&nbsp;|&nbsp;&nbsp;{{ product?.partNumber
+              }}{{ product?.vcFullyConfigurepartNumber }}</span
+            ></span
+          >
+        </div>
+      </div>
+      <div class="status" [class]="getClass(product?.status)">
+        {{ product?.status }}
+      </div>
+    </div>
+    <div class="info-section">
+      <div>
+        <div class="label">
+          {{ 'order-tracking.quantityLbl' | cxTranslate }}
+        </div>
+        <div class="value">{{ product?.qty }}</div>
+        <div class="product-config-detail" *ngIf="product?.configurable">
+          <a class="action-links" (click)="openModal()">
+            <i class="material-icons-outlined">settings</i>
+            {{ 'order-tracking.viewConfiguration' | cxTranslate }}
+          </a>
+        </div>
+      </div>
+      <ng-container *ngIf="userType == 'current'; else showguestUserDates">
+        <div *ngIf="productType == 'order'">
+          <div class="label">
+            <span> {{ 'order-tracking.unitPriceLbl' | cxTranslate }}</span>
+          </div>
+
+          <div class="value">
+            {{
+              getPrice(product?.netPrice, product?.qty)
+                | customNumber: getCurrency(product?.currency)
+            }}
+          </div>
+        </div>
+        <div *ngIf="productType == 'quote'">
+          <div>
+            <span> {{ 'order-tracking.unitNetPriceLbl' | cxTranslate }}</span>
+          </div>
+
+          <div class="value">
+            {{
+              getPrice(product?.discountedPrice, product?.qty)
+                | customNumber: getCurrency(product?.currency)
+            }}
+          </div>
+
+          <ng-container>
+            <div class="product-view-breakdown" *ngIf="productType == 'quote'">
+              <!-- Item Price -->
+              <div class="extended-price unit-selling-price">
+                <label>
+                  <a
+                    #viewBreakUp
+                    class="view-breakup-link"
+                    (click)="togglePriceBreakup()"
+                    ><span>{{ 'buyCart.viewBreakup' | cxTranslate }}</span
+                    ><span *ngIf="!breakUpMenu" class="material-icons arrow">
+                      expand_more </span
+                    ><span *ngIf="breakUpMenu" class="material-icons arrow">
+                      expand_less
+                    </span></a
+                  >
+                </label>
+              </div>
+              <div
+                class="breakup-dropdown p-0"
+                [clickSourceId]="viewBreakUp"
+                (clickOutside)="togglePriceBreakup()"
+                *ngIf="breakUpMenu"
+                #breakupContent
+              >
+                <div class="breakdown-price">
+                  <div class="cart-entry-text-bold breakdown-heading p-2">
+                    {{ 'buyCart.breakdownPrice' | cxTranslate }}
+                  </div>
+                  <hr class="horizontal-line" />
+                  <div class="p-2">
+                    <ng-container>
+                      <div *ngIf="product.listPrice" class="extended-price row">
+                        <label>{{ 'buyCart.listPrice' | cxTranslate }}</label>
+                        <div class="cart-entry-text-bold">
+                          <span>
+                            {{
+                              product?.listPrice
+                                | customNumber: getCurrency(product?.currency)
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="product.yourPriceDiscount"
+                        class="extended-price row"
+                      >
+                        <label>
+                          <span>{{ 'buyCart.discount' | cxTranslate }}</span>
+                        </label>
+                        <label
+                          *ngIf="
+                            product?.discountPercentage &&
+                            product?.yourPriceDiscount > 0
+                          "
+                          >{{
+                            product?.discountPercentage | number: '1.2-2'
+                          }}%</label
+                        >
+                        <div class="cart-entry-text-bold">
+                          <span>
+                            -
+                            {{
+                              product?.yourPriceDiscount
+                                | customNumber: getCurrency(product?.currency)
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <hr class="horizontal-line" />
+                  <div class="p-2">
+                    <div *ngIf="product?.discountPrice" class="price-row">
+                      <label class="cart-entry-text">{{
+                        'buyCart.netSelling' | cxTranslate
+                      }}</label>
+                      <span class="cart-entry-text-bold">
+                        {{
+                          product?.discountPrice
+                            | customNumber: getCurrency(product?.currency)
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="breakup-dropdown"
+              *ngIf="breakUp"
+              (clickOutside)="closeMenu($event)"
+            ></div>
+          </ng-container>
+        </div>
+        <div *ngIf="productType == 'order'">
+          <div class="label">
+            <span> {{ 'order-tracking.extendDateLbl' | cxTranslate }}</span>
+          </div>
+
+          <div class="value">
+            {{
+              product?.netPrice | customNumber: getCurrency(product?.currency)
+            }}
+            <!-- {{ product?.currency }} {{ getTotalPrice(product?.netPrice) }} -->
+          </div>
+        </div>
+        <div *ngIf="productType == 'quote'">
+          <div class="label">
+            <span> {{ 'order-tracking.extendPriceLbl' | cxTranslate }}</span>
+          </div>
+
+          <div class="value">
+            {{
+              product?.listPrice | customNumber: getCurrency(product?.currency)
+            }}
+            <!-- {{ currency }} {{ getTotalPrice(product?.listPrice) }} -->
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="info-section" *ngIf="userType == 'current'">
+      <div>
+        <div class="label">
+          {{ 'order-tracking.requestDateLbl' | cxTranslate }}
+        </div>
+        <div class="value" *ngIf="productType == 'order'">
+          {{ product?.requestedShipDate || '-' }}
+        </div>
+        <div class="value" *ngIf="productType == 'quote'">
+          {{ product?.reqData | date: 'dd-MMM-yyyy' || '-' }}
+        </div>
+      </div>
+      <div>
+        <div class="label" *ngIf="statusIsShipped; else currentPromiseDate">
+          {{ 'waygate-order.actualShippedDate' | cxTranslate }}
+          <div class="value">{{ product?.actShpDate || '-' }}</div>
+        </div>
+        <ng-template #currentPromiseDate>
+          <div class="label">
+            <span *ngIf="productType == 'order'">
+              {{ 'order-tracking.currentPromiseDate' | cxTranslate }}</span
+            >
+            <span *ngIf="productType == 'quote'">
+              {{ 'order-tracking.currentPromiseDateLbl' | cxTranslate }}</span
+            >
+          </div>
+          <div class="value" *ngIf="productType == 'order'">
+            {{ product?.geFromDate || '-' }}
+          </div>
+          <div class="value" *ngIf="productType == 'quote'">
+            {{ product?.shipDate | date: 'dd-MMM-yyyy' || '-' }}
+          </div>
+        </ng-template>
+      </div>
+      <div>
+        <ng-container
+          *ngIf="
+            product?.trackingNumber &&
+              product?.courier &&
+              productType == 'order';
+            else showTrackNumber
+          "
+        >
+          <div class="label">
+            {{ 'waygate-order.trackingnumber' | cxTranslate }}
+          </div>
+          <div class="value">
+            <ng-container
+              *ngIf="
+                getTrackingLink(product?.courier, product?.trackingNumber);
+                else noLink
+              "
+            >
+              <a
+                [href]="
+                  getTrackingLink(product?.courier, product?.trackingNumber)
+                "
+                target="_blank"
+              >
+                {{ product?.trackingNumber }}
+              </a>
+            </ng-container>
+            <ng-template #noLink>
+              {{ product?.trackingNumber || '-' }}
+            </ng-template>
+          </div>
+        </ng-container>
+        <ng-template #showTrackNumber>
+          <ng-container *ngIf="productType == 'order'">
+            <div class="label">
+              {{ 'waygate-order.trackingnumber' | cxTranslate }}
+            </div>
+            {{ product?.trackingNumber || '-' }}
+          </ng-container>
+        </ng-template>
+      </div>
+    </div>
+    <div class="info-section-bottom" *ngIf="userType == 'current'">
+      <div>
+        <div class="label">{{ 'waygate-order.Comments' | cxTranslate }}</div>
+        <div class="value">{{ product?.commnets || '-' }}</div>
+      </div>
+      <div *ngIf="productType == 'order'">
+        <div *ngIf="product?.courier">
+          <div class="label">{{ 'waygate-order.carrier' | cxTranslate }}</div>
+          <div class="value">{{ product?.courier || '-' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #showguestUserDates>
+  <div>
+    <div class="label" *ngIf="statusIsShipped; else currentPromiseDate">
+      {{ 'waygate-order.actualShippedDate' | cxTranslate }}
+      <div class="value">{{ product?.actShpDate || '-' }}</div>
+    </div>
+    <ng-template #currentPromiseDate>
+      <div class="label">
+        {{ 'order-tracking.currentPromiseDate' | cxTranslate }}
+      </div>
+      <div class="value">{{ product?.geFromDate || '-' }}</div>
+    </ng-template>
+  </div>
+</ng-template>

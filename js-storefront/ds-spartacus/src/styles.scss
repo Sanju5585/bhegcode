@@ -1,0 +1,320 @@
+@import 'styles-config';
+
+// ORDER IMPORTANT: Spartacus core first
+@import '@spartacus/styles/scss/core';
+
+// ORDER IMPORTANT: Copy of Bootstrap files next
+@import '@spartacus/styles/vendor/bootstrap/scss/reboot';
+@import '@spartacus/styles/vendor/bootstrap/scss/type';
+@import '@spartacus/styles/vendor/bootstrap/scss/grid';
+@import '@spartacus/styles/vendor/bootstrap/scss/utilities';
+@import '@spartacus/styles/vendor/bootstrap/scss/transitions';
+@import '@spartacus/styles/vendor/bootstrap/scss/dropdown';
+@import '@spartacus/styles/vendor/bootstrap/scss/card';
+@import '@spartacus/styles/vendor/bootstrap/scss/nav';
+@import '@spartacus/styles/vendor/bootstrap/scss/buttons';
+@import '@spartacus/styles/vendor/bootstrap/scss/forms';
+@import '@spartacus/styles/vendor/bootstrap/scss/custom-forms';
+@import '@spartacus/styles/vendor/bootstrap/scss/modal';
+@import '@spartacus/styles/vendor/bootstrap/scss/close';
+@import '@spartacus/styles/vendor/bootstrap/scss/alert';
+@import '@spartacus/styles/vendor/bootstrap/scss/tooltip';
+
+// ORDER IMPORTANT: Spartacus styles last
+@import '@spartacus/styles/index';
+
+@import '@spartacus/styles/scss/core';
+
+/* Importing Bootstrap SCSS file. */
+@import '@spartacus/styles/vendor/bootstrap/scss/reboot';
+
+@import url(../node_modules/@bh-digital-solutions/ui-toolkit/dist/bh-ui-toolkit/bh-ui-toolkit.css);
+@import 'styles/custom-styles.scss';
+
+body {
+  transform: none;
+}
+
+cx-page-layout.SearchResultsListPageTemplate {
+  max-width: 1440px !important;
+}
+cx-product-grid-item {
+  position: relative;
+  min-height: 425px;
+
+  cx-add-to-cart {
+    .cart-additions-section {
+      display: none !important;
+    }
+    .product-state {
+      display: flex !important;
+    }
+    .quantity {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .cx-product-image {
+    margin: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .cx-product-image img {
+    max-height: 224px;
+    max-width: 224px;
+    width: 100%;
+  }
+
+  .cx-product-image:not(img) {
+    max-height: 224px;
+    width: 100%;
+  }
+  .overlay {
+    display: none;
+  }
+  .grid-product {
+    background: #ffffff;
+  }
+  cx-media.is-missing {
+    min-height: 224px;
+  }
+
+  .add-to-cart-buttons bh-button .bh-button {
+    max-width: 100%;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+cx-product-list-item {
+  cx-media.is-missing {
+    min-height: 90px;
+  }
+  cx-media img {
+    max-width: 90px;
+    max-height: 90px;
+  }
+  .product-state {
+    display: none;
+  }
+  .add-to-cart-buttons bh-button .bh-button {
+    max-width: 100%;
+    min-width: 170px;
+    margin: 10px 0;
+  }
+  cx-add-to-cart {
+    .quantity {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+cx-product-grid-item:hover {
+  .grid-product {
+    position: absolute;
+    z-index: 3;
+
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14),
+      0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+
+    -webkit-transition: background-color 0.5s ease-in, opacity 0.5s ease-in,
+      min-height 2s ease-out, min-width 2s ease-out;
+    transition: background-color 2s ease-in, opacity 2s ease-in;
+
+    width: 100%;
+  }
+  .cx-product-image {
+    padding: 10px;
+  }
+
+  cx-add-to-cart {
+    .cart-additions-section {
+      display: block !important;
+    }
+    .product-state {
+      display: none !important;
+    }
+    .quantity label {
+      font-family: var(--font-family-body-large);
+      font-size: var(--font-base-font-size-12);
+      margin: auto;
+      font-weight: 600;
+      color: var(--color-text-common-primary);
+    }
+  }
+  .overlay {
+    display: block;
+  }
+  .fav-add-eq-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+cx-item-counter:not(.readonly) {
+  border: 1px solid #506c65;
+  height: 32px;
+  button {
+    min-height: 32px;
+    min-width: 36px;
+    font-size: 23px;
+    // display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+  input {
+    padding: 0;
+    width: 44px;
+    border: 1px solid black;
+    border-width: 0 1px;
+  }
+}
+
+.left_nav_headings {
+  margin: 0 10px;
+  padding-bottom: 10px;
+
+  .clear-all {
+    padding: 0;
+    .clear-all-link {
+      cursor: pointer;
+      float: right;
+      color: var(--color-fill-cta-primary-default);
+      font-size: var(--font-size-body-large);
+    }
+  }
+  .filterby {
+    padding: 0;
+    font-weight: 600;
+    font-size: var(--font-base-font-size-16);
+  }
+}
+
+cx-facet a {
+  font-family: var(--font-family-body-medium);
+  font-size: var(--font-size-button-link-medium);
+}
+cx-active-facets {
+  a {
+    font-family: var(--font-family-body-medium);
+    font-size: var(--font-size-button-link-medium);
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 10px;
+    span {
+      color: black;
+      font-family: var(--font-family-body-medium);
+      font-size: var(--font-size-button-link-medium);
+    }
+    i {
+      margin-left: 5px;
+      color: white;
+      width: 22px;
+      background-color: lightgray;
+      border-radius: 50%;
+      height: 22px;
+      padding: 4px;
+      font-size: var(--font-size-button-link-medium) !important;
+    }
+  }
+}
+.mat-calendar .mat-calendar-body-selected {
+  background-color: var(--color-base-teal-500) !important;
+  color: #fff;
+}
+cx-cart-item-list {
+  width: 100% !important;
+}
+.create-saved-cart-dialog-container .modal-content {
+  width: 60%;
+  margin: auto;
+}
+.side-loader.cx-spinner {
+  width: 20px;
+  height: 20px;
+  float: left;
+
+  .loader-container {
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 3px !important;
+    float: left;
+    position: relative;
+    top: 5px;
+    align-self: center;
+    .loader {
+      width: 20px;
+      height: 20px;
+
+      &::before {
+        width: 20px;
+        height: 20px;
+        border-width: 3px;
+      }
+    }
+  }
+}
+
+cx-tab-paragraph-container .active {
+  background-color: #ffffff !important;
+}
+cx-searchbox .results .products a h4.name {
+  text-overflow: ellipsis;
+  font-size: inherit;
+  font-weight: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+}
+cx-product-image-zoom-dialog
+  .cx-image-zoom-dialog
+  .cx-dialog-content
+  .cx-dialog-body {
+  background-color: #ffffff !important;
+}
+.header-waygate-main {
+  ds-site-login {
+    .bh-button--type-secondary {
+      color: black;
+    }
+  }
+  app-waygate-user-details {
+    .bh-button--type-secondary {
+      color: black;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  cx-searchbox label {
+    border: none;
+  }
+}
+cx-breadcrumb nav span:not(:last-child):after {
+  content: ' / ';
+}
+.cx-dialog-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+cx-page-layout.VariantConfigurationTemplate
+  cx-page-slot.VariantConfigBottombar
+  cx-configurator-price-summary {
+  margin-right: 80px;
+  margin-left: 82px;
+}
+span.blocked-inline {
+  font-weight: bold;
+  color: red;
+}

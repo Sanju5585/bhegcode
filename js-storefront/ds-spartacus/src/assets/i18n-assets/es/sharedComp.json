@@ -1,0 +1,60 @@
+{
+  "custom-upload": {
+    "upload": "Subir",
+    "dropfile": "¡Suelta tu archivo aquí!",
+    "uploadimage": "Cargar imagen"
+  },
+  "datanotfound": {
+    "norecords": "No se encontraron registros para"
+  },
+  "dateRange": {
+    "today": "hoy",
+    "done": "Hecho\r",
+    "cancel": "cancelar",
+    "from": "Desde",
+    "to": "Para",
+    "timeperiod": "Período de tiempo seleccionado:",
+    "selectDate": "Seleccione fecha"
+  },
+  "file-upload": {
+    "fileLengthError": "Puede cargar {{maxLength}} archivos al máximo.\n\n",
+    "maxSizeError": "El tamaño total de carga no puede exceder {{ maxSizeInMB}} {{ sizeUnit}}",
+    "maxFileSizeError": "El tamaño de archivo individual no puede exceder {{ maxFileSizeInMB}} {{ sizeUnit}}",
+    "fileTypeError": "Seleccione un tipo de archivo válido. Los tipos de archivo válidos son: ",
+    "logicalError": "El tamaño de archivo individual no puede exceder el tamaño de archivo total",
+    "close": "cerrar",
+    "filePatternError": "File name should not contain any of the following special characters !@#$%^&*(){}"
+  },
+  "sso-redirect": {
+    "requestAccessToSite": "Request access to this site",
+    "accountInfoNotExist": "Your account information does not exist.",
+    "pleaseClickOn": "Please click on",
+    "ForrequestAccessToSite": "for requesting access to the site.",
+    "accountDisabled": "Account Disabled",
+    "accountHasBeenDisabled": "Your account has been disabled.",
+    "speakToCustomerCare": "Please speak to a customer service representative or ",
+    "Again": "intentarlo nuevamente.",
+    "activationPending": "Activation Pending",
+    "needYourConfirmation": "\r\nTenemos su solicitud de acceso, pero aún necesitamos su respuesta de confirmación.",
+    "confirmLinkInEmail": "\r\nBusque un correo electrónico de Baker Hughes DS Store y haga clic en el enlace Confirmar para finalizar su solicitud.",
+    "requestPending": "Request Pending",
+    "pendingWithCustomerCare": "\r\nSu solicitud de acceso está pendiente con nuestro equipo de atención al cliente.",
+    "processAndNotify": "\r\nLo procesaremos y le notificaremos tan pronto sea posible",
+    "accessRejected": "Access Rejected",
+    "accessRequestDenied": "Su solicitud de acceso ha sido denegada por el momento.",
+    "cannotReachYou": "\r\nPor lo general, esto se debe a que no podemos identificar su cuenta existente o no podemos comunicarnos con usted para verificar los datos.  Comuníquese con nuestro servicio de atención al cliente o envíe una nota en nuestras sugerencias sobre el sitio, si es necesario discutirlo.",
+    "accessDenied": "Acceso denegado",
+    "notAssignedToReequiredGroup": "Your User Account is not assigned to the required group in Login Server.",
+    "accessPending": "Acceso pendiente",
+    "accessPendingWithUS": "`Your Access Request is pending with us.",
+    "workingOnSameWillNotify": "\r\nEstamos trabajandolo y te lo notificaremos lo antes posible.",
+    "loginFail": "Login Failure",
+    "donotHaveAccessToDSstore": "You do not have access the to DS Store.",
+    "toRegister": " to Register.",
+    "loginDisabled": "Login Disabled",
+    "inactiveFor90Days": "Your access has been disabled automatically due to inactivity for more than 90 days.",
+    "Please": "Por favor\r  ",
+    "reactivateYourAccount": " to reactivate your account.",
+    "accountDisabledBYManager": "Su cuenta está inhabilitada por su Gerente.\r Please check your Email to get more details"
+  }
+}

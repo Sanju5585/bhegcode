@@ -1,0 +1,109 @@
+<div class="current-account mt-3">
+  <ng-container *ngIf="activeCustomerAccount$ | async as activeCustomerAccount">
+    <div class="account-details">
+      <div class="title-label mt-1">
+        {{ 'customer-account.currentAccount' | cxTranslate }}
+      </div>
+      <div class="acc-name mt-1">{{ activeCustomerAccount.name }}</div>
+      <div class="acc-id mt-1">{{ activeCustomerAccount.uid }}</div>
+      <div
+        class="acc-address mt-1"
+        *ngIf="activeCustomerAccount.addresses.length > 0"
+      >
+        {{ activeCustomerAccount.addresses[0]?.formattedAddress }}
+      </div>
+    </div>
+    <div class="legal-entity-details mt-2">
+      <span class="entity-label">{{
+        'customer-account.legalEntity' | cxTranslate
+      }}</span>
+      <div class="legal-entity-values mt-1">
+        <span>{{ activeCustomerAccount.selectedSalesArea.salesAreaName }}</span>
+        <span class="mr-1 ml-1"
+          >({{
+            activeCustomerAccount.selectedSalesArea.salesAreaId.split('_')[1]
+          }})</span
+        >
+        <span
+          *ngIf="
+            activeCustomerAccount?.selectedSalesArea?.address?.formattedAddress
+          "
+          class="mr-1"
+          >|</span
+        >
+        <span>{{
+          activeCustomerAccount.selectedSalesArea.address?.formattedAddress
+        }}</span>
+      </div>
+    </div>
+    <div *ngIf="!isAnotherAccountSelected" class="cust-account-action mt-3">
+      <a
+        class="action-links mr-4"
+        (click)="addRemoveFromFavourite(activeCustomerAccount.favorite)"
+      >
+        <span *ngIf="!activeCustomerAccount.favorite" class="material-icons"
+          >star_border</span
+        >
+        <span *ngIf="activeCustomerAccount.favorite" class="material-icons"
+          >star</span
+        >
+        <span class="ml-1" *ngIf="!activeCustomerAccount.favorite">{{
+          'customer-account.addToFavorites' | cxTranslate
+        }}</span>
+        <span class="ml-1" *ngIf="activeCustomerAccount.favorite">{{
+          'customer-account.removeFromFavorites' | cxTranslate
+        }}</span>
+      </a>
+      <a class="action-links" (click)="legalEntityToggle()">
+        <span class="material-icons">shuffle</span>
+        <span class="ml-1">{{
+          'customer-account.changeLegalEntity' | cxTranslate
+        }}</span>
+      </a>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!showChangeLegalEntity; else changeLegalEntity">
+    <ds-change-customer-account
+      (changeCustAccount)="changeCustAccount($event)"
+    ></ds-change-customer-account>
+  </ng-container>
+
+  <ng-template #changeLegalEntity class="current-legal-account">
+    <div class="change-legal-entity mt-3">
+      <p class="title-label mb-2">
+        {{ 'customer-account.changeLegalEntity' | cxTranslate }}
+      </p>
+      <div
+        class="legal-entity-action-list-item"
+        *ngFor="let entity of legalEntities"
+      >
+        <bh-radio-button
+          [label]="getLegalEntityRadioBtnLabel(entity)"
+          name="legal-entity"
+          [value]="entity.salesAreaId"
+          [attr.checked]="entity.active == true ? true : false"
+          (change)="onLegalEntityRadioChange($event)"
+        ></bh-radio-button>
+      </div>
+      <div
+        id="change-legal-entity-action"
+        class="change-legal-entity-action mt-2"
+      >
+        <bh-button
+          type="secondary"
+          label="{{ 'customer-account.back' | cxTranslate }}"
+          small="true"
+          (click)="legalEntityToggle()"
+        ></bh-button>
+        <bh-button
+          class="ml-3"
+          type="primary"
+          label="{{ 'customer-account.update' | cxTranslate }}"
+          small="true"
+          (click)="onUpdateBtnClick()"
+        ></bh-button>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,41 @@
+## messageSource=classpath:/bhgecore/messages/email-haveaQuestion_en.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+<head></head>
+
+<body style="font-family: 'Poppins','Lucida Sans'; font-size: 11pt;width:550px;color: #05322b;border: solid 0.3px #979797;">
+
+    <div class="header">
+        <img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" width="100%" alt="headerImage" />
+    </div>
+
+	<div class="emailBody" style="padding:14px 22px 0px 34px;">
+		<div class="headerInformation" style="padding-bottom:27px;letter-spacing: -0.4px;">
+		    <p>${ctx.messages.getMessage('customerCareTeam')}</p>
+		    <p>${ctx.messages.getMessage('customerRequestText')} </p>
+		    <br>
+		    <div class="table2">
+			<p class="text p" style="display: block; margin: 14px 0; line-height: 20px; color: #05322b; font-family: 'Poppins','Lucida Sans'; font-size: 14px; text-align: left;">
+             ${ctx.messages.getMessage('customerIdText')} ${ctx.customerId}
+			</p>
+			<p class="text p" style="display: block; margin: 14px 0; line-height: 20px; color: #05322b; font-family: 'Poppins','Lucida Sans'; font-size: 14px; text-align: left;">
+		      ${ctx.messages.getMessage('queryText')} ${ctx.customerQuery}
+			 </p>
+			</div>
+		     
+		    <br>
+		</div>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+INSERT_UPDATE Paymentterm;code[unique=true];name[lang=es]
+;	.5%	;	.5% 15 net 30
+;	.5%1	;	.5% 15 net 30
+;	.5/1	;	.5% 10 net 30
+;	0001	;	Do not use
+;	1%10	;	1% 10 NET 30 DAYS
+;	1%15	;	1% 15 NET 30 DAYS
+;	1-10	;	1% 10 NET 42 DAYS
+;	1-15	;	1% 15 NET 42 DAYS
+;	1N30	;	Factura Crédito 30 días
+;	2%10	;	2% sobre monto 10-30días
+;	2%15	;	2% sobre monto 15-30días
+;	2%40	;	2% sobre monto 15-45días
+;	2%45	;	2% sobre monto 15-45días
+;	2-10	;	2% 10 NET 42 DAYS
+;	2-15	;	2% 15 NET 42 DAYS
+;	2-20	;	Within 60 days Due net
+;	2-30	;	2% sobre monto 15-30días
+;	2-40	;	2% sobre monto 15-30días
+;	3%10	;	3% 10 NET 30 DAYS
+;	3%15	;	3% 15 NET 30 DAYS
+;	3%90	;	3% sobre monto 30-90días
+;	3-15	;	3% 15 NET 42 DAYS
+;	30SD	;	30 DÍAS desde Despacho
+;	4%10	;	4%10 NET 30 DAYS
+;	4%15	;	4% 15 NET 30 DAYS
+;	4-10	;	4% 10 NET 42 DAYS
+;	4-15	;	4% 15 NET 42 DAYS
+;	5%10	;	5% 10 NET 30 DAYS
+;	5%15	;	5% 15 NET 30 DAYS
+;	5-10	;	5% 10 NET 42 DAYS
+;	5-15	;	5% 15 NET 42 DAYS
+;	50%N	;	50% Contado/resto 30 días
+;	60SD	;	60 DÍAS desde Despacho
+;	75SD	;	75 DÍAS desde Despacho
+;	90SD	;	90 DÍAS desde Despacho
+;	ACR1	;	Aviso Carta Crédito
+;	ACR2	;	Aviso Carta Crédito
+;	ACR3	;	Aviso Carta Crédito
+;	ALC	;	Aviso Carta Crédito
+;	AP	;	Pago por adelantado
+;	AP1	;	AP1 Construir/No Despache
+;	AP30	;	Aviso Carta Crédito
+;	APCR	;	Pago Recibido en Efectivo
+;	BLNK	;	Payment term BLNK will not be printed on invoice
+;	CC	;	Purchasing Credit Card
+;	CCSD	;	Pago/Tarjeta de Crédito
+;	CCSL	;	Factura Crédito 30 días
+;	CLC	;	Carta de Crédito
+;	COD	;	Pago Recibido en Efectivo
+;	CVD	;	Pago vs Documentos
+;	D322	;	2% sobre monto 10-30días
+;	G1	;	1% 15 Net 75
+;	G1.5	;	1.5% 15 Net 75
+;	G10	;	1% 10 NET 30 DAYS
+;	G11	;	1% 10 NET 30 DAYS
+;	G12	;	1% 10 NET 30 DAYS
+;	G13	;	1% 10 NET 30 DAYS
+;	G138	;	2.5% 15  2% 30 Net 90
+;	G139	;	2.5% 15  2% 30 Net 90
+;	G14	;	1% 10 NET 30 DAYS
+;	G140	;	2.5% 15  2% 30 Net 90
+;	G141	;	2.5% 15  2% 30 Net 90
+;	G142	;	2.5% 15  2% 30 Net 90
+;	G143	;	2.5% 15  2% 30 Net 90
+;	G144	;	2.5% 15  2% 30 Net 90
+;	G145	;	2.5% 15  2% 30 Net 90
+;	G146	;	2.5% 15  2% 30 Net 90
+;	G147	;	2.5% 15  2% 30 Net 90
+;	G148	;	2.5% 15  2% 30 Net 90
+;	G149	;	2.5% 15  2% 30 Net 90
+;	G15	;	1% 10 NET 30 DAYS
+;	G150	;	2.5% 15  2% 30 Net 90
+;	G151	;	2.5% 15  2% 30 Net 90
+;	G152	;	2.5% 15  2% 30 Net 90
+;	G153	;	2.5% 15  2% 30 Net 90
+;	G154	;	2.5% 15  2% 30 Net 90
+;	G155	;	2.5% 15  2% 30 Net 90
+;	G156	;	2.5% 15  2% 30 Net 90
+;	G157	;	2.5% 15  2% 30 Net 90
+;	G158	;	.5% 10 net 30
+;	G16	;	1% 10 NET 30 DAYS
+;	G17	;	1% 10 NET 30 DAYS
+;	G18	;	1% 10 NET 30 DAYS
+;	G19	;	1% 10 NET 30 DAYS
+;	G2	;	2.0% 15 1.5% 30 Net 75
+;	G20	;	1% 10 NET 30 DAYS
+;	G21	;	1% 10 NET 30 DAYS
+;	G22	;	1% 10 NET 30 DAYS
+;	G23	;	1% 10 NET 30 DAYS
+;	G24	;	1% 10 NET 30 DAYS
+;	G25	;	1% 10 NET 30 DAYS
+;	G3	;	2.5% 15  2% 30 Net 90
+;	G4	;	1.25% 15  1% 30 Net 90
+;	G5	;	1% 15 Net 75
+;	G7	;	1% 10 NET 30 DAYS
+;	G8	;	1% 10 NET 30 DAYS
+;	G9	;	1% 10 NET 30 DAYS
+;	GE%	;	1.5% 15 net 60
+;	GN75	;	Within 75 days Due Net
+;	IBS	;	Sist. Interno Facturación
+;	LCLD	;	Factura Crédito 30 días
+;	LTC3	;	Factura Crédito 30 días
+;	LTC6	;	Factura Crédito 30 días
+;	LTCR	;	Factura Crédito 30 días
+;	N120	;	Factura Crédito 120 días
+;	N121	;	Fact 120 días pago 1° Mes
+;	N180	;	Factura Crédito  180 días
+;	N301	;	Fact 30 días pago 1° Mes
+;	N30D	;	Factura Crédito 30 días
+;	N45L	;	Factura Crédito 30 días
+;	N60	;	Within 60 days Due net
+;	N60L	;	Factura Crédito 30 días
+;	NC	;	Ningún Cargo
+;	NT00	;	Pago inmediato de Factura
+;	NT01	;	Pago inmediato de Factura
+;	NT10	;	Factura Crédito 10 días
+;	NT15	;	Factura Crédito 15 días
+;	NT17	;	Within 20 days Due net
+;	NT23	;	Aviso Carta Crédito
+;	NT30	;	Factura Crédito 30 días
+;	NT35	;	Aviso Carta Crédito
+;	NT38	;	Aviso Carta Crédito
+;	NT42	;	Payable in 42 Days Net
+;	NT45	;	Factura Crédito 45 días
+;	NT50	;	Aviso Carta Crédito
+;	NT60	;	Factura Crédito 60 días
+;	NT7	;	Factura Crédito  7 días
+;	NT75	;	Factura Crédito 75 días
+;	NT90	;	Factura Crédito 90 días
+;	NTRP	;	Factura Crédito 30 días
+;	OTHR	;	Factura Crédito 30 días
+;	PC	;	POR  CONTRATO
+;	PRBL	;	Factura Crédito 30 días
+;	SA	;	Crédito en Revisión
+;	SD	;	Copia/Borrador
+;	SIDR	;	Factura Crédito 30 días
+;	UR	;	Una vez que reciba
+;	XT17	;	Within 20 days Due net
+;	ZX30	;	3% 15 NET 30 DAYS
+;	ZY30	;	3% 15 NET 30 DAYS
+;	ZY60	;	3% 15 NET 30 DAYS
+;	ZY90	;	3% 15 NET 30 DAYS
+#Added for PaymentTerms issue reported by Bettina for customer 164336 BW Plus NDT GmbH & Co. KG
+;	2%35	;	2% de descuento por 35 días

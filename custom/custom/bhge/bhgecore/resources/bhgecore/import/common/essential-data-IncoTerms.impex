@@ -1,0 +1,87 @@
+
+
+INSERT_UPDATE Incoterm;code[unique=true];name[lang=en]
+;	CFR	;	Costs and freight
+;	CIF	;	Costs, insurance & freight
+;	CIP	;	Carriage and insurance paid to
+;	CPT	;	Carriage paid to
+;	DAF	;	OBS(Delivered at frontier)
+;	DAP	;	Delivered at Place
+;	DAT	;	Delivered at Terminal
+;	DDP	;	Delivered duty paid
+;	DDU	;	OBS(Delivered duty unpaid)
+;	DEQ	;	OBS(Delivered (duty paid))
+;	DES	;	OBS(Delivered ex ship)
+;	EXW	;	Ex works
+;	FAS	;	Free alongside
+;	FCA	;	Free carrier
+;	FH	;	OBS(Carriage paid)
+;	FOB	;	Free on board
+;	NA	;	NA
+;	UN	;	Not free
+
+INSERT_UPDATE Incoterm;code[unique=true];name[lang=de]
+;	CFR	;	Kosten und Fracht
+;	CIF	;	Kosten, Versicherung & Fracht
+;	CIP	;	Frachtfrei versichert
+;	CPT	;	Frachtfrei
+;	DAF	;	Geliefert Grenze
+;	DAP	;	Geliefert an Ort
+;	DAT	;	Geliefert an Terminal
+;	DDP	;	Geliefert verzollt
+;	DDU	;	Geliefert unverzollt
+;	DEQ	;	Geliefert ab Kai (verzollt)
+;	DES	;	Geliefert ab Schiff
+;	EXW	;	Ab Werk
+;	FAS	;	Frei Längsseite Seeschiff
+;	FCA	;	Frei Frachtführer
+;	FH	;	Frei Haus
+;	FOB	;	Frei an Bord
+;	UN	;	Unfrei
+
+
+#INSERT_UPDATE Incoterm;code[unique=true];name[lang=es]
+
+
+INSERT_UPDATE Incoterm;code[unique=true];name[lang=pt]
+
+;	CFR	;	Custos e frete
+;	CIF	;	Custo, seguro & frete
+;	CIP	;	Seguro com frete pago
+;	CPT	;	Frete pago
+;	DAF	;	OBS(Delivered at frontier)
+;	DAP	;	Delivered at Place
+;	DAT	;	Delivered at Terminal
+;	DDP	;	Delivered duty paid
+;	DDU	;	OBS(Delivered duty unpaid)
+;	DEQ	;	OBS(Delivered (duty paid))
+;	DES	;	OBS(Delivered ex ship)
+;	EXW	;	Ex works
+;	FAS	;	Free alongside
+;	FCA	;	Free carrier
+;	FH	;	OBS(Carriage paid)
+;	FOB	;	Franco a bordo
+;	NA	;	NA
+;	UN	;	Not free
+
+
+
+INSERT_UPDATE Incoterm;code[unique=true];name[lang=zh]
+;	CFR	;	成本和运费
+;	CIF	;	成本, 保险 & 运费
+;	CIP	;	运费和保险费已付
+;	CPT	;	运费已付
+;	DAF	;	OBS(Delivered at frontier)
+;	DAP	;	Delivered at Place
+;	DAT	;	Delivered at Terminal
+;	DDP	;	Delivered duty paid
+;	DDU	;	OBS(Delivered duty unpaid)
+;	DEQ	;	OBS(Delivered (duty paid))
+;	DES	;	OBS(Delivered ex ship)
+;	EXW	;	Ex works
+;	FAS	;	Free alongside
+;	FCA	;	Free carrier
+;	FH	;	OBS(Carriage paid)
+;	FOB	;	离岸价
+;	NA	;	NA
+;	UN	;	Not free

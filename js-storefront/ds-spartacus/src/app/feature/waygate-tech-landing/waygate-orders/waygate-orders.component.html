@@ -1,0 +1,617 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-my-orders-container">
+    <div class="waygate-my-orders-header">
+      <div class="header-green-border"></div>
+      <div class="waygate-my-order-row">
+        <h1 class="waygate-my-order-title">
+          {{ 'waygate-order.myOrdersTitle' | cxTranslate }}
+        </h1>
+        <div class="waygate-my-accounts">
+          <ng-select
+            class="border-0"
+            id="accountDropdown"
+            class="account-dropdown"
+            [(ngModel)]="selectedAccount"
+            [searchable]="false"
+            [clearable]="false"
+            [items]="b2bUnits"
+            bindLabel="label"
+            bindValue="id"
+            (change)="onAccountChange()"
+          >
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="waygate-my-orders-header-actions">
+      <div
+        class="d-flex"
+        [ngClass]="
+          selectedTile === 'SHIPPED & INVOICED' ? 'header-dropdwn' : 'gap-2'
+        "
+      >
+        <span class="orderCountDesktop">
+          {{
+            'waygate-order.orderPlacedInLast'
+              | cxTranslate : { count: totalCount }
+          }}</span
+        >
+        <span class="orderCountMobile">{{
+          'waygate-order.orderPlacedInLastMobile'
+            | cxTranslate : { count: totalCount }
+        }}</span>
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedMonth"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="monthOptions"
+          (change)="onMonthChange()"
+        >
+        </ng-select>
+        <ng-select
+          class="border-0"
+          id="monthDropdown"
+          [(ngModel)]="selectedTile"
+          bindLabel="label"
+          bindValue="value"
+          [searchable]="false"
+          [clearable]="false"
+          [items]="orderTiles"
+          (change)="onStatusChange()"
+        >
+        </ng-select>
+      </div>
+
+      <div class="my-orders-search-actions">
+        <!-- <a (click)="clearAll()">Clear All</a> -->
+        <a (click)="getOrders(true)" class="refresh"
+          >{{ 'waygate-order.refresh' | cxTranslate }}
+          <span class="material-icons"> refresh </span></a
+        >
+        <div class="my-orders-search">
+          <input
+            type="text"
+            placeholder="{{
+              'waygate-order.searchOrderParameter' | cxTranslate
+            }}"
+            [formControl]="searchControl"
+          />
+          <span class="material-icons" (click)="search()"> search </span>
+        </div>
+        <!-- #waygateActions
+        (click)="showActions = !showActions" -->
+        <div
+          class="my-order-actions"
+          (click)="downloadXls()"
+          title="{{ 'waygate-order.exportToXLS' | cxTranslate }}"
+        >
+          <span class="material-icons"> vertical_align_bottom </span>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="ordersData$ | async as orderData; else loading">
+      <ng-container *ngIf="orderData?.orderData?.length > 0; else noData">
+        <div class="my-orders-table-container">
+          <div class="result-count">
+            <div>
+              {{
+                'waygate.resultsSummary'
+                  | cxTranslate
+                    : {
+                        start: startRange,
+                        end: endRange,
+                        total: totalCount
+                      }
+              }}
+            </div>
+            <div class="pageSizeSelect">
+              <select name="" id="" (change)="pageSizeChanged($event)">
+                <ng-container *ngFor="let value of pageSizes">
+                  <option [value]="value" [selected]="value == currentPageSize">
+                    {{ value }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div>
+            <table class="waygate-my-order-table">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="header-title">
+                      {{ 'waygate-order.orderNumber' | cxTranslate }}
+                      <div class="action-icons">
+                        <span
+                          class="material-icons"
+                          (click)="sort('byOrderNumberAsc')"
+                        >
+                          expand_less
+                        </span>
+
+                        <span
+                          class="material-icons"
+                          (click)="sort('byOrderNumberDsc')"
+                        >
+                          expand_more
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="header-title">
+                      {{ 'waygate-order.createdOn' | cxTranslate }}
+                      <div class="action-icons">
+                        <span
+                          class="material-icons"
+                          (click)="sort('byDateAsc')"
+                        >
+                          expand_less
+                        </span>
+
+                        <span
+                          class="material-icons"
+                          (click)="sort('byDateDsc')"
+                        >
+                          expand_more
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <ng-container *ngIf="statusIsAll">{{
+                      'waygate-order.promisedShippedDate' | cxTranslate
+                    }}</ng-container>
+                    <ng-container *ngIf="statusIsPromised">{{
+                      'waygate-order.promisedshipDate' | cxTranslate
+                    }}</ng-container>
+                    <ng-container *ngIf="statusIsShipped">{{
+                      'waygate-order.shippedDate' | cxTranslate
+                    }}</ng-container>
+                  </th>
+                  <th>{{ 'waygate-order.paymentTypeHeader' | cxTranslate }}</th>
+                  <th>{{ 'waygate-order.netPrice' | cxTranslate }}</th>
+                  <th>
+                    <div class="header-title">
+                      {{ 'waygate-order.lastUpdated' | cxTranslate }}
+                      <div class="action-icons">
+                        <span
+                          class="material-icons"
+                          (click)="sort('UpdateAsc')"
+                        >
+                          expand_less
+                        </span>
+
+                        <span
+                          class="material-icons"
+                          (click)="sort('UpdateDsc')"
+                        >
+                          expand_more
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <!-- <th></th> -->
+                  <th *ngIf="params?.status == 'ALL'">
+                    {{ 'waygate-order.orderStatus' | cxTranslate }}
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-container
+                  *ngFor="let order of orderData?.orderData; let i = index"
+                >
+                  <tr>
+                    <td>
+                      <span
+                        class="order-number"
+                        (click)="goToOrderDeatilPage(order)"
+                      >
+                        {{ order?.code }}
+                      </span>
+                    </td>
+                    <td>{{ order?.orderDate }}</td>
+                    <td>
+                      <ng-container
+                        *ngIf="getSortedLineItems(order?.lineData) as lineItem"
+                      >
+                        <ng-container
+                          *ngIf="
+                            order?.orderStatus == 'Shipped & Invoiced' ||
+                              order?.orderStatus == 'Shipped';
+                            else currentPromiseDate
+                          "
+                        >
+                          {{ lineItem[lineItem.length - 1].actShpDate || '-' }}
+                          <ng-container
+                            *ngIf="
+                              lineItem.length > 1 &&
+                              lineItem[lineItem.length - 1].actShpDate
+                            "
+                          >
+                            <span
+                              class="line-data"
+                              [ngbTooltip]="lineItemContent"
+                              tooltipClass="waygate-line-item-tooltip"
+                              placement="right"
+                              triggers="hover focus"
+                              >+{{ lineItem.length - 1 }}</span
+                            >
+                            <ng-template #lineItemContent>
+                              <table class="waygate-line-item-table w-100">
+                                <thead>
+                                  <tr>
+                                    <th>
+                                      {{
+                                        'waygate-order.lineItems' | cxTranslate
+                                      }}
+                                    </th>
+                                    <th>
+                                      <ng-container *ngIf="statusIsAll">{{
+                                        'waygate-order.promisedShippedDate'
+                                          | cxTranslate
+                                      }}</ng-container>
+                                      <ng-container *ngIf="statusIsPromised">{{
+                                        'waygate-order.promisedshipDate'
+                                          | cxTranslate
+                                      }}</ng-container>
+                                      <ng-container *ngIf="statusIsShipped">{{
+                                        'waygate-order.shippedDate'
+                                          | cxTranslate
+                                      }}</ng-container>
+                                    </th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <tr *ngFor="let item of order?.lineData">
+                                    <td>{{ item.partNumber }}</td>
+                                    <td>
+                                      <ng-container
+                                        *ngIf="
+                                          item.status == 'Shipped & Invoiced' ||
+                                            item.status == 'Shipped';
+                                          else currentPromiseDate
+                                        "
+                                      >
+                                        {{ item.actShpDate }}
+                                      </ng-container>
+                                      <ng-template #currentPromiseDate>
+                                        {{ item.geFromDate }}
+                                      </ng-template>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </ng-template>
+                          </ng-container>
+                        </ng-container>
+                        <ng-template #currentPromiseDate>
+                          {{ lineItem[lineItem.length - 1].geFromDate || '-' }}
+                          <ng-container
+                            *ngIf="
+                              lineItem.length > 1 &&
+                              lineItem[lineItem.length - 1].geFromDate
+                            "
+                          >
+                            <span
+                              class="line-data"
+                              [ngbTooltip]="lineItemContent"
+                              tooltipClass="waygate-line-item-tooltip"
+                              placement="right"
+                              triggers="hover focus"
+                              >+{{ lineItem.length - 1 }}</span
+                            >
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #lineItemContent>
+                          <table class="waygate-line-item-table w-100">
+                            <thead>
+                              <tr>
+                                <th>
+                                  {{ 'waygate-order.lineItems' | cxTranslate }}
+                                </th>
+                                <th>
+                                  <ng-container *ngIf="statusIsAll">{{
+                                    'waygate-order.promisedShippedDate'
+                                      | cxTranslate
+                                  }}</ng-container>
+                                  <ng-container *ngIf="statusIsPromised">{{
+                                    'waygate-order.promisedshipDate'
+                                      | cxTranslate
+                                  }}</ng-container>
+                                  <ng-container *ngIf="statusIsShipped">{{
+                                    'waygate-order.shippedDate' | cxTranslate
+                                  }}</ng-container>
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <tr *ngFor="let item of order?.lineData">
+                                <td>{{ item.partNumber }}</td>
+                                <td>
+                                  <ng-container
+                                    *ngIf="
+                                      item.status == 'Shipped & Invoiced' ||
+                                        item.status == 'Shipped';
+                                      else currentPromiseDate
+                                    "
+                                  >
+                                    {{ item.actShpDate }}
+                                  </ng-container>
+                                  <ng-template #currentPromiseDate>
+                                    {{ item.geFromDate }}
+                                  </ng-template>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </ng-template>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <ng-container
+                        *ngIf="order?.isCreditCardOrder; else poOrder"
+                      >
+                        <div>
+                          {{ 'waygate-order.creditCardOrder' | cxTranslate }}
+                        </div>
+                      </ng-container>
+                      <ng-template #poOrder>
+                        <div>
+                          {{ 'waygate-order.purchaseOrder' | cxTranslate }}
+                        </div>
+                      </ng-template>
+                      <div>
+                        {{ order?.purchaseOrderNumber || 'N/A' }}
+                      </div>
+                    </td>
+                    <td>{{ order?.currency }} {{ order?.totalNetPrice }}</td>
+                    <td class="last-updated-wrapper">
+                      <div>{{ order?.lastUpdatedDate }}</div>
+                      <div
+                        #NotifiCationTooltip
+                        class="bell-wrapper"
+                        *ngIf="
+                          (!order?.orderStatus == 'Shipped & Invoiced' ||
+                            !order?.orderStatus == 'Shipped') &&
+                          (order?.notifAuthAmt == 'Y' ||
+                            order?.notificationDate == 'Y' ||
+                            order?.notifNetPrice == 'Y')
+                        "
+                        (mouseover)="selectedNotificationId = i"
+                        (mouseleave)="selectedNotificationId = -1"
+                      >
+                        <!-- (click)="notificationBellIconClick(i)" -->
+                        <span
+                          class="material-icons-outlined bell-icon icon-wrapper"
+                          [ngStyle]="{
+                          backgroundColor:
+                            selectedNotificationId == i ? '#EBEFEE' : '#fff',
+                        }"
+                        >
+                          notifications
+                        </span>
+                        <div
+                          class="breakup-dropdown p-0"
+                          [clickSourceId]="NotifiCationTooltip"
+                          (clickOutside)="selectedNotificationId = -1"
+                          *ngIf="selectedNotificationId == i"
+                          #breakupContent
+                        >
+                          <div class="breakdown-price">
+                            <div
+                              class="cart-entry-text-bold breakdown-heading p-2"
+                            >
+                              {{ 'waygate-order.latestUpdates' | cxTranslate }}
+                            </div>
+                            <hr class="horizontal-line" />
+                            <div class="p-2">
+                              <div class="row">
+                                <div
+                                  class="col-md-6"
+                                  *ngIf="order?.lineData?.[0]?.geFromDate"
+                                >
+                                  <div class="notificationLabel">
+                                    {{
+                                      'waygate-order.promisedshipDate'
+                                        | cxTranslate
+                                    }}
+                                  </div>
+                                  <div class="notificationVal">
+                                    {{ order?.lineData?.[0]?.geFromDate }}
+                                  </div>
+                                </div>
+                                <div
+                                  class="col-md-6"
+                                  *ngIf="order?.oldAuthAmt > 0"
+                                >
+                                  <div class="notificationLabel">
+                                    {{
+                                      'waygate-order.authorizedAmount'
+                                        | cxTranslate
+                                    }}
+                                  </div>
+                                  <div class="notificationVal">
+                                    {{ order?.currency }}{{ order?.oldAuthAmt }}
+                                  </div>
+                                </div>
+
+                                <div
+                                  class="col-md-6"
+                                  *ngIf="order?.authAmt > 0"
+                                >
+                                  <div class="notificationLabel">
+                                    {{
+                                      'waygate-order.amountChange' | cxTranslate
+                                    }}
+                                  </div>
+                                  <div class="notificationVal">
+                                    {{ order?.currency }}{{ order?.authAmt }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- <td>
+                    <ng-container *ngIf="i % 2 === 0">
+                      <span
+                        class="material-icons-outlined bell-icon"
+                        placement="left"
+                        [ngbTooltip]="notificationContent"
+                        tooltipClass="waygate-notification-tooltip"
+                        triggers="click"
+                      >
+                        notifications
+                      </span>
+                      <ng-template #notificationContent>
+                        <div class="notification-title p-3 font-poppins">
+                          Latest updates
+                        </div>
+                        <div class="notification-list p-3 font-poppins">
+                          <div class="d-flex flex-column w-50">
+                            <label>Promised ship date</label>
+                            <span>15 Feb 2020</span>
+                          </div>
+                          <div class="d-flex flex-column w-50">
+                            <label>Authorised amount</label>
+                            <span>USD $280.00</span>
+                          </div>
+
+                          <div class="d-flex flex-column w-50">
+                            <label>Order line item status</label>
+                            <span>Order in progress</span>
+                          </div>
+
+                          <div class="d-flex flex-column w-50">
+                            <label>Settlement date</label>
+                            <span>15 Feb 2020</span>
+                          </div>
+
+                          <div class="d-flex flex-column w-50">
+                            <label>Amount change</label>
+                            <span>USD $500.00</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </td> -->
+                    <td *ngIf="params?.status == 'ALL'">
+                      <div [class]="getClass(order?.orderStatus)">
+                        {{ order?.orderStatus }}
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="quick-order-pagination" *ngIf="totalCount > 10">
+            <div class="page-size-container">
+              <div>{{ 'waygate-order.itemsPerPage' | cxTranslate }}</div>
+              <div>
+                <select name="" id="" (change)="pageSizeChanged($event)">
+                  <ng-container *ngFor="let value of pageSizes">
+                    <option
+                      [value]="value"
+                      [selected]="value == currentPageSize"
+                    >
+                      {{ value }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div>
+                {{
+                  'waygate.rangeSummary'
+                    | cxTranslate
+                      : {
+                          start: startRange,
+                          end: endRange,
+                          total: totalCount
+                        }
+                }}
+              </div>
+            </div>
+            <div class="page-number-selector-container" *ngIf="totalPages > 1">
+              <span
+                class="material-icons"
+                (click)="pageSelected(1)"
+                [class.disabled]="currentPage == 1"
+              >
+                keyboard_double_arrow_left
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage - 1)"
+                [class.disabled]="currentPage == 1"
+              >
+                chevron_left
+              </span>
+              <div *ngIf="currentPage > 2" class="disabled">...</div>
+              <ng-container *ngFor="let value of getPageArray(); let i = index">
+                <ng-container
+                  *ngIf="
+                    currentPage == value ||
+                    currentPage - 1 == value ||
+                    currentPage + 1 == value
+                  "
+                >
+                  <div
+                    class="pagination-numbers"
+                    [class.active]="value == currentPage"
+                    (click)="pageSelected(value)"
+                  >
+                    {{ value }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <div *ngIf="currentPage < totalPages - 1" class="disabled">
+                ...
+              </div>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage + 1)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                chevron_right
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(totalPages)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                keyboard_double_arrow_right
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img
+      src="../../../../assets/img/Illustration.png"
+      alt="{{ 'waygate-order.noOrdersFound' | cxTranslate }}"
+    />
+    <h4>{{ 'waygate-order.noOrdersFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

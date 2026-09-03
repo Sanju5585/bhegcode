@@ -1,0 +1,110 @@
+<div class="grid-product">
+  <a
+    (click)="gtmSelectItemEvent(product)"
+    [routerLink]="{ cxRoute: 'product', params: product } | cxUrl"
+    class="cx-product-image-container"
+    tabindex="-1"
+  >
+    <cx-media
+      class="cx-product-image mb-3"
+      [container]="product.images?.PRIMARY"
+      format="product"
+      [alt]="product.summary"
+    ></cx-media>
+  </a>
+  <div class="row m-0 fav-add-eq-row" *ngIf="userType === 'current'">
+    <div class="col-auto pl-0 pr-0 m-0">
+      <a class="overlay" (click)="onFavoriteClick(product)">
+        <i class="material-icons overlay-fav-icon mr-1">
+          {{ favStatus ? 'star' : 'star_border' }}</i
+        >
+        <span class="overlay-fav-txt">
+          {{ 'plp.favourite' | cxTranslate }}</span
+        >
+      </a>
+    </div>
+    <div class="col-auto pl-0 pr-0 m-0">
+      <a class="overlay equipment" (click)="onMyEquipmentClick(product)">
+        <i class="material-icons overlay-fav-icon overlay-eq-icon mr-1">add</i>
+        <span class="overlay-fav-txt overlay-eq-txt">
+          {{ 'plp.addEquipment' | cxTranslate }}</span
+        >
+      </a>
+    </div>
+  </div>
+  <a
+    [routerLink]="{ cxRoute: 'product', params: product } | cxUrl"
+    class="cx-product-name"
+    [innerHTML]="product.nameHtml"
+  ></a>
+  <div class="cx-product-code">
+    <span>
+      {{ 'plp.partNumber' | cxTranslate }} :
+      <span [innerHTML]="product.code"></span>
+    </span>
+  </div>
+
+  <!-- <div class="cx-product-rating">
+  <cx-star-rating
+    *ngIf="product.averageRating"
+    [rating]="product?.averageRating"
+  ></cx-star-rating>
+  <div *ngIf="!product.averageRating">
+    {{ 'productDetails.noReviews' | cxTranslate }}
+  </div>
+</div> -->
+  <div class="cx-product-price-container">
+    <div *ngIf="userType === 'current'">
+      <div class="cx-product-code" aria-label="Product price">
+        {{ 'plp.listPrice' | cxTranslate }}:
+        <strong
+          class="price-value"
+          *ngIf="
+            product.price.value > 0 &&
+            product.productAccessData.isCustomerBuy != false
+          "
+          >{{ product.price?.formattedValue }}</strong
+        >
+        <strong
+          *ngIf="
+            (product.price.value <= 0 && !isPriceNotFound) ||
+            product.productAccessData.isCustomerBuy == false
+          "
+          >{{ 'plp.unavailable' | cxTranslate }}</strong
+        >
+        <strong class="error" *ngIf="isPriceNotFound">{{
+          'plp.priceNotrFound' | cxTranslate
+        }}</strong>
+      </div>
+    </div>
+
+    <div *ngIf="userType === 'anonymous'">
+      <div class="cx-product-code" aria-label="Product price">
+        {{ 'plp.listPrice' | cxTranslate }}:
+        <strong class="price-value" *ngIf="product.price.value > 0">{{
+          product.price?.formattedValue
+        }}</strong>
+        <strong *ngIf="product.price.value <= 0 && !isPriceNotFound">{{
+          'plp.unavailable' | cxTranslate
+        }}</strong>
+        <strong class="error" *ngIf="isPriceNotFound">{{
+          'plp.priceNotrFound' | cxTranslate
+        }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="cx-variant-style-icons" *ngIf="product.variantOptions">
+  <cx-variant-style-icons
+    [variants]="product.variantOptions"
+  ></cx-variant-style-icons>
+</div> -->
+
+  <cx-add-to-cart
+    *ngIf="product.stock?.stockLevelStatus !== 'outOfStock'"
+    [showQuantity]="true"
+    [product]="product"
+    [mode]="mode"
+    (emitProductPrice)="fetchCheckPriceProduct($event)"
+  ></cx-add-to-cart>
+</div>

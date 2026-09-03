@@ -1,0 +1,387 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+<div class="container">
+  <div class="waygate-quote-details-container">
+    <div class="waygate-quote-details-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'quote-details.pageTitle' | cxTranslate }}</h1>
+    </div>
+    <div class="error-displays">
+      <div class="warning" *ngIf="errorResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'order-tracking.inquiryisFailed' | cxTranslate }}
+        <a routerLink="contactus">{{ 'order-tracking.here' | cxTranslate }}</a>.
+      </div>
+      <div class="success" *ngIf="successResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'order-tracking.inquirySuccess' | cxTranslate }}
+      </div>
+    </div>
+    <div class="waygate-details-actions">
+      <div class="left-actions"></div>
+      <div class="right-actions">
+        <div (click)="backLink()">
+          <span class="material-icons"> chevron_left </span> {{ 'quote-details.backButton' | cxTranslate }}
+        </div>
+        <div class="d-flex gap-2 pr-2">
+          <button class="accept-btn" (click)="downloadQuote()" >
+            <span class="material-icons"> vertical_align_bottom </span>&nbsp;&nbsp;
+            {{ 'quote-details.downloadPDF' | cxTranslate }}
+          </button>
+          <button class="accept-btn" (click)="acceptQuote()"
+            [ngClass]="['Rejected', 'Expired', 'Completed','Blocked'].includes(quoteStatus) ? 'accept-disabled' : ''" >
+            <span class="material-icons"> done </span>
+            {{ 'quote-details.accept' | cxTranslate }}
+          </button>
+          <!-- <button class="reject-btn" >
+            <span  class="material-icons"> close </span>
+            {{ 'quote-details.reject' | cxTranslate }}
+          </button> -->
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="quotesDetails$ | async as quoteDetails; else loading">
+      <ng-container *ngIf="quoteDetails; else noData">
+        <div class="waygate-quote-details-body">
+          <div class="quote-details-body-tabs">
+            <div class="quote-details-tab" [class.active]="state == 'summary'" (click)="changeState('summary')">
+              <span class="material-icons"> assignment </span>
+              {{ 'quote-details.quoteSummryBtn' | cxTranslate }}
+            </div>
+          <!--  <ng-container *ngIf="user$ | async">
+              <div class="quote-details-tab" [class.active]="state == 'documents'" (click)="changeState('documents')">
+                <span class="material-icons"> description </span>
+                {{ 'quote-details.quoteDocBtn' | cxTranslate }}
+              </div>
+               <div
+                class="quote-details-tab"
+                [class.active]="state == 'inquiry'"
+                (click)="changeState('inquiry')"
+              >
+                <span class="material-icons"> rate_review </span>
+                {{ 'quote-details.quoteInquiryBtn' | cxTranslate }}
+              </div> 
+            </ng-container> -->
+
+            <div class="quote-details-tab" [class.active]="state == 'items'" (click)="changeState('items')">
+              <span class="material-icons"> category </span>
+              {{ 'quote-details.itemsQuoted' | cxTranslate }}
+            </div>
+          </div>
+
+          <div class="quote-details-body-details">
+            <div class="quote-status-blocked-container" *ngIf="quoteDetails?.quoteStatus == 'Blocked'">
+              <p class="mb-2">
+                <span class="material-icons"> security </span>
+                <span [innerHTML]="'quote-details.quoteBlockedReasonFull' | cxTranslate"></span>
+              </p>
+              <ul class="mb-2 pl-3" *ngIf=" quoteDetails?.blkText ">
+                <li>{{ quoteDetails?.blkText }}</li>
+              </ul>
+              <p 
+                class="mb-2"
+                [innerHTML]="'quote-details.quoteContactCustomerCare' | cxTranslate"
+              >
+              </p>
+            </div>
+
+            <div class="status-container-header">
+              <div class="header-left-part">
+                <h5>
+                  {{ 'quote-details.quoteNoHeader' | cxTranslate }}
+                  {{ quoteDetails?.quoteCode }}
+                </h5>
+                <div class="header-details">
+                  <div>
+                    {{ quoteDetails?.quoteEntries.length }}
+                    <ng-container *ngIf="quoteDetails?.quoteEntries.length == 1; else items">
+                      {{ 'quote-details.itemHeader' | cxTranslate }}
+                    </ng-container>
+                    <ng-template #items>
+                      {{ 'quote-details.itemsHeader' | cxTranslate }}
+                    </ng-template>
+
+
+                  </div>
+                  <div class="verts">|</div>
+                  <div>
+                    {{ 'quote-details.creationDateHeader' | cxTranslate }}
+                    {{ quoteDetails?.createdOn | date: 'dd MMM yyyy' }}
+                  </div>
+                  <div class="verts">|</div>
+                  <div *ngIf="quoteDetails?.createdBy">
+                    {{ 'quote-details.requestedByHeader' | cxTranslate }}
+                    {{ quoteDetails?.createdBy }}
+                  </div>
+                </div>
+              </div>
+              <div class="header-right-part">
+                <div class="status" [class]="getClass(quoteDetails?.quoteStatus)">
+                  {{ quoteDetails?.quoteStatus }}
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="state == 'summary'">
+              <div class="quote-status-container">
+                <div class="status-container-body">
+                  <ul class="progressbar">
+                    <li [class.active]="
+                        activateState(getClass(quoteDetails?.quoteStatus), 1)
+                      ">
+                      <div class="icons-tile">
+                        <img src="../../../../../assets/img/notebook.svg" alt="" />
+                        <div>
+                          {{
+                          'quote-details.quoteCreatedHeader' | cxTranslate
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li [ngClass]="{
+                        active: activateState(
+                          getClass(quoteDetails?.quoteStatus),
+                          2
+                        ),
+                        blocked: quoteDetails?.quoteStatus == 'Blocked',
+                      }">
+                      <div class="icons-tile">
+                        <ng-container *ngIf="
+                            quoteDetails?.quoteStatus != 'Blocked';
+                            else blockedImage
+                          ">
+                          <img src="../../../../../assets/img/package.svg" alt="" /></ng-container>
+                        <ng-template #blockedImage>
+                          <img src="../../../../../assets/img/package-blocked.svg" alt="" />
+                        </ng-template>
+                        <div>
+                          {{
+                          quoteDetails?.quoteStatus == 'Blocked'
+                          ? ('quote-details.quoteStatusBlocked'
+                          | cxTranslate)
+                          : ('quote-details.quoteStatusShipped'
+                          | cxTranslate)
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li [class.active]="
+                        activateState(getClass(quoteDetails?.quoteStatus),3)
+                      ">
+                      <div class="icons-tile">
+                        <img src="../../../../../assets/img/closed.svg" alt="" />
+                        <div
+                          *ngIf="  !['Accepted', 'Expired', 'Rejected', 'Completed', 'Open'].includes(quoteDetails?.quoteStatus) ">
+                          {{ 'quote-details.closed' | cxTranslate }}
+                        </div>
+                        <div *ngIf="quoteDetails?.quoteStatus =='Accepted' ">
+                          {{ 'quote-details.accepted' | cxTranslate }}
+                        </div>
+                        <div *ngIf="quoteDetails?.quoteStatus =='Open' ">
+                          {{ 'quote-details.open' | cxTranslate }}
+                        </div>
+                        <div *ngIf="quoteDetails?.quoteStatus =='Expired'">
+                          {{ 'quote-details.expired' | cxTranslate }}
+                        </div>
+                        <div *ngIf="quoteDetails?.quoteStatus =='Rejected'">
+                          {{ 'quote-details.rejected' | cxTranslate }}
+                        </div>
+                        <div *ngIf="quoteDetails?.quoteStatus =='Completed'">
+                          {{ 'quote-details.completed' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ng-container *ngIf="user$ | async">
+                <div class="order-details-sec">
+
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'quote-details.ctmrAccNoHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          <div>{{ activeCustomerNumber }}</div>
+                          <div>{{activeCustomerName}}</div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'quote-details.salesAreaHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ activeSalesRegion }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{
+                          'quote-details.totalNetPriceHeader' | cxTranslate
+                          }}
+                        </div>
+                        <div class="details-value">
+                          {{ quoteDetails?.currency }}
+                          {{ quoteDetails?.totalListPrice }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="customer-details">
+                  <h4>{{ 'quote-details.addressDetails' | cxTranslate }}</h4>
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div *ngIf="quoteDetails?.soldToAddress">
+                        <div class="details-label">
+                          {{ 'quote-details.soldTo' | cxTranslate }}
+                        </div>
+                        <div class="details-value" [innerHTML]="getAddress(quoteDetails?.soldToAddress)"></div>
+                      </div>
+                      <div *ngIf="!quoteDetails?.soldToAddress">
+                        <div class="details-label">
+                          {{ 'quote-details.soldTo' | cxTranslate }}
+                        </div>
+                        <div class="na">
+                          {{ 'quote-details.na' | cxTranslate }}
+                        </div>
+                      </div>
+                      <div *ngIf="quoteDetails?.shipTOAddress">
+                        <div class="details-label">
+                          {{ 'quote-details.shipTo' | cxTranslate }}
+                        </div>
+                        <div class="details-value" [innerHTML]="getAddress(quoteDetails?.shipTOAddress)"></div>
+                      </div>
+                      <div *ngIf="quoteDetails?.endCustomerAddress">
+                        <div class="details-label" >
+                          {{ 'quote-details.endCustomerAddress' | cxTranslate }}
+                        </div>
+                        <div class="details-value" [innerHTML]="getAddress(quoteDetails?.endCustomerAddress)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="state == 'summary' || state == 'items'">
+              <div class="items-container">
+                <h4 *ngIf="state == 'summary'">
+                  {{
+                  'quote-details.orderedCount'
+                  | cxTranslate: { count: quoteDetails?.quoteEntries?.length }
+                  }}
+                </h4>
+                <div class="line-header">
+                  {{ 'quote-details.itemDetails' | cxTranslate }}
+                </div>
+                <ng-container *ngFor="let product of quoteDetails?.quoteEntries">
+                  <app-waygate-order-product [product]="product" [userType]="userType" [currency]="quoteCurrency"
+                    [productType]="'quote'"></app-waygate-order-product>
+                </ng-container>
+              </div>
+            </ng-container>
+            <!-- <ng-container *ngIf="state == 'inquiry'">
+              <div class="inquiry-container">
+                <div class="documents-header">
+                  <h4>{{ 'quote-details.orderInquiryBtn' | cxTranslate }}</h4>
+                </div>
+               <form [formGroup]="inquiryForm" class="inquiry-details">
+                  <div class="title-lable">
+                    {{ 'quote-details.inquiryType' | cxTranslate }}
+                  </div>
+                  <div class="inquiry-dropdown">
+                    <ng-select
+                      formControlName="enquiryType"
+                      id="enquiryType"
+                      placeholder="{{ 'quote-details.select' | cxTranslate }}"
+                      [searchable]="false"
+                      [clearable]="false"
+                    >
+                      <ng-option
+                        *ngFor="let orderInq of orderInquiries; let i = index"
+                        [value]="orderInq.code"
+                      >
+                        {{ orderInq.name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="title-lable">
+                    {{ 'quote-details.description' | cxTranslate }}
+                  </div>
+                  <textarea
+                    name=""
+                    id=""
+                    cols="60"
+                    rows="10"
+                    formControlName="inquiryDetails"
+                    placeholder="{{
+                      'quote-details.orderRelatedInquiry' | cxTranslate
+                    }}"
+                  >
+                  </textarea>
+                </form>
+                <div class="inquiry-form-actions">
+                  <button
+                    class="action"
+                  
+                    [disabled]="!inquiryForm.valid"
+                  >
+                    {{ 'quote-details.saveChanges' | cxTranslate }}
+                  </button>
+                  <button class="discard" (click)="clearForm()">
+                    {{ 'quote-details.discard' | cxTranslate }}
+                  </button>
+                </div> 
+              </div>
+            </ng-container> -->
+            <!-- <ng-container *ngIf="state == 'documents'">
+              <ng-container *ngIf="gettingDocs; else loading">
+                <ng-container *ngIf="documents; else noDocuments">
+                  <div class="associated-doc-container">
+                    <div class="documents-header">
+                      <h4>
+                        {{
+                        'quote-details.documentCount'
+                        | cxTranslate: { count: documents?.length }
+                        }}
+                      </h4>
+                    </div>
+                    <ng-container *ngFor="let document of documents">
+                      <div class="document-row">
+                        <span>{{ document?.fileName }}</span>
+                        <a class="material-icons">
+                          save_alt
+                        </a>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container> -->
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'quote-details.quoteNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #noDocuments>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'quote-details.documentNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+
+<div class="cx-spinner repeat-order" *ngIf="showRepeatOrderLoader">
+  <cx-spinner></cx-spinner>
+</div>

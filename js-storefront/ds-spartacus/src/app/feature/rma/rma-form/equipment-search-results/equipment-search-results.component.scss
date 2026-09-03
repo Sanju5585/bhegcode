@@ -1,0 +1,99 @@
+.equipment-search-result--header {
+  display: flex;
+  padding: 0.75em 1em;
+  height: 3em;
+  background: var(--color-base-gray-100);
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+.equipment-search-result--header > * {
+  flex: 1 1 20%;
+}
+
+.equipment-search-result--body {
+  display: flex;
+  padding: 0 1em;
+  height: 3em;
+}
+.equipment-search-result--body > * {
+  flex: 1 1 20%;
+  display: flex;
+  color: var(--color-base-gray-700);
+  align-items: center;
+}
+
+.equipment-box-btn-container {
+  text-transform: uppercase;
+  display: flex;
+  gap: 2em;
+}
+.equipment-box-btn-container > * {
+  flex: 1 1 100%;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.equipment-box-btn {
+  box-sizing: border-box;
+  border-radius: 2px;
+  height: 2em;
+  text-align: center;
+  padding: 0.15em;
+  font-weight: 600;
+  cursor: pointer;
+}
+.primary-box-btn {
+  border: 1px solid var(--color-fill-avatar-primary);
+  color: var(--color-fill-avatar-primary);
+}
+.primary-box-btn:focus {
+  box-shadow: var(--effect-drop-shadow-focus-primary);
+}
+.secondary-box-btn:focus {
+  box-shadow: var(--color-base-gray-500);
+}
+.primary-box-btn :hover,
+.secondary-box-btn :hover {
+  background-color: var(--color-base-gray-700);
+}
+.secondary-box-btn {
+  border: 1px solid var(--color-base-gray-700);
+
+  color: var(--color-base-gray-700);
+}
+
+.eqipment-search-result-preheader {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-between;
+  .equipment-search-results {
+    font-size: var(--font-size-body-large);
+    text-transform: uppercase;
+  }
+  .equipment-search-result-filter {
+    display: flex;
+    gap: 1em;
+  }
+}
+
+.eqipment-search-no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em 0;
+
+  label {
+    font-size: var(--font-size-title-medium);
+    color: var(--color-base-gray-500);
+    line-height: 5;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.result-pagination {
+  padding: 2em 0em;
+  .bh-dropdown__input--fluid.bh-dropdown__input-small {
+    height: 3em;
+  }
+}

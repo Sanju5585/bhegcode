@@ -1,0 +1,142 @@
+#title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.25px;
+  color: #121212;
+}
+#prod-title {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #121212;
+}
+#pipe {
+  color: #b8b8b8;
+}
+.error-message {
+  background-color: #fad9d9;
+  color: black;
+  text-align: center;
+  width: auto;
+  margin-top: 20px;
+  padding: 15px;
+  font-weight: bold;
+}
+.configure-page-headerbar {
+  background: #f8faf9;
+}
+.reset-container-disabled {
+  display: none;
+}
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  justify-content: space-between;
+}
+.left-items {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.right-items {
+  margin-left: -30px;
+  display: flex;
+  gap: 15px;
+}
+.reset-btn {
+  border: 1px solid #adbdb9;
+  padding: 5px 10px;
+  background-color: #f8faf9;
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+  color: #595959;
+  border-radius: 4px;
+}
+#download-btn {
+  border: 1px solid #adbdb9;
+  padding: 5px 10px;
+  background-color: #f8faf9;
+  border-radius: 4px;
+}
+.download-csv-icon {
+  width: 5px;
+  height: 5px;
+}
+.reset-font {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #595959;
+  margin-top: 2px;
+}
+.download-csv-font {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #595959;
+  display: flex;
+  gap: 5px;
+}
+.legend {
+  sup {
+    color: red;
+    font-size: 25px;
+    line-height: 20px;
+    vertical-align: -21px;
+  }
+  float: right;
+  margin-right: 110px;
+}
+.conflict-msg {
+  background-color: #fad9d9;
+  color: black;
+  text-align: center;
+  width: auto;
+  margin-top: 20px;
+  padding: 15px;
+  font-weight: bold;
+}
+.configuration-progress-header {
+  display: flex;
+  background-color: #ebefee;
+  color: #595959;
+  i {
+    color: #02a783;
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .product-details {
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 100px;
+  }
+  .product-details-selected {
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 100px;
+    background-color: #effcf6;
+    border-bottom: 5px solid #02a783;
+  }
+  .product-name {
+    margin-top: 7px;
+  }
+}
+.configuration-incomplete-message {
+  align-items: center;
+  text-align: center;
+  background-color: pink;
+  padding: 10px;
+  font-size: 15px;
+  span {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

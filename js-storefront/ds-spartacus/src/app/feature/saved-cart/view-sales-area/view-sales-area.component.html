@@ -1,0 +1,97 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content restore-cart-container">
+    <ng-container>
+      <div class="cx-dialog-header m-0 p-0">
+        <div class="cx-dialog-title modal-title">
+          <span *ngIf="msgFlag">{{
+            'savedCart.salesPopupTitle' | cxTranslate
+          }}</span>
+          <span *ngIf="!msgFlag">{{ 'savedCart.title' | cxTranslate }}</span>
+        </div>
+        <button
+          type="button"
+          class="close m-0 p-0"
+          aria-label="Close"
+          (click)="closeModal('close')"
+        >
+          <i class="material-icons closeIcon">close</i>
+        </button>
+      </div>
+      <hr />
+      <div class="cx-dialog-body modal-body group-modal-body">
+        <div class="container">
+          <div class="info-title">
+            <span *ngIf="msgFlag"
+              >{{ 'savedCart.salesPopupInfo' | cxTranslate }}
+            </span>
+            <span *ngIf="!msgFlag">
+              <span *ngIf="newMessage">
+                {{ newMessage }}
+              </span>
+              <span *ngIf="!newMessage">
+                {{ 'savedCart.restoreDialogHint' | cxTranslate }}
+              </span>
+            </span>
+          </div>
+          <div *ngIf="exist" class="cart-exist info-title">
+            {{ 'savedCart.cartExist' | cxTranslate }}
+          </div>
+          <div class="row desc-text mt-3 mb-3" *ngIf="activeCart > 0">
+            <span class="span-field custom-title">{{
+              'savedCart.saveCurrentCartAs' | cxTranslate
+            }}</span>
+            <div class="vs-text-field ml-3">
+              <bh-text-input
+                type="text"
+                [value]="cartName"
+                (keyup)="onChange($event, 'cart')"
+              >
+              </bh-text-input>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="msgFlag">
+            <div class="col-md-6">
+              <span class="span-header mt-1"
+                >{{ 'savedCart.currentSalesArea' | cxTranslate }}
+              </span>
+              <p>{{ currentSalesArea }} {{ currentSalesAreaId }}</p>
+            </div>
+            <div class="col-md-6 mt-1">
+              <span class="span-header"
+                >{{ 'savedCart.newSalesArea' | cxTranslate }}
+              </span>
+              <p>{{ salesAreaName }} {{ salesAreaId }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer mt-3">
+        <bh-button
+          medium
+          type="secondary"
+          label="{{ 'savedCart.cancel' | cxTranslate }}"
+          (click)="closeModal(true)"
+        >
+        </bh-button>
+        <bh-button
+          *ngIf="msgFlag"
+          class="restoreBtn"
+          medium
+          type="primary"
+          label="{{ 'savedCart.saveCartChange' | cxTranslate }}"
+          (click)="checkCartBeforeSave()"
+        ></bh-button>
+        <bh-button
+          class="m-0"
+          *ngIf="!msgFlag"
+          medium
+          type="primary"
+          label="{{ 'savedCart.restore1' | cxTranslate }}"
+          (click)="checkCartBeforeSave()"
+        ></bh-button>
+      </div>
+    </ng-container>
+  </div>
+</div>

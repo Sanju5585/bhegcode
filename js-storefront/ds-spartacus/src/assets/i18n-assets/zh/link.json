@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "其他网站和链接",
+    "tblSiteName": "网站名称",
+    "productLine": "业务部门",
+    "tblDescription": "描述",
+    "type": "类型",
+    "loginRequired": "访问权限",
+    "error": {
+      "errorMessage": "发生错误，请稍后再试."
+    }
+  }
+}

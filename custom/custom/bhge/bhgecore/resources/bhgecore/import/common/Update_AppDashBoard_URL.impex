@@ -1,0 +1,5 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];url
+                       ;;AppDashboardLink;/dashboard

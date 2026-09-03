@@ -1,0 +1,29 @@
+
+###### mark order submission cron job to inactive ########################
+UPDATE CronJob; code [unique=true]; active
+;bhgeOrderSubmissionJobExecute;false
+
+#UPDATE CronJob; code [unique=true];active
+#;bhgeOrderAttachmentJobExecute;false
+
+UPDATE compositecronjob;code[unique=true];active
+;bhgeOrderSubmitCompositeJob;false
+
+## TRIGGER FOR EVERY 5 MINUTES ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeOrderAttachmentJobExecute;0;5;0;0;0;0;true;true;-1
+
+
+
+###### Cron job to submit the config attachment  ########################
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true];active
+;bhgeOrderEntryConfigAttachmentJob;bhgeOrderEntryConfigAttachmentJob;true
+
+INSERT_UPDATE CronJob; code [unique=true]; job (code); sessionLanguage(isocode);active
+;bhgeOrderEntryConfigAttachmentCronJob;bhgeOrderEntryConfigAttachmentJob;en;true
+
+
+## TRIGGER FOR EVERY 10 MINUTES ##
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;bhgeOrderEntryConfigAttachmentCronJob;0;10;0;0;0;0;true;true;-1

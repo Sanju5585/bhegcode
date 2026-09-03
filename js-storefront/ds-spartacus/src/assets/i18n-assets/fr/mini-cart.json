@@ -1,0 +1,28 @@
+{
+  "mini-cart": {
+    "showing": "Showing {{ shown }} of {{ total }} products",
+    "of": " de ",
+    "products": "produits",
+    "total": "Total",
+    "quantity": "Quantité",
+    "viewCart": "Voir le panier",
+    "cartEmpty": "Your shopping cart is empty",
+    "browseOurProducts": "Parcourez nos produits en sélectionnant une catégorie ci-dessus",
+    "cartTrouble": "Having trouble with your cart?",
+    "deleteAllCarts": "Reset all carts",
+    "buyCart": "ACHETER LE PANIER ",
+    "returnCart": "Panier de retour",
+    "activeGuestCart": "PANIER D'INVITÉ ACTIF",
+    "activeRFQCart": "PANIER D'INVITÉ RFQ",
+    "quoteCart": "QUOTE CART",
+    "deleteAllCartsPopupTitle": "This action will permanently reset all customer shopping carts.",
+    "deleteAllCartsPopupPoint1": "Active carts will be lost",
+    "deleteAllCartsPopupPoint2": "This cannot be undone",
+    "deleteAllCartsPopupConfirmMessage": "Are you sure you want to continue?",
+    "deleteAllCartsPopupCancel": "Annuler",
+    "deleteAllCartsPopupConfirm": "Yes, Continue",
+    "deleteAllCartsPopupCartNotFoundTitle": "There seems to be an issue while loading your carts.",
+    "deleteAllCartsPopupResetMessage": "Please reset your cart to continue.",
+    "deleteAllCartsPopupActiveLost": "Active cart will be lost"
+  }
+}

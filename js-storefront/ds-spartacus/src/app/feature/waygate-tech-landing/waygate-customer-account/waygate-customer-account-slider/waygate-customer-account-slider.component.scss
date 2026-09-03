@@ -1,0 +1,113 @@
+@import '../../../../../styles/responsive_mixins.scss';
+.change-cust-main {
+  padding: 32px 52px 32px 32px;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  background-color: aqua;
+  right: 0;
+  background-color: #ffffff;
+  top: 0;
+  width: 740px;
+  max-height: calc(100vh - 117px);
+  min-height: calc(100vh - 117px);
+  height: auto;
+  overflow: auto;
+  transition: width 1s;
+  animation-name: slide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  margin-bottom: 125px;
+
+  @include media-md-max
+  {
+    left: -11%;
+    top: -85%;
+    width: 115%;
+    min-height: 178vh;
+    max-height: 178vh;
+  }
+  @include media-md-lg{
+    left: -5%;
+    top: -97%;
+    width: 107%;
+    min-height: 178vh;
+    max-height: 178vh;
+  }
+  .customer-title {
+    font-weight: 600;
+    font-size: var(--font-base-font-size-20);
+    line-height: 26px;
+    letter-spacing: 0.1px;
+    color: #1a2321;
+    white-space: nowrap;
+    .material-icons {
+      float: right;
+    }
+    @include media-sm-max {
+      .material-icons {
+        margin: -9% -8% 0 0;
+      }
+    }
+    @include media-sm-md{
+      .material-icons {
+        margin: -4% -8% 0 0;
+      }
+    }
+   
+  }
+
+  .customer-desc-text {
+    font-weight: normal;
+    font-size: var(--font-base-font-size-14);
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.1px;
+    color: #757575;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(740px, 0px);
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  margin-right: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #979797;
+  border-radius: 5px;
+}
+
+.change-legal-entity {
+  .change-legal-entity-action {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.title-label {
+  color: var(--color-text-common-primary);
+}
+
+.change-parent {
+  height: 100%;
+  width: 100%;
+  min-height: calc(100vh);
+  padding: 25px;
+  position: absolute;
+  z-index: 10;
+  background-color: black;
+  opacity: 0.3;
+  transition: width 0.5s;
+}

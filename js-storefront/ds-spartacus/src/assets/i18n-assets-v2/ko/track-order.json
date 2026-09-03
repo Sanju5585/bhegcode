@@ -1,0 +1,29 @@
+{
+  "track-order": {
+    "customerNumber": "고객 번호",
+    "searchByPoOrOrderorRMANumber": "PO 혹은 주문 혹은 RMA 번호를 이용하여 검색",
+    "trackOrderBreadcrumb": "주문 추적",
+    "trackOrderHeader": "주문 추적",
+    "trackOrderBtn": "주문 추적",
+    "whereDofind": "이것을 어디에서 찾을 수 있나요?",
+    "na": "NA",
+    "noDataFound": "날짜를 찾을 수 없습니다.",
+    "orderNotFound": "주문을 찾을 수 없습니다.",
+    "itemsHeader": "제품",
+    "orderNumber": "주문 번호",
+    "poDateHeader": "PO 날짜:",
+    "orderReceivedHeader": "주문 접수",
+    "orderStatusBlocked": "주문이 중단되었습니다.",
+    "orderStatusShipped": "주문 진행 중",
+    "shipped": "배송된",
+    "shipped&Invoiced": "배송된 & 송장 처리된",
+    "orderedCount": "주문한 제품 ({{count}})",
+    "itemDetails": "제품 세부 정보",
+    "orderSummryBtn": "주문 요약",
+    "itemsOrdered": "주문한 제품",
+    "wrongStore": "이 주문은 {{store}} 스토어에 속해 있지 않습니다. 이 주문은 다른 스토어에서 확인해 주세요.",
+    "wrongCustomer": "이 주문은 사용 중인 고객 계정에 표시되지 않습니다. 올바른 계정으로 전환하시겠습니까?",
+    "changeCustomer": "고객 변경",
+    "cancel": "취소"
+  }
+}

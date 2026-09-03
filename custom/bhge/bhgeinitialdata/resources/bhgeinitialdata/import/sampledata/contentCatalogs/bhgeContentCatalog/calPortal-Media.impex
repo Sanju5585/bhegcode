@@ -1,0 +1,24 @@
+#
+# Import the CMS content for the bhgeContentCatalog site
+#
+$contentCatalog=bhgeContentCatalog
+$contentCatalogName=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$siteResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+$jarResourceCms=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/sampledata/cockpits/cmscockpit
+$siteUid=bhge
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+
+INSERT_UPDATE Media;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime;$contentCV[unique=true]
+;M;$siteResource/calportal/probimages/M.png;image/png;
+;TF;$siteResource/calportal/probimages/TF.png;image/png;
+;MIS;$siteResource/calportal/probimages/MIS.png;image/png;
+;HYGROPRO;$siteResource/calportal/probimages/HYGROPRO.png;image/png;
+;VERIDRI;$siteResource/calportal/probimages/VERIDRI.png;image/png;
+;CalibrationPdfXslTemplate;$siteResource/calportal/calibrationPDF/CalibrationPDF.xsl;text/xsl;
+;HeaderLogo;$siteResource/calportal/calibrationPDF/HeaderLogo.png;image/png;

@@ -1,0 +1,20 @@
+<div class="waygate-sold-to-address">
+  <div>
+    <div class="address-header">{{ 'titles.soldToAddress' | cxTranslate }}</div>
+    <div class="address-box">
+      <div class="address-header-text">
+        <div>{{ soldAddress?.companyName }}</div>
+        <div class="address-header-content">
+          {{ 'labels.customerAccountNumber' | cxTranslate }}:
+          {{ customerAccount }}
+        </div>
+        <div class="address-header-content">
+          {{ 'labels.address' | cxTranslate }}: {{ soldAddress?.line1 }},
+          {{ soldAddress?.town }}, {{ soldAddress?.region?.name }},
+          {{ soldAddress?.country?.name }}
+          {{ soldAddress?.postalCode }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

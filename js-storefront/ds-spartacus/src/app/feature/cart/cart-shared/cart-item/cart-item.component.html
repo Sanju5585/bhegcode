@@ -1,0 +1,439 @@
+<div
+  [ngClass]="{
+    'cx-compact row cart-entry m-0': compact,
+    'row cart-entry m-0': !compact,
+    'last-cart-entry': entryNum == totalEntries,
+  }"
+>
+  <div class="col-5 col-md-5 left-proditem row">
+    <div class="col-1 p-0">
+      <bh-checkbox
+        [checked]="checkAll"
+        value="true"
+        [name]="'cart-entry-' + entryNum"
+        (click)="checkEntry($event)"
+      ></bh-checkbox>
+      <span class="cart-entry-text-bold cart-entry-number">{{ entryNum }}</span>
+    </div>
+
+    <!-- Item Image -->
+    <div class="col-3 cx-image-container" *ngIf="productOpen">
+      <a
+        [routerLink]="{ cxRoute: 'product', params: item.product } | cxUrl"
+        (click)="viewItem(item)"
+        tabindex="-1"
+      >
+        <cx-media [container]="item.product.images?.PRIMARY"></cx-media>
+      </a>
+    </div>
+
+    <!-- Item Information -->
+    <div class="cx-info col-8">
+      <div class="cx-info-container">
+        <!-- Item Description -->
+        <div class="w-100">
+          <div *ngIf="item.product.code" class="cx-code entry-id">
+            <label>{{ 'buyCart.partModelNo' | cxTranslate }}</label>
+            <a
+              class="cx-link cart-entry-text-bold"
+              [routerLink]="
+                { cxRoute: 'product', params: item.product } | cxUrl
+              "
+              (click)="viewItem(item)"
+              >{{ item.product.code }}
+            </a>
+          </div>
+          <div *ngIf="item.product.name" class="cx-name entry-name">
+            <label>{{ 'buyCart.partDescription' | cxTranslate }}</label>
+
+            <span class="cart-entry-text-bold">{{ item.product.name }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="comments-action-holder" *ngIf="productOpen">
+        <a
+          class="action-links"
+          *ngIf="!showCommentsInput"
+          (click)="showCommentsInput = true"
+          >+ {{ 'buyCart.addlinecomments' | cxTranslate }}</a
+        >
+        <div *ngIf="showCommentsInput" class="add-comments-controls">
+          <a class="action-links" (click)="showCommentsInput = false"
+            >- {{ 'buyCart.addlinecomments' | cxTranslate }}</a
+          >
+          <div class="vs-text-area">
+            <textarea
+              class="item-comments"
+              [(ngModel)]="newItem.entryNotes"
+              (input)="commentError = false"
+              maxlength="200"
+              [ngClass]="item.quoteCartEntryType ? 'disabled' : ''"
+              (blur)="saveComments()"
+            ></textarea>
+            <!-- <label
+
+              *ngIf="commentError && newItem.entryNotes?.length <= 0"
+              class="error"
+              >{{ 'buyCart.addSomeComments' | cxTranslate }}</label
+            >  -->
+            <!-- <label
+
+              *ngIf="showCommentsNotSavedErr && newItem.entryNotes?.length > 0"
+              class="error"
+              >{{ 'buyCart.commentsNotSaved' | cxTranslate }}</label
+            > -->
+            <div class="comments-action-holder mt-1 pl-0">
+              <!-- <a
+
+                #saveComments
+                *ngIf="!savingComments"
+                class="comment-save"
+                (mousedown)="onSaveCommentsMouseDown($event)"
+                (click)="saveComments()"
+              >
+                <i class="material-icons ml-0">save</i>
+              </a> -->
+              <!-- <span class="char-limit" *ngIf="savingComments"
+
+                >{{ 'buyCart.savingLoading' | cxTranslate }}</span
+              > -->
+              <label class="char-limit"
+                >{{ 'buyCart.charactersLeft' | cxTranslate
+                }}{{ 200 - newItem.entryNotes?.length }}</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-2 quantity-header p-0">
+    <!-- Item Quantity -->
+    <div *ngIf="productOpen">
+      <!-- <div
+        class="cart-entry-text-bold qty-text"
+        placement="left"
+        title="{{ 'buyCart.quantity' | cxTranslate }}"
+      >
+        {{ 'buyCart.quantity' | cxTranslate }}
+      </div> -->
+      <div [ngClass]="item.quoteCartEntryType ? 'disabled' : ''">
+        <cx-item-counter
+          [max]="maxQuantity"
+          [control]="quantityForm.get('quantity')"
+        ></cx-item-counter
+        ><label class="mr">{{ 'buyCart.each' | cxTranslate }}</label>
+        <span
+          class="lot-size-text"
+          *ngIf="
+            item.salesConversion &&
+            (item.salesUnit.toLowerCase() == 'pk' ||
+              item.salesUnit.toLowerCase() == 'pack')
+          "
+          >1 {{ 'buyCart.Pack' | cxTranslate }} = {{ item.salesConversion }} {{ 'buyCart.Units' | cxTranslate }}</span
+        >
+        <div *ngIf="item?.product?.minOrderQty" class="min-qty-error">
+          <span
+            class="min-qty-text"
+            [ngClass]="item?.minOrderQtyError ? 'error-text' : ''"
+          >
+            {{
+              'buyCart.minOrderProduct'
+                | cxTranslate: { productMinQty: item.product?.minOrderQty }
+            }}</span
+          >
+        </div>
+        <!-- Availability Action -->
+        <div
+          *ngIf="productOpen && showCheckAvalabilityAction"
+          class="availability-action-holder"
+        >
+          <bh-button
+            [type]="'primary'"
+            label="{{ 'buyCart.checkAvailability' | cxTranslate }}"
+            (click)="checkAvailability()"
+            [attr.loading]="showAvailabilityLoader"
+            small
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!productOpen">
+      <label>{{ 'buyCart.quantity' | cxTranslate }}</label
+      ><span class="cart-entry-text-bold">{{ item.quantity }} each</span>
+    </div>
+  </div>
+
+  <div class="col-2 quantity-header p-0">
+    <!-- Item Price -->
+    <div class="extended-price unit-selling-price">
+      <label>
+        <span>{{ 'buyCart.unitSelling' | cxTranslate }}</span
+        ><a
+          #viewBreakUp
+          class="view-breakup-link ml-1"
+          (click)="togglePriceBreakup()"
+          ><span>{{ 'buyCart.viewBreakup' | cxTranslate }}</span
+          ><span *ngIf="!breakUpMenu" class="material-icons"> expand_more </span
+          ><span *ngIf="breakUpMenu" class="material-icons">
+            expand_less
+          </span></a
+        >
+      </label>
+      <div *ngIf="item.subTotalListPrice" class="cart-entry-text-bold">
+        <span> {{ item.subTotalListPrice?.formattedValue }}</span>
+      </div>
+    </div>
+    <div
+      class="breakup-dropdown product-data-text"
+      [clickSourceId]="viewBreakUp"
+      (clickOutside)="togglePriceBreakup()"
+      *ngIf="breakUpMenu"
+      #breakupContent
+    >
+      <div *ngIf="item.listPrice" class="extended-price row">
+        <label>{{ 'buyCart.unitList' | cxTranslate }}</label>
+        <div class="cart-entry-text-bold">
+          <span> {{ item.listPrice?.formattedValue }}</span>
+        </div>
+      </div>
+      <div
+        class="extended-price row"
+        *ngIf="
+          item?.silverClausePrice?.value && item?.silverClausePrice?.value != 0
+        "
+      >
+        <label>
+          {{
+            'buyCart.silverClausePrice'
+              | cxTranslate
+                : {
+                    percent:
+                      item?.silverClausePricePercentage | number: '1.2-2',
+                  }
+          }}
+        </label>
+        <div class="cart-entry-text-bold">
+          <span
+            class="silverLink"
+            [ngClass]="
+              item?.silverClausePrice?.value > 0 ? 'negative' : 'positive'
+            "
+          >
+            <span *ngIf="item?.silverClausePrice.value > 0">{{
+              item?.silverClausePrice?.formattedValue
+            }}</span>
+            <span *ngIf="item?.silverClausePrice.value < 0"
+              >{{ cart?.currencyIso }} {{ cart?.currencySymbol }}
+              {{
+                getPositiveSilverClause(item?.silverClausePrice?.value)
+              }}</span
+            >
+          </span>
+        </div>
+      </div>
+      <div *ngIf="item.totalPrice" class="extended-price row">
+        <label>
+          <span>{{ 'buyCart.yourPrice' | cxTranslate }}</span>
+          <span *ngIf="item.discountPercentage" class="ml-1"
+            >({{ item.discountPercentage | number: '1.2-2' }}%
+            {{ 'buyCart.offListPrice' | cxTranslate }})</span
+          ></label
+        >
+        <div class="cart-entry-text-bold">
+          <span> {{ item.totalPrice?.formattedValue }}</span>
+        </div>
+      </div>
+      <div *ngIf="item.subTotalListPrice" class="extended-price row">
+        <label> {{ 'buyCart.unitSelling' | cxTranslate }} </label>
+        <div class="cart-entry-text-bold">
+          <span> {{ item.subTotalListPrice?.formattedValue }}</span>
+        </div>
+      </div>
+      <div *ngIf="item.netSellingPrice" class="extended-price row">
+        <label>{{ 'buyCart.netSelling' | cxTranslate }}</label>
+        <div class="cart-entry-text-bold">
+          <span> {{ item.netSellingPrice?.formattedValue }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- Extended Price -->
+    <div *ngIf="item.netSellingPrice" class="extended-price">
+      <label>{{ 'buyCart.netSelling' | cxTranslate }}</label>
+      <div class="cart-entry-text-bold">
+        <span> {{ item.netSellingPrice?.formattedValue }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3 row m-0 p-0">
+    <!-- Available At -->
+    <div class="col-11 p-0">
+      <div
+        *ngIf="newItem?.availabilityDetails?.length"
+        class="available-at-holder"
+      >
+        <label> {{ 'buyCart.availableat' | cxTranslate }}</label>
+        <div class="available-at-dropdown" *ngIf="productOpen">
+          <ng-select
+            (change)="onLegalEntitySelect($event, newItem)"
+            class="mb-1"
+            [(ngModel)]="selectedLegalEntity"
+            [class.disabled]="showAvailabilityLoader"
+            [searchable]="false"
+            [clearable]="false"
+            [disabled]="showAvailabilityLoader"
+            [class.error]="showDeliGrpError && deliGrpErrorType == '104'"
+            [ngClass]="newItem.quoteCartEntryType ? 'disabled' : ''"
+          >
+            <ng-option
+              *ngFor="let entity of newItem.availabilityDetails; let i = index"
+              [value]="entity"
+            >
+              {{ entity.plantName }} ({{
+                entity.actualStockQty.toString() | number: '1.0-0'
+              }})
+            </ng-option>
+          </ng-select>
+          <label
+            *ngIf="showDeliGrpError && deliGrpErrorType == '104'"
+            class="error req-ship-error"
+          >
+            {{ 'buyCart.differentGroupedtogether' | cxTranslate }}
+          </label>
+          <label *ngIf="showDiffPlantWarning" class="different-plant-warning">
+            <i class="material-icons mr-2">info</i>
+            <span>{{ 'buyCart.aware2weeks' | cxTranslate }}</span>
+          </label>
+        </div>
+        <div *ngIf="!productOpen" class="cart-entry-text-bold">
+          {{ this.selectedLegalEntity.plantName }}
+        </div>
+      </div>
+
+      <!-- Availability Info -->
+      <div *ngIf="!showCheckAvalabilityAction" class="availability-info-holder">
+        <label>{{ 'buyCart.availabilityInformation' | cxTranslate }}</label>
+        <div class="availability-info">
+          <label *ngIf="!newItem?.estShipData" class="cart-entry-text-bold">
+            {{ 'buyCart.noStockAvailable' | cxTranslate }}
+          </label>
+          <div class="availability-holder">
+            <ng-container *ngFor="let shipDate of newItem?.estShipData">
+              <div
+                class="col-12 bold-text p-0 mb-1 spec-value cart-entry-text-bold"
+              >
+                <span
+                  ><span>{{ getShipDate(shipDate) }}</span
+                  ><span *ngIf="shipDate?.stockQty">
+                    ({{ shipDate?.stockQty }})</span
+                  ></span
+                >
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="productOpen && checkAvailabilityError"
+        class="availability-info-holder"
+      >
+        <label class="cart-entry-text-bold error">
+          {{ 'buyCart.tryAgain' | cxTranslate }}
+        </label>
+      </div>
+
+      <div
+        class="delivery-groups-holder"
+        *ngIf="newItem.deliveryGroupNumber && isShipmentPartial"
+      >
+        <div class="vs-text-field">
+          <label>{{ 'buyCart.deliveryGroup' | cxTranslate }}</label>
+          <input
+            type="text"
+            [(ngModel)]="deliveryGroupNumber"
+            (blur)="onDeliveryGroupInputBlur()"
+            class="mb-1"
+            [class.error]="showDeliGrpError"
+            (input)="showDeliGrpError = false"
+            [disabled]="deliveryGroupLoader"
+          />
+          <div
+            *ngIf="deliveryGroupLoader"
+            class="delivery-group-spinner cx-spinner float-right"
+          >
+            <cx-spinner></cx-spinner>
+          </div>
+          <label
+            *ngIf="showDeliGrpError && deliGrpErrorType == '103'"
+            class="error req-ship-error"
+            >{{ 'buyCart.requestedShipDate' | cxTranslate }}</label
+          >
+          <label
+            *ngIf="showDeliGrpError && deliGrpErrorType == '104'"
+            class="error req-ship-error"
+            >{{ 'buyCart.shipLocationNotGroup' | cxTranslate }}</label
+          >
+          <label
+            *ngIf="showDeliGrpError && deliGrpErrorType == '100'"
+            class="error req-ship-error"
+            >{{ 'buyCart.enterDeliveryNumber' | cxTranslate }}</label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="toggle-arrow col-1 p-0">
+      <i
+        *ngIf="productOpen"
+        (click)="toggleProduct()"
+        class="material-icons right"
+      >
+        keyboard_arrow_up
+      </i>
+      <i
+        *ngIf="!productOpen"
+        (click)="toggleProduct()"
+        class="material-icons right"
+      >
+        keyboard_arrow_down
+      </i>
+    </div>
+  </div>
+
+  <div
+    *ngIf="productOpen"
+    class="action-holder float-right"
+    [ngClass]="!productOpen ? 'action-top-collapse' : 'action-top-expand'"
+  >
+    <a
+      class="action-links mr-3"
+      *ngIf="item.splitByAvailability"
+      (click)="splitEntry()"
+      >{{ 'buyCart.splitbyAvailability' | cxTranslate }}</a
+    >
+    <a
+      class="action-links"
+      (click)="openDeleteDialog(item.entryNumber)"
+      [ngClass]="item.quoteCartEntryType ? 'disabled' : ''"
+      >{{ 'buyCart.delete' | cxTranslate }}</a
+    >
+  </div>
+</div>
+
+<ng-template #total>
+  <div
+    *ngIf="item.totalPrice"
+    class="cx-total"
+    [ngClass]="compact ? '' : ' col-md-3 col-xl-2'"
+  >
+    <div
+      class="cx-label"
+      [ngClass]="compact ? '' : ' d-block d-md-none d-lg-none d-xl-none'"
+    >
+      {{ 'cartItems.total' | cxTranslate }}
+    </div>
+    <div class="cx-value">{{ item.totalPrice.formattedValue }}</div>
+  </div>
+</ng-template>

@@ -1,0 +1,32 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="cx-dialog-header modal-header">
+      <div class="cx-dialog-title modal-title d-flex">
+        <span class="material-icons info-icon"> warning </span>
+        <span>{{ 'waygate.outOfStock' | cxTranslate }}</span>
+      </div>
+    </div>
+    <div class="cx-dialog-body modal-body">
+      <div class="row">
+        <div class="cx-dialog-info col-md-12">
+          <p
+            [innerHTML]="
+              'waygate.theseProductsAreOutOfStock'
+                | cxTranslate: { oosProducts: oosProducts }
+            "
+          ></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 action-container">
+          <bh-button
+            [type]="'tertiary'"
+            label="{{ 'dashboard.okay' | cxTranslate }}"
+            (click)="closeModal('confirm-complete-order')"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

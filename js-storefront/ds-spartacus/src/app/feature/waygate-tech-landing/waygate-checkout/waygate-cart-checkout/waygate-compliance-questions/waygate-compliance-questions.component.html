@@ -1,0 +1,172 @@
+<div class="waygate-complaince-questions-main mt-4">
+  <div class="waygate-complaince-questions-heading">
+    {{ 'waygate.complianceCheck' | cxTranslate }}
+  </div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="waygate-complaince-questions">
+      <div class="mb-2">
+        <!-- <ul>
+          <li>
+            <label class="question-text mb-2">
+              {{ 'waygate.complianceQuestionText' | cxTranslate }}
+            </label>
+          </li>
+          <li>
+            <label class="question-text mb-2">
+              {{ 'waygate.nuclearOpportunity' | cxTranslate }}
+            </label>
+          </li>
+          <li>
+            <label class="question-text mb-2">
+              <span *ngIf="isQuote"
+                >{{ 'waygate.quoteMaterialsOrder' | cxTranslate }}
+              </span>
+              <span *ngIf="!isQuote"
+                >{{ 'waygate.materialsOrder' | cxTranslate }}
+              </span>
+            </label>
+          </li>
+          <li>
+            <label class="question-text mb-2">
+              {{ 'waygate.governmentAgency' | cxTranslate }}
+            </label>
+          </li>
+        </ul> -->
+
+        <!-- First -->
+        <div>
+          <span class="star">*</span
+          ><span>
+            {{ 'waygate.updatedComplianceQuestionText' | cxTranslate }}
+          </span>
+        </div>
+        <div class="radio-btn">
+          <bh-radio-button
+            label="{{ 'labels.yes' | cxTranslate }}"
+            value="true"
+            name="govtAgencyFlagVal"
+            (change)="handleChange($event, 'govtAgencyFlagVal')"
+          ></bh-radio-button>
+
+          <bh-radio-button
+            label="{{ 'labels.no' | cxTranslate }}"
+            value="false"
+            name="govtAgencyFlagVal"
+            (change)="handleChange($event, 'govtAgencyFlagVal')"
+          ></bh-radio-button>
+        </div>
+
+        <!-- second -->
+        <div>
+          <span class="star">*</span
+          ><span>
+            {{ 'waygate.updatedNuclearOpportunity' | cxTranslate }}
+          </span>
+        </div>
+        <div class="radio-btn">
+          <bh-radio-button
+            label="{{ 'labels.yes' | cxTranslate }}"
+            value="true"
+            name="nuclearOpportFlagVal"
+            (change)="handleChange($event, 'nuclearOpportFlagVal')"
+          ></bh-radio-button>
+
+          <bh-radio-button
+            label="{{ 'labels.no' | cxTranslate }}"
+            value="false"
+            name="nuclearOpportFlagVal"
+            (change)="handleChange($event, 'nuclearOpportFlagVal')"
+          ></bh-radio-button>
+        </div>
+        <div *ngIf="nuclearOpportFlagVal == 'true' && productLine == allProductLine.bently" class="nuclear-error-msg">
+          <span class="material-icons" style="font-size: 18px;"> error_outline </span>
+          <div innerHTML="{{'waygate.nuclearShippingRemarks' | cxTranslate}}">
+          
+          </div>
+        </div>
+
+        <!-- fourth -->
+        <div>
+          <span class="star">*</span>
+          <span *ngIf="!isQuote">{{
+            'waygate.updatedMaterialsOrder' | cxTranslate
+          }}</span>
+          <span *ngIf="isQuote">{{
+            'waygate.updatedQuoteMaterialsOrder' | cxTranslate
+          }}</span>
+        </div>
+        <div class="radio-btn">
+          <bh-radio-button
+            label="{{ 'labels.yes' | cxTranslate }}"
+            value="true"
+            name="planToExportFlagVal"
+            (change)="handleChange($event, 'planToExportFlagVal')"
+          ></bh-radio-button>
+
+          <bh-radio-button
+            label="{{ 'labels.no' | cxTranslate }}"
+            value="false"
+            name="planToExportFlagVal"
+            (change)="handleChange($event, 'planToExportFlagVal')"
+          ></bh-radio-button>
+        </div>
+        <div *ngIf="planToExportFlagVal == 'true'" class="upload mt-3">
+          <span class="star">*</span
+          ><span *ngIf="!isQuote">{{
+            'labels.waygateOrderToExported' | cxTranslate
+          }}</span>
+          <span *ngIf="isQuote">{{
+            'labels.waygateQuoteToExported' | cxTranslate
+          }}</span>
+          <textarea
+            class="textarea-buycheckout col-lg-12 col-md-12 col-sm-12"
+            name="reasonForCsrReview"
+            [(ngModel)]="exportAddress"
+            (ngModelChange)="exportAddressVal()"
+          ></textarea>
+        </div>
+
+        <!-- third -->
+        <div>
+          <span class="star">*</span
+          ><span>
+            {{ 'waygate.updatedGovernmentAgency' | cxTranslate }}
+          </span>
+        </div>
+        <div class="radio-btn">
+          <bh-radio-button
+            label="{{ 'labels.yes' | cxTranslate }}"
+            value="true"
+            name="isBuyerFlagVal"
+            (change)="handleChange($event, 'isBuyerFlagVal')"
+          ></bh-radio-button>
+
+          <bh-radio-button
+            label="{{ 'labels.no' | cxTranslate }}"
+            value="false"
+            name="isBuyerFlagVal"
+            (change)="handleChange($event, 'isBuyerFlagVal')"
+          ></bh-radio-button>
+        </div>
+
+        <div
+          class="err-msg-css"
+          *ngIf="
+            submitted &&
+            (!planToExportFlagVal ||
+              !govtAgencyFlagVal ||
+              !nuclearOpportFlagVal ||
+              !isBuyerFlagVal ||
+              (planToExportFlagVal == 'true' &&
+                (exportAddress == null || exportAddress == '')))
+          "
+        >
+          <i
+            class="typography--icon-small bh-form-message__icon err-msg-icon-css"
+            >error_outline</i
+          >{{ 'waygate.itIsMandatory' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

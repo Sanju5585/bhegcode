@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "他のポータルとリンク",
+    "tblSiteName": "サイト名",
+    "productLine": "プロダクトカンパニー",
+    "tblDescription": "説明",
+    "type": "タイプ",
+    "loginRequired": "アクセスする",
+    "error": {
+      "errorMessage": "何らかのエラーが発生しました。後でもう一度お試しください"
+    }
+  }
+}

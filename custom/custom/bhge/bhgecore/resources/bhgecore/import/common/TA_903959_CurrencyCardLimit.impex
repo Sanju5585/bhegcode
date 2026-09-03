@@ -1,0 +1,6 @@
+INSERT_UPDATE BHGECurrencyCardThreshold;currency(isocode)[unique=true];cardLimit
+									   ;CAD                ;20000
+									   ;USD                ;20000
+									   ;EUR                ;20000
+									   ;GBP                ;20000
+

@@ -1,0 +1,119 @@
+<div class="training-docs-container">
+  <div class="row top-row">
+    <div class="table-heading col-md-6 pt-3">
+      <span class="heading">
+        {{ 'trainingDocs.heading' | cxTranslate }}
+      </span>
+    </div>
+    <div class="table-filter col-md-6">
+      <div class="sort-filter col-md-4">
+        <ng-select
+          [items]="sortingOption"
+          bindLabel="name"
+          placeholder="{{ 'trainingDocs.sortBy' | cxTranslate }}"
+          [closeOnSelect]="true"
+          bindValue="id"
+          (change)="sortData($event)"
+          [clearable]="false"
+        >
+        </ng-select>
+      </div>
+      <div class="search col-md-8">
+        <input
+          type="text"
+          class="form-control search-btn"
+          placeholder="{{ 'trainingDocs.searchInDocs' | cxTranslate }}"
+          #search
+          (keyup)="applyFilter($event.target.value)"
+          name="search"
+        />
+        <span><em class="material-icons search-icon">search</em></span>
+      </div>
+    </div>
+  </div>
+
+  <mat-table
+    class="clearfix contactfirst"
+    #table
+    [dataSource]="trainingDocs"
+    matSort
+  >
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'trainingDocs.name' | cxTranslate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        <div class="document-icon">
+          <span
+            class="material-icons file-icon"
+            *ngIf="element.fileType == 'PDF'"
+          >
+            picture_as_pdf
+          </span>
+          <span
+            class="material-icons file-icon"
+            *ngIf="element.fileType == 'YOUTUBE' || element.fileType == 'VIDEO'"
+          >
+            smart_display
+          </span>
+          <span *ngIf="element.type == 'PPT'">
+            <img
+              src="../../../assets/img/powerpoint-icon-png-26 1.png"
+              alt="PPT"
+            />
+          </span>
+          <span class="file-name"> {{ element.name }}</span>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"
+        >{{ 'trainingDocs.dateModified' | cxTranslate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        {{ element.modifiedTime | date: 'd MMM y' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="download">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"> </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index" class="tb-content">
+        <span
+          class="material-icons-outlined download-icon"
+          (click)="downloadFile(element, i)"
+          *ngIf="element.fileType != 'YOUTUBE' && !downloading[i]"
+        >
+          get_app
+        </span>
+        <div
+          class="download-docs-spinner cx-spinner"
+          *ngIf="downloading[i] && element.fileType != 'YOUTUBE'"
+        >
+          <cx-spinner></cx-spinner>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+      <mat-header-cell *matHeaderCellDef class="tb-heading"> </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="tb-content">
+        <bh-button
+          type="primary"
+          label="{{'trainingDocs.view' | cxTranslate }}"
+          class="submit"
+          (click)="openDocument(element)"
+        ></bh-button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <div class="training-docs-spinner cx-spinner" *ngIf="loadSpinner">
+    <cx-spinner></cx-spinner>
+  </div>
+  <div *ngIf="trainingDocs?.length == 0">
+    <p class="norecords">{{ 'trainingDocs.noRecordFound' | cxTranslate }}</p>
+  </div>
+</div>

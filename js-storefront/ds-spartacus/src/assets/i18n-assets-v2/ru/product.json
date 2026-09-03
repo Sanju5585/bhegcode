@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "ID",
+    "quantity": "Количество",
+    "productDetails": "Информация о продукте",
+    "specification": "Характеристики",
+    "reviews": "Отзывы",
+    "shipping": "Доставка",
+    "share": "Поделиться",
+    "showReviews": "Показать отзывы",
+    "noReviews": "Пока отзывов нет"
+  },
+  "productList": {
+    "filterBy": {
+      "label": "Фильтровать по",
+      "action": "Фильтровать по"
+    },
+    "appliedFilter": "Примененный фильтр:",
+    "showLess": "Показать меньше...",
+    "showMore": "Показать больше...",
+    "sortByRelevance": "Сортировать по релевантности",
+    "backToTopBtn": "ВЕРНУТЬСЯ НА ВВЕРХ",
+    "showMoreBtn": "ПОКАЗАТЬ БОЛЬШЕ"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "Фильтровать по",
+      "action": "Фильтровать по"
+    },
+    "appliedFilter": "Примененный фильтр:",
+    "showLess": "Показать меньше...",
+    "showMore": "Показать больше...",
+    "sortByRelevance": "Сортировать по релевантности"
+  },
+  "productSummary": {
+    "id": "ID",
+    "showReviews": "Показать отзывы",
+    "share": "Поделиться"
+  },
+  "productReview": {
+    "overallRating": "Общая оценка",
+    "reviewTitle": "Заголовок отзыва",
+    "writeYourComments": "Напишите свои комментарии",
+    "rating": "Рейтинг",
+    "reviewerName": "Имя отправителя отзыва (необязательно)",
+    "writeReview": "Написать отзыв",
+    "more": "Больше",
+    "less": "Меньше",
+    "thankYouForReview": "Спасибо за Ваш Отзыв! Обратите внимание, что отзывы могут потребовать проверки перед публикацией."
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "Товар (ы) добавлен в корзину",
+    "itemsIncrementedInYourCart": "Этот товар уже был в вашей корзине. Количество было обновлено.",
+    "items": "Товары",
+    "updatingCart": "Обновление корзины...",
+    "addToCart": "Добавить в корзину",
+    "viewCart": "посмотреть корзину",
+    "proceedToCheckout": "продолжить к выходу",
+    "quantity": "Количество",
+    "outOfStock": "Нет на складе",
+    "inStock": "На складе",
+    "selectStyleAndSize": "Select style and size to check stock"
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "Информация о продукте",
+      "ProductSpecsTabComponent": "Характеристики",
+      "ProductReviewsTabComponent": "Отзывы",
+      "deliveryTab": "Доставка",
+      "TabPanelContainer": "Tab Container"
+    }
+  },
+  "variant": {
+    "style": "Стиль",
+    "selectedStyle": "Selected style",
+    "size": "Размер",
+    "color": "Цвет",
+    "sizeGuideLabel": "Style guide"
+  },
+  "addToWishList": {
+    "add": "Добавить в список наблюдения",
+    "remove": "Удалить из списка наблюдения",
+    "anonymous": "Sign in to add to wish list"
+  },
+  "stockNotification": {
+    "notifyMe": "УВЕДОМИТЬ МЕНЯ",
+    "stopNotify": "ОСТАНОВИТЬ УВЕДОМЛЕНИЯ",
+    "getNotify": "Получить уведомление когда данный товар будет доступен.",
+    "getNotifySuffix": "получить уведомление когда данный товар будет доступен.",
+    "activateChannelsPrefix": "получить уведомление когда вам будет необходимо активировать  ",
+    "channelsLink": "Каналы уведомлений",
+    "activateChannelsSuffix": ".",
+    "notified": "Вы получите уведомление, когда товар появится в наличии.",
+    "getNotified": "Получить уведомление, когда этот товар появится в наличии.",
+    "unsubscribeSuccess": "Вы не получите уведомление о наличии товара на складе.",
+    "subscriptionDialog": {
+      "header": "Out of stock subscription",
+      "notifiedPrefix": "Вы будете уведомлены:",
+      "notifiedSuffix": "как только этот товар появится на складе.",
+      "manageChannelsPrefix": "Управляйте предпочитаемыми каналами уведомлений на ",
+      "manageChannelsLink": "Настройки уведомлений",
+      "manageChannelsSuffix": " страница.",
+      "manageSubscriptionsPrefix": "Вы можете управлять своими подписками на ",
+      "manageSubscriptionsLink": "Мои интересы",
+      "manageSubscriptionsSuffix": " страница.",
+      "okBtn": "ОК",
+      "subscribing": "Подписка на уведомления об отсутствии на складе этого продукта"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+.waygate-notification-email-container {
+  h4.common-header {
+    color: #121212;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #ced7d4;
+  }
+
+  .notification-content-row {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    .service-reminder-text {
+      flex-basis: 80%;
+      .reminder-head {
+        font-size: 14px;
+        font-weight: 600;
+        color: #121212;
+      }
+      .reminder-para {
+        font-size: 14px;
+        font-weight: 400;
+        color: #595959;
+      }
+    }
+    .switch-container {
+      flex-basis: 20%;
+      display: flex;
+      justify-content: flex-end;
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 22px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: '';
+        height: 18px;
+        width: 18px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #02a783;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #02a783;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(27px);
+        -ms-transform: translateX(27px);
+        transform: translateX(27px);
+      }
+
+      .slider.round {
+        border-radius: 22px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    }
+    .notification-input-item {
+      flex: 1;
+      .element-label {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .notification-input {
+        border: 1px solid #ced7d4;
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        height: 44px;
+      }
+    }
+  }
+  .notification-border {
+    border-bottom: 1px solid #ced7d4;
+  }
+  .padd-top-0 {
+    padding-top: 0;
+  }
+  .multiple-email-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .email-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .material-icons {
+      cursor: pointer;
+    }
+  }
+  .add-email {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #02a783;
+    font-weight: 600;
+    padding: 20px 0 5px 0;
+    cursor: pointer;
+    .material-icons {
+      cursor: pointer;
+    }
+  }
+  .limit-warning {
+    color: #595959;
+    font-size: 12px;
+    &.warning {
+      font-size: 14px;
+      color: #e87516;
+    }
+  }
+}

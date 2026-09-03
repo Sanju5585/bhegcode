@@ -1,0 +1,71 @@
+.box-container {
+  background: var(--color-fill-common-primary);
+  min-height: 362px;
+  padding: var(--spacing-padding-large);
+  border-radius: 8px;
+  border: 1px solid var(--border-form-hover, #e7e7e7);
+  background: var(--fill-common-secondary, #fff);
+}
+.box-title {
+  font-size: var(--font-size-subtitle-large);
+  font-family: var(--font-family-headline-small);
+  font-weight: var(--font-weight-headline-small);
+  padding-bottom: 5px;
+}
+.box-container p {
+  font-family: var(--font-family-body-small);
+  font-size: var(--font-size-body-medium);
+  line-height: var(--font-line-height-body-medium);
+  top: -15px;
+  color: var(--text-common-secondary, #595959);
+}
+.view-data-link {
+  text-decoration: var(--font-base-text-decoration-underline);
+  color: var(--color-fill-cta-primary-default);
+}
+.box-text-gold {
+  color: var(--color-base-data-viz-600);
+}
+.calibration-buttons-wrap {
+  position: relative;
+  bottom: -12px;
+  width: 100%;
+}
+
+.btn-align-pos {
+  display: contents;
+}
+
+:host::ng-deep {
+  .calibration-buttons-wrap .bh-button {
+    min-width: 210px;
+  }
+  @media only screen and (max-width: 768px) {
+    .calibration-buttons-wrap {
+      bottom: -10px;
+    }
+  }
+}
+
+.calibrationCompanyInfo {
+  position: relative;
+  top: -15px;
+  left: -15px;
+  color: var(--text-common-secondary, #595959);
+  font-family: var(--font-family-body-medium);
+}
+
+.calibrationBoxDescription2 {
+  position: relative;
+  top: 0px;
+}
+
+.box-heading {
+  color: var(--text-common-primary, #121212);
+  font-size: var(--font-size-subtitle-medium);
+}
+:host::ng-deep {
+  .typography--button-link-medium {
+    font-size: var(--font-family-body-small);
+  }
+}

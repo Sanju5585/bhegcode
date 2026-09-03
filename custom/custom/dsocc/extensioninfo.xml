@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+
+
+    <extension abstractclassprefix="Generated" classprefix="Dsocc" description="dsocc extension" jaloLogicFree="true" managername="DsoccManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="dsocc">
+
+
+        <!-- you should add all required extensions to this list, except platform extensions which are automatically required -->
+
+
+        <requires-extension name="commercewebservices"/>
+        <requires-extension name="commercewebservicescommons"/>
+        <requires-extension name="b2bwebservicescommons"/>
+        <requires-extension name="b2bacceleratorfacades"/>
+        <requires-extension name="bhgefacades"/>
+        <requires-extension name="bhgecommonutils"/>
+		<requires-extension name="bhgeticketingaddon"/>
+		<requires-extension name="bhgeregisterwebservices"/>
+		<requires-extension name="sapproductconfigocc"/>
+        <requires-extension name="resourceserver"/>
+        <requires-extension name="webservicescommons"/>
+
+        <coremodule generated="true" manager="com.bh.occ.jalo.DsoccManager" packageroot="com.bh.occ"/>
+
+
+
+
+    </extension>
+
+
+</extensioninfo>

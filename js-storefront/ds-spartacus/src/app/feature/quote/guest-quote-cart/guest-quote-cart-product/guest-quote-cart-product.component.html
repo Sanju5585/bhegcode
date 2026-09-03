@@ -1,0 +1,134 @@
+<mat-accordion multi>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header
+      class=""
+      role="none"
+      (click)="isexpandProductDesc = !isexpandProductDesc"
+    >
+      <div class="row w-100 pt-3">
+        <div class="col-md-2 product-title flex-direction-row">
+          <bh-checkbox
+            value="true"
+            class="checkboxcart"
+            [name]="'cart-entry-' + entryNum"
+            [attr.checked]="selectAll"
+            (click)="checkEntry($event)"
+          ></bh-checkbox>
+          <span class="product-title-span1"
+            >{{ 'quote-cart.item' | cxTranslate }} {{ entryNum + 1 }}
+          </span>
+        </div>
+        <div class="col-md-4 product-heading mt-3" *ngIf="isexpandProductDesc">
+          {{ item.product.name }} | {{ item.product.code }}
+        </div>
+        <div class="col-md-5 mt-3" *ngIf="isexpandProductDesc">
+          <span class="product-info-col-heading ml-3">{{
+            'quote-cart.quantity' | cxTranslate
+          }}</span>
+          {{ item.quantity }}
+        </div>
+        <div class="col-md-1 mt-3" *ngIf="isexpandProductDesc">
+          <span class="delete-icon">
+            {{ 'quote-cart.delete' | cxTranslate }}
+          </span>
+        </div>
+      </div>
+    </mat-expansion-panel-header>
+
+    <div
+      id="productdetails"
+      [ngbCollapse]="isexpandProductDesc"
+      class="product-desc"
+    >
+      <div class="main-product">
+        <div class="row mt-3">
+          <div class="col-md-11 product-heading" *ngIf="item.product.code">
+            {{ item.product.name }} | {{ item.product.code }}
+          </div>
+          <div class="col-md-1 edit-quote-cart p-0 flex-direction-row">
+            <span class="delete-icon pl-20" (click)="openDeleteDialog()">
+              {{ 'quote-cart.delete' | cxTranslate }}
+            </span>
+          </div>
+        </div>
+
+        <div class="row product-info">
+          <div class="col-md-2">
+            <div class="col-3 cx-image-container">
+              <cx-media
+                class="cx-product-image"
+                [container]="item.product.images?.PRIMARY"
+                format="item.product"
+                [alt]="item.product.name"
+              ></cx-media>
+            </div>
+          </div>
+          <div class="col-md-4 product-info-col">
+            <span class="product-info-col-heading">
+              {{ 'quote-cart.comments' | cxTranslate }}
+            </span>
+            <div class="comments-action-holder">
+              <div class="add-comments-controls">
+                <div class="vs-text-area">
+                  <textarea
+                    class="item-comments"
+                    [(ngModel)]="newItem.entryNotes"
+                    (input)="commentError = false"
+                    maxlength="200"
+                    [ngClass]="item.quoteCartEntryType ? 'disabled' : ''"
+                    (blur)="onCommentsInputBlur($event); saveComments()"
+                  ></textarea>
+                  <span class="char-limit"
+                    >{{ 'quote-cart.characterlefft' | cxTranslate }}
+                    {{ 200 - newItem.entryNotes?.length }}</span
+                  >
+                  <!-- <label
+
+                    *ngIf="commentError && newItem.entryNotes?.length <= 0"
+                    class="error"
+                    >{{ "quote-cart.commenterror" | cxTranslate }}</label
+                  >
+                  <label
+
+                    *ngIf="showCommentsNotSavedErr && newItem.entryNotes?.length > 0"
+                    class="error"
+                    >{{ "quote-cart.commentscart" | cxTranslate }}</label
+                  > -->
+                  <div class="comments-action-holder mt-1 pl-0">
+                    <!-- <a
+
+                    #saveComments
+                    *ngIf="!savingComments"
+                    class="comment-save"
+                    (mousedown)="onSaveCommentsMouseDown($event)"
+                    (click)="saveComments()"
+                  >
+                    <i class="material-icons ml-0">save</i>
+                  </a> -->
+                    <span class="char-limit" *ngIf="savingComments">
+                      {{ 'quote-cart.saving' | cxTranslate }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 product-info-col">
+            <span class="product-info-col-heading">
+              {{ 'quote-cart.quantity' | cxTranslate }}
+            </span>
+            <div class="flex-direction-row mt-2 quantityprod">
+              <cx-item-counter
+                [max]="maxQuantity"
+                [control]="quantityForm.get('quantity')"
+              ></cx-item-counter
+              ><label class="mt-1 ml-1">
+                {{ 'quote-cart.each' | cxTranslate }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

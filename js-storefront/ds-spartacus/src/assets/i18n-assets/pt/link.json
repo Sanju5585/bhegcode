@@ -1,0 +1,13 @@
+{
+  "link": {
+    "pageTitle": "Other Portals & Links",
+    "tblSiteName": "Nome do Local",
+    "productLine": "Empresa do produto",
+    "tblDescription": "Descrição",
+    "type": "Tipo",
+    "loginRequired": "Acesse",
+    "error": {
+      "errorMessage": "Algo deu errado, tente novamente mais tarde."
+    }
+  }
+}

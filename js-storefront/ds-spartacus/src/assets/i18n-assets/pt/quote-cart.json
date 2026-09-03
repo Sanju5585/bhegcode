@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "Carrinho de cotação de convidado",
+    "checkoutBtn": "FAZER O CHECK-OUT",
+    "delete": "excluir",
+    "comments": "Comentários",
+    "quantity": "Quantidade",
+    "each": "Cada",
+    "saving": "Salvando ...",
+    "commentscart": "Comentários não salvos, clique no ícone Salvar para salvar seus comentários",
+    "commenterror": "Por favor, adicione alguns comentários antes de salvar",
+    "characterlefft": "Caracteres restantes:",
+    "item": "Item",
+    "cartEmpty": "Seu carrinho está vazio",
+    "noItemIncart": "Você não tem nenhum item em seu carrinho.",
+    "explore": "Explorar ",
+    "ourCatalogue": "Nosso Catálogo ",
+    "toAdditems": "para adicionar itens",
+    "error": {
+      "removeMsg": "Os itens selecionados foram removidos com sucesso",
+      "errorMessage": "Algo deu errado, tente novamente mais tarde."
+    }
+  }
+}

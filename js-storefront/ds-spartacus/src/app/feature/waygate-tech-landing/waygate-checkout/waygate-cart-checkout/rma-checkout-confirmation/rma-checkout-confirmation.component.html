@@ -1,0 +1,559 @@
+<div class="confirmation" *ngIf="data; else loading">
+  <div class="mt-3 mb-3 status">
+    <p class="success-box">
+      <span class="success-text-bold">
+        {{ 'rma-confirmation.successMessagePlaceOrder' | cxTranslate }}</span
+      >
+      {{ 'rma-confirmation.infoMsg' | cxTranslate }}
+      <span class="navigate" (click)="goToReturns()">{{
+        'rma-confirmation.myReturns' | cxTranslate
+      }}</span>
+    </p>
+
+    <p
+      class="success-line-note"
+      *ngIf="
+        data?.ordersList[0].returnNumber == 'PENDING' ||
+        data?.ordersList[0].returnNumber == '-'
+      "
+    >
+      <span class="success-line-bold">
+        {{ 'rma-confirmation.note' | cxTranslate }} </span
+      ><span class="success-line-error">
+        <span class="success-line-error">{{
+          'rma-confirmation.shipMsg' | cxTranslate
+        }}</span
+        >{{ 'rma-confirmation.productMsg' | cxTranslate }}
+      </span>
+      {{ 'rma-confirmation.approveMsg' | cxTranslate }}
+    </p>
+  </div>
+  <div class="header">
+    {{ 'rma-confirmation.returnSummary' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row mb-3">
+    <div class="col-sm-3">
+      <div class="header-inner">
+        {{ 'rma-confirmation.dateRequested' | cxTranslate }}
+      </div>
+      <p>{{ this?.orderconfirm }}</p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.requestPlacedBy' | cxTranslate }}
+      </div>
+      <p>{{ data?.ordersList[0].orgCustomer.name }}</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="header-inner">
+        {{ 'rma-confirmation.rmaNumbers' | cxTranslate }}
+      </div>
+      <p>{{ getRmaNumbers(data?.ordersList).join(', ') }}</p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.rmaStatus' | cxTranslate }}
+      </div>
+      <p>{{ data?.ordersList[0].status }}</p>
+    </div>
+    <div class="col-sm-3" *ngFor="let rmaDetail of data.ordersList">
+      <div class="order-detail">
+        <div class="order-row-header mb-2">
+          <span class="mr-2">RMA</span>
+          <span>{{ rmaDetail.returnNumber }}</span>
+        </div>
+        <div class="order-detail-row">
+          <p>{{ 'rma-confirmation.totalItems' | cxTranslate }}</p>
+          <span>{{ rmaDetail.totalItems }}</span>
+        </div>
+        <!-- <div class="order-detail-row">
+          <p>{{ 'rma-confirmation.totalEstimate' | cxTranslate }}</p>
+          <span
+            >{{(rmaDetail?.totalListPrice.value)<=0 ? 'To be quoted':
+            rmaDetail?.totalListPrice.formattedValue}}</span
+          >
+        </div> -->
+
+        <div
+          *ngIf="rmaDetail?.ordersilverClause?.value > 0"
+          class="order-detail-row"
+        >
+          <p>{{ 'rma-confirmation.discounts' | cxTranslate }}</p>
+          <span>{{
+            rmaDetail?.ordersilverClause?.value <= 0
+              ? '-'
+              : rmaDetail?.ordersilverClause.formattedValue
+          }}</span>
+        </div>
+
+        <div class="order-detail-row">
+          <p class="header-inner">
+            {{ 'rma-confirmation.requestTotal' | cxTranslate }}
+          </p>
+          <p class="header-inner">
+            {{
+              rmaDetail?.totalPrice?.value <= 0
+                ? 'To be
+            quoted'
+                : rmaDetail?.totalPrice?.formattedValue
+            }}
+          </p>
+        </div>
+
+        <span class="addInfo">{{
+          'rma-confirmation.plusTaxCharges' | cxTranslate
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let orderNo of data?.ordersList; index as j">
+    <div class="table-header head">
+      <div class="label-left">
+        <div>
+          <p class="order">
+            <span>{{ 'rma-confirmation.rmaNumber' | cxTranslate }}</span>
+            <span class="ml-1 mr-1">&mdash;</span>
+            <span class="return-status">{{
+              data?.ordersList[j].returnNumber
+            }}</span>
+          </p>
+
+          <p class="text-dark">
+            {{ orderNo.totalItems }}{{ 'rma-confirmation.items' | cxTranslate }}
+          </p>
+        </div>
+
+        <!-- <div class="ml-3">
+          <p class="order">
+            <span *ngIf="data?.ordersList[j].returnLocation != 'null'"
+              >{{ data?.ordersList[j].returnLocation }}</span
+            >
+          </p>
+          <p class="text-dark">
+            {{orderNo.totalItems}}{{ 'rma-confirmation.items' | cxTranslate }}
+          </p>
+        </div> -->
+      </div>
+
+      <div class="label-right">
+        <div>
+          <p class="order">
+            {{ 'rma-confirmation.requestTotal' | cxTranslate }}
+          </p>
+          <p class="text-dark">
+            {{
+              orderNo.totalPrice.value <= 0
+                ? 'To be quoted'
+                : orderNo.totalPrice.formattedValue
+            }}
+          </p>
+        </div>
+        <div
+          [ngClass]="
+            istableCollapse ? 'accordion-toggle' : 'accordion-toggle-collapsed'
+          "
+          (click)="istableCollapse = !istableCollapse"
+          [attr.aria-expanded]="!istableCollapse"
+          aria-controls="table1"
+        ></div>
+      </div>
+    </div>
+    <div
+      id="table1"
+      [ngbCollapse]="istableCollapse"
+      class="table-responsive custom"
+    >
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="align-baseline">
+              {{ 'rma-confirmation.partNumber' | cxTranslate }}
+            </th>
+            <th class="align-baseline">
+              {{ 'rma-confirmation.partName' | cxTranslate }}
+            </th>
+            <th class="align-baseline">
+              {{ 'rma-confirmation.quantity' | cxTranslate }}
+            </th>
+            <th class="align-baseline">
+              <p>{{ 'rma-confirmation.serviceOffering' | cxTranslate }}</p>
+            </th>
+            <th class="center-align">
+              <p>{{ 'rma-confirmation.discount' | cxTranslate }}</p>
+            </th>
+            <th class="center-align">
+              <p>{{ 'rma-confirmation.unitList' | cxTranslate }}</p>
+            </th>
+            <th class="center-align">
+              <p>
+                {{ 'rma-confirmation.unitSellingPrice' | cxTranslate }}
+              </p>
+            </th>
+            <th class="center-align">
+              <p>
+                {{ 'rma-confirmation.netSellingPrice' | cxTranslate }}
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of orderNo.rmaData?.rmaLineData; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ product?.partNumber }}</td>
+            <td>{{ product?.partName }}</td>
+            <td class="center-align">{{ product?.quantity }}</td>
+            <td>{{ product?.serviceOfferingText }}</td>
+            <td class="center-align">
+              <span
+                *ngIf="
+                  product?.silverClause?.value &&
+                    product?.silverClause?.value !== 0;
+                  else emptyCell
+                "
+                >{{ product?.silverClause.formattedValue }}</span
+              >
+              <ng-template #emptyCell><span> - </span></ng-template>
+            </td>
+            <td class="center-align">
+              <span *ngIf="product?.unitList?.value > 0">{{
+                product?.unitList?.formattedValue
+              }}</span>
+              <span *ngIf="product?.unitList?.value <= 0">To Be Quoted</span>
+            </td>
+            <td class="center-align">
+              <span *ngIf="product?.unitSelling?.value > 0">{{
+                product?.unitSelling?.formattedValue
+              }}</span>
+              <span *ngIf="product?.unitSelling?.value <= 0">To Be Quoted</span>
+            </td>
+            <td class="center-align">
+              <span *ngIf="product?.netSelling?.value > 0">{{
+                product?.netSelling?.formattedValue
+              }}</span>
+              <span *ngIf="product?.netSelling?.value <= 0">To Be Quoted</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="header mt-4">
+    {{ 'rma-confirmation.customerAccountPayment' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="address-container">
+        <div class="header-inner">
+          {{ 'rma-confirmation.soldToAddress' | cxTranslate }}
+        </div>
+        <div class="mt-1 address" *ngIf="data">
+          <p>
+            {{ data?.ordersList[0].soldToAddress?.firstName }}
+            {{ data?.ordersList[0].soldToAddress?.lastName }}
+          </p>
+          <p>{{ data?.ordersList[0].soldToAddress?.line1 }}</p>
+          <p>{{ data?.ordersList[0].soldToAddress?.line2 }}</p>
+          <p>{{ data?.ordersList[0].soldToAddress?.country?.name }}</p>
+          <p>{{ data?.ordersList[0].soldToAddress?.postalCode }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="col-sm-12">
+        <div
+          class="payment"
+          *ngFor="let orderNo of data?.ordersList; index as i"
+        >
+          <div class="payment-cols">
+            <div class="header-inner">
+              {{ 'rma-confirmation.paymentMethod' | cxTranslate }}
+            </div>
+            <p class="mt-1">
+              {{ data?.ordersList[i]?.paymentTrms?.name }}
+            </p>
+          </div>
+          <div class="payment-cols">
+            <div class="header-inner">
+              {{ 'rma-confirmation.poNumber' | cxTranslate }}
+            </div>
+            <p class="mt-1">
+              <span *ngIf="data?.ordersList[i]?.customerPO">{{
+                data?.ordersList[i]?.customerPO
+              }}</span>
+              <span *ngIf="!data?.ordersList[i]?.customerPO" class="na"
+                >{{ 'rma-confirmation.na' | cxTranslate }}
+              </span>
+            </p>
+          </div>
+          <div class="payment-cols">
+            <div class="header-inner">
+              {{ 'rma-confirmation.endCustomerPoNo' | cxTranslate }}
+            </div>
+            <p class="mt-1">
+              <span *ngIf="data?.ordersList[i]?.endCustomerPo">{{
+                data?.ordersList[i]?.endCustomerPo
+              }}</span>
+              <span *ngIf="!data?.ordersList[i]?.endCustomerPo" class="na"
+                >{{ 'rma-confirmation.na' | cxTranslate }}
+              </span>
+            </p>
+          </div>
+          <div class="payment-cols">
+            <div class="header-inner">
+              {{ 'rma-confirmation.poUpload' | cxTranslate }}
+            </div>
+            <div class="doc" *ngIf="data?.ordersList[i]?.returnPoAttachment[0]">
+              <div class="doc-details">
+                <p>{{ data?.ordersList[i]?.returnPoAttachment[0] }}</p>
+                <!-- <p class="size">400 KB</p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="payerContainer" *ngIf="isPayerDisabled">
+    <div class="header mt-4">
+      {{ 'rma-confirmation.payer' | cxTranslate }}
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="header-inner">
+          {{ 'rma-confirmation.payerAddress' | cxTranslate }}
+        </div>
+        <div class="address">
+          <p>
+            {{ data?.ordersList[0].deliveryAddress?.firstName }}
+            {{ data?.ordersList[0].deliveryAddress?.lastName }}
+          </p>
+          <p>{{ data?.payerAddress.companyName }}</p>
+          <p>{{ data?.payerAddress.line1 }}</p>
+          <p>{{ data?.payerAddress.line2 }}</p>
+          <p>{{ data?.payerAddress.country?.value }}</p>
+          <p>{{ data?.payerAddress.postalCode }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header mt-4">
+    {{ 'rma-confirmation.shipping' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.shippingAddress' | cxTranslate }}
+      </div>
+      <div class="address" *ngIf="data">
+        <p>
+          {{ data?.ordersList[0].deliveryAddress?.firstName }}
+          {{ data?.ordersList[0].deliveryAddress?.lastName }}
+        </p>
+        <p>{{ data?.ordersList[0].deliveryAddress?.companyName }}</p>
+        <p>{{ data?.ordersList[0].deliveryAddress?.line1 }}</p>
+        <p>{{ data?.ordersList[0].deliveryAddress?.line2 }}</p>
+        <p>{{ data?.ordersList[0].deliveryAddress?.country?.value }}</p>
+        <p>{{ data?.ordersList[0].deliveryAddress?.postalCode }}</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.deliveryPoint' | cxTranslate }}
+      </div>
+      <p>
+        <span *ngIf="data?.ordersList[0].deliveryPoint">{{
+          data?.ordersList[0].deliveryPoint
+        }}</span>
+        <span *ngIf="!data?.ordersList[0].deliveryPoint" class="na"
+          >{{ 'rma-confirmation.na' | cxTranslate }}
+        </span>
+      </p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.incoTerms' | cxTranslate }}
+      </div>
+      <p>
+        {{ data?.ordersList[0]?.shipToIncotrmName }}-{{
+          data?.ordersList[0]?.shipToIncoterm1
+        }}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.requestedShipDate' | cxTranslate }}
+      </div>
+      <p>
+        <span *ngIf="data?.ordersList[0].requestedHdrDeliveryDateFormatted">{{
+          data?.ordersList[0].requestedHdrDeliveryDateFormatted
+        }}</span>
+        <span
+          *ngIf="!data?.ordersList[0].requestedHdrDeliveryDateFormatted"
+          class="na"
+          >{{ 'rma-confirmation.na' | cxTranslate }}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.shippingMethod' | cxTranslate }}
+      </div>
+      <p>{{ data?.ordersList[0].deliveryOptions }}</p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.carrier' | cxTranslate }}
+      </div>
+      <p>{{ data?.ordersList[0].deliveryCarrierName }}</p>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.deliveryContact' | cxTranslate }}
+      </div>
+      <p class="contact">{{ data?.ordersList[0].shipToContactName }}</p>
+      <p class="contact">{{ data?.ordersList[0].shipToContactPhone }}</p>
+      <p class="contact">{{ data?.ordersList[0].shipNotificationEmail }}</p>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.shippingRemarks' | cxTranslate }}
+      </div>
+      <p>
+        <span *ngIf="data?.ordersList[0].shippingRemarks">{{
+          data?.ordersList[0].shippingRemarks
+        }}</span>
+        <span *ngIf="!data?.ordersList[0].shippingRemarks" class="na"
+          >{{ 'rma-confirmation.na' | cxTranslate }}
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="header mt-4">
+    {{ 'rma-confirmation.notifications' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-4">
+      <!-- <div class="header-inner">
+        {{ 'rma-confirmation.shipNotification' | cxTranslate }}
+      </div>
+      <p>
+        {{data?.ordersList[0]?.shipToContactName}} <br />
+        {{data?.ordersList[0]?.shipToContactPhone}}<br />
+        {{data?.ordersList[0].shipNotificationEmail}}
+      </p> -->
+
+      <div class="header-inner">
+        {{ 'rma-confirmation.orderAcknowledgement' | cxTranslate }}
+      </div>
+      <p>
+        {{ data?.ordersList[0]?.orderConfirmationName }} <br />
+        {{ data?.ordersList[0]?.orderConfirmationNum }}<br />
+        {{ data?.ordersList[0].orderConfirmation }}
+      </p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.invoiceEmail' | cxTranslate }}
+      </div>
+      <p>
+        {{ data?.ordersList[0]?.invoiceContactName }} <br />
+        {{ data?.ordersList[0]?.invoiceContact1Num }}<br />
+        {{ data?.ordersList[0].invoiceEmail }}
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.requesttoReview' | cxTranslate }}
+      </div>
+      <p>{{ data?.ordersList[0].isSpecialDiscountPresent ? 'Yes' : 'No' }}</p>
+      <div class="header-inner">
+        {{ 'rma-confirmation.reasonForReview' | cxTranslate }}
+      </div>
+      <p class="padding-right">
+        <span *ngIf="data?.ordersList[0].specialDiscountCode">{{
+          data?.ordersList[0].specialDiscountCode
+        }}</span>
+        <span *ngIf="!data?.ordersList[0].specialDiscountCode" class="na"
+          >{{ 'rma-confirmation.na' | cxTranslate }}
+        </span>
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <div class="header-inner">
+        {{ 'rma-confirmation.additionalAttachments' | cxTranslate }}
+      </div>
+      <div class="doc" *ngIf="data?.ordersList[0].attachmentName">
+        <div class="doc-details">
+          <p>
+            <span *ngIf="data?.ordersList[0].attachmentName">{{
+              data?.ordersList[0].attachmentName
+            }}</span>
+            <span *ngIf="!data?.ordersList[0].attachmentName" class="na"
+              >{{ 'checkoutConfirmation.na' | cxTranslate }}
+            </span>
+          </p>
+          <!-- <p class="size">400 KB</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header">
+    {{ 'rma-confirmation.compliance' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row compliance">
+    <div class="col-sm-12">
+      <p>
+        {{ 'rma-confirmation.governmentOrMilitaryOpportunity' | cxTranslate }}
+      </p>
+      <p class="header">
+        - {{ data?.ordersList[0].isGovernment ? 'Yes' : 'No' }}
+      </p>
+    </div>
+    <div class="col-sm-12">
+      <p>{{ 'rma-confirmation.nuclearOpportunity' | cxTranslate }}</p>
+      <p class="header">
+        - {{ data?.ordersList[0].isNuclearOppurtunity ? 'Yes' : 'No' }}
+      </p>
+    </div>
+    <div class="col-sm-12">
+      <p>{{ 'rma-confirmation.orderToExported' | cxTranslate }}</p>
+      <p class="header">- {{ data?.ordersList[0].isExport ? 'Yes' : 'No' }}</p>
+    </div>
+    <div class="col-sm-12">
+      <p>{{ 'rma-confirmation.forGovernment' | cxTranslate }}</p>
+      <p class="header">- {{ data?.ordersList[0].isBuyer ? 'Yes' : 'No' }}</p>
+    </div>
+  </div>
+
+  <div class="header mt-4" *ngIf=this.isEndUser >
+    {{ 'rma-confirmation.endUserDetails' | cxTranslate }}
+  </div>
+  <hr />
+  <div class="row" *ngIf=this.isEndUser>
+    <div class="col-sm-4">
+      <!--<div class="header-inner">
+        {{ 'rma-confirmation.endUserType' | cxTranslate }}
+      </div>
+      <div>
+        <p>{{ data?.ordersList[0]?.endUserCategory }}</p>
+      </div>-->
+      <div class="header-inner">
+        {{ 'rma-confirmation.endUserAddress' | cxTranslate }}
+      </div>
+      <div class="address" *ngIf="data">
+        <p>{{ data?.ordersList[0].enduserAddress?.formattedAddress }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

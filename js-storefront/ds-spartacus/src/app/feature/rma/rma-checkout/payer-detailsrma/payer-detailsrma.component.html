@@ -1,0 +1,64 @@
+<!-- payers address -->
+<div class="payer-detailsrma">
+  <form (ngSubmit)="isSubmitted && onSubmit()" #customerForm="ngForm">
+    <div class="row" *ngIf="loadingFlag; else loading">
+      <div class="col-lg-6 col-md-6 col-sm-6 mb-1">
+        <div class="shipping-checkout">
+          {{ 'labels.payerAddress' | cxTranslate }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.firstName }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.companyName }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.line1 }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.town }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.region?.name }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.country?.name }}
+        </div>
+        <div class="shipping-checkouaddress">
+          {{ rmaPayerAddress?.postalCode }}
+        </div>
+        <div
+          *ngIf="this.payeredAddress"
+          class="bh-form-message typography--body-small bh-form-message--error"
+        >
+          <i class="typography--icon-small bh-form-message__icon"
+            >error_outline</i
+          >{{ this.payeredAddress }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 mb-1">
+        <span class="payer-checkout">{{
+          'labels.customerAccountNumber' | cxTranslate
+        }}</span>
+        <div class="payer-checkouaddress">
+          {{ rmaPayerAddress?.sapCustomerID }}
+        </div>
+      </div>
+    </div>
+    <div class="row col-auto add-to-cart-buttons" *ngIf="!isChangeBtnDisabled">
+      <bh-button
+        type="secondary"
+        small
+        label="{{ 'labels.selectAddress' | cxTranslate }}"
+        (click)="openAddress()"
+      >
+      </bh-button>
+    </div>
+  </form>
+</div>
+
+<ng-template #loading>
+  <div class="address-search-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

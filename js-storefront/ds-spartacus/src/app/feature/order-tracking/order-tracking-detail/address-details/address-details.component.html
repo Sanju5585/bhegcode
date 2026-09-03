@@ -1,0 +1,32 @@
+<div class="row address-container d-flex justify-content-between">
+  <div class="col-lg-4 col-md-4 col-sm-12 address-box">
+    <label class="address-heading">{{
+      'orderTracking.soldToLabel' | cxTranslate
+    }}</label>
+    <div>
+      <address>
+        <div class="address-content" [innerHTML]="soldToAddress"></div>
+      </address>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 address-box">
+    <label class="address-heading">{{
+      'orderTracking.shipToLabel' | cxTranslate
+    }}</label>
+    <div>
+      <address *ngIf="shipToAddress">
+        <div class="address-content" [innerHTML]="shipToAddress"></div>
+      </address>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 address-box">
+    <label class="address-heading">{{
+      'orderTracking.endCstmrAddlbl' | cxTranslate
+    }}</label>
+    <div>
+      <address *ngIf="endUserAddress">
+        <div class="address-content" [innerHTML]="endUserAddress"></div>
+      </address>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div>
+      <!-- Modal Header -->
+      <ng-container>
+        <div class="cx-dialog-header modal-header">
+          <div class="cx-dialog-title modal-title">
+            <span
+              >{{ 'savedCart.saveCart' | cxTranslate }}</span
+            >
+          </div>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="dismissModal('Cross click')"
+          >
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+        <form [formGroup]="createSavedCartForm">
+          <!-- Modal Body -->
+          <div class="vs-dialog-body modal-body saved-cart-modal-body">
+            <p class="dialog-hint">
+              {{ 'savedCart.dialogHint' | cxTranslate }}
+            </p>
+            <span
+              class="dialog-hint cart-exist"
+              *ngIf="this.existFlag == 'true'"
+              >{{ 'savedCart.cartExist' | cxTranslate }}
+            </span>
+            <div class="form-group form-group-header">
+              <div class="form-control-wrapper">
+                <label>
+                  <span class="label-content required">{{
+                    'savedCart.cartName' | cxTranslate
+                  }}</span>
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cartName"
+                  formControlName="cartName"
+                  maxlength="255"
+                  [(ngModel)]="cartName"
+                  #cartNameEl
+                  required
+                />
+                <span
+                  class="errorMessage create-saved-cart-name-error"
+                  *ngIf="showCartError"
+                  >{{ nameErrorMessage }}</span
+                >
+                <span
+                  class="errorMessage create-saved-cart-name-error"
+                  *ngIf="showDuplicateCartErr"
+                  >{{ duplicateErrorMessage }}</span
+                >
+                <div class="char-left">
+                  {{ 'savedCart.charLeft' | cxTranslate }}:
+                  {{ 255 - cartNameEl.value.length }}
+                </div>
+
+                <div class="form-control-wrapper clearfix">
+                  <label>
+                    <span class="label-content">
+                      {{ 'savedCart.description' | cxTranslate }}
+                    </span>
+                    <textarea
+                      class="form-control"
+                      name="description"
+                      formControlName="description"
+                      maxlength="255"
+                      [(ngModel)]="cartDescription"
+                      #cartDescriptionEl
+                    ></textarea>
+                    <div class="char-left">
+                      {{ 'savedCart.charLeft' | cxTranslate }}:
+                      {{ 255 - cartDescriptionEl.value.length }}
+                    </div>
+                    <cx-form-errors
+                      [control]="createSavedCartForm.get('description')"
+                    ></cx-form-errors>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 action-container">
+                <bh-button
+                  [type]="'secondary'"
+                  label="{{ 'buyCart.cancel' | cxTranslate }}"
+                  (click)="dismissModal('Cancel create saved cart clicked')"
+                ></bh-button>
+                <bh-button
+                  [type]="'tertiary'"
+                  label="{{ 'buyCart.save' | cxTranslate }}"
+                  (click)="onSubmit()"
+                ></bh-button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</div>

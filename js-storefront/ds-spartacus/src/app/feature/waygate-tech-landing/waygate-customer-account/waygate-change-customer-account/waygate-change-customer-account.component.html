@@ -1,0 +1,203 @@
+<div class="change-account-table mt-4">
+  <div class="acc-modal-header switch-region-sub-header">
+    <span class="typography--decorative-small mb-0 ml-3">{{
+      'customer-account.selectAccount' | cxTranslate
+    }}</span>
+  </div>
+  <!-- <div class="acc-modal-header switch-region-sub-header">
+    <span class="typography--decorative-small mb-0 ml-3">Select account</span>
+  </div> -->
+  <div class="acc-modal-header switch-region-main-header">
+    <div class="search-container" *ngIf="userType === 'internal'">
+      <input
+        autocomplete="off"
+        type="text"
+        class="search-input search-input-mobile search-font ml-3 mt-20"
+        name="search"
+        placeholder="{{'customer-account.searchByNameNumber' | cxTranslate}}"
+        fuild="true"
+        maxlength="40"
+        (keyup)="onKeyUpSearch($event)"
+      />
+      <span class="material-icons search-icon serch-position">search</span>
+      <div *ngIf="custAccountSearching" class="cx-spinner">
+        <cx-spinner></cx-spinner>
+      </div>
+      <ng-container *ngIf="custAccountResults$ | async as results">
+        <ng-container *ngIf="!custAccountSearching">
+          <ng-container *ngIf="!custSearchFlag; else noSearchFound">
+            <div class="custom-height">
+              <ng-container
+                *ngIf="results?.b2bUnits?.length > 0; else noRecordsFound"
+              >
+                <div *ngFor="let b2bUnit of results?.b2bUnits | keyvalue">
+                  <div
+                    class="row"
+                    [ngClass]="b2bUnit?.value?.active ? 'activeAcc' : ''"
+                  >
+                    <div class="col-1">
+                      <bh-radio-button
+                        [attr.checked]="b2bUnit?.value?.active ? true : false"
+                        (change)="searchB2B(b2bUnit.value)"
+                      ></bh-radio-button>
+                    </div>
+                    <div class="col-8">
+                      <span class="typography--subtitle-small">{{
+                        b2bUnit?.value?.name
+                      }}</span
+                      ><br />
+                      <span
+                        class="typography--decorative-small word-wrap"
+                        *ngIf="b2bUnit?.value?.addresses[0]?.formattedAddress"
+                        >{{
+                          reverseStateAndTown(
+                            b2bUnit?.value?.addresses[0]?.formattedAddress
+                          )
+                        }}</span
+                      >
+                      <br
+                        *ngIf="b2bUnit?.value?.addresses[0]?.formattedAddress"
+                      />
+                      <span class="typography--decorative-small">{{
+                        b2bUnit?.value?.uid
+                      }}</span
+                      ><br />
+                      <div *ngIf="b2bUnit?.value?.active" class="location-info">
+                        <span class="typography--decorative-small">{{
+                          getActiveSalesAreaName(b2bUnit)
+                        }}</span
+                        ><br />
+                        <span
+                          class="typography--decorative-small text-right active-change-region"
+                          (click)="selectAccount(b2bUnit.value)"
+                          >{{
+                            'customer-account.changeRegion' | cxTranslate
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="fav-star-mobile text-right">
+                        <span
+                          *ngIf="!b2bUnit?.value?.favorite"
+                          class="material-icons"
+                          (click)="addRemoveFromFavourite(b2bUnit?.value)"
+                          >star_border</span
+                        >
+                        <span
+                          *ngIf="b2bUnit?.value?.favorite"
+                          class="material-icons favIcon"
+                          (click)="addRemoveFromFavourite(b2bUnit?.value)"
+                          >star</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="!hideb2b && !showChangeLegalEntity">
+    <div class="acc-modal-body">
+      <div class="switch-region-main-header acc-header">
+        <ng-container *ngIf="b2bUnits.length > 0">
+          <div class="accounts-wrapper">
+            <div
+              class="row-wrapper"
+              *ngFor="let b2bUnit of b2bUnits"
+              [ngClass]="b2bUnit.active ? 'activeAcc' : ''"
+            >
+              <div class="col-1">
+                <bh-radio-button
+                  [attr.checked]="b2bUnit.active ? true : false"
+                  (change)="selectAccount(b2bUnit)"
+                ></bh-radio-button>
+              </div>
+              <div class="col-8">
+                <span class="typography--subtitle-small">{{
+                  b2bUnit.name
+                }}</span
+                ><br />
+                <span class="typography--decorative-small">{{
+                  b2bUnit.uid
+                }}</span
+                ><br *ngIf="b2bUnit?.addresses[0]?.formattedAddress" />
+                <span
+                  class="typography--decorative-small word-wrap"
+                  *ngIf="b2bUnit?.addresses[0]?.formattedAddress"
+                  >{{
+                    reverseStateAndTown(b2bUnit?.addresses[0]?.formattedAddress)
+                  }}</span
+                ><br />
+                <div *ngIf="b2bUnit.active" class="location-info">
+                  <span class="typography--decorative-small">{{
+                    getActiveSalesAreaName(b2bUnit)
+                  }}</span
+                  ><br />
+                  <span
+                    class="typography--decorative-small text-right active-change-region"
+                    (click)="selectAccount(b2bUnit)"
+                    >{{ 'customer-account.changeRegion' | cxTranslate }}</span
+                  >
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="fav-star-mobile text-right">
+                  <span
+                    *ngIf="!b2bUnit.favorite"
+                    class="material-icons"
+                    (click)="addRemoveFromFavourite(b2bUnit)"
+                    >star_border</span
+                  >
+                  <span
+                    *ngIf="b2bUnit.favorite"
+                    class="material-icons favIcon"
+                    (click)="addRemoveFromFavourite(b2bUnit)"
+                    >star</span
+                  >
+                </div>
+              </div>
+              <bh-divider></bh-divider>
+            </div>
+          </div>
+        </ng-container>
+        <bh-divider></bh-divider>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ng-template #noRecordsFound>
+  <div class="no-records typography--body-large">
+    <span>{{ 'customer-account.noCustAccountFound' | cxTranslate }}</span>
+  </div>
+</ng-template>
+<ng-template #noSearchFound>
+  <div class="no-records typography--body-large">
+    <span></span>
+  </div>
+</ng-template>
+<ng-template #changeLegalEntity>
+  <div
+    class="row"
+    *ngFor="let salesArea of legalEntities"
+    [ngClass]="salesArea.active ? 'activeAcc' : ''"
+  >
+    <div class="col-1">
+      <bh-radio-button
+        [attr.checked]="salesArea?.active ? true : false"
+        (change)="onLegalEntityRadioChange($event, salesArea)"
+      ></bh-radio-button>
+    </div>
+    <div class="col-8">
+      <span class="typography--subtitle-small">
+        {{ salesArea.salesAreaName }} -
+        {{ salesArea.address?.country?.isocode }}</span
+      ><br />
+    </div>
+    <bh-divider></bh-divider>
+  </div>
+</ng-template>

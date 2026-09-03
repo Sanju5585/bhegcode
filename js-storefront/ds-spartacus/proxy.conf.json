@@ -1,0 +1,20 @@
+{
+  "/occ": {
+    "target": "https://localhost:9002",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/authorizationserver": {
+    "target": "https://localhost:9002",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/medias": {
+    "target": "https://localhost:9002",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}

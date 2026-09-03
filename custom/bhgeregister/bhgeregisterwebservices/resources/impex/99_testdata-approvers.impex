@@ -1,0 +1,218 @@
+$lang=en
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];name;email;groups(uid);defaultB2BUnit(uid);Customerid;productLine(attributeId);governmentOrg;activeStatus;familyName;givenName;sso
+;14;requester;rahul.gangan@ge.com;BHGECSRApproverGroup,BHGEUserManagerGroup;BHGERegister;1;1;false;true;14;14;localtest
+;15;requester;rahul.gangan@ge.com;BHGECSRApproverGroup;BHGERegister;2;1;false;true;15;15;localtest1
+;17;requester;rahul.gangan@ge.com;BHGECSRApproverGroup;BHGERegister;3;1;false;true;17;17;localtest2
+;18;approver ;rahul.gangan@ge.com;BHGECSRApproverGroup;BHGERegister;4;1;true;false;18;18;rvgangan
+;19;approver ;rahul.gangan@ge.com; ;BHGERegister;5;1;true;false;19;19;localtest4
+;20;approver ;rahul.gangan@ge.com; ;BHGERegister;6;1;false;false;20;20;localtest5
+;kanav3;Kanav Sharma;kanav.sharma@abc.com;BHGEUserManagerGroup;BHGERegister;1;1;false;true;Sharma;Kanav;localtest3
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];companyAddress;approverCustomerDetails
+;14;8796093054999;125681-1800-3600,123455-1200-2200,135815-1100-1400-3300
+;15;8796093054999;125681-1800-3600,123455-1200-2200,135815-1100-1400-3300
+;17;8796093054999;125681-1800-3600,123455-1200-2200,135815-1100-1400-3300
+;18;8796093054999;
+;19;8796093054999;125681-1800-3600,123455-1200-2200,135815-1100-1400-3300
+;20;8796093054999;125681-1800-3600,123455-1200-2200,135815-1100-1400-3300
+
+INSERT_UPDATE BHGEApprovalDetails;appaccesslevel(appAccessLevelId);approverid[unique=true];approvergroupname;approvergroupdetails;approveruserid(uid);emailDistribList
+;1;100;AMERICA;AMERICA;14,15;rahul.gangan@ge.com
+;1;200;EUROPE;EUROPE;17;rahul.gangan@ge.com
+;0;500;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;1;501;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;2;502;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;3;503;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;4;504;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;5;505;USERMANAGER;USERMANAGER;;rahul.gangan@ge.com
+;1;19;GlobalCSR;GlobalCSR;14,15;rahul.gangan@ge.com
+;1;1;BussinessOps;GlobalCSR;14,15;rahul.gangan@ge.com
+;5;5;OfsBussinessOps;GlobalCSR;14,15;rahul.gangan@ge.com
+;5;19;GlobalCSR;GlobalCSR;14,15;rahul.gangan@ge.com
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;101;18;100;REGISTER_MICROSITE;PENDING_APPROVAL;true;
+;102;15;100;REGISTER_MICROSITE;PENDING_APPROVAL;true;
+;103;17;200;REGISTER_MICROSITE;PENDING_APPROVAL;true;
+;104;18;100;REGISTER_MICROSITE;APPROVED;true;14
+;105;19;100;REGISTER_MICROSITE;APPROVED;true;14
+;106;20;100;REGISTER_MICROSITE;APPROVED;true;14
+;107;18;100;REGISTER_MICROSITE;APPROVED;true;14
+;108;18;100;REGISTER_MICROSITE;APPROVED;true;14
+;109;18;100;REGISTER_MICROSITE;REJECTED;true;14
+;110;18;100;REGISTER_MICROSITE;REJECTED;true;14
+;111;18;100;REGISTER_MICROSITE;REJECTED;true;14
+;112;18;100;REGISTER_MICROSITE;ONHOLD;true;14
+;119;14;100;REGISTER_MICROSITE;COMPLETED;true;
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;100;14;
+;100;15;
+;200;17;
+;19;14;
+;19;18;
+;100;18;
+;1;18
+
+INSERT_UPDATE BHGEUserAccessRules;userAccessRuleId[unique=true];userAccessRequest(accessRequestId);ruleStatus(code);appAccessRuleDetails
+;201;101;SUCCESS;Customer number found in SAP.
+;202;101;FAILURE;User email domain matches SAP Customer email domain.
+;203;101;FAILURE;Customer is not a governmental entity.
+;204;101;FAILURE;Customer has a VD05 order block. Decide if there is any reason to reject this user request.
+;205;101;SUCCESS;Customer is not marked for deletion.
+;206;101;SUCCESS;Customer is not marked for deletion in VD05.
+;207;101;SUCCESS;Customer does not look like a Duplicate account.
+;208;101;SUCCESS;Customer is not assigned to any sales areas. Fix this before customer can be used in eCommerce.
+;209;101;FAILURE;User's email does not belong to a public, government, or competitor domain
+;210;101;SUCCESS;User's email ID is not linked to any customer blocked in VD05
+;211;102;SUCCESS;Customer number found in SAP.
+;212;102;SUCCESS;User email domain matches SAP Customer email domain.
+;213;102;SUCCESS;Customer is not a governmental entity.
+;214;102;FAILURE;Customer has a VD05 order block. Decide if there is any reason to reject this user request.
+;215;102;FAILURE;Customer is not marked for deletion.
+;216;102;FAILURE;Customer is not marked for deletion in VD05.
+;217;102;SUCCESS;Customer does not look like a Duplicate account.
+;218;102;SUCCESS;Customer is not assigned to any sales areas. Fix this before customer can be used in eCommerce.
+;219;102;SUCCESS;User's email does not belong to a public, government, or competitor domain
+;220;102;SUCCESS;User's email ID is not linked to any customer blocked in VD05
+
+INSERT_UPDATE BHGEApprovalDetails;appaccesslevel(appAccessLevelId);approverid[unique=true];approvergroupname;approvergroupdetails;approveruserid(uid);
+;0;500;View Products;View Products;kanav3
+;1;501;Order Tracking;Order Tracking;kanav3
+;2;502;Services;Services;kanav3
+;3;503;View Product & Prices;View Product & Prices;kanav3
+;4;504;Place Order;Place Order;kanav3
+;5;505;Deactivated;Deactivated;kanav3
+
+###############################################################################
+INSERT_UPDATE BHGEAccountData;accountNumber[unique=true];accountName
+;125462;125462
+;123855;123855
+;125411;125411
+
+##################################################################
+INSERT_UPDATE BHGEManager2AccountRelation;source(pk)[unique=true];target(uid)[unique=true]
+;8796158609990;14
+;8796158642758;14
+;8796158675526;14
+
+################################################################################
+INSERT_UPDATE BHGEAccount2CustomerRelation;source(pk)[unique=true];target(uid)[unique=true]
+;8796158609990;17
+;8796158609990;18
+;8796158609990;19
+;8796158642758;15
+;8796158642758;20
+
+INSERT_UPDATE BHGEMnCEcommMatrix;matrixRuleId(attributeId)[unique=true];regionAttrib(attributeId);subregionAttrib(attributeId);countryAttrib(attributeId);productlineAttrib(attributeId);csrApproverValue(approverID)
+;1;1;;;273;19
+;2;1;;;274;19
+;3;1;;;275;19
+;4;1;;;276;19
+;5;1;;;277;19
+;6;1;;;278;19
+;7;1;;;279;19
+;8;1;;;280;19
+;9;1;;;281;19
+;10;1;;;282;19
+;11;1;;;283;19
+;12;2;;;273;19
+;13;2;;;274;19
+;14;2;;;275;19
+;15;2;;;276;19
+;16;2;;;277;19
+;17;2;;;278;19
+;18;2;;;279;19
+;19;2;;;280;19
+;20;2;;;281;19
+;21;2;;;282;19
+;22;2;;;283;19
+;23;3;;;273;19
+;24;3;;;274;19
+;25;3;;;275;19
+;26;3;;;276;19
+;27;3;;;277;19
+;28;3;;;278;19
+;29;3;;;279;19
+;30;3;;;280;19
+;31;3;;;281;19
+;32;3;;;282;19
+;33;3;;;283;19
+;34;4;;;273;19
+;35;4;;;274;19
+;36;4;;;275;19
+;37;4;;;276;19
+;38;4;;;277;19
+;39;4;;;278;19
+;40;4;;;279;19
+;41;4;;;280;19
+;42;4;;;281;19
+;43;4;;;282;19
+;44;4;;;283;19
+;45;5;;;273;19
+;46;5;;;274;19
+;47;5;;;275;19
+;48;5;;;276;19
+;49;5;;;277;19
+;50;5;;;278;19
+;51;5;;;279;19
+;52;5;;;280;19
+;53;5;;;281;19
+;54;5;;;282;19
+;55;5;;;283;19
+;56;6;;;273;19
+;57;6;;;274;19
+;58;6;;;275;19
+;59;6;;;276;19
+;60;6;;;277;19
+;61;6;;;278;19
+;62;6;;;279;19
+;63;6;;;280;19
+;64;6;;;281;19
+;65;6;;;282;19
+;66;6;;;283;19
+;67;7;;;273;19
+;68;7;;;274;19
+;69;7;;;275;19
+;70;7;;;276;19
+;71;7;;;277;19
+;72;7;;;278;19
+;73;7;;;279;19
+;74;7;;;280;19
+;75;7;;;281;19
+;76;7;;;282;19
+;77;7;;;283;19
+;78;8;;;273;19
+;79;8;;;274;19
+;80;8;;;275;19
+;81;8;;;276;19
+;82;8;;;277;19
+;83;8;;;278;19
+;84;8;;;279;19
+;85;8;;;280;19
+;86;8;;;281;19
+;87;8;;;282;19
+;88;8;;;283;19
+;89;9;;;273;19
+;90;9;;;274;19
+;91;9;;;275;19
+;92;9;;;276;19
+;93;9;;;277;19
+;94;9;;;278;19
+;95;9;;;279;19
+;96;9;;;280;19
+;97;9;;;281;19
+;98;9;;;282;19
+;99;9;;;283;19
+;100;0;;;273;19
+;101;0;;;274;19
+;102;0;;;275;19
+;103;0;;;276;19
+;104;0;;;277;19
+;105;0;;;278;19
+;106;0;;;279;19
+;107;0;;;280;19
+;108;0;;;281;19
+;109;0;;;282;19
+;110;0;;;283;19

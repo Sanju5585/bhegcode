@@ -1,0 +1,63 @@
+.entry-item-row {
+  display: flex;
+  gap: 15px;
+  height: 100%;
+  .product-desc-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cx-product-image {
+    width: 120px;
+  }
+}
+
+.cx-dialog-buttons {
+  a.bh-button--type-primary {
+    text-transform: uppercase;
+    &:hover {
+      color: var(--color-text-common-inverse-primary);
+      text-decoration: none;
+    }
+  }
+  a.bh-button--type-secondary {
+    text-transform: uppercase;
+    &:hover {
+      color: var(--color-text-common-primary);
+      text-decoration: none;
+    }
+  }
+}
+.dialog-product-code {
+  font-weight: 600;
+  color: #334541;
+}
+.dialog-product-name {
+  word-break: break-word;
+}
+:host ::ng-deep {
+  cx-icon {
+    font-size: var(--font-base-font-size-20);
+  }
+}
+.buttonMargin {
+  margin-bottom: 20px;
+}
+a.disable {
+  color: (--color-fill-cta-disabled);
+  background-color: var(--color-fill-cta-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.add-to-cart-dialog-body {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  .add-to-cart-product {
+  }
+}
+.cx-dialog-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

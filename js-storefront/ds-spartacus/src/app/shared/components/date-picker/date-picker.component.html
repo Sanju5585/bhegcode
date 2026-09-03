@@ -1,0 +1,24 @@
+<div class="container">
+  <label
+    class="date-picker-input"
+    (click)="onInputClick()"
+    [class.error]="showError"
+    [class.disabled]="disabled"
+    #dateInput
+  >
+    <span class="date-text">{{ labelText }}</span>
+    <i *ngIf="!removeCalender" class="material-icons today">today</i>
+  </label>
+  <div *ngIf="showCalendar" class="date-picker" #datePickerMenu>
+    <mat-calendar
+      [dateFilter]="dateFilter"
+      [selected]="calendarDate"
+      [startAt]="calendarDate"
+      (selectedChange)="onDateSelect($event)"
+      [minDate]="min"
+      [maxDate]="max"
+      #calendar
+    >
+    </mat-calendar>
+  </div>
+</div>

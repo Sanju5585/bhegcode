@@ -1,0 +1,86 @@
+$lang=en 
+INSERT_UPDATE BHGEApplicationDetails;applicationId[unique=true];applicationName[lang=$lang];applicationDetails[lang=$lang]
+#;4;F&PT ValvStore;Application for Valv Store marketplace.
+;4;F&PT ValvStore;Register to check the status of your orders. For Inspection Technologies distributors, check price, product availability, and place orders.
+
+
+INSERT_UPDATE BHGEAppAccessLevel;applicationInfo(applicationId);appAccessLevelId[unique=true];appAccessLevelName[lang=$lang];appAccessLevelDetails[lang=$lang]
+;4;4000;View Product & RFQ;View_Only
+;4;4001;Buyer - View Price and Place Order;Buy_Only
+;4;4002;Buyer - View Price,RFQ and Place Order;Buyer_Quote
+;4;4003;Buyer - manage user;Administrator
+
+
+# Need to add proper email id for CSR
+INSERT_UPDATE BHGEApprovalDetails;appaccesslevel(appAccessLevelId);approverid[unique=true];approvergroupname;approvergroupdetails;approveruserid(uid);emailDistribList
+;4000;4008;VS_SYSTEM;VS SYSTEM;;valvstore.support@bakerhughes.com
+
+;4000;4009;VS_Entity_View_Jacksonville;VS CSR for Jacksonville View Role;;ValvStoreNew1810UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4001;4010;VS_Entity_Buyer_Jacksonville;VS CSR for Jacksonville Buyer Role;;ValvStoreNew1810UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4003;4011;VS_Entity_Super_User_Jacksonville;VS CSR for Jacksonville Super User Role;;ValvStoreNew1810UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+
+;4000;4012;VS_Entity_View_Conde;VS CSR for Conde for View Role;;ValvStoreNew5500UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4001;4013;VS_Entity_Buyer_Conde;VS CSR for Conde for Buyer Role;;ValvStoreNew5500UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4003;4014;VS_Entity_Super_User_Conde;VS CSR for Conde for Super User Role;;ValvStoreNew5500UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+
+;4000;4015;VS_Entity_View_Coimbatore;VS CSR for Coimbatore for View Role;;ValvStoreNew6260UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4001;4016;VS_Entity_Buyer_Coimbatore;VS CSR for Coimbatore for Buyer Role;;ValvStoreNew6260UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4003;4017;VS_Entity_Super_User_Coimbatore;VS CSR for Coimbatore Super User Role;;ValvStoreNew6260UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+
+;4002;4018;VS_Entity_Buy&Quote_Jacksonville;VS CSR for Jacksonville for Buy & Quote Role;;ValvStoreNew1810UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4002;4019;VS_Entity_Buy&Quote_Conde;VS CSR for Conde for Buy & Quote Role;;ValvStoreNew5500UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+;4002;4020;VS_Entity_Buy&Quote_Coimbatore;VS CSR for Coimbatore for Buy & Quote Role;;ValvStoreNew6260UserRegistrationApproval@bakerhughes.com,gijesh.anandan@bakerhughes.com
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;VS_PROD_LINE_1;VSPRODLINESUB;Masoneilan;Masoneilan;1;1
+;VS_PROD_LINE_2;VSPRODLINESUB;Consolidated;Consolidated;2;1
+;VS_PROD_LINE_3;VSPRODLINESUB;Becker;Becker;3;1
+;VS_PROD_LINE_4;VSPRODLINESUB;Mooney;Mooney;10;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;1810_GE_GE;VSLegalEntity;Jacksonville USA – Dresser LLC;Jacksonville USA – Dresser LLC;;1
+;5500_GE_GE;VSLegalEntity;Conde France - DRESSER PRODUITS INDUSTRIELS SAS;Conde France - DRESSER PRODUITS INDUSTRIELS SAS;;1
+;6260_GE_GE;VSLegalEntity;Coimbatore India - GE Oil & Gas India Private Limited;Coimbatore India - GE Oil & Gas India Private Limited;;1
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+;VS_Role_1;VSRoles;Quote Only;View_Only;;1
+;VS_Role_2;VSRoles;Buy Only;Buy_Only;;1
+;VS_Role_3;VSRoles;Buy and Quote;Buyer_Quote;;1
+;VS_Role_4;VSRoles;Administrator;Administrator;;1
+
+
+INSERT_UPDATE BHGERegisterKeyValueData;attributeId[unique=true];attributeType;attributeKey;attributeValue;parentAttrib(attributeId);activeStatus;externalLookupID
+### Registration with Customer Number
+;VS09;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS10;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS11;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS12;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS13;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS14;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS15;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS16;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS17;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS18;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+
+;VS19;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS20;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+;VS21;PLACEHOLDER;PLACEHOLDER;PLACEHOLDER;;1
+
+
+# Need to update Inquiry email
+INSERT_UPDATE BHGEMnCEcommMatrix;matrixRuleId(attributeId)[unique=true];regionAttrib(attributeId);subregionAttrib(attributeId);countryAttrib(attributeId);productlineAttrib(attributeId);csrApproverValue(approverID);emailInquiryType(id);legalentity(attributeId)
+### Registration with Customer Number
+;VS09;;;;;4008;;;
+;VS10;;;;;4009;;1810_GE_GE
+;VS11;;;;;4010;;1810_GE_GE
+;VS12;;;;;4011;;1810_GE_GE
+;VS13;;;;;4012;;5500_GE_GE
+;VS14;;;;;4013;;5500_GE_GE
+;VS15;;;;;4014;;5500_GE_GE
+;VS16;;;;;4015;;6260_GE_GE
+;VS17;;;;;4016;;6260_GE_GE
+;VS18;;;;;4017;;6260_GE_GE
+
+;VS19;;;;;4018;;1810_GE_GE
+;VS20;;;;;4019;;5500_GE_GE
+;VS21;;;;;4020;;6260_GE_GE

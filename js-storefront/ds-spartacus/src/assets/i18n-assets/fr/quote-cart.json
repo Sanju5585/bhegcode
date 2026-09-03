@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "Panier de devis d'invités",
+    "checkoutBtn": "PASSER A LA CAISSE",
+    "delete": "supprimer",
+    "comments": "Commentaires",
+    "quantity": "Quantité",
+    "each": "Chacun",
+    "saving": "Sauvegarder...",
+    "commentscart": "Commentaires non enregistrés, veuillez cliquer sur l'icône Enregistrer pour enregistrer vos commentaires",
+    "commenterror": "Veuillez ajouter quelques commentaires avant de valider",
+    "characterlefft": "Caractères restants:",
+    "item": "Article",
+    "cartEmpty": "Votre panier est vide",
+    "noItemIncart": "Vous n'avez pas d'articles dans votre panier.",
+    "explore": "Découvrir ",
+    "ourCatalogue": "Notre catalogue ",
+    "toAdditems": "ajouter des articles",
+    "error": {
+      "removeMsg": "Les articles sélectionnés ont été supprimés avec succès",
+      "errorMessage": "Il y a eu un problème. Merci de réessayer plus tard."
+    }
+  }
+}

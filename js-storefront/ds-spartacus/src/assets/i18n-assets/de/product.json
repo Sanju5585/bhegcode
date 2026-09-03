@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "ID",
+    "quantity": "ANZAHL",
+    "productDetails": "Produktdetails",
+    "specification": "Spezifikationen",
+    "reviews": "Rezensionen",
+    "shipping": "Versand",
+    "share": "Teilen",
+    "showReviews": "Bewertungen anzeigen",
+    "noReviews": "Noch keine Bewertungen"
+  },
+  "productList": {
+    "filterBy": {
+      "label": "Filter nach",
+      "action": "Filter nach"
+    },
+    "appliedFilter": "Angewendeter Filter:",
+    "showLess": "Zeige weniger",
+    "showMore": "Zeige mehr",
+    "sortByRelevance": "Sortiere nach Bedeutung",
+    "backToTopBtn": "UNTEN NACH OBEN",
+    "showMoreBtn": "ZEIGE MEHR"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "Filter nach",
+      "action": "Filter nach"
+    },
+    "appliedFilter": "Angewendeter Filter:",
+    "showLess": "Zeige weniger",
+    "showMore": "Zeige mehr",
+    "sortByRelevance": "Sortiere nach Bedeutung"
+  },
+  "productSummary": {
+    "id": "ID",
+    "showReviews": "Bewertungen anzeigen",
+    "share": "Teilen"
+  },
+  "productReview": {
+    "overallRating": "Gesamtbewertung",
+    "reviewTitle": "Überschrift ihrer Rezension",
+    "writeYourComments": "Schreiben Sie ihren Kommentar",
+    "rating": "Bewertung",
+    "reviewerName": "Name des Bewerters (optional)",
+    "writeReview": "Rezension schreiben",
+    "more": "Mehr",
+    "less": "Weniger",
+    "thankYouForReview": "Danke für Ihre Bewertung! Bitte beachten Sie, dass Bewertungen möglicherweise erst nach einer Überprüfung hier erscheinen."
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "Artikel zu Ihrem Warenkorb hinzugefügt",
+    "itemsIncrementedInYourCart": "Dieser Artikel befand sich bereits in Ihrem Warenkorb. Die Menge wurde aktualisiert.",
+    "items": "Teil(e)",
+    "updatingCart": "Warenkorb wird aktualisiert...",
+    "addToCart": "in den Einkaufswagen legen",
+    "viewCart": "Zeige Warenkorb",
+    "proceedToCheckout": "Zur Kasse gehen",
+    "quantity": "ANZAHL",
+    "outOfStock": "Nicht auf Lager",
+    "inStock": "Auf Lager",
+    "selectStyleAndSize": "Wählen Sie Form und Menge, um den Bestand zu prüfen"
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "Produktdetails",
+      "ProductSpecsTabComponent": "Spezifikationen",
+      "ProductReviewsTabComponent": "Rezensionen",
+      "deliveryTab": "Versand",
+      "TabPanelContainer": "Registerkarte Container"
+    }
+  },
+  "variant": {
+    "style": "Modell",
+    "selectedStyle": "Ausgewähltes Modell",
+    "size": "Größe",
+    "color": "Farbe",
+    "sizeGuideLabel": "Leitfaden"
+  },
+  "addToWishList": {
+    "add": "Zur Wunschliste hinzufügen",
+    "remove": "Von Wunschliste entfernen",
+    "anonymous": "Anmelden, um zur Wunschliste hinzuzufügen"
+  },
+  "stockNotification": {
+    "notifyMe": "BENACHRICHTIGEN SIE MICH",
+    "stopNotify": "BENACHRICHTIGUNG BEENDEN",
+    "getNotify": "Lassen Sie sich benachrichtigen, wenn dieses Produkt verfügbar ist.",
+    "getNotifySuffix": "um benachrichtigt zu werden, wenn dieses Produkt verfügbar ist.",
+    "activateChannelsPrefix": "Um benachrichtigt zu werden, müssen Sie die Option ",
+    "channelsLink": "Benachrichtigungskanäle",
+    "activateChannelsSuffix": ".",
+    "notified": "Sie werden benachrichtigt, wenn dieses Produkt wieder auf Lager ist.",
+    "getNotified": "Lassen Sie sich benachrichtigen, wenn dieses Produkt wieder auf Lager ist.",
+    "unsubscribeSuccess": "Für dieses Produkt erhalten Sie keine Benachrichtigung, dass es wieder vorrätig ist.",
+    "subscriptionDialog": {
+      "header": "Abo: Nicht lieferbar Information",
+      "notifiedPrefix": "Sie werden am benachrichtigt:",
+      "notifiedSuffix": "sobald dieses Produkt wieder auf Lager ist.",
+      "manageChannelsPrefix": "Verwalten Sie Ihre bevorzugten Benachrichtigungskanäle auf der ",
+      "manageChannelsLink": "Bevorzugtes Benachrichtigungsmedium",
+      "manageChannelsSuffix": " Seite.",
+      "manageSubscriptionsPrefix": "Sie können Ihre Abonnements verwalten unter ",
+      "manageSubscriptionsLink": "Meine Interessen",
+      "manageSubscriptionsSuffix": " Seite.",
+      "okBtn": "OK",
+      "subscribing": "Abonnieren Sie die Benachrichtigung, dass dieses Produkt nicht vorrätig ist"
+    }
+  }
+}

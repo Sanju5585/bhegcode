@@ -1,0 +1,225 @@
+## messageSource=classpath:/bhgecore/messages/email-multipleSSORegistration_$lang.properties
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            color: #121212;
+        }
+
+        .container {
+            margin-left: 3%;
+        }
+
+        .img-center {
+            margin-left: 25%;
+        }
+
+        h6 {
+            font-size: 18px;
+            margin-bottom: 0px;
+        }
+
+        .content {
+            border: 1px solid #E2E2E2;
+            margin-right: 30%;
+            margin-left: 15%;
+            background-image: url("$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/OFS_Email_Background.png");
+            background-position-x: 350px;
+            background-repeat: no-repeat;
+            background-size: 50%;
+            padding: 32px;
+        }
+
+        p {
+            font-size: 14px;
+            font-family: Poppins;
+            font-style: Regular;
+            line-height: 20x;
+            color: #121212;
+        }
+
+        h6 {
+            color: #05322B;
+        }
+
+        h5 {
+            text-align: center;
+            font-size: 24px;
+            color: #506C65;
+        }
+
+        .button {
+            background-color: #02A783;
+            border: none;
+            color: #FFFFFF;
+            padding: 8px 18px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .border-box {
+            border: 1px solid #E7E7E7;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        .border-box-item {
+            margin: 16px
+        }
+
+
+        @media only screen and (max-width: 850px) {
+            p {
+                font-size: 16px;
+            }
+
+            h5 {
+                font-size: 18px;
+                color: #506C65;
+            }
+
+            .responsive {
+                width: 202px;
+                height: 60px;
+            }
+
+            .content {
+                border: none;
+                background-color: #E5E5E5;
+                margin-left: 5%;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="margin-left:5%;">
+        <div class="content">
+            <div class="img-center">
+                <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/OFS_Email_Header.png" width="383px" height="112px"
+                    class="responsive" />
+            </div>
+            <h5>Email already in use</h5>
+            <div class="container" style="margin-top: 10px;">
+                <h6 style="margin-top: 3%; font-size: 18px;  font-weight: 600;"><strong>Dear ${ctx.userName},</strong></h6>
+                <p style="font-size: 16px; margin-right: 20px;">Thank you for requesting access to the Baker Hughes
+                    application. Our data
+                    shows that you already have an account with us against the email:
+                    <strong>${ctx.email}</strong>.
+                </p>
+                <p style="font-size: 14px; margin-top: 5%; color: #1A2321;">Below are the user ids :</p>
+            #if(${ctx.supportMail} == 'shopBakerhughes.support@bakerhughes.com')
+                #foreach($entry in $ctx.multipleSSODetails)
+                    #if(${entry.getAccessRequestStatus()} == 'Access Granted')
+                    <div class="border-box" >
+                        <div class="border-box-item">
+                            <p><strong>${entry.getUserSSO()}</strong></p>
+                            <p style="color: #02A783;">Access granted</p>
+                            <a href="${entry.LoginLink}" class="button">Login now</a>
+                            <div style="display: flex; justify-content: end;">
+                                <h6 style="color: #595959; font-weight: 600; font-size: 16px;">${entry.getAppAccessName()}</h6>
+                            </div>
+                        </div>
+
+                    </div>
+                    #elseif(${entry.getAccessRequestStatus()} == 'Not Registered')
+                        <div class="border-box" >
+                            <div class="border-box-item">
+                                <p><strong>${entry.getUserSSO()}</strong></p>
+                                <p style="color: #595959;">Not registered</p>
+                                <a href="${entry.registerLink}" class="button">Register now</a>
+                                <div style="display: flex; justify-content: end;">
+                                    <h6 style="color: #595959; font-weight: 600; font-size: 16px;">${entry.getAppAccessName()}</h6>
+                                </div>
+                            </div>
+
+                        </div>
+                    #else
+                        <div class="border-box" >
+                            <div class="border-box-item">
+                                <h6 style="font-size: 16px;"> <strong> ${entry.getUserSSO()}</strong>
+                                    <p style="font-size:14px; color: #299BA3;">Pending Review</p>
+                                </h6>
+                                <p>Your access request is Pending review. You should recieve a response by email within 48 hours.
+                                <h5 style="color: #595959; font-size: 16px; text-align: right; margin-left: 5px;">${entry.getAppAccessName()}
+                                </h5>
+                                </p>
+                            </div>
+
+
+                        </div>    
+                    #end
+                    <p>We will close this request, but if you have any problems, please reply to our technical team <a
+                        href="mailto:${ctx.supportMail}">${ctx.supportMail}</a>.</p>
+                #end
+            #else
+                #foreach($entry in $ctx.multipleSSODetails)
+                
+                    #if(${entry.getAccessRequestStatus()} == 'Access Granted')
+                        <div class="border-box">
+                            <div class="border-box-item">
+                                <p><strong>${entry.getUserSSO()}</strong></p>
+                                <p style="color: #02A783;">Access granted</p>
+                                <a href="${entry.LoginLink}" class="button">Login now</a>
+                                <p>We will close this request, but if you have any problems, please reply to our technical team <a
+                                    href="mailto:${entry.supportMail}">${entry.getSupportMail()}</a>.</p>
+                                <div style="display: flex; justify-content: end;">
+                                    <h6 style="color: #595959; font-weight: 600; font-size: 16px;">${entry.getAppAccessName()}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    #elseif(${entry.getAccessRequestStatus()} == 'Not Registered')
+                        <div class="border-box" >
+                            <div class="border-box-item">
+                                <p><strong>${entry.getUserSSO()}</strong></p>
+                                <p style="color: #595959;">Not registered</p>
+                                <a href="${entry.registerLink}" class="button">Register now</a>
+                                <p>We will close this request, but if you have any problems, please reply to our technical team <a
+                                    href="mailto:${entry.supportMail}">${entry.getSupportMail()}</a>.</p>
+                                <div style="display: flex; justify-content: end;">
+                                    <h6 style="color: #595959; font-weight: 600; font-size: 16px;">${entry.getAppAccessName()}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    #else
+                        <div class="border-box" >
+                            <div class="border-box-item">
+                                <h6 style="font-size: 16px;"> <strong> ${entry.getUserSSO()}</strong>
+                                    <p style="font-size:14px; color: #299BA3;">Pending Review</p>
+                                </h6>
+                                <p>Your access request is Pending review. You should recieve a response by email within 48 hours.
+                                    <p>We will close this request, but if you have any problems, please reply to our technical team <a
+                                        href="mailto:${entry.supportMail}">${entry.getSupportMail()}</a>.</p>
+                                <h5 style="color: #595959; font-size: 16px; text-align: right; margin-left: 5px;">${entry.getAppAccessName()}
+                                </h5>
+                                </p>
+                            </div>
+
+        
+                        </div>    
+                    #end
+                #end
+            #end
+                
+                <p style="margin-top: 5%;">Best regards,</p>
+                <p> ShopBakerHughes User Registration Support team</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

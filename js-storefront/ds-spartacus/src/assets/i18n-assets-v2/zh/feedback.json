@@ -1,0 +1,28 @@
+{
+  "feedback": {
+    "feedbackDetails": "反馈详情",
+    "subject": "标题",
+    "name": "名称",
+    "phoneNumber": "电话号码",
+    "emailAddress": "电子邮件地址",
+    "message": "信息",
+    "characters": "字符",
+    "attachement": "附件",
+    "clipboard": "将文件拖放到此处",
+    "selectFile": "选择一个文件（仅限图像、pdf）",
+    "uploadFile": "上传文件",
+    "submit": "提交",
+    "successSubmit": "您的反馈提交成功",
+    "errorMessage": "发生错误，请稍后再试.",
+    "dragdropvalidfile": "请选择有效的文件类型。 有效的文件类型是 - jpg,pdf",
+    "error": {
+      "phoneNumberMessage": "电话号码只能是数字",
+      "emailMessage": "电子邮件地址必须是有效地址",
+      "subjectMessage": "主题为必填项",
+      "nameMessage": "姓名为必填项",
+      "phoneReq": "电话号码是必填项",
+      "emailReq": "电子邮件地址为必填项",
+      "message": "留言为必填项"
+    }
+  }
+}

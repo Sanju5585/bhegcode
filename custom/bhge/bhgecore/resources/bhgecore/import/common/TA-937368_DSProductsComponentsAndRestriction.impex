@@ -1,0 +1,40 @@
+$contentCatalog=bhgeContentCatalog
+$contentCatalogName=bhgeContentCatalog
+$productCatalogName=bhgeGlobalProductCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalogName]),CatalogVersion.version[default=Staged])[default=$productCatalogName:Staged]
+
+
+INSERT_UPDATE CMSRegionRestriction;$contentCV[unique=true];&resref;uid[unique=true]           ;name                                 ;regionId;    
+                                  ;                       ;1800res;1800_RegionRestriction     ;1800_RegionRestriction     				   ;1800;
+                                  ;                       ;6040res;6040_RegionRestriction     ;6040_RegionRestriction				   ;6040;
+                                  ;                       ;guestres;guest_RegionRestriction   ;guest_RegionRestriction				   ;guest;
+                                  ;                       ;1200res;1200_RegionRestriction     ;1200_RegionRestriction				   ;1200;
+
+INSERT_UPDATE CMSInverseRestriction;$contentCV[unique=true];uid[unique=true];name;originalRestriction(&resref)[allownull=true];
+									;					;Inverse_1800_RegionRestriction ;Inverse_1800_RegionRestriction   ;1800res;
+                                    ;                   ;Inverse_6040_RegionRestriction ;Inverse_6040_RegionRestriction   ;6040res;
+                                    ;                   ;Inverse_guest_RegionRestriction;Inverse_guest_RegionRestriction  ;guestres;
+                                    ;                   ;Inverse_1200_RegionRestriction;Inverse_1200_RegionRestriction  ;1200res;
+
+INSERT_UPDATE DSProductsCarouselComponent;$contentCV[unique=true];uid[unique=true]           	;name		                    ;restrictions(uid,$contentCV)                                                                                                        ; componentType(code)	;onlyOneRestrictionMustApply[default=true];products(code,$productCV)
+                                         ;                       ;1800_DSProductsFeatured    	;1800_DSProductsFeatured        ;1800_RegionRestriction          																									 ;  FEATURED			;										  ;MFLAS6130-CO,MVIQESYS3-CO,PTZ-SYS-HD30-TZ1-C,9511220,6802500,XLG3T8480FG,MVIQAP6120,MVIQACASE-CO,0066934,0058638,118-140-095,LHVR7,HTAS2,9511240
+										 ;                       ;6040_DSProductsFeatured    	;6040_DSProductsFeatured        ;6040_RegionRestriction          																									 ;  FEATURED			;										  ;MFLAS6130-CO,MVIQESYS3-CO,PTZ-SYS-HD30-TZ1-C,9511220,6802500,XLG3T8480FG,MVIQAP6120,MVIQACASE-CO,0066934,0058638,118-140-095,LHVR7,HTAS2,9511240
+										 ;                       ;generic_DSProductsFeatured 	;generic_DSProductsFeatured     ;Inverse_1800_RegionRestriction,Inverse_6040_RegionRestriction,Inverse_guest_RegionRestriction,Inverse_1200_RegionRestriction        ;  FEATURED			;false									  ;MFLAS6130-CO,MVIQESYS3-CO,PTZ-SYS-HD30-TZ1-C,9511220,6802500,XLG3T8480FG,MVIQAP6120,MVIQACASE-CO,0066934,0058638,118-140-095,LHVR7,HTAS2,9511240
+										 ;                       ;guest_DSProductsFeatured   	;guest_DSProductsFeatured       ;guest_RegionRestriction																											 ;  FEATURED			;										  ;MFLAS6130-CO,MVIQESYS3-CO,PTZ-SYS-HD30-TZ1-C,9511220,6802500,XLG3T8480FG,MVIQAP6120,MVIQACASE-CO,0066934,0058638,118-140-095,LHVR7,HTAS2,9511240
+
+                                         ;                       ;1800_DSProductsBestSeller     ;1800_DSProductsBestSeller       ;1800_RegionRestriction																											 ;  BESTSELLER			;										  ;3JZZO,3J38J,E7JFZ,3BSNE,8310001019,8350000013,XS_03A0003,XS_08CALLD-0100,118-340-106,113-552-005,118-440-051,118-340-213,VPA3020SYS,GTD-800,MFLACASE-BP,XLG3T61120FG,XA-HOOK,XLG3T61120SG
+                                         ;                       ;6040_DSProductsBestSeller     ;6040_DSProductsBestSeller       ;6040_RegionRestriction																											 ;  BESTSELLER			;										  ;3JZZO,3J38J,E7JFZ,3BSNE,8310001019,8350000013,XS_03A0003,XS_08CALLD-0100,118-340-106,113-552-005,118-440-051,118-340-213,VPA3020SYS,GTD-800,MFLACASE-BP,XLG3T61120FG,XA-HOOK,XLG3T61120SG
+										 ;                       ;generic_DSProductsBestSeller  ;generic_DSProductsBestSeller    ;Inverse_1800_RegionRestriction,Inverse_6040_RegionRestriction,Inverse_guest_RegionRestriction,Inverse_1200_RegionRestriction		 ;  BESTSELLER			;false									  ;3JZZO,3J38J,E7JFZ,3BSNE,8310001019,8350000013,XS_03A0003,XS_08CALLD-0100,118-340-106,113-552-005,118-440-051,118-340-213,VPA3020SYS,GTD-800,MFLACASE-BP,XLG3T61120FG,XA-HOOK,XLG3T61120SG
+										 ;                       ;guest_DSProductsBestSeller    ;guest_DSProductsBestSeller      ;guest_RegionRestriction																											 ;  BESTSELLER			;										  ;3JZZO,3J38J,E7JFZ,3BSNE,8310001019,8350000013,XS_03A0003,XS_08CALLD-0100,118-340-106,113-552-005,118-440-051,118-340-213,VPA3020SYS,GTD-800,MFLACASE-BP,XLG3T61120FG,XA-HOOK,XLG3T61120SG
+
+
+INSERT_UPDATE ContentSlot	;$contentCV[unique=true];uid[unique=true]              ;name						;active	;cmsComponents(uid,$contentCV);;;
+                            ;                       ;DSWaygateProductsContentSlot  ;DSWaygateProductsContentSlot;true	;1800_DSProductsFeatured,6040_DSProductsFeatured,generic_DSProductsFeatured,guest_DSProductsFeatured,1800_DSProductsBestSeller,6040_DSProductsBestSeller,generic_DSProductsBestSeller,guest_DSProductsBestSeller;;;
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true]                ;position[unique=true]          ;page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+                                ;                       ;DSWaygateProductsContentSlot    ;DSWaygateProductsContentSlot1  ;WaygateHomepage                  ;DSWaygateProductsContentSlot
+
+
+

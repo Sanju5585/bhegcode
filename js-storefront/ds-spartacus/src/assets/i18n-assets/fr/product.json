@@ -1,0 +1,110 @@
+{
+  "productDetails": {
+    "id": "ID",
+    "quantity": "QuantitÃ©",
+    "productDetails": "DÃ©tail produits",
+    "specification": "Specs",
+    "reviews": "Reviews",
+    "shipping": "Livraison",
+    "share": "Partager",
+    "showReviews": "Voir les commentaires",
+    "noReviews": "Il n'y a pas encore de commentaires"
+  },
+  "productList": {
+    "filterBy": {
+      "label": "Filtrer par",
+      "action": "Filtrer par"
+    },
+    "appliedFilter": "Filtrage appliqué:",
+    "showLess": "Afficher moins",
+    "showMore": "Afficher plus",
+    "sortByRelevance": "Trier par pertinence",
+    "backToTopBtn": "HAUT DE PAGE",
+    "showMoreBtn": "AFFICHER PLUS"
+  },
+  "productFacetNavigation": {
+    "filterBy": {
+      "label": "Filtrer par",
+      "action": "Filtrer par"
+    },
+    "appliedFilter": "Filtrage appliqué:",
+    "showLess": "Afficher moins",
+    "showMore": "Afficher plus",
+    "sortByRelevance": "Trier par pertinence"
+  },
+  "productSummary": {
+    "id": "ID",
+    "showReviews": "Voir les commentaires",
+    "share": "Partager"
+  },
+  "productReview": {
+    "overallRating": "Cote globale",
+    "reviewTitle": "Titre du commentaire",
+    "writeYourComments": "Ecrire vos commentaires",
+    "rating": "Cotation",
+    "reviewerName": "Nom du commentaire (optionale)",
+    "writeReview": "Ecrire un avis",
+    "more": "More",
+    "less": "Moins",
+    "thankYouForReview": "Merci pour votre commentaire. Veuillez noter que les commentaires peuvent nécessiter un examen avant d'apparaître ici."
+  },
+  "addToCart": {
+    "itemsAddedToYourCart": "Articles ajoutés à votre panier",
+    "itemsIncrementedInYourCart": "Cet article a déjà été dans votre panier. La quantité a été modifiée.",
+    "items": "articles",
+    "updatingCart": "Mise à jour du panier...",
+    "addToCart": "ajouter au panier",
+    "viewCart": "Voir le panier",
+    "proceedToCheckout": "valider la commande",
+    "quantity": "QuantitÃ©",
+    "outOfStock": "Rupture de stock",
+    "inStock": "En stock",
+    "selectStyleAndSize": "Sélectionner le style et une taille pour vérifier le stock"
+  },
+  "TabPanelContainer": {
+    "tabs": {
+      "ProductDetailsTabComponent": "DÃ©tail produits",
+      "ProductSpecsTabComponent": "Specs",
+      "ProductReviewsTabComponent": "Reviews",
+      "deliveryTab": "Livraison",
+      "TabPanelContainer": "Conteneur d'onglets"
+    }
+  },
+  "variant": {
+    "style": "Style",
+    "selectedStyle": "Le style sélectionné",
+    "size": "taille",
+    "color": "Couleur",
+    "sizeGuideLabel": "Guide des styles"
+  },
+  "addToWishList": {
+    "add": "Ajouter à la liste de souhaits",
+    "remove": "Retirer de la liste de souhaits",
+    "anonymous": "Connectez-vous pour ajouter à la liste de souhaits"
+  },
+  "stockNotification": {
+    "notifyMe": "AVERTISSEZ-MOI",
+    "stopNotify": "ARRÊT DE LA NOTIFICATION",
+    "getNotify": "Soyez informé lorsque ce produit est disponible.",
+    "getNotifySuffix": "pour être informé de la disponibilité de ce produit.",
+    "activateChannelsPrefix": "Pour être notifié, vous devez activer le ",
+    "channelsLink": "Chaînes de notification",
+    "activateChannelsSuffix": ".",
+    "notified": "Vous serez averti lorsque ce produit sera de nouveau en stock.",
+    "getNotified": "Soyez informé lorsque ce produit sera de nouveau en stock.",
+    "unsubscribeSuccess": "Vous ne recevrez pas de notification de réapprovisionnement pour ce produit.",
+    "subscriptionDialog": {
+      "header": "Abonnement hors stock",
+      "notifiedPrefix": "Vous serez informé sur:",
+      "notifiedSuffix": "dès que ce produit sera de nouveau en stock.",
+      "manageChannelsPrefix": "Gérez vos chaînes de notification préférées à travers le ",
+      "manageChannelsLink": "Préférence de notification",
+      "manageChannelsSuffix": " page.",
+      "manageSubscriptionsPrefix": "Vous pouvez gérer vos abonnements à la page ",
+      "manageSubscriptionsLink": "Mes intérêts",
+      "manageSubscriptionsSuffix": " page.",
+      "okBtn": "OK",
+      "subscribing": "Vous inscrire aux notifications de rupture de stock pour ce produit"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+:host::ng-deep {
+  .cart-name-input .bh-text-input {
+    &__label {
+      color: #757575;
+      font-size: var(--font-base-font-size-14);
+      font-family: 'var( --font-base-font-family-body)';
+    }
+  }
+}
+
+.cart-exist {
+  text-align: center;
+  color: red !important;
+  position: relative;
+  bottom: 14px;
+}
+.error{
+  text-align: center;
+  color: red !important;
+  position: relative;
+  bottom: 14px;
+  top:5px;
+}

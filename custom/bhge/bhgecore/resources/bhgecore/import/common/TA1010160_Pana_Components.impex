@@ -1,0 +1,57 @@
+$contentCatalog=bhgeContentCatalog
+$contentCatalogName=bhgeContentCatalog
+$productCatalogName=bhgeGlobalProductCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$productCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalogName]),CatalogVersion.version[default=Online])[default=$productCatalogName:Online]
+
+$panaBannerTitle1=Welcome to Panametrics
+$panaBannerContent1=We offer solutions for measuring and analyzing moisture, oxygen, liquid, steam, and gas flow with proven technologies that are well-known and widely deployed across many industries, including oil and gas.
+$panaBannerTitle2=Panametrics
+$panaBannerContent2=Measurements that matter
+$panaNewArrivalTitle1=Panametrics launches HygroPro XP, the most advanced moisture transmitter
+$panaNewArrivalContent1=HygroPro XP is the latest addition to the Panametrics portfolio of market
+$panaNewArrivalTitle2=PanaFlow XMT1000
+$panaNewArrivalContent2=The PanaFlow XMT1000 is an ultrasonic flow transmitter for liquids
+$panaFeaturedProducts=PF10-Z3,PT9-TABLET-17,HYGROPROII,MOISTURE.IQ
+$panaBestSellerProducts=OXY.IQ,AT6,DEW.IQ
+
+
+INSERT_UPDATE DSProductsCarouselComponent;$contentCV[unique=true];uid[unique=true]           	;name		                    ;restrictions(uid,$contentCV)                                                                                                        ; componentType(code)	;onlyOneRestrictionMustApply[default=true];products(code,$productCV)
+                                         ;                       ;generic_pana_DSProductsFeatured 	;Generic Panametrics Featured Component     ;Inverse_guest_RegionRestriction        ;  FEATURED			;false									  ;$panaFeaturedProducts
+                                         ;                       ;guest_pana_DSProductsFeatured   	;Guest Panametrics Featured Component       ;guest_RegionRestriction																											 ;  FEATURED			;										  ;$panaFeaturedProducts
+
+                                         ;                       ;generic_pana_DSProductsBestSeller  ;Generic Panametrics Best Seller Component    ;Inverse_guest_RegionRestriction		 ;  BESTSELLER			;false									  ;$panaBestSellerProducts
+                                         ;                       ;guest_pana_DSProductsBestSeller    ;Guest Panametrics Best SellerComponent      ;guest_RegionRestriction																											 ;  BESTSELLER			;										  ;$panaBestSellerProducts
+
+INSERT_UPDATE BannerComponent   ;$contentCV[unique=true];&compRef   			;uid[unique=true]     	;name                   ;headline         												;content  																																															 ;urlLink																																								;restrictions(uid,$contentCV)																										;onlyOneRestrictionMustApply[default=true];media(code)[lang=en]
+;                       ;guest_pana_DSHomeBanner1 	;guest_pana_DSHomeBanner1   	;guest_pana_DSHomeBanner1  	;$panaBannerTitle1											;$panaBannerContent1 																																						 ;https://www.bakerhughes.com/panametrics			;guest_RegionRestriction																												;										  ;panaBannerImg1
+;                       ;guest_pana_DSHomeBanner2 	;guest_pana_DSHomeBanner2   	;guest_pana_DSHomeBanner2  	;$panaBannerTitle2											;$panaBannerContent2 																																						 ;https://www.bakerhughes.com/panametrics			;guest_RegionRestriction																												;										  ;panaBannerImg2
+;                       ;generic_pana_DSHomeBanner1 	;generic_pana_DSHomeBanner1   	;generic_pana_DSHomeBanner1  	;$panaBannerTitle1						;$panaBannerContent1 							 ;https://www.bakerhughes.com/panametrics												;Inverse_guest_RegionRestriction																												;false										  ;panaBannerImg1
+;                       ;generic_pana_DSHomeBanner2 	;generic_pana_DSHomeBanner2   	;generic_pana_DSHomeBanner2  	;$panaBannerTitle2						;$panaBannerContent2 							 ;https://www.bakerhughes.com/panametrics												;Inverse_guest_RegionRestriction																												;false										  ;panaBannerImg2
+
+INSERT_UPDATE ContentSlot	;$contentCV[unique=true];uid[unique=true]              ;name						;active	;cmsComponents(uid,$contentCV);;
+                             ;                       ;DSPanaProductsContentSlot  ;DSPanaProductsContentSlot;true	;generic_pana_DSProductsFeatured,guest_pana_DSProductsFeatured,generic_pana_DSProductsBestSeller,guest_pana_DSProductsBestSeller
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true]                ;position[unique=true]          ;page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+                                ;                       ;DSPanaProductsContentSlot    ;DSPanaProductsContentSlot1  ;PanaHomepage;DSPanaProductsContentSlot
+
+INSERT_UPDATE ContentSlot	;$contentCV[unique=true];uid[unique=true]              ;name						;active	;cmsComponents(&compRef)
+                             ;                       ;PanaHomeBannerSlot         ;PanaHomeBannerSlot       ;true	;guest_pana_DSHomeBanner1,guest_pana_DSHomeBanner2,generic_pana_DSHomeBanner1,generic_pana_DSHomeBanner2
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true]                ;position[unique=true]          ;page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+                                ;                       ;PanaHomeBannerSlot           ;PanaBannerContentSlot       ;PanaHomepage                  ;PanaHomeBannerSlot
+
+INSERT_UPDATE BannerComponent   ;$contentCV[unique=true];&compRef   ;uid[unique=true]     ;name                       									;headline         						;content   																																							;urlLink																																																			;restrictions(uid,$contentCV) 																									;onlyOneRestrictionMustApply[default=true];media(code)[lang=en]
+                                ;						;guest_pana_DSHomeNewArrival1 		  ;guest_pana_DSHomeNewArrival1    ;guest_pana_DSHomeNewArrival1  		;$panaNewArrivalTitle1		;$panaNewArrivalContent1				;https://www.bakerhughes.com/panametrics/hygropro-xp													;guest_RegionRestriction	  																									;										  ;panaNewArrivalImg1
+                                ;                       ;guest_pana_DSHomeNewArrival2 		  ;guest_pana_DSHomeNewArrival2    ;guest_pana_DSHomeNewArrival2  		;$panaNewArrivalTitle2 ;$panaNewArrivalContent2																														;https://www.bakerhughes.com/panametrics/flow-meters/process-flow-meters/ultrasonic-inline-flow-meters															;guest_RegionRestriction	  																									;										  ;panaNewArrivalImg2
+                                ;						;generic_pana_DSHomeNewArrival1 		  ;generic_pana_DSHomeNewArrival1  ;generic_pana_DSHomeNewArrival1  		;$panaNewArrivalTitle1		;$panaNewArrivalContent1				;https://www.bakerhughes.com/panametrics/hygropro-xp													;Inverse_guest_RegionRestriction   ;false									  ;panaNewArrivalImg1
+                                ;                       ;generic_pana_DSHomeNewArrival2 		  ;generic_pana_DSHomeNewArrival2  ;generic_pana_DSHomeNewArrival2  		;$panaNewArrivalTitle2 ;$panaNewArrivalContent2																														;https://www.bakerhughes.com/panametrics/flow-meters/process-flow-meters/ultrasonic-inline-flow-meters															;Inverse_guest_RegionRestriction   ;false									  ;panaNewArrivalImg2
+
+
+
+INSERT_UPDATE ContentSlot	;$contentCV[unique=true];uid[unique=true]              ;name						;active	;cmsComponents(&compRef)
+                             ;                       ;PanametricsNewArrivalSlot         ;PanametricsNewArrivalSlot       ;true	;guest_pana_DSHomeNewArrival1,guest_pana_DSHomeNewArrival2,generic_pana_DSHomeNewArrival1,generic_pana_DSHomeNewArrival2
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true]                ;position[unique=true]          ;page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+                                ;                       ;PanametricsNewArrivalSlot           ;PanaNewArrivalSlot       ;PanaHomepage                  ;PanametricsNewArrivalSlot

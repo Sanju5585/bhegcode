@@ -1,0 +1,48 @@
+<ng-container *ngIf="iscontentAvailableFromSlot">
+  <div class="new-arrivals-header">
+    <div class="header-green-border"></div>
+    <ng-container
+      *ngIf="
+        productLine != allProductLine.reuterStokes;
+        else reuterStokesHeading
+      "
+    >
+      <h1>
+        {{ 'waygate.newArrivalHeading' | cxTranslate }}
+      </h1>
+    </ng-container>
+    <ng-template #reuterStokesHeading>
+      <h1>{{ 'waygate.reuterNewArrivalHeading' | cxTranslate }}</h1>
+    </ng-template>
+  </div>
+  <div class="new-arrival-main" *ngIf="NewArrivalList.length > 0">
+    <ng-container *ngFor="let item of NewArrivalList; let i = index">
+      <div class="arrival-wrapper" *ngIf="i < 2">
+        <div class="arrival-img-1">
+          <a
+            *ngIf="isInternalLink(item?.urlLink); else externalLinkButton"
+            [routerLink]="item?.urlLink"
+          >
+            <img
+              class="custom-arrival-img"
+              src="{{ baseSiteURL }}{{ item?.media?.url }}"
+              alt="image"
+          /></a>
+          <ng-template #externalLinkButton>
+            <a href="{{ item?.urlLink }}" target="_blank" rel="noopener noreferrer">
+              <img
+                class="custom-arrival-img"
+                src="{{ baseSiteURL }}{{ item?.media?.url }}"
+                alt="image"
+              />
+            </a>
+          </ng-template>
+        </div>
+        <div class="img-header-text">{{ item?.headline }}</div>
+        <div class="part-number">{{ item?.partnumber }}</div>
+        <span class="part-desc">{{ item?.description }}</span>
+        <div class="part-price">{{ item?.price }}</div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

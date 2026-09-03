@@ -1,0 +1,177 @@
+<div class="cx-page" *ngIf="model$ | async as model">
+  <!-- PRODUCT LISTING PAGE -->
+  <section class="cx-page-section">
+    <div class="container product-listing-right-section">
+      <div class="row">
+        <div class="col-12 col-lg-12" *ngIf="viewMode$ | async as viewMode">
+          <div *ngIf="model.currentQuery.categoryName" class="banner-container">
+            <ds-plp-category-banner
+              [currentQuery]="model.currentQuery"
+            ></ds-plp-category-banner>
+          </div>
+          <div class="cx-sorting top mt-3">
+            <div class="row">
+              <div class="col-12 col-lg-3">
+                <span class="results-count"
+                  >{{ model.pagination.totalResults }}
+                  {{ 'plp.itemFound' | cxTranslate }}</span
+                >
+              </div>
+              <div class="col-12 col-lg-3 ml-auto">
+                <div class="form-group cx-sort-dropdown">
+                  <h4 class="sort-label mb-1">
+                    {{ 'plp.sortBy' | cxTranslate }}
+                  </h4>
+                  <cx-sorting
+                    [sortOptions]="model.sorts"
+                    (sortListEvent)="sortList($event)"
+                    [selectedOption]="model.pagination.sort"
+                    placeholder="{{
+                      'productList.sortByRelevance' | cxTranslate
+                    }}"
+                  ></cx-sorting>
+                </div>
+              </div>
+              <div *ngIf="!isInfiniteScroll" class="col-auto">
+                <div class="form-group cx-sort-dropdown">
+                  <h4 class="sort-label mb-1">
+                    {{ 'plp.itemPerPageHdr' | cxTranslate }}
+                  </h4>
+                  <ng-select
+                    [searchable]="false"
+                    [items]="items"
+                    bindLabel="name"
+                    bindValue="id"
+                    [clearable]="false"
+                    placeholder="{{ itemsPerPage }}"
+                    class="items-per-page"
+                    [(ngModel)]="itemsPerPage"
+                    (change)="setPageSize($event)"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+              <div *ngIf="!isInfiniteScroll" class="col-auto mb-4">
+                <div
+                  class="cx-pagination mt-2"
+                  aria-label="product search pagination"
+                >
+                  <cx-pagination
+                    [pagination]="model.pagination"
+                    queryParam="currentPage"
+                    [defaultPage]="0"
+                  >
+                  </cx-pagination>
+                </div>
+              </div>
+              <div class="col-auto ml-auto ml-lg-0 mb-4">
+                <ds-product-view
+                  (modeChange)="setViewMode($event)"
+                  [mode]="viewMode"
+                ></ds-product-view>
+              </div>
+            </div>
+          </div>
+          <div class="cx-product-container">
+            <!-- Product list when using pagination -->
+            <ng-container *ngIf="!isInfiniteScroll; else infiniteScroll">
+              <ng-container *ngIf="viewMode === ViewModes.Grid">
+                <div class="row">
+                  <div
+                    *ngFor="let product of model?.products"
+                    class="col-12 col-sm-6 col-md-3 product-tile-container"
+                  >
+                    <cx-product-grid-item
+                      [product]="product"
+                      class="product-hover"
+                      [userType]="userType"
+                    ></cx-product-grid-item>
+                  </div>
+                </div>
+                <div
+                  class="no-results-found"
+                  *ngIf="model?.products?.length <= 0"
+                >
+                  <bh-illustration
+                    source="EmptyBox"
+                    [attr.title]="'plp.noProductsFoundTitle' | cxTranslate"
+                    [attr.description]="'plp.noProductsFoundDesc' | cxTranslate"
+                  ></bh-illustration>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="viewMode === ViewModes.List">
+                <div
+                  class="no-results-found"
+                  *ngIf="model?.products?.length <= 0"
+                >
+                  <bh-illustration
+                    source="EmptyBox"
+                    [attr.title]="'plp.noProductsFoundTitle' | cxTranslate"
+                    [attr.description]="'plp.noProductsFoundDesc' | cxTranslate"
+                  ></bh-illustration>
+                </div>
+                <cx-product-list-item
+                  *ngFor="let product of model?.products"
+                  [product]="product"
+                  class="cx-product-search-list"
+                  [userType]="userType"
+                ></cx-product-list-item>
+              </ng-container>
+            </ng-container>
+
+            <!-- Product list when using infinite scroll -->
+            <ng-template #infiniteScroll>
+              <cx-product-scroll
+                [scrollConfig]="scrollConfig"
+                [model]="model"
+                [inputViewMode]="viewMode"
+              >
+              </cx-product-scroll>
+            </ng-template>
+          </div>
+          <div class="cx-sorting bottom">
+            <div class="row">
+              <!-- <div class="col-12 col-lg-4 mr-auto">
+                <div class="form-group cx-sort-dropdown">
+                  <cx-sorting
+                    [sortOptions]="model.sorts"
+                    (sortListEvent)="sortList($event)"
+                    [selectedOption]="model.pagination.sort"
+                    placeholder="{{
+                      'productList.sortByRelevance' | cxTranslate
+                    }}"
+                  ></cx-sorting>
+                </div>
+              </div> -->
+              <div
+                *ngIf="!isInfiniteScroll"
+                class="col-auto ml-auto"
+                aria-label="product search pagination"
+              >
+                <div class="cx-pagination mt-2">
+                  <cx-pagination
+                    [pagination]="model.pagination"
+                    queryParam="currentPage"
+                    [defaultPage]="0"
+                  >
+                  </cx-pagination>
+                </div>
+              </div>
+              <div class="col-auto ml-auto ml-lg-0">
+                <!-- <cx-product-view
+                  (modeChange)="setViewMode($event)"
+                  [mode]="viewMode"
+                ></cx-product-view> -->
+                <ds-product-view
+                  (modeChange)="setViewMode($event)"
+                  [mode]="viewMode"
+                ></ds-product-view>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

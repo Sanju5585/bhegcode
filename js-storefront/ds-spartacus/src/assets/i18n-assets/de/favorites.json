@@ -1,0 +1,30 @@
+{
+  "favorites": {
+    "pageTitle": "Meine Favoriten",
+    "items": " Teil(e)",
+    "delSelected": "AUSGEWÄHLTE LÖSCHEN",
+    "addedOn": "Hinzugefügt am",
+    "buy": "KAUFEN",
+    "return": "ZURÜCKSCHICKEN",
+    "addtoEquip": "Meiner Ausrüstung hinzufügen",
+    "switchSalesArea": "WECHSELN DES VERTRIEBSGEBIETES",
+    "salesAreaText": "Sie können dieses Produkt in einem anderen Vertriebsgebiet zurückgeben.",
+    "contactCustomerCare": "KUNDENBETREUUNG KONTAKTIEREN",
+    "norecords": "Keine Aufzeichnungen gefunden",
+    "listPrice": "Listenpreis",
+    "unavailable": "Nicht verfügbar",
+    "priceNotrFound": "Preis nicht gefunden",
+    "viewBreakup": "Ansicht Aufteilung",
+    "breakdownPrice": "Price Breakdown",
+    "discount": "Rabatt",
+    "netPrice": "Nettopreis",
+    "searchBYProductName": "Search by product name",
+    "removeSelected": "Remove selected",
+    "addToCart": "in den Einkaufswagen legen",
+    "searchList": "Search this list",
+    "error": {
+      "removeMsg": "Artikel wurden erfolgreich entfernt",
+      "loadingMsg": "Es gab ein Problem beim Laden Ihrer Auftragsliste"
+    }
+  }
+}

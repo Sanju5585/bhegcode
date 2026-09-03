@@ -1,0 +1,24 @@
+{
+  "quote-cart": {
+    "pageTitle": "Warenkorb für Gästeangebote",
+    "checkoutBtn": "ZUR KASSE GEHEN",
+    "delete": "löschen",
+    "comments": "Kommentare",
+    "quantity": "Menge",
+    "each": "Jeder",
+    "saving": "Speichere",
+    "commentscart": "Kommentare nicht gespeichert, bitte klicken Sie auf das Speichern-Symbol, um Ihre Kommentare zu speichern",
+    "commenterror": "Bitte fügen Sie vor dem Speichern einige Kommentare hinzu",
+    "characterlefft": "Zeichen übrig:",
+    "item": "Artikel",
+    "cartEmpty": "Ihr Warenkorb ist leer",
+    "noItemIncart": "Sie haben keinen Artikel in Ihrem Warenkorb.",
+    "explore": "Entdecken ",
+    "ourCatalogue": "Unser Katalog ",
+    "toAdditems": "um Artikel hinzuzufügen",
+    "error": {
+      "removeMsg": "Ausgewählte Artikel wurden erfolgreich entfernt",
+      "errorMessage": "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal."
+    }
+  }
+}

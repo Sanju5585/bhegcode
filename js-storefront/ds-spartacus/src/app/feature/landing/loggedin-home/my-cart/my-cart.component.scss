@@ -1,0 +1,82 @@
+.my-cart {
+  border: 1px solid #eeeeee;
+  box-sizing: border-box;
+  height: 495px;
+}
+.my-cart-text {
+  padding-top: 23px;
+  padding-left: 25px;
+  font-family: var(--font-base-font-family-decorative);
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--font-base-font-size-18);
+  line-height: 27px;
+  text-transform: capitalize;
+  color: #003525;
+}
+.view-all {
+  font-family: var(--font-family-body-large);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  line-height: 19px;
+  text-decoration-line: underline;
+  color: var(--color-base-teal-900);
+  float: right;
+  padding-right: 40px;
+  text-transform: none;
+}
+.table-top {
+  margin-top: 18px;
+  height: 424px;
+  overflow-y: auto;
+}
+.table-header {
+  font-family: var(--font-base-font-family-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--font-base-font-size-12);
+  line-height: 21px;
+  color: var(--color-base-teal-950);
+  height: 51px;
+  background-color: #effcf6;
+}
+.table-data {
+  font-family: var(--font-family-body-large);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-14);
+  color: #1a2321;
+  height: 51px;
+  &:hover {
+    background-color: #effcf6;
+  }
+  cursor: pointer;
+}
+.table th {
+  border-top: 0px;
+}
+.table > :nth-child(2) {
+  td {
+    border-top: 0px;
+  }
+}
+.table tr > :first-child {
+  padding-left: 25px;
+}
+.table tr > :last-child {
+  padding-right: 25px;
+}
+.no-save-data {
+  font-family: var(--font-family-body-large);
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font-base-font-size-18);
+  line-height: 25px;
+  text-align: center;
+  color: #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}

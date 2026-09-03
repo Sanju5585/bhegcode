@@ -1,0 +1,64 @@
+## messageSource=classpath:/bhgecore/messages/email-workflowEmail_$lang.properties
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<style>
+
+    p {
+		color: #05322b;
+		font-family: 'Poppins','Lucida Sans';
+		font-size: 14px;
+		text-align: left;
+}
+</style>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Your credentials : Baker Hughes User Registration</title>
+</head>
+
+<body style="font-family:Verdana, Geneva, sans-serif; font-size:12px;">
+<div style="border:1px solid #3b73b9">
+ <table class="container__table" role="presentation" border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+                        <tr class="container__row">
+                            <td class="container__cell" width="100%" align="left" valign="top">
+                                <div class="row">
+                                    <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                        <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+                                                <a href="#" class="a" style="color: #05322b; text-decoration: none;"><span class="a__text" style="color: #05322b; text-decoration: none;"> <img src="$ctx.bhgeBasePath/assets/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="1024"/></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br>
+                                <div class="heading row">
+                                        <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                          <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+                                              <h1 class="header h1" style="margin: 20px 0; line-height: 40px; font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px; margin-left: 0; margin-top: -40px;">
+                                             ${ctx.messages.registrationSuccess}
+                                              </h1>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                </div>
+                                <!-- <br /> -->
+                            </td>
+                        </tr>
+                    </table>
+   <div style="padding: 10px;">
+    <p>${ctx.messages.salutation} ${ctx.userName},</p>
+    <p>${ctx.messages.context1}. </p>
+    <p>${ctx.messages.context2}.</p>
+    <p>${ctx.messages.login} <a href="${ctx.companyEmail}">${ctx.messages.here}</a>.</p>
+    <p>${ctx.messages.yourSso} <b>${ctx.sso}</b>.</p>
+    <p>${ctx.messages.context3}</p>
+       <p>${ctx.messages.context4} <a href="mailto:${ctx.supportMail}">${ctx.messages.here}</a>.</p>
+    <br />
+    <p>${ctx.messages.bestRegards},</p>
+    <p>${ctx.messages.DSTeam}</p>
+  </div>
+</div>
+</body>
+</html>

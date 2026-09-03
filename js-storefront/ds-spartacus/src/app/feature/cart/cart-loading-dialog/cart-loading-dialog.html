@@ -1,0 +1,16 @@
+<div class="cx-dialog-header modal-header">
+  <div class="cx-dialog-title modal-title">
+    {{ 'buyCart.loadingActiveCart' | cxTranslate }}
+  </div>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">
+      <cx-icon [type]="iconTypes.CLOSE"></cx-icon>
+    </span>
+  </button>
+</div>
+<!-- Modal Body -->
+<div class="cx-dialog-body modal-body">
+  <div class="cx-dialog-row">
+    <div class="col-sm-12"><cx-spinner></cx-spinner></div>
+  </div>
+</div>

@@ -1,0 +1,533 @@
+<div class="header-main sticky-header">
+  <div class="top-header-waygate container">
+    <div class="top-header-logo">
+      <div class="bh-logo">
+        <img
+          *ngIf="!isChooseBrandPage"
+          [routerLink]="['/', productLine]"
+          class="bh-img"
+          src="/assets/img/bh-logo.svg"
+          alt="click"
+        />
+      </div>
+    </div>
+
+    <div class="bh-sitelinks">
+      <nav class="navigation-menu bh-right-menu">
+        <ul class="menu right-menu link-anchor">
+          <li
+            class="contact-us-li brands-list"
+            #productListTempRef
+            *ngIf="
+              availableProductLines &&
+              availableProductLines.length > 1 &&
+              !isChooseBrandPage
+            "
+            (click)="toggleBrandList($event)"
+          >
+            <span class="link-anchor">{{
+              'waygate.brandsHeader' | cxTranslate
+            }}</span>
+            <span class="material-icons" *ngIf="!showBrandList">
+              keyboard_arrow_down
+            </span>
+            <span class="material-icons" *ngIf="showBrandList">
+              keyboard_arrow_up
+            </span>
+          </li>
+          <li
+            class="contact-us-li"
+            *ngIf="!isChooseBrandPage && productLine != 'reuter-stokes'"
+          >
+            <span
+              class="link-anchor"
+              [routerLink]="['/', this.productLine, 'create-rma']"
+            >
+              {{ 'waygate.createRma' | cxTranslate }}
+            </span>
+          </li>
+          <li
+            class="contact-us-li"
+            *ngIf="!isChooseBrandPage && productLine != 'reuter-stokes'"
+          >
+            <span
+              class="link-anchor"
+              [routerLink]="['/', productLine, 'calibration-data']"
+            >
+              {{ 'waygate.findDataAndCert' | cxTranslate }}
+            </span>
+          </li>
+          <li class="contact-us-li" *ngIf="!isChooseBrandPage">
+            <span
+              [routerLink]="['/', productLine, 'track-order']"
+              class="link-anchor"
+              >{{ 'waygate.trackOrder' | cxTranslate }}</span
+            >
+          </li>
+
+          <ng-container
+            *ngIf="
+              productLine == allProductLine.waygate ||
+              productLine == allProductLine.bently
+            "
+          >
+            <li class="contact-us-li" *ngIf="!isChooseBrandPage">
+              <span [routerLink]="helpResourceUrl" class="link-anchor">{{
+                'waygate.helpresources' | cxTranslate
+              }}</span>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="productLine == allProductLine.panametrics">
+            <li class="contact-us-li" *ngIf="!isChooseBrandPage">
+              <a
+                href="https://www.panametrics.com/contact-us"
+                target="_blank"
+                class="link-anchor"
+                >{{ 'waygate.contactUs' | cxTranslate }}</a
+              >
+            </li>
+          </ng-container>
+          <ng-container *ngIf="productLine == allProductLine.druck">
+            <li class="contact-us-li" *ngIf="!isChooseBrandPage">
+              <a
+                href="https://www.druck.com/contact-us"
+                target="_blank"
+                class="link-anchor"
+                >{{ 'waygate.contactUs' | cxTranslate }}</a
+              >
+            </li>
+          </ng-container>
+          <ng-container *ngIf="productLine == allProductLine.reuterStokes">
+            <li class="contact-us-li" *ngIf="!isChooseBrandPage">
+              <a
+                href="https://www.reuter-stokes.com/contact-us"
+                target="_blank"
+                class="link-anchor"
+                >{{ 'waygate.contactUs' | cxTranslate }}</a
+              >
+            </li>
+          </ng-container>
+
+          <li class="lang-dd-menu">
+            <bh-dropdown
+              (click)="languagedropdown()"
+              class="langDD nav-content link-anchor"
+              isFluid="true"
+              isSmall="true"
+              menuWidth="fluid"
+              unselectable="false"
+              [menuItems]="props"
+              [value]="currentLanguage"
+              (selected)="onLanguageChange($event)"
+            ></bh-dropdown>
+            <span class="material-icons lang-icon nav-content link-anchor"
+              >language</span
+            >
+          </li>
+          <!-- <li class="help-li" #helpMenuLink>
+            <div class="help-menu link-anchor">
+              <span class="help" (click)="togglehelp()">{{
+                'navigation-menu.help' | cxTranslate
+              }}</span>
+              <span
+                class="material-icons help-down-arrow"
+                (click)="togglehelp()"
+              >
+                keyboard_arrow_down
+              </span>
+              <div
+                class="help-menu-content"
+                [clickSourceId]="helpMenuLink"
+                *ngIf="helpOpened"
+                (clickOutside)="togglehelp()"
+              >
+                <p>
+                  <bh-a
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    type="primary"
+                    routerLink="/contactus"
+                    text="{{ 'navigation-menu.contactUs' | cxTranslate }}"
+                    (click)="togglehelp()"
+                  >
+                  </bh-a>
+                </p>
+                <p>
+                  <bh-a
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    type="primary"
+                    routerLink="/list-of-portals"
+                    text="{{ 'navigation-menu.link' | cxTranslate }}"
+                    (click)="togglehelp()"
+                  >
+                  </bh-a>
+                </p>
+                <p>
+                  <bh-a
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    type="primary"
+                    (click)="togglehelp()"
+                    routerLink="/feedback"
+                    text="{{ 'navigation-menu.provideFeedback' | cxTranslate }}"
+                  >
+                  </bh-a>
+                </p>
+                <p>
+                  <bh-a
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    type="primary"
+                    (click)="togglehelp()"
+                    routerLink="/training-docs"
+                    text="{{ 'navigation-menu.trainingDocs' | cxTranslate }}"
+                  >
+                  </bh-a>
+                </p>
+              </div>
+            </div>
+          </li> -->
+          <li>
+            <span
+              class="material-icons mobile-view"
+              (click)="headerMenuSelected()"
+              >more_vert</span
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="login-menu" *ngIf="headerMenuOpened">
+        <ng-container>
+          <div>
+            <a
+              class="login-menu-items"
+              [routerLink]="['/', this.productLine, 'create-rma']"
+              *ngIf="!isChooseBrandPage && productLine != 'reuter-stokes'"
+              (click)="headerMenuSelected()"
+            >
+              {{ 'waygate.createRma' | cxTranslate }}</a
+            >
+          </div>
+          <div>
+            <a
+              class="login-menu-items"
+              [routerLink]="['/', productLine, 'calibration-data']"
+              *ngIf="!isChooseBrandPage && productLine != 'reuter-stokes'"
+              (click)="headerMenuSelected()"
+            >
+              {{ 'waygate.findDataAndCert' | cxTranslate }}
+            </a>
+          </div>
+          <div>
+            <a
+              *ngIf="!isChooseBrandPage"
+              class="login-menu-items"
+              [routerLink]="['/', productLine, 'track-order']"
+              (click)="headerMenuSelected()"
+            >
+              {{ 'waygate.trackOrder' | cxTranslate }}
+            </a>
+          </div>
+          <div>
+            <a
+              *ngIf="!isChooseBrandPage"
+              class="login-menu-items"
+              [routerLink]="contactUsUrl"
+              (click)="headerMenuSelected()"
+            >
+              {{ 'waygate.contactUs' | cxTranslate }}
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="availableProductLines && availableProductLines.length > 1">
+  <app-choose-brand-list
+    *ngIf="showBrandList"
+    [clickSourceId]="productListTempRef.nativeElement"
+    (clickOutside)="showBrandList = false"
+    (brandSelected)="showBrandList = false"
+  ></app-choose-brand-list>
+</ng-container>
+
+<div class="waygate-header-filled"></div>
+<!-- desktop view starts -->
+<div class="waygate-header-main-section desktop-view">
+  <div class="header-waygate-main container-fluid" [class.header-fixed]="fixed">
+    <div class="container">
+      <div class="header-waygate-wrapper">
+        <ng-container *ngIf="!isChooseBrandPage; else chooseBrandPageTemplate">
+          <img
+            class="waygate-logo"
+            [src]="logoPath"
+            alt="click"
+            [ngClass]="productLine === 'druck' ? 'waygate-logo-druck' : ''"
+            (click)="WaygatePage()"
+          />
+        </ng-container>
+        <div class="waygate-search-input-container" *ngIf="!isChooseBrandPage">
+          <!-- <cx-searchbox></cx-searchbox> -->
+          <input
+            type="text"
+            class="waygate-search-input"
+            (click)="openSearch()"
+            #searchFocusInput
+            placeholder="{{
+              'waygate.searchByProductNamePartNo' | cxTranslate
+            }}"
+          /><span class="material-icons waygate-search-icon"> search </span>
+        </div>
+        <div>
+          <div class="header-waygate-right">
+            <ng-container *ngIf="currentCustomerAccount$ | async; else loading">
+              <div
+                class="cart-main"
+                *ngIf="
+                  isLoggedInUser && !isChooseBrandPage && cart$ | async as cart
+                "
+              >
+                <a class="shopping-cart" (click)="openSlider()">
+                  <span
+                    [ngClass]="isRead ? 'unread' : ''"
+                    class="material-icons-outlined bell-icon"
+                  >
+                    notifications
+                  </span>
+                </a>
+                <a
+                  class="shopping-cart"
+                  (click)="openMenu = !openMenu"
+                  #cartIcon
+                >
+                  <span
+                    class="material-icons shopping-cart-icon"
+                    *ngIf="
+                      cart?.commerceType == commerceTypes.RETURNS;
+                      else buy
+                    "
+                    >local_shipping</span
+                  >
+                  <ng-template #buy>
+                    <img
+                      class=""
+                      src="/assets/img/shoppingCartWaygate.svg"
+                      alt="click"
+                    />
+                  </ng-template>
+                  <!-- <span class="count"> -->
+                  <b class="count">{{
+                    cart?.commerceType == commerceTypes.RETURNS
+                      ? (cart?.returnsCartData | rmaProduct)?.length ||
+                        totalNumberOfCart
+                      : cart.totalItems || totalNumberOfCart
+                  }}</b>
+                  <!-- </span> -->
+                </a>
+                <div
+                  class="mini-cart"
+                  clickOutside
+                  [clickSourceId]="cartIcon"
+                  (clickOutside)="openMenu = !openMenu"
+                  *ngIf="openMenu"
+                >
+                  <ds-mini-cart-details
+                    class="mini-cart-details"
+                    [cart]="cart"
+                    (closeMenu)="closeMenu($event)"
+                    [showWaygate]="showWaygate"
+                  ></ds-mini-cart-details>
+                </div>
+              </div>
+            </ng-container>
+            <div
+              class="logout-section"
+              *ngIf="isChooseBrandPage"
+              (click)="logout()"
+            >
+              <span class="custom-logout">{{
+                'waygate.logout' | cxTranslate
+              }}</span>
+              <em class="material-icons keyarrow">arrow_forward</em>
+            </div>
+            <div class="user-details-container" *ngIf="!isChooseBrandPage">
+              <app-waygate-user-details></app-waygate-user-details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-waygate-notification-slider
+      *ngIf="showSlider"
+      [toggleMarging]="fixed"
+      (closeSlider)="showSlider = false"
+    ></app-waygate-notification-slider>
+  </div>
+  <app-waygate-nav-bar
+    class="desktop-view"
+    [isChooseBrandPage]="isChooseBrandPage"
+  ></app-waygate-nav-bar>
+</div>
+<!-- desktop view ends -->
+<!-- mobile view starts -->
+<div
+  class="waygate-header-main-section mobile-view"
+  [class.header-fixed]="fixed"
+>
+  <div class="header-waygate-main container-fluid">
+    <div class="container">
+      <div class="header-waygate-wrapper">
+        <ng-container *ngIf="!isChooseBrandPage; else chooseBrandPageTemplate">
+          <img
+            class="waygate-logo"
+            [src]="logoPath"
+            alt="click"
+            (click)="WaygatePage()"
+            [ngClass]="{
+              'waygate-logo-druck': productLine === 'druck',
+              'waygate-logo-pana': productLine === 'panametrics',
+            }"
+          />
+        </ng-container>
+        <div>
+          <div class="header-waygate-right">
+            <ng-container *ngIf="currentCustomerAccount$ | async; else loading">
+              <div
+                class="cart-main"
+                *ngIf="
+                  isLoggedInUser && !isChooseBrandPage && cart$ | async as cart
+                "
+              >
+                <a class="shopping-cart" (click)="openSlider()">
+                  <span
+                    [ngClass]="isRead ? 'unread' : ''"
+                    class="material-icons-outlined bell-icon"
+                  >
+                    notifications
+                  </span>
+                </a>
+                <a
+                  class="shopping-cart"
+                  (click)="mobCartOpenflag = !mobCartOpenflag"
+                  #mobCartIcon
+                >
+                  <span
+                    class="material-icons shopping-cart-icon"
+                    *ngIf="
+                      cart?.commerceType == commerceTypes.RETURNS;
+                      else buy
+                    "
+                    >local_shipping</span
+                  >
+                  <ng-template #buy>
+                    <img
+                      class=""
+                      src="/assets/img/shoppingCartWaygate.svg"
+                      alt="click"
+                    />
+                  </ng-template>
+                  <!-- <span class="count"> -->
+                  <b class="count">{{
+                    cart?.commerceType == commerceTypes.RETURNS
+                      ? (cart?.returnsCartData | rmaProduct)?.length ||
+                        totalNumberOfCart
+                      : cart.totalItems || totalNumberOfCart
+                  }}</b>
+                  <!-- </span> -->
+                </a>
+                <!-- Hamburger Menu -->
+                <a class="hamburger-icon" (click)="openHamSlider()">
+                  <img
+                    class=""
+                    src="/assets/img/hamburger.svg"
+                    alt="click"
+                  />
+                </a>
+                <div
+                  class="mini-cart"
+                  clickOutside
+                  [clickSourceId]="mobCartIcon"
+                  (clickOutside)="mobCartOpenflag = !mobCartOpenflag"
+                  *ngIf="mobCartOpenflag"
+                >
+                  <ds-mini-cart-details
+                    class="mini-cart-details"
+                    [cart]="cart"
+                    (closeMenu)="closeMenu = false"
+                    [showWaygate]="showWaygate"
+                  ></ds-mini-cart-details>
+                </div>
+              </div>
+            </ng-container>
+            <div
+              class="logout-section"
+              *ngIf="isChooseBrandPage"
+              (click)="logout()"
+            >
+              <span class="custom-logout">{{
+                'waygate.logout' | cxTranslate
+              }}</span>
+              <em class="material-icons keyarrow">arrow_forward</em>
+            </div>
+            <div class="user-details-container" *ngIf="!isChooseBrandPage">
+              <app-waygate-user-details></app-waygate-user-details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-waygate-notification-slider
+      *ngIf="showSlider"
+      [toggleMarging]="fixed"
+      (closeSlider)="showSlider = false"
+    ></app-waygate-notification-slider>
+    <app-waygate-hamburger-slider
+      *ngIf="showHamSlider"
+      [toggleMarging]="fixed"
+      [productLine]="productLine"
+      (closeSlider)="closeham()"
+      (logOut)="logout()"
+      [loggerIn]="isLoggedInUser"
+      (user$)="(user$)"
+      [isChooseBrandPage]="isChooseBrandPage"
+    ></app-waygate-hamburger-slider>
+  </div>
+  <div class="container-fluid waygate-search-input-container-mobile">
+    <div class="col-xs-12 w-100">
+      <ng-container *ngIf="!isChooseBrandPage">
+        <div class="pad-l-r-15">
+          <input
+            type="text"
+            class="waygate-search-input"
+            (click)="openSearch()"
+            #searchFocusInput
+            placeholder="{{
+              'waygate.searchByProductNamePartNo' | cxTranslate
+            }}"
+          /><span class="material-icons waygate-search-icon"> search </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <app-waygate-nav-bar
+    class="desktop-view"
+    [isChooseBrandPage]="isChooseBrandPage"
+  ></app-waygate-nav-bar>
+</div>
+<!-- mobile view ends -->
+<ng-template #chooseBrandPageTemplate>
+  <img
+    class="waygate-logo-bh"
+    src="/assets/img/bh-logo.svg"
+    alt="click"
+    width="200"
+  />
+</ng-template>
+<ng-template #loading class="mini-cart-loader-header">
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

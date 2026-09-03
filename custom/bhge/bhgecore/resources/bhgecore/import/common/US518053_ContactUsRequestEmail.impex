@@ -1,0 +1,19 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.bhge.initialdata.constants.BhgeInitialDataConstants&/bhgeinitialdata/import/coredata/contentCatalogs/bhgeContentCatalog/emails
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+$emailPackageName=$config-emailContextPackageName
+
+$lang=en
+
+INSERT_UPDATE  EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+                                ;;ContactUsRequestEmailTemplate;Contact Us Request Email Template;true;contactUsRequestEmail;bhge_Contact_US_Request_Email_Subject;bhge_Contact_US_Request_Email_Body;EmailPage
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;description[$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];rendererType(code)[default='velocity']
+                              ;bhge_Contact_US_Request_Email_Body;$emailPackageName.ContactUsRequestEmailContext;"Contact Us Request Body";$emailResource/email-contactUsRequest.vm;
+                              ;bhge_Contact_US_Request_Email_Subject;$emailPackageName.ContactUsRequestEmailContext;"Contact Us Request Subject";$emailResource/email-contactUsRequestSubject.vm;
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];fromEmail;fromName
+                       ;;ContactUsRequestEmail;Contact Us Request Email;ContactUsRequestEmailTemplate;true;;SVC-NonProd-DSStore@bakerhughes.com;Baker Hughes

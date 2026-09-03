@@ -1,0 +1,22 @@
+.mini-cart-icon-link {
+  color: var(--color-base-white-100);
+  position: relative;
+  cursor: pointer;
+
+  .count {
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: #653cad;
+    font-size: var(--font-base-font-size-12);
+    line-height: 23px;
+    text-align: center;
+    align-self: center;
+  }
+}
+.mini-cart-details {
+  position: relative;
+}

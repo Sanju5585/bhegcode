@@ -1,0 +1,19 @@
+<div class="view-mode-toggle mt-2">
+  <bh-button
+    type="secondary"
+    icon="view_list"
+    small="false"
+    label=""
+    [attr.disabled]="viewMode === iconTypes.GRID ? true : false"
+    (click)="changeMode()"
+  ></bh-button>
+  <bh-button
+    class="ml-1"
+    type="secondary"
+    icon="view_module"
+    small="false"
+    label=""
+    [attr.disabled]="viewMode === iconTypes.LIST ? true : false"
+    (click)="changeMode()"
+  ></bh-button>
+</div>

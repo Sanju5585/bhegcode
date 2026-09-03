@@ -1,0 +1,123 @@
+<div class="bubble-container">
+  <div class="container">
+    <div class="bubble-holder" *ngFor="let bubble of bubbles; let i = index">
+      <div
+        class="status-bubble"
+        *ngIf="statusType == statusTypes.ORDER && i !== 0"
+        matTooltipClass="vs-tooltip"
+        matTooltip="{{ bubble.tooltip }}"
+        matTooltipPosition="below"
+        [ngClass]="{ first: i == 0, active: i < currentStatusIndex }"
+        [ngStyle]="
+          i < currentStatusIndex - 1
+            ? { 'background-color': '#506C65' }
+            : i == currentStatusIndex - 1
+              ? { 'background-color': bubble.backgroundColor }
+              : ''
+        "
+      >
+        <em class="material-icons">{{ bubble.icon }}</em>
+      </div>
+      <div
+        class="status-bubble"
+        *ngIf="statusType == statusTypes.ORDER && i == 0"
+        matTooltipClass="vs-tooltip"
+        matTooltip="{{ bubble.tooltip }}"
+        matTooltipPosition="below"
+        [ngClass]="{ first: i == 0, active: i <= currentStatusIndex }"
+        [ngStyle]="
+          i <= currentStatusIndex
+            ? { 'background-color': bubble.backgroundColor }
+            : ''
+        "
+      >
+        <em class="material-icons">{{ bubble.icon }}</em>
+      </div>
+      <div
+        class="status-bubble"
+        *ngIf="statusType == statusTypes.QUOTE"
+        matTooltipClass="vs-tooltip"
+        matTooltip="{{ bubble.tooltip }}"
+        matTooltipPosition="below"
+        [ngClass]="{ first: i == 0, active: i <= currentStatusIndex }"
+        [ngStyle]="
+          i <= currentStatusIndex
+            ? { 'background-color': bubble.backgroundColor }
+            : ''
+        "
+      >
+        <em class="material-icons">{{ bubble.icon }}</em>
+      </div>
+      <div
+        class="status-bubble"
+        *ngIf="statusType == statusTypes.RMA && i !== 0"
+        matTooltipClass="vs-tooltip"
+        matTooltip="{{ bubble.tooltip }}"
+        matTooltipPosition="below"
+        [ngClass]="{ first: i == 0, active: i < currentStatusIndex }"
+        [ngStyle]="
+          i < currentStatusIndex - 1
+            ? { 'background-color': '#506C65' }
+            : i == currentStatusIndex - 1
+              ? { 'background-color': bubble.backgroundColor }
+              : ''
+        "
+      >
+        <em class="material-icons">{{ bubble.icon }}</em>
+      </div>
+      <div
+        class="status-bubble"
+        *ngIf="statusType == statusTypes.RMA && i == 0"
+        matTooltipClass="vs-tooltip"
+        matTooltip="{{ bubble.tooltip }}"
+        matTooltipPosition="below"
+        [ngClass]="{ first: i == 0, active: i <= currentStatusIndex }"
+        [ngStyle]="
+          i <= currentStatusIndex
+            ? { 'background-color': bubble.backgroundColor }
+            : ''
+        "
+      >
+        <em class="material-icons">{{ bubble.icon }}</em>
+      </div>
+      <span class="status-label" *ngIf="statusType == statusTypes.QUOTE">{{
+        bubble.quoteStatus.statusName
+      }}</span>
+      <span class="status-label" *ngIf="statusType == statusTypes.ORDER">{{
+        bubble.orderStatus.statusName
+      }}</span>
+      <span class="status-label" *ngIf="statusType == statusTypes.RMA">{{
+        bubble.rmaStatus.statusName
+      }}</span>
+    </div>
+    <div
+      class="bubble-holder"
+      *ngIf="isBlocked && statusType == statusTypes.QUOTE"
+    >
+      <div
+        class="status-bubble active"
+        [ngStyle]="{ 'background-color': blockedBubble.backgroundColor }"
+      >
+        <em class="material-icons">{{ blockedBubble.icon }}</em
+        >>
+      </div>
+      <span class="status-label" *ngIf="statusType == statusTypes.QUOTE">{{
+        blockedBubble.quoteStatus.statusName
+      }}</span>
+    </div>
+    <div
+      class="bubble-holder"
+      *ngIf="isBlocked && statusType == statusTypes.ORDER"
+    >
+      <div
+        class="status-bubble active"
+        [ngStyle]="{ 'background-color': blockedBubble.backgroundColor }"
+      >
+        <em class="material-icons">{{ blockedBubble.icon }}</em>
+      </div>
+      <span class="status-label" *ngIf="statusType == statusTypes.ORDER">{{
+        blockedBubble.orderStatus.statusName
+      }}</span>
+    </div>
+  </div>
+</div>

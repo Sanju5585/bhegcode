@@ -1,0 +1,25 @@
+<div class="modal">
+  <div class="modal-content">
+    <div class="model-header">
+      <div>{{ 'rma-form.rmaOverview' | cxTranslate }}</div>
+      <div class="material-icons" (click)="oncloseRmaOverview()">close</div>
+    </div>
+    <div class="model-body">
+      <ng-container
+        *ngIf="overviewTextData$ | async as overviewTextData; else loading"
+      >
+        <div class="overview" [innerHtml]="overviewTextData.content"></div>
+      </ng-container>
+      <ng-template #loading>
+        <div class="cx-spinner">
+          <cx-spinner></cx-spinner>
+        </div>
+      </ng-template>
+    </div>
+    <div class="modal-footer">
+      <button (click)="oncloseRmaOverview()">
+        {{ 'buyCart.close' | cxTranslate }}
+      </button>
+    </div>
+  </div>
+</div>

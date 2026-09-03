@@ -1,0 +1,209 @@
+<div class="home-page">
+  <div class="home-banner-nav pt-5">
+    <h3 class="text-center">{{ 'guest-home.homeTopText' | cxTranslate }} </h3>
+    <div class="box-wrapper m-0">
+      <div class="product-lines-base">
+        <a class="box cursor-pointer" routerLink="/waygate">
+          <div>
+            <img class="banner-nav" src="assets/img/banner1.png" alt="" />
+          </div>
+          <div class="banner-nav-img">
+            <img src="assets/img/bannernav1.png" alt="" />
+          </div>
+        </a>
+        <!-- (click)="navigateTo('1830_GE_GE', 'panametrics')" -->
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.panametrics]"
+        >
+          <div>
+            <img class="banner-nav" src="assets/img/banner2.png" alt="" />
+          </div>
+          <div class="banner-nav-img">
+            <img too src="assets/img/bannernav2.png" alt="" />
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.druck]"
+        >
+          <div>
+            <img class="banner-nav" src="assets/img/banner3.png" alt="" />
+          </div>
+          <div class="banner-nav-img">
+            <img src="assets/img/druck_homepage_logo.png" alt="" />
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.bently]"
+        >
+          <div>
+            <img
+              class="banner-nav height-inherit"
+              src="assets/img/banner4.png"
+              alt=""
+            />
+          </div>
+          <div class="banner-nav-img">
+            <img
+              src="assets/img/bannernav4.png"
+              class="height-inherit"
+              alt=""
+            />
+          </div>
+        </a>
+        <a
+          class="box cursor-pointer"
+          [routerLink]="['/', allProductsLine.reuterStokes]"
+        >
+          <div>
+            <img class="banner-nav" src="assets/img/banner5.png" alt="" />
+          </div>
+          <div class="banner-nav-img">
+            <img src="assets/img/bannernav5.png" alt="" />
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="track-order no-display">
+    <div class="row box-wrapper m-0">
+      <div class="col-lg-6 col-md-6 col-sm-12 box-container-align">
+        <app-status-tracker></app-status-tracker>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 box-container-align">
+        <app-equipment-calibration-data></app-equipment-calibration-data>
+      </div>
+    </div>
+  </div>
+  <div class="manage-orders no-display">
+    <img class="green-line" src="/assets/img/Rectangle.png" />
+    <div class="register">{{ 'guest-home.login' | cxTranslate }}</div>
+    <div class="see-orders">{{ 'guest-home.toSeeOrders' | cxTranslate }}</div>
+    <div class="row icons">
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> image_search </span>
+        <div class="icon-text">{{ 'guest-home.browse' | cxTranslate }}</div>
+        <div class="icon-desc">
+          {{ 'guest-home.productCatalog' | cxTranslate }}
+        </div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> attach_money </span>
+        <div class="icon-text">{{ 'guest-home.view' | cxTranslate }}</div>
+        <div class="icon-desc">
+          {{ 'guest-home.productPrice' | cxTranslate }}
+        </div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> list_alt </span>
+        <div class="icon-text">{{ 'guest-home.create' | cxTranslate }}</div>
+        <div class="icon-desc">{{ 'guest-home.newRma' | cxTranslate }}</div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle">
+          notifications_none
+        </span>
+        <div class="icon-text">{{ 'guest-home.recieve' | cxTranslate }}</div>
+        <div class="icon-desc">
+          {{ 'guest-home.notification' | cxTranslate }}
+        </div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> fact_check </span>
+        <div class="icon-text">{{ 'guest-home.track' | cxTranslate }}</div>
+        <div class="icon-desc">
+          {{ 'guest-home.returnStatus' | cxTranslate }}
+        </div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> shopping_cart </span>
+        <div class="icon-text">{{ 'guest-home.place' | cxTranslate }}</div>
+        <div class="icon-desc">{{ 'guest-home.orders' | cxTranslate }}</div>
+      </div>
+      <div class="icon-width">
+        <span class="material-icons-outlined icon-circle"> ballot </span>
+        <div class="icon-text">{{ 'guest-home.check' | cxTranslate }}</div>
+        <div class="icon-desc">
+          {{ 'guest-home.productAvailability' | cxTranslate }}
+        </div>
+      </div>
+    </div>
+    <div class="register-button">
+      <a routerLink="/login">
+        <bh-button
+          type="primary"
+          label="{{ 'guest-home.login' | cxTranslate }}"
+          class="register"
+        >
+        </bh-button>
+      </a>
+    </div>
+  </div>
+  <div>
+    <img class="green-line" src="/assets/img/Rectangle.png" />
+    <div class="product-brand">
+      {{ 'guest-home.productBrand' | cxTranslate }}
+    </div>
+    <div class="brand-box">
+      <div class="brand-desc">
+        <img class="image-waygate" src="/assets/img/Waygate.png" />
+        <div class="brand-description">
+          {{ 'guest-home.waygateDescription' | cxTranslate }}
+        </div>
+        <a [routerLink]="['/', allProductsLine.waygate]" >
+        <div
+          class="browse-brand"    
+        >
+          {{ 'guest-home.browseWaygate' | cxTranslate }}
+        </div>
+      </a>
+      </div>
+      <div class="brand-desc">
+        <img class="image-center" src="/assets/img/cordant_grey.png" />
+        <div class="brand-description">
+          {{ 'guest-home.bentlyDescription' | cxTranslate }}
+        </div>
+        <a [routerLink]="['/', allProductsLine.bently]" >
+        <div
+          class="browse-brand"
+        >
+          {{ 'guest-home.browseBently' | cxTranslate }}
+        </div>
+        </a>
+      </div>
+      <div class="brand-desc">
+        <img class="image-center" src="/assets/img/Reuter-Stokes.png" />
+        <div class="brand-description">
+          {{ 'guest-home.ReuterDescription' | cxTranslate }}
+        </div>
+      </div>
+      <div class="brand-desc">
+        <img class="image-center" src="/assets/img/Panametrics.png" />
+        <div class="brand-description">
+          {{ 'guest-home.panametricDescription' | cxTranslate }}
+        </div>
+        <a [routerLink]="['/', allProductsLine.panametrics]" >
+        <div
+          class="browse-brand"
+        >
+          {{ 'guest-home.browsePanametrics' | cxTranslate }}
+        </div></a>
+      </div>
+      <div class="brand-desc">
+        <img class="image-center" src="/assets/img/Druck.png" />
+        <div class="brand-description">
+          {{ 'guest-home.druckDescription' | cxTranslate }}
+        </div>
+        <a [routerLink]="['/', allProductsLine.druck]" >
+        <div
+          class="browse-brand"
+        >
+          {{ 'guest-home.browseDruck' | cxTranslate }}
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

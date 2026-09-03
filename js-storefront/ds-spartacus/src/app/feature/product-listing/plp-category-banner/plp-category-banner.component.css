@@ -1,0 +1,46 @@
+/* 
+ @import '../../../shared/styles/index';
+
+.VSCategorySlot vs-plp-category-banner{
+    height: 194px !important;
+    width: 1013px !important;
+    position: fixed!important;
+ 
+}
+.ProductListPageTemplate{
+    .VSCategorySlot1 {
+        width: 800px;
+        margin-left:30%;
+        display: block;
+        height: 194px;
+        border-radius: 4px;
+        border: 1px solid $light-dark;
+      }
+}
+
+.display-image{
+    height: 191.5px;
+    width: auto;//246.016px;
+    border-radius: 0px 4px 4px 0px;
+    float:right;
+}
+
+.category-description{
+    font-size: $small-font-size;
+    font-family: $font-family-secondary;
+    margin: 0 20px;
+    color: $light-dark;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    color: var(--color-base-teal-950);
+}
+.category-name{
+    padding: 20px;
+    font-weight: 600;
+    font-size: $h5-font-size;
+    font-family: $font-family-regular;
+    color: #506C65;
+}
+
+ */

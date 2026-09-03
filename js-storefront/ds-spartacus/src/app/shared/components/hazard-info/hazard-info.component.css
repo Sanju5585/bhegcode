@@ -1,0 +1,526 @@
+.attached-files {
+  width: auto;
+  max-height: 12%;
+  border-radius: 2px;
+  background-color: #f3f3f3;
+  padding-bottom: 1%;
+  margin-top: 1%;
+}
+
+.hazard-text {
+  border-radius: 2px;
+  border: solid 1px #cccccc;
+  background-color: #ffffff;
+}
+
+.hazard-table-header {
+  font-family: var(--font-base-font-family-decorative) Bold;
+  font-size: var(--font-base-font-size-14);
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #13294b;
+}
+
+.container {
+  padding-right: 0;
+}
+
+.hazardous-info .container {
+  height: auto;
+  border-width: 5px;
+  width: 100% !important;
+  background-color: #fff !important;
+  font-size: var(--font-base-font-size-14);
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+}
+
+.hazardous-info .btn {
+  background-color: white;
+  color: black;
+}
+
+.hazardous-info .btn-group {
+  border: 1px solid black;
+  font-size: var(--font-base-font-size-14);
+  padding: 5px 20px;
+}
+
+.hazardous-info .contamination {
+  margin: 1px;
+  padding: 20px;
+}
+
+/* add extra product  */
+
+.hazardous-info .contamination .extra_product {
+  margin: 20px 0;
+}
+
+.hazardous-info .contamination .extra_product .Add-card {
+  padding: 15px;
+  margin: 50px 10px 50px 0px;
+  border: 1.5px solid #0c2882;
+  border-radius: 5%;
+  text-decoration: none;
+}
+
+.hazardous-info .contamination .chemical_Details .fa.pull-right {
+  margin: 0.3em;
+  padding: 0.3em;
+  border: 1px solid rgb(131, 125, 125);
+}
+
+/* material details mandatory mark  */
+
+.asterik {
+  color: red;
+}
+
+/* design of jumbotron */
+
+.hazardous-info .contamination .jumbotron {
+  height: auto;
+  padding: 5px 0;
+  color: #0c2882;
+}
+
+.hazardous-info .contamination .jumbotron .jumbo_header {
+  position: relative;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* design of fontawasome icon */
+
+.hazardous-info .contamination .chemical_Details .pull-right {
+  margin-bottom: 10px;
+}
+
+.hazardous-info .contamination .chemical_Details .fa-trash-o {
+  border-style: initial;
+}
+
+/* underline design */
+
+hr {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+}
+
+/* text area design */
+
+.text-area {
+  margin: 40px 0 0 0;
+}
+
+.text {
+  font-weight: 100;
+}
+
+/* warranty info style of additional info page*/
+
+.warranty-info {
+  margin: 20px 0;
+  padding: 10px;
+  color: #16e07f;
+  background: rgba(0, 151, 19, 0.1);
+  height: auto;
+  width: initial;
+  line-height: 10px;
+  /* opacity: .1; */
+}
+
+.warranty-info p {
+  color: #1f1f21;
+}
+
+.additional-info .warranty-info .fa-info-circle {
+}
+
+.additional-info .container {
+  margin: 50px;
+  height: auto;
+}
+
+/* accessories design */
+
+.accessories {
+  padding: 15px;
+  border: 1px solid black;
+}
+
+#drag {
+  border-style: dotted;
+  margin-top: 15px;
+  height: 150px;
+  padding: 20px;
+  background-color: #f7f7f5;
+  position: relative;
+}
+
+#drag .drag-icon {
+  top: 40%;
+  bottom: 40%;
+  left: 40%;
+  right: 40%;
+}
+
+.hazard-table_margin-fix {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.radio-fix {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.declaration-font {
+  font-size: var(--font-base-font-size-14);
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #666666;
+}
+
+.notice-font {
+  font-size: var(--font-base-font-size-14);
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #13294b;
+}
+
+.tab-font {
+  font-family: var(--font-base-font-family-decorative) Bold;
+  font-size: var(--font-base-font-size-14);
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #13294b;
+}
+
+.NoHazardDataText {
+  font-size: var(--font-base-font-size-14);
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.57;
+  letter-spacing: normal;
+  color: #666666;
+}
+
+#hmenu2 {
+  padding: 27px 22px 25px 31px;
+}
+
+.nav-tabs > li > a.active,
+.nav-tabs > li > a.active:hover,
+.nav-tabs > li > a.active:focus {
+  border-top: #018374 2px solid;
+  border-bottom: none;
+}
+
+.tab-menu_border-fix {
+  border-top: solid 1px #dedede;
+  border-left: solid 1px #dedede;
+}
+
+.nav-tabs > li > a.active {
+  border-right: solid 1px #dedede;
+}
+
+.nav-tabs > li > a {
+  border: none;
+  border-right: solid 1px #dedede;
+}
+
+.nav-tabs > li > a.active,
+.nav-tabs > li > a.active:hover,
+.nav-tabs > li > a.active:focus {
+  box-shadow: none;
+}
+
+.nav-tabs > li > a {
+  width: 134px !important;
+  height: 50px;
+}
+
+.nav-tabs > li {
+  width: 134px !important;
+  height: 50px;
+}
+
+/* RMA custom checkbox */
+
+.rma-custom-checkbox {
+  position: absolute;
+  opacity: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.rma-custom-checkbox + label {
+  position: relative;
+  padding: 0;
+  border-radius: 2px;
+}
+
+.rma-custom-checkbox + label:before {
+  content: '';
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: text-top;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 2px;
+}
+
+.rma-custom-checkbox:checked + label:before {
+  background: #018374;
+  border-radius: 2px;
+}
+
+.rma-custom-checkbox:checked + label:after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  background: white;
+  width: 2px;
+  height: 2px;
+  box-shadow:
+    2px 0 0 white,
+    4px 0 0 white,
+    4px -2px 0 white,
+    4px -4px 0 white,
+    4px -6px 0 white,
+    4px -8px 0 white;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.rma-custom-checkbox:checked + label:before {
+  background: #018374;
+  border-radius: 2px;
+}
+
+.rma-custom-checkbox + label:before {
+  border: 1px solid #63666a;
+}
+
+.hazard-row-border {
+  border-bottom: 1px solid #ddd;
+}
+
+.rma-custom-checkbox-label {
+  cursor: pointer;
+}
+
+/* RMA custom radio */
+
+.rma-custom-radio:checked,
+.rma-custom-radio:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+.rma-custom-radio:checked + label,
+.rma-custom-radio:not(:checked) + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: #666;
+}
+
+.rma-custom-radio:checked + label:before,
+.rma-custom-radio:not(:checked) + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ddd;
+  border-radius: 100%;
+  background: #fff;
+  border: 1px solid var(--color-base-teal-950);
+}
+
+.rma-custom-radio:checked + label:after,
+.rma-custom-radio:not(:checked) + label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #018374;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.rma-custom-radio:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.rma-custom-radio:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.hazard-delete-icon-fix {
+  color: #018374;
+  border: 1px solid #cccccc !important;
+  font-size: 1.16em;
+}
+
+.hazard-add-icon-fix {
+  width: 27px;
+  height: 27px;
+  text-align: center;
+  padding-top: 8px !important;
+  border: 1px solid #cccccc !important;
+  color: #018374;
+  font-size: 1.16em;
+}
+
+.hazard-add-icon-fix .icon-qty-plus:before {
+  font-size: 0.8em;
+}
+
+.add-tabbed-border {
+  border-bottom: solid 1px #dedede;
+}
+
+.container input,
+textarea {
+  color: #666666;
+}
+
+.rma-custom-radio:checked + label:after,
+.rma-custom-radio:not(:checked) + label:after {
+  top: 3px;
+  left: 3px;
+}
+
+.selected-contamination {
+  color: #018374;
+  font-family: var(--font-base-font-family-decorative) Bold;
+}
+
+.contamination .checkbox {
+  margin-bottom: 15px;
+  color: #13294b;
+}
+
+.rma-custom-radio:checked + label:before {
+  border: 1px solid #018374;
+}
+
+.card {
+  box-shadow: 0 0 8px 0 #00000019;
+  transition: 0.3s;
+  padding: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-back-to-cart {
+  width: 100%;
+  color: #fff;
+  height: 40px;
+  border: 0px;
+  width: 200px;
+}
+
+.btn-cart-blue {
+  background-color: #018374;
+  font-family: 'var(--font-base-font-family-decorative) Bold';
+}
+
+.btn-blue-outline {
+  border: solid 1px #018374;
+  background-color: #ffffff;
+  color: #018374;
+  font-family: 'var(--font-base-font-family-decorative) Bold';
+}
+
+.dropdown-header {
+  background: #f2fffa;
+  padding: 15px;
+  color: #13294b;
+}
+
+.view-btn {
+  width: 150px;
+  height: 30px;
+  color: #018374;
+  border: 1px solid #018374;
+  background: #ffffff;
+  position: relative;
+  top: -5px;
+}
+
+.dropdown-body {
+  padding: 20px;
+}
+
+.infoBox {
+  border: solid 1px #bed5eb;
+  padding: 7px;
+  float: left;
+  margin-left: 12px;
+}
+
+.char-count {
+  clear: both;
+  display: block;
+}
+
+.red-border {
+  border: solid 1px red !important;
+}
+
+.add-files-btn {
+  width: 125px;
+  font-size: var(--font-base-font-size-12);
+  text-align: center;
+  line-height: 3;
+  cursor: pointer;
+}
+
+.add-files-btn .show-on-loading {
+  top: 10px;
+  right: 15px;
+}
+
+.icon-close-new {
+  cursor: pointer;
+}

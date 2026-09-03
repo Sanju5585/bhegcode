@@ -1,0 +1,53 @@
+<div class="cx-modal-container">
+  <div class="duplicate-eca-content">
+    <div class="cx-dialog-body duplicate-eca-body">
+      <header>
+        <div class="duplicate-eca-header">
+         <span class="cx-dialog-title">
+             {{ 'mini-cart.deleteAllCartsPopupTitle' | cxTranslate }}
+         </span>
+
+          <span (click)="close('cancel')" class="close-icon">
+            <bh-icon icon="close" size="medium" color="primary"></bh-icon>
+          </span>
+        </div>
+      </header>
+
+      <div class="cx-dialog-content">
+        <!-- BULLET POINTS BLOCK -->
+        <ul class="popup-points"> 
+     
+       <li>{{ 'mini-cart.deleteAllCartsPopupPoint1' | cxTranslate }}</li>
+       <li>{{ 'mini-cart.deleteAllCartsPopupPoint2' | cxTranslate }}</li>
+        </ul>
+
+        <!-- CONFIRMATION MESSAGE -->
+        <p class="cx-dialog-text">
+          {{ 'mini-cart.deleteAllCartsPopupConfirmMessage' | cxTranslate }}
+        </p>
+      </div>
+
+      <div
+        class="cx-dialog-actions d-flex justify-content-between duplicate-eca-footer"
+      >
+        <div class="col-5 p-0">
+          <bh-button
+            type="secondary"
+            label="{{ 'mini-cart.deleteAllCartsPopupCancel' | cxTranslate }}"
+            fluid
+            (click)="onCancel()"
+          ></bh-button>
+        </div>
+
+        <div class="col-7 pl-0">
+          <bh-button
+            type="primary"
+            label="{{ 'mini-cart.deleteAllCartsPopupConfirm' | cxTranslate }}"
+            fluid
+            (click)="confirmResetCart()"
+          ></bh-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,466 @@
+## messageSource=classpath:/bhgecore/messages/email-quoteBuyerSubmission_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#0468b3">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+#macro(displayNegationForDiscount $priceData)
+    #if (${priceData.value} > 0)
+    -
+    #end
+    ${priceData.formattedValue}
+#end
+<html>
+<head>
+    <style>
+    
+    * {
+	color: #05322b; 
+	font-family: 'Poppins','Lucida Sans';  
+	
+   }
+        a
+        {
+            text-decoration: none;
+            color:#0468b3;
+        }
+    </style>
+</head>
+<body>
+    #set ($quoteDetailsUrl = "${ctx.secureBaseUrl}/my-account/my-quotes/${ctx.quote.code}")
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="font-size:16px;background:#f4f4f4;">
+        <!--<tr>
+            <td valign="middle">
+                ${ctx.cmsSlotContents.SiteLogo}
+            </td>
+        </tr>-->
+        <tr>
+            <td align="center" valign="top" style="background-color: #ffffff;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px;">
+                <table width="570" align="center" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center" valign="top" bgcolor="#FFFFFF">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="boarder-collapse;">
+                                <tr>
+                                    <td valign="middle"></td>
+                                </tr>
+                                <!--<tr>
+                                    <td bgcolor="#f4f4f4">
+                                        <table style="width: 100%; height: 60px; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td valign="bottom" align="right" style="text-align:right; padding-left:20px;padding-right:20px;padding-bottom:20px;">
+                                                    <span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+                                                        <a style="color: #0468b3; text-decoration: none;" href="${ctx.baseUrl}">${ctx.messages.help}</a> |
+                                                        <a style="color: #0468b3;text-decoration: none;" href="${ctx.messages.contactUsPage}">${ctx.messages.contactUs}</a> |
+                                                        <a style="color: #0468b3;text-decoration: none;" href="${ctx.baseUrl}">${ctx.messages.termsAndCondition}</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>-->
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <!--<tr>
+                                    <td align="center" valign="middle">
+                                        <a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;font-family:arial,helvetica,sans-serif; font-size: 14px;color:#19212b;text-decoration: none;">${ctx.cmsSlotContents.TopContent}</a>
+                                    </td>
+                                </tr>-->
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top">
+                                        <p style="margin:2px 0"><font color="#000000" size="2" face="Arial, Helvetica, sans-serif"><b>
+										#if(${ctx.quote.UserName} != " ")
+										${ctx.messages.getMessage('salutation', ${ctx.title}, ${ctx.quote.UserName} )}</b>,</font></p>
+										#else
+										Dear Customer </b>,</font></p>
+										#end
+                                        <br />
+                                        <p style="margin:2px 0"><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('quoteDetailsParagraph')}</font></p>
+                                        <br />
+                                        <p style="margin:2px 0"><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('quoteReviewParagraph', "#genHtmlLinkStartTag($quoteDetailsUrl)", "#genHtmlBoldFont(${ctx.quote.code})", "#genHtmlLinkEndTag()")}</font></p>
+                                        <br />
+                                        <p style="margin:2px 0"><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('thankYouParagraph', "#genHtmlLinkStartTag($quoteDetailsUrl)", "#genHtmlBoldFont(${ctx.quote.code})", "#genHtmlLinkEndTag()")}</font></p>
+                                        <p>
+                                            <font color="#000000" size="2" face="Arial, Helvetica, sans-serif">
+                                                ${ctx.messages.complimentaryClosing}
+                                                <br />
+                                                ${ctx.messages.companyName}
+                                            </font>
+                                        </p>
+                                        <br />
+                                    </td>
+                                </tr>
+								<tr>
+                                    <td>
+                                        <span style="display: block;font-family:arial,helvetica,sans-serif;font-size: 18px;padding-bottom:15px;">
+                                            <strong>Cutomer details</strong>
+                                        </span>
+                                    </td>
+                                </tr>
+								<tr>
+								</tr>
+								<td>
+								 <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+								 #if (${ctx.quote.emailtype} == "customerCare")
+								 #if(${ctx.quote.UserName} != " ")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Customer Name: 
+                                                </td>
+									<td>${ctx.quote.UserName}</td>	
+                                 </tr>	
+								 #end
+								 #if(${ctx.quote.Company} != " ")
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Company: 
+                                                </td>
+									<td>${ctx.quote.Company}</td>	
+                                 </tr>
+								 #end
+								 #if(${ctx.quote.ContactNumber} != " ")
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Contact Number: 
+                                                </td>
+									<td>${ctx.quote.ContactNumber}</td>	
+                                 </tr>
+								 #end
+								 #end
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Email Address: 
+                                                </td>
+									<td>${ctx.quote.EmailAddress}</td>	
+                                 </tr>
+								 #if (${ctx.quote.emailtype} == "customerCare")
+								 #if(${ctx.quote.Address1}  != " ")
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Address: 
+                                                </td>
+									<td>${ctx.quote.Address1}
+									#if(${ctx.quote.Address2} && ${ctx.quote.Address2}  != ''),${ctx.quote.address2}
+									#end
+									</td>						
+                                 </tr>
+								 #end
+								 #if(${ctx.quote.Country} !="")
+                                 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Country: 
+                                                </td>
+									<td>${ctx.quote.Country}</td>	
+                                 </tr>
+								 #end
+								 #if(${ctx.quote.Region} !="")
+                                 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   State: 
+                                                </td>
+									<td>${ctx.quote.Region}</td>	
+                                 </tr>
+								 #end
+								 #if(${ctx.quote.City}  != " ")
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   City: 
+                                                </td>
+									<td>${ctx.quote.City}</td>	
+                                 </tr>
+								 #end
+								 #if(${ctx.quote.PostalCode}  != " ")
+								<tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   PostalCode: 
+                                                </td>
+									<td>${ctx.quote.PostalCode}</td>	
+                                 </tr>
+								 #end
+								 #end
+								 #if(${ctx.quote.Description} && ${ctx.quote.Description} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   Description: 
+                                                </td>
+									<td>${ctx.quote.Description}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserType} && ${ctx.quote.endUserType} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Category: 
+                                                </td>
+									<td>${ctx.quote.endUserType}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserCompanyName} && ${ctx.quote.endUserCompanyName} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Company Name: 
+                                                </td>
+									<td>${ctx.quote.endUserCompanyName}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserLine1} && ${ctx.quote.endUserLine1} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Line 1: 
+                                                </td>
+									<td>${ctx.quote.endUserLine1}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserLine2} && ${ctx.quote.endUserLine2} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Line 2: 
+                                                </td>
+									<td>${ctx.quote.endUserLine2}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserTownCity} && ${ctx.quote.endUserTownCity} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User City: 
+                                                </td>
+									<td>${ctx.quote.endUserTownCity}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserRegionName} && ${ctx.quote.endUserRegionName} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Region: 
+                                                </td>
+									<td>${ctx.quote.endUserRegionName}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserCountryIso} && ${ctx.quote.endUserCountryIso} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Country: 
+                                                </td>
+									<td>${ctx.quote.endUserCountryIso}</td>	
+                                 </tr>
+								 #end
+								 
+								 #if(${ctx.quote.endUserPostcode} && ${ctx.quote.endUserPostcode} != "")
+								 <tr>
+									<td style="font-family:'Poppins','Lucida Sans';color: #05322b;font-size:10px;font-size:13px;text-transform:uppercase;font-weight: bold;" align="left" valign="bottom" width="266">
+                                                   End User Postal Code: 
+                                                </td>
+									<td>${ctx.quote.endUserPostcode}</td>	
+                                 </tr>
+								 #end
+								 
+								 </table>
+								</td>
+                                <tr>
+                                    <td>
+                                        <span style="display: block;font-family:arial,helvetica,sans-serif;font-size: 18px;padding-bottom:15px;">
+                                            <strong>${ctx.messages.quoteSummary}</strong>
+                                        </span>
+                                        <span style="display:block;font-family:arial,helvetica,sans-serif;font-size: 16px;padding-bottom:23px;">${ctx.messages.itemsToBeDelivered}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" style="background-color:#028474;padding-top:10px;padding-right:15px;padding-bottom:10px;padding-left:15px;">
+                                        <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                                            <tr>
+                                                <td style="font-family:arial,helvetica,sans-serif;color:#FFFFFF;font-size:10px;font-size:13px;text-transform:uppercase;" align="left" valign="bottom" width="266">
+                                                    Item (Style Number)
+                                                </td>
+												 #if (${ctx.displayName} != "Anonymous")
+                                                <td style="font-family:arial,helvetica,sans-serif;color:#FFFFFF;font-size:10px;font-size:13px;text-transform:uppercase;" align="left" valign="bottom" width="96">
+                                                    Price
+                                                </td>
+												#end
+                                                <td style="font-family:arial,helvetica,sans-serif;color:#FFFFFF;font-size:10px;font-size:13px;text-transform:uppercase;" align="right" valign="bottom" width="96">
+                                                    Qty
+                                                </td>
+												 #if (${ctx.displayName} != "Anonymous")
+                                                <td style="font-family:arial,helvetica,sans-serif;color:#FFFFFF;font-size:10px;font-size:13px;text-transform:uppercase;" align="right" valign="bottom" width="108">
+                                                    Total
+                                                </td>
+												#end
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%">
+                                        <table style="color: #19212b; width: 100%; border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody>
+                                                #foreach( $entry in ${ctx.quote.entries} )
+                                                <tr style="border-bottom: 1px solid #ddd;">                                                   
+                                                    <td width="150" align="left" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:20px;padding-left:5px;font-family:arial,helvetica,sans-serif;">
+                                                        <strong>$entry.product.name</strong><br />${ctx.messages.productCode} $entry.product.code
+                                                    </td>
+													 #if (${ctx.displayName} != "Anonymous")
+                                                    <td width="96" align="left" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:20px;padding-left:5px;font-family:arial,helvetica,sans-serif;">
+                                                        $entry.basePrice.formattedValue
+                                                    </td>
+													   #end
+                                                    <td width="96" align="left" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:20px;padding-left:5px;font-family:arial,helvetica,sans-serif;">
+                                                        $entry.quantity
+                                                    </td>
+													 #if (${ctx.displayName} != "Anonymous")
+                                                    <td width="108" align="right" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:20px;padding-left:5px;font-family:arial,helvetica,sans-serif;">
+                                                        <strong>$entry.totalPrice.formattedValue</strong>
+                                                    </td>
+													   #end
+                                                </tr>
+                                                #end
+                                            </tbody>
+                                        </table>
+                                        <br />
+										#if (${ctx.displayName} != "Anonymous")
+                                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="products">
+                                            <tr>
+                                                <td valign="top">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        #if (!${ctx.quote.appliedOrderPromotions.isEmpty()})
+                                                        <tr>
+                                                            <td></td>
+                                                            <td align="right" style="padding-left:0px;padding-top:10px;padding-bottom:15px;padding-right:0px;">
+                                                                <strong style="	color: #05322b;
+	font-family: 'Poppins','Lucida Sans';font-size:16px;">
+                                                                        #set ($promotionIndex = 0)
+                                                                        #foreach( $promotion in ${ctx.quote.appliedOrderPromotions})
+                                                                            #set ($promotionIndex = $promotionIndex+1)
+                                                                            ${promotion.promotionData.description}#if ($promotionIndex != ${ctx.quote.appliedOrderPromotions.size()}), #end
+                                                                        #end
+                                                                        - ${ctx.messages.getMessage('youSaveOnOrderPromotions', ${ctx.quote.totalDiscounts.formattedValue})}
+                                                                </strong>
+                                                            </td>
+                                                        </tr>
+                                                        #end
+                                                        <tr>
+                                                            <td valign="top">
+                                                            </td>
+                                                            <td align="right" valign="top" height="100%">
+                                                                <table cellspacing="0" border="0" style="color: #19212b; border-collapse:collapse;" width="100%" cellpadding="0">
+                                                                    <tr>
+                                                                        <td align="right" style="font-family:arial,helvetica,sans-serif;padding-bottom: 30px;padding-left:0px;padding-top:0px;padding-right:0px;">
+                                                                            <table cellpadding="0" cellspacing="0" border="0" width="280" style="border-collapse:collapse;">
+                                                                                <tr>
+                                                                                    <td valign="top" align="left" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;">${ctx.messages.subtotal}:</td>
+                                                                                    <td valign="top">&nbsp;</td>
+                                                                                    <td valign="top" align="right" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;"><strong>${ctx.quote.subTotal.formattedValue}</strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top" align="left" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;">${ctx.messages.orderDiscounts}:</td>
+                                                                                    <td valign="top">&nbsp;</td>
+                                                                                    <td valign="top" align="right" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;"><strong>#displayNegationForDiscount(${ctx.quote.totalDiscounts})</strong></td>
+                                                                                </tr>
+                                                                                #if (${ctx.quote.quoteDiscounts.value} > 0)
+                                                                                    <tr>
+                                                                                        <td valign="top" align="left" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;">${ctx.messages.quoteDiscounts}:</td>
+                                                                                        <td valign="top">&nbsp;</td>
+                                                                                        <td valign="top" align="right" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;"><strong>- ${ctx.quote.quoteDiscounts.formattedValue}</strong></td>
+                                                                                    </tr>
+                                                                                #end
+                                                                                <tr>
+                                                                                    <td valign="top" align="left" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;">${ctx.messages.shipping}:</td>
+                                                                                    <td valign="top">&nbsp;</td>
+                                                                                    <td valign="top" align="right" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;"><strong>#if(${ctx.quote.deliveryCost} && ${ctx.quote.deliveryCost.value} > 0) ${ctx.quote.deliveryCost.formattedValue} #else ${ctx.messages.free} #end</strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top" align="left" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;">${ctx.messages.tax}:</td>
+                                                                                    <td valign="top">&nbsp;</td>
+                                                                                    <td valign="top" align="right" style="padding-left:0px;padding-top:0px;padding-bottom:10px;padding-right:0px;"><strong>${ctx.quote.totalTax.formattedValue}</strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top" align="left" style="margin: 0 0 0 0;font-family:arial,helvetica,sans-serif; color:#19212b;font-size: 15px;text-transform:uppercase;"><strong>${ctx.messages.quoteTotal}</strong></td>
+                                                                                    <td valign="top">&nbsp;</td>
+                                                                                    <td valign="top" align="right" style="font-family:arial,helvetica,sans-serif; color:#19212b;font-size: 15px;"><strong>${ctx.quote.totalPriceWithTax.formattedValue}</strong></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <tr>
+                                                                    <td width="15"></td>
+                                                                    <td width="230" align="right" style="font-family:arial,helvetica,sans-serif; font-size: 15px; color:#05322b;padding-bottom: 9px;padding-top:0;padding-right:0;padding-left:0;">
+                                                                        ${ctx.messages.getMessage('includesTax', ${ctx.quote.totalTax.formattedValue})}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="15"></td>
+                                                                    <td align="right" valign="bottom" style="font-family:arial,Helvetica,sans-serif; color:#00a651; font-size: 15px; text-transform: uppercase;">
+                                                                        <strong>${ctx.messages.getMessage('youSaveInTotal', ${ctx.quote.totalDiscountsWithQuoteDiscounts.formattedValue})}</strong>
+                                                                    </td>
+                                                                </tr>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> </td>
+                                </tr>
+                            </table>
+							 #end
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--<tr>
+            <td bgcolor="#F4F4F4" style="padding-top:26px;padding-bottom:50px;padding-right:35px;padding-left:40px;">
+                <table style="width: 100%; height: 30px; border-collapse:collapse;" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td align="left" style="font-size: 14px;">© ${ctx.messages.year} ${ctx.messages.companyName} </td>
+                        <td align="right" style="text-align: right;">
+                            <span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+                                <a style="color: #0468b3;text-decoration: none;" href="${ctx.baseUrl}">${ctx.messages.help}</a> |
+                                <a style="color: #0468b3;text-decoration: none;" href="${ctx.messages.contactUsPage}">${ctx.messages.contactUs}</a> |
+                                <a style="color: #0468b3;text-decoration: none;" href="${ctx.baseUrl}">${ctx.messages.termsAndCondition}</a>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>-->
+        <tr>
+            <td> </td>
+        </tr>
+    </table>
+</body>
+</html>

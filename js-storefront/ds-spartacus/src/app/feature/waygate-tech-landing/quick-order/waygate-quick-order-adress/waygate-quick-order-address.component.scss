@@ -1,0 +1,113 @@
+.address-container {
+  font-family: Poppins;
+  min-height: 600px;
+
+  .title-line {
+    width: 58px;
+    height: 2px;
+    background-color: #02A783;
+    margin-top: 32px;
+    margin-bottom: 18px;
+  }
+
+  .page-title {
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0px;
+    margin-bottom: 43px;
+  }
+
+  .address-table {
+
+    th {
+      font-family: Noto Sans;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      padding-bottom: 21px;
+    }
+
+    td {
+      font-family: Noto Sans;
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0px;
+      vertical-align: top;
+      padding-bottom: 19px;
+    }
+
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin: 20px 0px;
+  }
+
+  .delete-col {
+    text-align: center;
+  }
+
+  .selected-address {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.25px;
+    vertical-align: middle;
+
+  }
+}
+
+:host::ng-deep {
+  .change-btn {
+    .bh-button {
+      border: none;
+      justify-content: flex-start;
+      padding: 0px;
+    }
+
+    .typography--button-link-medium {
+      color: #02A783;
+      font-family: Poppins;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+  .cancel-btn {
+    .bh-button {
+      border: none;
+    }
+  }
+
+  .add-btn {
+    .bh-button {
+      border: none;
+      justify-content: flex-start;
+      padding: 0px;
+    }
+
+    .typography--button-link-medium {
+      color: #02A783;
+      font-family: Poppins;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+  .del-icon {
+    .bh-icon {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+$lang=en
+
+#select * from {BHGERegieterCustomer} where {sso} in ('204063001', '212647938')
+#select * from {BHGEUserAccessRequest} where {accessrequestid} in ('32001', '32002')
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];sso;name;givenName;familyName;email;defaultB2BUnit(uid);activeStatus;productLine(attributeId);governmentOrg
+;dam-32001;204063001;Beth Francis;Beth;Francis;Beth1.Francis@bhge.com;DAMRegister;true;32100;false
+#;dam-32002;212647938;Rebecca Diagre;Rebecca;Diagre;Rebecca.Daigre@bhge.com;DAMRegister;true;32100;false
+
+INSERT_UPDATE BHGERegieterCustomer;uid[unique=true];groups(uid)
+;1903;BHGECSRApproverGroup,BHGEUserManagerGroup
+;dam-32001;BHGECSRApproverGroup
+;usr-212647938;BHGECSRApproverGroup
+
+INSERT_UPDATE BHGEUserAccessRequest;accessrequestid[unique=true];requesterid(uid);approverdetails(approverid);accessrequestsource(code);requeststatus(code);linkedWithRegister;processedBy(uid)
+;32001;dam-32001;32001;REGISTER_MICROSITE;COMPLETED;true;
+;32002;usr-212647938;32001;REGISTER_MICROSITE;COMPLETED;true;
+
+INSERT_UPDATE BHGEApprover2CustomerRelation;source(approverid)[unique=true];target(uid)[unique=true]
+;32001;1903;
+;32001;dam-32001;
+;32001;usr-212647938;

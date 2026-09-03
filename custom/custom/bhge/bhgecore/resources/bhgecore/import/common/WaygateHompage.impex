@@ -1,0 +1,34 @@
+$contentCatalog=bhgeContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;WaygateHomepageTemplate;Waygate Home Page Template;layout/landingLayout2Page;ContentPage
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)
+;;WaygateHomepage;Waygate Home Page;WaygateHomepageTemplate;waygateHomepage
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='WaygateHomepageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;BodyContent;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='WaygateHomepageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-WaygateHomepage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-WaygateHomepage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-WaygateHomepage;NavigationBar;;NavigationBarSlot;true
+;;MiniCart-WaygateHomepage;MiniCart;;MiniCartSlot;true
+;;Footer-WaygateHomepage;Footer;;FooterSlot;true
+;;HeaderLinks-WaygateHomepage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-WaygateHomepage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-WaygateHomepage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-WaygateHomepage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-WaygateHomepage;PlaceholderContentSlot;;PlaceholderContentSlot;true

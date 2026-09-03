@@ -1,0 +1,79 @@
+<div class="box-container">
+  <h4 class="box-title">
+    {{ 'loggedinHome.manageEquipment' | cxTranslate }}
+  </h4>
+  <div class="icon-text">
+    <p class="not-available">
+      {{ 'loggedinHome.creatRmaLine1Part1' | cxTranslate }}
+      <strong>
+        {{ 'loggedinHome.creatRmaLine1Part2' | cxTranslate }}
+      </strong>
+    </p>
+
+    <p class="not-available top-margin">
+      <span class="box-text-gold">{{ 'loggedinHome.new' | cxTranslate }}</span>
+      {{ 'loggedinHome.creatRmaLine2Part1' | cxTranslate }}
+      <span>
+        <ul class="menu-alignment">
+          <li>
+            <strong>{{ 'loggedinHome.druck' | cxTranslate }}</strong>
+            {{ 'loggedinHome.druckCertificate' | cxTranslate }}
+          </li>
+          <li>
+            <strong>{{ 'loggedinHome.panametrics' | cxTranslate }}</strong>
+            {{ 'loggedinHome.panametricsCertificate' | cxTranslate }}
+          </li>
+          <li>
+            <strong>{{ 'loggedinHome.waygate' | cxTranslate }}</strong>
+            {{ 'loggedinHome.waygateCertificate' | cxTranslate }}
+          </li>
+        </ul>
+      </span>
+    </p>
+  </div>
+
+  <div class="row bottom-button-wrap">
+    <bh-button
+      class="create-button3"
+      type="secondary"
+      small
+      label="{{ 'loggedinHome.createRma' | cxTranslate }}"
+      (click)="createNewRma()"
+    ></bh-button>
+
+    <bh-button
+      class="create-button2"
+      type="primary"
+      small
+      label="{{ 'loggedinHome.viewCalData' | cxTranslate }}"
+      (click)="viewCalibrationData()"
+    ></bh-button>
+
+    <bh-button
+      *ngIf="!showCustomerFiles"
+      class="create-button1"
+      type="secondary"
+      small
+      label="{{ 'loggedinHome.viewEquipment' | cxTranslate }}"
+      (click)="viewEquipment()"
+    ></bh-button>
+
+    <div class="customer-files cf-margin" *ngIf="showCustomerFiles">
+      <bh-button
+        class="create-button1"
+        type="secondary"
+        small
+        label="{{ 'loggedinHome.viewEquipment' | cxTranslate }}"
+        (click)="viewEquipment()"
+      ></bh-button>
+
+      <bh-button
+        class="create-button4"
+        type="secondary"
+        small
+        label="{{ 'loggedinHome.customerFiles' | cxTranslate }}"
+        (click)="redirectToBynder()"
+      ></bh-button>
+    </div>
+  </div>
+</div>

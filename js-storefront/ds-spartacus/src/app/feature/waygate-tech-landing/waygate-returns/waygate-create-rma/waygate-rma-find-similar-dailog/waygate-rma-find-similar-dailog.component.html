@@ -1,0 +1,158 @@
+<div class="modal">
+    <div class="modal-content">
+        <div class="model-header">
+            <label for="" class="find-help-header--label">{{
+                'rma-form.SearchProduct' | cxTranslate
+              }}</label>
+              <i class="material-icons" (click)="closeHelp()">close</i>
+        </div>
+        <div class="model-body">
+            <section class="search-filter" [formGroup]="searchForm">
+                <div class="search-container">
+                    <div class="search-container-item">
+                        <div class="d-flex">
+                            <label for="partNumberInput" class="required">{{
+                                'mySiteEquipment.enterPartNumber' | cxTranslate
+                            }}</label>
+                            <span
+                                class="material-icons-outlined"
+                                (mouseenter)="showPartNoInfo = true"
+                                (mouseleave)="showPartNoInfo = false"
+                                >info</span
+                            >
+                        </div>
+                        <div>
+                            <div *ngIf="showPartNoInfo" class="col-1 view-validation-info">
+                                <div class="dropdown set-position-partNO-info p-0">
+                                    <div class="breakdown-price">
+                                    {{
+                                        'rma-form.partNumberInfoText' | cxTranslate
+                                    }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="part-number-input">
+                            <input
+                            #partNumberInput
+                            id="partNumberInput"
+                            class="input-container"
+                            maxlength="18"
+                            placeholder="{{ 'mySiteEquipment.enterPartNumber' | cxTranslate }}"
+                            formControlName="searchTerm"
+                            (input)="autoSearchResults($event)"
+                            autofocus
+                            autocomplete="off"
+                            />
+                            <!-- <div
+                            *ngIf="searchingProducts"
+                            class="part-input-side-loader side-loader cx-spinner"
+                            >
+                            <cx-spinner></cx-spinner>
+                            </div>      -->
+                        </div>
+                        <div class="input-message">
+                            <span class="material-icons-outlined">info</span>
+                            {{'mySiteEquipment.inputMessage' | cxTranslate}}
+                        </div>
+                    </div>
+                    <div class="search-container-item">
+                        <div class="d-flex">
+                            <label for="serialNumber">{{
+                                'mySiteEquipment.enterSerialNUmber' | cxTranslate
+                            }}</label>
+                            <span
+                                class="material-icons-outlined"
+                                (mouseenter)="showserialNOInfo = true"
+                                (mouseleave)="showserialNOInfo = false"
+                                >info</span
+                            >
+                        </div>
+                        <div >
+                            <div *ngIf="showserialNOInfo" class="col-1 view-validation-info">
+                                <div class="dropdown set-position-serialNO-info p-0">
+                                    <div class="breakdown-price">
+                                    {{
+                                        'rma-form.serialNumberInfoText' | cxTranslate
+                                    }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input
+                          id="serialNumber"
+                          class="input-container"
+                          formControlName="serialNumber"
+                          (input)="autoSearchSerial($event)"
+                          autocomplete="off"
+                          placeholder="{{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}"
+                          maxlength="18"
+                        />
+                        <!-- <div *ngIf="searchingSerialResults" class="part-input-side-loader side-loader cx-spinner">
+                          <cx-spinner></cx-spinner>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+            <div class="part-results-list">
+                <span class="part-result-title">{{ 'rma-form.similarPart' | cxTranslate }}</span>
+                <div class="part-results-header">
+                    <span>{{ 'rma-form.productNameTag' | cxTranslate }}</span>
+                    <span>{{ 'rma-form.serialNumber' | cxTranslate }}</span>
+                    <span>{{ 'rma-form.category' | cxTranslate }}</span>
+                </div>
+                <div *ngIf="searchingSerialResults || searchingProducts" class="part-input-side-loader side-loader cx-spinner">
+                    <cx-spinner></cx-spinner>
+                </div>
+                <div class="part-results-scroll-wrapper">
+                    <div class="part-result-row" *ngFor="let part of $any(parts)">
+                      <div class="part-number-autocomplete">
+                        <bh-radio-button
+                          [value]="part.name"
+                          name="account"
+                          (change)="onSelectPart(part)">
+                        </bh-radio-button>
+                        <cx-media
+                          class="col-2 p-0 part-image"
+                          [container]="part.images"
+                          format="thumbnail"
+                          [alt]="part.summary">
+                        </cx-media>
+                        <div class="col-10 product-details-holder">{{ part.name }}</div>
+                      </div>
+                      <div class="serial-number-row-item">{{ part.summary || '-' }}</div>
+                      <div class="catergort-number-row-item">{{ getProductCategories(part.brandName).title }}</div>
+                    </div>
+                    <div class="part-result-row">
+                      <div class="part-number-autocomplete">
+                        <bh-radio-button
+                          [value]="'OTHER'"
+                          name="account"
+                          (change)="cantFindPart('OTHER')">
+                        </bh-radio-button>
+                        <div class="col-2 p-0 part-image other"></div>
+                        <div class="col-10 product-details-holder">
+                            {{ 'rma-form.notFindingPart' | cxTranslate }} <br> {{ 'rma-tracking.others' | cxTranslate }}
+                        </div>
+                      </div>
+                      <div class="serial-number-row-item">-</div>
+                      <div class="catergort-number-row-item">-</div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+        <div class="modal-footer">
+            <bh-button 
+            (click)="closeHelp()" 
+            type="secondary" 
+            label="{{ 'waygate.cancel' | cxTranslate }}">
+            </bh-button>
+            <bh-button 
+            (click)="selectPart()" 
+            type="primary" 
+            label="{{ 'waygate.confirm' | cxTranslate }}">
+            </bh-button>
+        </div>
+    </div>
+</div>

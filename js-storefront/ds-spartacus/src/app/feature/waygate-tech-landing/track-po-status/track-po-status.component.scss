@@ -1,0 +1,83 @@
+.space-right-cn {
+  margin-right: 1em;
+  max-width: 28%;
+}
+.space-right-pon {
+  margin-right: 0.1em;
+}
+.space-right-or {
+  margin-right: 0.1em;
+  margin-top: 35px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.25px;
+  color: #595959;
+}
+.space-right-qr {
+  margin-right: 1em;
+}
+.track-btn {
+  padding-top: 28px;
+  padding-left: 0;
+}
+.track-status-label {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+}
+:host::ng-deep {
+  .bh-button--type-primary {
+    width: 116px;
+    height: 36px;
+  }
+  .bh-button--type-secondary {
+    min-width: 74px;
+    height: 36px;
+  }
+  .typography--button-link-medium {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .bh-text-input input {
+    height: 36px;
+  }
+  .bh-text-input label {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.25px;
+    color: #121212;
+  }
+}
+.question-icon {
+  position: absolute;
+  left: 156px;
+  z-index: 10;
+}
+.icon-size {
+  font-size: var(--font-size-label-medium);
+  color: var(--text-link-primary-default, #02a783);
+}
+.help-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  justify-content: end;
+}
+.find-order {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-base-font-size-12);
+  line-height: var(--font-base-line-height-16);
+  align-items: center;
+  letter-spacing: var(--font-letter-spacing-label-small);
+  color: var(--text-link-primary-default, #02a783);
+  position: relative;
+}
+
+.find-order {
+  cursor: pointer;
+}

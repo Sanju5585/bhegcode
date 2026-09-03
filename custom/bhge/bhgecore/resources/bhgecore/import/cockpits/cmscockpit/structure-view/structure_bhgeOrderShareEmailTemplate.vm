@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Share Order Email</title>
+</head>
+<body>
+		
+		<div class="row">
+                                    <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                        <tr class="row__row">
+                                            <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+												 <a href="#" class="a" style="color: #05322b; text-decoration: none;"><span class="a__text" style="color: #05322b; text-decoration: none;"> <img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" border="0" class="img-responsive heightHeader" width="100%"/></span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+	<div class="heading row">
+      <table class="row__table" width="100%" align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+          <tr class="row__row">
+               <td class="column col-sm-12" width="1024" style="padding: 20px;width: 100%" align="left" valign="top">
+               <h1 class="header h1" style="margin: 20px 0; line-height: 40px; font-family: 'Poppins','Lucida Sans'; text-align: left; color: #05322B; font-size: 24px; margin-left: 0; margin-top: -40px;">
+                Order Share
+               </h1>
+               </td>
+               </tr>
+     </table>
+   </div>
+  
+    <p style="width: 90%; margin: auto; margin-bottom: 20px;">Dear Customer,<br>Please review your Order details below.</p>
+
+    <table style="width: 90%; margin: auto; margin-bottom: 20px;">
+        <tr>
+            <td>Order Number #<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.orderHeaderData.code</strong></td>
+        </tr>
+        <tr>
+            <td>Customer PO#<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;">  $ctx.orderHeaderData.purchaseOrderNumber</strong></td>
+        </tr>
+        <tr>
+            <td>Date Order Created<span style="float:right;">:</span></td>
+            #if(${ctx.orderHeaderData.orderDate})
+            <td> <strong style="color: #13294b;">  $ctx.orderHeaderData.orderDate</strong></td>
+            #else
+            <td> <strong style="color: #13294b;">  </strong></td>
+            #end
+        </tr>
+        <tr>
+            <td>Sold To Customer<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.orderHeaderData.soldTo</strong></td>
+        </tr>
+        <!--<tr>
+            <td>Return-to Site<span style="float:right;">:</span></td>
+            <td> <strong style="color: #13294b;"> $ctx.orderHeaderData.returnSite</strong></td>
+        </tr>-->
+        #if(${ctx.orderHeaderData.headerShippingAddress})
+        <tr>
+            <td style="vertical-align:top">Ship-To <span style="float:right;">:</span></td>
+            <td><strong style="color: #13294b;"> $ctx.orderHeaderData.headerShippingAddress</strong></td>
+        </tr> 
+        #else         
+        <tr>
+
+        </tr>
+        #end
+    </table>
+
+
+	
+#foreach( $itemdata in $ctx.orderHeaderData.lineData ) 	
+
+
+
+
+        #if( $itemdata.deliveryLineItems.size() == 1 )
+
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                        <td style="padding-top: 0px; vertical-align: top; width: 50%">
+                                            <p style="font-weight: bold; margin-top: auto;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                            <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                            <ul style="list-style: none;">
+                                                <p>Part Number : ${itemdata.partNumber}</p>
+                                                <p>Description : ${itemdata.description}</p>
+                                                <p>Quantity : ${itemdata.qty} Piece</p>
+                                                #if(${itemdata.reqShipDate})
+                                                    #if((${itemdata.status} == "Shipped & Invoiced" || ${itemdata.status} == "Shipped") && (${itemdata.actShpDate}))
+                                                        <p>Shipped Date : ${itemdata.actShpDate} </p>
+                                                    #elseif(${itemdata.geFromDate})
+                                                        <p>Promise Date : ${itemdata.geFromDate} </p>
+                                                    #end
+                                                #end
+
+                                                <table class="t-b-none">
+                                                    <tr>
+                                                        <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                     		#if(${itemdata.status} == "Received")
+                                                     		<td>Order Received : ${itemdata.qty}</td>
+                                                    		#elseif(${itemdata.status} == "Processing")
+                                                     		<td>Order in Progress : ${itemdata.qty}</td>
+                                                    		#else
+                                                     		<td>${itemdata.status}</td>  
+                                                     		#end          
+                                                    </tr>
+                                                </table>
+                                            </ul>
+                                        </td>
+
+                                        <td style="vertical-align: top;padding-left: 10px; width: 50%">
+                                            <ul style="list-style: none;">
+                                            #if(${itemdata.shipTo} && ${itemdata.shipTo} != '')
+                                                <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipTo}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#else
+												<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+												<hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#end
+                                            </ul>
+                                            
+
+                                            <ul style="list-style: none;">
+                                    
+                                                <table class="t-b-none">
+
+                                                        <p><strong style="color: #13294b;">Shipping Details</strong></p>
+
+                                        #foreach( $deliveryLineData in ${itemdata.deliveryLineItems} ) 
+                                                                                        
+                                                            <p>Quantity : ${deliveryLineData.quantity} Piece</p>
+                                                            <p>Carrier : ${deliveryLineData.courier}</p>
+                                                            <p>Tracking Number : ${deliveryLineData.trackingNumber}</p>
+                                                        
+                                                            <table class="t-b-none">
+                                                                <tr>
+                                                                	<td style ="width: 60px;vertical-align: text-bottom;">Status :</td>
+                                                               		<td>${deliveryLineData.status} : ${deliveryLineData.quantity}</td>
+                                                                </tr>
+                                                            </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                        #end
+
+                                                </table>
+                                            </ul>
+                                        </td>
+                                </tr>
+                                    
+                </table>
+       
+
+        #elseif( $itemdata.deliveryLineItems.size() > 1 )
+                                                               
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                            <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                        <ul style="list-style: none;">
+                                                <p>Part Number : ${itemdata.partNumber}</p>
+                                                <p>Description : ${itemdata.description}</p>
+                                                <p>Quantity : ${itemdata.qty} Piece</p>
+                                                #if(${itemdata.reqShipDate})
+                                                    #if((${itemdata.status} == "Shipped & Invoiced" || ${itemdata.status} == "Shipped") && (${itemdata.actShpDate}))
+                                                        <p>Shipped Date : ${itemdata.actShpDate} </p>
+                                                    #elseif(${itemdata.geFromDate})
+                                                        <p>Promise Date : ${itemdata.geFromDate} </p>
+                                                    #end
+                                                #end
+                                            
+                                            <table class="t-b-none">
+                                                    <tr>
+                                                        <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                     	#if(${itemdata.status} == "Received")
+                                                     	<td>Order Received : ${itemdata.qty}</td>
+                                                    	#elseif(${itemdata.status} == "Processing")
+                                                     	<td>Order in Progress : ${itemdata.qty}</td>
+                                                    	#else
+                                                     	<td>${itemdata.status}</td>
+                                                     	#end
+                                                    </tr>
+                                           </table>
+                                        </ul>
+                                    </td>
+
+                                    <td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                        <ul style="list-style: none;">
+                                            #if(${itemdata.shipTo} && ${itemdata.shipTo} != '')
+                                                <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipTo}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#else
+												<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+												<hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#end
+
+                                        </ul>
+                                        
+                 
+                                        <ul style="list-style: none;">
+                                
+                                            <table class="t-b-none">
+
+                                                    <p><strong style="color: #13294b;">Shipping Details</strong></p>
+
+                                    #foreach( $deliveryLineData in ${itemdata.deliveryLineItems} )    
+                                                                                    
+                                                        <p>Quantity : ${deliveryLineData.quantity} Piece</p>
+                                                        <p>Carrier : ${deliveryLineData.courier}</p>
+                                                        <p>Tracking Number : ${deliveryLineData.trackingNumber}</p>
+                                                    
+                                                        <table class="t-b-none">
+                                                            <tr>
+                                                                <td style ="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                                <td>${deliveryLineData.status} : ${deliveryLineData.quantity}</td>
+                                                            </tr>
+                                                        </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                    #end
+
+                                            </table>
+
+                                        </ul>	        
+                                    </td>
+                                </tr>
+
+
+                </table>
+
+
+        #elseif( $itemdata.deliveryLineItems.size() == 0 )
+        
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%;">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                        
+                                         <ul style="list-style: none;">
+                                                <p>Part Number : ${itemdata.partNumber}</p>
+                                                <p>Description : ${itemdata.description}</p>
+                                                <p>Quantity : ${itemdata.qty} Piece</p>
+                                                #if(${itemdata.reqShipDate})
+                                                    #if((${itemdata.status} == "Shipped & Invoiced" || ${itemdata.status} == "Shipped") && (${itemdata.actShpDate}))
+                                                        <p>Shipped Date : ${itemdata.actShpDate} </p>
+                                                    #elseif(${itemdata.geFromDate})
+                                                        <p>Promise Date : ${itemdata.geFromDate} </p>
+                                                    #end
+                                                #end
+                        
+                                            <table class="t-b-none">
+                                                <tr>
+                        
+                                                    <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                     	#if(${itemdata.status} == "Received")
+                                                     	<td>Order Received : ${itemdata.qty}</td>
+                                                    	#elseif(${itemdata.status} == "Processing")
+                                                     	<td>Order in Progress : ${itemdata.qty}</td>
+                                                    	#else
+                                                     	<td>${itemdata.status}</td>
+                                                     	#end
+                                                </tr>
+                                            </table>
+
+                                        </ul>
+                                    </td>
+
+
+
+									<td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                        <ul style="list-style: none;">
+                                            #if(${itemdata.shipTo} && ${itemdata.shipTo} != '')
+                                                <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipTo}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#else
+												<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+												<hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#end
+
+                                        </ul>
+
+  	#if($ctx.orderHeaderData.orderStatus == "Processing" || $ctx.orderHeaderData.orderStatus == "Shipped" ||  $ctx.orderHeaderData.orderStatus == "Shipped & Invoiced")
+                                              
+                                        <ul style="list-style: none;">
+                                
+                                            <table class="t-b-none">
+
+                                                    <p><strong style="color: #13294b;">Shipping Details</strong></p>
+                                                   
+                                                        <p>Quantity : ${itemdata.qty} Piece</p>
+                                                        <p>Carrier : ${itemdata.courier}</p>
+                                                        <p>Tracking Number : ${itemdata.trackingNumber}</p>
+                                                    
+                                                        <table class="t-b-none">
+                                                            <tr>
+                                                                <td style ="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                                #if(${itemdata.status} == "Received")
+                                                     				<td>Order Received : ${itemdata.qty}</td>
+                                                    			#elseif(${itemdata.status} == "Processing")
+                                                     				<td>Order in Progress : ${itemdata.qty}</td>
+                                                    			#else
+                                                     				<td>${itemdata.status}</td>
+                                                     			#end
+                                                            </tr>
+                                                        </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                            </table>
+
+                                        </ul>	
+                                        
+    #end
+                                                
+                                    </td>
+                                </tr>
+
+
+                </table>
+                
+                
+        #else
+                <table class="x_w-100" style="margin-top:20px;background-color: #f9f9f9;padding: 20px; width: 90%; margin: auto;margin-bottom: 20px;">
+
+                                <tr>
+                                    <td style="padding-top: 0px; vertical-align: top; width: 50%;">
+                                        <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Line Item Number - ${itemdata.lineNumber}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+                                        
+                                         <ul style="list-style: none;">
+                                                <p>Part Number : ${itemdata.partNumber}</p>
+                                                <p>Description : ${itemdata.description}</p>
+                                                <p>Quantity : ${itemdata.qty} Piece</p>
+                                                #if(${itemdata.reqShipDate})
+                                                    #if((${itemdata.status} == "Shipped & Invoiced" || ${itemdata.status} == "Shipped") && (${itemdata.actShpDate}))
+                                                        <p>Shipped Date : ${itemdata.actShpDate} </p>
+                                                    #elseif(${itemdata.geFromDate})
+                                                        <p>Promise Date : ${itemdata.geFromDate} </p>
+                                                    #end
+                                                #end
+                        
+                                            <table class="t-b-none">
+                                                <tr>
+                        
+                                                    <td style="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                   		#if(${itemdata.status} == "Received")
+                                                     	<td>Order Received : ${itemdata.qty}</td>
+                                                    	#elseif(${itemdata.status} == "Processing")
+                                                     	<td>Order in Progress : ${itemdata.qty}</td>
+                                                    	#else
+                                                     	<td>${itemdata.status}</td>
+                                                     	#end
+
+                                                </tr>
+                                            </table>
+
+                                        </ul>
+                                    </td>
+
+                                   <td style="vertical-align: top;padding-left: 10px; width: 50%;">
+                                        <ul style="list-style: none;">
+                                            #if(${itemdata.shipTo} && ${itemdata.shipTo} != '')
+                                                <p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : ${itemdata.shipTo}</strong></p>
+                                                <hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#else
+												<p style="font-weight: bold; margin-top: 0px;"><strong style="color: #13294b;">Ship To : </strong></p>
+												<hr style="color: #979797;margin-top: 13px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+											#end
+
+                                        </ul>
+
+                                              
+        #if($ctx.orderHeaderData.orderStatus == "Processing" || $ctx.orderHeaderData.orderStatus == "Shipped" ||  $ctx.orderHeaderData.orderStatus == "Shipped & Invoiced")
+                                              
+                                        <ul style="list-style: none;">
+                                
+                                            <table class="t-b-none">
+
+                                                    <p><strong style="color: #13294b;">Shipping Details</strong></p>
+                                                   
+                                                        <p>Quantity : ${itemdata.qty} Piece</p>
+                                                        <p>Carrier : ${itemdata.courier}</p>
+                                                        <p>Tracking Number : ${itemdata.trackingNumber}</p>
+                                                    
+                                                        <table class="t-b-none">
+                                                            <tr>
+                                                                <td style ="width: 60px;vertical-align: text-bottom;">Status:</td>
+                                                                #if(${itemdata.status} == "Received")
+                                                     				<td>Order Received : ${itemdata.qty}</td>
+                                                    			#elseif(${itemdata.status} == "Processing")
+                                                     				<td>Order in Progress : ${itemdata.qty}</td>
+                                                    			#else
+                                                     				<td>${itemdata.status}</td>
+                                                     			#end
+                                                            </tr>
+                                                        </table>
+                                                            <hr style="color: #979797;margin-top: 5px;margin-left: auto;margin-right: auto;margin-bottom: auto;"> 
+
+                                            </table>
+
+                                        </ul>	                                        
+
+		#end
+                                    </td>
+                                </tr>
+
+
+                </table>
+
+        #end
+
+
+
+#end
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        li.class, li.collapsed, li.expanded {
+            list-style-image: none;
+            list-style: none;
+            list-style-type: none;
+        }
+        ul {
+            list-style: none;
+            list-style-type: none;
+            margin-top: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: auto
+        }
+        li {
+            list-style: none;
+            list-style-type: none;
+        }
+        .w-100 {
+            align:center
+        }
+        ul li {
+            list-style:none;
+            margin-bottom: 10px;
+            list-style: none;
+            list-style-type: none;
+        }
+        ul {
+            padding-left: 0;
+            list-style: none;
+            list-style-type: none;
+        }
+        .text-bold {
+            font-weight: bold;
+        }
+        .t-border {
+            border-collapse: collapse;
+        }
+        .t-border tr td {
+            border: 1px solid black;
+            padding:20px;
+        }
+        .t-b-none tr td {
+            border: none;
+            padding: 0px;
+            padding-bottom: 10px;
+        }
+
+    </style>
+</body>
+</html>

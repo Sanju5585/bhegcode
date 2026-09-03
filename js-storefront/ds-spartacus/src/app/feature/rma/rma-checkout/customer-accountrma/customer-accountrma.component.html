@@ -1,0 +1,34 @@
+<div class="customer-account">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="shipping-checkout">
+        {{ 'titles.soldToAddress' | cxTranslate }}
+      </div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.firstName }}
+      </div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.companyName }}
+      </div>
+      <div class="shipping-checkouaddress">{{ rmaSoldToAddress?.line1 }}</div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.town }}
+      </div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.region?.name }}
+      </div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.country?.name }}
+      </div>
+      <div class="shipping-checkouaddress">
+        {{ rmaSoldToAddress?.postalCode }}
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 mb-1">
+      <span class="shipping-checkout">{{
+        'labels.customerAccountNumber' | cxTranslate
+      }}</span>
+      <div class="shipping-checkouaddress">{{ customerAccount }}</div>
+    </div>
+  </div>
+</div>

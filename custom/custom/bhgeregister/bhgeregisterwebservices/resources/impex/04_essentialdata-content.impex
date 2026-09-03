@@ -1,0 +1,64 @@
+$contentCatalog=bhgeRegisterContentCatalog
+$productCatalog=bhgeRegisterProductCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;BHGERegisterPageTemplate;BHGERegister Page Template;register/bhgeRegisterLayoutPage;ContentPage
+
+#UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+#;;BHGERegisterPageTemplate 		;$jarResourceCms/structure-view/structure_bhgeRegisterPageTemplate.vm
+
+# Create Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
+;;SiteLogoSlot;Default Site Logo Slot;true
+;;HomepageNavLinkSlot;Default Homepage Link;true
+;;NavigationBarSlot;Navigation Bar;true
+;;FooterSlot;Footer;true
+;;HeaderLinksSlot;Header links;true
+;;SearchBoxSlot;Search Box;true
+;;TopHeaderSlot;Top Header;true
+;;BottomHeaderSlot;Bottom Header;true
+;;PlaceholderContentSlot;Placeholder for Addon tag files;true
+
+# Template used for all of the Register pages
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='BHGERegisterPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;NavigationBar;;;navigation
+;TopContent;;;wide
+;SideContent;;;narrow
+;BodyContent;;;wide
+;BottomContent;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='BHGERegisterPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-BHGERegisterPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-BHGERegisterPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;NavigationBar-BHGERegisterPage;NavigationBar;;NavigationBarSlot;true
+;;Footer-BHGERegisterPage;Footer;;FooterSlot;true
+;;HeaderLinks-BHGERegisterPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-BHGERegisterPage;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-BHGERegisterPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-BHGERegisterPage;BottomHeaderSlot;;BottomHeaderSlot;true
+;;PlaceholderContentSlot-BHGERegisterPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='bhgeRegisterUser'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-bhgeRegisterUser;SideContent;;SideContent-bhgeRegisterUser;;;
+;;BodyContent-bhgeRegisterUser;BodyContent;;BodyContent-bhgeRegisterUser;;; 
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-bhgeRegisterUser;Side Content Slot for bhgeRegisterUser;true;;;;
+;;BodyContent-bhgeRegisterUser;Body Content Slot for bhgeRegisterUser;true;RegisterIndexTrackingComponent;;;   
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;RegisterIndexTrackingComponent;RegisterIndexTrackingComponent;/WEB-INF/views/responsive/pages/register/bhgeRegisterUser.jsp;;RegisterIndexTrackingComponent 
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;bhgeRegisterUser;Register User;BHGERegisterPageTemplate;bhgeRegisterUser

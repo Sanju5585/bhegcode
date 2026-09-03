@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="logo-item-left">
+    <img
+      class="site-logo"
+      [ngClass]="{ 'cust-height': isBently }"
+      [src]="logoPath"
+      alt="click"
+      (click)="navigateToHome()"
+    />
+  </div>
+  <div class="action-items-right">
+    <a class="have-a-question-label action-links" (click)="openModal()">
+      {{ 'waygate.haveAQuestion' | cxTranslate }}
+    </a>
+    <ng-container *ngIf="container$ | async as container">
+      <button
+        class="btn btn-tertiary"
+        tabindex="0"
+        (click)="openConfirmationModal()"
+        [attr.title]="
+          container.routerData.isOwnerCartEntry
+            ? ('configurator.button.cancelConfiguration' | cxTranslate)
+            : ('configurator.button.exit' | cxTranslate)
+        "
+      >
+        <ng-container *ngIf="!container.routerData.isOwnerCartEntry">
+          <ng-container *ngIf="isDesktop() | async">
+            <div>
+              <i class="material-icons"> close </i>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isMobile() | async">
+            <div>
+              <i class="material-icons"> close </i>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="container.routerData.isOwnerCartEntry">
+          <ng-container *ngIf="isMobile() | async">
+            <div>
+              <i class="material-icons"> close </i>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isDesktop() | async">
+            <div>
+              <i class="material-icons"> close </i>
+            </div>
+          </ng-container>
+        </ng-container>
+      </button>
+    </ng-container>
+  </div>
+</div>

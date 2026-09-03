@@ -1,0 +1,143 @@
+.required {
+  color: var(--color-fill-cta-critical-default);
+}
+
+.hazard-title-warning {
+  display: flex;
+  color: #cb6e17;
+  font-family: var(--font-family-body-medium);
+  align-items: center;
+  .material-icons {
+    font-size: var(--font-base-font-size-16);
+  }
+}
+.fileformat {
+  font-family: var(--font-family-body-large);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-title-small);
+  line-height: var(--font-line-height-avatar-xsmall);
+  letter-spacing: 0.25px;
+  color: var(--color-text-link-tertiary-default);
+}
+
+.contamination-checks {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2em 0;
+}
+
+.contamination-checks > * {
+  flex: 1 1 25%;
+  max-width: 25%;
+}
+
+.equipment-search-result--header {
+  display: flex;
+  padding: 0px 15px;
+  height: 3em;
+  background: var(--color-base-gray-100);
+  font-weight: 600;
+  align-items: center;
+  .eq-search-checkbox-holder {
+    margin-top: 5px;
+  }
+  .eq-checkbox-chemical-text-holder {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.equipment-search-result--body {
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  height: 4em;
+  border-bottom: 1px solid #e3e3e3;
+  .eq-checkbox-chemical-text-holder {
+    display: flex;
+    align-items: center;
+  }
+  .bh-text-input {
+    max-width: 100%;
+  }
+}
+
+.equipment-search-result--body > * {
+  color: var(--color-base-gray-700);
+  display: flex;
+  align-items: center;
+}
+
+.msds {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.confirmation-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-text {
+  .details-text-area {
+    max-height: 100px;
+    max-width: 50%;
+  }
+}
+
+.other-contamination-check {
+  .other-contamination {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.file-upload {
+  .add-file-btn {
+    padding: 0.5em;
+    border: 2px solid var(--color-fill-avatar-primary);
+    width: 9em;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .file-list {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    flex-wrap: wrap;
+  }
+}
+
+:host::ng-deep {
+  .action-section {
+    display: flex;
+    justify-content: flex-end;
+    bh-button .bh-button {
+      width: 190px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  }
+  .contamination-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1em;
+    .chemical-line-actions {
+      display: flex;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  .bh-checkbox__label {
+    color: #1a2321;
+  }
+  .upload-files--btn {
+    border: 2px solid var(--color-base-teal-500) !important;
+  }
+}

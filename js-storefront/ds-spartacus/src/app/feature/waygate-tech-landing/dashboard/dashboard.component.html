@@ -1,0 +1,418 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<div class="container">
+  <div class="dashboard-navbar mb-4">
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('pending')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.pending"
+    >
+      <img
+        src="../../../assets/img/pending_request.svg"
+        alt="{{ 'dashboard.pendingRequestStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.pendingRequestStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.pendingApprovalCount }}</span>
+    </a>
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('onHold')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.onHold"
+    >
+      <img
+        src="../../../assets/img/on_hold.svg"
+        alt="{{ 'dashboard.onHoldStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.onHoldStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.onHoldCount }}</span>
+    </a>
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('approved')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.approved"
+    >
+      <img
+        src="../../../assets/img/access_pending.svg"
+        alt="{{ 'dashboard.accessPendingStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.accessPendingStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.approvedCount }}</span>
+    </a>
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('rejected')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.rejected"
+    >
+      <img
+        src="../../../assets/img/rejected.svg"
+        alt="{{ 'dashboard.rejectedStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.rejectedStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.rejectedCount }}</span>
+    </a>
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('completed')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.completed"
+    >
+      <img
+        src="../../../assets/img/access_granted.svg"
+        alt="{{ 'dashboard.accessGrantedStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.accessGrantedStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.completedCount }}</span>
+    </a>
+    <a
+      class="nav-link"
+      href="javascript:void(0)"
+      (click)="onStatusChange('all')"
+      [class.active]="params?.reqStatusVal == avaiableStatus.all"
+    >
+      <img
+        src="../../../assets/img/all.svg"
+        alt="{{ 'dashboard.allStatusHeader' | cxTranslate }}"
+      />
+      <span class="nav-title">{{
+        'dashboard.allStatusHeader' | cxTranslate
+      }}</span>
+      <span class="nav-count">{{ statusCount.all }}</span>
+    </a>
+  </div>
+  <div class="dashboard-header-actions">
+    <div class="gap-2 d-flex">
+      <ng-select
+        class="border-0"
+        id="statusDropdown"
+        [(ngModel)]="selectedProduct"
+        [searchable]="false"
+        bindLabel="label"
+        bindValue="value"
+        [clearable]="false"
+        [items]="selectedProductLines"
+        (change)="onProductLineChange($event)"
+      >
+      </ng-select>
+    </div>
+    <div class="dashboard-date">
+      <p class="text">
+        {{
+          'waygate.manage-user.requestsReceivedFrom'
+            | cxTranslate : { totalCount: totalCount }
+        }}
+      </p>
+      <div class="waygate-cart-action-option ds-datepicker">
+        <vs-date-picker
+          class="product-date-picker"
+          id="waygateProductShipDateFrom"
+          [defaultDate]="defaultFromDate"
+          (selectedDate)="dateFromChange($event)"
+          [isScroll]="false"
+          [max]="defaultToDate"
+        >
+        </vs-date-picker>
+      </div>
+      <p for="waygateProductShipDateTo" class="text">
+        {{ 'waygate.manage-user.to' | cxTranslate }}
+      </p>
+      <div class="waygate-cart-action-option ds-datepicker">
+        <vs-date-picker
+          class="product-date-picker"
+          id="waygateProductShipDateTo"
+          [defaultDate]="defaultToDate"
+          [max]="defaultToDate"
+          (selectedDate)="dateToChange($event)"
+          [isScroll]="false"
+        >
+        </vs-date-picker>
+      </div>
+    </div>
+    <div class="users-manage-role-search-actions">
+      <div class="users-manage-role-search">
+        <input
+          type="text"
+          placeholder="{{
+            'waygate.manage-user.searchManageParameter' | cxTranslate
+          }}"
+          [formControl]="searchControl"
+        />
+        <span class="material-icons" (click)="search()"> search </span>
+      </div>
+      <div
+        class="my-order-actions"
+        title="{{ 'waygate.manage-user.exportToXLS' | cxTranslate }}"
+        (click)="downloadXls()"
+      >
+        <span class="material-icons"> vertical_align_bottom </span>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-table-card">
+    <div class="dashboard-table-header">
+      <div class="access-queue col">
+        {{ 'dashboard.accessQueue' | cxTranslate }}
+      </div>
+      <div
+        class="req-details col-3 d-flex justify-content-between align-items-center"
+        *ngIf="showRequestDetails && selectedAccount?.accessRequestId"
+      >
+        <div class="title-with-icon">
+          <span>{{ 'dashboard.requestDetails' | cxTranslate }}</span>
+          <span
+            class="material-icons-outlined access-criteria"
+            *ngIf="selectedAccount?.approvalRuleList?.length > 0"
+            (click)="showAccessCriteria()"
+          >
+            info
+          </span>
+        </div>
+        <span
+          role="button"
+          tabindex="0"
+          class="material-icons-outlined"
+          (click)="closeReqDetail()"
+          >close</span
+        >
+      </div>
+    </div>
+    <div class="dashboard-table-body">
+      <div class="access-queue col">
+        <ng-container *ngIf="!showLoader; else loading">
+          <table
+            class="access-queue-table w-100"
+            *ngIf="customerList?.length > 0; else noData"
+          >
+            <thead>
+              <tr>
+                <th>
+                  <div class="d-flex gap-2 align-items-center">
+                    <div>
+                      {{ 'dashboard.userNameTableHeader' | cxTranslate }}
+                    </div>
+                    <!-- <div class="action-icons">
+                    <span class="material-icons" (click)="sort('UserNameAsc')">
+                      expand_less
+                    </span>
+
+                    <span class="material-icons" (click)="sort('UserNameDsc')">
+                      expand_more
+                    </span>
+                  </div> -->
+                  </div>
+                </th>
+                <th *ngIf="params?.reqStatusVal == avaiableStatus.all">
+                  {{ 'dashboard.productLineTableHeader' | cxTranslate }}
+                </th>
+                <th>{{ 'dashboard.RegionTableHeader' | cxTranslate }}</th>
+                <th>{{ 'dashboard.requestDateTableHeader' | cxTranslate }}</th>
+                <th *ngIf="params?.reqStatusVal == avaiableStatus.all">
+                  {{ 'dashboard.StatusTableHeader' | cxTranslate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of customerList">
+                <tr
+                  (click)="onSelectedCustomerAction(item)"
+                  [class.selected]="
+                    selectedAccount.accessRequestId == item.accessRequestId
+                  "
+                >
+                  <td>
+                    {{ item.ssoId }} <br />
+                    {{ item.firstname + ' ' + item.lastname }}
+                  </td>
+                  <td *ngIf="params?.reqStatusVal == avaiableStatus.all">
+                    {{ item.productLine }}
+                  </td>
+                  <td>{{ item.region }}</td>
+
+                  <td>{{ item.requestorDate }}</td>
+                  <td *ngIf="params?.reqStatusVal == avaiableStatus.all">
+                    <div [class]="getClass(item.approvalStatus)">
+                      {{ statusLabel[item.approvalStatus] | cxTranslate }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </ng-container>
+      </div>
+      <div
+        class="req-details col-3"
+        [class.max-height-600]="customerList?.length < 14"
+        *ngIf="showRequestDetails && selectedAccount?.accessRequestId"
+      >
+        <app-request-detail
+          [selectedAccount]="selectedAccount"
+          [action]="newAction"
+          (refreshEvent)="refreshTable($event)"
+        ></app-request-detail>
+        <!-- (clearAction)="clearAction($event)" -->
+      </div>
+    </div>
+    <div
+      class="dashboard-table-footer"
+      *ngIf="
+        (showRequestDetails && selectedAccount?.accessRequestId) ||
+        totalCount > 10
+      "
+    >
+      <div class="access-queue col">
+        <div class="page-size-container" *ngIf="totalCount > 10">
+          <div>{{ 'waygate-order.itemsPerPage' | cxTranslate }}</div>
+          <div>
+            <select (change)="pageSizeChanged($event)">
+              <ng-container *ngFor="let value of pageSizes">
+                <option [value]="value" [selected]="value == currentPageSize">
+                  {{ value }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div>
+            {{
+              'waygate.rangeSummary'
+                | cxTranslate
+                  : {
+                      start: startRange,
+                      end: endRange,
+                      total: totalCount
+                    }
+            }}
+          </div>
+        </div>
+        <div class="page-number-selector-container" *ngIf="totalPages > 1">
+          <span
+            class="material-icons"
+            (click)="pageSelected(1)"
+            [class.disabled]="currentPage == 1"
+          >
+            keyboard_double_arrow_left
+          </span>
+          <span
+            class="material-icons"
+            (click)="pageSelected(currentPage - 1)"
+            [class.disabled]="currentPage == 1"
+          >
+            chevron_left
+          </span>
+          <div *ngIf="currentPage > 2" class="disabled">...</div>
+          <ng-container *ngFor="let value of getPageArray(); let i = index">
+            <ng-container
+              *ngIf="
+                currentPage == value ||
+                currentPage - 1 == value ||
+                currentPage + 1 == value
+              "
+            >
+              <div
+                class="pagination-numbers"
+                [class.active]="value == currentPage"
+                (click)="pageSelected(value)"
+              >
+                {{ value }}
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <div *ngIf="currentPage < totalPages - 1" class="disabled">...</div>
+          <span
+            class="material-icons"
+            (click)="pageSelected(currentPage + 1)"
+            [class.disabled]="currentPage == totalPages"
+          >
+            chevron_right
+          </span>
+          <span
+            class="material-icons"
+            (click)="pageSelected(totalPages)"
+            [class.disabled]="currentPage == totalPages"
+          >
+            keyboard_double_arrow_right
+          </span>
+        </div>
+      </div>
+      <div
+        class="req-details col-3"
+        *ngIf="showRequestDetails && selectedAccount?.accessRequestId"
+      >
+        <ng-container
+          *ngIf="
+            [avaiableStatus.pending, avaiableStatus.onHold].includes(
+              selectedAccount.approvalStatus
+            );
+            else showStatusText
+          "
+        >
+          <button
+            type="button"
+            class="action-btn approve"
+            (click)="onUpdateStatus(avaiableStatus.approved)"
+          >
+            {{ 'dashboard.approveBtnText' | cxTranslate }}
+          </button>
+          <button
+            type="button"
+            class="action-btn reject"
+            (click)="onUpdateStatus(avaiableStatus.rejected)"
+          >
+            {{ 'dashboard.rejectBtnText' | cxTranslate }}
+          </button>
+          <button
+            type="button"
+            class="action-btn"
+            (click)="onUpdateStatus(avaiableStatus.onHold)"
+          >
+            {{ 'dashboard.holdBtnText' | cxTranslate }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-waygate-footer></app-waygate-footer> -->
+
+<ng-template #showStatusText>
+  <div
+    *ngIf="avaiableStatus.rejected === selectedAccount.approvalStatus"
+    class="rejected"
+  >
+    {{ 'dashboard.rejectedStatusText' | cxTranslate }}
+  </div>
+  <!-- <div
+    *ngIf="avaiableStatus.completed === selectedAccount.approvalStatus"
+    class="approved"
+  >
+    {{ 'dashboard.approvedStatusText' | cxTranslate }}
+  </div> -->
+</ng-template>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <h4>{{ 'dashboard.noRecordFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<div class="cx-spinner request-detail-loader" *ngIf="showRequestDetailLoader">
+  <cx-spinner></cx-spinner>
+</div>

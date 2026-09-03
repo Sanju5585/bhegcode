@@ -1,0 +1,266 @@
+<div class="accessories-tab-details--section">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field emailtabrow">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.emailCheckout' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.emailCheckout' | cxTranslate }} "
+          [value]="emailCheckout"
+          [message]="error.emailCheckout"
+          [attr.error]="error.emailCheckout ? error.emailCheckout : null"
+          (keyup)="onChange($event, 'emailCheckout')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 description">
+      <label class="text-icon-label">
+        {{ 'quotecheckout.DescriptionCheckout' | cxTranslate }}
+      </label>
+      <textarea
+        class="textarea-checkout"
+        name="reasonForCsrReview "
+        (keyup)="onChange($event, 'description')"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row enduserdet">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field quotebold">
+        {{ 'quotecheckout.endUserDetails' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row endusercategory">
+    <div class="col-12 ml-12">
+      <div class="vs-text-field">
+        <bh-dropdown
+          required
+          label="{{ 'quotecheckout.endUserCategory' | cxTranslate }}"
+          isSearchable="true"
+          menuWidth="fluid"
+          unselectable="false"
+          [menuItems]="endUserItems"
+          required="true"
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          isSmall="true"
+          [value]="endUserCategory"
+          [message]="error.endUserCategory"
+          [attr.error]="error.endUserCategory ? error.endUserCategory : null"
+          (selected)="onChange($event, 'endUserCategory')"
+        ></bh-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endUser' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endUser' | cxTranslate }} "
+          [value]="endUser"
+          [message]="error.endUser"
+          [attr.error]="error.endUser ? error.endUser : null"
+          (keyup)="onChange($event, 'endUser')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endaddressLine' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endaddressLine' | cxTranslate }} "
+          [value]="endaddressLine"
+          [message]="error.endaddressLine"
+          [attr.error]="error.endaddressLine ? error.endaddressLine : null"
+          (keyup)="onChange($event, 'endaddressLine')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          small
+          label="{{ 'quotecheckout.endaddress1Line' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endaddress1Line' | cxTranslate }} "
+          [value]="endaddress1Line"
+          maxlength="40"
+          (keyup)="onChange($event, 'endaddress1Line')"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field countryregion">
+        <bh-dropdown
+          class=""
+          searchable
+          menuWidth="fluid"
+          [menuItems]="countryCheckout"
+          label="{{ 'quotecheckout.countryemail' | cxTranslate }}"
+          required="true"
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="countrys"
+          isSmall="true"
+          [message]="error.countrys"
+          [attr.error]="error.countrys ? error.countrys : null"
+          (selected)="getStateList($event, 'countrys')"
+        >
+        </bh-dropdown>
+        <div class="vs-tooltip-icon">
+          <p class="vs-tooltip">
+            {{ 'quotecheckout.tooltipcountry' | cxTranslate }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-dropdown
+          searchable
+          menuWidth="fluid "
+          [menuItems]="regionCheckout"
+          label="{{ 'quotecheckout.endState' | cxTranslate }}"
+          required="true "
+          placeholder="{{ 'quotecheckout.select' | cxTranslate }}"
+          [value]="regionend"
+          isSmall="true"
+          [message]="error.regionend"
+          [attr.error]="error.regionend ? error.regionend : null"
+          (selected)="onChange($event, 'regionend')"
+        >
+        </bh-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endTown' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endTown' | cxTranslate }} "
+          [value]="endTown"
+          [message]="error.endTown"
+          [attr.error]="error.endTown ? error.endTown : null"
+          (keyup)="onChange($event, 'endTown')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="vs-text-field">
+        <bh-text-input
+          type="text"
+          required
+          small
+          label="{{ 'quotecheckout.endZipcode' | cxTranslate }} "
+          placeholder="{{ 'quotecheckout.endZipcode' | cxTranslate }} "
+          [value]="endZipcode"
+          [message]="error.endZipcode"
+          [attr.error]="error.endZipcode ? error.endZipcode : null"
+          (keyup)="onChange($event, 'endZipcode')"
+          maxlength="40"
+        >
+        </bh-text-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="upload mt-3 quotecartquoted">
+    <span>{{ 'quotecheckout.communictaionPef' | cxTranslate }}</span>
+    <div class="radio-btn">
+      <bh-radio-button
+        label=" {{ 'quotecheckout.yes' | cxTranslate }}"
+        value="'true'"
+        name="radiobtnbuy"
+        (change)="handleChange($event, 'radiobtnbuy')"
+      ></bh-radio-button>
+      <bh-radio-button
+        label=" {{ 'quotecheckout.no' | cxTranslate }}"
+        value="'false'"
+        name="radiobtnbuy"
+        (change)="handleChange($event, 'radiobtnbuy')"
+      ></bh-radio-button>
+      <div
+        class="bh-form-message typography--body-small bh-form-message--error"
+        *ngIf="submitted && !radiobtnbuy"
+      >
+        <i class="typography--icon-small bh-form-message__icon">error_outline</i
+        >{{ 'quotecheckout.mandatory' | cxTranslate }}
+      </div>
+    </div>
+  </div>
+  <div class="row quotecartquoted quotedetails">
+    <span
+      >{{ 'quotecheckout.termquote' | cxTranslate }}
+      <a
+        class="quotesqnchor"
+        href="https://www.bakerhughes.com/privacy"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ 'quotecheckout.privacy' | cxTranslate }}</a
+      >
+      {{ 'quotecheckout.termquotenext' | cxTranslate
+      }}<a
+        class="quotesqnchor"
+        href="https://info.bhge.com/Preference-Center-Login-LP.html?_ga=2.198913199.1267281682.1622661082-1959132131.1622661082"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ 'quotecheckout.termquotebtn' | cxTranslate }}</a
+      >
+      {{ 'quotecheckout.termquotelast' | cxTranslate }}</span
+    >
+  </div>
+</div>
+<div class="row btns-quote">
+  <bh-button
+    type="primary"
+    [attr.disabled]="showLoading ? true : null"
+    [attr.loading]="showLoading ? true : null"
+    label="{{ 'quotecheckout.submitRequest' | cxTranslate }}"
+    (click)="submitRequest()"
+  ></bh-button>
+  <button
+    class="bh-button motion--normal bh-button--small bh-button--type-secondary continueshopping"
+    (click)="cancelQuote()"
+  >
+    <span class="bh-button__label typography--button-link-small">{{
+      'quotecheckout.cancelQuote' | cxTranslate
+    }}</span>
+  </button>
+</div>
+<ng-template #loadSpinner>
+  <div class="feedback-spinner cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,275 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="popup-page">
+      <h2 class="page-title mb-4">
+        {{ 'mySiteEquipment.dataSheetReq' | cxTranslate }}
+      </h2>
+
+      <bh-icon
+        icon="close"
+        class="float-right close-modal"
+        size="medium"
+        color="primary"
+        (click)="closeModal()"
+        href=""
+        target=""
+      ></bh-icon>
+
+      <p>
+        {{ 'mySiteEquipment.emailDataSheet' | cxTranslate }}
+        <bh-a
+          type="primary"
+          class="view-data-link"
+          (click)="login()"
+          text="{{ 'mySiteEquipment.dataLogIn' | cxTranslate }}"
+        ></bh-a
+        >.
+      </p>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red">* </span
+            >{{ 'mySiteEquipment.firstName' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.firstName' | cxTranslate }}"
+            name="firstName"
+            (keyup)="onChange($event, 'firstName', regexPattern.textOnly)"
+            value="{{ sessionStorageObject.firstName }}"
+            [message]="error_cal.firstName"
+            [attr.error]="error_cal.firstName ? error_cal.firstName : null"
+          ></bh-text-input>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red">* </span
+            >{{ 'mySiteEquipment.lastName' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.lastName' | cxTranslate }}"
+            name="lastName"
+            value="{{ sessionStorageObject.lastName }}"
+            (keyup)="onChange($event, 'lastName', regexPattern.textOnly)"
+            [message]="error_cal.lastName"
+            [attr.error]="error_cal.lastName ? error_cal.lastName : null"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red">* </span
+            >{{ 'mySiteEquipment.email' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.email' | cxTranslate }}"
+            name="email"
+            (keyup)="onChange($event, 'email', regexPattern.email)"
+            value="{{ sessionStorageObject.email }}"
+            [message]="error_cal.email"
+            [attr.error]="error_cal.email ? error_cal.email : null"
+          ></bh-text-input>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"> </span
+            >{{ 'mySiteEquipment.workPhone' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.workPhone' | cxTranslate }}"
+            value="{{ sessionStorageObject.workPhone }}"
+            name="workPhone"
+            (keyup)="onChange($event, 'workPhone', regexPattern.numbersOnly)"
+            [message]="error_cal.workPhone"
+            [attr.error]="error_cal.workPhone ? error_cal.workPhone : null"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"> </span
+            >{{ 'mySiteEquipment.addressLine1' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.addressLine1' | cxTranslate }}"
+            name="address"
+            (keyup)="
+              onChange(
+                $event,
+                'address',
+                regexPattern.alphaNumericWithSpecialCharater
+              )
+            "
+            value="{{ sessionStorageObject.address }}"
+          ></bh-text-input>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"></span
+            >{{ 'mySiteEquipment.addressLine2' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.addressLine2' | cxTranslate }}"
+            name="addressLine2"
+            (keyup)="
+              onChange(
+                $event,
+                'streetAddress',
+                regexPattern.alphaNumericWithSpecialCharater
+              )
+            "
+            value="{{ sessionStorageObject.streetAddress }}"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red">* </span
+            >{{ 'mySiteEquipment.Countryreg' | cxTranslate }}</label
+          >
+          <bh-dropdown
+            searchable
+            class="salesarea-dd"
+            isFluid="false"
+            isSmall="false"
+            placeholder="{{ 'mySiteEquipment.Countryreg' | cxTranslate }}"
+            width="large"
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="countryItems"
+            isEllipsis="false"
+            name="country"
+            value="{{ sessionStorageObject.country }}"
+            (selected)="getStateList($event, 'country')"
+            value="Select"
+            [message]="error_cal.country"
+            [attr.error]="error_cal.country ? error_cal.country : null"
+          ></bh-dropdown>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"></span
+            >{{ 'mySiteEquipment.stateProv' | cxTranslate }}</label
+          >
+          <bh-dropdown
+            searchable
+            class="salesarea-dd"
+            isFluid="false"
+            isSmall="false"
+            placeholder="{{ 'mySiteEquipment.stateProv' | cxTranslate }}"
+            width="large"
+            menuWidth="fluid"
+            unselectable="false"
+            [menuItems]="stateItems"
+            value="{{ sessionStorageObject.state }}"
+            isEllipsis="false"
+            name="state"
+            (selected)="onChange($event, 'state', regexPattern.textOnly)"
+            value="Select"
+          ></bh-dropdown>
+        </div>
+      </div>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"> </span
+            >{{ 'mySiteEquipment.townCity' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            name="city"
+            value="{{ sessionStorageObject.city }}"
+            placeholder="{{ 'mySiteEquipment.townCity' | cxTranslate }}"
+            (keyup)="onChange($event, 'city', regexPattern.textOnly)"
+          ></bh-text-input>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red"> </span
+            >{{ 'mySiteEquipment.zipCode' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.zipCode' | cxTranslate }}"
+            name="zipCode"
+            (keyup)="onChange($event, 'zipCode', regexPattern.alphaNumeric)"
+            value="{{ sessionStorageObject.zipCode }}"
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="row field-spacing">
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag">{{
+            'mySiteEquipment.title' | cxTranslate
+          }}</label>
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.title' | cxTranslate }}"
+            name="title"
+            value="{{ sessionStorageObject.title }}"
+            (keyup)="onChange($event, 'title', regexPattern.textOnly)"
+          ></bh-text-input>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="label-tag"
+            ><span class="color-red">* </span
+            >{{ 'mySiteEquipment.organization' | cxTranslate }}</label
+          >
+          <bh-text-input
+            type="text"
+            placeholder="{{ 'mySiteEquipment.organization' | cxTranslate }}"
+            name="organization"
+            (keyup)="
+              onChange($event, 'organization', regexPattern.alphaNumeric)
+            "
+            value="{{ sessionStorageObject.organization }}"
+            [message]="error_cal.organization"
+            [attr.error]="
+              error_cal.organization ? error_cal.organization : null
+            "
+          ></bh-text-input>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-12 col-md-6">
+          <bh-checkbox
+            label="{{ 'mySiteEquipment.promotionalCal' | cxTranslate }}"
+            name="promote"
+            value="{{ sessionStorageObject.promote }}"
+            (change)="onChange($event, 'promote')"
+          ></bh-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="cali-action-buttons">
+      <div class="align-items">
+        <bh-button
+          type="secondary"
+          label="{{ 'mySiteEquipment.cancel' | cxTranslate }}"
+          class="reset mr-3"
+          (click)="closeModal()"
+        >
+        </bh-button>
+        <bh-button
+          type="primary"
+          label="{{ 'mySiteEquipment.submit' | cxTranslate }}"
+          class="reset ml-2"
+          [attr.disabled]="showPDFSpinner ? true : null"
+          [attr.loading]="showPDFSpinner ? true : null"
+          (click)="sendCalibrationData()"
+        >
+        </bh-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+"#% impex.info(""###############    essentialData_PlantData.impex  -start  ################"")"
+
+
+#Vendor
+INSERT_UPDATE Vendor;code[unique=true]
+;ERP
+
+# Warehouse
+INSERT_UPDATE Warehouse;code[unique=true];vendor(code);name
+
+### 6040 SALES AREA(GERMANY) ###
+;6043;ERP
+;6045;ERP
+;6046;ERP
+;6210;ERP
+;6047;ERP
+;1801;ERP
+;1800;ERP
+
+### 6210 SALES AREA(UK) ###
+;6210;ERP
+;6043;ERP
+;1801;ERP
+;6045;ERP
+;6211;ERP
+;6046;ERP
+;7110;ERP
+
+### 1800 SALES AREA(USA) ###
+;1800;ERP
+;1801;ERP
+;1802;ERP
+;6045;ERP
+;6046;ERP
+;6043;ERP
+;6044;ERP
+;1820;ERP
+
+### 1720 SALES AREA(CANADA) ###
+;1801;ERP
+
+### 3000 SALES AREA(BRAZIL) ###
+;3000;ERP
+;3001;ERP
+
+
+### 6020 SALES AREA(ITALY) ###
+;6020;ERP
+;6043;ERP
+;6210;ERP
+
+
+### 6030 SALES AREA(FRANCE) ###
+;1800;ERP
+;6032;ERP
+;6033;ERP
+;6043;ERP
+;6045;ERP
+;6046;ERP
+;6210;ERP
+
+### 6060 SALES AREA(NETHERLANDS) ###
+;6210;ERP
+
+### 6170 SALES AREA(BELGIUM) ###
+;6170;ERP
+
+### 6270 SALES AREA(SPAIN) ###
+;6043;ERP
+;6045;ERP
+;6046;ERP
+;6270;ERP
+
+### 7030 SALES AREA(AUSTRALIA) ###
+;7030;ERP
+;6043;ERP
+;6045;ERP
+;1800;ERP
+;6210;ERP
+
+### 7140 SALES AREA(SHANGHAI) ###
+;7140;ERP
+;7110;ERP
+
+### 7160 SALES AREA(JAPAN) ###
+;7161;ERP
+
+### 5020 SALES AREA(INDIA) ###
+;5020;ERP
+;5023;ERP
+
+"#% impex.info(""###############    essentialData_PlantData.impex  -End  ################"")"

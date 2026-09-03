@@ -1,0 +1,549 @@
+<div class="back-link-wrap">
+  <div class="col-md-12 col-lg-12 col-sm-12">
+    <bh-a
+      type="primary"
+      routerLink="/my-equipments"
+      routerLinkActive="router-link-active"
+      class="back-link"
+      text="< Back"
+    ></bh-a>
+  </div>
+</div>
+<div class="row mt-4 mb-4 equipment-details-wrap">
+  <div class="col-md-4 col-lg-4 col-sm-12 pr-5" *ngIf="!currentlyLoading">
+    <img
+      *ngIf="
+        equipmentDetailslData.productData != undefined &&
+        equipmentDetailslData.productData.mediaurl != undefined
+      "
+      class="equipment-img"
+      src="{{ baseSiteURL }}{{ equipmentDetailslData.productData.mediaurl }}"
+    />
+
+    <img
+      *ngIf="
+        equipmentDetailslData.productData == undefined ||
+        equipmentDetailslData.productData.mediaurl == undefined
+      "
+      class="equipment-img"
+      src="/assets/img/comingSoon.png"
+    />
+  </div>
+
+  <ng-container *ngIf="equipmentDetails">
+    <div class="col-md-8 col-lg-8 col-sm-12">
+      <div class="row mb-4">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <h4 class="box-title">
+            {{ 'mySiteEquipment.serialId' | cxTranslate }} {{ equipmentDetailslData.serialNumber }}
+          </h4>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 update-button">
+          <bh-button
+            type="secondary"
+            label="{{ 'equipmentDetails.updateItemDetails' | cxTranslate }}"
+            class="reset float-right"
+            (click)="updateItemDetails()"
+          >
+          </bh-button>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.partNumber' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.partNumber }}</div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.partName' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.partName }}</div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.siteLocation' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.location }}</div>
+        </div>
+        <div
+          *ngIf="!equipmentDetailslData.lastCalibrationDate"
+          class="col-md-4 col-lg-4 col-sm-12"
+        >
+          <div class="list-price">
+            {{ 'equipmentDetails.lastService' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            {{ equipmentDetailslData.lastServiceDate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.serviceInterval' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            {{ equipmentDetailslData.serviceInterval }}
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.status' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.status }}</div>
+        </div>
+      </div>
+
+      <div class="row mb-4" *ngIf="equipmentDetailslData.serviceDueDate">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.nextServiceDate' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            <span
+              *ngIf="findserviceDueDate(equipmentDetailslData.serviceDueDate)"
+              class="textRed"
+              >{{ 'mySiteEquipment.due' | cxTranslate }}
+              {{
+                equipmentDetailslData.serviceDueDate | date: 'dd MMM yyyy'
+              }}</span
+            >
+            <span
+              *ngIf="!findserviceDueDate(equipmentDetailslData.serviceDueDate)"
+              >{{ 'mySiteEquipment.due' | cxTranslate }}
+              {{
+                equipmentDetailslData.serviceDueDate | date: 'dd MMM yyyy'
+              }}</span
+            >
+          </div>
+        </div>
+        <div
+          *ngIf="equipmentDetailslData.lastCalibrationDate"
+          class="col-md-4 col-lg-4 col-sm-12"
+        >
+          <div class="list-price">
+            {{ 'equipmentDetails.lastCalibrationDate' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            {{
+              equipmentDetailslData.lastCalibrationDate | date: 'dd MMM yyyy'
+            }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.tagandAssetNum' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.assetNumber }}</div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.customeTariff' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.htsCode }}</div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.endCustomer' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            {{ equipmentDetailslData.endCustomerName }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-7 col-lg-7 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.notes' | cxTranslate }}
+          </div>
+          <div class="list-data">
+            {{ equipmentDetailslData.additionalInfo }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 reset-button">
+          <bh-button
+            *ngIf="equipmentDetailslData.pinned == 'X'"
+            type="secondary"
+            label="{{ 'equipmentDetails.archive' | cxTranslate }}"
+            class="reset mr-3"
+            (click)="archiveAddToWatchEquipment('archive')"
+            [attr.disabled]="showArchSpinner ? true : null"
+            [attr.loading]="showArchSpinner ? true : null"
+            icon="archive"
+          >
+          </bh-button>
+
+          <bh-button
+            *ngIf="equipmentDetailslData.pinned == ''"
+            type="secondary"
+            label="{{ 'equipmentDetails.addToWatchList' | cxTranslate }}"
+            class="reset"
+            (click)="archiveAddToWatchEquipment('watchList')"
+            [attr.disabled]="showArchSpinner ? true : null"
+            [attr.loading]="showArchSpinner ? true : null"
+            icon="bookmark_add"
+          >
+          </bh-button>
+
+          <bh-button
+            *ngIf="equipmentDetailslData.pinned == 'X'"
+            type="secondary"
+            label="{{ 'equipmentDetails.removeFromWatchList' | cxTranslate }}"
+            class="reset"
+            (click)="archiveAddToWatchEquipment('remove')"
+            [attr.disabled]="showArchSpinner ? true : null"
+            [attr.loading]="showArchSpinner ? true : null"
+            icon="bookmark_remove"
+          >
+          </bh-button>
+
+          <bh-button
+            *ngIf="equipmentDetailslData.status != 'ACTIVE'"
+            type="secondary"
+            label="{{ 'equipmentDetails.restore' | cxTranslate }}"
+            class="reset"
+            (click)="archiveAddToWatchEquipment('restore')"
+            [attr.disabled]="showArchSpinner ? true : null"
+            [attr.loading]="showArchSpinner ? true : null"
+            icon="restore"
+          >
+          </bh-button>
+
+          <span *ngIf="equipmentDetailslData.productData">
+            <bh-button
+              *ngIf="
+                equipmentDetailslData.productData.productAccessData.isService &&
+                (equipmentDetailslData.rmaStatus === 'C' ||
+                  equipmentDetailslData.rmaStatus === '')
+              "
+              type="secondary"
+              label="{{ 'equipmentDetails.createRma' | cxTranslate }}"
+              (click)="
+                createNewRma(
+                  equipmentDetailslData.productData,
+                  equipmentDetailslData.serialNumber
+                )
+              "
+              icon="assignment_return"
+              class="reset float-left mr-3"
+            >
+            </bh-button>
+          </span>
+
+          <bh-button
+            *ngIf="equipmentDetailslData.hasCalData"
+            type="primary"
+            label="{{ 'equipmentDetails.calibrationData' | cxTranslate }}"
+            (click)="downloadCalibrationPDF()"
+            class="track"
+            [attr.disabled]="showPDFSpinner ? true : null"
+            [attr.loading]="showPDFSpinner ? true : null"
+            icon="description"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!----------Update-Equipment-Details-------------->
+  <!--form [formGroup]="myForm"-->
+  <ng-container *ngIf="showUpdate">
+    <div class="col-md-8 col-lg-8 col-sm-12">
+      <div class="row mb-4">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <h4 class="box-title">
+            {{ 'mySiteEquipment.serialId' | cxTranslate }} {{ equipmentDetailslData.serialNumber }}
+          </h4>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.partNumber' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.partNumber }}</div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.partName' | cxTranslate }}
+          </div>
+          <div
+            *ngIf="equipmentDetailslData.isCaltalogProduct == true"
+            class="list-data"
+          >
+            {{ equipmentDetailslData.partName }}
+          </div>
+          <bh-text-input
+            *ngIf="equipmentDetailslData.isCaltalogProduct == false"
+            type="text"
+            [value]="equipmentDetailslData.partName"
+            name="partName"
+            (keyup)="onChange($event, 'partName')"
+          >
+          </bh-text-input>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.siteLocation' | cxTranslate }}
+            <span class="tooltip-info">
+              <bh-icon
+                icon="info"
+                size="small"
+                color="black"
+                href=""
+                target=""
+                matTooltipClass="vs-tooltip"
+                matTooltipPosition="right"
+                matTooltip="Where is this equipment installed?"
+              ></bh-icon>
+            </span>
+            <bh-text-input
+              type="text"
+              [value]="equipmentDetailslData.location"
+              name="siteLocation"
+              maxlength="20"
+              (keyup)="onChange($event, 'siteLocation')"
+            ></bh-text-input>
+          </div>
+        </div>
+        <div
+          *ngIf="!equipmentDetailslData.lastCalibrationDate"
+          class="col-md-5 col-lg-5 col-sm-12"
+        >
+          <div class="list-price">
+            {{ 'equipmentDetails.lastService' | cxTranslate }}
+          </div>
+          <div
+            *ngIf="equipmentDetailslData.isCaltalogProduct == true"
+            class="list-data"
+          >
+            {{ equipmentDetailslData.lastServiceDate }}
+          </div>
+          <vs-date-picker
+            *ngIf="equipmentDetailslData.isCaltalogProduct == false"
+            class="date-picker"
+            [min]="minDate"
+            [max]="maxDate"
+            [defaultDate]="equipmentDetailslData.lastServiceDate"
+            (selectedDate)="onLastServiceDateChange($event)"
+          >
+          </vs-date-picker>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.serviceInterval' | cxTranslate }}
+            <span class="tooltip-info-two">
+              <bh-icon
+                icon="info"
+                size="small"
+                color="black"
+                href=""
+                target=""
+                matTooltipClass="vs-tooltip"
+                matTooltipPosition="right"
+                matTooltip="How often do you need to create an RMA for this equipment?"
+              >
+              </bh-icon>
+            </span>
+            <bh-text-input
+              type="text"
+              [value]="equipmentDetailslData.serviceInterval"
+              name="serviceInterval"
+              (keypress)="numberOnly($event)"
+              maxlength="2"
+              (keyup)="onChange($event, 'serviceInterval')"
+            ></bh-text-input>
+          </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.status' | cxTranslate }}
+          </div>
+          <div class="list-data">{{ equipmentDetailslData.status }}</div>
+        </div>
+      </div>
+
+      <div class="row mb-4" *ngIf="equipmentDetailslData.serviceDueDate">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.nextServiceDate' | cxTranslate }}
+          </div>
+          <div
+            *ngIf="equipmentDetailslData.isCaltalogProduct == true"
+            class="list-data"
+          >
+            {{ equipmentDetailslData.serviceDueDate | date: 'dd MMM yyyy' }}
+          </div>
+          <vs-date-picker
+            *ngIf="equipmentDetailslData.isCaltalogProduct == false"
+            class="date-picker"
+            [min]="minDate"
+            [max]="maxDate"
+            [defaultDate]="equipmentDetailslData.serviceDueDate"
+            (selectedDate)="onServiceDueDateChange($event)"
+          >
+          </vs-date-picker>
+        </div>
+        <div
+          *ngIf="equipmentDetailslData.lastCalibrationDate"
+          class="col-md-5 col-lg-5 col-sm-12"
+        >
+          <div class="list-price">
+            {{ 'equipmentDetails.lastCalibration' | cxTranslate }}
+          </div>
+          {{ equipmentDetailslData.lastCalibrationDate | date: 'dd MMM yyyy' }}
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.tagandAssetNum' | cxTranslate }}
+            <bh-icon
+              icon="info"
+              size="small"
+              color="black"
+              href=""
+              target=""
+              matTooltipClass="vs-tooltip"
+              matTooltipPosition="right"
+              matTooltip="The unique number you assigned to this equipment"
+            ></bh-icon>
+
+            <bh-text-input
+              type="text"
+              [value]="equipmentDetailslData.assetNumber"
+              required
+              name="tagandAssetNum"
+              maxlength="30"
+              (keyup)="onChange($event, 'tagandAssetNum')"
+            >
+            </bh-text-input>
+          </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <div class="list-price">
+            {{ 'equipmentDetails.customeTariff' | cxTranslate }}
+            <bh-icon
+              icon="info"
+              size="small"
+              color="black"
+              href=""
+              target=""
+              matTooltipClass="vs-tooltip"
+              matTooltipPosition="right"
+              matTooltip="Used when you create an RMA and need to ship the equipment to another country for service."
+            >
+            </bh-icon>
+
+            <bh-text-input
+              type="text"
+              [value]="equipmentDetailslData.htsCode"
+              required
+              name="customeTariff"
+              maxlength="17"
+              (keyup)="onChange($event, 'customeTariff')"
+            >
+            </bh-text-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-10">
+          <!--  <span class="dd-label">{{'equipmentDetails.endCustomer' | cxTranslate}}</span> -->
+          <bh-dropdown
+            class="salesarea-dd"
+            label="{{ 'equipmentDetails.endCustomer' | cxTranslate }}"
+            isFluid="false"
+            sSmall="false"
+            width="large"
+            menuWidth="large"
+            unselectable="false"
+            [menuItems]="endCustomers"
+            value="{{ equipmentDetailslData.endCustomerName }}"
+            isEllipsis="false"
+            (select)="getEndCustomer($event)"
+            [message]="error.endCustomerName"
+            [attr.error]="error.endCustomerName ? error.endCustomerName : null"
+          >
+          </bh-dropdown>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-10">
+          <div class="list-price">{{ 'equipmentDetails.notes' | cxTranslate }}</div>
+          <bh-text-area
+            class="shipping-remarks"
+            label=""
+            value="{{ equipmentDetailslData.additionalInfo }}"
+            placeholder="{{ 'equipmentDetails.note' | cxTranslate }}"
+            name="additionalInfo"
+            (keyup)="onChange($event, 'additionalInfo')"
+            maxlength="1333"
+            maxcharacters="1333"
+            messageType="count"
+            (keypress)="stop($event)"
+            (paste)="copyPaste($event)"
+            #textval
+          >
+          </bh-text-area>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-lg-2 col-md-2 col-sm-12 cancel-button button-align">
+          <bh-button
+            type="secondary"
+            label="{{ 'equipmentDetails.cancel' | cxTranslate }}"
+            (click)="cancelUpdate()"
+            class="cancel"
+          >
+          </bh-button>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-12 save-changes-button">
+          <bh-button
+            type="primary"
+            (click)="onUpdateEquipmentData()"
+            label="{{ 'equipmentDetails.saveChanges' | cxTranslate }}"
+            class="save-changes"
+            [attr.disabled]="showSpinner ? true : null"
+            [attr.loading]="showSpinner ? true : null"
+          >
+          </bh-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="currently-loading-spinner" *ngIf="currentlyLoading">
+    <cx-spinner></cx-spinner>
+  </div>
+</div>

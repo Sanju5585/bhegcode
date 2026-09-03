@@ -1,0 +1,586 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<ng-container *ngIf="!showAddressSelection; else addressView">
+<div class="container">
+  <div class="waygate-order-details-container">
+    <div class="waygate-order-details-header">
+      <div class="header-green-border"></div>
+      <h1>{{ 'order-tracking.orderDetails' | cxTranslate }}</h1>
+    </div>
+    <div class="error-displays">
+      <div class="warning" *ngIf="errorResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'order-tracking.inquiryisFailed' | cxTranslate }}
+        <a routerLink="contactus">{{ 'order-tracking.here' | cxTranslate }}</a
+        >.
+      </div>
+      <div class="success" *ngIf="successResponse">
+        <span class="material-icons"> notifications </span>
+        {{ 'order-tracking.inquirySuccess' | cxTranslate }}
+      </div>
+    </div>
+    <div class="waygate-details-actions">
+      <div class="left-actions"></div>
+      <div class="right-actions">
+        <div (click)="backLink()">
+          <span class="material-icons"> chevron_left </span> {{ 'waygate-order.back' | cxTranslate }}
+        </div>
+        <div class="waygate-pdp-action-button">
+          <button
+            class="waygate-add-to-cart"
+            *ngIf="
+              userType == 'current' &&
+              activeCustomerNumber == orderCustomerNumber &&
+              activeSalesRegion == orderSalesRegion &&
+              profile?.dsRoles == userRoles.ADMIN &&
+              details?.orderStatus == 'Shipped & Invoiced'
+            "
+            (click)="repeatOrder()"
+          >
+            <div class="button-label">{{ 'waygate-order.repeatOrder' | cxTranslate }}</div>
+            <span class="material-icons"> add_shopping_cart </span>
+          </button>
+          <div (click)="shareDetail()" class="d-flex gap-2 pr-2">
+            <span class="material-icons"> share </span> {{ 'waygate-order.share' | cxTranslate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-details-submenu">
+      <ng-select class="border-0" id="monthDropdown" [(ngModel)]="selectedMenu" bindLabel="label" bindValue="value"
+          [searchable]="false" [clearable]="false" [items]="detailsSubmenu" (change)="changeState(selectedMenu)">
+        </ng-select>
+    </div>
+    
+<ng-container *ngIf="isLoading && !orderNotFound">
+  <ng-template [ngTemplateOutlet]="loading"></ng-template>
+</ng-container>
+
+    <ng-container *ngIf="ordersDetails$ | async as orderDetails">
+      <ng-container *ngIf="!orderNotFound; else errorBlock">
+      <ng-container *ngIf="orderDetails; else noData">
+        <div class="waygate-order-details-body">
+          <div class="order-details-body-tabs">
+            <div
+              class="order-details-tab"
+              [class.active]="state == 'summary'"
+              (click)="changeState('summary')"
+            >
+              <span class="material-icons"> assignment </span>
+              {{ 'waygate-order.orderSummryBtn' | cxTranslate }}
+            </div>
+            <ng-container *ngIf="user$ | async">
+              <div
+                class="order-details-tab"
+                [class.active]="state == 'documents'"
+                (click)="changeState('documents')"
+              >
+                <span class="material-icons"> description </span>
+                {{ 'waygate-order.orderDocBtn' | cxTranslate }}
+              </div>
+              <div
+                class="order-details-tab"
+                [class.active]="state == 'inquiry'"
+                (click)="changeState('inquiry')"
+              >
+                <span class="material-icons"> rate_review </span>
+                {{ 'waygate-order.orderInquiryBtn' | cxTranslate }}
+              </div>
+            </ng-container>
+
+            <div
+              class="order-details-tab"
+              [class.active]="state == 'items'"
+              (click)="changeState('items')"
+            >
+              <span class="material-icons"> category </span>
+              {{ 'waygate-order.itemsOrdered' | cxTranslate }}
+            </div>
+          </div>
+
+          <div class="order-details-body-details">
+            <div
+              class="order-status-blocked-container"
+              *ngIf="orderDetails?.orderStatus == 'Blocked'"
+            >
+              <p class="mb-2">
+                <span class="material-icons">security</span>
+                <span [innerHTML]="'waygate-order.orderBlockedReasonFull' | cxTranslate"></span>
+              </p>              
+              <ul class="mb-2 pl-3">
+                <li>{{ orderDetails?.blkText }}</li>
+              </ul>
+              <p 
+                class="mb-2"
+                [innerHTML]="'waygate-order.orderContactCustomerCare' | cxTranslate"
+              >
+              </p>
+            </div>
+
+            <div class="status-container-header">
+              <div class="header-left-part">
+                <h5>
+                  {{ 'waygate-order.orderNoHeade' | cxTranslate }}
+                  {{ orderDetails?.code }}
+                </h5>
+                <div class="header-details">
+                  <!-- <div *ngIf="orderDetails?.lineData?.length > 0">
+                    {{ orderDetails?.lineData?.length }} Items
+                  </div>
+                  <div class="verts" *ngIf="orderDetails?.lineData?.length > 0">
+                    |
+                  </div> -->
+                  <div>
+                    {{ 'waygate-order.poHeader' | cxTranslate }}
+                    {{ orderDetails?.purchaseOrderNumber }}
+                  </div>
+                  <div class="verts">|</div>
+                  <div>
+                    {{ 'waygate-order.poDateHeader' | cxTranslate }}
+                    {{ orderDetails?.poDate }}
+                  </div>
+                  <div class="verts">|</div>
+                  <div>
+                    {{ 'waygate-order.orderedByHeader' | cxTranslate }}
+                    {{ orderDetails?.createdBy }}
+                  </div>
+                </div>
+              </div>
+              <div class="header-right-part">
+                <div
+                  class="status"
+                  [class]="getClass(orderDetails?.orderStatus)"
+                >
+                  {{ orderDetails?.orderStatus }}
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="state == 'summary'">
+              <div class="order-status-container">
+                <div class="status-container-body">
+                  <ul class="progressbar">
+                    <li
+                      [class.active]="
+                        activateState(getClass(orderDetails?.orderStatus), 1)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/notebook.svg"
+                          alt=""
+                        />
+                        <div class="status-header">
+                          {{
+                            'waygate-order.orderReceivedHeader' | cxTranslate
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [ngClass]="{
+                        active: activateState(
+                          getClass(orderDetails?.orderStatus),
+                          2
+                        ),
+                        blocked: orderDetails?.orderStatus == 'Blocked',
+                      }"
+                    >
+                      <div class="icons-tile">
+                        <ng-container
+                          *ngIf="
+                            orderDetails?.orderStatus != 'Blocked';
+                            else blockedImage
+                          "
+                        >
+                          <img
+                            src="../../../../../assets/img/package.svg"
+                            alt=""
+                        /></ng-container>
+                        <ng-template #blockedImage>
+                          <img
+                            src="../../../../../assets/img/package-blocked.svg"
+                            alt=""
+                          />
+                        </ng-template>
+                        <div class="status-header">
+                          {{
+                            orderDetails?.orderStatus == 'Blocked'
+                              ? ('waygate-order.orderStatusBlocked'
+                                | cxTranslate)
+                              : ('waygate-order.orderStatusShipped'
+                                | cxTranslate)
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(orderDetails?.orderStatus), 3)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/shipping.svg"
+                          alt=""
+                        />
+                        <div class="status-header">{{ 'waygate-order.shipped' | cxTranslate }}</div>
+                      </div>
+                    </li>
+                    <li
+                      [class.active]="
+                        activateState(getClass(orderDetails?.orderStatus), 4)
+                      "
+                    >
+                      <div class="icons-tile">
+                        <img
+                          src="../../../../../assets/img/handshake.svg"
+                          alt=""
+                        />
+                        <div class="status-header">
+                          {{ 'waygate-order.shipped&Invoiced' | cxTranslate }}
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ng-container *ngIf="user$ | async">
+                <div class="customer-details">
+                  <h4>{{ 'waygate-order.ctmrDetailsHeader' | cxTranslate }}</h4>
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.ctmrAccNoHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.soldTo }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.orderTypeHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.orderType }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{
+                            'waygate-order.totalNetPriceHeader' | cxTranslate
+                          }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.currency }}
+                          {{ orderDetails?.totalNetPrice }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.incoTermsHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.incoterm }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.salesAreaHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.salesArea }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{
+                            'waygate-order.shipmentPreferenceHeader'
+                              | cxTranslate
+                          }}
+                        </div>
+                        <div class="details-value">
+                          {{
+                            (orderDetails?.headerShippingMethod).toLowerCase() ==
+                            'x'
+                              ? ('waygate-order.shipmentPreferenceComplete'
+                                | cxTranslate)
+                              : ('waygate-order.shipmentPreferencePartial'
+                                | cxTranslate)
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- since we are not receiving correct shipment method details from ERP commenting this field -->
+                    <!-- <div
+                      class="details-line"
+                      *ngIf="orderDetails?.lineData[0]?.courier"
+                    >
+                      <div>
+                        <div class="details-label">{{ 'waygate-order.shipmentMethodHeader' | cxTranslate }}</div>
+                        <div class="details-value">
+                          {{ orderDetails?.lineData[0]?.courier || '-' }}
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="customer-details">
+                  <h4>{{ 'waygate-order.addressDetails' | cxTranslate }}</h4>
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div *ngIf="orderDetails?.soldToAddress">
+                        <div class="details-label">
+                          {{ 'waygate-order.soldTo' | cxTranslate }}
+                        </div>
+                        <div
+                          class="details-value"
+                          [innerHTML]="orderDetails?.soldToAddress"
+                        ></div>
+                      </div>
+                      <div *ngIf="!orderDetails?.soldToAddress">
+                        <div class="details-label">
+                          {{ 'waygate-order.soldTo' | cxTranslate }}
+                        </div>
+                        <div class="na">
+                          {{ 'waygate-order.na' | cxTranslate }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.shipTo' | cxTranslate }}
+                        </div>
+                        <div
+                          class="details-value"
+                          [innerHTML]="orderDetails?.headerShippingAddress"
+                        ></div>
+                      </div>
+                      <!-- <div>
+                        <div class="details-label">End Customer Address:</div>
+                        <div
+                          class="details-value"
+                          [innerHTML]="orderDetails?.headerShippingAddress"
+                        ></div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="customer-details">
+                  <h4>{{ 'waygate-order.paymentDetails' | cxTranslate }}</h4>
+                  <div class="customer-details-box">
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.paymentType' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          <ng-container
+                            *ngIf="
+                              orderDetails?.isCreditCardOrder;
+                              else poOrder
+                            "
+                          >
+                            <div>
+                              {{
+                                'waygate-order.paymentTypeCreditCardOrder'
+                                  | cxTranslate
+                              }}
+                            </div>
+                          </ng-container>
+                          <ng-template #poOrder>
+                            <div>
+                              {{
+                                'waygate-order.paymentTypePurchaseOrder'
+                                  | cxTranslate
+                              }}
+                            </div>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.poNumberHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.purchaseOrderNumber || 'N/A' }}
+                        </div>
+                      </div>
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.poDateHeader' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.poDate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="details-line">
+                      <div>
+                        <div class="details-label">
+                          {{ 'waygate-order.paymentTerms' | cxTranslate }}
+                        </div>
+                        <div class="details-value">
+                          {{ orderDetails?.paymentTerm }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="state == 'summary' || state == 'items'">
+              <div class="items-container">
+                <h4 *ngIf="state == 'summary'">
+                  {{
+                    'waygate-order.orderedCount'
+                      | cxTranslate: { count: orderDetails?.lineData?.length }
+                  }}
+                </h4>
+                <div class="line-header">
+                  {{ 'waygate-order.itemDetails' | cxTranslate }}
+                </div>
+                <ng-container *ngFor="let product of orderDetails?.lineData">
+                  <app-waygate-order-product
+                    [product]="product"
+                    [userType]="userType"
+                    [productType]="'order'"
+                  ></app-waygate-order-product>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="state == 'inquiry'">
+              <div class="inquiry-container">
+                <div class="documents-header">
+                  <h4>{{ 'waygate-order.orderInquiryBtn' | cxTranslate }}</h4>
+                </div>
+                <form [formGroup]="inquiryForm" class="inquiry-details">
+                  <div class="title-lable">
+                    {{ 'waygate-order.inquiryType' | cxTranslate }}
+                  </div>
+                  <div class="inquiry-dropdown">
+                    <ng-select
+                      formControlName="enquiryType"
+                      id="enquiryType"
+                      placeholder="{{ 'waygate-order.select' | cxTranslate }}"
+                      [searchable]="false"
+                      [clearable]="false"
+                    >
+                      <ng-option
+                        *ngFor="let orderInq of orderInquiries; let i = index"
+                        [value]="orderInq.code"
+                      >
+                        {{ orderInq.name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="title-lable">
+                    {{ 'waygate-order.description' | cxTranslate }}
+                  </div>
+                  <textarea
+                    name=""
+                    id=""
+                    cols="60"
+                    rows="10"
+                    formControlName="inquiryDetails"
+                    placeholder="{{
+                      'waygate-order.orderRelatedInquiry' | cxTranslate
+                    }}"
+                  >
+                  </textarea>
+                </form>
+                <div class="inquiry-form-actions">
+                  <button
+                    class="action"
+                    (click)="submitToCSR(orderDetails)"
+                    [disabled]="!inquiryForm.valid || disableButton"
+                  >
+                    {{ 'waygate-order.saveChanges' | cxTranslate }}
+                  </button>
+                  <button class="discard" (click)="clearForm()">
+                    {{ 'waygate-order.discard' | cxTranslate }}
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="state == 'documents'">
+              <ng-container *ngIf="gettingDocs; else loading">
+                <ng-container *ngIf="documents; else noDocuments">
+                  <div class="associated-doc-container">
+                    <div class="documents-header">
+                      <h4>
+                        {{
+                          'waygate-order.documentCount'
+                            | cxTranslate: { count: documents?.length }
+                        }}
+                      </h4>
+                    </div>
+                    <ng-container *ngFor="let document of documents">
+                      <div class="document-row">
+                        <span>{{ document.fileName }}</span>
+                        <a
+                          class="material-icons"
+                          (click)="
+                            downloadDocument(
+                              orderDetails?.code,
+                              document?.fileName,
+                              document?.fileType,
+                              orderDetails?.soldTo
+                            )
+                          "
+                        >
+                          save_alt
+                        </a>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+</ng-container>
+<ng-template #addressView>
+  <div class="container">
+    <app-waygate-quick-order-address
+      [bulkUploadSelection]="bulkUploadSelection"
+      [validatedProductsList]="validatedProductsList"
+      (submitWithEca)="onSubmitRepeatOrder()">
+    </app-waygate-quick-order-address>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'waygate-order.orderNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #noDocuments>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>{{ 'waygate-order.documentNotFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #errorBlock>
+  <div class="no-orders-found">
+    <img src="../../../../assets/img/Illustration.png" alt="No Orders Found!" />
+    <h4>Sorry, we couldn't find your order.</h4>
+  </div>
+</ng-template>
+
+
+<div class="cx-spinner repeat-order" *ngIf="showRepeatOrderLoader">
+  <cx-spinner></cx-spinner>
+</div>

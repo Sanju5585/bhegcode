@@ -1,0 +1,12 @@
+<div class="product-encloser">
+  <cx-media
+    class="product-thumbnail col-2"
+    [container]="product?.product?.images"
+    [alt]="product?.summary"
+  >
+  </cx-media>
+  <div class="product-info col-10 pr-1 pl-1">
+    <div class="part-number">{{ product.partName }}</div>
+    <div class="serial-number bold">{{ product.partCode }}</div>
+  </div>
+</div>

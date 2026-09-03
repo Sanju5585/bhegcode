@@ -1,0 +1,64 @@
+<html class="no-js">
+	<head>
+ <style>
+* {
+color: #05322b;
+font-family: 'Poppins','Lucida Sans';
+font-size: 14px;
+text-align: left;
+}
+</style>
+
+
+      <!--<link href="css/email-styles.css" rel="stylesheet" type="text/css">-->
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="components/brandkit/favicon/favicon-144px.png">
+
+		<!-- For iPhone with high-resolution Retina display: -->
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="components/brandkit/favicon/favicon-114px.png">
+
+		<!-- For first- and second-generation iPad: -->
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="components/brandkit/favicon/favicon-72px.png">
+
+		<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+		<link rel="apple-touch-icon-precomposed" href="components/brandkit/favicon/favicon.png">
+		<link href="css/datepicker.css" rel="stylesheet" type="text/css">
+		<!--[if lt IE 9]>
+		      <link id="theme-ie" href="../../../css/ie.css" rel="stylesheet" type="text/css">
+		    <![endif]-->
+	</head>
+	<body class="emailContainer">
+
+	<!-- Start of Page Header -->
+		<header>
+		  <div class="container">
+		  <div class="header">
+        <img src="${ctx.mediaBaseUrl}/_ui/responsive/theme-lambda/images/plain-banner.png" alt="headerImage" />
+          </div>
+		  	<div class="emailInfo">
+			  	<ul>
+			  		<li>From Email Address: <span>${ctx.shippingAddressFormParamMap.get('fromEmail')}</span></li>
+					<li>From Email Name: <span>${ctx.shippingAddressFormParamMap.get('fromName')}</span></li>
+			  	</ul>
+			  	<p>Subject Line: <span>Baker Hughes Digital Solutions Store Contact Inquiry how can we help value</span></p>
+		  	</div>
+		  </div>
+		</header>
+		<div class="container">
+			<div class="emailContactUs">
+				<div class="emailContactContent">
+					<p>CSR Team,</p>
+					<ul>
+					  	<li>Company Name: <span>${ctx.shippingAddressFormParamMap.get('companyName')}</span></li>
+					  	<li>Address1:${ctx.shippingAddressFormParamMap.get('address1')}</li>
+					  	<li>Address2: <span>${ctx.shippingAddressFormParamMap.get('address2')}</span></li>
+					  	<li>State: <span>${ctx.shippingAddressFormParamMap.get('stateName')}</span></li>
+					  	<li>Country: <span>${ctx.shippingAddressFormParamMap.get('countryName')}</span></li>
+					  	<li>ZipCode: ${ctx.shippingAddressFormParamMap.get('postalCode')}</li>
+					</ul>
+					<p>Please respond to the customer via their selected contact preference.</p>
+			    </div>
+			</div>
+		</div>
+	</body>
+</html>

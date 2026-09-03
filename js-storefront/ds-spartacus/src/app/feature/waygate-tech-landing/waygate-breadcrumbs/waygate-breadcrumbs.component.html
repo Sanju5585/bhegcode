@@ -1,0 +1,22 @@
+<div class="waygate-breadcrumb-template">
+  <ng-container *ngIf="breadcrumbs">
+    <div class="container waygate-breadcrumb-container">
+      <a class="waygate-breadcrumb-item" (click)="waygatePage()">
+        <span class="material-icons-outlined"> home </span>
+      </a>
+      <ng-container *ngFor="let crumb of breadcrumbs; let i = index">
+        <span>/</span>
+        <a
+          class="waygate-breadcrumb-item"
+          [class.last]="
+            i == breadcrumbs?.length - 1 || i == breadcrumbs?.length - 2
+          "
+          [routerLink]="crumb?.url"
+        >
+          <span class="br-label">{{ crumb?.name }}</span>
+          <span class="br-label-holder">...</span>
+        </a>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

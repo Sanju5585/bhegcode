@@ -1,0 +1,146 @@
+.container {
+  min-height: 480px;
+  margin-bottom: 45px;
+  .create-rma-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+
+    .create-rma-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .title-container {
+        display: flex;
+        flex-direction: column;
+        height: 60px;
+        gap: 18px;
+        .header-green-border {
+          border-top: 2px solid #02a783;
+          width: 60px;
+        }
+
+        h1 {
+          font-size: 30px;
+          font-weight: 600;
+          color: #121212;
+        }
+      }
+      .create-rma-row-actions {
+        display: flex;
+        gap: 40px;
+        .row-actions-items {
+          .action-links {
+            display: flex;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: right;
+            color: #595959;
+            border: 0px;
+            gap: 4px;
+            text-decoration: none;
+            height: 20px;
+            cursor: pointer;
+            .action-text:hover {
+              color: #02a783;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container-body {
+    display: flex;
+    gap: 20px;
+    .all-offerings-total {
+      border: 1px solid #ced7d4;
+      border-radius: 4px;
+      padding: 2em;
+      min-height: 220px;
+      max-height: fit-content;
+      height: auto;
+      background-color: #f8faf9;
+      position: sticky;
+      top: 120px;
+      &.expanded {
+        max-height: fit-content;
+        height: auto;
+      }
+      .offerings-total-title {
+        font-family: var(--font-base-font-family-decorative);
+        font-style: normal;
+        font-weight: 600;
+        font-size: var(--font-base-font-size-20);
+        line-height: 28px;
+        letter-spacing: 0.1px;
+        color: var(--color-base-teal-950);
+      }
+      .offerings-cost-list {
+        display: flex;
+        justify-content: space-between;
+        color: #717171;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        &--label {
+          max-width: 75%;
+        }
+      }
+      .offerings-cost-list.bold-child {
+        font-family: var(--font-base-font-family-decorative);
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        color: #717171;
+        margin-bottom: 5px;
+      }
+      .offerings-cost-list--cost {
+        color: #121212;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: Poppins;
+        margin-bottom: 5px;
+      }
+      .rma-add-cart-btn {
+        display: flex;
+        align-items: center;
+      }
+      bh-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-radius: 4px;
+        margin-top: 20px;
+      }
+    }
+    .all-offerings-total {
+      flex: 1 1 30%;
+    }
+  }
+}
+
+.error-msg{
+ margin-top: 42px;
+}
+
+::ng-deep bh-button.return-btn-disabled button {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+  width: 306px;
+}
+
+::ng-deep bh-button.return-btn-active button {
+  background-color: #147d64 !important;
+  color: white !important;
+  cursor: pointer;
+  width: 306px;
+}
+
+::ng-deep bh-button.return-btn-active button:hover {
+  background-color: #0f5f4e !important; 
+}

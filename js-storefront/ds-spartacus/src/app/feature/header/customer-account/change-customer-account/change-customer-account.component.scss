@@ -1,0 +1,95 @@
+.change-account-table {
+  margin-top: 24px !important;
+  .title-label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--font-size-body-large);
+    line-height: 22px;
+    color: var(--color-text-common-primary);
+  }
+}
+
+:host::ng-deep {
+  .customer-account-tabs {
+    .bh-tabs--container.border {
+      border-top: 1px solid #fff !important;
+      border-right: 1px solid #fff !important;
+      border-left: 1px solid #fff !important;
+      border-bottom: 1px solid var(--color-border-common-secondary);
+    }
+    .bh-tabs--item {
+      &__icon {
+        font-size: 19px;
+      }
+      &-label {
+        font-family: var(--font-family-body-large);
+        font-style: normal;
+        font-weight: 600;
+        font-size: var(--font-size-body-small);
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: 1px;
+        color: var(--color-text-label-default);
+      }
+    }
+  }
+  .search-accounts {
+    .bh-text-input__container {
+      margin-top: 1em;
+      .bh-text-input__input {
+        width: 100%;
+      }
+    }
+  }
+  .account-list-item {
+    .bh-button {
+      min-width: 134px;
+      .bh-button__label {
+        font-weight: 600;
+        font-size: var(--font-base-font-size-14);
+        line-height: 20px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .bh-button--type-secondary {
+    border: 1px solid #415853;
+    .bh-button__label {
+      color: #415853;
+    }
+  }
+}
+
+.customer-account-list {
+  .account-list-item {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ebefee;
+    font-family: var(--font-family-body-medium);
+    font-style: normal;
+    font-weight: normal;
+    font-size: var(--font-size-body-medium);
+    line-height: 21px;
+    letter-spacing: 0.1px;
+    color: var(--color-text-common-primary);
+    padding: 0px 0px 0px 8px;
+  }
+}
+
+.custom-height {
+  max-height: 100px;
+  min-height: 192px;
+  overflow: auto;
+}
+
+.no-records {
+  color: var(--color-text-common-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  margin-top: 30px;
+}

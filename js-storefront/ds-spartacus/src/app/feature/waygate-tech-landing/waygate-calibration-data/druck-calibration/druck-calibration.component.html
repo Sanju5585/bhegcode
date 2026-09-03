@@ -1,0 +1,151 @@
+<div class="custom-space-boxing" *ngIf="!showSpinner; else loading">
+  <div class="row mt-4">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 druck-form-wrapper">
+        <p class="product-tag pl-1 mt-4">
+          {{ 'mySiteEquipment.productLineDruck' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck1' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck2' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck3' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck4' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck5' | cxTranslate }}
+        </p>
+        <p class="product-tag pl-1 mt-1">
+          {{ 'mySiteEquipment.productLineDruck6' | cxTranslate }}
+        </p>
+        <form [formGroup]="druckCalibrationForm" (ngSubmit)="formSubmitted()">
+          <div class="druck-form-row mt-4">
+            <div class="druck-item col-md-8 pl-0">
+              <label for="serialNo">{{ 'mySiteEquipment.serialNumber' | cxTranslate }}</label>
+              <input
+                class="serial-no-input"
+                placeholder="{{ 'mySiteEquipment.enterSerialNUmber' | cxTranslate }}"
+                type="text"
+                id="serialNo"
+                formControlName="probeSerialNumber"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <p class="druck-tag pl-1 mt-1">
+                {{ 'mySiteEquipment.ukas' | cxTranslate }}
+              </p>
+            </div>
+          </div>
+          <div class="row mt-4 mb-4">
+            <div class="col-md-12">
+              <button
+                type="submit"
+                class="save-btn action-btn"
+                [disabled]="!druckCalibrationForm.valid"
+              >
+              {{ 'mySiteEquipment.search' | cxTranslate }}
+              </button>
+              <button
+                type="button"
+                class="discard-btn action-btn"
+                (click)="onFormResetset()"
+              >
+              {{ 'mySiteEquipment.reset' | cxTranslate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 box-wrapper">
+        <div class="row" *ngIf="isInitDruckState; else AfterSearched">
+          <div class="col-md-12">
+            <div class="row mb-2 ml-4">
+              <div class="col-md-12">
+                <img
+                  src="/assets/img/druck_loading_img.png"
+                  class="druck-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <ng-template #AfterSearched>
+            <ng-container *ngIf="calibarationDataNotFound; else calData">
+              <h3 class="page-head mt-4">{{ 'mySiteEquipment.couldntFindEquipment1' | cxTranslate }}</h3>
+            </ng-container>
+            <ng-template #calData>
+              <div class="row mb-2 ml-4">
+                <div class="col-md-12">
+                  <h3 class="sub-description mt-4">
+                    {{ 'mySiteEquipment.serialProduct' | cxTranslate }}
+                    {{ druckSerialNumber }}
+                  </h3>
+                  <h2 class="right-box-title">
+                    {{ 'mySiteEquipment.calCertificateFound' | cxTranslate }}
+                    <span class="icon-style">
+                      <i class="material-icons md-18">check_circle</i>
+                    </span>
+                  </h2>
+                </div>
+              </div>
+
+              <div class="row mt-3 ml-4">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <bh-button
+                    type="primary"
+                    label="{{
+                      'mySiteEquipment.calibrationCertificate' | cxTranslate
+                    }}"
+                    class="track"
+                    [attr.disabled]="false"
+                    icon="description"
+                    (click)="downloadDruckCalibrationData()"
+                    [attr.disabled]="showPDFSpinner ? true : null"
+                    [attr.loading]="showPDFSpinner ? true : null"
+                  >
+                  </bh-button>
+                </div>
+              </div>
+
+              <!-- <div class="row mt-2 ml-4">  ========(RITM00372276 - AS per business request disabled)
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <p class="cert-sub-description">
+                    {{
+                      'mySiteEquipment.calCertificateFoundData' | cxTranslate
+                    }}
+                    <bh-a
+                      type="primary"
+                      class="view-data-link"
+                      routerLink="/training-docs"
+                      text="{{
+                        'mySiteEquipment.clickHereImage' | cxTranslate
+                      }}"
+                    ></bh-a>
+                    .
+                  </p>
+                </div>
+              </div> -->
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

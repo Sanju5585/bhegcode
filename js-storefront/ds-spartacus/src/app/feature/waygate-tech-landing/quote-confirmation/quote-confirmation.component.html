@@ -1,0 +1,53 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<div class="quote-confirmation" *ngIf="code || code == ''; else loading">
+  <div class="quote-confirmation-img"></div>
+  <div class="quote-confirmation-heading">
+    {{ 'quoteCart.successfullySubmit' | cxTranslate }}
+  </div>
+  <div class="quote-confirmation-reference">
+    {{ 'quoteCart.quoteNo' | cxTranslate }}{{ code }}
+  </div>
+  <div class="quote-confirmation-content">
+    <div class="quote-confirmation-content-div">
+      {{ 'quoteCart.recieveEmail' | cxTranslate }}
+      {{ email }}.
+    </div>
+  </div>
+  <div class="quote-confirmation-contact">
+    <div class="">
+      {{ 'quoteCart.quoteDownload' | cxTranslate }}
+    </div>
+    <div>
+      <button class="download-quote" (click)="downloadQuote()">
+        <div class="button-label">
+          <img
+            src="../../../../../assets/img/download.svg"
+            alt=""
+          />&nbsp;&nbsp;{{ 'quoteCart.downloadPDF' | cxTranslate }}
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="quote-confirmation-contact">
+    {{ 'quoteCart.please' | cxTranslate }}
+    <span
+      class="quote-confirmation-contact-span"
+      [routerLink]="['/', productLine, 'contactus']"
+      >{{ 'quoteCart.contact' | cxTranslate }}</span
+    >
+    {{ 'quoteCart.OR' | cxTranslate }}
+    <span
+      class="quote-confirmation-contact-span"
+      [routerLink]="['/', productLine, 'my-quotes']"
+      >{{ 'quoteCart.viewDetails' | cxTranslate }}</span
+    >
+    {{ 'quoteCart.quoteShortly' | cxTranslate }}
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,6 @@
+# Hybris 2211 CMS interceptors resolve locales as es-CO / zh-TW (hyphen),
+# while exported language data uses es_CO / zh_TW (underscore).
+# Import this before CMS component impex so ProductReferencesComponent can save.
+INSERT_UPDATE Language;isocode[unique=true];active;fallbackLanguages(isocode);name[lang=en]
+;es-CO;true;es;"Latin-American Spanish"
+;zh-TW;true;zh;"Traditional Chinese"

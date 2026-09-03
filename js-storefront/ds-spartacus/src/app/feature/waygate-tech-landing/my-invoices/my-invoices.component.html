@@ -1,0 +1,575 @@
+<app-waygate-breadcrumbs [breadcrumbs]="breadcrumbs"></app-waygate-breadcrumbs>
+
+<div class="container">
+  <div
+    class="success-popup"
+    *ngIf="currentUrl == '/waygate/my-invoices/success'"
+  >
+    <div class="left-content">
+      <span class="material-icons"> check_circle </span>
+
+      Your invoice payment was successfully paid.
+    </div>
+    <span class="material-icons" (click)="closeMsg()"> close </span>
+  </div>
+  <div class="waygate-my-orders-container">
+    <div class="waygate-my-orders-header">
+      <div class="header-green-border"></div>
+      <div class="waygate-my-order-row">
+        <h1 class="waygate-my-order-title">
+          {{ 'my-invoices.myInvoices' | cxTranslate }}
+        </h1>
+        <div class="waygate-my-accounts">
+          <!-- {{ customerAccountName }} -->
+          <ng-container *ngIf="myInvoicesData$ | async as customerData">
+            <ng-select
+              class="border-0"
+              id="accountDropdown"
+              class="account-dropdown"
+              [searchable]="false"
+              [clearable]="false"
+              [(ngModel)]="params.customer"
+              (change)="onAccountChange($event)"
+            >
+              <ng-option
+                *ngFor="let customer of customerData?.customerAccounts"
+                [value]="customer.uid"
+                [selected]="customer?.uid == params?.customer"
+                >{{ customer.name }} | {{ customer.uid }}</ng-option
+              >
+            </ng-select>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="waygate-my-orders-header-actions">
+      <div class="gap-2 d-flex">
+        <span>
+          {{
+            'my-invoices.quotesPlacedInLast'
+              | cxTranslate: { count: totalCount }
+          }}</span
+        >
+
+        <ng-select
+          class="border-0"
+          id="statusDropdown"
+          [(ngModel)]="selectedMonth"
+          [searchable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [clearable]="false"
+          [items]="monthOptions"
+          (change)="onMonthChange()"
+        >
+        </ng-select>
+        <ng-select
+          class="border-0"
+          id="monthDropdown"
+          [(ngModel)]="selectedTile"
+          bindLabel="label"
+          bindValue="value"
+          [searchable]="false"
+          [clearable]="false"
+          [items]="orderTiles"
+          (change)="onStatusChange()"
+        >
+        </ng-select>
+      </div>
+
+      <div class="my-orders-search-actions">
+        <ng-container *ngIf="myInvoicesData$ | async as invoicedata">
+          <div
+            class="invoice-payment-initiated-modal"
+            *ngIf="isInvoiceInitiated(invoicedata?.invoiceResponse) && openBox"
+          >
+            <div class="warning-content">
+              <div class="warning-header">
+                <i class="material-icons">info_outline</i>
+                <div>Unable to select invoice(s)</div>
+              </div>
+              <div class="warning-description">
+                Some invoices are not available to select right now as they are
+                selected by another user. Please select other invoices or check
+                back later.
+              </div>
+              <div class="warning-action">
+                <bh-button
+                  type="primary"
+                  left-icon=""
+                  right-icon=""
+                  small
+                  false
+                  false
+                  false
+                  false
+                  (click)="closeModal()"
+                  label="I understand"
+                ></bh-button>
+              </div>
+            </div>
+            <div class="close-icon">
+              <i class="material-icons" (click)="closeModal()">close</i>
+            </div>
+          </div>
+        </ng-container>
+        <div class="my-orders-search">
+          <input
+            type="text"
+            placeholder="{{ 'my-invoices.searchQuoteParameter' | cxTranslate }}"
+            [formControl]="searchControl"
+            tabindex="0"
+          />
+          <span class="material-icons" (click)="search()"> search </span>
+        </div>
+        <!-- #waygateActions
+        (click)="showActions = !showActions" -->
+        <!-- <div
+          class="my-order-actions"
+          (click)="downloadXls()"
+          title="{{ 'my-invoices.exportToXLS' | cxTranslate }}"
+        >
+          <span class="material-icons"> vertical_align_bottom </span>
+        </div> -->
+      </div>
+    </div>
+    <ng-container *ngIf="myInvoicesData$ | async as orderData; else loading">
+      <ng-container *ngIf="orderData?.invoiceResponse?.length > 0; else noData">
+        <div class="my-orders-table-container">
+          <table class="waygate-my-order-table">
+            <thead>
+              <tr>
+                <!-- 1 -->
+                <th class="checkbox-column">
+                  <bh-checkbox
+                    [attr.checked]="selectAll"
+                    [attr.disabled]="multipleCurrencies"
+                    [attr.indeterminate]="indeterminate"
+                    (change)="
+                      toggleSelectAll($event, orderData?.invoiceResponse)
+                    "
+                    false
+                    false
+                  ></bh-checkbox>
+                </th>
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.quoteNumber' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('invoiceasc')">
+                        expand_less
+                      </span>
+
+                      <span
+                        class="material-icons"
+                        (click)="sort('invoicedesc')"
+                      >
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <!-- 2 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.amount' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('amountasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('amountdesc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.createdOn' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('dateasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('datedesc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.paymentType' | cxTranslate }}
+                    <!-- <div class="action-icons">
+                      <span class="material-icons" (click)="sort('dateasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('datedesc')">
+                        expand_more
+                      </span>
+                    </div> -->
+                  </div>
+                </th>
+                <!-- <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.paymentType' | cxTranslate }}
+                  </div>
+                </th> -->
+
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.paymentDate' | cxTranslate }}
+                    <!-- <div class="action-icons">
+                      <span
+                        class="material-icons"
+                        (click)="sort('paymentdateasc')"
+                      >
+                        expand_less
+                      </span>
+
+                      <span
+                        class="material-icons"
+                        (click)="sort('paymentdatedesc')"
+                      >
+                        expand_more
+                      </span>
+                    </div> -->
+                  </div>
+                </th>
+                <!-- 3 -->
+                <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.quoteStatus' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('statusasc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('statusdesc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th>
+
+                <!-- 4 -->
+                <!-- <th>
+                  <div class="header-title">
+                    {{ 'my-invoices.reference' | cxTranslate }}
+                    <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div>
+                  </div>
+                </th> -->
+
+                <!-- 5 -->
+
+                <!-- 6 -->
+                <!-- <th> -->
+                <!-- <div class="header-title"> -->
+                <!-- {{ 'my-invoices.validuntil' | cxTranslate }} -->
+                <!-- <div class="action-icons">
+                      <span class="material-icons" (click)="sort('UpdateAsc')">
+                        expand_less
+                      </span>
+
+                      <span class="material-icons" (click)="sort('UpdateDsc')">
+                        expand_more
+                      </span>
+                    </div> -->
+                <!-- </div> -->
+                <!-- </th> -->
+
+                <!-- 7 -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container
+                *ngFor="let order of orderData?.invoiceResponse; let i = index"
+              >
+                <tr>
+                  <td class="checkbox-column">
+                    <!-- 1 -->
+                    <!-- 1 -->
+                    <bh-checkbox
+                      [attr.disabled]="
+                        order?.invoiceStatus?.toLowerCase() == 'paid' ||
+                        order?.paymentStatus === 'TRANSACTION_INITIATED' ||
+                        (currencySelected != undefined &&
+                          currencySelected != order?.currency)
+                      "
+                      [attr.checked]="getCheckboxState(order)"
+                      (change)="
+                        onCheckboxChange(
+                          $event,
+                          order,
+                          orderData?.invoiceResponse
+                        )
+                      "
+                      false
+                      false
+                    ></bh-checkbox>
+                  </td>
+                  <!-- 1 -->
+                  <td>
+                    <!-- 
+                      (click)="downloadInvoice(order)" -->
+                    <span
+                      class="order-number"
+                      matTooltipClass="vs-tooltip"
+                      matTooltipPosition="right"
+                      matTooltip="{{
+                        'my-invoices.invoiceDownloadNote' | cxTranslate
+                      }}"
+                    >
+                      {{ order?.invoiceNumber }}
+                    </span>
+                  </td>
+
+                  <!-- 2 -->
+                  <td>
+                    @if (order?.amount > 0) {
+                      <div>
+                        {{ order?.amount | customNumber: order?.currency }}
+                      </div>
+                    } @else {
+                      <div
+                        matTooltipClass="vs-tooltip"
+                        matTooltipPosition="above"
+                        matTooltip="Credit applied to your account."
+                      >
+                        {{ order?.amount | customNumber: order?.currency }}
+                      </div>
+                    }
+                  </td>
+
+                  <!-- <td>-</td> -->
+
+                  <td>{{ order?.dueDate }}</td>
+
+                  <!-- 3 -->
+                  <td>
+                    <!-- <div>{{ order?.paymentMethod }}</div> -->
+                    <div>{{ order?.paymentMethodDescription }}</div>
+                  </td>
+                  <td>
+                    <div>{{ order?.paidDate }}</div>
+                    <!-- <div>{{order?.paymentMethodDescription}}</div> -->
+                  </td>
+                  <!-- 4 -->
+                  <!-- <td>
+                    <div>
+                      {{ order?.reference || 'N/A' }}
+                    </div>
+                  </td> -->
+
+                  <!-- 5 -->
+                  <td class="last-updated-wrapper">
+                    <ng-container
+                      *ngIf="
+                        order?.invoiceStatus?.toLowerCase() == 'past due';
+                        else notOverdue
+                      "
+                    >
+                      <div class="overdue">
+                        {{ 'my-invoices.overDue' | cxTranslate }}
+                      </div>
+                    </ng-container>
+                    <ng-template #notOverdue>
+                      <ng-container
+                        *ngIf="
+                          order?.invoiceStatus?.toLowerCase() == 'paid';
+                          else credit
+                        "
+                      >
+                        <div class="paid">
+                          {{ 'my-invoices.paid' | cxTranslate }}
+                        </div>
+                      </ng-container>
+                      <ng-template #credit>
+                        <ng-container
+                          *ngIf="
+                            order?.invoiceStatus?.toLowerCase() ==
+                              'credit note';
+                            else open
+                          "
+                        >
+                          <div class="open">
+                            {{ 'my-invoices.creditNote' | cxTranslate }}
+                          </div>
+                        </ng-container>
+                        <ng-template #open>
+                          <div class="open">
+                            {{ 'my-invoices.open' | cxTranslate }}
+                          </div>
+                        </ng-template>
+                      </ng-template>
+                    </ng-template>
+                  </td>
+
+                  <!-- 6 -->
+                  <!-- <td>
+                    <div>{{ order?.validUntill }}</div>
+                  </td> -->
+
+                  <!-- 7 -->
+                  <!-- <td>
+                    <div
+                      class="accept"
+                      (click)="acceptQuote(order?.invoiceNumber)"
+                    >
+                      <span class="texter">Pay </span>
+                      <span class="material-icons"> chevron_right </span>
+                    </div>
+                  </td> -->
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="quick-order-pagination" *ngIf="totalCount > 10">
+            <div class="page-size-container">
+              <div>{{ 'waygate-order.itemsPerPage' | cxTranslate }}</div>
+              <div>
+                <select name="" id="" (change)="pageSizeChanged($event)">
+                  <ng-container *ngFor="let value of pageSizes">
+                    <option
+                      [value]="value"
+                      [selected]="value == currentPageSize"
+                    >
+                      {{ value }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div>
+                {{ startRange }}-{{ endRange }} {{ 'waygate.OF' | cxTranslate }}
+                {{ totalCount }}
+              </div>
+            </div>
+            <div class="page-number-selector-container" *ngIf="totalPages > 1">
+              <span
+                class="material-icons"
+                (click)="pageSelected(1)"
+                [class.disabled]="currentPage == 1"
+              >
+                keyboard_double_arrow_left
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage - 1)"
+                [class.disabled]="currentPage == 1"
+              >
+                chevron_left
+              </span>
+              <div *ngIf="currentPage > 2" class="disabled">...</div>
+              <ng-container *ngFor="let value of getPageArray(); let i = index">
+                <ng-container
+                  *ngIf="
+                    currentPage == value ||
+                    currentPage - 1 == value ||
+                    currentPage + 1 == value
+                  "
+                >
+                  <div
+                    class="pagination-numbers"
+                    [class.active]="value == currentPage"
+                    (click)="pageSelected(value)"
+                  >
+                    {{ value }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <div *ngIf="currentPage < totalPages - 1" class="disabled">
+                ...
+              </div>
+              <span
+                class="material-icons"
+                (click)="pageSelected(currentPage + 1)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                chevron_right
+              </span>
+              <span
+                class="material-icons"
+                (click)="pageSelected(totalPages)"
+                [class.disabled]="currentPage == totalPages"
+              >
+                keyboard_double_arrow_right
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="selected-invoices-wrapper" *ngIf="paymentList?.length > 0">
+        <div class="selected-invoice-container container">
+          <div class="invoices-content">
+            <div class="invoices-content-heading">
+              {{ 'my-invoices.outStandingAmount' | cxTranslate }}
+            </div>
+            <div class="invoices-content-values">
+              {{ orderData?.totalInvoicePrice?.formattedValue }}
+            </div>
+          </div>
+          <div class="invoices-content">
+            <div class="invoices-content-heading">
+              {{ 'my-invoices.selectedInvoices' | cxTranslate }}
+            </div>
+            <div class="invoices-content-values">
+              {{ paymentList?.length }}
+            </div>
+          </div>
+          <div class="invoices-content">
+            <div class="invoices-content-heading">
+              {{ 'my-invoices.selectedAmount' | cxTranslate }}
+            </div>
+            <div class="invoices-content-values">
+              {{ calculatedInvoicePayment?.formattedValue }}
+            </div>
+            <!--<div
+              *ngIf="calculatedInvoicePayment?.value > 20000"
+              class="error-line"
+            >
+              Maximum payment amount is $20,000. <br />
+              Please contact your sales representative.
+            </div>
+             -->
+          </div>
+          <div class="payment-action">
+            <bh-button class="add-button-disabled"
+              [class.add-button-disabled]="calculatedInvoicePayment?.value"
+              class=""
+              medium
+              type="primary"
+              label="{{ 'my-invoices.proceedToPay' | cxTranslate }}"
+              (click)="proceedToPay()"
+            ></bh-button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<ng-template #noData>
+  <div class="no-orders-found">
+    <img
+      src="../../../../assets/img/Illustration.png"
+      alt="{{ 'waygate-order.noOrdersFound' | cxTranslate }}"
+    />
+    <h4>{{ 'my-invoices.noQuotesFound' | cxTranslate }}</h4>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

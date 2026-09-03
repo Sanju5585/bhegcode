@@ -1,0 +1,30 @@
+<div class="cx-modal-container">
+  <div class="cx-modal-content">
+    <div class="waygate-dialog-popup">
+      <div class="waygate-maintext-container">
+        {{ 'waygate.removeProducts' | cxTranslate }}
+        <div class="waygate-innertext-container">
+          {{ 'waygate.removeProductsList' | cxTranslate }}
+        </div>
+        <div class="button-container">
+          <button
+            type="button"
+            class="remove-btn-container"
+            aria-label="Close"
+            (click)="closeModal(true)"
+          >
+            {{ 'waygate.remove' | cxTranslate }}
+          </button>
+          <button
+            type="button"
+            class="cancel-btn-container"
+            aria-label="Close"
+            (click)="closeModal(false)"
+          >
+            {{ 'waygate.cancel' | cxTranslate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "track-order": {
+    "customerNumber": "Número do cliente",
+    "searchByPoOrOrderorRMANumber": "Search using PO or Order or RMA number",
+    "trackOrderBreadcrumb": "Track Order",
+    "trackOrderHeader": "Track Order",
+    "trackOrderBtn": "Track Order",
+    "whereDofind": "Where can I find these?",
+    "na": "NA",
+    "noDataFound": "No Data Found",
+    "orderNotFound": "Order Not Found",
+    "itemsHeader": "Itens",
+    "orderNumber": "NÚMERO DO PEDIDO",
+    "poDateHeader": "PO Date:",
+    "orderReceivedHeader": "Order Received",
+    "orderStatusBlocked": "Order Blocked",
+    "orderStatusShipped": "Order In Progress",
+    "shipped": "Enviado",
+    "shipped&Invoiced": "Enviado e faturado",
+    "orderedCount": "Items Ordered ({{count}})",
+    "itemDetails": "Item details",
+    "orderSummryBtn": "resumo do pedido",
+    "itemsOrdered": "Items Ordered",
+    "wrongStore": "This order does not belong to {{store}} store. Please check this order in another store.",
+    "wrongCustomer": "This order doesn't appear under the customer account you're using. Would you like to switch to the correct account?",
+    "changeCustomer": "Change Customer",
+    "cancel": "Cancelar"
+  }
+}

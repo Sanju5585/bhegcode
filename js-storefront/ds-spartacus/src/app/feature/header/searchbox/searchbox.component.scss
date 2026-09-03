@@ -1,0 +1,114 @@
+.searchbox {
+  .searchInput {
+    font-family: var(--font-family-body-large);
+  }
+  button,
+  .search-icon {
+    position: absolute;
+    z-index: 20;
+    right: 0;
+  }
+  .search-icon {
+    padding: 10px;
+  }
+}
+.results {
+  width: 250%;
+
+  .product-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-body-small);
+    min-height: 92px;
+    .name {
+      font-weight: normal;
+      color: var(--color-base-teal-500);
+    }
+    .text-bold {
+      font-weight: bold;
+      white-space: initial;
+    }
+  }
+
+  .price-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .view-all-container {
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-body-small);
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 10px;
+    border-top: solid 1px var(--cx-color-light);
+  }
+
+  .suggested-container {
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-body-small);
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+
+    .suggested {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-weight: normal;
+      font-size: var(--font-size-body-small);
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.25px;
+      color: #757575;
+    }
+
+    .suggested-msg {
+      font-family: var(--font-family-body-large);
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-size-body-small);
+      line-height: 16px;
+      letter-spacing: 0.25px;
+      color: var(--color-base-teal-900);
+    }
+  }
+}
+
+:host::ng-deep {
+  .results .products a cx-media {
+    width: 5em;
+    height: 5em;
+  }
+  .results .products a cx-media.is-missing {
+    width: 5em;
+    height: 5em;
+  }
+  .view-all-container {
+    .bh-button--type-secondary {
+      color: #415863;
+      border-color: #415863;
+    }
+  }
+}
+.waygate-search-input-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  border-radius: 20px;
+  .waygate-search-input {
+    border: 1px solid #a0a0a0;
+    border-radius: 20px;
+    width: 330px;
+    padding: 5px 10px;
+  }
+  .waygate-search-icon {
+    position: absolute;
+    right: 5px;
+  }
+}
+.no-display{
+  display: none;
+}

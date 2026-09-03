@@ -1,0 +1,192 @@
+.status-tiles-container {
+  ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    .selected {
+      box-shadow:
+        0px 2px 5px rgba(0, 0, 0, 0.04),
+        0px 1px 10px rgba(0, 0, 0, 0.03),
+        0px 8px 8px 5px rgba(0, 0, 0, 0.2);
+    }
+    li {
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px 5px;
+      .tile {
+        font-family: var(--font-family-body-medium);
+        font-style: normal;
+        background: #ffffff;
+        box-shadow:
+          0px 2px 5px rgba(0, 0, 0, 0.04),
+          0px 1px 10px rgba(0, 0, 0, 0.03),
+          0px 2px 4px rgba(0, 0, 0, 0.05);
+        height: 63px;
+        min-width: 100px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #666666;
+        .tile-heading {
+          font-style: normal;
+          font-weight: normal;
+          font-size: var(--font-base-font-size-16);
+          line-height: 16px;
+          text-align: center;
+          letter-spacing: 0.25px;
+          .counter-number {
+            font-weight: 600;
+            font-size: var(--font-base-font-size-18);
+          }
+        }
+        .tile-sub-heading {
+          .counter-number {
+            font-weight: 600;
+            font-size: var(--font-base-font-size-18);
+          }
+        }
+        &.created {
+          border-top: 2px solid #506c65;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #506c65;
+          }
+        }
+        &.progress {
+          background-color: #aeaeae;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.submitt {
+          border-top: 2px solid #005eb8;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #005eb8;
+          }
+        }
+        &.process {
+          background-color: #e6b056;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.shipping {
+          background-color: #4ca2a8;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.invoice {
+          background-color: var(--color-base-teal-900);
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.ship {
+          border-top: 2px solid #13294b;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #13294b;
+          }
+        }
+        &.evaluating {
+          background-color: #dd887c;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.awaiting {
+          background-color: #cf2333;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.pendingorder {
+          background-color: #e6b056;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.pending {
+          background-color: #aeaeae;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.returned {
+          background-color: #d02d3c;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.closed {
+          background-color: #4ca2a8;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.expired {
+          background-color: #336e64;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #ffffff;
+          }
+        }
+        &.order-submitted {
+          border-top: 2px solid #044e54;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #044e54;
+          }
+        }
+        &.order-progress {
+          border-top: 2px solid #cb6e17;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #cb6e17;
+          }
+        }
+        &.order-blocked {
+          border-top: 2px solid #e12d39;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #e12d39;
+          }
+        }
+        &.order-shipped {
+          border-top: 2px solid var(--color-base-teal-500);
+          .tile-heading,
+          .tile-sub-heading {
+            color: var(--color-base-teal-500);
+          }
+        }
+        &.order-invoiced {
+          border-top: 2px solid #506c65;
+          .tile-heading,
+          .tile-sub-heading {
+            color: #506c65;
+          }
+        }
+        &.equipment-status-selected {
+          border-top: 2px solid var(--color-base-teal-700);
+        }
+      }
+    }
+  }
+}

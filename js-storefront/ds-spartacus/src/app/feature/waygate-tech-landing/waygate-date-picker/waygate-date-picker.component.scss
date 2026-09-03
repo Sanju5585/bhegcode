@@ -1,0 +1,20 @@
+.waygate-datepicker {
+  position: relative;
+}
+
+.waygate-datepicker mat-datepicker-toggle {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background: transparent;
+}
+
+.waygate-datepicker input {
+  padding-left: 5px; /* Adjust as needed based on the size of your icon */
+}
+.mat-datepicker-input {
+  max-width: 120px !important;
+  height: 40px !important;
+}

@@ -1,0 +1,88 @@
+<div>
+  <div class="row mt-3">
+    <div class="col-12 ml-12">
+      <p class="payment-term-text mb-1">
+        {{ 'titles.payment-terms' | cxTranslate }}
+      </p>
+      <p *ngIf="paymentTerms" class="advance-pay-text">
+        {{ paymentTerms }}
+      </p>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 payment-section ml-2">
+      <div class="payment-radio-group">
+        <bh-radio-button
+          label="{{ 'labels.payment-type-acccount' | cxTranslate }}"
+          checked
+          value="ACCOUNT"
+          name="payment-type"
+          (change)="onChange($event, 'payment-type')"
+        >
+        </bh-radio-button>
+        <bh-radio-button
+          class="paymentguestcart"
+          label="{{ 'labels.payment-type-credit' | cxTranslate }}"
+          value="CARD"
+          name="payment-type"
+          (change)="onChange($event, 'payment-type')"
+        ></bh-radio-button>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 ml-12">
+          <bh-text-input
+            type="text"
+            required
+            small
+            label="{{ 'labels.poNumber' | cxTranslate }}"
+            placeholder="{{ 'labels.poNumber' | cxTranslate }}"
+            value=""
+            maxlength="35"
+            [value]="poNumber"
+            [message]="error.poNumber"
+            [attr.error]="error.poNumber ? error.poNumber : null"
+            (keyup)="onChange($event, 'poNumber')"
+          >
+          </bh-text-input>
+        </div>
+        <div class="col-md-5">
+          <div class="row uploadattachment mb-1">
+            <span
+              class="shipping-checkout textarea-label col-lg-12 col-md-12 col-sm-12"
+              >{{ 'labels.uploadPO' | cxTranslate }}</span
+            >
+          </div>
+
+          <ds-file-upload
+            label="{{ 'labels.uploadFile' | cxTranslate }}"
+            [maxLength]="1"
+            [maxSizeInMB]="10"
+            [showIcon]="true"
+            [icon]="'backup'"
+            [allowedFileExtensions]="ALLOWED_EXTENSIONS"
+            (selectedFiles)="selectedFiles($event)"
+            >upload</ds-file-upload
+          >
+          <span class="fileformat mt-1"
+            >{{ 'labels.fileFormat' | cxTranslate }}
+          </span>
+          <div class="file-list">
+            <ds-file-upload-progress
+              *ngFor="let file of files"
+              [layout]="layouts.LIST"
+              [deleteUrl]="delete_url"
+              [file]="file"
+              (deletedFiles)="deletedFiles($event)"
+              [uploadParams]="uploadParams"
+              [deleteParams]="deleteParams"
+              [uploadUrl]="upload_url"
+              [showProgress]="true"
+            ></ds-file-upload-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
